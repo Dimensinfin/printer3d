@@ -31,6 +31,10 @@ Given('the DashboardPage is activated', function () {
     cy.visit(urlRequest);
 });
 
+Then('there is a v1-feature active with label {string}', function (label) {
+    console.log('[THEN] there is a v1-feature active with label {string}');
+    cy.get('v1-dock').find('v1-feature-render').find('.active').contains(label);
+});
 
 // When('the CorporationShipRequestPage is activated with the request id {string} and the fitting id {string} and quantity {string}', function (activationCode, fittingIdentifier, quantity) {
 //     console.log('[WHEN] the CorporationShipRequestPage is activated with the request id {string} and the fitting id {string} and quantity {string}');

@@ -2,6 +2,9 @@
     "folders": [
         {
             "path": "Printer3D-frontend"
+        },
+        {
+            "path": "../../NeoCom/neocom-infinity-frontend"
         }
     ],
     "settings": {
@@ -10,8 +13,8 @@
         "editor.wordWrap": "wordWrapColumn",
         "editor.wrappingIndent": "indent",
         "editor.lineHeight": 12,
-        "files.autoSave": "onWindowChange",
-        "files.autoSaveDelay": 2000,
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 3000,
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true,
         "html.format.wrapAttributes": "aligned-multiple",

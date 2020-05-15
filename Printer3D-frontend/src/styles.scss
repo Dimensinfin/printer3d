@@ -1,8 +1,19 @@
+$page-path-color: white; // Red 50%
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    line-height: 1.0;
+    margin: 2px;
+}
+
 .page-path {
-    font-size: 32px;
+    font-size: 20px;
     font-weight: bold;
     font-family: 'Electrolize', sans-serif;
+    margin-top: 10px;
     text-transform: uppercase;
-    text-shadow: 0px 1px 3px white, 0px -1px 3px white;
-    color: white;
+    text-shadow: 0px 1px 3px $page-path-color, 0px -1px 3px $page-path-color;
+    color: $page-path-color;
 }

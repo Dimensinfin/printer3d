@@ -16,6 +16,19 @@ Feature: [D3D01]-When the application starts show the dashboard page with the pr
             | page-path  |
             | /Dashboard |
 
+    @D3D01 @D3D01.03
+    Scenario: [D3D01.03]-On the dashboard page there is a docker with feature elements.
+        When the DashboardPage is activated
+        Given one instance of Dock
+        Given one or more instances of Feature
+        Then there is a "v1-feature-render" at index "0" with the next fields
+            | label      |
+            | /Inventory |
+        Then there is a "v1-feature-render" at index "1" with the next fields
+            | label     |
+            | /New Part |
+        Then there is a v1-feature active with label "/Inventory"
+
 #     Given one instance of SelectedFittingData
 #     Then there is a "v1-selected-fitting-data" with the next fields
 #         | neocom-name  | production-quantity |

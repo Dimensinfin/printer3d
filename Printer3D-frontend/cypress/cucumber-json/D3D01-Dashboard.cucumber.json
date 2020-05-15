@@ -41,7 +41,7 @@
             "name": "the application Printer3DManager",
             "result": {
               "status": "passed",
-              "duration": 790000000
+              "duration": 941000000
             }
           },
           {
@@ -51,7 +51,7 @@
             "name": "the application starts the default route is the \"Dashboard\"",
             "result": {
               "status": "passed",
-              "duration": 728000000
+              "duration": 1796000000
             }
           }
         ]
@@ -84,7 +84,7 @@
             "name": "the DashboardPage is activated",
             "result": {
               "status": "passed",
-              "duration": 667000000
+              "duration": 1920000000
             }
           },
           {
@@ -94,7 +94,7 @@
             "name": "one instance of PagePath",
             "result": {
               "status": "passed",
-              "duration": 24000000
+              "duration": 61000000
             }
           },
           {
@@ -119,7 +119,119 @@
             "name": "there is a \"v1-page-path-panel\" with the next fields",
             "result": {
               "status": "passed",
-              "duration": 45000000
+              "duration": 106000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.;[d3d01.03]-on-the-dashboard-page-there-is-a-docker-with-feature-elements.",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "[D3D01.03]-On the dashboard page there is a docker with feature elements.",
+        "tags": [
+          {
+            "name": "@D3D01",
+            "line": 1
+          },
+          {
+            "name": "@D3D01",
+            "line": 19
+          },
+          {
+            "name": "@D3D01.03",
+            "line": 19
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 21,
+            "name": "the DashboardPage is activated",
+            "result": {
+              "status": "passed",
+              "duration": 1730000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "one instance of Dock",
+            "result": {
+              "status": "passed",
+              "duration": 88000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 23,
+            "name": "one or more instances of Feature",
+            "result": {
+              "status": "passed",
+              "duration": 94000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "label"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "/Inventory"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 24,
+            "name": "there is a \"v1-feature-render\" at index \"0\" with the next fields",
+            "result": {
+              "status": "failed",
+              "duration": 32000000,
+              "error_message": "AssertionError: .empty was passed non-string primitive undefined\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:132362:20)\nFrom previous event:\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:132380:26)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:132819:21)\n    at Context.<anonymous> (http://localhost:4200/__cypress/runner/cypress_runner.js:144927:21)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144402:33\nFrom previous event:\n    at runCommand (http://localhost:4200/__cypress/runner/cypress_runner.js:144381:14)\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:144524:14)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144552:16\nFrom previous event:\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:144524:34)\nFrom previous event:\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144565:37\nFrom previous event:\n    at run (http://localhost:4200/__cypress/runner/cypress_runner.js:144558:19)\n    at Object.cy.<computed> [as then] (http://localhost:4200/__cypress/runner/cypress_runner.js:144970:11)\n    at Context.runnable.fn (http://localhost:4200/__cypress/runner/cypress_runner.js:145202:24)\n    at callFn (http://localhost:4200/__cypress/runner/cypress_runner.js:88335:21)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:149207:28\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:4200/__cypress/runner/cypress_runner.js:149195:20)\n    at $Cypress.action (http://localhost:4200/__cypress/runner/cypress_runner.js:141473:61)\n    at Test.Runnable.run (http://localhost:4200/__cypress/runner/cypress_runner.js:148003:13)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:89120:12\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:88903:14)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:88913:7\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:88815:14)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:88876:7\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:149131:16)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:149152:11\nFrom previous event:\n    at onNext (http://localhost:4200/__cypress/runner/cypress_runner.js:149149:57)\n    at done (http://localhost:4200/__cypress/runner/cypress_runner.js:88275:5)\n    at callFn (http://localhost:4200/__cypress/runner/cypress_runner.js:88358:7)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:149207:28\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:4200/__cypress/runner/cypress_runner.js:149195:20)\n    at $Cypress.action (http://localhost:4200/__cypress/runner/cypress_runner.js:141473:61)\n    at Hook.Runnable.run (http://localhost:4200/__cypress/runner/cypress_runner.js:148003:13)\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:88837:10)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:88881:5\n    at timeslice (http://localhost:4200/__cypress/runner/cypress_runner.js:82807:27)"
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "label"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "/New Part"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 27,
+            "name": "there is a \"v1-feature-render\" at index \"1\" with the next fields",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 30,
+            "name": "there is a v1-feature active with label \"/Inventory\"",
+            "result": {
+              "status": "skipped"
             }
           }
         ]
