@@ -4,28 +4,30 @@ import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { IsolationService } from '../../support/IsolationService.support';
-// import { SelectedFittingData } from '../../support/page-objects/SelectedFittingData.panel';
-// import { V1FittingBuyList } from '../../support/page-objects/V1FittingBuyList.panel';
-// import { V1JobProductionAccounting } from '../../support/page-objects/V1JobProductionAccounting.panel';
-// import { V1ManufactureSchedule } from '../../support/page-objects/V1ManufactureSchedule.panel';
-// import { V1Logistics } from '../../support/page-objects/V1Logistics.panel';
-// import { ShipYardLocation } from '../../support/page-objects/ShipYardLocation.panel';
 
-const FITTING_BY_ID = 'FITTING-BY-ID';
 const TITLE_VALIDATION = 'Printer3DFrontend';
+const DASHBOARD_PAGE_NAME = '/Dashboard';
 
 Given('the application Printer3DManager', function () {
     console.log('[GIVEN] the application Printer3DManager');
-    // let urlRequest = '/';
     new IsolationService().doLandingPage(); // Load the landing page.
-    // console.log('[GIVEN] the application Printer3DManager> urlRequest=' + urlRequest);
-    // cy.get('title').contains(TITLE_VALIDATION);
     cy.title().should('eq', TITLE_VALIDATION);
 });
-When('the application starts the default route is the DashboardPage', function () {
-    console.log('[WHEN] the application starts the default route is the DashboardPage');
+
+Then('the application starts the default route is the {string}', function (string) {
+    console.log('[THEN] the application starts the default route is the {string}');
+    new IsolationService().doLandingPage(); // Load the landing page.
+    cy.get('app-dashboard-page').find('.page-path').contains(DASHBOARD_PAGE_NAME);
     let urlRequest = '/dashboard';
-    console.log('[WHEN] the application starts the default route is the DashboardPage> urlRequest=' + urlRequest);
+    cy.log('[THEN] the application starts the default route is the {string}> urlRequest=' + urlRequest);
+    cy.visit(urlRequest);
+    cy.get('app-dashboard-page').find('.page-path').contains(DASHBOARD_PAGE_NAME);
+});
+
+Given('the DashboardPage is activated', function () {
+    console.log('[GIVEN] the DashboardPage is activated');
+    let urlRequest = '/dashboard';
+    new IsolationService().doLandingPage(); // Start the application to a known point.
     cy.visit(urlRequest);
 });
 

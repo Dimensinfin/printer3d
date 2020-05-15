@@ -1,0 +1,129 @@
+[
+  {
+    "description": "    At the application starts the inital page should be the Dashboard. On the dashboard there are different zones that should show the available features to be used on the User Interface. Check that the title, dock and their contents match the requirements and that the display zone shows the expected list of pieces available on the service.",
+    "keyword": "Feature",
+    "name": "[D3D01]-When the application starts show the dashboard page with the preconfigured feature dock and the list of pieces available at the repository.",
+    "line": 2,
+    "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.",
+    "tags": [
+      {
+        "name": "@D3D01",
+        "line": 1
+      }
+    ],
+    "uri": "D3D01-Dashboard.feature",
+    "elements": [
+      {
+        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.;[d3d01.01]-check-that-the-landing-page-after-application-start-is-the-dashboard.",
+        "keyword": "Scenario",
+        "line": 7,
+        "name": "[D3D01.01]-Check that the landing page after application start is the Dashboard.",
+        "tags": [
+          {
+            "name": "@D3D01",
+            "line": 1
+          },
+          {
+            "name": "@D3D01",
+            "line": 6
+          },
+          {
+            "name": "@D3D01.01",
+            "line": 6
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "the application Printer3DManager",
+            "result": {
+              "status": "passed",
+              "duration": 790000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "the application starts the default route is the \"Dashboard\"",
+            "result": {
+              "status": "passed",
+              "duration": 728000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.;[d3d01.02]-the-landing-page-dashboard-shows-the-title-panel.",
+        "keyword": "Scenario",
+        "line": 12,
+        "name": "[D3D01.02]-The landing page Dashboard shows the title panel.",
+        "tags": [
+          {
+            "name": "@D3D01",
+            "line": 1
+          },
+          {
+            "name": "@D3D01",
+            "line": 11
+          },
+          {
+            "name": "@D3D01.02",
+            "line": 11
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "the DashboardPage is activated",
+            "result": {
+              "status": "passed",
+              "duration": 667000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "one instance of PagePath",
+            "result": {
+              "status": "passed",
+              "duration": 24000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "page-path"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "/Dashboard"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "there is a \"v1-page-path-panel\" with the next fields",
+            "result": {
+              "status": "passed",
+              "duration": 45000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

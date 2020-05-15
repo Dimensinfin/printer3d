@@ -19,7 +19,7 @@ import { IsolationService } from './platform/isolation.service';
 import { AppComponent } from './app.component';
 
 // - APPLICATION MODULES
-// import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
@@ -46,7 +46,7 @@ registerLocaleData(localeEs);
         // - HTTP CLIENT
         HttpClientModule,
         // - APPLICATION MODULES
-        // DashboardModule,
+        SharedModule,
         // - ROUTING
         RouterModule,
         AppRoutingModule
