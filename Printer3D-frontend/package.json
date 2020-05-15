@@ -1,0 +1,80 @@
+{
+    "name": "printer3-d-frontend",
+    "version": "0.0.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e",
+        "cucumber": "$(npm bin)/cucumber-js ",
+        "cucumber:acceptance": "$(npm bin)/cucumber-js --profile acceptance cypress/integration/**.feature",
+        "cypress:open": "$(npm bin)/cypress open",
+        "cypress:run": "$(npm bin)/cypress run",
+        "start:network": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 4200",
+        "start:dev": "ng serve --progress --public-host 3dprintermanager.frontend.dev"
+    },
+    "private": true,
+    "engines": {
+        "node": "12.16.3",
+        "npm": "6.14.4"
+    },
+    "cypress-cucumber-preprocessor": {
+        "nonGlobalStepDefinitions": true,
+        "cucumberJson": {
+            "generate": true,
+            "outputFolder": "cypress/cucumber-json",
+            "filePrefix": "",
+            "fileSuffix": ".cucumber"
+        }
+    },
+    "dependencies": {
+        "@angular/animations": "9.1.7",
+        "@angular/common": "9.1.7",
+        "@angular/compiler": "9.1.7",
+        "@angular/core": "9.1.7",
+        "@angular/forms": "9.1.7",
+        "@angular/platform-browser": "9.1.7",
+        "@angular/platform-browser-dynamic": "9.1.7",
+        "@angular/router": "9.1.7",
+        "bootstrap": "4.3.1",
+        "jwt-decode": "2.2.0",
+        "rollbar": "2.16.1",
+        "rxjs": "6.5.4",
+        "tslib": "1.10.0",
+        "zone.js": "0.10.2"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "0.901.6",
+        "@angular/cli": "9.1.6",
+        "@angular/compiler-cli": "9.1.7",
+        "@bahmutov/add-typescript-to-cypress": "2.1.2",
+        "@cypress/code-coverage": "3.7.2",
+        "@cypress/webpack-preprocessor": "5.2.1",
+        "@types/chai": "4.2.11",
+        "@types/cucumber": "6.0.1",
+        "@types/cypress-cucumber-preprocessor": "1.14.1",
+        "@types/jasmine": "3.5.0",
+        "@types/jasminewd2": "2.0.3",
+        "@types/node": "12.11.1",
+        "chai": "4.2.0",
+        "chromedriver": "81.0.0",
+        "codelyzer": "5.1.2",
+        "cucumber": "6.0.5",
+        "cypress": "4.5.0",
+        "cypress-cucumber-preprocessor": "2.3.1",
+        "jasmine-core": "3.5.0",
+        "jasmine-spec-reporter": "4.2.1",
+        "karma": "5.0.0",
+        "karma-chrome-launcher": "3.1.0",
+        "karma-coverage-istanbul-reporter": "2.1.0",
+        "karma-jasmine": "3.0.1",
+        "karma-jasmine-html-reporter": "1.4.2",
+        "nyc": "15.0.1",
+        "protractor": "5.4.3",
+        "ts-node": "8.3.0",
+        "tslint": "6.1.0",
+        "typescript": "3.8.3"
+    }
+}

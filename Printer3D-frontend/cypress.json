@@ -1,0 +1,5 @@
+{
+    "testFiles": "**/*.feature",
+    "ignoreTestFiles": "*.js",
+    "projectId": "c6rdzc"
+}
