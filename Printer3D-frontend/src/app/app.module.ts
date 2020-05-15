@@ -19,12 +19,12 @@ import { IsolationService } from './platform/isolation.service';
 import { AppComponent } from './app.component';
 
 // - APPLICATION MODULES
-import { DashboardModule } from './modules/dashboard/dashboard.module';
+// import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+// import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 registerLocaleData(localeEs);
 
@@ -46,14 +46,14 @@ registerLocaleData(localeEs);
         // - HTTP CLIENT
         HttpClientModule,
         // - APPLICATION MODULES
-        DashboardModule,
+        // DashboardModule,
         // - ROUTING
         RouterModule,
         AppRoutingModule
     ],
     declarations: [
         AppComponent,
-        DashboardComponent,
+        // DashboardComponent,
         DashboardPageComponent
     ],
     providers: [

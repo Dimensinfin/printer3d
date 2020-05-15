@@ -9,11 +9,11 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "cucumber": "$(npm bin)/cucumber-js ",
-        "cucumber:acceptance": "$(npm bin)/cucumber-js --profile acceptance cypress/integration/**.feature",
+        "cucumber:acceptance": "$(npm bin)/cucumber-js cypress/integration/**.feature",
         "cypress:open": "$(npm bin)/cypress open",
         "cypress:run": "$(npm bin)/cypress run",
         "start:network": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 4200",
-        "start:dev": "ng serve --progress --public-host 3dprintermanager.frontend.dev"
+        "start:dev": "ng serve --progress"
     },
     "private": true,
     "engines": {
