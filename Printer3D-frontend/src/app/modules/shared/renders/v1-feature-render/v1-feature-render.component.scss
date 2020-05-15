@@ -1,7 +1,7 @@
 $feature-color:white;
 .feature {
     position: relative;
-    border: 2px solid white;
+    border: 1px solid white;
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
@@ -19,7 +19,7 @@ $feature-color:white;
     display: inline-block;
     background-color: white;
     line-height: 0px;
-    clip-path: polygon(0% 100%, 100% 100%, 100% 38%, 90% 0%, 0% 0%, 0% 100%);
+    clip-path: polygon(0% 100%, 90% 100%, 100% 60%, 100% 0%, 0% 0%, 0% 100%);
 }
 
 .container {
@@ -42,8 +42,8 @@ $feature-color:white;
     padding-right: 10px;
 }
 
-.topright {
+.bottomright {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
 }
