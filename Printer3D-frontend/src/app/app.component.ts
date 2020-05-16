@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { environment } from '@env/environment';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Printer3D-frontend';
+    public appTitle: string = '3DPrinterManagement - UI';
+    public appVersion : string = environment.appVersion;
 }

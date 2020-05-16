@@ -8,6 +8,12 @@ body {
     margin: 2px;
 }
 
+hr {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    filter: blur(1px);
+}
+
 .page-path {
     font-size: 20px;
     font-weight: bold;

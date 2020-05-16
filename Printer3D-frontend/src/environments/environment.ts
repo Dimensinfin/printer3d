@@ -16,7 +16,7 @@ export const environment = {
     serverName: "http://neocom.infinity.local",
     copyright: '© 2019,2020 Dimensinfin Industries',
     appName: "name",
-    appVersion: "version" + " dev",
+    appVersion: "v0.1.0" + " dev",
     appSignature: "S000.016.001-20191023",
     platform: 'Angular 9.1.7 - RxJs 6.5.4 - Rollbar 2.16.1',
 };
