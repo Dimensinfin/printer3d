@@ -1,0 +1,15 @@
+ [{
+     "jsonClass": "Feature",
+     "label": "/Inventory",
+     "enabled": true,
+     "active": false,
+     "interaction": "PAGE-ROUTE",
+     "route": "/inventory"
+ }, {
+     "jsonClass": "Feature",
+     "label": "/New Part",
+     "enabled": true,
+     "active": false,
+     "interaction": "DIALOG",
+     "dialog": "NewPart"
+ }]

@@ -8,12 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // - HTTP CLIENT
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// - WEBSTORAGE
+// import { StorageServiceModule } from 'angular-webstorage-service';
 // - ROUTING
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 // - SERVICES
 import { IsolationService } from './platform/isolation.service';
-// import { AppStoreService } from './services/appstore.service';
+import { AppStoreService } from './services/app-store.service';
 // import { BackendService } from './services/backend.service';
 // - COMPONENTS-CORE
 import { AppComponent } from './app.component';
@@ -45,6 +47,8 @@ registerLocaleData(localeEs);
         BrowserAnimationsModule,
         // - HTTP CLIENT
         HttpClientModule,
+        // - WEBSTORAGE
+        // StorageServiceModule,
         // - APPLICATION MODULES
         SharedModule,
         // - ROUTING
@@ -59,7 +63,7 @@ registerLocaleData(localeEs);
     providers: [
         // - SERVICES
         { provide: IsolationService, useClass: IsolationService },
-        // { provide: AppStoreService, useClass: AppStoreService },
+        { provide: AppStoreService, useClass: AppStoreService },
         // { provide: BackendService, useClass: BackendService },
         // { provide: BackendNeoItemService, useClass: BackendNeoItemService },
         // { provide: AuthenticationService, useClass: AuthenticationService },
