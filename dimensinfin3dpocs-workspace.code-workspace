@@ -1,10 +1,10 @@
 {
     "folders": [
         {
-            "path": "Printer3D-frontend"
+            "path": "../../NeoCom/neocom-infinity-frontend"
         },
         {
-            "path": "../../NeoCom/neocom-infinity-frontend"
+            "path": "."
         }
     ],
     "settings": {

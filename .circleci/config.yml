@@ -1,0 +1,51 @@
+# - C I R C L E C I   C O N T I N U O U S   I N T E G R A T I O N
+# Download, compile, test and deploy to the production server at Heroku.
+# CircleCI has the ability to deploy to Heroku and integrate more than one
+#   project on the same pipeline.
+# V1:
+# Start creationg the workflow to clone the repository, then build the 'frontend'
+#   module of the project.
+version: 2.1
+jobs:
+  build-frontend-job:
+    working_directory: ~/printer3d-frontend
+    docker:
+      - image: circleci/node:latest
+    environment:
+      # Customize the environment values to use on the jobs
+      PORT: 4200
+    steps:
+      - checkout
+      - run:
+          name: Validate existence of the target project
+          command: |
+            pwd
+      - restore_cache:
+          keys:
+            - printer3d-frontend-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - printer3d-frontend-
+      - run:
+          name: Validate node version in use
+          command: |
+            echo '>> Printer3D - frontend: Start Continuous Integration'
+            node -v
+      - run:
+          name: Build the deploy version for the frontend
+          command: |
+            ng build
+      - save_cache:
+          paths:
+            - ~/node_modules
+            - deploy
+          key: printer3d-frontend-{{ checksum "package.json" }}
+
+workflows:
+  version: 2
+  Printer3D-Frontend-Build:
+    jobs:
+      - build-frontend-job:
+          filters:
+            branches:
+              only:
+                - development

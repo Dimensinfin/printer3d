@@ -3,8 +3,6 @@ import { environment } from './environment';
 
 export class IsolationService {
   public  doLandingPage() {
-        // let code = Cypress.env('code')
-        // let state = Cypress.env('state')
         let urlRequest = '/';
         cy.log('-[IsolationService.doLandingPage]> urlRequest=' + urlRequest);
         cy.visit(urlRequest);

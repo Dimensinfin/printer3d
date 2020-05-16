@@ -1,10 +1,10 @@
 [
   {
-    "description": "    At the application starts the inital page should be the Dashboard. On the dashboard there are different zones that should show the available features to be used on the User Interface. Check that the title, dock and their contents match the requirements and that the display zone shows the expected list of pieces available on the service.",
+    "description": "    At the application starts the inital page should be the Dashboard. The dashboard page is the core application page where\n    there is no page selected and the Page Display are is clean. On the dashboard there are the application title and version\n    along with the Dock tool bar with the default out of the box feature configuration.",
     "keyword": "Feature",
-    "name": "[D3D01]-When the application starts show the dashboard page with the preconfigured feature dock and the list of pieces available at the repository.",
+    "name": "[D3D01]-When the application starts show the dashboard page with the default feature dock configuration.",
     "line": 2,
-    "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.",
+    "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-default-feature-dock-configuration.",
     "tags": [
       {
         "name": "@D3D01",
@@ -14,53 +14,10 @@
     "uri": "D3D01-Dashboard.feature",
     "elements": [
       {
-        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.;[d3d01.01]-check-that-the-landing-page-after-application-start-is-the-dashboard.",
-        "keyword": "Scenario",
-        "line": 7,
-        "name": "[D3D01.01]-Check that the landing page after application start is the Dashboard.",
-        "tags": [
-          {
-            "name": "@D3D01",
-            "line": 1
-          },
-          {
-            "name": "@D3D01",
-            "line": 6
-          },
-          {
-            "name": "@D3D01.01",
-            "line": 6
-          }
-        ],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 8,
-            "name": "the application Printer3DManager",
-            "result": {
-              "status": "passed",
-              "duration": 941000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 9,
-            "name": "the application starts the default route is the \"Dashboard\"",
-            "result": {
-              "status": "passed",
-              "duration": 1796000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.;[d3d01.02]-the-landing-page-dashboard-shows-the-title-panel.",
+        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-default-feature-dock-configuration.;[d3d01.01]-check-that-the-landing-page-after-application-start-is-the-dashboard.",
         "keyword": "Scenario",
         "line": 12,
-        "name": "[D3D01.02]-The landing page Dashboard shows the title panel.",
+        "name": "[D3D01.01]-Check that the landing page after application start is the Dashboard.",
         "tags": [
           {
             "name": "@D3D01",
@@ -71,7 +28,7 @@
             "line": 11
           },
           {
-            "name": "@D3D01.02",
+            "name": "@D3D01.01",
             "line": 11
           }
         ],
@@ -81,20 +38,53 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 13,
-            "name": "the DashboardPage is activated",
+            "name": "the application Printer3DManager",
             "result": {
               "status": "passed",
-              "duration": 1920000000
+              "duration": 399000000
             }
           },
           {
             "arguments": [],
-            "keyword": "Given ",
+            "keyword": "When ",
             "line": 14,
-            "name": "one instance of PagePath",
+            "name": "the application starts the default route is \"/DASHBOARD\"",
             "result": {
               "status": "passed",
-              "duration": 61000000
+              "duration": 567000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-default-feature-dock-configuration.;[d3d01.02]-the-landing-page-dashboard-shows-the-title-panel.",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "[D3D01.02]-The landing page Dashboard shows the title panel.",
+        "tags": [
+          {
+            "name": "@D3D01",
+            "line": 1
+          },
+          {
+            "name": "@D3D01",
+            "line": 16
+          },
+          {
+            "name": "@D3D01.02",
+            "line": 16
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 18,
+            "name": "the DashboardPage is activated",
+            "result": {
+              "status": "passed",
+              "duration": 378000000
             }
           },
           {
@@ -103,31 +93,81 @@
                 "rows": [
                   {
                     "cells": [
-                      "page-path"
+                      "app-title"
                     ]
                   },
                   {
                     "cells": [
-                      "/Dashboard"
+                      "<environment.app-name>"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Then ",
-            "line": 15,
-            "name": "there is a \"v1-page-path-panel\" with the next fields",
+            "line": 19,
+            "name": "there is a \"app-title\" with the next fields",
             "result": {
               "status": "passed",
-              "duration": 106000000
+              "duration": 27000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "app-version"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "<environment.app-version>"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "there is a \"app-version\" with the next fields",
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "page-name"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "/DASHBOARD"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 25,
+            "name": "there is a \"page-name\" with the next fields",
+            "result": {
+              "status": "passed",
+              "duration": 28000000
             }
           }
         ]
       },
       {
-        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-preconfigured-feature-dock-and-the-list-of-pieces-available-at-the-repository.;[d3d01.03]-on-the-dashboard-page-there-is-a-docker-with-feature-elements.",
+        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-default-feature-dock-configuration.;[d3d01.03]-on-the-dashboard-page-there-is-a-docker-with-feature-elements.",
         "keyword": "Scenario",
-        "line": 20,
+        "line": 30,
         "name": "[D3D01.03]-On the dashboard page there is a docker with feature elements.",
         "tags": [
           {
@@ -136,11 +176,11 @@
           },
           {
             "name": "@D3D01",
-            "line": 19
+            "line": 29
           },
           {
             "name": "@D3D01.03",
-            "line": 19
+            "line": 29
           }
         ],
         "type": "scenario",
@@ -148,31 +188,41 @@
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 21,
+            "line": 31,
             "name": "the DashboardPage is activated",
             "result": {
               "status": "passed",
-              "duration": 1730000000
+              "duration": 427000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 22,
+            "line": 32,
             "name": "one instance of Dock",
             "result": {
               "status": "passed",
-              "duration": 88000000
+              "duration": 77000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 23,
+            "line": 33,
             "name": "one or more instances of Feature",
             "result": {
               "status": "passed",
-              "duration": 94000000
+              "duration": 97000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 34,
+            "name": "there is 0 v1-feature-render active",
+            "result": {
+              "status": "passed",
+              "duration": 19000000
             }
           },
           {
@@ -181,24 +231,26 @@
                 "rows": [
                   {
                     "cells": [
-                      "label"
+                      "label",
+                      "active"
                     ]
                   },
                   {
                     "cells": [
-                      "/Inventory"
+                      "/Inventory",
+                      "false"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Then ",
-            "line": 24,
+            "line": 35,
             "name": "there is a \"v1-feature-render\" at index \"0\" with the next fields",
             "result": {
               "status": "failed",
-              "duration": 32000000,
-              "error_message": "AssertionError: .empty was passed non-string primitive undefined\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:132362:20)\nFrom previous event:\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:132380:26)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:132819:21)\n    at Context.<anonymous> (http://localhost:4200/__cypress/runner/cypress_runner.js:144927:21)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144402:33\nFrom previous event:\n    at runCommand (http://localhost:4200/__cypress/runner/cypress_runner.js:144381:14)\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:144524:14)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144552:16\nFrom previous event:\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:144524:34)\nFrom previous event:\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144565:37\nFrom previous event:\n    at run (http://localhost:4200/__cypress/runner/cypress_runner.js:144558:19)\n    at Object.cy.<computed> [as then] (http://localhost:4200/__cypress/runner/cypress_runner.js:144970:11)\n    at Context.runnable.fn (http://localhost:4200/__cypress/runner/cypress_runner.js:145202:24)\n    at callFn (http://localhost:4200/__cypress/runner/cypress_runner.js:88335:21)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:149207:28\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:4200/__cypress/runner/cypress_runner.js:149195:20)\n    at $Cypress.action (http://localhost:4200/__cypress/runner/cypress_runner.js:141473:61)\n    at Test.Runnable.run (http://localhost:4200/__cypress/runner/cypress_runner.js:148003:13)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:89120:12\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:88903:14)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:88913:7\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:88815:14)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:88876:7\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:149131:16)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:149152:11\nFrom previous event:\n    at onNext (http://localhost:4200/__cypress/runner/cypress_runner.js:149149:57)\n    at done (http://localhost:4200/__cypress/runner/cypress_runner.js:88275:5)\n    at callFn (http://localhost:4200/__cypress/runner/cypress_runner.js:88358:7)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:149207:28\nFrom previous event:\n    at Object.onRunnableRun (http://localhost:4200/__cypress/runner/cypress_runner.js:149195:20)\n    at $Cypress.action (http://localhost:4200/__cypress/runner/cypress_runner.js:141473:61)\n    at Hook.Runnable.run (http://localhost:4200/__cypress/runner/cypress_runner.js:148003:13)\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:88837:10)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:88881:5\n    at timeslice (http://localhost:4200/__cypress/runner/cypress_runner.js:82807:27)"
+              "duration": 12000000,
+              "error_message": "AssertionError: .empty was passed non-string primitive undefined\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:132362:20)\nFrom previous event:\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:132380:26)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:132819:21)\n    at Context.<anonymous> (http://localhost:4200/__cypress/runner/cypress_runner.js:144927:21)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144402:33\nFrom previous event:\n    at runCommand (http://localhost:4200/__cypress/runner/cypress_runner.js:144381:14)\n    at next (http://localhost:4200/__cypress/runner/cypress_runner.js:144524:14)\n    at http://localhost:4200/__cypress/runner/cypress_runner.js:144552:16"
             }
           },
           {
@@ -207,31 +259,67 @@
                 "rows": [
                   {
                     "cells": [
-                      "label"
+                      "label",
+                      "active"
                     ]
                   },
                   {
                     "cells": [
-                      "/New Part"
+                      "/New Part",
+                      "false"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "Then ",
-            "line": 27,
+            "line": 38,
             "name": "there is a \"v1-feature-render\" at index \"1\" with the next fields",
             "result": {
               "status": "skipped"
             }
+          }
+        ]
+      },
+      {
+        "id": "[d3d01]-when-the-application-starts-show-the-dashboard-page-with-the-default-feature-dock-configuration.;[d3d01.04]-on-the-dashboard-page-the-page-display-area-in-empty-because-there-is-no-feature-selected.",
+        "keyword": "Scenario",
+        "line": 44,
+        "name": "[D3D01.04]-On the dashboard page the page display area in empty because there is no feature selected.",
+        "tags": [
+          {
+            "name": "@D3D01",
+            "line": 1
+          },
+          {
+            "name": "@D3D01",
+            "line": 43
+          },
+          {
+            "name": "@D3D01.04",
+            "line": 43
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 45,
+            "name": "the DashboardPage is activated",
+            "result": {
+              "status": "passed",
+              "duration": 467000000
+            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 30,
-            "name": "there is a v1-feature active with label \"/Inventory\"",
+            "line": 46,
+            "name": "the Page Display Area is empty",
             "result": {
-              "status": "skipped"
+              "status": "undefined",
+              "duration": 13000000
             }
           }
         ]
