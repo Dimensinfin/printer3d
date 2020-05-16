@@ -22,12 +22,13 @@ import { AppComponent } from './app.component';
 
 // - APPLICATION MODULES
 import { SharedModule } from './modules/shared/shared.module';
+import { InventoryModule } from './modules/inventory/inventory.module';
 
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 // import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+// import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 registerLocaleData(localeEs);
 
 // - ERROR INTERCEPTION
@@ -51,6 +52,7 @@ registerLocaleData(localeEs);
         // StorageServiceModule,
         // - APPLICATION MODULES
         SharedModule,
+        InventoryModule,
         // - ROUTING
         RouterModule,
         AppRoutingModule
@@ -58,7 +60,7 @@ registerLocaleData(localeEs);
     declarations: [
         AppComponent,
         // DashboardComponent,
-        DashboardPageComponent
+        // DashboardPageComponent
     ],
     providers: [
         // - SERVICES

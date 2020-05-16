@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { InventoryPartListPageComponent } from './modules/inventory/pages/inventory-part-list-page/inventory-part-list-page.component';
 // import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 
 
@@ -9,7 +10,7 @@ const routes: Routes = [
         redirectTo: '/',
         pathMatch: 'full'
     },
-    // { path: 'dashboard', component: DashboardPageComponent },
+    { path: 'inventory', component: InventoryPartListPageComponent },
 ];
 
 @NgModule({

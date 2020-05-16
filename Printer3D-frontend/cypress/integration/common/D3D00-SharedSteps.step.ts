@@ -9,6 +9,11 @@ import { V1PagePath } from '../../support/page-objects/V1PagePath.panel';
 import { V1Dock } from '../../support/page-objects/V1Dock.panel';
 import { V1Feature } from '../../support/page-objects/V1Feature.panel';
 
+Given('the DashboardPage is activated', function () {
+    console.log('[GIVEN] the DashboardPage is activated');
+    new IsolationService().doLandingPage(); // Start the application to a known point.
+});
+
 Given('one instance of PagePath', function () {
     console.log('[GIVEN] one instance of PageTitle');
     const pageTitle: V1PagePath = new V1PagePath();

@@ -60,6 +60,9 @@ export class AppStoreService {
     public synchronize2DockConfiguration(): BehaviorSubject<Feature[]> {
         return this.dockActiveConfiguration;
     }
+    public saveDockConfiguration(configuration: Feature[]): void {
+        this.isolationService.setLocalStorageObject(DOCK_CURRENT_CONFIGURATION, configuration);
+    }
 
     // - G L O B A L   S U P P O R T   M E T H O D S
     public isEmpty(target?: any): boolean {
@@ -76,12 +79,5 @@ export class AppStoreService {
             .pipe(data => {
                 return data as any;
             });
-    }
-    public accessPropertyDirect(propertyName: string): any {
-        console.log("><[AppStoreService.accessProperty]> Property: " + propertyName);
-        // Construct the request to call the internal server.
-        let request = '/assets/properties' + propertyName + '.json';
-        let rawdata = require('./support/' + 'DefaultDockFeatureMap' + '.json');
-        return rawdata;
     }
 }

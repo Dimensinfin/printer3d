@@ -26,11 +26,6 @@ When('the application starts the default route is {string}', function (route) {
   });
 
 
-Given('the DashboardPage is activated', function () {
-    console.log('[GIVEN] the DashboardPage is activated');
-    new IsolationService().doLandingPage(); // Start the application to a known point.
-});
-
 Then('there is {int} v1-feature-render active', function (activeCount) {
     console.log('[THEN] there is {int} v1-feature-render active');
     cy.get('v1-dock').find('v1-feature-render').find('.active').should('have.length', activeCount)

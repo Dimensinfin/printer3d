@@ -1,0 +1,213 @@
+[
+  {
+    "description": "    The Dock contains the links to the feature result pages when it is related to a route interaction.\n    If the interaction is a Dialog then the click should open a new dialog and check the user interaction.",
+    "keyword": "Feature",
+    "name": "[D3D02]-Test the activities with the dock. First action is to move to target routes.",
+    "line": 2,
+    "id": "[d3d02]-test-the-activities-with-the-dock.-first-action-is-to-move-to-target-routes.",
+    "tags": [
+      {
+        "name": "@D3D02",
+        "line": 1
+      }
+    ],
+    "uri": "D3D02-Dock.feature",
+    "elements": [
+      {
+        "id": "[d3d02]-test-the-activities-with-the-dock.-first-action-is-to-move-to-target-routes.;[d3d02.01]-if-there-is-a-click-on-a-feature-that-is-a-page-route-then-the-route-changes-to-the-configured-destination.",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "[D3D02.01]-If there is a click on a Feature that is a PAGE-ROUTE then the route changes to the configured destination.",
+        "tags": [
+          {
+            "name": "@D3D02",
+            "line": 1
+          },
+          {
+            "name": "@D3D02",
+            "line": 10
+          },
+          {
+            "name": "@D3D02.01",
+            "line": 10
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the DashboardPage is activated",
+            "result": {
+              "status": "passed",
+              "duration": 426000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "one instance of Dock",
+            "result": {
+              "status": "passed",
+              "duration": 24000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "there is a click on v1-feature-render with index 0",
+            "result": {
+              "status": "passed",
+              "duration": 205000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "the target page is InventoryPartListPage",
+            "result": {
+              "status": "passed",
+              "duration": 38000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "[d3d02]-test-the-activities-with-the-dock.-first-action-is-to-move-to-target-routes.;[d3d02.02]-when-a-new-page-is-selected-the-dock-visual-configuration-for-the-active-feature-changes.",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "[D3D02.02]-When a new page is selected the Dock visual configuration for the active Feature changes.",
+        "tags": [
+          {
+            "name": "@D3D02",
+            "line": 1
+          },
+          {
+            "name": "@D3D02",
+            "line": 17
+          },
+          {
+            "name": "@D3D02.02",
+            "line": 17
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "the DashboardPage is activated",
+            "result": {
+              "status": "passed",
+              "duration": 319000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "one instance of Dock",
+            "result": {
+              "status": "passed",
+              "duration": 24000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 21,
+            "name": "there is 0 v1-feature-render active",
+            "result": {
+              "status": "undefined",
+              "duration": 15000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "label",
+                      "active"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "/Inventory",
+                      "false"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "there is a \"v1-feature-render\" at index \"0\" with the next fields",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 25,
+            "name": "there is a click on v1-feature-render with index 0",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "the target page is InventoryPartListPage",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "there is 1 v1-feature-render active",
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "label",
+                      "active"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "/Inventory",
+                      "true"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 28,
+            "name": "there is a \"v1-feature-render\" at index \"0\" with the next fields",
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

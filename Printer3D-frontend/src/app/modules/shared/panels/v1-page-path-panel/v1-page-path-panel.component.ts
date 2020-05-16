@@ -9,5 +9,4 @@ import { Input } from '@angular/core';
 })
 export class V1PagePathPanelComponent {
     @Input() path: string = '/';
-
 }
