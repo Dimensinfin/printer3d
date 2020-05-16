@@ -1,12 +1,12 @@
-<div style="position: relative; width: 150px;">
-    <div class="feature clip active">
-        <div class="container"></div>
-        <div class="label">NEW PIECE</div>
+<div style="position: relative; width: 150px; margin-right: 8px;">
+    <div class="feature clip">
+        <div class="container" [ngClass]="{'active': node.active}"></div>
+        <div class="label">{{node.label}}</div>
         <svg class="bottomright" viewBox="0 0 100 100" width="15px">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
         </svg>
     </div>
-    <svg class="corner" viewBox="0 0 100 100" width="12px">
+    <svg class="corner" viewBox="0 0 100 100" *ngIf="node.active">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
     </svg>
 </div>
