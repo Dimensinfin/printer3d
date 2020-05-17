@@ -1,19 +1,17 @@
 {
-    "name": "printer3-d-frontend",
-    "version": "0.0.0",
+    "name": "printer3d-frontend",
+    "version": "0.1.0",
     "scripts": {
-        "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build",
-        "test": "ng test",
-        "lint": "ng lint",
-        "e2e": "ng e2e",
-        "cucumber": "$(npm bin)/cucumber-js ",
-        "cucumber:acceptance": "$(npm bin)/cucumber-js cypress/integration/**.feature",
-        "cypress:open": "$(npm bin)/cypress open",
-        "cypress:run": "$(npm bin)/cypress run",
-        "start:network": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 4200",
-        "start:dev": "ng serve --progress"
+        "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --tags ",
+        "start:network": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 443 -j REDIRECT --to-ports 5100",
+        "docker:start": "docker-compose -f ./support/docker/docker-compose.yml up & ",
+        "docker:stop": "docker-compose -f ./support/docker/docker-compose.yml down & ",
+        "start:dev1": "ng serve --progress --ssl --ssl-key ~/.ssl/localhost.key --ssl-cert ~/.ssl/localhost.crt --proxy-config proxy.conf.json --base-href /app --public-host 3dprintermanager.frontend.dev --port 5100",
+        "start:dev": "ng serve --progress --proxy-config proxy.conf.json --base-href /app --port 5100",
+        "build:dev": "ng build --base-href /app",
+        "build:prod": "ng build --aot --prod --configuration production --base-href /app",
+        "test:dev": "ng test --code-coverage --watch --progress ",
+        "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI"
     },
     "private": true,
     "engines": {

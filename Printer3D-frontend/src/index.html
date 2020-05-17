@@ -4,26 +4,48 @@
 <head>
     <meta charset="utf-8">
     <title>Printer3DFrontend</title>
-    <base href="/">
+    <base href="/app">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- B O O T S T R A P -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- F O N T A W E S O M E 4 . 7 . 0 -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- F O N T S -->
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            background-color: black;
-            color: white;
+         :host {
             font-family: 'Electrolize', sans-serif;
+            font-size: 14px;
+            color: white;
+            background-color: black;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
-        .electro {
-            font-family: 'Electrolize', sans-serif;
+        .index-loading {
+            text-align: center;
+            font-size: 30px;
+            color: #1A53FF;
+            margin-top: 64px;
+        }
+        
+        .loading {
+            color: white;
+            background-color: black;
         }
     </style>
 </head>
 
 <body>
-    <app-root></app-root>
+    <app-root>
+        <div class="index-loading">···LOADING···<br>v0.1.0</div>
+    </app-root>
 </body>
 
 </html>

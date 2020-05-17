@@ -1,0 +1,10 @@
+version: '3'
+services:
+  apisimulator-backend:
+    container_name: apisimulator-prnter3d-backend
+    image: apimastery/apisimulator
+    ports:
+      - "5101:6090"
+    volumes:
+      - /home/adam/Development/DimensinfinSoftware/Dimensinfin3D/Printer3D-frontend/support/printer3d-backend-simulation:/printer3d-backend-simulation
+    command: "bin/apisimulator start /printer3d-backend-simulation -p 6090"

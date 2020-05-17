@@ -1,0 +1,14 @@
+simlet: inventory-partlist
+
+request:
+  - method: GET
+  - uriPath: /api/v1/inventory/parts
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.parts.json"
