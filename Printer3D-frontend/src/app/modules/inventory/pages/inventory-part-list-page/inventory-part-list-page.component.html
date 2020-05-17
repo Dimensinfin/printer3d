@@ -1,4 +1,5 @@
 <div class="page-path">{{pagePath}}</div>
 <div>
-    <!-- <viewer-panel [nodes2render]="[]" [downloadtitle]="'DOWNLOAD TITLE'" [downloader]="" [variant]="'-DEFAULT-'"></viewer-panel> -->
+    <ag-grid-angular style="width: 96vw; height: 90vh;" class="ag-theme-alpine-dark" [rowData]="rowData " [columnDefs]="columnDefs" rowSelection="multiple">
+    </ag-grid-angular>
 </div>
