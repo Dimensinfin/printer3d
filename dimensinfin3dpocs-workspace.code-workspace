@@ -24,6 +24,9 @@
             150
         ],
         "editor.defaultFormatter": "lonefy.vscode-JS-CSS-HTML-formatter",
-        "editor.formatOnSave": true
-    }
+        "editor.formatOnSave": true,
+        "workbench.colorTheme": "Atom One Dark",
+        "workbench.preferredDarkColorTheme": "Atom One Dark",
+        "colorHelper.formatsOrder": ["hex"]
+    },
 }
