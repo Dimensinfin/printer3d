@@ -13,7 +13,7 @@ export const environment = {
     production: false,
     mockStatus: true,
     showexceptions: true,
-    serverName: "http://neocom.infinity.local",
+    serverName: "http://localhost:5100",
     copyright: '© 2019,2020 Dimensinfin Industries',
     appName: "name",
     appVersion: "v0.1.0" + " dev",

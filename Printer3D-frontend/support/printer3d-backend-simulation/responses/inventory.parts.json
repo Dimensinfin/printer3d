@@ -1,64 +1,67 @@
-[{
-        "label": "Covid - 19 Key - A",
-        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-        "buildTime": 60,
-        "affinity": "OFF",
-        "stockLevel": 2,
-        "colours": "ALL",
-        "active": true
-    },
-    {
-        "label": "Covid - 19 Key - A",
-        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-        "buildTime": 60,
-        "affinity": "OFF",
-        "stockLevel": 2,
-        "colours": "ALL",
-        "active": true
-    },
-    {
-        "label": "Covid - 19 Key - A",
-        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-        "buildTime": 60,
-        "affinity": "OFF",
-        "stockLevel": 2,
-        "colours": "ALL",
-        "active": true
-    },
-    {
-        "label": "Covid - 19 Key - A",
-        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-        "buildTime": 60,
-        "affinity": "OFF",
-        "stockLevel": 2,
-        "colours": "ALL",
-        "active": true
-    },
-    {
-        "label": "Covid - 19 Key - A",
-        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-        "buildTime": 60,
-        "affinity": "OFF",
-        "stockLevel": 2,
-        "colours": "ALL",
-        "active": true
-    },
-    {
-        "label": "Covid - 19 Key - A",
-        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-        "buildTime": 60,
-        "affinity": "OFF",
-        "stockLevel": 2,
-        "colours": "ALL",
-        "active": true
-    },
-    {
-        "label": "Covid - 19 Key - A",
-        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-        "buildTime": 60,
-        "affinity": "OFF",
-        "stockLevel": 2,
-        "colours": "ALL",
-        "active": true
-    }
-]
+{
+    "partCount": 3,
+    "records": [{
+            "label": "Covid - 19 Key - A",
+            "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+            "buildTime": 60,
+            "affinity": "OFF",
+            "stockLevel": 2,
+            "colours": "ALL",
+            "active": true
+        },
+        {
+            "label": "Covid - 19 Key - A",
+            "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+            "buildTime": 60,
+            "affinity": "OFF",
+            "stockLevel": 2,
+            "colours": "ALL",
+            "active": true
+        },
+        {
+            "label": "Covid - 19 Key - A",
+            "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+            "buildTime": 60,
+            "affinity": "OFF",
+            "stockLevel": 2,
+            "colours": "ALL",
+            "active": true
+        },
+        {
+            "label": "Covid - 19 Key - A",
+            "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+            "buildTime": 60,
+            "affinity": "OFF",
+            "stockLevel": 2,
+            "colours": "ALL",
+            "active": true
+        },
+        {
+            "label": "Covid - 19 Key - A",
+            "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+            "buildTime": 60,
+            "affinity": "OFF",
+            "stockLevel": 2,
+            "colours": "ALL",
+            "active": true
+        },
+        {
+            "label": "Covid - 19 Key - A",
+            "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+            "buildTime": 60,
+            "affinity": "OFF",
+            "stockLevel": 2,
+            "colours": "ALL",
+            "active": true
+        },
+        {
+            "label": "Covid - 19 Key - A",
+            "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+            "buildTime": 60,
+            "affinity": "OFF",
+            "stockLevel": 2,
+            "colours": "ALL",
+            "active": true
+        }
+    ]
+}

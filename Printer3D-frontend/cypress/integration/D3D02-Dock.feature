@@ -4,8 +4,8 @@ Feature: [D3D02]-Test the activities with the dock. First action is to move to t
     The Dock contains the links to the feature result pages when it is related to a route interaction.
     If the interaction is a Dialog then the click should open a new dialog and check the user interaction.
 
-    # Background: Dock Default Configuration setup
-    #     Given the Default Dock Configuration
+    Background: Dock Default Configuration setup
+        Given the Default Dock Configuration
 
     @D3D02 @D3D02.01
     Scenario: [D3D02.01]-If there is a click on a Feature that is a PAGE-ROUTE then the route changes to the configured destination.
@@ -21,8 +21,18 @@ Feature: [D3D02]-Test the activities with the dock. First action is to move to t
         Then there is 0 v1-feature-render active
         Then there is a "v1-feature-render" at index "0" with the next fields
             | label      | active |
-            | /Inventory | false   |
+            | /Inventory | false  |
         When there is a click on v1-feature-render with index 0
+        Then the target page is InventoryPartListPage
+        And there is 1 v1-feature-render active
+        Then there is a "v1-feature-render" at index "0" with the next fields
+            | label      | active |
+            | /Inventory | true   |
+
+    @D3D02 @D3D02.03
+    Scenario: [D3D02.03]-When there is a Feature active and the application is restarted the landing page is the one for the Feature selected.
+        Given the a Dock Configuration with Feature "/Inventory" selected
+        When the application is started
         Then the target page is InventoryPartListPage
         And there is 1 v1-feature-render active
         Then there is a "v1-feature-render" at index "0" with the next fields

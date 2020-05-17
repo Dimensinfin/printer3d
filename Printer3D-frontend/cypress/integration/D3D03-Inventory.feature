@@ -6,7 +6,7 @@ Feature: [D3D03]-Validate the Inventory features and page contents.
     @D3D03 @D3D03.01
     Scenario: [D3D03.01]-Validate the contents and structure of the Inventory Part List Page.
         Given the InventoryPartListPage is activated
-        Given one instance of V1NodeViewer
+        Given one instance of NodeViewerPanel
         Given one or more instances of V1PartRecord
         Then there is a "v1-part-record-render" at index "0" with the next fields
             | label            | description                                                                                                                                    | buildTime | affinity | stockLevel | colours | active |

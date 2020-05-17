@@ -1,6 +1,6 @@
 {
     "/api/v1/*": {
-        "target": "http://3dprintermanager.frontend.dev:5101",
+        "target": "http://localhost:5101",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
