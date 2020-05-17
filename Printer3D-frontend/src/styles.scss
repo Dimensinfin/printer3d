@@ -1,18 +1,33 @@
-$page-path-color: white; // Red 50%
-// body {
-//     background-color: black;
-//     color: white;
-//     font-family: 'Open Sans', sans-serif;
-//     font-size: 12px;
-//     line-height: 1.0;
-//     margin: 2px;
-// }
+@import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine-dark/sass/ag-theme-alpine-dark.scss";
+.ag-theme-alpine {
+    @include ag-theme-alpine-dark();
+}
+
+.ag-theme-alpine-dark .ag-row {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+.ag-theme-alpine-dark .ag-cell {
+    // line-height: 30px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.ag-theme-alpine-dark .ag-header-cell {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 16px;
+}
+
 hr {
     border-top: 1px solid white;
     border-bottom: 1px solid white;
     filter: blur(1px);
 }
 
+$page-path-color: white; // Red 50%
 .page-path {
     font-size: 20px;
     font-weight: bold;
