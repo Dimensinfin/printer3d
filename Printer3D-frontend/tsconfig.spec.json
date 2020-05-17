@@ -5,13 +5,7 @@
     "types": [
       "jasmine",
       "node"
-    ],
-    "baseUrl": "./",
-    "paths": {
-      "@env/*": ["src/environments/*"],
-      "@domain/*": ["src/app/domain/*"],
-      "@app/*": ["src/app/*"],
-    }
+    ]
   },
   "files": [
     "src/test.ts",

@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 // - ENVIRONMENT
 import { environment } from '@env/environment';
+import { platformconstants } from '@app/platform/platform-constants';
 // - ROUTER
 import { Router } from '@angular/router';
 // - SERVICES
@@ -14,7 +15,7 @@ import { ResponseTransformer } from './support/ResponseTransformer';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 
-const DOCK_CURRENT_CONFIGURATION = '-DOCK_CURRENT_CONFIGURATION-';
+// const DOCK_CURRENT_CONFIGURATION = '-DOCK_CURRENT_CONFIGURATION-';
 const featureTransformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
     .setTransformation((entrydata: any): Feature[] => {
         let results: Feature[] = [];
@@ -44,12 +45,12 @@ export class AppStoreService {
      * from the default dock configuration list on the application resources. If found it is feeded into the Subject so all listeners will be informed about changes on the Dock to be updated.
      */
     public fireAccessDockConfiguration(): void {
-        const currentConfiguration = this.isolationService.getLocalStorage(DOCK_CURRENT_CONFIGURATION);
+        const currentConfiguration = this.isolationService.getLocalStorage(platformconstants.DOCK_CURRENT_CONFIGURATION);
         if (this.isEmpty(currentConfiguration)) {
             this.accessProperty('/config/DefaultDockFeatureMap')
                 .subscribe((fileData: any) => {
                     const defaultConfiguration: Feature[] = featureTransformer.transform(fileData) as Feature[];
-                    this.isolationService.setLocalStorageObject(DOCK_CURRENT_CONFIGURATION, defaultConfiguration);
+                    this.isolationService.setLocalStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, defaultConfiguration);
                     this.dockActiveConfiguration.next(defaultConfiguration);
                 });
         } else {
@@ -61,7 +62,7 @@ export class AppStoreService {
         return this.dockActiveConfiguration;
     }
     public saveDockConfiguration(configuration: Feature[]): void {
-        this.isolationService.setLocalStorageObject(DOCK_CURRENT_CONFIGURATION, configuration);
+        this.isolationService.setLocalStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, configuration);
     }
 
     // - G L O B A L   S U P P O R T   M E T H O D S

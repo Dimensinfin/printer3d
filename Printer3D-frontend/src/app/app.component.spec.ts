@@ -23,7 +23,7 @@ describe('AppComponent', () => {
   it(`should have as title 'Printer3D-frontend'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Printer3D-frontend');
+    expect(app.appTitle).toEqual('Printer3D-frontend');
   });
 
   it('should render title', () => {
