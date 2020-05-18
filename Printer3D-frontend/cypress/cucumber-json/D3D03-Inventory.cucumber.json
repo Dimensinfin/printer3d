@@ -1,0 +1,109 @@
+[
+  {
+    "description": "    If the user interact with Inventory features that activate the routes the destination are new pages that should be validated against the application requirements. If the Inventory feature set is selected then we should list the full Inventory Parts on the respository.",
+    "keyword": "Feature",
+    "name": "[D3D03]-Validate the Inventory features and page contents.",
+    "line": 2,
+    "id": "[d3d03]-validate-the-inventory-features-and-page-contents.",
+    "tags": [
+      {
+        "name": "@D3D03",
+        "line": 1
+      }
+    ],
+    "uri": "D3D03-Inventory.feature",
+    "elements": [
+      {
+        "id": "[d3d03]-validate-the-inventory-features-and-page-contents.;[d3d03.01]-validate-the-contents-and-structure-of-the-inventory-part-list-page.",
+        "keyword": "Scenario",
+        "line": 7,
+        "name": "[D3D03.01]-Validate the contents and structure of the Inventory Part List Page.",
+        "tags": [
+          {
+            "name": "@D3D03",
+            "line": 1
+          },
+          {
+            "name": "@D3D03",
+            "line": 6
+          },
+          {
+            "name": "@D3D03.01",
+            "line": 6
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "the InventoryPartListPage is activated",
+            "result": {
+              "status": "passed",
+              "duration": 2208000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "one instance of GridAngular",
+            "result": {
+              "status": "passed",
+              "duration": 123000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 10,
+            "name": "one or more instances of Row",
+            "result": {
+              "status": "passed",
+              "duration": 216000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "label",
+                      "description",
+                      "buildTime",
+                      "affinity",
+                      "stockLevel",
+                      "colours",
+                      "active"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Covid-19 Key - A",
+                      "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi-19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+                      "60",
+                      "OFF",
+                      "2",
+                      "ALL",
+                      "true"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "there is a \"grid-row\" at index \"1\" with the next fields",
+            "result": {
+              "status": "failed",
+              "duration": 4816000000,
+              "error_message": "AssertionError: Timed out retrying: Expected to find content: 'Covid-19 Key - A' within the element: <span.ag-cell-value> but never did.\n    + expected - actual\n\n\n    at ensureExistence (http://localhost:5100/__cypress/runner/cypress_runner.js:137673:32)\n    at Object.ensureElExistence (http://localhost:5100/__cypress/runner/cypress_runner.js:137691:12)\n    at ensureExistence (http://localhost:5100/__cypress/runner/cypress_runner.js:127867:23)\n    at onFailFn (http://localhost:5100/__cypress/runner/cypress_runner.js:127905:9)\nFrom previous event:\n    at Object.verifyUpcomingAssertions (http://localhost:5100/__cypress/runner/cypress_runner.js:127944:69)\n    at http://localhost:5100/__cypress/runner/cypress_runner.js:135425:21\nFrom previous event:\n    at resolveElements (http://localhost:5100/__cypress/runner/cypress_runner.js:135419:52)\n    at tryFn (http://localhost:5100/__cypress/runner/cypress_runner.js:140680:21)\n    at whenStable (http://localhost:5100/__cypress/runner/cypress_runner.js:140715:12)\n    at http://localhost:5100/__cypress/runner/cypress_runner.js:140259:16"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

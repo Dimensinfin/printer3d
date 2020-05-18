@@ -5,8 +5,8 @@
 }
 
 .ag-theme-alpine-dark .ag-row {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+    font-family: Muli, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 
 .ag-theme-alpine-dark .ag-cell {
@@ -34,6 +34,6 @@ $page-path-color: white; // Red 50%
     font-family: 'Electrolize', sans-serif;
     margin-top: 10px;
     text-transform: uppercase;
-    text-shadow: 0px 1px 3px $page-path-color, 0px -1px 3px $page-path-color;
+    text-shadow: 0px 0px 2px $page-path-color, 0px 0px 1px $page-path-color;
     color: $page-path-color;
 }

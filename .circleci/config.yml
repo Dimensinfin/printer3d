@@ -18,6 +18,7 @@ jobs:
       - checkout
       - run:
           name: Validate existence of the target project
+          working_directory: Printer3D-frontend
           command: |
             pwd
             ls -la
@@ -31,19 +32,19 @@ jobs:
           name: Validate node version in use
           command: |
             echo '>> Printer3D - frontend: Start Continuous Integration'
-            cd printer3d-frontend
+            cd Printer3D-frontend
             node -v
             ls -la
       - run:
           name: Build the deploy version for the frontend
           command: |
-            cd printer3d-frontend
+            cd ~/Printer3D-frontend
             ng build
-      # - save_cache:
-      #     paths:
-      #       - ~/node_modules
-      #       - deploy
-      #     key: printer3d-frontend-{{ checksum "package.json" }}
+      - save_cache:
+          paths:
+            - ~/Printer3D-frontend/node_modules
+            - ~/Printer3D-frontend/deploy
+          key: printer3d-frontend-{{ checksum "~/Printer3D-frontend/package.json" }}
 
 workflows:
   version: 2

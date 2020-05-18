@@ -8,6 +8,7 @@ import { IsolationService } from '../../support/IsolationService.support';
 import { V1PagePath } from '../../support/page-objects/V1PagePath.panel';
 import { V1Dock } from '../../support/page-objects/V1Dock.panel';
 import { V1Feature } from '../../support/page-objects/V1Feature.panel';
+import { GridRow } from '../../support/page-objects/GridRow.panel';
 
 Given('the DashboardPage is activated', function () {
     console.log('[GIVEN] the DashboardPage is activated');
@@ -27,12 +28,24 @@ Given('one instance of Dock', function () {
     expect(dock).to.not.be.null;
     cy.get('app-root').find('v1-dock').should('have.length', 1)
 });
+Given('one instance of GridAngular', function () {
+    console.log('[GIVEN] one instance of GridAngular');
+    // const dock: V1Dock = new V1Dock();
+    // expect(dock).to.not.be.null;
+    cy.get('app-root').find('inventory-part-list-page').find('ag-grid-angular').should('have.length', 1)
+});
 
 Given('one or more instances of Feature', function () {
     console.log('[GIVEN] one or more instances of Feature');
     const feature: V1Feature = new V1Feature();
     expect(feature).to.not.be.null;
     cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)
+});
+Given('one or more instances of Row', function () {
+    console.log('[GIVEN] one or more instances of Feature');
+    // const feature: V1Feature = new V1Feature();
+    // expect(feature).to.not.be.null;
+    cy.get('app-root').find('inventory-part-list-page').find('ag-grid-angular').get('[role="row"]')
 });
 
 Then('there is a {string} with the next fields', (panelType, dataTable) => {
@@ -58,11 +71,13 @@ Then('there is a {string} with the next fields', (panelType, dataTable) => {
     }
 });
 
-Then('there is a {string} at index {string} with the next fields', function (panelType, index, dataTable) {
+Then('there is a {string} at index {string} with the next fields', function (panelType: string, index: string, dataTable) {
     cy.log('[THEN] there is a {string} at index {string} with the next fields');
     cy.log('[THEN] panelType=' + panelType);
-    cy.log('[THEN] index=' + index);
-    const row = dataTable.hashes()[index + 0];
+    // cy.log('[THEN] index=' + index);
+    const row = dataTable.hashes()[0];
+    // cy.log('[THEN] data size=' + dataTable.hashes().length);
+    // cy.log('[THEN] row=' + row);
     expect(row).to.not.be.empty;
     switch (panelType) {
         case 'v1-feature-render':
@@ -70,10 +85,10 @@ Then('there is a {string} at index {string} with the next fields', function (pan
             expect(feature).to.not.be.null;
             feature.validatePanel(row);
             break;
+        case 'grid-row':
+            const gridrow: GridRow = new GridRow(+index);
+            expect(gridrow).to.not.be.null;
+            gridrow.validatePanel(row);
+            break;
     }
 });
-
-// Then('there is a {string} at index {string} with the next fields', function (string, string2, dataTable) {
-//     // Write code here that turns the phrase above into concrete actions
-//     return 'pending';
-//   });
