@@ -13,18 +13,20 @@ jobs:
       - image: circleci/node:latest
     environment:
       # Customize the environment values to use on the jobs
-      PORT: 4200
+      PORT: 5100
     steps:
       - checkout
       - run:
           name: Validate existence of the target project
           command: |
             pwd
-      - restore_cache:
-          keys:
-            - printer3d-frontend-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - printer3d-frontend-
+            ls -la
+            echo "server port: ${PORT}"
+      # - restore_cache:
+      #     keys:
+      #       - printer3d-frontend-{{ checksum "package.json" }}
+      #       # fallback to using the latest cache if no exact match is found
+      #       - printer3d-frontend-
       - run:
           name: Validate node version in use
           command: |
@@ -34,11 +36,11 @@ jobs:
           name: Build the deploy version for the frontend
           command: |
             ng build
-      - save_cache:
-          paths:
-            - ~/node_modules
-            - deploy
-          key: printer3d-frontend-{{ checksum "package.json" }}
+      # - save_cache:
+      #     paths:
+      #       - ~/node_modules
+      #       - deploy
+      #     key: printer3d-frontend-{{ checksum "package.json" }}
 
 workflows:
   version: 2

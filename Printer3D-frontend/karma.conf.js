@@ -20,11 +20,6 @@ module.exports = function(config) {
             reports: ['html', 'lcovonly', 'text-summary'],
             fixWebpackSourcePaths: true
         },
-        preprocessors: {
-            // source files, that you wanna generate coverage for
-            // do not include tests or libraries
-            'src/app/testing/!*.*': ['coverage']
-        },
         reporters: ['progress', 'kjhtml'],
         port: 9876,
         colors: true,
