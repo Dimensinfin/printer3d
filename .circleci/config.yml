@@ -8,7 +8,7 @@
 version: 2.1
 jobs:
   build-frontend-job:
-    working_directory: ~/printer3d-frontend
+    # working_directory: ~/printer3d-frontend
     docker:
       - image: circleci/node:latest
     environment:
@@ -31,10 +31,13 @@ jobs:
           name: Validate node version in use
           command: |
             echo '>> Printer3D - frontend: Start Continuous Integration'
+            cd printer3d-frontend
             node -v
+            ls -la
       - run:
           name: Build the deploy version for the frontend
           command: |
+            cd printer3d-frontend
             ng build
       # - save_cache:
       #     paths:
