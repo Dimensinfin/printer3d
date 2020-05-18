@@ -4,39 +4,34 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Subject } from 'rxjs';
 // - ENVIRONMENT
 import { environment } from '@env/environment';
-// - WEBSTORAGE
-// import { LOCAL_STORAGE } from 'angular-webstorage-service';
-// import { SESSION_STORAGE } from 'angular-webstorage-service';
-// import { WebStorageService } from 'angular-webstorage-service';
+import { platformconstants } from '@app/platform/platform-constants';
 import * as jwt_decode from 'jwt-decode';
 // - ROUTER
 import { Router } from '@angular/router';
 // - SERVICES
-// import { GlobalService } from '@app/platform/global.service';
 import { IsolationService } from '@app/platform/isolation.service';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-// import { Credential } from '@app/domain/Credential.domain';
-// import { Corporation } from '@app/domain/Corporation.domain';
-// import { Pilot } from '@app/domain/Pilot.domain';
-// import { CorporationDataResponse } from '@app/domain/dto/CorporationDataResponse.dto';
-// import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-// import { Fitting } from '@domain/Fitting.domain';
+import { Feature } from '@domain/Feature.domain';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
+
+const featureTransformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
+    .setTransformation((entrydata: any): Feature[] => {
+        let results: Feature[] = [];
+        if (entrydata instanceof Array) {
+            for (let key in entrydata)
+                results.push(new Feature(entrydata[key]));
+        } else
+            results.push(new Feature(entrydata));
+
+        return results;
+    });
 
 @Injectable({
     providedIn: 'root'
 })
 export class SupportAppStoreService {
-    // private credential: Credential;
-    // private corporationActiveCache: Subject<Corporation | Corporation[]> = new Subject();
-    // private pilotActiveCache: Subject<Pilot | Pilot[]> = new Subject();
-
-    constructor(
-        // protected router: Router,
-        protected isolation: IsolationService,
-        // protected backendService: BackendService
-    ) {
-    }
+    constructor(protected isolationService: IsolationService, ) { }
 
     // - M O C K   D A T A   A C C E S S
     public directAccessMockResource(dataIdentifier: string): Observable<any> {
@@ -47,6 +42,7 @@ export class SupportAppStoreService {
             observer.complete();
         });
     }
+
     // - G L O B A L   A C C E S S   M E T H O D S
     public isEmpty(target?: any): boolean {
         if (null == target) return true;
@@ -55,52 +51,29 @@ export class SupportAppStoreService {
         return true;
     }
 
-    // - S T O R E   A C C E S S   S E C T I O N
-    /**
-     * Resets and clears the cached stored contents so on next login we should reload all data.
-     */
-    // public clearStore(): void {
-    //     // Clear dynamic caches.
-    //     this.corporationActiveCache.next(null);
-    // }
-    // // - C O R P O R A T I O N
-    // public accessCorporation(): Observable<Corporation | Corporation[]> {
-    //     return this.corporationActiveCache;
-    // }
-    // public downloadCorporation(corporation: Corporation): void {
-    //     this.corporationActiveCache.next(corporation);
-    // }
-    // // - P I L O T
-    // public accessPilot(): Observable<Pilot | Pilot[]> {
-    //     return this.pilotActiveCache;
-    // }
-    // public accessPilotFittings(transformer: ResponseTransformer): Observable<Fitting | Fitting[]> {
-    //     return this.directAccessMockResource('pilot.fittings');
-    // }
-
-    // - S T O R E   D A T A   D O W N L O A D E R S
-    // public downloadCorporation(corporationId: number): void {
-    //    return this.backendService.apiGetCorporationPublicData_v1(corporationId)
-    //       .pipe(map((corporationResponse: CorporationDataResponse) => {
-    //          let corporation = new Corporation(corporationResponse.corporation);
-    //          return corporation;
-    //       }));
-    // }
-    // private downloadPilot(pilotId: number): Observable<Pilot> {
-    //    return this.backendService.apiGetPilotPublicData_v1(pilotId)
-    //       .pipe(map((response: Pilot) => {
-    //          let pilot = response;
-    //          return pilot;
-    //       }));
-    // }
-
-    // - E N V I R O N M E N T    C A L L S
-    //  public getApplicationName(): string {
-    //      return environment.appName;
-    //  }
-    //  public getApplicationVersion(): string {
-    //      return environment.appVersion;
-    //  }
+    // - D O C K
+    private dockActiveConfiguration: BehaviorSubject<Feature[]> = new BehaviorSubject<Feature[]>([]);
+    public fireAccessDockConfiguration(): BehaviorSubject<Feature[]> {
+        const currentConfiguration = this.isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION);
+        if (this.isEmpty(currentConfiguration)) {
+            this.accessProperty('/config/DefaultDockFeatureMap')
+                .subscribe((fileData: any) => {
+                    const defaultConfiguration: Feature[] = featureTransformer.transform(fileData) as Feature[];
+                    this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, defaultConfiguration);
+                    this.dockActiveConfiguration.next(defaultConfiguration);
+                });
+        } else {
+            const defaultConfiguration = featureTransformer.transform(JSON.parse(currentConfiguration));
+            this.dockActiveConfiguration.next(defaultConfiguration);
+        }
+        return this.dockActiveConfiguration;
+    }
+    public synchronize2DockConfiguration(): BehaviorSubject<Feature[]> {
+        return this.dockActiveConfiguration;
+    }
+    public saveDockConfiguration(configuration: Feature[]): void {
+        this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, configuration);
+    }
 
     // - G L O B A L   A C C E S S   M E T H O D S
     public isNonEmptyString(str: string): boolean {
@@ -120,7 +93,7 @@ export class SupportAppStoreService {
         if (data.length < 1) return true;
         return false;
     }
-    public accessProperties(propertyName: string): Observable<any> {
+    public accessProperty(propertyName: string): Observable<any> {
         console.log("><[SupportAppStoreService.accessProperties]");
         // Construct the request to call the backend.
         let request = require('./mock-data/assets/properties/' + propertyName + '.json');

@@ -25,8 +25,8 @@ export class V1DockComponent implements OnInit {
     }
     public ngOnInit(): void {
         console.log('><[V1DockComponent.ngOnInit]');
-        this.configuredFeatures.push(new Feature({ label: '/Inventory', active: true }));
-        this.configuredFeatures.push(new Feature({ label: '/New Part', active: false }));
+        // this.configuredFeatures.push(new Feature({ label: '/Inventory', active: true }));
+        // this.configuredFeatures.push(new Feature({ label: '/New Part', active: false }));
         this.appStore.fireAccessDockConfiguration();
         this.appStore.synchronize2DockConfiguration()
             .subscribe((configuration: Feature[]) => {
