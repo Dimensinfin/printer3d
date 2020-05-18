@@ -17,10 +17,10 @@ export class IsolationService {
     ) { }
     
     // - S T O R A G E
-    public getLocalStorage(key: string): string {
+    public getFromStorage(key: string): string {
         return this.storage.get(key);
     }
-    public setLocalStorageObject(key: string, object: any): void {
+    public setToStorageObject(key: string, object: any): void {
         this.storage.set(key, JSON.stringify(object));
     }
 }

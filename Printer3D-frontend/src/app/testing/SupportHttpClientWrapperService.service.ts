@@ -60,43 +60,28 @@ export class SupportHttpClientWrapperService {
     private decodeRequestPath(request: string): any {
         console.log("><[HttpClientWrapperService.decodeRequestPath]> request: " + request);
         let keyword = '-NOT-FOUND-';
-        if (request.includes('validateAuthorizationToken')) keyword = 'VALIDATEAUTHORIZATIONTOKEN';
-        if (request.includes('server')) keyword = 'SERVER-INFO';
-        if (request.includes('fittings')) keyword = 'FITTING-PILOT';
+        if (request.includes('/inventory/parts')) keyword = 'INVENTORY-PARTS';
 
         console.log("><[HttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
-            case 'VALIDATEAUTHORIZATIONTOKEN':
+            case 'INVENTORY-PARTS':
                 console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                const validationResponseJson = {
-                    "responseType": "ValidateAuthorizationTokenResponse",
-                    "jwtToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFU0kgT0F1dGgyIEF1dGhlbnRpY2F0aW9uIiwiY29ycG9yYXRpb25JZCI6OTgzODQ3MjYsImFjY291bnROYW1lIjoiQmV0aCBSaXBsZXkiLCJpc3MiOiJOZW9Db20uSW5maW5pdHkuQmFja2VuZCIsInVuaXF1ZUlkIjoidHJhbnF1aWxpdHkvOTIyMjM2NDciLCJwaWxvdElkIjo5MjIyMzY0N30.Qom8COyZB2sW3bCGm9pnGcIOqw-E2yKDsmGklQW6r9Fhu8jJpkNUv5TUhU2cJjIg5jX3082bZ6eKtRZ3z10vGw",
-                    "credential": {
-                        "jsonClass": "Credential",
-                        "uniqueId": "tranquility/92223647",
-                        "accountId": 92223647,
-                        "accountName": "Adam Antinoo",
-                        "assetsCount": 1476,
-                        "walletBalance": 6.309543632E8,
-                        "raceName": "Amarr",
-                        "dataSource": "tranquility"
-                    }
+                const inventoryPartsResponseJson = {
+                    "partCount": 1,
+                    "records": [{
+                        "label": "Covid - 19 Key - A",
+                        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
+                        "buildTime": 60,
+                        "affinity": "OFF",
+                        "stockLevel": 2,
+                        "colours": "ALL",
+                        "cost": 0.8,
+                        "active": true
+                    }]
+
                 };
-                return validationResponseJson;
+                return inventoryPartsResponseJson;
                 break;
-            case 'SERVER-INFO':
-                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                const responseJson = {
-                    "players": 10528,
-                    "server_version": "1585794",
-                    "start_time": "2019-10-16T11:06:17Z"
-                };
-                return responseJson;
-                break;
-            // case 'FITTING-PILOT':
-            //     console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-            //     return require('./mock-data/' + 'pilot.fittings' + '.json');
-            //     break;
             default:
                 return {};
         }

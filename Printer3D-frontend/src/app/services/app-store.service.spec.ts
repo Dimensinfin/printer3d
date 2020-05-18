@@ -21,16 +21,10 @@ import { BackendService } from './backend.service';
 // import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { HttpClientWrapperService } from './httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '../testing/SupportHttpClientWrapperService.service';
-import { Feature } from '@domain/Feature.domain';
 // - DOMAIN
-// import { Corporation } from '@app/domain/Corporation.domain';
-// import { Pilot } from '@app/domain/Pilot.domain';
-// import { Credential } from '@app/domain/Credential.domain';
-// import { environment } from '@env/environment';
-// import { NeoComException } from '@app/platform/NeoComException';
-// import { ExceptionCatalog } from '@app/platform/ExceptionCatalog';
+import { Feature } from '@domain/Feature.domain';
 
-fdescribe('SERVICE AppStoreService [Module: CORE]', () => {
+describe('SERVICE AppStoreService [Module: CORE]', () => {
     let service: AppStoreService;
     let isolationService: SupportIsolationService;
 
@@ -56,20 +50,52 @@ fdescribe('SERVICE AppStoreService [Module: CORE]', () => {
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
-        it('Should be created', () => {
+        it('constructor.none: validate initial state without constructor', () => {
             console.log('><[core/AppStoreService]> should be created');
             expect(service).toBeTruthy('service has not been created.');
         });
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Dock]', () => {
+    describe('Code Coverage Phase [Dock]', async function () {
+        it('fireAccessDockConfiguration.default: get a reference to the Dock configuration Subject', () => {
+            isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION, null);
+            return service.fireAccessDockConfiguration()
+                .subscribe(function (subject) {
+                    const expected = isolationService.directAccessMockResource('/assets/properties/DefaultDockFeatureMap');
+                    const obtained = JSON.stringify(subject);
+                    expect(subject).toBeDefined();
+                    expect(expected).toBe(obtained);
+                })
+        });
+        it('fireAccessDockConfiguration.set: get a reference to the Dock configuration Subject', () => {
+            const testConfiguration: Feature[] = [];
+            testConfiguration.push(new Feature());
+            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, testConfiguration);
+            return service.fireAccessDockConfiguration()
+                .subscribe(function (subject) {
+                    const expected = JSON.stringify(testConfiguration);
+                    const obtained = JSON.stringify(subject);
+                    expect(subject).toBeDefined();
+                    expect(expected).toBe(obtained);
+                })
+        });
+        it('fireAccessDockConfiguration.single: get a reference to the Dock configuration Subject', () => {
+            const testConfiguration: Feature[] = [];
+            testConfiguration.push(new Feature());
+            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, new Feature());
+            return service.fireAccessDockConfiguration()
+                .subscribe(function (subject) {
+                    const expected = JSON.stringify(testConfiguration);
+                    const obtained = JSON.stringify(subject);
+                    expect(subject).toBeDefined();
+                    expect(expected).toBe(obtained);
+                })
+        });
         it('synchronize2DockConfiguration.success: get a reference to the Dock configuration Subject', () => {
             const obtained = service.synchronize2DockConfiguration();
             expect(obtained).toBeDefined();
         });
-    });
-    describe('Code Coverage Phase [Dock]', () => {
         it('saveDockConfiguration.success: store the new configuration', () => {
             // Save test configuration.
             isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION, null);

@@ -24,7 +24,6 @@ export class BackendService {
     }
     // - B A C K E N D - A P I
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
-        // console.log(">[BackendService.apiInventoryParts_v1]> code: " + code);
         // Construct the request to call the backend.
         const request = this.APIV1 + "/inventory/parts";
         let headers = new HttpHeaders() // Additional mockup headers to apisimulation.

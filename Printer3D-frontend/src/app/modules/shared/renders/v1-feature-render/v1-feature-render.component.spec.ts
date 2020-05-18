@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { V1FeatureRenderComponent } from './v1-feature-render.component';
 
-describe('V1FeatureRenderComponent', () => {
+xdescribe('V1FeatureRenderComponent', () => {
   let component: V1FeatureRenderComponent;
   let fixture: ComponentFixture<V1FeatureRenderComponent>;
 

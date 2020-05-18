@@ -9,4 +9,11 @@ import { environment } from '@env/environment';
 export class AppComponent {
     public appTitle: string = '3DPrinterManagement - UI';
     public appVersion : string = environment.appVersion;
+
+    public getAppTitle() : string {
+        return this.appTitle;
+    }
+    public getAppVersion() : string {
+        return this.appVersion;
+    }
 }
