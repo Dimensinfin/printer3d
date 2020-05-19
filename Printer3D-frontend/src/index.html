@@ -9,13 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <!-- B O O T S T R A P -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <!-- F O N T A W E S O M E 4 . 7 . 0 -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <!-- F O N T S -->
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina&display=swap" rel="stylesheet">
+    <!-- M A T E R I A L -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
         body {
@@ -49,16 +50,21 @@
             color: white;
             background-color: black;
         }
+        
+        .loading-box {
+            border: 2px solid #1A53FF;
+            padding: 10px;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
     </style>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body class="mat-typography">
     <app-root>
         <div class="index-loading">
-            <span style="border: 2px solid #1A53FF; padding: 10px; padding-left: 16px; padding-right: 16px">
-                <span>· · · LOADING · · ·</span><span style="margin-left: 20px;">v0.1.0</span>
+            <span class="loading-box">
+                <span>· · · LOADING · · ·</span><span style="margin-left: 20px;">v0.1.0 · · ·</span>
             </span>
         </div>
     </app-root>

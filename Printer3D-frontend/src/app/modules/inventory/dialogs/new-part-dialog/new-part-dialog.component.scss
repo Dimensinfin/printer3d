@@ -1,0 +1,87 @@
+.dialog-title {
+    font-family: 'Mina';
+}
+
+.row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.d3-form {
+    font-family: 'Mina';
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.form-control {
+    padding: 4px;
+    padding-left: 8px;
+    line-height: 1.0;
+    font-size: 20px;
+}
+
+// --- B U T T O N S
+$green-button-color: #66FF66;
+$clearform-button-color: #FF7733;
+.btn {
+    min-width: 50%;
+}
+
+.submit-button {
+    background: transparent;
+    border: 4px solid $green-button-color;
+    border-radius: 8px;
+    color: $green-button-color;
+    font-family: 'Prototype', sans-serif;
+    font-size: 24px;
+    line-height: 3;
+    margin-bottom: 16px;
+    text-transform: UPPERCASE;
+}
+
+.submit-button:disabled {
+    border: 4px solid #D0D0D0;
+    color: #D0D0D0;
+}
+
+.submit-button:hover {
+    background: $green-button-color;
+    color: white;
+}
+
+.submit-button:hover:disabled {
+    background: #D0D0D0;
+    color: white;
+}
+
+.clearform-button {
+    background: transparent;
+    border: 4px solid $clearform-button-color;
+    border-radius: 8px;
+    color: $clearform-button-color;
+    font-family: 'Prototype', sans-serif;
+    font-size: 24px;
+    line-height: 3;
+    margin-bottom: 16px;
+    text-transform: UPPERCASE;
+}
+
+.clearform-button:disabled {
+    border: 4px solid #D0D0D0;
+    color: #D0D0D0;
+}
+
+.clearform-button:hover {
+    background: $clearform-button-color;
+    color: white;
+}
+
+.clearform-button:hover:disabled {
+    background: #D0D0D0;
+    color: white;
+}

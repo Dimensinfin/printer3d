@@ -19,5 +19,4 @@ When('there is a click on v1-feature-render with index {int}', function (feature
 Then('the target page is InventoryPartListPage', function () {
     console.log('[THEN] the target page is InventoryPartListPage');
     cy.get('app-root').find('inventory-part-list-page').should('have.length', 1);
-//     cy.get('inventory-part-list-page').find('.page-path').contains(INVENTORY_PART_LIST_PAGE_NAME);
 });

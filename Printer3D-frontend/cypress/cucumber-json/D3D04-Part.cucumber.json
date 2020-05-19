@@ -1,0 +1,81 @@
+[
+  {
+    "description": "    If the user interacts with Inventory features that affect the Parts there should be requirements to control the\n    presentation, contents and interaction flow. Parts cannot be eliminated but some of their fields are editable\n    once the part is constructed.",
+    "keyword": "Feature",
+    "name": "[D3D04]-Define the requirements for the Part inrteractions liek creation and update.",
+    "line": 3,
+    "id": "[d3d04]-define-the-requirements-for-the-part-inrteractions-liek-creation-and-update.",
+    "tags": [
+      {
+        "name": "@D3D04",
+        "line": 2
+      }
+    ],
+    "uri": "D3D04-Part.feature",
+    "elements": [
+      {
+        "id": "[d3d04]-define-the-requirements-for-the-part-inrteractions-liek-creation-and-update.;[d3d04.01]-if-the-feature-new-part-received-a-click-then-we-should-show-the-new-part-dialog.",
+        "keyword": "Scenario",
+        "line": 15,
+        "name": "[D3D04.01]-If the Feature New Part received a click then we should show the New Part Dialog.",
+        "tags": [
+          {
+            "name": "@D3D04",
+            "line": 2
+          },
+          {
+            "name": "@D3D04",
+            "line": 14
+          },
+          {
+            "name": "@D3D04.01",
+            "line": 14
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "the application Printer3DManager",
+            "result": {
+              "status": "passed",
+              "duration": 2651000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 16,
+            "name": "one instance of Dock",
+            "result": {
+              "status": "passed",
+              "duration": 245000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "there is a click on Feature \"/New Part\"",
+            "result": {
+              "status": "passed",
+              "duration": 1885000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 18,
+            "name": "the dialog New Part opens and blocks the display",
+            "result": {
+              "status": "passed",
+              "duration": 325000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

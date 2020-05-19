@@ -45,12 +45,12 @@ export class AppStoreService {
      * from the default dock configuration list on the application resources. If found it is feeded into the Subject so all listeners will be informed about changes on the Dock to be updated.
      */
     public fireAccessDockConfiguration(): BehaviorSubject<Feature[]> {
-        const currentConfiguration = this.isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION);
+        const currentConfiguration = this.isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY);
         if (this.isEmpty(currentConfiguration)) {
             this.accessProperty('/config/DefaultDockFeatureMap')
                 .subscribe((fileData: any) => {
                     const defaultConfiguration: Feature[] = featureTransformer.transform(fileData) as Feature[];
-                    this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, defaultConfiguration);
+                    this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, defaultConfiguration);
                     this.dockActiveConfiguration.next(defaultConfiguration);
                 });
         } else {
@@ -63,7 +63,7 @@ export class AppStoreService {
         return this.dockActiveConfiguration;
     }
     public saveDockConfiguration(configuration: Feature[]): void {
-        this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, configuration);
+        this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
     }
 
     // - G L O B A L   S U P P O R T   M E T H O D S

@@ -8,15 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // - HTTP CLIENT
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// - WEBSTORAGE
-// import { StorageServiceModule } from 'angular-webstorage-service';
+// - MATERIALS
+import { MatDialogModule } from '@angular/material/dialog';
 // - ROUTING
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 // - SERVICES
 import { IsolationService } from './platform/isolation.service';
 import { AppStoreService } from './services/app-store.service';
-// import { BackendService } from './services/backend.service';
+import { DialogFactoryService } from './factory/dialog-factory.service';
+import { BackendService } from './services/backend.service';
 // - COMPONENTS-CORE
 import { AppComponent } from './app.component';
 
@@ -27,8 +28,6 @@ import { InventoryModule } from './modules/inventory/inventory.module';
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
-// import { DashboardComponent } from './pages/dashboard/dashboard.component';
-// import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 registerLocaleData(localeEs);
 
 // - ERROR INTERCEPTION
@@ -48,8 +47,8 @@ registerLocaleData(localeEs);
         BrowserAnimationsModule,
         // - HTTP CLIENT
         HttpClientModule,
-        // - WEBSTORAGE
-        // StorageServiceModule,
+        // - MATERIALS
+        MatDialogModule,
         // - APPLICATION MODULES
         SharedModule,
         InventoryModule,
@@ -58,16 +57,14 @@ registerLocaleData(localeEs);
         AppRoutingModule
     ],
     declarations: [
-        AppComponent,
-        // DashboardComponent,
-        // DashboardPageComponent
+        AppComponent
     ],
     providers: [
         // - SERVICES
         { provide: IsolationService, useClass: IsolationService },
         { provide: AppStoreService, useClass: AppStoreService },
-        // { provide: BackendService, useClass: BackendService },
-        // { provide: BackendNeoItemService, useClass: BackendNeoItemService },
+        { provide: DialogFactoryService, useClass: DialogFactoryService },
+        { provide: BackendService, useClass: BackendService },
         // { provide: AuthenticationService, useClass: AuthenticationService },
         // - ERROR INTERCEPTION
         // { provide: ErrorHandler, useClass: RollbarErrorHandler },

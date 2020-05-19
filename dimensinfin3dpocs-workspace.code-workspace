@@ -16,7 +16,6 @@
         "files.autoSave": "afterDelay",
         "files.autoSaveDelay": 3000,
         "files.insertFinalNewline": true,
-        "files.trimFinalNewlines": true,
         "html.format.wrapAttributes": "aligned-multiple",
         "editor.rulers": [
             100,

@@ -1,0 +1,52 @@
+// - T O O L T I P
+.dsf-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.dsf-tooltip .tooltiptext {
+    visibility: hidden;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    background-color: #404040;
+    color: white;
+    width: 400px;
+    padding: 4px;
+    border-radius: 4px;
+    opacity: 0.7;
+    transition: background-color 0.3s ease-in, visibility 0.3s ease-in, height 0.3s ease-in;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 100;
+}
+
+.dsf-tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip-right {
+    top: -5px;
+    left: 125%;
+}
+
+.tooltip-left {
+    top: -5px;
+    right: 105%;
+}
+
+.tooltip-top {
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.tooltip-bottom {
+    width: 120px;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+    /* Use half of the width (120/2 = 60), to center the tooltip */
+}

@@ -1,3 +1,6 @@
+// - T O O L T I P
+@import "./styles/dsf-tooltip.scss";
+@import "./styles/dsf-forms.scss";
 @import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
 @import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine-dark/sass/ag-theme-alpine-dark.scss";
 .ag-theme-alpine {
@@ -5,7 +8,7 @@
 }
 
 .ag-theme-alpine-dark .ag-row {
-    font-family: Muli, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Mina', "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
 
@@ -37,5 +40,17 @@ $page-path-color: white; // Red 50%
     text-shadow: 0px 0px 2px $page-path-color, 0px 0px 1px $page-path-color;
     color: $page-path-color;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// M A T E R I A L   D I A L O G S
+mat-dialog-container#newpart-component {
+    border: 3px solid #260935;
+    border-radius: 11px;
+    background-color: #1D091A;
+    font-family: 'Mina', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+// .cdk-overlay-pane {
+//     width: 60vw;
+//     height: 80vh;
+// }

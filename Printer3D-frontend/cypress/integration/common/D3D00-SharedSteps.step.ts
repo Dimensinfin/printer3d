@@ -10,6 +10,19 @@ import { V1Dock } from '../../support/page-objects/V1Dock.panel';
 import { V1Feature } from '../../support/page-objects/V1Feature.panel';
 import { GridRow } from '../../support/page-objects/GridRow.panel';
 
+const TITLE_VALIDATION = 'Printer3DFrontend';
+
+Given('the Default Dock Configuration', function () {
+    console.log('[GIVEN] the Default Dock Configuration');
+    cy.clearLocalStorage()
+});
+
+Given('the application Printer3DManager', function () {
+    console.log('[GIVEN] the application Printer3DManager');
+    new IsolationService().doLandingPage(); // Load the landing page.
+    cy.title().should('eq', TITLE_VALIDATION);
+});
+
 Given('the DashboardPage is activated', function () {
     console.log('[GIVEN] the DashboardPage is activated');
     new IsolationService().doLandingPage(); // Start the application to a known point.

@@ -59,7 +59,7 @@ describe('SERVICE AppStoreService [Module: CORE]', () => {
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Dock]', async function () {
         it('fireAccessDockConfiguration.default: get a reference to the Dock configuration Subject', () => {
-            isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION, null);
+            isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, null);
             return service.fireAccessDockConfiguration()
                 .subscribe(function (subject) {
                     const expected = isolationService.directAccessMockResource('/assets/properties/DefaultDockFeatureMap');
@@ -71,7 +71,7 @@ describe('SERVICE AppStoreService [Module: CORE]', () => {
         it('fireAccessDockConfiguration.set: get a reference to the Dock configuration Subject', () => {
             const testConfiguration: Feature[] = [];
             testConfiguration.push(new Feature());
-            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, testConfiguration);
+            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, testConfiguration);
             return service.fireAccessDockConfiguration()
                 .subscribe(function (subject) {
                     const expected = JSON.stringify(testConfiguration);
@@ -83,7 +83,7 @@ describe('SERVICE AppStoreService [Module: CORE]', () => {
         it('fireAccessDockConfiguration.single: get a reference to the Dock configuration Subject', () => {
             const testConfiguration: Feature[] = [];
             testConfiguration.push(new Feature());
-            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, new Feature());
+            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, new Feature());
             return service.fireAccessDockConfiguration()
                 .subscribe(function (subject) {
                     const expected = JSON.stringify(testConfiguration);
@@ -98,12 +98,12 @@ describe('SERVICE AppStoreService [Module: CORE]', () => {
         });
         it('saveDockConfiguration.success: store the new configuration', () => {
             // Save test configuration.
-            isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION, null);
+            isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, null);
             const newConfiguration: Feature[] = [];
             newConfiguration.push(new Feature());
             newConfiguration.push(new Feature());
             service.saveDockConfiguration(newConfiguration);
-            const obtained: Feature[] = JSON.parse(isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION));
+            const obtained: Feature[] = JSON.parse(isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY));
             expect(obtained).toBeDefined();
             expect(obtained.length).toBe(2);
         });

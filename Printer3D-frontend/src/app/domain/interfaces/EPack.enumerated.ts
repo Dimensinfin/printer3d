@@ -4,3 +4,7 @@
 export enum EVariant {
     DEFAULT = '-DEFAULT-'
 }
+export enum EInteraction{
+    DIALOG = 'DIALOG',
+    PAGEROUTE = 'PAGEROUTE' 
+}

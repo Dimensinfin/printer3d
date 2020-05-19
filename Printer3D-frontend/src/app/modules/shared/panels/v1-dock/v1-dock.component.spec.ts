@@ -62,7 +62,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     describe('On Initialization Phase', () => {
         it('ngOnInit.none: validate initial state without constructor', async function () {
             const configuration = [new Feature({ label: '/Inventory', active: false, route: 'inventory' })];
-            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION, configuration);
+            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
             await component.ngOnInit();
             const componentAsAny = component as any;
             expect(componentAsAny.configuredFeatures.length).toBe(1);

@@ -1,0 +1,96 @@
+// - F O R M   I T E M S   &   C O N T R O L S
+$color-border-width: 6px;
+$grey-border-color: #495057;
+$yellow-border-color: #E6E600;
+$form-item-valid: #42A948; // Green
+$form-item-invalid: #A94442; // Red
+.dsf-form-group {
+    margin-bottom: 8px;
+}
+
+.dsf-form-control {
+    font-size: 16px;
+    font-weight: 600;
+    height: auto;
+    line-height: 1.0;
+    padding: 4px;
+}
+
+label {
+    font-weight: 900;
+    font-size: 16px;
+    padding-right: 8px;
+}
+
+.dsf-editable-form-item {
+    border-radius: 6px;
+    border: 1px solid #999999;
+    border-left: $color-border-width solid $yellow-border-color;
+    // display: block;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: $grey-border-color;
+    background-color: white;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: 16px;
+    font-weight: 600;
+    height: auto;
+    line-height: 1.0;
+    font-family: 'Electrolite';
+}
+
+.dsf-editable-form-item:focus {
+    outline-offset: 0px;
+}
+
+.dsf-untouchable-form-item {
+    border: 1px solid #CED4DA;
+    border-left: $color-border-width solid #909090;
+    padding-left: 6px;
+    // display: block;
+    padding: 6px;
+    color: $grey-border-color;
+    background-color: white;
+    background-clip: padding-box;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: 16px;
+    font-weight: 600;
+    height: auto;
+    line-height: 1.0;
+}
+
+.novalidation-form-item {
+    padding-left: 9px;
+}
+
+#centered-container {
+    display: flex;
+    justify-content: center;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+}
+
+// - F O R M   V A L I D A T I O N S
+.ng-valid.required,
+.ng-valid[required] {
+    border-left: $color-border-width solid $form-item-valid; // green
+}
+
+.ng-invalid:not(form) {
+    border-left: $color-border-width solid $form-item-invalid; // red
+}
+
+.no-style .ng-valid {
+    border-left: 1px solid #CCC;
+}
+
+.no-style .ng-invalid {
+    border-left: 1px solid #CCC;
+}

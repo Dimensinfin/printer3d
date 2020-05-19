@@ -1,8 +1,10 @@
 // - DOMAIN
 import { Node } from './node';
 import { PartRecordConverter } from './PartRecord.converter';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 export class PartRecord extends Node {
+    public id : string;
     public label: string;
     public description: string;
     public cost: string = "0.75";
