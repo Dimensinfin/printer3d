@@ -36,7 +36,11 @@
         
         .index-loading {
             text-align: center;
-            font-size: 30px;
+            text-transform: uppercase;
+            text-shadow: 0px 1px 3px #1A53FF, 0px -1px 3px #1A53FF;
+            font-family: 'Electrolize', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
             color: #1A53FF;
             margin-top: 64px;
         }
@@ -50,7 +54,11 @@
 
 <body>
     <app-root>
-        <div class="index-loading">···LOADING···<br>v0.1.0</div>
+        <div class="index-loading">
+            <span style="border: 2px solid #1A53FF; padding: 10px; padding-left: 16px; padding-right: 16px">
+                <span>· · · LOADING · · ·</span><span style="margin-left: 20px;">v0.1.0</span>
+            </span>
+        </div>
     </app-root>
 </body>
 

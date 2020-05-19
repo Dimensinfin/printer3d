@@ -27,14 +27,14 @@ export class InventoryPartListPageComponent implements OnInit {
     public ngOnInit(): void {
         this.columnDefs = [
             new GridColumn({ headerName: 'Label', field: 'label', sortable: true, checkboxSelection: true, width: 200 }),
-            new GridColumn({ headerName: 'Description', field: 'description', sortable: true, width: 600 }),
+            new GridColumn({ headerName: 'Description', field: 'description', sortable: true, width: 650 }),
             new GridColumn({ headerName: 'BuildTime', field: 'buildTime', sortable: true, filter: true, width: 150 }),
             // new GridColumn({ headerName: 'Affinity', field: 'affinity', sortable: false, width: 150 }),
             new GridColumn({ headerName: 'Stock Level', field: 'stockLevel', sortable: true, width: 150 }),
             new GridColumn({ headerName: 'Colours', field: 'colours', sortable: true, width: 100 }),
             new GridColumn({ headerName: 'Cost', field: 'cost', sortable: true, width: 120 }),
-            new GridColumn({ headerName: 'PVP', field: 'pvp', sortable: true, width: 120 }),
-            new GridColumn({ headerName: 'Active', field: 'active', sortable: true, width: 80 })
+            new GridColumn({ headerName: 'PVP', field: 'pvp', sortable: true, width: 100 })
+            // new GridColumn({ headerName: 'Active', field: 'active', sortable: true, width: 80 })
         ];
         // this.rowData.push(new PartRecord(DEFAULT_PART_RECORD));
         // Read row data from the assets mock data.
