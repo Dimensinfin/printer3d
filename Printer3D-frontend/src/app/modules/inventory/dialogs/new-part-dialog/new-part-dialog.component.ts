@@ -22,8 +22,6 @@ export class NewPartDialogComponent implements OnInit {
     public downloading: boolean = true;
     public development: boolean = false;
     public part: PartRecord = new PartRecord();
-    public label: string = 'JJJ';
-    private modalDialog: string;
 
     constructor(
         public dialogRef: MatDialogRef<NewPartDialogComponent>,

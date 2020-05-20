@@ -60,7 +60,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
 
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
-        it('ngOnInit.none: validate initial state without constructor', async function () {
+        it('ngOnInit.none: validate initialization flow', async function () {
             const configuration = [new Feature({ label: '/Inventory', active: false, route: 'inventory' })];
             isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
             await component.ngOnInit();

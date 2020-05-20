@@ -7,6 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 // - MATERIAL
 import { MatDialogConfig } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
@@ -25,12 +26,12 @@ export class DialogFactoryService {
                 break;
         }
     }
-    private openModal(dialogComponent: any) {
+    private openModal(dialogComponent: any) :void{
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.id = "newpart-component";
         dialogConfig.height = "80vh";
         dialogConfig.width = "60vw";
-        const modalDialog = this.matDialog.open(dialogComponent, dialogConfig);
+        const modalDialog: MatDialogRef<NewPartDialogComponent> = this.matDialog.open(dialogComponent, dialogConfig);
     }
 }
