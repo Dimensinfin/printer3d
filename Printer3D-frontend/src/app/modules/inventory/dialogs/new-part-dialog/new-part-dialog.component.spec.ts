@@ -6,7 +6,7 @@ import { platformconstants } from '../../../../platform/platform-constants';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 // - MATERIAL
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 // - TESTING
@@ -29,18 +29,13 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { NewPartDialogComponent } from './new-part-dialog.component';
-import { SupportMatDialogRef } from '@app/testing/SupporMatDialogRef.component';
 
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 // import {MatDialogRefHarness} from '@angular/material/dialog/testing';
 
-fdescribe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
+describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
     let component: NewPartDialogComponent;
     let isolationService: SupportIsolationService;
-    
-    // const dialogFactory = new MatDialog();
-    const dialogReference = new SupportMatDialogRef<NewPartDialogComponent>();
-    let loader: HarnessLoader;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -48,14 +43,15 @@ fdescribe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             imports: [
                 RouterTestingModule.withRoutes(routes),
                 ReactiveFormsModule,
-                FormsModule
+                FormsModule,
+                MatDialogModule
             ],
             declarations: [
                 NewPartDialogComponent
             ],
             providers: [
-                { provide: MatDialog, useValue: {} },
-                { provide: MatDialogRef, useValue: { dialogReference } },
+                // { provide: MatDialog, useValue: {} },
+                { provide: MatDialogRef, useValue: { close: (dialogResult: any) => { } } },
                 { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: AppStoreService, useClass: SupportAppStoreService }
             ]
@@ -63,8 +59,9 @@ fdescribe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
 
         const fixture = TestBed.createComponent(NewPartDialogComponent);
         component = fixture.componentInstance;
-        loader = TestbedHarnessEnvironment.loader(fixture);
+        // loader = TestbedHarnessEnvironment.loader(fixture);
         isolationService = TestBed.get(IsolationService);
+        fixture.detectChanges();
     }));
 
     // - C O N S T R U C T I O N   P H A S E
@@ -79,26 +76,22 @@ fdescribe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
 
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
-        it('ngOnInit.notPreviousPart: validate initialization flow', async function () {
+        it('ngOnInit.notPreviousPart: validate initialization flow', async () => {
             isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY);
-            expect(component.part.id).toBeUndefined('Empty Part should have no id.');
-            // const configuration = [new Feature({ label: '/Inventory', active: false, route: 'inventory' })];
-            // isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
-            await component.ngOnInit();
+            console.log(JSON.stringify(component.part));
             expect(component.part.id).toBeDefined('Empty Part should have id.');
+            // await component.ngOnInit();
         });
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    fdescribe('Code Coverage Phase [Methods]', () => {
+    describe('Code Coverage Phase [Methods]', () => {
         it('closeModal: start closing the dialog', async () => {
-            const matDialog: MatDialogHarness = await loader.getHarness(MatDialogHarness);
-            const modalDialogRef: MatDialogRef<NewPartDialogComponent> = matDialog.open(dialogComponent, dialogConfig);
-
-            component = new NewPartDialogComponent(matDialog, null);
-            spyOn(dialogReference, 'close');
+            const componentAsAny = component as any;
+            spyOn(componentAsAny.dialogRef, 'close');
+            expect(componentAsAny.dialogRef).toBeDefined();
             component.closeModal();
-            expect(dialogReference.close).toHaveBeenCalled();
+            expect(componentAsAny.dialogRef.close).toHaveBeenCalled();
         });
     });
 });

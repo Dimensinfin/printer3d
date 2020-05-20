@@ -28,6 +28,7 @@ export class NewPartDialogComponent implements OnInit {
         private isolationService: IsolationService) { }
 
     public ngOnInit(): void {
+        console.log('><[NewPartDialogComponent.ngOnInit]')
         // If there is no previous pending part then initialize a new one with default values but new ID.
         const pendingPart = this.isolationService.getFromStorage(platformconstants.PARTIAL_PART_KEY);
         if (null == pendingPart) this.part.id = uuidv4();

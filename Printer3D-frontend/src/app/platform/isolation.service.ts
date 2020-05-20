@@ -1,7 +1,7 @@
 // - CORE
 import { Injectable } from '@angular/core';
 import { Inject } from '@angular/core';
-// - WEBSTORAGE
+// - STORAGE
 import { LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { SESSION_STORAGE } from 'ngx-webstorage-service';
 import { StorageService } from 'ngx-webstorage-service';

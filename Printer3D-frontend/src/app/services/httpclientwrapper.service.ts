@@ -25,10 +25,10 @@ export class HttpClientWrapperService {
      * @param  request [description]
      * @return         [description]
      */
-    public wrapHttpGETCall(_request: string, _requestHeaders?: HttpHeaders): Observable<any> {
-        console.log("><[HttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
-        let newheaders = this.wrapHttpSecureHeaders(_requestHeaders);
-        return this.http.get(_request, { headers: newheaders });
+    public wrapHttpGETCall(request: string, requestHeaders?: HttpHeaders): Observable<any> {
+        console.log("><[HttpClientWrapperService.wrapHttpGETCall]> request: " + request);
+        let newheaders = this.wrapHttpSecureHeaders(requestHeaders);
+        return this.http.get(request, { headers: newheaders });
     }
     /**
      * Reads a JSON formatted resource. There is no specific convertion to a types class and so can be done on the caller method.
@@ -48,7 +48,7 @@ export class HttpClientWrapperService {
      * @returns {HttpHeaders}
      * @memberof BackendService
      */
-    protected wrapHttpSecureHeaders(_requestHeaders?: HttpHeaders): HttpHeaders {
+    protected wrapHttpSecureHeaders(requestHeaders?: HttpHeaders): HttpHeaders {
         let headers = new HttpHeaders()
             .set('Content-Type', 'application/json; charset=utf-8')
             .set('xApp-Name', environment.appName)
@@ -56,9 +56,9 @@ export class HttpClientWrapperService {
             .set('xApp-Platform', environment.platform)
             .set('xApp-Signature', 'S0000.0016.0001')
             .set('xApp-Signature', 'S0000.0019.0001');
-        if (null != _requestHeaders) { // Copy in additional headers.
-            for (let key of _requestHeaders.keys()) {
-                headers = headers.set(key, _requestHeaders.get(key));
+        if (null != requestHeaders) { // Copy in additional headers.
+            for (let key of requestHeaders.keys()) {
+                headers = headers.set(key, requestHeaders.get(key));
             }
         }
         return headers;

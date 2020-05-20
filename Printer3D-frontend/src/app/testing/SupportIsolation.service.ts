@@ -94,12 +94,12 @@ export class SupportIsolationService {
         titleClass: 'notifier-title',
         animate: 'slideFromLeft'
     };
-    public successNotification(_message: string, _title?: string, _options?: any): void {
+    public successNotification(message: string, title?: string, options?: any): void {
     }
-    public errorNotification(_message: string, _title?: string, _options?: any): void {
+    public errorNotification(message: string, title?: string, options?: any): void {
     }
-    public warningNotification(_message: string, _title?: string, _options?: any): void {
+    public warningNotification(message: string, title?: string, options?: any): void {
     }
-    public infoNotification(_message: string, _title?: string, _options?: any): void {
+    public infoNotification(message: string, title?: string, options?: any): void {
     }
 }

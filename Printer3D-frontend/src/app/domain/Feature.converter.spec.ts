@@ -1,4 +1,4 @@
-import { FeatureConverter } from './feature-converter';
+import { FeatureConverter } from './Feature.converter';
 
 describe('FeatureConverter', () => {
   it('should create an instance', () => {

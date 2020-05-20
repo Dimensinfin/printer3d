@@ -7,7 +7,7 @@
 #   module of the project.
 version: 2.1
 jobs:
-  build-frontend-job:
+  install-frontend-job:
     docker:
       - image: circleci/node:latest
     environment:
@@ -27,26 +27,39 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - printer3d-frontend-
       - run:
-          name: Validate node version in use
+          name: Validate node version in use and install
           working_directory: Printer3D-frontend
           command: |
             echo '>> Printer3D - frontend: Start Continuous Integration'
             node -v
-      - run:
-          name: Build the deploy version for the frontend
-          working_directory: Printer3D-frontend
-          command: |
-            npm run build:prod
+            npm install
       - save_cache:
           paths:
             - ~/Printer3D-frontend/node_modules
             - ~/Printer3D-frontend/deploy
           key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+  build-frontend-job:
+    docker:
+      - image: circleci/node:latest
+    environment:
+      # Customize the environment values to use on the jobs
+      PORT: 5100
+    steps:
+      - run:
+          name: Build the deploy version for the frontend
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:prod
 
 workflows:
   version: 2
   Printer3D-Frontend-Build:
     jobs:
+      - install-frontend-job:
+          filters:
+            branches:
+              only:
+                - development
       - build-frontend-job:
           filters:
             branches:
