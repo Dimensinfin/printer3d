@@ -1,0 +1,6 @@
+# - IntelliJ configuration files ignorable
+.idea/workspace.xml
+.idea/sonarlint
+
+# - Build and compilation ignorable files
+.gradle/
