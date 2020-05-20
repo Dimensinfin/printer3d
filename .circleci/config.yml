@@ -61,6 +61,8 @@ workflows:
               only:
                 - development
       - build-frontend-job:
+          requires:
+            - install-frontend-job
           filters:
             branches:
               only:
