@@ -1,4 +1,4 @@
-package org.dimensinfin;
+package org.dimensinfin.printer3d.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

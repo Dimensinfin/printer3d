@@ -1,4 +1,4 @@
-/*
+package org.dimensinfin.printer3d.client;/*
  * 3D Printer Queue Management API
  * # Summary This is the OpenApi specification active and matching the latest published backend application version seen on the Heroku Production servers. This API defines all the client REST endpoints public and available to other systems. The API definition follows the OpenApi 3.0 specification and there are provisioning for automatic code generation for this API clients. The current API specification matches the Printer3D backend system published with version **0.2.0**. # API Description The API will expose the next list of entities: * **Part** - This is the definition of an item that can be sold independently. The Part is the view side from the 3D printer stand view. Parts define a tiem slot use of the 3D printer and have some cost and price attached. * ** Inventory** - This is the list of Parts declared on the system. Used as the base point to calculate stocks and generate the list of print jobs. 
  *
@@ -12,20 +12,15 @@
 
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
+
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
+
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+
 import java.util.UUID;
-import org.dimensinfin.printer3d.backend.domain.ColorCode;
 
 /**
- * PartRequest
+ * org.dimensinfin.printer3d.client.PartRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-21T12:43:09.826610+02:00[Europe/Madrid]")
 public class PartRequest {
@@ -211,7 +206,7 @@ public class PartRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PartRequest {\n");
+    sb.append("class org.dimensinfin.printer3d.client.PartRequest {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    label: ").append(toIndentedString(label)).append("\n");

@@ -4,13 +4,16 @@ info:
   title: 3D Printer Queue Management API
   description: >
     # Summary
-    This is the OpenApi specification active and matching the latest published backend application version seen on the Heroku Production servers.
+
+    ### This is the OpenApi specification active and matching the latest published backend application version seen on the Heroku Production servers.
     This API defines all the client REST endpoints public and available to other systems. The API definition follows the OpenApi 3.0 specification
     and there are provisioning for automatic code generation for this API clients.
 
+    ##
     The current API specification matches the Printer3D backend system published with version **0.2.0**.
 
     # API Description
+
     The API will expose the next list of entities:
 
     * **Part** - This is the definition of an item that can be sold independently. The Part is the view side from the 3D printer stand view. Parts
@@ -53,7 +56,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PartRequest'
+              $ref: '#/components/schemas/Part'
       responses:
         201:
           description: >
@@ -115,7 +118,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PartRequest'
+              $ref: '#/components/schemas/Part'
       responses:
         200:
           description: >
@@ -127,62 +130,62 @@ paths:
 
 components:
   schemas:
-    PartRequest:
-      type: object
-      required:
-        - id
-        - label
-        - colorCode
-        - cost
-        - price
-        - active
-      properties:
-        id:
-          $ref: '#/components/schemas/UUID'
-          description: >
-            This is a frontend generated unique uuid assigned when the Part is created. It cannot be changed on the Part lifecycle and it is used
-            as the single unique identifier to deal with the Part or its derivatives.
-          example:
-            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
-        label:
-          type: string
-          format: string
-          minLength: 3
-          maxLength: 50
-          description: >
-            It is a human readable label to identify the product. It is a product code but that it usually it is not unique since the same part
-            desing can be used with different finishings or colours. Cannot be changed for the lifetime of the Part and it is keyed by the user at
-            the front end interface.
-          example:
-            'Covid-19 Key'
-        description:
-          type: string
-          format: string
-          maxLength: 500
-          description: >
-            A user description of the part. It is useful but it is not mandatory.
-        colorCode:
-          $ref: '#/components/schemas/ColorCode'
-        cost:
-          type: number
-          format: float
-          description: >
-            Cost estimated value in Euros with two decimals.
-          example:
-            0.85
-        price:
-          type: number
-          format: float
-          description: >
-            The requested catalog price for this Part. This price includes IVA so on bills real price should be recalculated.
-          example:
-            4.00
-        active:
-          type: boolean
-          default: true
-          description: >
-            This flag is used to mark out disabled parts. Parts that are obsolete and no longer should be build are not deleted but just disabled
-            with this flag. Disable status can be reverted editing the part.
+    #    PartRequest:
+    #      type: object
+    #      required:
+    #        - id
+    #        - label
+    #        - colorCode
+    #        - cost
+    #        - price
+    #        - active
+    #      properties:
+    #        id:
+    #          $ref: '#/components/schemas/UUID'
+    #          description: >
+    #            This is a frontend generated unique uuid assigned when the Part is created. It cannot be changed on the Part lifecycle and it is used
+    #            as the single unique identifier to deal with the Part or its derivatives.
+    #          example:
+    #            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+    #        label:
+    #          type: string
+    #          format: string
+    #          minLength: 3
+    #          maxLength: 50
+    #          description: >
+    #            It is a human readable label to identify the product. It is a product code but that it usually it is not unique since the same part
+    #            desing can be used with different finishings or colours. Cannot be changed for the lifetime of the Part and it is keyed by the user at
+    #            the front end interface.
+    #          example:
+    #            'Covid-19 Key'
+    #        description:
+    #          type: string
+    #          format: string
+    #          maxLength: 500
+    #          description: >
+    #            A user description of the part. It is useful but it is not mandatory.
+    #        colorCode:
+    #          $ref: '#/components/schemas/ColorCode'
+    #        cost:
+    #          type: number
+    #          format: float
+    #          description: >
+    #            Cost estimated value in Euros with two decimals.
+    #          example:
+    #            0.85
+    #        price:
+    #          type: number
+    #          format: float
+    #          description: >
+    #            The requested catalog price for this Part. This price includes IVA so on bills real price should be recalculated.
+    #          example:
+    #            4.00
+    #        active:
+    #          type: boolean
+    #          default: true
+    #          description: >
+    #            This flag is used to mark out disabled parts. Parts that are obsolete and no longer should be build are not deleted but just disabled
+    #            with this flag. Disable status can be reverted editing the part.
     Part:
       type: object
       required:

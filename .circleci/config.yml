@@ -36,7 +36,6 @@ jobs:
       - save_cache:
           paths:
             - ~/Printer3D-frontend/node_modules
-            - ~/Printer3D-frontend/deploy
           key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
   build-frontend-job:
     docker:
@@ -45,11 +44,21 @@ jobs:
       # Customize the environment values to use on the jobs
       PORT: 5100
     steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - printer3d-frontend-
       - run:
           name: Build the deploy version for the frontend
           working_directory: Printer3D-frontend
           command: |
             npm run build:prod
+      - save_cache:
+          paths:
+            - ~/Printer3D-frontend/deploy
+          key: printer3d-frontend-deploy
 
 workflows:
   version: 2
@@ -59,7 +68,7 @@ workflows:
           filters:
             branches:
               only:
-                - development
+                - experimental
       - build-frontend-job:
           requires:
             - install-frontend-job
