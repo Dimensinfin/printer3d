@@ -4,3 +4,7 @@
 
 # - Build and compilation ignorable files
 .gradle/
+build/
+out/
+target/
+

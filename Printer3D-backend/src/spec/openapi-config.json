@@ -1,0 +1,9 @@
+{
+  "apiPackage" : "org.dimensinfin.printer3d.backend.api",
+  "modelPackage" :  "org.dimensinfin.printer3d.backend.domain",
+  "invokerPackage" :  "org.dimensinfin.printer3d.backend.client",
+  "groupId" : "org.dimensinfin.printer3d.backend",
+  "artifactId" : "printer3d.client",
+  "artifactVersion" : "0.2.0",
+  "library" : "retrofit2"
+}

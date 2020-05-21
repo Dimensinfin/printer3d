@@ -1,0 +1,62 @@
+package org.dimensinfin.printer3d.client.part.v1;
+
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import okhttp3.MultipartBody;
+
+import java.util.UUID;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.dimensinfin.printer3d.client.PartRequest;
+
+public interface PartsApiV1 {
+  /**
+   * Create a new Part from the data on the request.
+   * The Printer3D user interface should have requested the Part contents to the user. This endpoint should validate all the fields against the validation requirements and create a new record on the Inventory repository for the new Part. 
+   * @param partRequest Contains the Part fields to be used to create a new Part record at the repository.
+ (optional)
+   * @return Call&lt;Part&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("api/v1/parts")
+  Call<Part> newPart(
+    @Body PartRequest partRequest
+  );
+
+  /**
+   * Get the list of Parts persisted at the Inventory repository.
+   * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the active Parts. 
+   * @param active Allows the selection or filtering for not active Parts. By default all active parts are retrieved. (optional, default to false)
+   * @return Call&lt;PartList&gt;
+   */
+  @GET("api/v1/parts")
+  Call<PartList> partList(
+    @Query("active") Boolean active
+  );
+
+  /**
+   * Update an alrady existing Part. Only some of the firlds are allowed for update. The rest of the fields are ignored.
+   * Process a request to update an existing Part on the repository by giving the new field contents. Only the allowed modifiable contents are processed and the other fields are ignored. 
+   * @param partId The unique id (uuid) for the Part to be edited. (required)
+   * @param partRequest The new contents for the Part record.
+ (optional)
+   * @return Call&lt;PartList&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PATCH("api/v1/parts/{partId}")
+  Call<PartList> updatePart(
+		  @Path("partId") UUID partId, @Body PartRequest partRequest
+  );
+
+}

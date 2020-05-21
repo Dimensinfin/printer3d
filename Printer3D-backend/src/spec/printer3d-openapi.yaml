@@ -1,0 +1,277 @@
+---
+openapi: 3.0.0
+info:
+  title: 3D Printer Queue Management API
+  description: >
+    # Summary
+    This is the OpenApi specification active and matching the latest published backend application version seen on the Heroku Production servers.
+    This API defines all the client REST endpoints public and available to other systems. The API definition follows the OpenApi 3.0 specification
+    and there are provisioning for automatic code generation for this API clients.
+
+    The current API specification matches the Printer3D backend system published with version **0.2.0**.
+
+    # API Description
+    The API will expose the next list of entities:
+
+    * **Part** - This is the definition of an item that can be sold independently. The Part is the view side from the 3D printer stand view. Parts
+    define a tiem slot use of the 3D printer and have some cost and price attached.
+    * ** Inventory** - This is the list of Parts declared on the system. Used as the base point to calculate stocks and generate the list of print
+    jobs.
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.2.0
+servers:
+  - url: https://printerd-backend.herokuapp.com
+    description: OpenAPI 0.1.0 for 3D Printer Queue Management Backend Service
+
+tags:
+  ### I N V E N T O R Y
+  - name: Inventory
+    description: >
+      The API section that manages Inventory contents. This cover Part creation and expiration and request fulfillment and query filters.
+  ### P U B L I C   E N D P O I N T S
+  - name: Parts
+    description: >
+      The Part creation, update and general management endpoints.
+
+paths:
+  ### P A R T S
+  /api/v1/parts:
+    post:
+      tags:
+        - Parts
+      summary: Create a new Part from the data on the request.
+      description: >
+        The Printer3D user interface should have requested the Part contents to the user. This endpoint should validate all the fields against the
+        validation requirements and create a new record on the Inventory repository for the new Part.
+      operationId: newPart
+      requestBody:
+        description: >
+          Contains the Part fields to be used to create a new Part record at the repository.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartRequest'
+      responses:
+        201:
+          description: >
+            The new Part as stored at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Part'
+    get:
+      tags:
+        - Parts
+      summary: Get the list of Parts persisted at the Inventory repository.
+      description: >
+        Get the complete list of <b>Parts</b> persisted at the Inventory repository. If the active filter is active retrieve only the active Parts.
+      operationId: partList
+      parameters:
+        - in: query
+          name: active
+          required: false
+          style: form
+          explode: false
+          description: Allows the selection or filtering for not active Parts. By default all active parts are retrieved.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          description: >
+            The list of Parts persisted at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartList'
+
+  /api/v1/parts/{partId}:
+    patch:
+      tags:
+        - Parts
+      summary: Update an alrady existing Part. Only some of the firlds are allowed for update. The rest of the fields are ignored.
+      description: >
+        Process a request to update an existing Part on the repository by giving the new field contents. Only the allowed modifiable contents are
+        processed and the other fields are ignored.
+      operationId: updatePart
+      parameters:
+        - in: path
+          name: partId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) for the Part to be edited.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      requestBody:
+        description: >
+          The new contents for the Part record.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartRequest'
+      responses:
+        200:
+          description: >
+            The new list of Parts at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartList'
+
+components:
+  schemas:
+    PartRequest:
+      type: object
+      required:
+        - id
+        - label
+        - colorCode
+        - cost
+        - price
+        - active
+      properties:
+        id:
+          $ref: '#/components/schemas/UUID'
+          description: >
+            This is a frontend generated unique uuid assigned when the Part is created. It cannot be changed on the Part lifecycle and it is used
+            as the single unique identifier to deal with the Part or its derivatives.
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+        label:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 50
+          description: >
+            It is a human readable label to identify the product. It is a product code but that it usually it is not unique since the same part
+            desing can be used with different finishings or colours. Cannot be changed for the lifetime of the Part and it is keyed by the user at
+            the front end interface.
+          example:
+            'Covid-19 Key'
+        description:
+          type: string
+          format: string
+          maxLength: 500
+          description: >
+            A user description of the part. It is useful but it is not mandatory.
+        colorCode:
+          $ref: '#/components/schemas/ColorCode'
+        cost:
+          type: number
+          format: float
+          description: >
+            Cost estimated value in Euros with two decimals.
+          example:
+            0.85
+        price:
+          type: number
+          format: float
+          description: >
+            The requested catalog price for this Part. This price includes IVA so on bills real price should be recalculated.
+          example:
+            4.00
+        active:
+          type: boolean
+          default: true
+          description: >
+            This flag is used to mark out disabled parts. Parts that are obsolete and no longer should be build are not deleted but just disabled
+            with this flag. Disable status can be reverted editing the part.
+    Part:
+      type: object
+      required:
+        - id
+        - label
+        - colorCode
+        - cost
+        - price
+        - active
+      properties:
+        id:
+          $ref: '#/components/schemas/UUID'
+          description: >
+            This is a frontend generated unique uuid assigned when the Part is created. It cannot be changed on the Part lifecycle and it is used
+            as the single unique identifier to deal with the Part or its derivatives.
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+        label:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 50
+          description: >
+            It is a human readable label to identify the product. It is a product code but that it usually it is not unique since the same part
+            desing can be used with different finishings or colours. Cannot be changed for the lifetime of the Part and it is keyed by the user at
+            the front end interface.
+          example:
+            'Covid-19 Key'
+        description:
+          type: string
+          format: string
+          maxLength: 500
+          description: >
+            A user description of the part. It is useful but it is not mandatory.
+        colorCode:
+          $ref: '#/components/schemas/ColorCode'
+        cost:
+          type: number
+          format: float
+          description: >
+            Cost estimated value in Euros with two decimals.
+          example:
+            0.85
+        price:
+          type: number
+          format: float
+          description: >
+            The requested catalog price for this Part. This price includes IVA so on bills real price should be recalculated.
+          example:
+            4.00
+        active:
+          type: boolean
+          default: true
+          description: >
+            This flag is used to mark out disabled parts. Parts that are obsolete and no longer should be build are not deleted but just disabled
+            with this flag. Disable status can be reverted editing the part.
+    PartList:
+      type: object
+      required:
+        - count
+        - parts
+      properties:
+        count:
+          type: number
+          format: int32
+          description: >
+            The number of parts that follow on the response.
+          example:
+            8
+        parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Part'
+    ColorCode:
+      type: string
+      enum:
+        - GRN
+        - RED
+        - PK
+        - LB
+        - BL
+        - GR
+      description: >
+        It is a shorl color code to be appended to the label for part identification. For the machine build job and the stock the color is a
+        most important element since differentiates to identical parts at the model level.
+    UUID:
+      type: string
+      format: uuid
+      description: UUID version 4 unique random identifier
+      pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+      example:
+        4e7001ee-6bf5-40b4-9c15-61802e4c59ea
