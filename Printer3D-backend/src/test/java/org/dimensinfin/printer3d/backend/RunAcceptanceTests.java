@@ -1,4 +1,4 @@
-package org.innovative.dimension.innodental.backend;
+package org.dimensinfin.printer3d.backend;
 
 import org.junit.runner.RunWith;
 
@@ -10,7 +10,7 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 @CucumberOptions(
 		features = { "src/test/resources/features" },
 		snippets= CAMELCASE,
-		glue = { "org.innovative.dimension.innodental.backend.steps" },
+		glue = { "org.dimensinfin.printer3d.backend.steps" },
 		plugin = { "pretty", "json:target/cucumber_report.json" },
-		tags = { "not @skip_scenario", "not @front", "not @duplication", "@ID02.H" })
+		tags = { "not @skip_scenario", "not @front", "not @duplication", "@P3D01.01" })
 public class RunAcceptanceTests {}

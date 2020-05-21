@@ -1,29 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 0_0_2_001_printer3d_inventory_defaults
-      author: Adam Antinoo (adamantinoo.git@gmail.com)
-      changes:
-        - addDefaultValue:
-            schemaName: printer3d
-            tableName: inventory
-            columnDataType: boolean
-            columnName: active
-            defaultValueBoolean: true
-        - addDefaultValue:
-            schemaName: printer3d
-            tableName: inventory
-            columnDataType: float
-            columnName: price
-            defaultValueNumber: 0.0
-        - addDefaultValue:
-            schemaName: printer3d
-            tableName: inventory
-            columnDataType: float
-            columnName: cost
-            defaultValueNumber: 0.0
-
-  - changeSet:
-      id: 0_0_2_002_printer3d_create_inventory_table
+      id: 0_0_2_001_printer3d_create_inventory_table
       author: Adam Antinoo (adamantinoo.git@gmail.com)
       changes:
         - createTable:
@@ -67,3 +44,27 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     updatable: true
+
+  - changeSet:
+      id: 0_0_2_002_printer3d_inventory_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: boolean
+            columnName: active
+            defaultValueBoolean: true
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: float
+            columnName: price
+            defaultValueNumeric: 0.0
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: float
+            columnName: cost
+            defaultValueNumeric: 0.0
+

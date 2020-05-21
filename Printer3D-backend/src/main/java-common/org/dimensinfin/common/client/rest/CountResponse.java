@@ -5,8 +5,10 @@ import java.util.Objects;
 public class CountResponse {
 	private int records;
 
+	// - C O N S T R U C T O R S
 	private CountResponse() {}
 
+	// - G E T T E R S   &   S E T T E R S
 	public int getRecords() {
 		return this.records;
 	}
@@ -15,6 +17,7 @@ public class CountResponse {
 	public static class Builder {
 		private CountResponse onConstruction;
 
+		// - C O N S T R U C T O R S
 		public Builder() {
 			this.onConstruction = new CountResponse();
 		}

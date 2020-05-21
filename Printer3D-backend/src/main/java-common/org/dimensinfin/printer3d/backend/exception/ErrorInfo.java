@@ -10,26 +10,14 @@ import org.springframework.http.HttpStatus;
  */
 public enum ErrorInfo {
 	RUNTIME_INTERNAL_ERROR( HttpStatus.INTERNAL_SERVER_ERROR,
-			"innnodental.exception.runtime",
+			"dimensinfin.printer3d.exception.runtime",
 			"{0}" ),
 	INVALID_REQUEST_STRUCTURE( HttpStatus.BAD_REQUEST,
-			"innnodental.exception.request.validation",
+			"dimensinfin.printer3d.exception.request.validation",
 			"The request is not valid. {0}" ),
-	CITA_NOT_FOUND( HttpStatus.NOT_FOUND,
-			"innnodental.persistence.notfound",
-			"The requested cita with id [{0}] is not found at the repository." ),
-	CENTRO_NOT_FOUND( HttpStatus.NOT_FOUND,
-			"innnodental.persistence.notfound",
-			"The requested Centro with id [{0}] is not found at the repository." ),
-	CENTRO_STORE_REPOSITORY_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
-			"innnodental.persistence.sql.error",
-			"There is an SQL error on the Centros repository. {0}. Cause: {1}" ),
-	CENTRO_ALREADY_EXISTS(HttpStatus.CONFLICT,
-			"innnodental.persistence.already.exists",
-			"The Centro [{0}] already exists. Use the Update endpoint."),
-	MEDICO_STORE_REPOSITORY_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
-			"innnodental.persistence.sql.error",
-					"There is an SQL error on the Medicos repository. {0}. Cause: {1}" );
+	INVENTORY_STORE_REPOSITORY_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
+			"dimensinfin.printer3d.persistence.sql.error",
+					"There is an SQL error on the Inventory repository. {0}. Cause: {1}" );
 
 	public final HttpStatus status;
 	public final String errorCode;
