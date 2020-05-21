@@ -7,6 +7,29 @@
 #   module of the project.
 version: 2.1
 jobs:
+  start-job:
+    docker:
+      - image: circleci/node:latest
+      - image: circleci/openjdk:11-jdk
+      - image: circleci/postgres:11.1
+        environment:
+          POSTGRES_DB: prnter3d_ci
+          POSTGRES_USER: printer3d-user
+          POSTGRES_PASSWORD: printer3d-password
+    steps:
+      - run:
+          name: Start-Frontend Environment Validation
+          command: |
+            node -v
+      - run:
+          name: Start-Backend Environment Validation
+          command: |
+            ./gradlew -version
+      - run:
+          name: Start-Backend Support Validation
+          command: |
+            echo "... Pending to get the running postgres database."
+
   install-frontend-job:
     docker:
       - image: circleci/node:latest
@@ -62,10 +85,6 @@ jobs:
   build-backend-job:
     docker:
       - image: circleci/openjdk:11-jdk
-      - image: circleci/PostgreSQL:latest
-    environment:
-      # Customize the environment values to use on the jobs
-      PORT: 5110
     steps:
       - checkout
       - restore_cache:
@@ -86,12 +105,56 @@ jobs:
           paths:
             - ~/Printer3D-backend/build
           key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+  start-support-backend-job:
+    docker:
+      - image: circleci/openjdk:11-jdk
+      - image: circleci/postgres:11.1
+    environment:
+      # Customize the environment values to use on the jobs
+      PORT: 5110
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+            - printer3d-backend-
+      - run:
+          name: BACKEND - Support checks
+          working_directory: Printer3D-backend
+          command: |
+            echo "... Print a api simulator test."
+  backend-test-job:
+    docker:
+      - image: circleci/openjdk:11-jdk
+      - image: circleci/postgres:11.1
+    environment:
+      # Customize the environment values to use on the jobs
+      PORT: 5110
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+            - printer3d-backend-
+      - run:
+          name: BACKEND - Run unit tests + Acceptance
+          working_directory: Printer3D-backend
+          command: |
+            ./gradlew test
 
 workflows:
   version: 2
-  Printer3D-Frontend-Build:
+  printer3d-deploy:
     jobs:
+      - start-job:
+          filters:
+            branches:
+              only:
+                - experimental
+                - development
       - install-frontend-job:
+          requires:
+            - start-job
           filters:
             branches:
               only:
@@ -104,6 +167,22 @@ workflows:
               only:
                 - development
       - build-backend-job:
+          requires:
+            - start-job
+          filters:
+            branches:
+              only:
+                - development
+      - start-support-backend-job:
+          requires:
+            - build-backend-job
+          filters:
+            branches:
+              only:
+                - development
+      - backend-test-job:
+          requires:
+            - start-support-backend-job
           filters:
             branches:
               only:

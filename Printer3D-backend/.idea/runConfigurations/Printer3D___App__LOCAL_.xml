@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Printer3D - App [LOCAL]" type="Application" factoryName="Application">
+    <envs>
+      <env name="PORT" value="5110" />
+      <env name="JDBC_DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5432/postgres" />
+      <env name="DB_USER" value="inno-user" />
+      <env name="DB_PASSWORD" value="inno-password" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="org.dimensinfin.printer3d.backend.Printer3DApplication" />
+    <module name="printer3d-backend.main" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=local" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

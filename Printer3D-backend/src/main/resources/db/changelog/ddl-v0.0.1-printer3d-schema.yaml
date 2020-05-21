@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_0_1_001_create_schema_printer3d
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - sql:
+            sql: CREATE SCHEMA IF NOT EXISTS "printer3d"

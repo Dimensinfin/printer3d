@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_0_2_001_printer3d_inventory_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: boolean
+            columnName: active
+            defaultValueBoolean: true
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: float
+            columnName: price
+            defaultValueNumber: 0.0
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: float
+            columnName: cost
+            defaultValueNumber: 0.0
+
+  - changeSet:
+      id: 0_0_2_002_printer3d_create_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createTable:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: label
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: description
+                  type: varchar(500)
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: cost
+                  type: float
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: price
+                  type: float
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: active
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    updatable: true

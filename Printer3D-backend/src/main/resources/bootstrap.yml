@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: printer3d
+server:
+  name: dimensinfin.printer3d.backend
