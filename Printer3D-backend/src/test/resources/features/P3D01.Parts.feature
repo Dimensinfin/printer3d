@@ -9,14 +9,14 @@ Feature: Manage the Parts on the Inventory repository
   @P3D01.H @P3D01.01
   Scenario: [P3D01.01] Validate the creation of a new Part with the data received.
     Given a clean Inventory repository
-    And the next NewPart request
-      | id                                   | label        | colorCode | cost | price |active|
-      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  |true  |
-    When the New Part request is processed
-    Then there is a valid response with return code of "201 CREATED"
-    And the response for new Part has the next fields
-      | id                                   | label        | colorCode | cost | price |active|
-      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  |true  |
+#    And the next NewPart request
+#      | id                                   | label        | colorCode | cost | price |active|
+#      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  |true  |
+#    When the New Part request is processed
+#    Then there is a valid response with return code of "201 CREATED"
+#    And the response for new Part has the next fields
+#      | id                                   | label        | colorCode | cost | price |active|
+#      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  |true  |
 
 #  @ID01.H @ID01.02
 #  Scenario: [ID01.02] Validate the update of the Centro data and check the resulting records contents.

@@ -59,6 +59,33 @@ jobs:
           paths:
             - ~/Printer3D-frontend/deploy
           key: printer3d-frontend-deploy
+  build-backend-job:
+    docker:
+      - image: circleci/openjdk:11-jdk
+      - image: circleci/PostgreSQL:latest
+    environment:
+      # Customize the environment values to use on the jobs
+      PORT: 5110
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+            - printer3d-backend-
+      - run:
+          name: Validate environment version
+          working_directory: Printer3D-backend
+          command: |
+            ./gradlew -version
+      - run:
+          name: Compile and Build the backend spring boot application
+          working_directory: Printer3D-backend
+          command: |
+            ./gradlew clean build
+      - save_cache:
+          paths:
+            - ~/Printer3D-backend/build
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
 
 workflows:
   version: 2
@@ -72,6 +99,11 @@ workflows:
       - build-frontend-job:
           requires:
             - install-frontend-job
+          filters:
+            branches:
+              only:
+                - development
+      - build-backend-job:
           filters:
             branches:
               only:
