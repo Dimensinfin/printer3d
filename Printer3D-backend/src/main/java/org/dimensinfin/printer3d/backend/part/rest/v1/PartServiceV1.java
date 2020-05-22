@@ -10,8 +10,7 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
-import org.dimensinfin.printer3d.backend.part.persistence.PartEntity;
-import org.dimensinfin.printer3d.client.Part;
+import org.dimensinfin.printer3d.backend.part.persistence.Part;
 
 @Service
 public class PartServiceV1 {
@@ -27,12 +26,12 @@ public class PartServiceV1 {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
-			final Optional<PartEntity> target = this.inventoryRepository.findById( newPart.getId() );
+			final Optional<Part> target = this.inventoryRepository.findById( newPart.getId() );
 			if (target.isPresent())
 				throw new DimensinfinRuntimeException( ErrorInfo.PART_ALREADY_EXISTS, newPart.getId().toString() );
-			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
-			final PartEntity newPartEntity = this.inventoryRepository.save( partEntity );
-			return new PartEntityToPartConverter.convert( newPartEntity );
+//			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPartInput );
+			return this.inventoryRepository.save( newPart );
+//			return new PartEntityToPartConverter.convert( newPartEntity );
 		} finally {
 			LogWrapper.exit();
 		}

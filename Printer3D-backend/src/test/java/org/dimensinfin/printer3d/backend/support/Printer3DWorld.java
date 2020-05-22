@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.backend.support;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
-import org.dimensinfin.printer3d.client.Part;
+import org.dimensinfin.printer3d.backend.part.persistence.Part;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;

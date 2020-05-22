@@ -1,22 +1,15 @@
 package org.dimensinfin.printer3d.client.part.v1;
 
-import java.util.UUID;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.printer3d.client.Part;
-import org.dimensinfin.printer3d.client.PartRequest;
+import org.dimensinfin.printer3d.backend.part.persistence.Part;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface PartsApiV1 {
 	/**
@@ -30,7 +23,7 @@ public interface PartsApiV1 {
 	@Headers({ "Content-Type:application/json" })
 	@POST("api/v1/parts")
 	Call<Part> newPart( @Header("Authorization") @NotNull final String authorizationToken,
-                        @Body @Valid @NotNull final Part newPart );
+	                    @Body @Valid @NotNull final Part newPart );
 
 //	/**
 //	 * Get the list of Parts persisted at the Inventory repository.

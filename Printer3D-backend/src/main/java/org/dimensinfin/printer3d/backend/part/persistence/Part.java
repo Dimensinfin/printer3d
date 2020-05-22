@@ -1,51 +1,40 @@
-package org.dimensinfin.printer3d.client;
+package org.dimensinfin.printer3d.backend.part.persistence;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.springframework.data.annotation.Immutable;
-
-@Immutable
+@Entity
+@Table(name = "inventory", schema = "printer3d")
 public class Part {
+	@Id
 	@NotNull(message = "Part unique UUID 'id' should not be null.")
-	private UUID id;
+	@Column(name = "id", updatable = false, nullable = false)
+	private UUID id = null;
 	@NotNull(message = "Part 'label' is mandatory.")
-	private String label;
-	private String description;
-	private ColorCode colorCode;
+	@Size(min = 3, max = 50)
+	@Column(name = "label", updatable = false, nullable = false)
+	private String label = null;
+	@Size(max = 500)
+	@Column(name = "description", updatable = true, nullable = true)
+	private String description = null;
 	@NotNull(message = "Part 'cost' value is mandatory.")
-	private Float cost;
+	@Column(name = "cost", updatable = true, nullable = false)
+	private Float cost = null;
 	@NotNull(message = "Part 'price' value is mandatory.")
-	private Float price;
+	@Column(name = "price", updatable = true, nullable = false)
+	private Float price = null;
+	@Column(name = "active", updatable = true, nullable = false)
 	private Boolean active = true;
 
-	// - C O N S T R U C T O R S
-	private Part() { }
-
 	// - G E T T E R S   &   S E T T E R S
-	public Boolean isActive() {
-		return this.active;
-	}
-
-	public Float getCost() {
-		return this.cost;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
 	public UUID getId() {
-		return this.id;
-	}
-
-	public String getLabel() {
-		return this.label;
-	}
-
-	public Float getPrice() {
-		return this.price;
+		return id;
 	}
 
 	// - B U I L D E R
@@ -89,4 +78,3 @@ public class Part {
 		}
 	}
 }
-

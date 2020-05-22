@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.client.Part;
+import org.dimensinfin.printer3d.backend.part.persistence.Part;
 
 @Profile({ "local", "acceptance" })
 @RestController
