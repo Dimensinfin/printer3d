@@ -1,0 +1,40 @@
+package org.dimensinfin.printer3d.backend.part.rest.v1;
+
+import java.util.Optional;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
+import org.dimensinfin.printer3d.backend.part.persistence.PartEntity;
+import org.dimensinfin.printer3d.client.Part;
+
+@Service
+public class PartServiceV1 {
+	private InventoryRepository inventoryRepository;
+
+// - C O N S T R U C T O R S
+	@Autowired
+	public PartServiceV1( @NotNull final InventoryRepository inventoryRepository ) {
+		this.inventoryRepository = inventoryRepository;
+	}
+
+	public Part newPart( @NotNull final Part newPart ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Part by id. If found reject the request because this should be a new creation.
+			final Optional<PartEntity> target = this.inventoryRepository.findById( newPart.getId() );
+			if (target.isPresent())
+				throw new DimensinfinRuntimeException( ErrorInfo.PART_ALREADY_EXISTS, newPart.getId().toString() );
+			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
+			final PartEntity newPartEntity = this.inventoryRepository.save( partEntity );
+			return new PartEntityToPartConverter.convert( newPartEntity );
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+}

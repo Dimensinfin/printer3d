@@ -1,0 +1,34 @@
+# TESTING - Docker Composer components
+#
+# Docker composer automatically creates a network. The container host matches the container name.
+#
+# Then configure the postgres database to start on that network. There is a health check so the application
+#   will be able to wait until the database has completed the startup.
+# The database will be then on location:
+#   jdbc:postgresql://postgres-dev:5432/postgres
+# To access the database from DBeaver we use the URL
+#   jdbc:postgresql://0.0.0.0:5432/postgres user=inno-user password=inno-password
+#
+# The application to be accessed from Postman or the Acceptance Test platform is at location:
+#   http://0.0.0.0:9500/actuator/health
+
+version: '3.3'
+
+services:
+  postgres-dev:
+    container_name: postgres-dev
+    image: "postgres:11.1"
+    ports:
+      - "5120:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=inno-user
+      - POSTGRES_PASSWORD=inno-password
+
+  acceptance:
+    container_name: printer3d-backend
+    image: dimensinfin/printer3d.backend
+    ports:
+      - "5130:9500"
+    environment:
+      - SPRING_PROFILES_ACTIVE=acceptance

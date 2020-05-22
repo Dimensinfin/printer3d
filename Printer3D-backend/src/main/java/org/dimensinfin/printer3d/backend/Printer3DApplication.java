@@ -18,6 +18,7 @@ import org.dimensinfin.logging.LogWrapper;
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 public class Printer3DApplication {
+	public static final String APPLICATION_ERROR_CODE_PREFIX = "dimensinfin.printer3d";
 	private static LogoPrinter printer;
 
 	public static void main( String[] args ) {

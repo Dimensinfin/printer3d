@@ -4,20 +4,25 @@ import java.text.MessageFormat;
 
 import org.springframework.http.HttpStatus;
 
+import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
+
 /**
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.12.0
  */
 public enum ErrorInfo {
 	RUNTIME_INTERNAL_ERROR( HttpStatus.INTERNAL_SERVER_ERROR,
-			"dimensinfin.printer3d.exception.runtime",
+			APPLICATION_ERROR_CODE_PREFIX+".exception.runtime",
 			"{0}" ),
 	INVALID_REQUEST_STRUCTURE( HttpStatus.BAD_REQUEST,
-			"dimensinfin.printer3d.exception.request.validation",
+			APPLICATION_ERROR_CODE_PREFIX+".exception.request.validation",
 			"The request is not valid. {0}" ),
 	INVENTORY_STORE_REPOSITORY_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
-			"dimensinfin.printer3d.persistence.sql.error",
-					"There is an SQL error on the Inventory repository. {0}. Cause: {1}" );
+			APPLICATION_ERROR_CODE_PREFIX+".persistence.sql.error",
+					"There is an SQL error on the Inventory repository. {0}. Cause: {1}" ),
+	PART_ALREADY_EXISTS(HttpStatus.CONFLICT,
+			APPLICATION_ERROR_CODE_PREFIX+".already.exists",
+			"The Part [{0}] already exists. Use the Update endpoint.");
 
 	public final HttpStatus status;
 	public final String errorCode;

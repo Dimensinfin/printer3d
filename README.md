@@ -2,6 +2,11 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
+## Application Ports
+5100 - Angular frontend server
+5110 - SpringBoot backend development server
+5130 - SpringBoot backend acceptance server
+
 ### What is this repository for? ###
 
 * Quick summary
