@@ -10,12 +10,17 @@ jobs:
   start-job:
     docker:
       - image: circleci/node:latest
-      - image: circleci/openjdk:11-jdk
       - image: circleci/postgres:11.1
         environment:
           POSTGRES_DB: prnter3d_ci
           POSTGRES_USER: printer3d-user
           POSTGRES_PASSWORD: printer3d-password
+      - image: circleci/openjdk:11.0.1-jdk
+        environment:
+          JAVA_HOME: 
+      # Configure the JVM and Gradle to avoid OOM errors
+          _JAVA_OPTIONS: "-Xmx3g"
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
     steps:
       - run:
           name: Start-Frontend Environment Validation
@@ -25,7 +30,13 @@ jobs:
       - run:
           name: Start-Backend Environment Validation
           working_directory: Printer3D-backend
+          environment:
+            JAVA_HOME: 
+        # Configure the JVM and Gradle to avoid OOM errors
+            _JAVA_OPTIONS: "-Xmx3g"
+            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
           command: |
+            whereis java
             ./gradlew -version
       - run:
           name: Start-Backend Support Validation
@@ -89,9 +100,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
-            - printer3d-backend-
+          key: v1-gradle-wrapper-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
       - run:
           name: BACKEND - Build SpringBoot code
           working_directory: Printer3D-backend
@@ -99,8 +108,10 @@ jobs:
             ./gradlew clean build
       - save_cache:
           paths:
-            - ~/Printer3D-backend/.gradle
-          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+            - ~/project/Printer3D-backend/.gradle
+          key: v1-gradle-wrapper-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
+      - store_artifacts:
+          path: ~/project/Printer3D-backend/build/libs
   create-acceptance-app-container:
     docker:
       - image: circleci/openjdk:11-jdk
