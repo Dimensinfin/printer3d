@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Start-Backend Environment Validation
-          working_directory: Printer3D-frontend
+          working_directory: Printer3D-backend
           command: |
             ./gradlew -version
       - run:
