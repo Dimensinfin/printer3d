@@ -21,8 +21,10 @@ jobs:
           name: Start-Frontend Environment Validation
           command: |
             node -v
+      - checkout
       - run:
           name: Start-Backend Environment Validation
+          working_directory: Printer3D-frontend
           command: |
             ./gradlew -version
       - run:
@@ -118,6 +120,15 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             ./gradlew clean bootJar
+      - run:
+          name: BACKEND - Create application container
+          working_directory: Printer3D-backend
+          command: |
+            ./docker-service.sh backend generate
+      - save_cache:
+          paths:
+            - ~/Printer3D-backend/build
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/docker-service.sh" }}
   start-support-backend-job:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -130,6 +141,7 @@ jobs:
       - restore_cache:
           keys:
             - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/docker-service.sh" }}
             - printer3d-backend-
       - run:
           name: BACKEND - Support checks

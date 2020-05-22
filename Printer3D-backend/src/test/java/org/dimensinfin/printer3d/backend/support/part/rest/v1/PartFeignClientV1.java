@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
-import org.dimensinfin.printer3d.client.Part;
+import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.client.part.v1.PartsApiV1;
 
 import retrofit2.Response;
@@ -22,7 +22,7 @@ public class PartFeignClientV1 extends CommonFeignClient {
 	}
 
 	public ResponseEntity<Part> newPart( final String authorizationToken, final Part part ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the creation of a new medico tied to a medical center.";
+		final String ENDPOINT_MESSAGE = "Request the creation of a new Part.";
 		final Response<Part> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
