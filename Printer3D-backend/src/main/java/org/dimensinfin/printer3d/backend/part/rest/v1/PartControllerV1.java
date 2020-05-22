@@ -27,7 +27,7 @@ import org.dimensinfin.printer3d.client.part.domain.PartList;
 @Validated
 @RequestMapping("/api/v1")
 public class PartControllerV1 {
-	private PartServiceV1 partServiceV1;
+	private final PartServiceV1 partServiceV1;
 
 	// - C O N S T R U C T O R S
 	@Autowired
@@ -46,12 +46,6 @@ public class PartControllerV1 {
 	public ResponseEntity<PartList> partsList( @NotNull final HttpServletResponse response,
 	                                           @RequestParam(name = "active") final Optional<Boolean> active ) {
 		final boolean activeState = active.isPresent() && active.get();
-		//		CircuitBreaker circuitBreaker = this.resilience4JConfig.getCircuitBreakerRegistry().circuitBreaker( "medicoList4Centro" );
-		//		Supplier<CentroMedicoList> decoratedSupplier = CircuitBreaker.decorateSupplier(
-		//				circuitBreaker,
-		//				() ->
-
-		//		);
 		return new ResponseEntity<>( this.partServiceV1.partsList( activeState ), HttpStatus.OK );
 	}
 }

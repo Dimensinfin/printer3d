@@ -22,8 +22,6 @@ jobs:
           _JAVA_OPTIONS: "-Xmx3g"
           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
       - run:
           name: Start-Frontend Environment Validation
           command: |

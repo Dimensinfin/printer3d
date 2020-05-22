@@ -9,34 +9,35 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 @Entity
 @Table(name = "inventory", schema = "printer3d")
 public class Part {
 	@Id
 	@NotNull(message = "Part unique UUID 'id' should not be null.")
 	@Column(name = "id", updatable = false, nullable = false)
-	private UUID id = null;
+	private UUID id;
 	@NotNull(message = "Part 'label' is mandatory.")
 	@Size(min = 3, max = 50)
 	@Column(name = "label", updatable = false, nullable = false)
-	private String label = null;
+	private String label;
 	@Size(max = 500)
 	@Column(name = "description", updatable = true, nullable = true)
-	private String description = null;
+	private String description;
 	@NotNull(message = "Part 'cost' value is mandatory.")
 	@Column(name = "cost", updatable = true, nullable = false)
-	private Float cost = null;
+	private Float cost;
 	@NotNull(message = "Part 'price' value is mandatory.")
 	@Column(name = "price", updatable = true, nullable = false)
-	private Float price = null;
+	private Float price;
 	@Column(name = "active", updatable = true, nullable = false)
 	private Boolean active = true;
 
 	// - G E T T E R S   &   S E T T E R S
-	public Boolean isActive() {
-		return this.active;
-	}
-
 	public Float getCost() {
 		return this.cost;
 	}
@@ -57,9 +58,52 @@ public class Part {
 		return this.price;
 	}
 
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder( 17, 37 )
+				//				.append( this.id )
+				.append( this.label )
+				.append( this.description )
+				.append( this.cost )
+				.append( this.price )
+				.append( this.active )
+				.toHashCode();
+	}
+
+	@Override
+	public boolean equals( final Object o ) {
+		if (this == o) return true;
+		if (!(o instanceof Part)) return false;
+		final Part part = (Part) o;
+		return new EqualsBuilder()
+				//				.append( this.id, part.id )
+				.append( this.label, part.label )
+				.append( this.description, part.description )
+				.append( this.cost, part.cost )
+				.append( this.price, part.price )
+				.append( this.active, part.active )
+				.isEquals();
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
+				.append( "id", this.id )
+				.append( "label", this.label )
+				.append( "description", this.description )
+				.append( "cost", this.cost )
+				.append( "price", this.price )
+				.append( "active", this.active )
+				.toString();
+	}
+
+	public Boolean isActive() {
+		return this.active;
+	}
+
 	// - B U I L D E R
 	public static class Builder {
-		private Part onConstruction;
+		private final Part onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
@@ -69,7 +113,14 @@ public class Part {
 		public Part build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
+			Objects.requireNonNull( this.onConstruction.cost );
+			Objects.requireNonNull( this.onConstruction.price );
 			return this.onConstruction;
+		}
+
+		public Part.Builder withActive( final Boolean active ) {
+			if (null != active) this.onConstruction.active = active;
+			return this;
 		}
 
 		public Part.Builder withCost( final Float cost ) {
