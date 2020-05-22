@@ -139,6 +139,8 @@ jobs:
           paths:
             - ~/Printer3D-backend/build
           key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/docker-service.sh" }}
+      - store_artifacts:
+          path: ~/project/Printer3D-backend/build/libs
   start-support-backend-job:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -187,6 +189,7 @@ workflows:
               only:
                 - experimental
                 - development
+                - testing
       - install-frontend-job:
           requires:
             - start-job
