@@ -194,9 +194,9 @@ workflows:
               only:
                 - development
                 - test
-      - create-acceptance-app-container:
+      - start-support-backend-job:
           requires:
-            - build-backend-job
+            - create-acceptance-app-container
           filters:
             branches:
               only:
