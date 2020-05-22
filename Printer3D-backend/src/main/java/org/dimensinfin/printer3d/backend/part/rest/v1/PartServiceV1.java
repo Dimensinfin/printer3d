@@ -1,6 +1,8 @@
 package org.dimensinfin.printer3d.backend.part.rest.v1;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,11 @@ import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.client.part.domain.PartList;
 
 @Service
 public class PartServiceV1 {
-	private InventoryRepository inventoryRepository;
+	private final InventoryRepository inventoryRepository;
 
 // - C O N S T R U C T O R S
 	@Autowired
@@ -29,11 +32,21 @@ public class PartServiceV1 {
 			final Optional<Part> target = this.inventoryRepository.findById( newPart.getId() );
 			if (target.isPresent())
 				throw new DimensinfinRuntimeException( ErrorInfo.PART_ALREADY_EXISTS, newPart.getId().toString() );
-//			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPartInput );
 			return this.inventoryRepository.save( newPart );
-//			return new PartEntityToPartConverter.convert( newPartEntity );
 		} finally {
 			LogWrapper.exit();
 		}
+	}
+
+	public PartList partsList( final boolean active ) {
+		final List<Part> parts = this.inventoryRepository.findAll()
+				.stream()
+				.filter( part -> (active || part.isActive()))
+				.collect( Collectors.toList() );
+		return new PartList.Builder()
+				.withCount( parts.size())
+				.withPartList ( parts)
+				.build();
+
 	}
 }

@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "4d9d45ee-4c7c-47cb-912a-2b870505b91a",
+		"name": "Backend",
+		"description": "Call to the backend server to test the API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "InventoryParts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"parts"
+					]
+				},
+				"description": "Get the complete list of Parts declared on the Inventory repository"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAllParts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/parts/delete/all",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"parts",
+						"delete",
+						"all"
+					]
+				},
+				"description": "Deletes all the Parts from the Inventory repository."
+			},
+			"response": []
+		},
+		{
+			"name": "NewPart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n    \"label\": \"Covid-19 Key\",\n    \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n    \"colorCode\": \"GRN\",\n    \"cost\": 0.85,\n    \"price\": 4,\n    \"active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/parts",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"parts"
+					]
+				},
+				"description": "Creates a new Part at the Inventory repository."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

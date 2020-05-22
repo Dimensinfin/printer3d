@@ -4,12 +4,15 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.client.part.domain.PartList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface PartsApiV1 {
 	/**
@@ -25,18 +28,17 @@ public interface PartsApiV1 {
 	Call<Part> newPart( @Header("Authorization") @NotNull final String authorizationToken,
 	                    @Body @Valid @NotNull final Part newPart );
 
-//	/**
-//	 * Get the list of Parts persisted at the Inventory repository.
-//	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
-//	 * active Parts.
-//	 *
-//	 * @param active Allows the selection or filtering for not active Parts. By default all active parts are retrieved. (optional, default to false)
-//	 * @return Call&lt;PartList&gt;
-//	 */
-//	@GET("api/v1/parts")
-//	Call<PartList> partList(
-//			@Query("active") Boolean active
-//	);
+	/**
+	 * Get the list of Parts persisted at the Inventory repository.
+	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
+	 * active Parts.
+	 *
+	 * @param active Allows the selection or filtering for not active Parts. By default all active parts are retrieved. (optional, default to false)
+	 * @return Call&lt;PartList&gt;
+	 */
+	@GET("api/v1/parts")
+	Call<PartList> partList( @Header("Authorization") @NotNull final String authorizationToken,
+	                         @Query("active") Boolean active );
 //
 //	/**
 //	 * Update an alrady existing Part. Only some of the firlds are allowed for update. The rest of the fields are ignored.

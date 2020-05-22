@@ -12,6 +12,7 @@ import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.part.rest.v1.PartFeignClientV1;
+import org.dimensinfin.printer3d.client.part.domain.PartList;
 
 import io.cucumber.java.en.When;
 
@@ -28,6 +29,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the New Part request is processed")
 	public void the_New_Part_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_PART );
+	}
+	@When("the Get Parts request is processed")
+	public void the_Get_Parts_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.PART_LIST );
 	}
 
 
@@ -64,6 +69,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newPartResponseEntity );
 				this.printer3DWorld.setNewPartResponseEntity( newPartResponseEntity );
 				return newPartResponseEntity;
+			case PART_LIST:
+				final ResponseEntity<PartList> partListResponseEntity = this.partFeignClientV1
+						.partList( this.printer3DWorld.getJwtAuthorizationToken() );
+				Assertions.assertNotNull( partListResponseEntity );
+				this.printer3DWorld.setPartListResponseEntity( partListResponseEntity );
+				return partListResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
