@@ -34,8 +34,11 @@ public class Part {
 	@NotNull(message = "Part 'price' value is mandatory.")
 	@Column(name = "price", updatable = true, nullable = false)
 	private Float price;
+	@NotNull(message = "Part 'stockLevel' value is mandatory.")
+	@Column(name = "stock_level", updatable = true, nullable = false)
+	private Integer stockLevel;
 	@Column(name = "active", updatable = true, nullable = false)
-	private Boolean active = true;
+	private boolean active = true;
 
 	// - G E T T E R S   &   S E T T E R S
 	public Float getCost() {
@@ -54,6 +57,10 @@ public class Part {
 		return this.label;
 	}
 
+	public Integer getStockLevel() {
+		return this.stockLevel;
+	}
+
 	public Float getPrice() {
 		return this.price;
 	}
@@ -66,6 +73,7 @@ public class Part {
 				.append( this.description )
 				.append( this.cost )
 				.append( this.price )
+				.append( this.stockLevel )
 				.append( this.active )
 				.toHashCode();
 	}
@@ -81,6 +89,7 @@ public class Part {
 				.append( this.description, part.description )
 				.append( this.cost, part.cost )
 				.append( this.price, part.price )
+				.append( this.stockLevel, part.stockLevel )
 				.append( this.active, part.active )
 				.isEquals();
 	}
@@ -93,6 +102,7 @@ public class Part {
 				.append( "description", this.description )
 				.append( "cost", this.cost )
 				.append( "price", this.price )
+				.append( "stockLevel", this.stockLevel )
 				.append( "active", this.active )
 				.toString();
 	}
@@ -115,6 +125,7 @@ public class Part {
 			Objects.requireNonNull( this.onConstruction.label );
 			Objects.requireNonNull( this.onConstruction.cost );
 			Objects.requireNonNull( this.onConstruction.price );
+			Objects.requireNonNull( this.onConstruction.stockLevel );
 			return this.onConstruction;
 		}
 
@@ -129,7 +140,7 @@ public class Part {
 		}
 
 		public Part.Builder withDescription( final String description ) {
-			this.onConstruction.description = Objects.requireNonNull( description );
+		if ( null != description)	this.onConstruction.description =  description ;
 			return this;
 		}
 
@@ -145,6 +156,10 @@ public class Part {
 
 		public Part.Builder withPrice( final Float price ) {
 			this.onConstruction.price = Objects.requireNonNull( price );
+			return this;
+		}
+		public Part.Builder withStockLevel( final Integer stockLevel ) {
+			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
 			return this;
 		}
 	}

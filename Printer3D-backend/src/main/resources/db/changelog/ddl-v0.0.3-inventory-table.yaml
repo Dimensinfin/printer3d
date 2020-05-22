@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_0_3_001_printer3d_alter_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: stock_level
+                  type: int
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_0_3_002_printer3d_fix_stock_level
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: stock_level
+                  value: 1
+  - changeSet:
+      id: 0_0_3_003_printer3d_fix_stock_level_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: int
+            columnName: stock_level
+            validate:  true
