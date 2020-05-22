@@ -92,19 +92,32 @@ jobs:
             - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
             - printer3d-backend-
       - run:
-          name: Validate environment version
-          working_directory: Printer3D-backend
-          command: |
-            ./gradlew -version
-      - run:
-          name: Compile and Build the backend spring boot application
+          name: BACKEND - Build SpringBoot code
           working_directory: Printer3D-backend
           command: |
             ./gradlew clean build
       - save_cache:
           paths:
-            - ~/Printer3D-backend/build
+            - ~/Printer3D-backend/.gradle
           key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+  create-acceptance-app-container:
+    docker:
+      - image: circleci/openjdk:11-jdk
+      - image: circleci/postgres:11.1
+    environment:
+      # Customize the environment values to use on the jobs
+      PORT: 5110
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+            - printer3d-backend-
+      - run:
+          name: BACKEND - Create acceptance jar
+          working_directory: Printer3D-backend
+          command: |
+            ./gradlew clean bootJar
   start-support-backend-job:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -173,7 +186,15 @@ workflows:
             branches:
               only:
                 - development
-      - start-support-backend-job:
+      - create-acceptance-app-container:
+          requires:
+            - build-backend-job
+          filters:
+            branches:
+              only:
+                - development
+                - test
+      - create-acceptance-app-container:
           requires:
             - build-backend-job
           filters:
@@ -187,3 +208,4 @@ workflows:
             branches:
               only:
                 - development
+                - test
