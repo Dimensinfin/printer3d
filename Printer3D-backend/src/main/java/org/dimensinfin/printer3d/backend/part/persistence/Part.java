@@ -33,8 +33,28 @@ public class Part {
 	private Boolean active = true;
 
 	// - G E T T E R S   &   S E T T E R S
+	public Boolean isActive() {
+		return this.active;
+	}
+
+	public Float getCost() {
+		return this.cost;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
 	public UUID getId() {
-		return id;
+		return this.id;
+	}
+
+	public String getLabel() {
+		return this.label;
+	}
+
+	public Float getPrice() {
+		return this.price;
 	}
 
 	// - B U I L D E R
