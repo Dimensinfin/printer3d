@@ -1,6 +1,6 @@
 {
     "jsonClass": "PartList",
-    "count": 5,
+    "count": 3,
     "parts": [{
             "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
             "label": "Covid-19 Key",
@@ -27,24 +27,6 @@
             "price": 4.0,
             "stockLevel": 1,
             "active": true
-        },
-        {
-            "id": "0557d6cd-f39a-4bd9-9512-86a3b75d4a12",
-            "label": "Covid-22 Key",
-            "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-            "cost": 0.85,
-            "price": 4.0,
-            "stockLevel": 1,
-            "active": false
-        },
-        {
-            "id": "4972042f-8c7a-46ce-bc16-6c9560044ba4",
-            "label": "Trasher ship 01",
-            "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-            "cost": 0.85,
-            "price": 4.0,
-            "stockLevel": 6,
-            "active": false
         }
     ]
 }

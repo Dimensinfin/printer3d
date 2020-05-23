@@ -1,0 +1,9 @@
+{
+    "id": "4972042f-8c7a-46ce-bc16-6c9560044ba4",
+    "label": "Trasher ship 01",
+    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+    "cost": 0.85,
+    "price": 4.0,
+    "stockLevel": 6,
+    "active": true
+}

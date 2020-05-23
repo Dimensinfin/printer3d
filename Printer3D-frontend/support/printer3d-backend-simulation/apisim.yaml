@@ -2,7 +2,7 @@ simlet: inventory-partlist
 
 request:
   - method: GET
-  - uriPath: /api/v1/inventory/parts
+  - uriPathPattern: "/api/v1/inventory/parts"
 
 response:
   from: template
@@ -12,3 +12,40 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.parts.json"
+
+---
+
+simlet: inventory-partlist
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v1/inventory/parts"
+  - where: uriQueryParameter
+    named: "activesOnly"
+    equals: true
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.parts.active.json"
+
+---
+
+simlet: inventory-newpart
+
+request:
+  - method: POST
+  - uriPathPattern: "/api/v1/inventory/parts"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/newpart.json"
