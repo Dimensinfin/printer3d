@@ -7,6 +7,16 @@
 #   module of the project.
 version: 2.1
 jobs:
+  start-job:
+    docker:
+      - image: circleci/node:latest
+      - image: circleci/openjdk:11.0.1-jdk
+      - image: circleci/postgres:11.1
+    steps:
+      - run:
+          name: Start-Frontend Environment Validation
+          command: |
+            node -v
   create-frontend-environment-job:
     docker:
       - image: circleci/node:latest
@@ -16,22 +26,20 @@ jobs:
           command: |
             node -v
       - checkout
-      - restore_cache:
-          key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
       - run:
           name: Validate node version in use and install
           working_directory: Printer3D-frontend
           command: |
-            echo '>> Printer3D - frontend: Start Continuous Integration'
+            echo '>> Printer3D - frontend: Validate environment version and store cache'
             node -v
             npm install
       - save_cache:
           paths:
             - ~/project/Printer3D-frontend/node_modules
           key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-  validate-gradle-job:
+  create-backend-environment-job:
     docker:
-      - image: circleci/openjdk:11.0.1-jdk
+      - image: circleci/node:latest
     steps:
       - checkout
       - run:
@@ -43,78 +51,14 @@ jobs:
           command: |
             ~/project/Printer3D-backend/gradlew -version
       - run:
-          name: Start-Backend Environment Validation
-          environment:
-            # Configure the JVM and Gradle to avoid OOM errors
-            _JAVA_OPTIONS: "-Xmx3g"
-            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+          name: BACKEND - Build SpringBoot code
+          working_directory: Printer3D-backend
           command: |
-            ~/project/Printer3D-backend/gradlew -version
-  start-job:
-    docker:
-      - image: circleci/node:latest
-      - image: circleci/postgres:11.1
-        environment:
-          POSTGRES_DB: prnter3d_ci
-          POSTGRES_USER: printer3d-user
-          POSTGRES_PASSWORD: printer3d-password
-      - image: circleci/openjdk:11.0.1-jdk
-        environment:
-          # JAVA_HOME: 
-      # Configure the JVM and Gradle to avoid OOM errors
-          _JAVA_OPTIONS: "-Xmx3g"
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-    steps:
-      - run:
-          name: Start-Frontend Environment Validation
-          command: |
-            node -v
-      - checkout
-      - run:
-          name: Start-Backend Environment Validation
-          environment:
-            # JAVA_HOME: 
-        # Configure the JVM and Gradle to avoid OOM errors
-            _JAVA_OPTIONS: "-Xmx3g"
-            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-          command: |
-            # docker ps
-            whereis java
-            ~/project/Printer3D-backend/gradlew -version
-      - run:
-          name: Start-Backend Support Validation
-          command: |
-            echo "... Pending to get the running postgres database."
-  install-frontend-job:
-    docker:
-      - image: circleci/node:latest
-    environment:
-      # Customize the environment values to use on the jobs
-      PORT: 5100
-    steps:
-      - checkout
-      - run:
-          name: Validate existence of the target project
-          working_directory: Printer3D-frontend
-          command: |
-            echo "server port: ${PORT}"
-            pwd
-      - restore_cache:
-          keys:
-            - printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - printer3d-frontend-
-      - run:
-          name: Validate node version in use and install
-          working_directory: Printer3D-frontend
-          command: |
-            echo '>> Printer3D - frontend: Start Continuous Integration'
-            node -v
-            npm install
+            ./gradlew clean bootJar
       - save_cache:
           paths:
-            - ~/Printer3D-frontend/node_modules
-          key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+            - ~/project/Printer3D-backend/.gradle
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
   build-frontend-job:
     docker:
       - image: circleci/node:latest
@@ -124,15 +68,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - printer3d-frontend-
+          key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
       - run:
-          name: Build the deploy version for the frontend
+          name: FRONTEND - Build deployment code
           working_directory: Printer3D-frontend
           command: |
             npm run build:prod
+      - run:
+          name: FRONTEND - Test application
+          working_directory: Printer3D-frontend
+          command: |
+            npm run test:prod
       - save_cache:
           paths:
             - ~/Printer3D-frontend/deploy
@@ -143,31 +89,27 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-gradle-wrapper-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
       - run:
           name: BACKEND - Build SpringBoot code
           working_directory: Printer3D-backend
           command: |
-            ./gradlew clean build
+            ./gradlew clean bootJar build
       - save_cache:
-          paths:
+          paths: 
             - ~/project/Printer3D-backend/.gradle
-          key: v1-gradle-wrapper-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
       - store_artifacts:
           path: ~/project/Printer3D-backend/build/libs
   create-acceptance-app-container:
     docker:
       - image: circleci/openjdk:11-jdk
-      - image: circleci/postgres:11.1
     environment:
-      # Customize the environment values to use on the jobs
       PORT: 5110
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
-            - printer3d-backend-
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties }}
       - run:
           name: BACKEND - Create acceptance jar
           working_directory: Printer3D-backend
@@ -226,26 +168,22 @@ workflows:
   version: 2
   printer3d-deploy:
     jobs:
-      - validate-gradle-job:
+      - start-job:
           filters:
             branches:
               only:
                 - experimental
                 - development
-                - testing
-      - start-job:
-          filters:
-            branches:
-              only:
+                - test
                 - master
       - create-frontend-environment-job:
           requires:
-            - validate-gradle-job
+            - start-job
           filters:
             branches:
               only:
                 - experimental
-      - install-frontend-job:
+      - create-backend-environment-job:
           requires:
             - start-job
           filters:
@@ -254,7 +192,7 @@ workflows:
                 - experimental
       - build-frontend-job:
           requires:
-            - install-frontend-job
+            - start-job
           filters:
             branches:
               only:
@@ -265,7 +203,6 @@ workflows:
           filters:
             branches:
               only:
-                - experimental
                 - development
       - create-acceptance-app-container:
           requires:
@@ -275,18 +212,18 @@ workflows:
               only:
                 - development
                 - test
-      - start-support-backend-job:
-          requires:
-            - create-acceptance-app-container
-          filters:
-            branches:
-              only:
-                - development
-      - backend-test-job:
-          requires:
-            - start-support-backend-job
-          filters:
-            branches:
-              only:
-                - development
-                - test
+      # - start-support-backend-job:
+      #     requires:
+      #       - create-acceptance-app-container
+      #     filters:
+      #       branches:
+      #         only:
+      #           - development
+      # - backend-test-job:
+      #     requires:
+      #       - start-support-backend-job
+      #     filters:
+      #       branches:
+      #         only:
+      #           - development
+      #           - test
