@@ -101,6 +101,34 @@ jobs:
           key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
       - store_artifacts:
           path: ~/project/Printer3D-backend/build/libs
+  test-backend-job:
+    docker:
+      - image: circleci/postgres:11.1
+      - image: circleci/openjdk:11-jdk
+    environment:
+      PORT: 5110
+    steps:
+      - checkout
+      - restore_cache:
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
+      - run:
+          name: BACKEND - Unit Testing application
+          working_directory: Printer3D-backend
+          command: |
+            ./gradlew test
+  backend-deploy-to-heroku:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    environment:
+      HEROKU_APP_NAME: printer3d-backend
+      HEROKU_API_KEY: 4440bda5-f4da-4d77-ad8e-c8f1898f4989
+    steps:
+      - checkout
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
   create-acceptance-app-container:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -109,7 +137,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties }}
+          key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
       - run:
           name: BACKEND - Create acceptance jar
           working_directory: Printer3D-backend
@@ -145,24 +173,6 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             echo "... Print a api simulator test."
-  backend-test-job:
-    docker:
-      - image: circleci/openjdk:11-jdk
-      - image: circleci/postgres:11.1
-    environment:
-      # Customize the environment values to use on the jobs
-      PORT: 5110
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
-            - printer3d-backend-
-      - run:
-          name: BACKEND - Run unit tests + Acceptance
-          working_directory: Printer3D-backend
-          command: |
-            ./gradlew test
 
 workflows:
   version: 2
@@ -204,14 +214,28 @@ workflows:
             branches:
               only:
                 - development
-      - create-acceptance-app-container:
+      - test-backend-job:
           requires:
             - build-backend-job
           filters:
             branches:
               only:
                 - development
-                - test
+      - backend-deploy-to-heroku:
+          requires:
+            - test-backend-job
+          filters:
+            branches:
+              only:
+                - development
+      # - create-acceptance-app-container:
+      #     requires:
+      #       - build-backend-job
+      #     filters:
+      #       branches:
+      #         only:
+      #           - development
+      #           - test
       # - start-support-backend-job:
       #     requires:
       #       - create-acceptance-app-container
