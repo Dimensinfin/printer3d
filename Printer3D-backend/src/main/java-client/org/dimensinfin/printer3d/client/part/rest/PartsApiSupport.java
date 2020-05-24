@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.client.part.support;
+package org.dimensinfin.printer3d.client.part.rest;
 
 import org.dimensinfin.common.client.rest.CountResponse;
 

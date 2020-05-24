@@ -38,10 +38,10 @@ public class PartServiceV1 {
 		}
 	}
 
-	public PartList partsList( final boolean active ) {
+	public PartList partsList( final boolean activesOnly ) {
 		final List<Part> parts = this.inventoryRepository.findAll()
 				.stream()
-				.filter( part -> (active || part.isActive()))
+				.filter( part -> (!activesOnly || part.isActive()))
 				.collect( Collectors.toList() );
 		return new PartList.Builder()
 				.withCount( parts.size())

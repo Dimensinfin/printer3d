@@ -11,7 +11,7 @@
  */
 
 
-package org.dimensinfin.printer3d.client;
+package org.dimensinfin.printer3d.client.part.domain;
 
 import java.io.IOException;
 

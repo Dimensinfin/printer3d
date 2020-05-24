@@ -10,16 +10,17 @@ info:
     and there are provisioning for automatic code generation for this API clients.
 
     ##
-    The current API specification matches the Printer3D backend system published with version **0.2.0**.
+    The current API specification matches the Printer3D backend system published with version **0.4.0**.
 
     # API Description
 
     The API will expose the next list of entities:
 
     * **Part** - This is the definition of an item that can be sold independently. The Part is the view side from the 3D printer stand view. Parts
-    define a tiem slot use of the 3D printer and have some cost and price attached.
-    * ** Inventory** - This is the list of Parts declared on the system. Used as the base point to calculate stocks and generate the list of print
-    jobs.
+    define the time slot use of the 3D printer and have some cost and price attached. The Part will also store the stock information so for active
+    parts this information is used to calculate the jobs pending to stabilize a stock level.
+    * ** Inventory** - This is the list of Parts declared on the system. Used as the base point to generate the list of print jobs. Reading the
+    list of parts and evaluating the stock levels we can obtain the list of jobs that are required to complete the stock levels.
 
   license:
     name: Apache 2.0
@@ -30,20 +31,24 @@ servers:
     description: OpenAPI 0.1.0 for 3D Printer Queue Management Backend Service
 
 tags:
-  ### I N V E N T O R Y
+  ### R E P O S I T I R I E S
   - name: Inventory
     description: >
       The API section that manages Inventory contents. This cover Part creation and expiration and request fulfillment and query filters.
-  ### P U B L I C   E N D P O I N T S
+  ### E N T I T I E S
   - name: Parts
     description: >
       The Part creation, update and general management endpoints.
+  - name: Machines
+    description: >
+      The management of machines and their features to control jobs.
 
 paths:
   ### P A R T S
-  /api/v1/parts:
+  /api/v1/inventory/parts:
     post:
       tags:
+        - Inventory
         - Parts
       summary: Create a new Part from the data on the request.
       description: >
@@ -67,6 +72,7 @@ paths:
                 $ref: '#/components/schemas/Part'
     get:
       tags:
+        - Inventory
         - Parts
       summary: Get the list of Parts persisted at the Inventory repository.
       description: >
@@ -74,11 +80,12 @@ paths:
       operationId: partList
       parameters:
         - in: query
-          name: active
+          name: activesOnly
           required: false
           style: form
           explode: false
-          description: Allows the selection or filtering for not active Parts. By default all active parts are retrieved.
+          description: Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are
+          included on the list. If tru only active parts will be returned by the filter.
           schema:
             type: boolean
             default: false
@@ -91,11 +98,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PartList'
 
-  /api/v1/parts/{partId}:
+  /api/v1/inventory/parts/{partId}:
     patch:
       tags:
         - Parts
-      summary: Update an alrady existing Part. Only some of the firlds are allowed for update. The rest of the fields are ignored.
+      summary: Update an alrady existing Part. Only some of the fields are allowed for update. The rest of the fields are ignored.
       description: >
         Process a request to update an existing Part on the repository by giving the new field contents. Only the allowed modifiable contents are
         processed and the other fields are ignored.
@@ -126,7 +133,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PartList'
+                $ref: '#/components/schemas/Part'
+
+  ### M A C H I N E S
+  /api/v1/inventory/machines:
+    post:
+      tags:
+        - Inventory
+        - Machines
+      summary: Creates a new Machine service.
+      description: >
+        The Printer3D user interface requests the information to the user to create and setup a new Machine and its configuration. Machines are
+        able to build parts from jobs that may have special requirements and dependencies ties to the Machine configuration.
+      operationId: newMachine
+      requestBody:
+        description: >
+          Contains the Machine identifier and configuration fields to be used to create a new Machine record at the repository.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Machine'
+      responses:
+        201:
+          description: >
+            The new Part as stored at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
 
 components:
   schemas:
@@ -207,6 +241,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Part'
+    Machine:
+      type: object
+      required:
+        - id
+        - model
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >
+            The unique identifier for a single machine. Used for machine-job identification.
+          example:
+            009ab011-03ad-4e84-9a88-25708d1cfd64
+        label:
+          type: string
+          format: string
+          description: >
+            The user readable label to be assigned to a single Machine. Can be used instead of the unique identifier UUID.
+          example:
+            'Machine A'
+        model:
+          type: string
+          format: string
+          description: >
+            The model type of the 3D printer Machine.
+          example:
+            'Creality 3D Ender 3 Pro'
+        plasticType:
+          type: string
+          enum:
+            - PLA
+            - FLEXIBLE
+    MachineList:
+      type: object
+      required:
+        - count
+        - machines
+      properties:
+        count:
+          type: number
+          format: int32
+          description: >
+            The number of machines that follow on the response.
+          example:
+            8
+        machines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Machine'
+
     ColorCode:
       type: string
       enum:

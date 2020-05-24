@@ -39,7 +39,7 @@ jobs:
           key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
   create-backend-environment-job:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/openjdk:11.0.1-jdk
     steps:
       - checkout
       - run:

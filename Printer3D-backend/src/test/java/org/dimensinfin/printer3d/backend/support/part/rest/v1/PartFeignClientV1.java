@@ -11,7 +11,7 @@ import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.part.domain.PartList;
-import org.dimensinfin.printer3d.client.part.v1.PartsApiV1;
+import org.dimensinfin.printer3d.client.part.rest.PartsApiV1;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;

@@ -6,7 +6,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.client.part.domain.PartList;
 
-@Profile({ "local", "acceptance" })
 @RestController
 @CrossOrigin
 @Validated
@@ -35,17 +33,19 @@ public class PartControllerV1 {
 		this.partServiceV1 = partServiceV1;
 	}
 
-	@PostMapping(path = "/parts",
+	@PostMapping(path = "/inventory/parts",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<Part> newPart( @RequestBody @Valid @NotNull final Part part ) {
 		return new ResponseEntity<>( this.partServiceV1.newPart( part ), HttpStatus.CREATED );
 	}
 
-	@GetMapping("/parts")
+	@GetMapping(path ="/inventory/parts",
+			consumes = "application/json",
+			produces = "application/json")
 	public ResponseEntity<PartList> partsList( @NotNull final HttpServletResponse response,
-	                                           @RequestParam(name = "active") final Optional<Boolean> active ) {
-		final boolean activeState = active.isPresent() && active.get();
+	                                           @RequestParam(name = "activesOnly") final Optional<Boolean> activesOnly ) {
+		final boolean activeState = activesOnly.isPresent() && activesOnly.get();
 		return new ResponseEntity<>( this.partServiceV1.partsList( activeState ), HttpStatus.OK );
 	}
 }

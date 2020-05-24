@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.client.part.v1;
+package org.dimensinfin.printer3d.client.part.rest;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
