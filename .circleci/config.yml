@@ -7,6 +7,49 @@
 #   module of the project.
 version: 2.1
 jobs:
+  create-frontend-environment-job:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - run:
+          name: Start-Frontend Environment Validation
+          command: |
+            node -v
+      - checkout
+      - restore_cache:
+          key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+      - run:
+          name: Validate node version in use and install
+          working_directory: Printer3D-frontend
+          command: |
+            echo '>> Printer3D - frontend: Start Continuous Integration'
+            node -v
+            npm install
+      - save_cache:
+          paths:
+            - ~/project/Printer3D-frontend/node_modules
+          key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+  validate-gradle-job:
+    docker:
+      - image: circleci/openjdk:11.0.1-jdk
+    steps:
+      - checkout
+      - run:
+          name: Start-Backend Environment Validation
+          environment:
+            # Configure the JVM and Gradle to avoid OOM errors
+            _JAVA_OPTIONS: "-Xmx3g"
+            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+          command: |
+            ~/project/Printer3D-backend/gradlew -version
+      - run:
+          name: Start-Backend Environment Validation
+          environment:
+            # Configure the JVM and Gradle to avoid OOM errors
+            _JAVA_OPTIONS: "-Xmx3g"
+            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+          command: |
+            ~/project/Printer3D-backend/gradlew -version
   start-job:
     docker:
       - image: circleci/node:latest
@@ -183,13 +226,25 @@ workflows:
   version: 2
   printer3d-deploy:
     jobs:
-      - start-job:
+      - validate-gradle-job:
           filters:
             branches:
               only:
                 - experimental
                 - development
                 - testing
+      - start-job:
+          filters:
+            branches:
+              only:
+                - master
+      - create-frontend-environment-job:
+          requires:
+            - validate-gradle-job
+          filters:
+            branches:
+              only:
+                - experimental
       - install-frontend-job:
           requires:
             - start-job
