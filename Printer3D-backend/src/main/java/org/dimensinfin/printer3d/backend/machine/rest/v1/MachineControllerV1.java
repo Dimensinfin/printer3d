@@ -1,18 +1,14 @@
 package org.dimensinfin.printer3d.backend.machine.rest.v1;
 
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@CrossOrigin
+@Validated
+@RequestMapping("/api/v1")
 public class MachineControllerV1 {
-	private MachineControllerV1() {}
 
-	// - B U I L D E R
-	public static class Builder {
-		private MachineControllerV1 onConstruction;
-
-		public Builder() {
-			this.onConstruction = new MachineControllerV1();
-		}
-
-		public MachineControllerV1 build() {
-			return this.onConstruction;
-		}
-	}
 }

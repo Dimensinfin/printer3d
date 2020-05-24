@@ -4,8 +4,17 @@
 export enum EVariant {
     DEFAULT = '-DEFAULT-'
 }
-export enum EInteraction{
+export enum EInteraction {
     ACTION = 'ACTION',
     DIALOG = 'DIALOG',
-    PAGEROUTE = 'PAGEROUTE' 
+    PAGEROUTE = 'PAGEROUTE'
+}
+export enum EColorCode {
+    WHITE = 'WHITE',
+    GREEN = 'GREEN',
+    GREEN_TRANSP = 'GREEN-TRANSP',
+    RED = 'RED',
+    LIGHT_BLUE = 'LIGHT-BLUE',
+    PINK_TRANSP = 'PINK-TRANSP',
+    ORANGE_TRANSP = 'ORANGE-TRANSP'
 }

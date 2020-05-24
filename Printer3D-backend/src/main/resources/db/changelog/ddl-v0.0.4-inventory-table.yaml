@@ -1,0 +1,121 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_0_4_001_printer3d_alter_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: build_time
+                  type: int
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_0_4_002_printer3d_fix_build_time
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: build_time
+                  value: 5
+  - changeSet:
+      id: 0_0_4_003_printer3d_fix_build_time_constraint
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: int
+            columnName: build_time
+            validate:  true
+  - changeSet:
+      id: 0_0_4_004_printer3d_create_inventory_colorcode
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - sql:
+            sql: CREATE TYPE printer3d.color_code AS ENUM ('WHITE', 'GREEN', 'GREEN_TRANSP', 'RED', 'LIGHT_BLUE', 'PINK_TRANSP', 'ORANGE_TRANSP')
+  - changeSet:
+      id: 0_0_4_005_printer3d_alter_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: color_code
+                  type: printer3d.color_code
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_0_4_006_printer3d_alter_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: stock_available
+                  type: int
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_0_4_007_printer3d_fix_stock_available
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: stock_available
+                  value: 0
+  - changeSet:
+      id: 0_0_4_008_printer3d_fix_stock_available_contraint
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: int
+            columnName: stock_available
+            validate:  true
+  - changeSet:
+      id: 0_0_4_009_printer3d_inventory_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: int
+            columnName: stock_available
+            defaultValueNumeric: 0
+  - changeSet:
+      id: 0_0_4_010_printer3d_alter_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: image_path
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: model_path
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+                    updatable: true

@@ -33,12 +33,13 @@ public interface PartsApiV1 {
 	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
 	 * active Parts.
 	 *
-	 * @param active Allows the selection or filtering for not active Parts. By default all active parts are retrieved. (optional, default to false)
+	 * @param activesOnly Allows the selection or filtering for not active Parts. By default all active parts are retrieved. (optional, default to false)
 	 * @return Call&lt;PartList&gt;
 	 */
+	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/parts")
 	Call<PartList> partList( @Header("Authorization") @NotNull final String authorizationToken,
-	                         @Query("active") Boolean active );
+	                         @Query("activesOnly") Boolean activesOnly );
 //
 //	/**
 //	 * Update an alrady existing Part. Only some of the firlds are allowed for update. The rest of the fields are ignored.

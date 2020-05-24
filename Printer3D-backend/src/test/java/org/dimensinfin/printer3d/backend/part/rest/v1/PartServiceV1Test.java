@@ -15,17 +15,53 @@ import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.client.part.domain.PartList;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR_CODE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COST;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_DESCRIPTION;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_LABEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MODEL_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PRICE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_AVAILABLE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 
 public class PartServiceV1Test {
-
+	private Part testPart ;
+	private Part testPartNotActive ;
 	private InventoryRepository inventoryRepository;
 
 	@BeforeEach
 	public void beforeEach() {
+		this.testPart = new Part.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withColorCode( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( true )
+				.build();
+		this.testPartNotActive = new Part.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withColorCode( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
 		this.inventoryRepository = Mockito.mock( InventoryRepository.class );
 	}
 
@@ -66,22 +102,16 @@ public class PartServiceV1Test {
 	}
 
 	@Test
-	public void partsListActive() {
+	public void partsListAll() {
 		// Given
 		final List<Part> partList = new ArrayList<>();
-		partList.add( new Part() );
-		partList.add( new Part.Builder()
-				.withId( TEST_PART_ID )
-				.withLabel( TEST_PART_LABEL )
-				.withCost( TEST_PART_COST )
-				.withPrice( TEST_PART_PRICE )
-				.withActive( false )
-				.build() );
+		partList.add( this.testPart);
+		partList.add( this.testPartNotActive );
 		// When
 		Mockito.when( this.inventoryRepository.findAll() ).thenReturn( partList );
 		// Test
 		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
-		final PartList obtained = serviceV1.partsList( true );
+		final PartList obtained = serviceV1.partsList( false );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.getCount() );
@@ -89,22 +119,16 @@ public class PartServiceV1Test {
 	}
 
 	@Test
-	public void partsListNotActive() {
+	public void partsListActivesOnly() {
 		// Given
 		final List<Part> partList = new ArrayList<>();
 		partList.add( new Part() );
-		partList.add( new Part.Builder()
-				.withId( TEST_PART_ID )
-				.withLabel( TEST_PART_LABEL )
-				.withCost( TEST_PART_COST )
-				.withPrice( TEST_PART_PRICE )
-				.withActive( false )
-				.build() );
+		partList.add( this.testPartNotActive);
 		// When
 		Mockito.when( this.inventoryRepository.findAll() ).thenReturn( partList );
 		// Test
 		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
-		final PartList obtained = serviceV1.partsList( false );
+		final PartList obtained = serviceV1.partsList( true );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 1, obtained.getCount() );

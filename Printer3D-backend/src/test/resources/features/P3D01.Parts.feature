@@ -10,13 +10,13 @@ Feature: Manage the Parts on the Inventory repository
   Scenario: [P3D01.01] Validate the creation of a new Part with the data received.
     Given a clean Inventory repository
     And the next NewPart request
-      | id                                   | label        | colorCode | cost | price | stockLevel | active |
-      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  | 2          | true   |
+      | id                                   | label        | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | WHITE        | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
     When the New Part request is processed
     Then there is a valid response with return code of "201 CREATED"
     And the response for new Part has the next fields
-      | id                                   | label        | colorCode | cost | price | stockLevel | active |
-      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  | 2          | true   |
+      | id                                   | label        | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | WHITE        | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
 #  @ID01.H @ID01.02
 #  Scenario: [ID01.02] Validate the update of the Centro data and check the resulting records contents.
@@ -37,15 +37,15 @@ Feature: Manage the Parts on the Inventory repository
   Scenario: [P3D01.03] Request the list of Parts available on Inventory repository.
     Given a clean Inventory repository
     And the following Parts in my service
-      | id                                   | label        | colorCode | cost | price | stockLevel | active |
-      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  | 8          | true   |
-      | 0c3a21c8-8f7a-4418-8902-3c3ff5afd7a7 | Covid-19 Key | BLK       | 0.65 | 2.00  | 2          | true   |
+      | id                                   | label        | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | WHITE        | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | GREEN        | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
     When the Get Parts request is processed
     Then there is a valid response with return code of "200 OK"
     And the list of Parts has "2" items
     And the item "1" of the list of Parts has the next fields
-      | id                                   | label        | colorCode | cost | price | stockLevel | active |
-      | 03bd272e-207d-4461-80b6-1cf49483bdf8 | Covid-19 Key | LB        | 0.65 | 2.00  | 8          | true   |
+      | id                                   | label        | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | WHITE        | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 #
 #  # - E X C E P T I O N S
 #  @ID01.E @ID01.04

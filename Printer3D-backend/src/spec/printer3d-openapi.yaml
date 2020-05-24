@@ -19,7 +19,10 @@ info:
     * **Part** - This is the definition of an item that can be sold independently. The Part is the view side from the 3D printer stand view. Parts
     define the time slot use of the 3D printer and have some cost and price attached. The Part will also store the stock information so for active
     parts this information is used to calculate the jobs pending to stabilize a stock level.
-    * ** Inventory** - This is the list of Parts declared on the system. Used as the base point to generate the list of print jobs. Reading the
+
+    * **Machine** - This is the entity that describes a 3D printer model and its configutation.
+
+    * **Inventory** - This is the list of Parts declared on the system. Used as the base point to generate the list of print jobs. Reading the
     list of parts and evaluating the stock levels we can obtain the list of jobs that are required to complete the stock levels.
 
   license:
@@ -84,8 +87,8 @@ paths:
           required: false
           style: form
           explode: false
-          description: Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are
-          included on the list. If tru only active parts will be returned by the filter.
+          description: >
+            Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are included on the list. If tru only active parts will be returned by the filter.
           schema:
             type: boolean
             default: false
@@ -170,9 +173,10 @@ components:
         - id
         - label
         - colorCode
+        - buildTime
         - cost
         - price
-        - active
+        - stockLevel
       properties:
         id:
           type: string
@@ -201,9 +205,17 @@ components:
           description: >
             A user description of the part. It is useful but it is not mandatory.
           example:
-            This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.
+            'This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.'
         colorCode:
           $ref: '#/components/schemas/ColorCode'
+        buildTime:
+          type: number
+          format: int32
+          default: 5
+          description: >
+            This field stores the time in minutes that lasts the 3d printer job to finish.
+          example:
+            15
         cost:
           type: number
           format: float
@@ -218,12 +230,45 @@ components:
             The requested catalog price for this Part. This price includes IVA so on bills real price should be recalculated.
           example:
             4.00
+        stockLevel:
+          type: number
+          format: int32
+          default: 1
+          description: >
+            This is the value set as the stock level desired to have on the storage.
+          example:
+            3
+        stockAvailable:
+          type: number
+          format: int32
+          default: 0
+          description: >
+            This is the current stock value of the number of pieces available to sell.
+          example:
+            4
+        imagePath:
+          type: string
+          format: url
+          description: >
+            The URL for an external image stored on a public repository or Google drive. This image will be used when showing the catalog.
+          example:
+            'https://ibb.co/3dGbsRh'
+        modelPath:
+          type: string
+          format: string
+          description: >
+            The file name os the model to be used on the printer to be used on the printer job.
+          example:
+            'pieza3.STL'
         active:
           type: boolean
+          format: boolean
           default: true
           description: >
             This flag is used to mark out disabled parts. Parts that are obsolete and no longer should be build are not deleted but just disabled
             with this flag. Disable status can be reverted editing the part.
+          example:
+            true
     PartList:
       type: object
       required:
@@ -294,15 +339,16 @@ components:
     ColorCode:
       type: string
       enum:
-        - GRN
+        - WHITE
+        - GREEN
+        - GREEN-TRANSP
         - RED
-        - PK
-        - LB
-        - BL
-        - GR
+        - LIGHT-BLUE
+        - PINK-TRANSP
+        - ORANGE-TRANSP
       description: >
-        It is a shorl color code to be appended to the label for part identification. For the machine build job and the stock the color is a
-        most important element since differentiates to identical parts at the model level.
+        It is a short color code to be appended to the label for part identification. For the machine build job and the stock the color is a
+        most important element since differentiates two identical parts at the model level.
     UUID:
       type: string
       format: uuid

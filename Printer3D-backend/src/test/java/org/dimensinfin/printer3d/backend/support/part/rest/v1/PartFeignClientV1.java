@@ -29,7 +29,7 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( PartsApiV1.class )
-				.partList( authorizationToken, true )
+				.partList( authorizationToken, false )
 				.execute();
 		if (response.isSuccessful()) {
 			return response.body().getCount();
@@ -58,7 +58,7 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( PartsApiV1.class )
-				.partList( authorizationToken, true )
+				.partList( authorizationToken, false )
 				.execute();
 		if (response.isSuccessful()) {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );

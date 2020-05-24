@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.part.rest.support;
 
-import java.sql.SQLException;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.common.client.rest.CountResponse;
-import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 
 /**
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
@@ -35,7 +32,7 @@ public class PartControllerSupport {
 	public PartControllerSupport( @NotNull final PartServiceSupport partServiceSupport ) {
 		this.partServiceSupport = Objects.requireNonNull( partServiceSupport );
 	}
-	@GetMapping(path = "/parts/delete/all",
+	@GetMapping(path = "/inventory/parts/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<CountResponse> deleteAllParts() {

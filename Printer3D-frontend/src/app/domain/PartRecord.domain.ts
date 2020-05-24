@@ -2,17 +2,20 @@
 import { Node } from './node';
 import { PartRecordConverter } from './PartRecord.converter';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { EColorCode } from './interfaces/EPack.enumerated';
 
 export class PartRecord extends Node {
     public id: string;
     public label: string;
     public description: string;
-    public imagePath: string;
-    public modelPath: string;
-    public stockLevel: number = 1;
+    public colorCode: EColorCode;
     public cost: number;
     public price: number = 1;
-    public active : boolean = true;
+    public stockLevel: number = 1;
+    public stockAvailable;
+    public imagePath: string;
+    public modelPath: string;
+    public active: boolean = true;
 
     constructor(values: Object = {}) {
         super();

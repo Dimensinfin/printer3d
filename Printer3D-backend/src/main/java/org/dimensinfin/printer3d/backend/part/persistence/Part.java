@@ -4,21 +4,29 @@ import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import org.dimensinfin.printer3d.client.part.domain.ColorCodeType;
 
 @Entity
 @Table(name = "inventory", schema = "printer3d")
+@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 public class Part {
 	@Id
-	@NotNull(message = "Part unique UUID 'id' should not be null.")
+	@NotNull(message = "Part unique UUID 'id' is a mandatory field and cannot be null.")
 	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
 	@NotNull(message = "Part 'label' is mandatory.")
@@ -28,6 +36,14 @@ public class Part {
 	@Size(max = 500)
 	@Column(name = "description", updatable = true, nullable = true)
 	private String description;
+	@NotNull(message = "Part 'colorCode' is mandatory.")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "color_code", updatable = true, nullable = false)
+	@Type(type = "pgsql_enum")
+	private ColorCodeType colorCode;
+	@NotNull(message = "Part 'buildTime' is mandatory.")
+	@Column(name = "build_time", updatable = true, nullable = false)
+	private Integer buildTime;
 	@NotNull(message = "Part 'cost' value is mandatory.")
 	@Column(name = "cost", updatable = true, nullable = false)
 	private Float cost;
@@ -37,10 +53,26 @@ public class Part {
 	@NotNull(message = "Part 'stockLevel' value is mandatory.")
 	@Column(name = "stock_level", updatable = true, nullable = false)
 	private Integer stockLevel;
+	@Column(name = "stock_available", updatable = true, nullable = false)
+	private int stockAvailable = 0;
+	@Size(max = 100)
+	@Column(name = "image_path", updatable = true, nullable = true)
+	private String imagePath;
+	@Size(max = 100)
+	@Column(name = "model_path", updatable = true, nullable = true)
+	private String modelPath;
 	@Column(name = "active", updatable = true, nullable = false)
 	private boolean active = true;
 
 	// - G E T T E R S   &   S E T T E R S
+	public Integer getBuildTime() {
+		return this.buildTime;
+	}
+
+	public ColorCodeType getColorCode() {
+		return this.colorCode;
+	}
+
 	public Float getCost() {
 		return this.cost;
 	}
@@ -53,27 +85,47 @@ public class Part {
 		return this.id;
 	}
 
+	public String getImagePath() {
+		return this.imagePath;
+	}
+
 	public String getLabel() {
 		return this.label;
 	}
 
-	public Integer getStockLevel() {
-		return this.stockLevel;
+	public String getModelPath() {
+		return this.modelPath;
 	}
 
 	public Float getPrice() {
 		return this.price;
 	}
 
+	public int getStockAvailable() {
+		return this.stockAvailable;
+	}
+
+	public Integer getStockLevel() {
+		return this.stockLevel;
+	}
+
+	public boolean isActive() {
+		return this.active;
+	}
+
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
-				//				.append( this.id )
 				.append( this.label )
 				.append( this.description )
+				.append( this.colorCode )
+				.append( this.buildTime )
 				.append( this.cost )
 				.append( this.price )
 				.append( this.stockLevel )
+				.append( this.stockAvailable )
+				.append( this.imagePath )
+				.append( this.modelPath )
 				.append( this.active )
 				.toHashCode();
 	}
@@ -84,13 +136,17 @@ public class Part {
 		if (!(o instanceof Part)) return false;
 		final Part part = (Part) o;
 		return new EqualsBuilder()
-				//				.append( this.id, part.id )
+				.append( this.stockAvailable, part.stockAvailable )
+				.append( this.active, part.active )
 				.append( this.label, part.label )
 				.append( this.description, part.description )
+				.append( this.colorCode, part.colorCode )
+				.append( this.buildTime, part.buildTime )
 				.append( this.cost, part.cost )
 				.append( this.price, part.price )
 				.append( this.stockLevel, part.stockLevel )
-				.append( this.active, part.active )
+				.append( this.imagePath, part.imagePath )
+				.append( this.modelPath, part.modelPath )
 				.isEquals();
 	}
 
@@ -100,15 +156,16 @@ public class Part {
 				.append( "id", this.id )
 				.append( "label", this.label )
 				.append( "description", this.description )
+				.append( "colorCode", this.colorCode )
+				.append( "buildTime", this.buildTime )
 				.append( "cost", this.cost )
 				.append( "price", this.price )
 				.append( "stockLevel", this.stockLevel )
+				.append( "stockAvailable", this.stockAvailable )
+				.append( "imagePath", this.imagePath )
+				.append( "modelPath", this.modelPath )
 				.append( "active", this.active )
 				.toString();
-	}
-
-	public Boolean isActive() {
-		return this.active;
 	}
 
 	// - B U I L D E R
@@ -123,6 +180,8 @@ public class Part {
 		public Part build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
+			Objects.requireNonNull( this.onConstruction.colorCode );
+			Objects.requireNonNull( this.onConstruction.buildTime );
 			Objects.requireNonNull( this.onConstruction.cost );
 			Objects.requireNonNull( this.onConstruction.price );
 			Objects.requireNonNull( this.onConstruction.stockLevel );
@@ -134,13 +193,23 @@ public class Part {
 			return this;
 		}
 
+		public Part.Builder withBuildTime( final Integer buildTime ) {
+			this.onConstruction.buildTime = Objects.requireNonNull( buildTime );
+			return this;
+		}
+
+		public Part.Builder withColorCode( final ColorCodeType colorCode ) {
+			this.onConstruction.colorCode = Objects.requireNonNull( colorCode );
+			return this;
+		}
+
 		public Part.Builder withCost( final Float cost ) {
 			this.onConstruction.cost = Objects.requireNonNull( cost );
 			return this;
 		}
 
 		public Part.Builder withDescription( final String description ) {
-		if ( null != description)	this.onConstruction.description =  description ;
+			if (null != description) this.onConstruction.description = description;
 			return this;
 		}
 
@@ -149,8 +218,18 @@ public class Part {
 			return this;
 		}
 
+		public Part.Builder withImagePath( final String imagePath ) {
+			if (null != imagePath) this.onConstruction.imagePath = imagePath;
+			return this;
+		}
+
 		public Part.Builder withLabel( final String label ) {
 			this.onConstruction.label = Objects.requireNonNull( label );
+			return this;
+		}
+
+		public Part.Builder withModelPath( final String modelPath ) {
+			if (null != modelPath) this.onConstruction.modelPath = modelPath;
 			return this;
 		}
 
@@ -158,9 +237,17 @@ public class Part {
 			this.onConstruction.price = Objects.requireNonNull( price );
 			return this;
 		}
+
+		public Part.Builder withStockAvailable( final Integer stockAvailable ) {
+			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
+			return this;
+		}
+
 		public Part.Builder withStockLevel( final Integer stockLevel ) {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
 			return this;
 		}
+
+
 	}
 }

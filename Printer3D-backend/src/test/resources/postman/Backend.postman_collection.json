@@ -7,27 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "InventoryParts",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts",
-					"host": [
-						"{{backendServer}}{{backendPort}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"inventory",
-						"parts"
-					]
-				},
-				"description": "Get the complete list of Parts declared on the Inventory repository"
-			},
-			"response": []
-		},
-		{
 			"name": "DeleteAllParts",
 			"request": {
 				"method": "GET",
@@ -39,13 +18,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}/api/v1/parts/delete/all",
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/delete/all",
 					"host": [
 						"{{backendServer}}{{backendPort}}"
 					],
 					"path": [
 						"api",
 						"v1",
+						"inventory",
 						"parts",
 						"delete",
 						"all"
@@ -59,10 +39,16 @@
 			"name": "NewPart",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n    \"label\": \"Covid-19 Key\",\n    \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n    \"colorCode\": \"GRN\",\n    \"cost\": 0.85,\n    \"price\": 4,\n    \"active\": true\n}",
+					"raw": "{\n  \"id\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n  \"label\": \"Covid-19 Key\",\n  \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n  \"colorCode\": \"WHITE\",\n  \"buildTime\": 15,\n  \"cost\": 0.85,\n  \"price\": 4,\n  \"stockLevel\": 3,\n  \"stockAvailable\": 4,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,17 +56,78 @@
 					}
 				},
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}/api/v1/parts",
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts",
 					"host": [
 						"{{backendServer}}{{backendPort}}"
 					],
 					"path": [
 						"api",
 						"v1",
+						"inventory",
 						"parts"
 					]
 				},
 				"description": "Creates a new Part at the Inventory repository."
+			},
+			"response": []
+		},
+		{
+			"name": "PartList",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"parts"
+					]
+				},
+				"description": "Get the complete list of parts from the Inventory respository. There is an optional flag to filter out inactive parts."
+			},
+			"response": []
+		},
+		{
+			"name": "PartList-filter active",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts?activesOnly=true",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"parts"
+					],
+					"query": [
+						{
+							"key": "activesOnly",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Get the list of active Parts from the Inventory repository."
 			},
 			"response": []
 		}
