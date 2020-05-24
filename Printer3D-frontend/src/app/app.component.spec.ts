@@ -16,6 +16,7 @@ import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
 // - DOMAIN
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
 
 describe('COMPONENT AppComponent [Module: CORE]', () => {
     let component: AppComponent;
@@ -54,7 +55,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
         it('appVersion: check value declared for "appVersion"', () => {
             const componentInstance = new AppComponent();
             expect(componentInstance.getAppVersion()).toBeDefined('field "appVersion" not defined.');
-            expect(componentInstance.getAppVersion()).toBe('v0.1.0 dev');
+            expect(componentInstance.getAppVersion()).toBe(environment.appVersion);
         });
     });
 
@@ -66,7 +67,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
         });
         it('appVersion: check value declared for "appVersion"', () => {
             expect(component.appVersion).toBeDefined('field "appVersion" not defined.');
-            expect(component.appVersion).toBe('v0.1.0 dev');
+            expect(component.appVersion).toBe(environment.appVersion);
         });
     });
 });
