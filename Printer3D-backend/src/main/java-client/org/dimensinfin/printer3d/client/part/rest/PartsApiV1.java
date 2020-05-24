@@ -24,7 +24,7 @@ public interface PartsApiV1 {
 	 * @return Call&lt;Part&gt;
 	 */
 	@Headers({ "Content-Type:application/json" })
-	@POST("api/v1/parts")
+	@POST("api/v1/inventory/parts")
 	Call<Part> newPart( @Header("Authorization") @NotNull final String authorizationToken,
 	                    @Body @Valid @NotNull final Part newPart );
 
@@ -36,7 +36,7 @@ public interface PartsApiV1 {
 	 * @param active Allows the selection or filtering for not active Parts. By default all active parts are retrieved. (optional, default to false)
 	 * @return Call&lt;PartList&gt;
 	 */
-	@GET("api/v1/parts")
+	@GET("api/v1/inventory/parts")
 	Call<PartList> partList( @Header("Authorization") @NotNull final String authorizationToken,
 	                         @Query("active") Boolean active );
 //
