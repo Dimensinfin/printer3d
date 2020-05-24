@@ -4,11 +4,15 @@ import { PartRecordConverter } from './PartRecord.converter';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 export class PartRecord extends Node {
-    public id : string;
+    public id: string;
     public label: string;
     public description: string;
-    public cost: string = "0.76";
-    public pvp: string = "1.0€";
+    public imagePath: string;
+    public modelPath: string;
+    public stockLevel: number = 1;
+    public cost: number;
+    public price: number = 1;
+    public active : boolean = true;
 
     constructor(values: Object = {}) {
         super();

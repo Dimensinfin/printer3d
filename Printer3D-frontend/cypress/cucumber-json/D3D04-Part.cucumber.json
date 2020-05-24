@@ -37,11 +37,21 @@
           {
             "arguments": [],
             "keyword": "Given ",
+            "line": 10,
+            "name": "the Default Dock Configuration",
+            "result": {
+              "status": "passed",
+              "duration": 223000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
             "line": 11,
             "name": "the application Printer3DManager",
             "result": {
               "status": "passed",
-              "duration": 2651000000
+              "duration": 2487000000
             }
           },
           {
@@ -51,27 +61,208 @@
             "name": "one instance of Dock",
             "result": {
               "status": "passed",
-              "duration": 245000000
+              "duration": 139000000
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
             "line": 17,
-            "name": "there is a click on Feature \"/New Part\"",
+            "name": "there is a click on Feature \"/NEW PART\"",
             "result": {
               "status": "passed",
-              "duration": 1885000000
+              "duration": 756000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 18,
-            "name": "the dialog New Part opens and blocks the display",
+            "name": "the New Part dialog opens and blocks the display",
             "result": {
               "status": "passed",
-              "duration": 325000000
+              "duration": 239000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "[d3d04]-define-the-requirements-for-the-part-inrteractions-liek-creation-and-update.;[d3d04.02]-a-new-part-dialog-should-have-the-unique-identifier-not-editable.-the-fields-should-be-empty.",
+        "keyword": "Scenario",
+        "line": 21,
+        "name": "[D3D04.02]-A new part dialog should have the unique identifier not editable. The fields should be empty.",
+        "tags": [
+          {
+            "name": "@D3D04",
+            "line": 2
+          },
+          {
+            "name": "@D3D04",
+            "line": 20
+          },
+          {
+            "name": "@D3D04.02",
+            "line": 20
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 10,
+            "name": "the Default Dock Configuration",
+            "result": {
+              "status": "passed",
+              "duration": 220000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "the application Printer3DManager",
+            "result": {
+              "status": "passed",
+              "duration": 669000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 22,
+            "name": "one instance of Dock",
+            "result": {
+              "status": "passed",
+              "duration": 110000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 23,
+            "name": "there is a click on Feature \"/NEW PART\"",
+            "result": {
+              "status": "passed",
+              "duration": 591000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 24,
+            "name": "the New Part dialog opens and blocks the display",
+            "result": {
+              "status": "passed",
+              "duration": 116000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "f1d8b1ef-b99b-45eb-a284-e706e2b6f2d4"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 25,
+            "name": "there is one instance of form field \"id\" with content",
+            "result": {
+              "status": "passed",
+              "duration": 215000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "[d3d04]-define-the-requirements-for-the-part-inrteractions-liek-creation-and-update.;[d3d04.03]-a-new-part-dialog-should-have-the-fields-empty.",
+        "keyword": "Scenario",
+        "line": 30,
+        "name": "[D3D04.03]-A new part dialog should have the fields empty.",
+        "tags": [
+          {
+            "name": "@D3D04",
+            "line": 2
+          },
+          {
+            "name": "@D3D04",
+            "line": 29
+          },
+          {
+            "name": "@D3D04.03",
+            "line": 29
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 10,
+            "name": "the Default Dock Configuration",
+            "result": {
+              "status": "passed",
+              "duration": 159000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "the application Printer3DManager",
+            "result": {
+              "status": "passed",
+              "duration": 896000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 31,
+            "name": "one instance of Dock",
+            "result": {
+              "status": "passed",
+              "duration": 92000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 32,
+            "name": "there is a click on Feature \"/NEW PART\"",
+            "result": {
+              "status": "passed",
+              "duration": 423000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 33,
+            "name": "the New Part dialog opens and blocks the display",
+            "result": {
+              "status": "passed",
+              "duration": 110000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 34,
+            "name": "the NewPart dialog input fields should be empty",
+            "result": {
+              "status": "passed",
+              "duration": 346000000
             }
           }
         ]

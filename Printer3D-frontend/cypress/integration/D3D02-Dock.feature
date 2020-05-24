@@ -11,7 +11,7 @@ Feature: [D3D02]-Test the activities with the dock. First action is to move to t
     Scenario: [D3D02.01]-If there is a click on a Feature that is a PAGE-ROUTE then the route changes to the configured destination.
         Given the DashboardPage is activated
         And one instance of Dock
-        When there is a click on v1-feature-render with index 0
+        When there is a click on v1-feature-render with name "/INVENTORY"
         Then the target page is InventoryPartListPage
 
     @D3D02 @D3D02.02
@@ -22,7 +22,7 @@ Feature: [D3D02]-Test the activities with the dock. First action is to move to t
         Then there is a "v1-feature-render" at index "0" with the next fields
             | label      | active |
             | /Inventory | false  |
-        When there is a click on v1-feature-render with index 0
+        When there is a click on v1-feature-render with name "/INVENTORY"
         Then the target page is InventoryPartListPage
         And there is 1 v1-feature-render active
         Then there is a "v1-feature-render" at index "0" with the next fields
@@ -31,10 +31,15 @@ Feature: [D3D02]-Test the activities with the dock. First action is to move to t
 
     @D3D02 @D3D02.03
     Scenario: [D3D02.03]-When there is a Feature active and the application is restarted the landing page is the one for the Feature selected.
-        Given the a Dock Configuration with Feature "/Inventory" selected
+        Given a Dock Configuration with Feature "/INVENTORY" selected
         When the application is started
         Then the target page is InventoryPartListPage
         And there is 1 v1-feature-render active
         Then there is a "v1-feature-render" at index "0" with the next fields
             | label      | active |
             | /Inventory | true   |
+
+    # @D3D02 @D3D02.04
+    # Scenario: [D3D02.04]-If there is a click on a Feature that is a PAGE-ROUTE then Dock presentation changes to show as active the Feature selected.
+    # @D3D02 @D3D02.05
+    # Scenario: [D3D02.05]-If the application route is changed manually the Feature list display should be adjusted to the current Route

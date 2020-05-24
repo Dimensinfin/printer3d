@@ -30,7 +30,7 @@ export class DialogFactoryService {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.id = "newpart-component";
-        dialogConfig.height = "80vh";
+        dialogConfig.height = "86vh";
         dialogConfig.width = "60vw";
         const modalDialog: MatDialogRef<NewPartDialogComponent> = this.matDialog.open(dialogComponent, dialogConfig);
     }

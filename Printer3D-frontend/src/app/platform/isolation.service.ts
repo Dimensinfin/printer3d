@@ -15,12 +15,20 @@ export class IsolationService {
         @Inject(LOCAL_STORAGE) protected storage: StorageService,
         @Inject(SESSION_STORAGE) protected sessionStorage: StorageService,
     ) { }
-    
+
     // - S T O R A G E
     public getFromStorage(key: string): string {
         return this.storage.get(key);
     }
+    public setToStorage(key: string, object: any): void {
+        this.storage.set(key, object);
+    }
     public setToStorageObject(key: string, object: any): void {
         this.storage.set(key, JSON.stringify(object));
+    }
+    public removeFromStorage(key: string): string {
+        const data = this.storage.get(key);
+        this.storage.remove(key);
+        return data;
     }
 }

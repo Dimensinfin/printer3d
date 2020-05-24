@@ -6,6 +6,8 @@ import { Input } from '@angular/core';
 import { Feature } from '@domain/Feature.domain';
 import { V1DockComponent } from '../../panels/v1-dock/v1-dock.component';
 import { DialogFactoryService } from '@app/factory/dialog-factory.service';
+import { IsolationService } from '@app/platform/isolation.service';
+import { platformconstants } from '@app/platform/platform-constants';
 
 @Component({
     selector: 'v1-feature-render',
@@ -16,7 +18,8 @@ export class V1FeatureRenderComponent {
     @Input() dock: V1DockComponent;
     @Input() node: Feature;
 
-    constructor(private dialogFactory: DialogFactoryService) { }
+    constructor(private dialogFactory: DialogFactoryService,
+        private isolationService: IsolationService) { }
 
     /**
      * If the Feature is of the type PAGEROUTE then we should send a message to the Dock to report the change on the Feature active.
@@ -31,6 +34,11 @@ export class V1FeatureRenderComponent {
                     break;
                 case 'DIALOG':
                     this.dialogFactory.processClick(this.node);
+                    break;
+                case 'ACTION':
+                    this.isolationService.removeFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)
+                    if (null != this.dock) this.dock.clean();
+                    if (null != this.dock) this.dock.activateFeature(this.node);
                     break;
             }
         }

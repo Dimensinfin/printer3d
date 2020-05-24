@@ -7,20 +7,31 @@ Feature: [D3D04]-Define the requirements for the Part inrteractions liek creatio
     once the part is constructed.
 
     Background: Dock Default Configuration setup
-    #     Given the Default Dock Configuration
+        Given the Default Dock Configuration
         Given the application Printer3DManager
 
     # - H A P P Y   P A T H
     @D3D04 @D3D04.01
     Scenario: [D3D04.01]-If the Feature New Part received a click then we should show the New Part Dialog.
         Given one instance of Dock
-        When there is a click on Feature "/New Part"
-        Then the dialog New Part opens and blocks the display
+        When there is a click on Feature "/NEW PART"
+        Then the New Part dialog opens and blocks the display
 
-#     @D3D04 @D3D04.02
-#     Scenario: [D3D04.02]-A new part dialog should have the unique identifier not editable. The fields should be empty.
-#     @D3D04 @D3D04.03
-#     Scenario: [D3D04.03]-A new part dialog should have the fields empty.
+    @D3D04 @D3D04.02
+    Scenario: [D3D04.02]-A new part dialog should have the unique identifier not editable. The fields should be empty.
+        Given one instance of Dock
+        When there is a click on Feature "/NEW PART"
+        Then the New Part dialog opens and blocks the display
+        And there is one instance of form field "id" with content
+            | id                                   |
+            | f1d8b1ef-b99b-45eb-a284-e706e2b6f2d4 |
+
+    @D3D04 @D3D04.03
+    Scenario: [D3D04.03]-A new part dialog should have the fields empty.
+        Given one instance of Dock
+        When there is a click on Feature "/NEW PART"
+        Then the New Part dialog opens and blocks the display
+        And the NewPart dialog input fields should be empty
 #     @D3D04 @D3D04.04
 #     Scenario: [D3D04.04]-A new part dialog should have two buttons. One to save the new part and another to cancel the operation.
 #     @D3D04 @D3D04.05

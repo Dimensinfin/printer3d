@@ -19,7 +19,7 @@
         "label": "/Reset",
         "enabled": true,
         "active": false,
-        "interaction": "DIALOG",
-        "dialog": "ResetDockConfigurationDialog"
+        "interaction": "ACTION",
+        "route": "/"
     }
 ]

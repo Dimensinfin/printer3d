@@ -1,26 +1,24 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### What is this repository for? ###
 
-## Application Ports
+* This repository contains the projects for an application to manage a set of 3D printer work queues. It will allow to define a set of Parts to be stocked for sell and when new requests from customers arrive the application should generate the worklist queue to fulfill them.
+* Current version is DEVELOPMENT-0.3.0
+
+## How do I get set up? ###
+
+### Summary of set up
+### Configuration
+#### Application Ports
+
 5100 - Angular frontend server
+5101 - ApiSimulator port for the backend mock
 5110 - SpringBoot backend development server
 5130 - SpringBoot backend acceptance server
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Database configuration
+### How to run tests
+##3 Deployment instructions
 
 ### Contribution guidelines ###
 
@@ -30,5 +28,4 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Repo owner or admin (adamantinoo.git@gmail.com)

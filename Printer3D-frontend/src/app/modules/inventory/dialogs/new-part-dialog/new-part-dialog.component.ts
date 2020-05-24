@@ -22,6 +22,12 @@ export class NewPartDialogComponent implements OnInit {
     public downloading: boolean = true;
     public development: boolean = false;
     public part: PartRecord = new PartRecord();
+    public label;
+    public cost;
+    public price;
+    public stockLevel;
+    public imagePath;
+    public modelPath;
 
     constructor(
         public dialogRef: MatDialogRef<NewPartDialogComponent>,

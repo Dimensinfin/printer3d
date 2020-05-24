@@ -11,15 +11,20 @@ $form-item-invalid: #A94442; // Red
 .dsf-form-control {
     font-size: 16px;
     font-weight: 600;
+    font-family: 'Mina';
     height: auto;
     line-height: 1.0;
     padding: 4px;
 }
 
-label {
+.dsf-form-label {
     font-weight: 900;
     font-size: 16px;
     padding-right: 8px;
+}
+
+.dsf-number {
+    text-align: right;
 }
 
 .dsf-editable-form-item {
@@ -39,7 +44,7 @@ label {
     font-weight: 600;
     height: auto;
     line-height: 1.0;
-    font-family: 'Electrolite';
+    // font-family: 'Electrolite';
 }
 
 .dsf-editable-form-item:focus {
@@ -49,11 +54,7 @@ label {
 .dsf-untouchable-form-item {
     border: 1px solid #CED4DA;
     border-left: $color-border-width solid #909090;
-    padding-left: 6px;
-    // display: block;
-    padding: 6px;
     color: $grey-border-color;
-    background-color: white;
     background-clip: padding-box;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -65,16 +66,6 @@ label {
 
 .novalidation-form-item {
     padding-left: 9px;
-}
-
-#centered-container {
-    display: flex;
-    justify-content: center;
-}
-
-.centered-container {
-    display: flex;
-    justify-content: center;
 }
 
 // - F O R M   V A L I D A T I O N S
@@ -93,4 +84,81 @@ label {
 
 .no-style .ng-invalid {
     border-left: 1px solid #CCC;
+}
+
+// - B U T T O N S
+#centered-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+$button-border-color: grey;
+$green-button-color: #66FF66;
+$submit-button-color: #66FF66;
+$cancel-button-color: #FF7733;
+$clearform-button-color: #FF7733;
+.btn {
+    min-width: 50%;
+}
+
+.dsf-form-button {
+    min-width: 30%;
+    font-family: 'Prototype', sans-serif;
+    font-size: 24px;
+    line-height: 3;
+}
+
+.submit-button {
+    background: transparent;
+    border: 4px solid $submit-button-color;
+    border-radius: 8px;
+    color: $submit-button-color;
+    margin-bottom: 16px;
+    text-transform: UPPERCASE;
+}
+
+.submit-button:disabled {
+    border: 4px solid #D0D0D0;
+    color: #D0D0D0;
+}
+
+.submit-button:hover {
+    background-color: $green-button-color;
+    color: white;
+}
+
+.submit-button:hover:disabled {
+    background: #D0D0D0;
+    color: white;
+}
+
+.clearform-button {
+    background: transparent;
+    border: 4px solid $clearform-button-color;
+    border-radius: 8px;
+    color: $clearform-button-color;
+    margin-bottom: 16px;
+    text-transform: UPPERCASE;
+}
+
+.clearform-button:disabled {
+    border: 4px solid #D0D0D0;
+    color: #D0D0D0;
+}
+
+.clearform-button:hover {
+    background: $clearform-button-color;
+    color: white;
+}
+
+.clearform-button:hover:disabled {
+    background: #D0D0D0;
+    color: white;
 }

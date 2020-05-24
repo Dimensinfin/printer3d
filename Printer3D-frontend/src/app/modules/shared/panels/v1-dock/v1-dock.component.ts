@@ -69,6 +69,10 @@ export class V1DockComponent implements OnInit {
             this.pageChange(this.activeFeature.getRoute());
         }
     }
+    public clean () : void {
+        this.activeFeature=null;
+        this.appStore.fireAccessDockConfiguration();
+    }
     /**
      * Save the new dock configuration so if the applciation is restarted this is the new default start point.
      * @param route the new route path to be set as destination.

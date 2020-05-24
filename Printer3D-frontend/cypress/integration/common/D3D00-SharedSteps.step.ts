@@ -95,7 +95,7 @@ Then('there is a {string} at index {string} with the next fields', function (pan
     switch (panelType) {
         case 'v1-feature-render':
             const feature: V1Feature = new V1Feature();
-            expect(feature).to.not.be.null;
+            expect(feature) 
             feature.validatePanel(row);
             break;
         case 'grid-row':
