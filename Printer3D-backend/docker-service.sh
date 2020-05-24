@@ -14,6 +14,7 @@ generateContainer() {
   ./gradlew clean bootJar
   cp ./build/libs/*.jar "$DOCKER_DIRECTORY"
   cd "$DOCKER_DIRECTORY" || exit 1;
+  mv -v printer3d-backend-*.jar "printer3d-backend-acceptance.jar"
   docker build -t dimensinfin/printer3d.backend .
 }
 # - S T A R T / S T O P
