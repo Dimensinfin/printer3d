@@ -20,27 +20,43 @@ Then('the New Part dialog opens and blocks the display', function () {
     cy.get('app-root').get('mat-dialog-container').get('new-part-dialog').should('have.length', 1)
 });
 
-Then('there is one instance of form field {string} with the next contents', function (fieldId, dataTable) {
-    console.log('[THEN] there is one instance of form field {string} with the next contents');
-    const row = dataTable.hashes()[0];
+Then('there is one instance of form with the next contents', function (dataTable) {
+    console.log('[THEN] there is one instance of form with the next contents');
+    // const row = dataTable.hashes()[0];
     const form = new NewPartForm();
     expect(form).to.not.be.null;
-    form.validatePanel(row);
-});
-Then('there is one instance of form field {string} with content', function (fieldName, dataTable) {
-    console.log('[THEN] there is one instance of form field {string} with the next contents');
-    const row = dataTable.hashes()[0];
-    const form = new NewPartForm();
-    expect(form).to.not.be.null;
-    form.fieldHasContent(row, fieldName);
-});
+    form.validateHasContents(dataTable);
+  });
+
+//   Then('there is a drop field called {string} with the next list of values', function (string, dataTable) {
+//     // Write code here that turns the phrase above into concrete actions
+//     return 'pending';
+//   });
+
+  
+// Then('there is one instance of form field {string} with the next contents', function (fieldId, dataTable) {
+//     console.log('[THEN] there is one instance of form field {string} with the next contents');
+//     const row = dataTable.hashes()[0];
+//     const form = new NewPartForm();
+//     expect(form).to.not.be.null;
+//     form.validatePanel(row);
+// });
+// Then('there is one instance of form field {string} with content', function (fieldName, dataTable) {
+//     console.log('[THEN] there is one instance of form field {string} with the next contents');
+//     const row = dataTable.hashes()[0];
+//     const form = new NewPartForm();
+//     expect(form).to.not.be.null;
+//     form.fieldHasContent(row, fieldName);
+// });
 Then('the NewPart dialog input fields should be empty', function () {
     console.log('[THEN] the NewPart dialog input fields should be empty');
     const form = new NewPartForm();
     expect(form).to.not.be.null;
     form.fieldIsEmpty('label');
     form.fieldIsEmpty('description');
+    form.fieldIsEmpty('buildTime');
     form.fieldIsEmpty('cost');
+    form.fieldIsEmpty('price');
     form.fieldIsEmpty('imagePath');
     form.fieldIsEmpty('modelPath');
 });

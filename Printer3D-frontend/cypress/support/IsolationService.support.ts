@@ -58,7 +58,7 @@ export class IsolationService {
         return '-undefined-';
     }
     public replaceConfigurationTemplate(templateName: string): string {
-        return '-undefined-';
+        return templateName;
     }
     public replaceSystemTemplate(templateName: string): string {
         return '-undefined-';
