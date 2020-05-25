@@ -25,10 +25,8 @@ export class V1DockComponent implements OnInit {
     }
     public ngOnInit(): void {
         console.log('><[V1DockComponent.ngOnInit]');
-        // this.configuredFeatures.push(new Feature({ label: '/Inventory', active: true }));
-        // this.configuredFeatures.push(new Feature({ label: '/New Part', active: false }));
-        this.appStore.fireAccessDockConfiguration();
-        this.appStore.synchronize2DockConfiguration()
+        // this.appStore.fireAccessDockConfiguration();
+        this.appStore.readDockConfiguration()
             .subscribe((configuration: Feature[]) => {
                 this.configuredFeatures = configuration;
                 console.log('->[V1DockComponent.ngOnInit]> Feature count: ' + this.configuredFeatures.length);
@@ -71,14 +69,15 @@ export class V1DockComponent implements OnInit {
     }
     public clean () : void {
         this.activeFeature=null;
-        this.appStore.fireAccessDockConfiguration();
+        this.ngOnInit();
+        // this.appStore.fireAccessDockConfiguration();
     }
     /**
      * Save the new dock configuration so if the applciation is restarted this is the new default start point.
      * @param route the new route path to be set as destination.
      */
     private pageChange(route: string): void {
-        this.appStore.saveDockConfiguration(this.configuredFeatures);
+        // this.appStore.saveDockConfiguration(this.configuredFeatures);
         console.log('><[V1DockComponent.pageChange]> Route: ' + route);
         this.router.navigate([route]);
     }

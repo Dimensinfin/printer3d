@@ -1,9 +1,14 @@
 {
-    "id": "4972042f-8c7a-46ce-bc16-6c9560044ba4",
-    "label": "Trasher ship 01",
+    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+    "label": "Covid-19 Key",
     "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+    "colorCode": "WHITE",
+    "buildTime": 15,
     "cost": 0.85,
-    "price": 4.0,
-    "stockLevel": 6,
+    "price": 4,
+    "stockLevel": 3,
+    "stockAvailable": 4,
+    "imagePath": "https://ibb.co/3dGbsRh",
+    "modelPath": "pieza3.sft",
     "active": true
 }

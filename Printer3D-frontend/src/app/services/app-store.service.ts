@@ -41,30 +41,39 @@ export class AppStoreService {
 
     // - D O C K
     /**
+     * Read the initial dock configuration from the applciation properties. THis is the default Dock setup to be seen when the application starts and it is read once at the intialization step.
+     */
+    public readDockConfiguration(): Observable<Feature[]> {
+        return this.accessProperty('config/DefaultDockFeatureMap')
+            // .subscribe((features: Feature[]) => {
+            //     return features;
+            // })
+    }
+    /**
      * Reads the Dock configuration from local storage. If the configuration is not found then is an initialization event and the initial list is read
      * from the default dock configuration list on the application resources. If found it is feeded into the Subject so all listeners will be informed about changes on the Dock to be updated.
      */
-    public fireAccessDockConfiguration(): BehaviorSubject<Feature[]> {
-        const currentConfiguration = this.isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY);
-        if (this.isEmpty(currentConfiguration)) {
-            this.accessProperty('/config/DefaultDockFeatureMap')
-                .subscribe((fileData: any) => {
-                    const defaultConfiguration: Feature[] = featureTransformer.transform(fileData) as Feature[];
-                    this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, defaultConfiguration);
-                    this.dockActiveConfiguration.next(defaultConfiguration);
-                });
-        } else {
-            const defaultConfiguration = featureTransformer.transform(JSON.parse(currentConfiguration));
-            this.dockActiveConfiguration.next(defaultConfiguration);
-        }
-        return this.dockActiveConfiguration;
-    }
-    public synchronize2DockConfiguration(): BehaviorSubject<Feature[]> {
-        return this.dockActiveConfiguration;
-    }
-    public saveDockConfiguration(configuration: Feature[]): void {
-        this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
-    }
+    // public fireAccessDockConfiguration(): BehaviorSubject<Feature[]> {
+    //     const currentConfiguration = this.isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY);
+    //     if (this.isEmpty(currentConfiguration)) {
+    //         this.accessProperty('config/DefaultDockFeatureMap')
+    //             .subscribe((fileData: any) => {
+    //                 const defaultConfiguration: Feature[] = featureTransformer.transform(fileData) as Feature[];
+    //                 this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, defaultConfiguration);
+    //                 this.dockActiveConfiguration.next(defaultConfiguration);
+    //             });
+    //     } else {
+    //         const defaultConfiguration = featureTransformer.transform(JSON.parse(currentConfiguration));
+    //         this.dockActiveConfiguration.next(defaultConfiguration);
+    //     }
+    //     return this.dockActiveConfiguration;
+    // }
+    // public synchronize2DockConfiguration(): BehaviorSubject<Feature[]> {
+    //     return this.dockActiveConfiguration;
+    // }
+    // public saveDockConfiguration(configuration: Feature[]): void {
+    //     this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
+    // }
 
     // - G L O B A L   S U P P O R T   M E T H O D S
     public isEmpty(target?: any): boolean {
@@ -73,10 +82,10 @@ export class AppStoreService {
         // if (target.length == 0) return true;
         return false;
     }
-    public accessProperty(propertyName: string): any {
+    public accessProperty(propertyName: string): Observable<any> {
         console.log("><[AppStoreService.accessProperty]> Property: " + propertyName);
         // Construct the request to call the internal server.
-        let request = '/assets/properties' + propertyName + '.json';
+        let request = '/assets/properties/' + propertyName + '.json';
         return this.httpService.wrapHttpRESOURCECall(request)
             .pipe(data => {
                 return data as any;

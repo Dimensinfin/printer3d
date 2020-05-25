@@ -35,11 +35,11 @@ export class V1FeatureRenderComponent {
                 case 'DIALOG':
                     this.dialogFactory.processClick(this.node);
                     break;
-                case 'ACTION':
-                    this.isolationService.removeFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)
-                    if (null != this.dock) this.dock.clean();
-                    if (null != this.dock) this.dock.activateFeature(this.node);
-                    break;
+                // case 'ACTION-TO-DEFINE':
+                //     this.isolationService.removeFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)
+                //     if (null != this.dock) this.dock.clean();
+                //     if (null != this.dock) this.dock.activateFeature(this.node);
+                //     break;
             }
         }
     }
