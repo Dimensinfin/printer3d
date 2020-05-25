@@ -1,10 +1,10 @@
 server:
   port: ${PORT}
-  version: 0.4.0
+  version: 0.2.0
 info:
   tags:
-    environment: production
-    version: 0.240
+    environment: local
+    version: 0.2.0
 
 spring:
   jpa:
@@ -13,20 +13,20 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-  boot:
-    admin:
-      client:
-        url: http://localhost:8000
-        username: springmanager
-        password: 01.One.2020
-        instance:
-          service-base-url: http://localhost:${PORT}
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:8000
+#        username: springmanager
+#        password: 01.One.2020
+#        instance:
+#          service-base-url: http://localhost:${PORT}
   datasource:
-    url: ${JDBC_DATABASE_URL}
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
     platform: postgres
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml

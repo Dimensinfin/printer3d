@@ -124,3 +124,9 @@ dependencies {
     compileOnly 'org.apache.httpcomponents:httpclient:4.5.4'
     compileOnly 'org.threeten:threetenbp:1.4.4'
 }
+
+// - R U N N I N G
+def profiles = 'default'
+bootRun {
+    systemProperty "spring.profiles.active", profiles
+}

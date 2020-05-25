@@ -45,7 +45,6 @@ jobs:
       - run:
           name: Start-Backend Environment Validation
           environment:
-            # Configure the JVM and Gradle to avoid OOM errors
             _JAVA_OPTIONS: "-Xmx3g"
             GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
           command: |
@@ -54,7 +53,7 @@ jobs:
           name: BACKEND - Build SpringBoot code
           working_directory: Printer3D-backend
           command: |
-            ./gradlew clean bootJar
+            ./gradlew clean dependencies
       - save_cache:
           paths:
             - ~/project/Printer3D-backend/.gradle
@@ -108,12 +107,27 @@ jobs:
   test-backend-job:
     docker:
       - image: circleci/openjdk:11-jdk
+        environment:
+          _JAVA_OPTIONS: "-Xmx3g"
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+      - image: circleci/postgres:11.1
+        environment:
+          POSTGRES_USER: inno-user
+          POSTGRES_DB: inno-password
     environment:
-      PORT: 5110
+      PORT: 9500
     steps:
       - checkout
       - restore_cache:
           key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
+      - run:
+          name: BACKEND - Start the application in acceptance profile
+          working_directory: Printer3D-backend
+          environment:
+            SPRING_PROFILES_ACTIVE: acceptance
+            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres?user=inno-user&password=inno-password"
+          command: |
+            ./gradlew bootRun -Pacceptance
       - run:
           name: BACKEND - Unit Testing application
           working_directory: Printer3D-backend
@@ -121,14 +135,26 @@ jobs:
             ./gradlew test
   backend-deploy-to-heroku:
     docker:
-      - image: heroku/heroku
+      - image: circleci/openjdk:11-jdk
     environment:
       HEROKU_APP_NAME: printer3d-backend
       HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
       - run:
+          name: BACKEND - Create Heroku repository
+          working_directory: Printer3D-backend
+          command: |
+            git init
+            git add .gitignore
+            git add *.*
+            git add src
+            git add gradle
+            git add gradlew
+            git commit -m "-[HEROKU] Commiting code for deployment"
+      - run:
           name: Deploy Master to Heroku
+          working_directory: Printer3D-backend
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
