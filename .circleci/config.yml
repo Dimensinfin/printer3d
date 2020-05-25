@@ -139,9 +139,9 @@ jobs:
   frontend-deploy-to-heroku:
     docker:
       - image: circleci/node:12.16.3-browsers
-    environment:
-      HEROKU_APP_NAME: printer3d-backend
-      HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
+        environment:
+          HEROKU_APP_NAME: printer3d-backend
+          HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
       - run:
@@ -162,13 +162,12 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
-
   backend-deploy-to-heroku:
     docker:
       - image: circleci/openjdk:11-jdk
-    environment:
-      HEROKU_APP_NAME: printer3d-backend
-      HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
+        environment:
+          _JAVA_OPTIONS: "-Xmx3g"
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
     steps:
       - checkout
       - run:
@@ -190,50 +189,6 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
 
-  # create-acceptance-app-container:
-  #   docker:
-  #     - image: circleci/openjdk:11-jdk
-  #   environment:
-  #     PORT: 5110
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
-  #     - run:
-  #         name: BACKEND - Create acceptance jar
-  #         working_directory: Printer3D-backend
-  #         command: |
-  #           ./gradlew clean bootJar
-  #     - run:
-  #         name: BACKEND - Create application container
-  #         working_directory: Printer3D-backend
-  #         command: |
-  #           ./docker-service.sh backend generate
-  #     - save_cache:
-  #         paths:
-  #           - ~/Printer3D-backend/build
-  #         key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/docker-service.sh" }}
-  #     - store_artifacts:
-  #         path: ~/project/Printer3D-backend/build/libs
-  # start-support-backend-job:
-    docker:
-      - image: circleci/openjdk:11-jdk
-      - image: circleci/postgres:11.1
-    environment:
-      # Customize the environment values to use on the jobs
-      PORT: 5110
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
-            - printer3d-backend-{{ checksum "~/project/Printer3D-backend/docker-service.sh" }}
-            - printer3d-backend-
-      - run:
-          name: BACKEND - Support checks
-          working_directory: Printer3D-backend
-          command: |
-            echo "... Print a api simulator test."
 
 workflows:
   version: 2
@@ -296,26 +251,3 @@ workflows:
             branches:
               only:
                 - master
-      # - create-acceptance-app-container:
-      #     requires:
-      #       - build-backend-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - development
-      #           - test
-      # - start-support-backend-job:
-      #     requires:
-      #       - create-acceptance-app-container
-      #     filters:
-      #       branches:
-      #         only:
-      #           - development
-      # - backend-test-job:
-      #     requires:
-      #       - start-support-backend-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - development
-      #           - test
