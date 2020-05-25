@@ -37,6 +37,30 @@ export class NewPartForm extends IsolationService {
 
         }
     }
+    public validateButton(buttonName: string, row: any): void {
+        switch (buttonName) {
+            case 'SAVE':
+                let label = this.decodeDataTableRow(row, 'label');
+                let state = this.decodeDataTableRow(row, 'state');
+                cy.log('[validateButton]> State: ' + state);
+                cy.get('new-part-dialog').find('button').get('#submit-button').should($el => expect($el.text().trim()).to.equal(label));
+                if (state === 'disabled')
+                    cy.get('new-part-dialog').find('button').get('#submit-button').should('be.disabled')
+                else
+                    cy.get('new-part-dialog').find('button').get('#submit-button').should('not.be.disabled')
+                break;
+            case 'CANCEL':
+                label = this.decodeDataTableRow(row, 'label');
+                state = this.decodeDataTableRow(row, 'state');
+                cy.get('new-part-dialog').find('button').get('#cancel-button').should($el => expect($el.text().trim()).to.equal(label));
+                if (state === 'disabled')
+                    cy.get('new-part-dialog').find('button').get('#cancel-button').should('be.disabled')
+                else
+                    cy.get('new-part-dialog').find('button').get('#cancel-button').should('not.be.disabled')
+                break;
+                break;
+        }
+    }
 
     public fieldHasContent(row: any, fieldName: string) {
         switch (fieldName) {

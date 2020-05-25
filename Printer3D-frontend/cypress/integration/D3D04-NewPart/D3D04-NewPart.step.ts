@@ -26,28 +26,8 @@ Then('there is one instance of form with the next contents', function (dataTable
     const form = new NewPartForm();
     expect(form).to.not.be.null;
     form.validateHasContents(dataTable);
-  });
+});
 
-//   Then('there is a drop field called {string} with the next list of values', function (string, dataTable) {
-//     // Write code here that turns the phrase above into concrete actions
-//     return 'pending';
-//   });
-
-  
-// Then('there is one instance of form field {string} with the next contents', function (fieldId, dataTable) {
-//     console.log('[THEN] there is one instance of form field {string} with the next contents');
-//     const row = dataTable.hashes()[0];
-//     const form = new NewPartForm();
-//     expect(form).to.not.be.null;
-//     form.validatePanel(row);
-// });
-// Then('there is one instance of form field {string} with content', function (fieldName, dataTable) {
-//     console.log('[THEN] there is one instance of form field {string} with the next contents');
-//     const row = dataTable.hashes()[0];
-//     const form = new NewPartForm();
-//     expect(form).to.not.be.null;
-//     form.fieldHasContent(row, fieldName);
-// });
 Then('the NewPart dialog input fields should be empty', function () {
     console.log('[THEN] the NewPart dialog input fields should be empty');
     const form = new NewPartForm();
@@ -59,4 +39,14 @@ Then('the NewPart dialog input fields should be empty', function () {
     form.fieldIsEmpty('price');
     form.fieldIsEmpty('imagePath');
     form.fieldIsEmpty('modelPath');
+});
+
+Then('the button {string} has the next properties', function (buttonName: string, dataTable: any) {
+    console.log('[THEN] the button {string} has the next properties');
+    const form = new NewPartForm();
+    expect(form).to.not.be.null;
+    for (let index = 0; index < dataTable.hashes().length; index++) {
+        const row = dataTable.hashes()[index];
+        form.validateButton(buttonName, row)
+    }
 });

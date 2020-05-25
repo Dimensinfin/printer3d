@@ -41,7 +41,7 @@
             "name": "the Default Dock Configuration",
             "result": {
               "status": "passed",
-              "duration": 87000000
+              "duration": 209000000
             }
           },
           {
@@ -51,7 +51,7 @@
             "name": "the application Printer3DManager",
             "result": {
               "status": "passed",
-              "duration": 656000000
+              "duration": 1111000000
             }
           },
           {
@@ -61,7 +61,7 @@
             "name": "one instance of Dock",
             "result": {
               "status": "passed",
-              "duration": 162000000
+              "duration": 101000000
             }
           },
           {
@@ -71,7 +71,7 @@
             "name": "there is a click on Feature \"/NEW PART\"",
             "result": {
               "status": "passed",
-              "duration": 642000000
+              "duration": 733000000
             }
           },
           {
@@ -81,7 +81,7 @@
             "name": "the New Part dialog opens and blocks the display",
             "result": {
               "status": "passed",
-              "duration": 115000000
+              "duration": 296000000
             }
           }
         ]
@@ -114,7 +114,7 @@
             "name": "the Default Dock Configuration",
             "result": {
               "status": "passed",
-              "duration": 124000000
+              "duration": 222000000
             }
           },
           {
@@ -124,7 +124,7 @@
             "name": "the application Printer3DManager",
             "result": {
               "status": "passed",
-              "duration": 1023000000
+              "duration": 749000000
             }
           },
           {
@@ -134,7 +134,7 @@
             "name": "one instance of Dock",
             "result": {
               "status": "passed",
-              "duration": 93000000
+              "duration": 105000000
             }
           },
           {
@@ -144,7 +144,7 @@
             "name": "there is a click on Feature \"/NEW PART\"",
             "result": {
               "status": "passed",
-              "duration": 416000000
+              "duration": 498000000
             }
           },
           {
@@ -154,7 +154,7 @@
             "name": "the New Part dialog opens and blocks the display",
             "result": {
               "status": "passed",
-              "duration": 124000000
+              "duration": 132000000
             }
           },
           {
@@ -183,7 +183,7 @@
             "name": "there is one instance of form with the next contents",
             "result": {
               "status": "passed",
-              "duration": 181000000
+              "duration": 188000000
             }
           }
         ]
@@ -216,7 +216,7 @@
             "name": "the Default Dock Configuration",
             "result": {
               "status": "passed",
-              "duration": 166000000
+              "duration": 148000000
             }
           },
           {
@@ -226,7 +226,7 @@
             "name": "the application Printer3DManager",
             "result": {
               "status": "passed",
-              "duration": 723000000
+              "duration": 563000000
             }
           },
           {
@@ -236,7 +236,7 @@
             "name": "one instance of Dock",
             "result": {
               "status": "passed",
-              "duration": 103000000
+              "duration": 108000000
             }
           },
           {
@@ -246,7 +246,7 @@
             "name": "there is a click on Feature \"/NEW PART\"",
             "result": {
               "status": "passed",
-              "duration": 495000000
+              "duration": 480000000
             }
           },
           {
@@ -256,7 +256,7 @@
             "name": "the New Part dialog opens and blocks the display",
             "result": {
               "status": "passed",
-              "duration": 118000000
+              "duration": 132000000
             }
           },
           {
@@ -266,7 +266,7 @@
             "name": "the NewPart dialog input fields should be empty",
             "result": {
               "status": "passed",
-              "duration": 292000000
+              "duration": 334000000
             }
           }
         ]
@@ -299,7 +299,7 @@
             "name": "the Default Dock Configuration",
             "result": {
               "status": "passed",
-              "duration": 135000000
+              "duration": 127000000
             }
           },
           {
@@ -309,7 +309,7 @@
             "name": "the application Printer3DManager",
             "result": {
               "status": "passed",
-              "duration": 584000000
+              "duration": 580000000
             }
           },
           {
@@ -319,7 +319,7 @@
             "name": "one instance of Dock",
             "result": {
               "status": "passed",
-              "duration": 113000000
+              "duration": 102000000
             }
           },
           {
@@ -329,7 +329,7 @@
             "name": "there is a click on Feature \"/NEW PART\"",
             "result": {
               "status": "passed",
-              "duration": 454000000
+              "duration": 461000000
             }
           },
           {
@@ -339,7 +339,7 @@
             "name": "the New Part dialog opens and blocks the display",
             "result": {
               "status": "passed",
-              "duration": 174000000
+              "duration": 139000000
             }
           },
           {
@@ -389,7 +389,134 @@
             "name": "there is one instance of form with the next contents",
             "result": {
               "status": "passed",
-              "duration": 202000000
+              "duration": 184000000
+            }
+          }
+        ]
+      },
+      {
+        "id": "[d3d04]-define-the-requirements-for-the-part-interactions-like-creation-and-update.;[d3d04.06]-a-new-part-dialog-should-have-two-buttons.-one-to-save-the-new-part-and-another-to-cancel-the-operation.",
+        "keyword": "Scenario",
+        "line": 64,
+        "name": "[D3D04.06]-A new part dialog should have two buttons. One to save the new part and another to cancel the operation.",
+        "tags": [
+          {
+            "name": "@D3D04",
+            "line": 2
+          },
+          {
+            "name": "@D3D04",
+            "line": 63
+          },
+          {
+            "name": "@D3D04.06",
+            "line": 63
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 10,
+            "name": "the Default Dock Configuration",
+            "result": {
+              "status": "passed",
+              "duration": 128000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "the application Printer3DManager",
+            "result": {
+              "status": "passed",
+              "duration": 558000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 65,
+            "name": "one instance of Dock",
+            "result": {
+              "status": "passed",
+              "duration": 105000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 66,
+            "name": "there is a click on Feature \"/NEW PART\"",
+            "result": {
+              "status": "passed",
+              "duration": 481000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 67,
+            "name": "the New Part dialog opens and blocks the display",
+            "result": {
+              "status": "passed",
+              "duration": 129000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "label",
+                      "state"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Guardar Datos",
+                      "disabled"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 68,
+            "name": "the button \"SAVE\" has the next properties",
+            "result": {
+              "status": "passed",
+              "duration": 328000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "label",
+                      "state"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Go Back/Cancel",
+                      "enabled"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 71,
+            "name": "the button \"CANCEL\" has the next properties",
+            "result": {
+              "status": "passed",
+              "duration": 252000000
             }
           }
         ]

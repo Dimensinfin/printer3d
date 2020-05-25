@@ -60,15 +60,18 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
             | stockLevel     | 1                   | noteditble |
             | stockAvailable | 0                   | noteditble |
 
-# @D3D04 @D3D04.05
-# Scenario: [D3D04.05]-A new part dialog should have two buttons. One to save the new part and another to cancel the operation.
-#     Given one instance of Dock
-#     When there is a click on Feature "/NEW PART"
-#     Then the New Part dialog opens and blocks the display
-#     And there are buttons with the next properties
-#         | label  | state    | class              |
-#         | Save   | disabled | submit-deactivated |
-#         | Cancel | enabled  | cancel-activated   |
+    @D3D04 @D3D04.06
+    Scenario: [D3D04.06]-A new part dialog should have two buttons. One to save the new part and another to cancel the operation.
+        Given one instance of Dock
+        When there is a click on Feature "/NEW PART"
+        Then the New Part dialog opens and blocks the display
+        And the button "SAVE" has the next properties
+            | label         | state    |
+            | Guardar Datos | disabled |
+        And the button "CANCEL" has the next properties
+            | label          | state   |
+            | Go Back/Cancel | enabled |
+# | CANCEL | Cancel | enabled  | cancel-activated   |
 
 # @D3D04 @D3D04.06
 # Scenario: [D3D04.06]-When all the required fields are filled with the right values the Save button activates.

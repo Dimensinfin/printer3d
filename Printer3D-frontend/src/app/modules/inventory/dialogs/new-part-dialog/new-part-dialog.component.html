@@ -155,13 +155,11 @@
     </section>
     <footer id="modal-footer">
         <div class="centered-container button-area">
-            <button type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newPartForm.form.valid" (click)="actionFunction()">
+            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newPartForm.form.valid" (click)="actionFunction()">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 &nbsp;&nbsp;Guardar Datos
             </button>
-            <!-- </div> -->
-            <!-- <div id="centered-container"> -->
-            <button type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
+            <button id="cancel-button" type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 &nbsp;&nbsp;Go Back/Cancel
             </button>
