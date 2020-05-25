@@ -93,8 +93,8 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
         it('activateFeature.firstTime: activate a new feature when there is none active', () => {
-            const featureA = new Feature({ label: '/Inventory', active: false, route: 'inventory' });
-            const featureB = new Feature({ label: '/New Part', active: false });
+            const featureA = new Feature({ label: '/Inventatio', active: false, route: 'inventory' });
+            const featureB = new Feature({ label: '/Nueva Pieza', active: false });
             const componentAsAny = component as any;
             componentAsAny.configuredFeatures.push(featureA);
             componentAsAny.configuredFeatures.push(featureB);
@@ -103,8 +103,8 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
             expect(componentAsAny.activeFeature).toBe(featureA);
         });
         it('activateFeature.active: activate a new feature when there is one active', () => {
-            const featureA = new Feature({ label: '/Inventory', active: false, route: 'inventory' });
-            const featureB = new Feature({ label: '/New Part', active: false });
+            const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
+            const featureB = new Feature({ label: '/Nueva Pieza', active: false });
             const componentAsAny = component as any;
             componentAsAny.configuredFeatures.push(featureA);
             componentAsAny.configuredFeatures.push(featureB);

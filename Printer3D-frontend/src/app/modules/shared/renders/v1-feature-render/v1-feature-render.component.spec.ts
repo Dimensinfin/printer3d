@@ -85,7 +85,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
             // component.dock = dock;
             component.node = new Feature({
                 "jsonClass": "Feature",
-                "label": "/New Part",
+                "label": "/Nueva Pieza",
                 "enabled": true,
                 "active": false,
                 "interaction": "DIALOG",

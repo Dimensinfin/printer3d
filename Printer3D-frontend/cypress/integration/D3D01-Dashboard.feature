@@ -34,10 +34,10 @@ Feature: [D3D01]-When the application starts show the dashboard page with the de
         Then there is 0 v1-feature-render active
         Then there is a "v1-feature-render" at index "0" with the next fields
             | label      | active |
-            | /Inventory | false  |
+            | /Inventario | false  |
         Then there is a "v1-feature-render" at index "1" with the next fields
             | label     | active |
-            | /New Part | false  |
+            | /Nueva Pieza | false  |
     # Then there is a v1-feature active with label "/Inventory"
 
     @D3D01 @D3D01.04

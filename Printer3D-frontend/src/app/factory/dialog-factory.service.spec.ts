@@ -60,7 +60,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
         it('processClick.NewPart: process the click action on a Feature', () => {
             const feature = new Feature({
                 "jsonClass": "Feature",
-                "label": "/New Part",
+                "label": "/Nueva Pieza",
                 "enabled": true,
                 "active": false,
                 "interaction": "DIALOG",
@@ -74,7 +74,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
         it('processClick.openModal: process the click action on a Feature', () => {
             const feature = new Feature({
                 "jsonClass": "Feature",
-                "label": "/New Part",
+                "label": "/Nueva Pieza",
                 "enabled": true,
                 "active": false,
                 "interaction": "DIALOG",

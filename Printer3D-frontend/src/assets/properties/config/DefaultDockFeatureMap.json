@@ -1,6 +1,6 @@
 [{
         "jsonClass": "Feature",
-        "label": "/Inventory",
+        "label": "/Inventario",
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
@@ -8,18 +8,10 @@
     },
     {
         "jsonClass": "Feature",
-        "label": "/New Part",
+        "label": "/Nueva Pieza",
         "enabled": true,
         "active": false,
         "interaction": "DIALOG",
         "dialog": "NewPartDialog"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Reset",
-        "enabled": true,
-        "active": false,
-        "interaction": "ACTION",
-        "route": "/"
     }
 ]
