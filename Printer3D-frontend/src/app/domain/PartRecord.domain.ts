@@ -11,6 +11,7 @@ export class PartRecord extends Node {
     public colorCode: EColorCode = EColorCode.UNDEFINED;
     public cost: number;
     public price: number;
+    public buildTime: number;
     public stockLevel: number = 1;
     public stockAvailable: number = 0;
     public imagePath: string;
