@@ -128,5 +128,5 @@ dependencies {
 // - R U N N I N G
 def profiles = 'default'
 bootRun {
-    systemProperty "spring.profiles.active", "acceptance"
+    systemProperty "spring.profiles.active", "local"
 }
