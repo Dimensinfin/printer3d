@@ -8,6 +8,19 @@ import { Router } from '@angular/router';
 import { AppStoreService } from '@app/services/app-store.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
+
+const featureTransformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
+    .setTransformation((entrydata: any): Feature[] => {
+        let results: Feature[] = [];
+        if (entrydata instanceof Array) {
+            for (let key in entrydata)
+                results.push(new Feature(entrydata[key]));
+        } else
+            results.push(new Feature(entrydata));
+
+        return results;
+    });
 
 @Component({
     selector: 'v1-dock',
@@ -27,11 +40,13 @@ export class V1DockComponent implements OnInit {
         console.log('><[V1DockComponent.ngOnInit]');
         // this.appStore.fireAccessDockConfiguration();
         this.appStore.readDockConfiguration()
-            .subscribe((configuration: Feature[]) => {
-                this.configuredFeatures = configuration;
+            .subscribe((configuration: any) => {
+                this.configuredFeatures = featureTransformer.transform(configuration);
                 console.log('->[V1DockComponent.ngOnInit]> Feature count: ' + this.configuredFeatures.length);
+                this.activateFeature(this.activeFeature);
             });
     }
+    // - I N T E R A C T I O N
     public getActiveFeatures(): Feature[] {
         if (null != this.configuredFeatures) return this.configuredFeatures;
         else return [];
@@ -45,6 +60,11 @@ export class V1DockComponent implements OnInit {
      */
     public activateFeature(target: Feature): void {
         console.log('><[V1DockComponent.activateFeature]> Feature: ' + JSON.stringify(target));
+        if (null == target) {
+            this.activeFeature = null;
+            this.pageChange('/');
+            return
+        }
         if (null != this.activeFeature) {
             if (!this.activeFeature.equals(target)) {
                 // Change the active feature following the requirements.
@@ -56,21 +76,18 @@ export class V1DockComponent implements OnInit {
                         this.activeFeature = feature;
                     }
                 }
-                // 2. Page change
-                this.pageChange(this.activeFeature.getRoute());
             }
         } else {
             // 1. Activate the selected feature
             target.activate();
             this.activeFeature = target;
-            // 2. Page change
-            this.pageChange(this.activeFeature.getRoute());
         }
+        // 2. Page change
+        this.pageChange(this.activeFeature.getRoute());
     }
-    public clean () : void {
-        this.activeFeature=null;
+    public clean(): void {
+        this.activeFeature = null;
         this.ngOnInit();
-        // this.appStore.fireAccessDockConfiguration();
     }
     /**
      * Save the new dock configuration so if the applciation is restarted this is the new default start point.
