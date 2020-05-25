@@ -127,7 +127,7 @@ jobs:
             SPRING_PROFILES_ACTIVE: acceptance
             JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres?user=inno-user&password=inno-password"
           command: |
-            ./gradlew bootRun -Pacceptance
+            ./gradlew bootRun
       - run:
           name: BACKEND - Unit Testing application
           working_directory: Printer3D-backend
@@ -146,6 +146,8 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             git init
+            git config --global user.email "adamantinoo.git@gmaul.com"
+            git config --global user.name "Adam antinoo"
             git add .gitignore
             git add *.*
             git add src
