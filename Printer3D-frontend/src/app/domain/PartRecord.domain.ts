@@ -8,11 +8,11 @@ export class PartRecord extends Node {
     public id: string;
     public label: string;
     public description: string;
-    public colorCode: EColorCode;
+    public colorCode: EColorCode = EColorCode.UNDEFINED;
     public cost: number;
-    public price: number = 1;
+    public price: number;
     public stockLevel: number = 1;
-    public stockAvailable;
+    public stockAvailable: number = 0;
     public imagePath: string;
     public modelPath: string;
     public active: boolean = true;

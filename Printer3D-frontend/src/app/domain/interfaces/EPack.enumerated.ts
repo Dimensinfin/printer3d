@@ -10,6 +10,7 @@ export enum EInteraction {
     PAGEROUTE = 'PAGEROUTE'
 }
 export enum EColorCode {
+    UNDEFINED = 'UNDEFINED',
     WHITE = 'WHITE',
     GREEN = 'GREEN',
     GREEN_TRANSP = 'GREEN-TRANSP',

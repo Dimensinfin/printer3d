@@ -1,13 +1,11 @@
 <div id="modal-content-wrapper">
-    <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventory/New Part</div>
     <header id="modal-header">
-        <h1 id="modal-title" class="dialog-title">Create a new PART</h1>
-        <i *ngIf="downloading" class="fa fa-clog fa-spin ui-leftmargin" aria-hidden="true"></i>
+        <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventory/New Part</div>
     </header>
     <section id="modal-body">
         <!-- N E W   S E R V I C E   F O R M -->
         <form (ngSubmit)="onSubmit()" #newPartForm="ngForm" class="dsf-form" autocomplete="off">
-            <table cellspacing="5px" cellpadding="5px">
+            <table cellspacing="5px">
                 <!-- I D E N T I F I E R -->
                 <tr>
                     <td>
@@ -24,26 +22,17 @@
                             Field Class: {{spy.className}}<br>
                         </div>
                     </td>
-                    <!-- <div [hidden]="label.valid || !label.dirty" class="alert alert-danger citamed-form-referencia" style="font-weight: 100;">
-                        <div *ngIf="label.errors?.required">
-                            Identificador es un campo requerido.
-                        </div>
-                        <div *ngIf="label.errors?.minlength">
-                            Identificador debe tener al menos 5 carácteres.
-                        </div>
-                    </div> -->
-                    <!-- </tr> -->
                     <!-- L A B E L -->
-                    <!-- <tr> -->
                     <td>
                         <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="label">Etiqueta</label>
+                            <label class="dsf-form-label" for="label">Etiqueta<span
+                                      style="color: red;">&nbsp;*</span></label>
                             <span class="tooltiptext tooltip-right">
-                                Corresponde a un identificador unico en formato texto que es en identificador de referencia del producto.
+                                Corresponde a un identificador unico en formato texto que es en identificador de
+                                referencia del producto.
                             </span>
                         </div>
                     </td>
-
                     <td>
                         <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="part.label" name="label" minlength="5" maxlength="32" (focusout)="onIdentificadorBlur()" #spy>
                     </td>
@@ -60,14 +49,32 @@
                     </td>
 
                     <td>
-                        <textarea cols="40" rows="5" class="dsf-form-control dsf-editable-form-item part-description" required [(ngModel)]="part.description" name="description" minlength="5" maxlength="400" (focusout)="onIdentificadorBlur()" #spy></textarea>
+                        <textarea cols="40" rows="5" class="dsf-form-control dsf-editable-form-item part-description" [(ngModel)]="part.description" name="description" minlength="5" maxlength="400" (focusout)="onIdentificadorBlur()" #spy></textarea>
+                    </td>
+                    <!-- C O L O R C O D E -->
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="label">Color<span
+                                      style="color: red;">&nbsp;*</span></label>
+                            <span class="tooltiptext tooltip-right">
+                                Color de fabricacion de esta pieza.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <select class="part-colorcode" id="colorCode" [(ngModel)]="part.colorCode" required name="colorCode" #colorCode="ngModel" #spy>
+                            <option selected value="UNDEFINED">UNDEFINED</option>
+                            <option value="WHITE">WHITE</option>
+                            <option value="GREEN">GREEN</option>
+                            <option value="GREEN-TRANSP">GREEN-TRANSP</option>
+                        </select>
                     </td>
                 </tr>
                 <!-- C O S T -->
                 <tr>
                     <td>
                         <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="cost">Coste Fab.</label>
+                            <label class="dsf-form-label" for="cost">Coste Fab.<span style="color: red;">&nbsp;*</span></label>
                             <span class="tooltiptext tooltip-right">
                                 Es el coste de fabricación en euros.
                             </span>
@@ -76,77 +83,88 @@
                     <td>
                         <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number part-cost" required [(ngModel)]="part.cost" name="cost" minlength="1" maxlength="10" #spy>
                     </td>
-                    <!-- </tr> -->
                     <!-- P R I C E -->
-                    <!-- <tr> -->
                     <td>
                         <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="price">Precio.</label>
+                            <label class="dsf-form-label" for="price">Precio<span style="color: red;">&nbsp;*</span></label>
                             <span class="tooltiptext tooltip-right">
-                                    Precio de venta al público con el iva incluido.
-                                </span>
+                                Precio de venta al público con el iva incluido.
+                            </span>
                         </div>
                     </td>
                     <td>
                         <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number part-price" required [(ngModel)]="part.price" name="price" minlength="1" maxlength="10" #spy>
                     </td>
-                    <!-- S T O C K   L E V E L -->
-                    <tr>
-                        <td>
-                            <div class="dsf-tooltip">
-                                <label class="dsf-form-label" for="stockLevel">Stock</label>
-                                <span class="tooltiptext tooltip-right">
-                                    Nivel de stock deseado.
-                                </span>
-                            </div>
-                        </td>
-                        <td>
-                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number part-price" required [(ngModel)]="part.stockLevel" name="stockLevel">
-                        </td>
-                    </tr>
-                    <!-- I M A G E   P A T H -->
-                    <tr>
-                        <td>
-                            <div class="dsf-tooltip">
-                                <label class="dsf-form-label" for="imagePath">Imagen</label>
-                                <span class="tooltiptext tooltip-right">
-                                    URL de la foto de la pieza.
-                                </span>
-                            </div>
-                        </td>
-                        <td>
-                            <input type="text" class="dsf-form-control dsf-editable-form-item part-price" required [(ngModel)]="part.imagePath" name="imagePath" minlength="1" maxlength="10" #spy>
-                        </td>
-                        <!-- </tr> -->
-                        <!-- M O D E L   P A T H -->
-                        <!-- <tr> -->
-                        <td>
-                            <div class="dsf-tooltip">
-                                <label class="dsf-form-label" for="modelPath">Fichero Modelo</label>
-                                <span class="tooltiptext tooltip-right">
-                                    Nonmbre del fichero modelo a utilizar en la impresora para imprimir esta pieza.
-                                </span>
-                            </div>
-                        </td>
-                        <td>
-                            <input type="text" class="dsf-form-control dsf-editable-form-item part-price" required [(ngModel)]="part.modelPath" name="modelPath" minlength="1" maxlength="10" #spy>
-                        </td>
-                    </tr>
+                </tr>
+                <!-- S T O C K   L E V E L -->
+                <tr>
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="stockLevel">Stock Deseado<span style="color: red;">&nbsp;*</span></label>
+                            <span class="tooltiptext tooltip-right">
+                                Nivel de stock deseado.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number part-price" required [(ngModel)]="part.stockLevel" name="stockLevel">
+                    </td>
+                    <!-- A C T U A L   S T O C K -->
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="stockAvailable">Stock Actual</label>
+                            <span class="tooltiptext tooltip-right">
+                                Número de elementos actualmente en stock.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number part-stock-available" [(ngModel)]="part.stockAvailable" name="stockAvailable">
+                    </td>
+                </tr>
+                <!-- I M A G E   P A T H -->
+                <tr>
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="imagePath">Imagen</label>
+                            <span class="tooltiptext tooltip-right">
+                                URL de la foto de la pieza.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item part-price" required [(ngModel)]="part.imagePath" name="imagePath" minlength="1" maxlength="10" #spy>
+                    </td>
+                    <!-- </tr> -->
+                    <!-- M O D E L   P A T H -->
+                    <!-- <tr> -->
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="modelPath">Fichero Modelo</label>
+                            <span class="tooltiptext tooltip-right">
+                                Nonmbre del fichero modelo a utilizar en la impresora para imprimir esta pieza.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item part-price" required [(ngModel)]="part.modelPath" name="modelPath" minlength="1" maxlength="10" #spy>
+                    </td>
+                </tr>
             </table>
         </form>
     </section>
     <footer id="modal-footer">
-        <div id="centered-container">
+        <div class="centered-container button-area">
             <button type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newPartForm.form.valid" (click)="actionFunction()">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 &nbsp;&nbsp;Guardar Datos
-              </button>
+            </button>
             <!-- </div> -->
             <!-- <div id="centered-container"> -->
-            <button type="button" class="dsf-form-button cancel-button form-button" (click)="closeModal()">
+            <button type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 &nbsp;&nbsp;Go Back/Cancel
-              </button>
+            </button>
         </div>
     </footer>
 </div>

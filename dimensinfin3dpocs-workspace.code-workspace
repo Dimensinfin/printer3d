@@ -5,6 +5,9 @@
         },
         {
             "path": "."
+        },
+        {
+            "path": "../../InnoDentalv0.12.0/CitasCentro.frontend"
         }
     ],
     "settings": {
@@ -26,6 +29,8 @@
         "editor.formatOnSave": true,
         "workbench.colorTheme": "Atom One Dark",
         "workbench.preferredDarkColorTheme": "Atom One Dark",
-        "colorHelper.formatsOrder": ["hex"]
+        "colorHelper.formatsOrder": [
+            "hex"
+        ]
     },
 }

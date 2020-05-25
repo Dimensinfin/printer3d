@@ -26,12 +26,12 @@ export class DialogFactoryService {
                 break;
         }
     }
-    private openModal(dialogComponent: any) :void{
+    private openModal(dialogComponent: any): void {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.id = "newpart-component";
         dialogConfig.height = "86vh";
-        dialogConfig.width = "60vw";
+        dialogConfig.width = "70vw";
         const modalDialog: MatDialogRef<NewPartDialogComponent> = this.matDialog.open(dialogComponent, dialogConfig);
     }
 }
