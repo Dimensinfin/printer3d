@@ -34,7 +34,7 @@ export class HttpClientWrapperService {
     public wrapHttpPOSTCall(request: string, body: string, requestHeaders?: HttpHeaders): Observable<any> {
         console.log("><[HttpClientWrapperService.wrapHttpPOSTCall]> request: " + request);
         let newheaders = this.wrapHttpSecureHeaders(requestHeaders);
-        return this.http.get(request, /*body,*/ { headers: newheaders })
+        return this.http.post(request, body, { headers: newheaders })
             .pipe(
                 catchError(this.wrapHttpHandleError)
             );

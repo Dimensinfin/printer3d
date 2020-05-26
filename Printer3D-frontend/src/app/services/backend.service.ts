@@ -41,7 +41,7 @@ export class BackendService {
         const request = this.APIV1 + '/inventory/parts';
         let headers = new HttpHeaders() // Additional mockup headers to apisimulation.
             .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpGETCall(request, /*JSON.stringify(newPart),*/ headers)
+        return this.httpService.wrapHttpGETCall(request, JSON.stringify(newPart), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewPart_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Part;
