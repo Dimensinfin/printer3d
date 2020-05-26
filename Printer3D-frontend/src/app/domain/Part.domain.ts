@@ -1,14 +1,16 @@
+// - CORE
+import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { Node } from './Node';
 import { PartRecordConverter } from './PartRecord.converter';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { EColorCode } from './interfaces/EPack.enumerated';
 
-export class PartRecord extends Node {
+export class Part extends Node {
     public id: string;
     public label: string;
     public description: string;
-    public colorCode: EColorCode = EColorCode.UNDEFINED;
+    public colorCode: string;
     public cost: number;
     public price: number;
     public buildTime: number;
@@ -20,8 +22,10 @@ export class PartRecord extends Node {
 
     constructor(values: Object = {}) {
         super();
-        const convertedValues: object = new PartRecordConverter().convertInstance(values);
-        Object.assign(this, convertedValues);
-        this.jsonClass = "PartRecord";
+        Object.assign(this, values);
+        this.jsonClass = "Part";
+    }
+    public createNewId(): void {
+        this.id = uuidv4();
     }
 }

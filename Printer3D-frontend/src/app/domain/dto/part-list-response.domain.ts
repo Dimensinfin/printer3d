@@ -1,5 +1,5 @@
 import { PartRecord } from '@domain/PartRecord.domain'
-import { Node } from '../node'
+import { Node } from '../Node'
 
 export class PartListResponse extends Node {
     public partCount: number = 0;
