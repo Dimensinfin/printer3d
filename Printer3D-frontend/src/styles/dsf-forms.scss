@@ -102,6 +102,7 @@ $form-item-invalid: #A94442; // Red
 $button-border-color: grey;
 $green-button-color: #66FF66;
 $submit-button-color: #66FF66;
+$repeat-button-color: #47B347;
 $cancel-button-color: #FF7733;
 $clearform-button-color: #FF7733;
 .btn {
@@ -159,6 +160,30 @@ $clearform-button-color: #FF7733;
 }
 
 .clearform-button:hover:disabled {
+    background: #D0D0D0;
+    color: white;
+}
+
+.repeat-button {
+    background: transparent;
+    border: 4px solid $repeat-button-color;
+    border-radius: 8px;
+    color: $repeat-button-color;
+    margin-bottom: 16px;
+    text-transform: UPPERCASE;
+}
+
+.repeat-button:disabled {
+    border: 4px solid #D0D0D0;
+    color: #D0D0D0;
+}
+
+.repeat-button:hover {
+    background-color: $repeat-button-color;
+    color: white;
+}
+
+.repeat-button:hover:disabled {
     background: #D0D0D0;
     color: white;
 }

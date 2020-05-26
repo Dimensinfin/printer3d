@@ -10,8 +10,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 // - SERVICES
 import { IsolationService } from '@app/platform/isolation.service';
+import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { PartRecord } from '@domain/PartRecord.domain';
+import { Part } from '@domain/Part.domain';
+import { PartConstructor } from '@domain/constructor/Part.constructor';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 
 @Component({
     selector: 'new-part-dialog',
@@ -21,7 +25,7 @@ import { PartRecord } from '@domain/PartRecord.domain';
 export class NewPartDialogComponent implements OnInit {
     public downloading: boolean = true;
     public development: boolean = false;
-    public part: PartRecord = new PartRecord();
+    public part: Part = new Part();
     public label;
     public cost;
     public price;
@@ -31,7 +35,9 @@ export class NewPartDialogComponent implements OnInit {
 
     constructor(
         public dialogRef: MatDialogRef<NewPartDialogComponent>,
-        private isolationService: IsolationService) { }
+        private isolationService: IsolationService,
+        private backendService: BackendService
+    ) { }
 
     public ngOnInit(): void {
         console.log('><[NewPartDialogComponent.ngOnInit]')
@@ -40,33 +46,29 @@ export class NewPartDialogComponent implements OnInit {
         if (null == pendingPart) this.part.id = uuidv4();
         else this.part = JSON.parse(pendingPart);
     }
-
-    public actionFunction() { }
+    // - I N T E R A C T I O N S
+    public savePart(): void {
+        // Get the form data.
+        const newPart: Part = new PartConstructor().construct(this.part);
+        this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
+            .setTransformation((entrydata: any): void => {
+                const persistedPart = new Part(entrydata);
+                this.closeModal();
+            })
+        )
+    }
+    public savePartAndRepeat() {
+        // Get the form data.
+        const newPart: Part = new PartConstructor().construct(this.part);
+        this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
+            .setTransformation((entrydata: any): void => {
+                const persistedPart = new Part(entrydata);
+                this.part.colorCode = 'UNDEFINED';
+            })
+        )
+    }
     public closeModal(): void {
         console.log('>[NewPartDialogComponent.closeModal]')
         this.dialogRef.close();
     }
-    public onIdentificadorBlur() { }
-    public onSubmit(): void {
-        console.log(">> [NewServicePanelComponent.onSubmit]");
-        // if (this.allFieldsValid()) {
-        //   // Filter the data. In the case of Services be sure that the specility and the apellidos are clear.
-        //   if (this.isService()) {
-        //     this.service.apellidos = '';
-        //     this.service.especialidad = 'Radiología';  // Speciality can never be empty.
-        //   }
-        //   // To create a new medico we should get access to the current Centro.
-        //   let centro = this.appStoreService.accessCredential().getCentro();
-        //   this.backendService.backendCreateConsultaMedico(centro, this.service)
-        //     .subscribe((savedService) => {
-        //       // Clear the cache of services so they should progress to a backend call.
-        //       this.appStoreService.clearDoctors();
-        //       this.finished.emit(this);
-        //     }), (error) => {
-        //       console.log("-- [NewServicePanelComponent.onSubmit]> Error: " + error.message);
-        //     };
-        // }
-        console.log("<< [NewServicePanelComponent.onSubmit]");
-    }
-    get diagnostic() { return JSON.stringify(this.part); }
 }

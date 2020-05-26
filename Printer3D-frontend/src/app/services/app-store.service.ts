@@ -16,17 +16,17 @@ import { ResponseTransformer } from './support/ResponseTransformer';
 import { Feature } from '@domain/Feature.domain';
 
 // const DOCK_CURRENT_CONFIGURATION = '-DOCK_CURRENT_CONFIGURATION-';
-const featureTransformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
-    .setTransformation((entrydata: any): Feature[] => {
-        let results: Feature[] = [];
-        if (entrydata instanceof Array) {
-            for (let key in entrydata)
-                results.push(new Feature(entrydata[key]));
-        } else
-            results.push(new Feature(entrydata));
+// const featureTransformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
+//     .setTransformation((entrydata: any): Feature[] => {
+//         let results: Feature[] = [];
+//         if (entrydata instanceof Array) {
+//             for (let key in entrydata)
+//                 results.push(new Feature(entrydata[key]));
+//         } else
+//             results.push(new Feature(entrydata));
 
-        return results;
-    });
+//         return results;
+//     });
 
 @Injectable({
     providedIn: 'root'

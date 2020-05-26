@@ -17,21 +17,26 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 })
 export class DialogFactoryService {
     constructor(public matDialog: MatDialog) { }
+    private modalDialog: MatDialogRef<NewPartDialogComponent>;
 
     public processClick(target: Feature): void {
         console.log('>[DialogFactoryComponent.processClick]> Feature: ' + JSON.stringify(target))
         switch (target.dialog) {
             case 'NewPartDialog':
-                this.openModal(NewPartDialogComponent);
+                const dialogConfig = new MatDialogConfig();
+                dialogConfig.disableClose = true;
+                dialogConfig.id = "newpart-component";
+                dialogConfig.height = "86vh";
+                dialogConfig.width = "70vw";
+                 this.modalDialog = this.matDialog.open(NewPartDialogComponent, dialogConfig);
                 break;
         }
     }
-    private openModal(dialogComponent: any): void {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.id = "newpart-component";
-        dialogConfig.height = "86vh";
-        dialogConfig.width = "70vw";
-        const modalDialog: MatDialogRef<NewPartDialogComponent> = this.matDialog.open(dialogComponent, dialogConfig);
+    public a(){
+        this.modalDialog.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`); // Pizza!
+          });
+          
+          this.modalDialog.close('Pizza!');
     }
 }

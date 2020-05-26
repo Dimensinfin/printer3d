@@ -41,6 +41,7 @@ Given('one instance of Dock', function () {
     expect(dock).to.not.be.null;
     cy.get('app-root').find('v1-dock').should('have.length', 1)
 });
+
 Given('one instance of GridAngular', function () {
     console.log('[GIVEN] one instance of GridAngular');
     // const dock: V1Dock = new V1Dock();
@@ -54,6 +55,7 @@ Given('one or more instances of Feature', function () {
     expect(feature).to.not.be.null;
     cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)
 });
+
 Given('one or more instances of Row', function () {
     console.log('[GIVEN] one or more instances of Feature');
     // const feature: V1Feature = new V1Feature();

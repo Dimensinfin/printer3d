@@ -4,7 +4,7 @@
     </header>
     <section id="modal-body">
         <!-- N E W   S E R V I C E   F O R M -->
-        <form (ngSubmit)="onSubmit()" #newPartForm="ngForm" class="dsf-form" autocomplete="off">
+        <form #newPartForm="ngForm" class="dsf-form" autocomplete="off">
             <table cellspacing="5px">
                 <!-- I D E N T I F I E R -->
                 <tr>
@@ -34,7 +34,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="part.label" name="label" minlength="5" maxlength="32" (focusout)="onIdentificadorBlur()" #spy>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="part.label" name="label" minlength="5" maxlength="32" #spy>
                     </td>
                 </tr>
                 <!-- D E S C R I P T I O N -->
@@ -49,7 +49,7 @@
                     </td>
 
                     <td>
-                        <textarea cols="40" rows="5" class="dsf-form-control dsf-editable-form-item part-description" [(ngModel)]="part.description" name="description" minlength="5" maxlength="400" (focusout)="onIdentificadorBlur()" #spy></textarea>
+                        <textarea cols="40" rows="5" class="dsf-form-control dsf-editable-form-item part-description" [(ngModel)]="part.description" name="description" minlength="5" maxlength="400" #spy></textarea>
                     </td>
                     <!-- C O L O R C O D E -->
                     <td>
@@ -167,13 +167,19 @@
     </section>
     <footer id="modal-footer">
         <div class="centered-container button-area">
-            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newPartForm.form.valid" (click)="actionFunction()">
+            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newPartForm.form.valid" (click)="savePart()">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 &nbsp;&nbsp;Guardar Datos
             </button>
             <button id="cancel-button" type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 &nbsp;&nbsp;Go Back/Cancel
+            </button>
+        </div>
+        <div class="centered-container button-area">
+            <button id="submit-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newPartForm.form.valid" (click)="savePartAndRepeat()">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                &nbsp;&nbsp;Guardar Y Repetir
             </button>
         </div>
     </footer>

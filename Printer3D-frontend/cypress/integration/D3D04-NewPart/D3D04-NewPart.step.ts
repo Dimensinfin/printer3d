@@ -50,3 +50,20 @@ Then('when all required fields have next values', function (dataTable) {
     expect(form).to.not.be.null;
     form.formInput(row);
 });
+
+When('there is a click on the {string} button', function (buttonName) {
+    console.log('[WHEN] there is a click on the {string} button');
+    switch (buttonName) {
+        case 'GUARDAR':
+            cy.get('new-part-dialog').find('button').get('#submit-button').should('not.be.disabled')
+            cy.get('new-part-dialog').find('button').get('#submit-button').click();
+            break;
+    }
+});
+Then('the part is persisted at the backend', function () {
+    console.log('[THEN] the part is persisted at the backend');
+});
+Then('the dialog closes', function () {
+    console.log('[THEN] the dialog closes');
+    cy.get('new-part-dialog').should('have.length', 0);
+});

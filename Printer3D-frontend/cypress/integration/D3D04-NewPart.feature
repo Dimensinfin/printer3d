@@ -95,7 +95,9 @@ Scenario: [D3D04.08]-If the New Part Save button is clicked then the part is sto
         And when all required fields have next values
             | id                                   | label             | colorCode | buildTime | cost | price | stockLevel | active |
             | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | WHITE     | 35        | 0.8  | 3     | 3          | true   |
-        When there is a click on the "GUARDAR"
+        When there is a click on the "GUARDAR" button
+        Then the part is persisted at the backend
+        And the dialog closes
 #     @D3D04 @D3D04.06
 #     Scenario: [D3D04.06]-If the New Part Cancel button is clicked then there is a confirmation dialog.
 #     @D3D04 @D3D04.07

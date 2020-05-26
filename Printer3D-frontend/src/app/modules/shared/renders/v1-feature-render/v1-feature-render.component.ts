@@ -33,6 +33,7 @@ export class V1FeatureRenderComponent {
                     if (null != this.dock) this.dock.activateFeature(this.node);
                     break;
                 case 'DIALOG':
+                    // this.node.activate();
                     this.dialogFactory.processClick(this.node);
                     break;
                 // case 'ACTION-TO-DEFINE':

@@ -38,7 +38,7 @@ export class InventoryPartListPageComponent implements OnInit {
         ];
         // this.rowData.push(new PartRecord(DEFAULT_PART_RECORD));
         // Read row data from the assets mock data.
-        this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforma Inventory Part list form backend.')
+        this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
             .setTransformation((entrydata: any): PartListResponse => {
                 return new PartListResponse(entrydata);
             }))
