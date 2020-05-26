@@ -42,6 +42,7 @@
         "ag-grid-angular": "23.1.1",
         "ag-grid-community": "23.1.1",
         "jwt-decode": "2.2.0",
+        "ngx-toastr": "12.0.1",
         "ngx-webstorage-service": "4.1.0",
         "npm": "6.14.5",
         "rollbar": "2.16.1",

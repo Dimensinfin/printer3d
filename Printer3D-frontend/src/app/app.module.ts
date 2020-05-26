@@ -5,14 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// - HTTP CLIENT
-import { HttpClientModule } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// - MATERIALS
-import { MatDialogModule } from '@angular/material/dialog';
 // - ROUTING
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+// - ADDITIONAL PACKAGES
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ToastrModule } from 'ngx-toastr';
 // - SERVICES
 import { IsolationService } from './platform/isolation.service';
 import { AppStoreService } from './services/app-store.service';
@@ -45,16 +45,16 @@ registerLocaleData(localeEs);
         ReactiveFormsModule,
         BrowserModule,
         BrowserAnimationsModule,
-        // - HTTP CLIENT
+         // - ROUTING
+         RouterModule,
+         AppRoutingModule,
+        // - ADDITIONAL MODULES
         HttpClientModule,
-        // - MATERIALS
+        ToastrModule.forRoot(),
         MatDialogModule,
         // - APPLICATION MODULES
         SharedModule,
-        InventoryModule,
-        // - ROUTING
-        RouterModule,
-        AppRoutingModule
+        InventoryModule
     ],
     declarations: [
         AppComponent
