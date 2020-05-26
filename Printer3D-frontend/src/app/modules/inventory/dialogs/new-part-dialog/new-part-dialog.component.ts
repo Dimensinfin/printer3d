@@ -51,21 +51,28 @@ export class NewPartDialogComponent implements OnInit {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
         this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-            .setTransformation((entrydata: any): void => {
-                const persistedPart = new Part(entrydata);
+            .setTransformation((entrydata: any): Part => {
+                this.isolationService.infoNotification('Pieza [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
+                return new Part(entrydata);
+            }))
+            .subscribe((persistedPart: Part) => {
                 this.closeModal();
-            })
-        )
+            });
     }
     public savePartAndRepeat() {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
         this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-            .setTransformation((entrydata: any): void => {
-                const persistedPart = new Part(entrydata);
-                this.part.colorCode = 'UNDEFINED';
-            })
-        )
+            .setTransformation((entrydata: any): Part => {
+                this.isolationService.infoNotification('Pieza [' +
+                    entrydata.composePartIdentifier() +
+                    '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
+                return new Part(entrydata);
+            }))
+            .subscribe((persistedPart: Part) => {
+                this.part.createNewId();
+                this.part.colorCode = 'GREEN';
+            });
     }
     public closeModal(): void {
         console.log('>[NewPartDialogComponent.closeModal]')

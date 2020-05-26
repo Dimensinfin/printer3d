@@ -28,4 +28,7 @@ export class Part extends Node {
     public createNewId(): void {
         this.id = uuidv4();
     }
+    private composePartIdentifier(): string {
+        return this.label + ':' + this.colorCode;
+    }
 }

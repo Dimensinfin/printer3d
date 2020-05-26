@@ -73,24 +73,29 @@ export class NewPartForm extends IsolationService {
                         cy.log('[NewPartForm.validatePanel]> ID=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-label').type(value)
                         break;
-                    case 'buildTime':
+                        case 'colorCode':
+                            value = this.decodeDataTableRow(row, key);
+                            cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
+                            cy.get('new-part-dialog').get('form').find('.part-colorcode').select(value)
+                            break;
+                        case 'buildTime':
                         value = this.decodeDataTableRow(row, key);
-                        cy.log('[NewPartForm.validatePanel]> ID=' + value);
+                        cy.log('[NewPartForm.validatePanel]> BUILD_TIME=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-build-time').type(value)
                         break;
                     case 'cost':
                         value = this.decodeDataTableRow(row, key);
-                        cy.log('[NewPartForm.validatePanel]> ID=' + value);
+                        cy.log('[NewPartForm.validatePanel]> COST=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-cost').type(value)
                         break;
                     case 'price':
                         value = this.decodeDataTableRow(row, key);
-                        cy.log('[NewPartForm.validatePanel]> ID=' + value);
+                        cy.log('[NewPartForm.validatePanel]> PRICE=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-price').type(value)
                         break;
                     case 'stockLevel':
                         value = this.decodeDataTableRow(row, key);
-                        cy.log('[NewPartForm.validatePanel]> ID=' + value);
+                        cy.log('[NewPartForm.validatePanel]> STOCK_LEVEL=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-stock-level').type(value)
                         break;
                 }
