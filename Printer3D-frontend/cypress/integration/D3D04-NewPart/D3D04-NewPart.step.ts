@@ -6,14 +6,6 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 import { IsolationService } from '../../support/IsolationService.support';
 import { NewPartForm } from '../../support/page-objects/NewPartForm.form';
 
-When('there is a click on Feature {string}', function (featureLabel: string) {
-    console.log('[WHEN] there is a click on Feature {string}');
-    cy.get('v1-dock')
-        .find('v1-feature-render')
-        .find('.feature-block')
-        .contains(featureLabel, { matchCase: false })
-        .closest('.feature-block').click('top');
-});
 
 Then('the New Part dialog opens and blocks the display', function () {
     console.log('[THEN] the New Part dialog opens and blocks the display');

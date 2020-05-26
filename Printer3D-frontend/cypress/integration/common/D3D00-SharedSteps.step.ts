@@ -87,15 +87,12 @@ Then('there is a {string} with the next fields', (panelType, dataTable) => {
 Then('there is a {string} at index {string} with the next fields', function (panelType: string, index: string, dataTable) {
     cy.log('[THEN] there is a {string} at index {string} with the next fields');
     cy.log('[THEN] panelType=' + panelType);
-    // cy.log('[THEN] index=' + index);
     const row = dataTable.hashes()[0];
-    // cy.log('[THEN] data size=' + dataTable.hashes().length);
-    // cy.log('[THEN] row=' + row);
     expect(row).to.not.be.empty;
     switch (panelType) {
         case 'v1-feature-render':
             const feature: V1Feature = new V1Feature();
-            expect(feature) 
+            expect(feature)
             feature.validatePanel(row);
             break;
         case 'grid-row':
@@ -104,4 +101,14 @@ Then('there is a {string} at index {string} with the next fields', function (pan
             gridrow.validatePanel(row);
             break;
     }
+});
+
+When('there is a click on Feature {string}', function (featureLabel: string) {
+    console.log('[WHEN] there is a click on Feature {string}');
+    cy.get('v1-dock')
+        .find('v1-feature-render')
+        .find('.feature-block')
+        .contains(featureLabel, { matchCase: false })
+        .closest('.feature-block')
+        .click('top');
 });
