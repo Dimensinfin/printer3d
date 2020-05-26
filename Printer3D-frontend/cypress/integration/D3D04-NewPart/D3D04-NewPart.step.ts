@@ -58,6 +58,14 @@ When('there is a click on the {string} button', function (buttonName) {
             cy.get('new-part-dialog').find('button').get('#submit-button').should('not.be.disabled')
             cy.get('new-part-dialog').find('button').get('#submit-button').click();
             break;
+        case 'CLOSE':
+            cy.get('new-part-dialog').find('button').get('#cancel-button').should('not.be.disabled')
+            cy.get('new-part-dialog').find('button').get('#cancel-button').click();
+            break;
+        case 'GUARDAR-NUEVO':
+            cy.get('new-part-dialog').find('button').get('#repeat-button').should('not.be.disabled')
+            cy.get('new-part-dialog').find('button').get('#repeat-button').click();
+            break;
     }
 });
 Then('the part is persisted at the backend', function () {
