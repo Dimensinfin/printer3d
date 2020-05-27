@@ -23,3 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+// Cypress.Commands.add('containsInside', (el, label) => {
+//     cy.should($el => expect($el.text().toLowerCase().trim()).to.equal(label))
+// })

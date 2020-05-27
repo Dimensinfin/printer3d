@@ -21,3 +21,11 @@ Then('the button {string} has the next properties', function (buttonName: string
         form.validateButton(buttonName, row)
     }
 });
+
+Then('when all required fields have next values', function (dataTable) {
+    console.log('[THEN] the button {string} has the next properties');
+    const row = dataTable.hashes()[0];
+    const form = new NewRollForm();
+    expect(form).to.not.be.null;
+    form.formInput(row);
+});
