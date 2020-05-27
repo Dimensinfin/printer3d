@@ -2,7 +2,7 @@ export const environment = {
     production: true,
     mockStatus: false,
     showexceptions: false,
-    serverName: "http://localhost:5100",
+    backendPath: "",
     copyright: '© 2020 Dimensinfin Industries',
     appName: require('../../package.json').name,
     appVersion: require('../../package.json').version,

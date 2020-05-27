@@ -62,22 +62,18 @@ app.get('*.*', function(req, res) {
     console.log("Static: " + __dirname + app.locals.applicationhome + req.url)
     res.status(200).sendFile(path.join(__dirname + app.locals.applicationhome + req.url));
 });
+// - A P I   M O U N T P O I N T
+app.use('/api', proxy(app.locals.backendproxy, {
+    proxyReqPathResolver: function(req) {
+        console.log('backend: ' + app.locals.backendproxy + 'api' + req.url)
+        return app.locals.backendproxy + 'api' + req.url;
+    }
+}));
 // - A P P   M O U N T P O I N T
 app.get('/*', function(req, res) {
     console.log('App: ' + __dirname + app.locals.applicationhome + req.url)
     res.sendFile(path.join(__dirname + app.locals.applicationhome + '/index.html'));
 });
-// - A P I   M O U N T P O I N T
-// app.use('/api/*', function(req, res) {
-//     console.log('backend: ' + app.locals.backendproxy + req.url)
-//     proxy(app.locals.backendproxy + req.url);
-// });
-app.use('/api', proxy(app.locals.backendproxy, {
-    proxyReqPathResolver: function(req) {
-        console.log('backend: ' + app.locals.backendproxy + '/api' + req.url)
-        return app.locals.backendproxy + '/api' + req.url;
-    }
-}));
 
 // - L I S T E N
 app.listen(process.env.PORT || app.locals.port || 3000, function() {
