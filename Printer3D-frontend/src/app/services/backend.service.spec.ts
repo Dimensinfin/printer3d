@@ -25,6 +25,7 @@ import { SupportHttpClientWrapperService } from '../testing/SupportHttpClientWra
 import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from './support/ResponseTransformer';
 import { PartListResponse } from '@domain/dto/part-list-response.domain';
+import { Part } from '@domain/Part.domain';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -68,6 +69,16 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                     expect(response.partCount).toBe(1);
                     expect(response.records.length).toBe(1);
+                });
+        });
+        it('apiNewPart_v1.default: get the persisted part', () => {
+            const part = new Part();
+            service.apiNewPart_v1(part, new ResponseTransformer().setDescription('Transforma data into Part.')
+                .setTransformation((entrydata: any): Part => {
+                    return new Part(entrydata);
+                }))
+                .subscribe((response: Part) => {
+                    expect(response).toBeDefined();
                 });
         });
     });

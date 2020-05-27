@@ -38,7 +38,6 @@ export class V1DockComponent implements OnInit {
     }
     public ngOnInit(): void {
         console.log('><[V1DockComponent.ngOnInit]');
-        // this.appStore.fireAccessDockConfiguration();
         this.appStore.readDockConfiguration()
             .subscribe((configuration: any) => {
                 this.configuredFeatures = featureTransformer.transform(configuration);

@@ -1,6 +1,7 @@
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Observable } from 'rxjs';
 import { PartListResponse } from '@domain/dto/part-list-response.domain';
+import { Part } from '@domain/Part.domain';
 
 export class SupportBackendService {
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
@@ -28,6 +29,12 @@ export class SupportBackendService {
                 }
                 ]
             }));
+            observer.complete();
+        });
+    }
+    public apiNewPart_v1(newPart: Part, transformer: ResponseTransformer): Observable<Part> {
+        return Observable.create((observer) => {
+            observer.next(new Part({id: '-ID-'}));
             observer.complete();
         });
     }

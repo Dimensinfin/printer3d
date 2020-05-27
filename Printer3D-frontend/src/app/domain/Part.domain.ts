@@ -25,10 +25,14 @@ export class Part extends Node {
         Object.assign(this, values);
         this.jsonClass = "Part";
     }
-    public createNewId(): void {
+    public createNewId(): string {
         this.id = uuidv4();
+        return this.id;
     }
-    private composePartIdentifier(): string {
+    public composePartIdentifier(): string {
+        if ( null != this.colorCode)
         return this.label + ':' + this.colorCode;
+        else 
+        return this.label + ':' + 'INDEFINIDO';
     }
 }

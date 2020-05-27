@@ -18,8 +18,7 @@ export class V1FeatureRenderComponent {
     @Input() dock: V1DockComponent;
     @Input() node: Feature;
 
-    constructor(private dialogFactory: DialogFactoryService,
-        private isolationService: IsolationService) { }
+    constructor(private dialogFactory: DialogFactoryService) { }
 
     /**
      * If the Feature is of the type PAGEROUTE then we should send a message to the Dock to report the change on the Feature active.
@@ -33,8 +32,12 @@ export class V1FeatureRenderComponent {
                     if (null != this.dock) this.dock.activateFeature(this.node);
                     break;
                 case 'DIALOG':
-                    // this.node.activate();
-                    this.dialogFactory.processClick(this.node);
+                    this.node.activate();
+                    this.dialogFactory.processClick(this.node).afterClosed()
+                        .subscribe(result => {
+                            console.log('[V1FeatureRenderComponent.onClick]> Close detected');
+                            this.node.activate();
+                        });
                     break;
                 // case 'ACTION-TO-DEFINE':
                 //     this.isolationService.removeFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)

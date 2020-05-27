@@ -39,7 +39,6 @@ describe('SERVICE AppStoreService [Module: CORE]', () => {
             ],
             providers: [
                 { provide: IsolationService, useClass: SupportIsolationService },
-                // { provide: BackendService, useClass: SupportBackendService },
                 { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]
         })
@@ -57,55 +56,14 @@ describe('SERVICE AppStoreService [Module: CORE]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Dock]', async function () {
-        xit('fireAccessDockConfiguration.default: get a reference to the Dock configuration Subject', () => {
-            isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, null);
-            return service.fireAccessDockConfiguration()
-                .subscribe(function (subject) {
-                    const expected = isolationService.directAccessMockResource('/assets/properties/config/DefaultDockFeatureMap');
-                    const obtained = JSON.stringify(subject);
-                    expect(subject).toBeDefined();
-                    expect(expected).toBe(obtained);
+    describe('Code Coverage Phase [Dock]', async () => {
+        it('readDockConfiguration: get the observable to the Dock default configuration', () => {
+            service.readDockConfiguration()
+                .subscribe((configuration) => {
+                    const obtained = configuration;
+                    expect(obtained).toBeDefined();
+                    expect(obtained.length).toBe(2);
                 })
-        });
-        it('fireAccessDockConfiguration.set: get a reference to the Dock configuration Subject', () => {
-            const testConfiguration: Feature[] = [];
-            testConfiguration.push(new Feature());
-            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, testConfiguration);
-            return service.fireAccessDockConfiguration()
-                .subscribe(function (subject) {
-                    const expected = JSON.stringify(testConfiguration);
-                    const obtained = JSON.stringify(subject);
-                    expect(subject).toBeDefined();
-                    expect(expected).toBe(obtained);
-                })
-        });
-        it('fireAccessDockConfiguration.single: get a reference to the Dock configuration Subject', () => {
-            const testConfiguration: Feature[] = [];
-            testConfiguration.push(new Feature());
-            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, new Feature());
-            return service.fireAccessDockConfiguration()
-                .subscribe(function (subject) {
-                    const expected = JSON.stringify(testConfiguration);
-                    const obtained = JSON.stringify(subject);
-                    expect(subject).toBeDefined();
-                    expect(expected).toBe(obtained);
-                })
-        });
-        it('synchronize2DockConfiguration.success: get a reference to the Dock configuration Subject', () => {
-            const obtained = service.synchronize2DockConfiguration();
-            expect(obtained).toBeDefined();
-        });
-        it('saveDockConfiguration.success: store the new configuration', () => {
-            // Save test configuration.
-            isolationService.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, null);
-            const newConfiguration: Feature[] = [];
-            newConfiguration.push(new Feature());
-            newConfiguration.push(new Feature());
-            service.saveDockConfiguration(newConfiguration);
-            const obtained: Feature[] = JSON.parse(isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY));
-            expect(obtained).toBeDefined();
-            expect(obtained.length).toBe(2);
         });
     });
     describe('Code Coverage Phase [Global Support Methods]', () => {

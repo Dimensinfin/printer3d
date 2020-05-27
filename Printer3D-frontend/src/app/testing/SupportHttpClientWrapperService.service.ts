@@ -26,16 +26,16 @@ const REQUEST_PREFIX = 'http://neocom.infinity.local/api/v1/neocom';
 })
 export class SupportHttpClientWrapperService {
     public wrapHttpRESOURCECall(request: string): Observable<any> {
-        console.log("><[HttpClientWrapperService.wrapHttpRESOURCECall]> request: " + request);
+        console.log("><[SupportHttpClientWrapperService.wrapHttpRESOURCECall]> request: " + request);
         return Observable.create((observer) => {
             try {
-                let data = require('./mock-data' + request);
+                let data = require('./mock-data' + request.toLowerCase());
                 if (null == data)
                     observer.next('');
                 else
                     observer.next(data);
             } catch (error) {
-                console.log("><[HttpClientWrapperService.wrapHttpRESOURCECall]> error: " + JSON.stringify(error));
+                console.log("><[SupportHttpClientWrapperService.wrapHttpRESOURCECall]> error: " + JSON.stringify(error));
                 observer.next('');
             }
             observer.complete();
@@ -46,6 +46,30 @@ export class SupportHttpClientWrapperService {
         return Observable.create((observer) => {
             try {
                 let data = this.decodeRequestPath(_request);
+                if (null == data)
+                    observer.next('');
+                else
+                    observer.next(data);
+            } catch (error) {
+                console.log("><[HttpClientWrapperService.wrapHttpGETCall]> error: " + JSON.stringify(error));
+                observer.next('');
+            }
+            observer.complete();
+        });
+    }
+    public wrapHttpPOSTCall(_request: string, body: any, _requestHeaders?: HttpHeaders): Observable<any> {
+        console.log("><[HttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
+        return Observable.create((observer) => {
+            try {
+                let data = {
+                    "id": "5696e7b9-cdbe-4996-bb77-0045dd1b732e",
+                    "label": "Covid-21 Key",
+                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                    "cost": 0.85,
+                    "price": 4.0,
+                    "stockLevel": 1,
+                    "active": true
+                };
                 if (null == data)
                     observer.next('');
                 else

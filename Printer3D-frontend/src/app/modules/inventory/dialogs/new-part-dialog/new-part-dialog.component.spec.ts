@@ -31,7 +31,9 @@ import { Feature } from '@domain/Feature.domain';
 import { NewPartDialogComponent } from './new-part-dialog.component';
 
 import { MatDialogHarness } from '@angular/material/dialog/testing';
-// import {MatDialogRefHarness} from '@angular/material/dialog/testing';
+import { BackendService } from '@app/services/backend.service';
+import { SupportBackendService } from '@app/testing/SupportBackend.service';
+import { Part } from '@domain/Part.domain';
 
 describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
     let component: NewPartDialogComponent;
@@ -53,7 +55,8 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
                 // { provide: MatDialog, useValue: {} },
                 { provide: MatDialogRef, useValue: { close: (dialogResult: any) => { } } },
                 { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: AppStoreService, useClass: SupportAppStoreService }
+                { provide: AppStoreService, useClass: SupportAppStoreService },
+                { provide: BackendService, useClass: SupportBackendService }
             ]
         }).compileComponents();
 
@@ -86,6 +89,18 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
+        it('savePart: persist the part on the backend repository', async () => {
+            const part: Part = new Part({id: '-ID-'});
+            const componentAsAny = component as any;
+            componentAsAny.part = part;
+            component.savePart();
+        });
+        it('savePartAndRepeat: persist the part on the backend repository', async () => {
+            const part: Part = new Part({id: '-ID-'});
+            const componentAsAny = component as any;
+            componentAsAny.part = part;
+            component.savePartAndRepeat();
+        });
         it('closeModal: start closing the dialog', async () => {
             const componentAsAny = component as any;
             spyOn(componentAsAny.dialogRef, 'close');

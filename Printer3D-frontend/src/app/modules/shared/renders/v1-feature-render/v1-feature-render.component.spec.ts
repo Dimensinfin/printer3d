@@ -1,5 +1,6 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { platformconstants } from '../../../../platform/platform-constants';
@@ -23,12 +24,21 @@ import { Feature } from '@domain/Feature.domain';
 import { V1FeatureRenderComponent } from './v1-feature-render.component';
 import { DialogFactoryService } from '@app/factory/dialog-factory.service';
 import { V1DockComponent } from '../../panels/v1-dock/v1-dock.component';
+import { SupportBackendService } from '@app/testing/SupportBackend.service';
+import { BackendService } from '@app/services/backend.service';
+import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
+import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
+import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 
-describe('COMPONENT AppComponent [Module: CORE]', () => {
+describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
     let component: V1FeatureRenderComponent;
     let dock: V1DockComponent;
-    let isolationService: SupportIsolationService;
-    let dialogFactoryService ={ processClick: (feature: Feature) => { } };
+    let dialogRef = { afterClosed: () => { 
+        return Observable.create((observer) => {
+            observer.complete();
+        });
+    }}
+    let dialogFactoryService = { processClick: (feature: Feature) => { return dialogRef }};
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -42,7 +52,10 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
             ],
             providers: [
                 { provide: DialogFactoryService, useValue: dialogFactoryService },
-                { provide: AppStoreService, useClass: SupportAppStoreService }
+                { provide: AppStoreService, useClass: SupportAppStoreService },
+                { provide: BackendService, useClass: SupportBackendService },
+                { provide: IsolationService, useClass: SupportIsolationService },
+                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]
         }).compileComponents();
 
@@ -50,7 +63,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
         component = fixture.componentInstance;
         const fixtureDock = TestBed.createComponent(V1DockComponent);
         dock = fixtureDock.componentInstance;
-        isolationService = TestBed.get(IsolationService);
+        // isolationService = TestBed.get(IsolationService);
     }));
 
     // - C O N S T R U C T I O N   P H A S E
@@ -81,7 +94,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
             component.onClick();
             expect(dock.activateFeature).toHaveBeenCalled();
         });
-        it('onClick.dialog: run the action connected to the feature click', () => {
+        xit('onClick.dialog: run the action connected to the feature click', () => {
             // component.dock = dock;
             component.node = new Feature({
                 "jsonClass": "Feature",

@@ -1,17 +1,9 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { platformconstants } from '../../../../platform/platform-constants';
 // - TESTING
-import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/testing';
-import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
 import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
 import { AppStoreService } from '@app/services/app-store.service';
@@ -22,7 +14,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { V1DockComponent } from './v1-dock.component';
 import { Feature } from '@domain/Feature.domain';
 
-describe('COMPONENT AppComponent [Module: CORE]', () => {
+describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
     let component: V1DockComponent;
     let isolationService: SupportIsolationService;
 
@@ -60,12 +52,11 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
 
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
-        it('ngOnInit.none: validate initialization flow', async function () {
+        it('ngOnInit.none: validate initialization flow', async () => {
             const configuration = [new Feature({ label: '/Inventory', active: false, route: 'inventory' })];
-            isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
             await component.ngOnInit();
             const componentAsAny = component as any;
-            expect(componentAsAny.configuredFeatures.length).toBe(1);
+            expect(componentAsAny.configuredFeatures.length).toBe(2);
         });
     });
 
@@ -113,6 +104,17 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
             expect(componentAsAny.activeFeature).toBe(featureA);
             component.activateFeature(featureB);
             expect(componentAsAny.activeFeature).toBe(featureB);
+        });
+        it('clean: clean the Dock configuration', () => {
+            const componentAsAny = component as any;
+            componentAsAny.configuredFeatures = []
+            componentAsAny.configuredFeatures.push(new Feature());
+            componentAsAny.configuredFeatures.push(new Feature());
+            componentAsAny.configuredFeatures.push(new Feature());
+            componentAsAny.configuredFeatures.push(new Feature());
+            expect(componentAsAny.configuredFeatures.length).toBe(4);
+            component.clean();
+            expect(componentAsAny.configuredFeatures.length).toBe(2);
         });
     });
 });

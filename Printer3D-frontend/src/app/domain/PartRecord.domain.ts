@@ -8,7 +8,7 @@ export class PartRecord extends Node {
     public id: string;
     public label: string;
     public description: string;
-    public colorCode: EColorCode = EColorCode.UNDEFINED;
+    public colorCode: string ='INDEFINIDO';
     public cost: number;
     public price: number;
     public buildTime: number;

@@ -22,9 +22,10 @@ import { Feature } from '@domain/Feature.domain';
 import { DialogFactoryService } from './dialog-factory.service';
 import { MatDialog } from '@angular/material/dialog';
 
-describe('COMPONENT AppComponent [Module: CORE]', () => {
+describe('COMPONENT DialogFactoryService [Module: CORE]', () => {
     let service: DialogFactoryService;
     let isolationService: SupportIsolationService;
+    let dialog = { open: (dialog: any, config: any) => { } };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -34,7 +35,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
             declarations: [
             ],
             providers: [
-                { provide: MatDialog, useValue: { open: (dialog: any, config: any) => { } } },
+                { provide: MatDialog, useValue: dialog },
             ]
         }).compileComponents();
 
@@ -53,9 +54,9 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
         it('processClick.empty: process the click action on a Feature', () => {
             const feature = new Feature();
             const serviceAsAny = service as any;
-            spyOn(serviceAsAny, 'openModal');
+            spyOn(dialog, 'open');
             service.processClick(feature);
-            expect(serviceAsAny.openModal).not.toHaveBeenCalled();
+            expect(dialog.open).not.toHaveBeenCalled();
         });
         it('processClick.NewPart: process the click action on a Feature', () => {
             const feature = new Feature({
@@ -67,23 +68,9 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
                 "dialog": "NewPartDialog"
             });
             const serviceAsAny = service as any;
-            spyOn(serviceAsAny, 'openModal');
+            spyOn(dialog, 'open');
             service.processClick(feature);
-            expect(serviceAsAny.openModal).toHaveBeenCalled();
-        });
-        it('processClick.openModal: process the click action on a Feature', () => {
-            const feature = new Feature({
-                "jsonClass": "Feature",
-                "label": "/Nueva Pieza",
-                "enabled": true,
-                "active": false,
-                "interaction": "DIALOG",
-                "dialog": "NewPartDialog"
-            });
-            const serviceAsAny = service as any;
-            // spyOn(serviceAsAny, 'openModal');
-            service.processClick(feature);
-            // expect(serviceAsAny.openModal).toHaveBeenCalled();
+            expect(dialog.open).toHaveBeenCalled();
         });
     });
 });

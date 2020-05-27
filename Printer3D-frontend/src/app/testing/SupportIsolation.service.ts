@@ -12,7 +12,7 @@ export class SupportIsolationService {
     // - M O C K   D A T A   A C C E S S
     public directAccessMockResource(dataIdentifier: string): any {
         console.log(">>[SupportIsolationService.directAccessMockResource]> dataIdentifier: " + dataIdentifier);
-        let rawdata = require('./mock-data' + dataIdentifier.toLowerCase() + '.json');
+        let rawdata = require('./mock-data/' + dataIdentifier.toLowerCase() + '.json');
         return rawdata;
     }
 
@@ -26,8 +26,8 @@ export class SupportIsolationService {
     public setToStorageObject(key: string, object: any): void {
         this.setToStorage(key, JSON.stringify(object));
     }
-    public removeFromStorage(_key: string): void {
-        this.storage.set(_key, null);
+    public removeFromStorage(key: string): void {
+        this.storage.set(key, null);
     }
     public getFromSession(_key: string): any {
         return this.storage.get(_key);
