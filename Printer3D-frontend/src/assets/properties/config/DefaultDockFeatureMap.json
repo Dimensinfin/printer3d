@@ -1,15 +1,33 @@
 [{
-    "jsonClass": "Feature",
-    "label": "/Nueva Pieza",
-    "enabled": true,
-    "active": false,
-    "interaction": "DIALOG",
-    "dialog": "NewPartDialog"
-}, {
-    "jsonClass": "Feature",
-    "label": "/Inventario",
-    "enabled": true,
-    "active": false,
-    "interaction": "PAGEROUTE",
-    "route": "/inventory"
-}]
+        "jsonClass": "Feature",
+        "label": "/Nueva Pieza",
+        "enabled": true,
+        "active": false,
+        "interaction": "DIALOG",
+        "route": "NewPartDialog"
+    },
+    {
+        "jsonClass": "Feature",
+        "label": "/Inventario",
+        "enabled": true,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "/inventory"
+    },
+    {
+        "jsonClass": "Feature",
+        "label": "/Nuevo Rollo",
+        "enabled": true,
+        "active": false,
+        "interaction": "DIALOG",
+        "route": "NewRollDialog"
+    },
+    {
+        "jsonClass": "Feature",
+        "label": "/Rollos",
+        "enabled": false,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "/materials"
+    }
+]

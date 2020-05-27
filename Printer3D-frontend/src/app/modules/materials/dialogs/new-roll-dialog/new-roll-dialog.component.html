@@ -1,0 +1,85 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventario/Nueva Pieza</div>
+    </header>
+    <section id="modal-body">
+        <!-- N E W   S E R V I C E   F O R M -->
+        <form #newRollForm="ngForm" class="dsf-form" autocomplete="off">
+            <table cellspacing="5px">
+                <!-- I D E N T I F I E R -->
+                <tr>
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="label">ID</label>
+                            <span class="tooltiptext tooltip-right">
+                                Identificador único generado automaticamente.
+                            </span>
+                        </div>
+                    </td>
+                    <td><span class="dsf-form-control dsf-untouchable-form-item part-id">{{roll.id}}</span></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <!-- M A T E R I A L -->
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="label">Material<span style="color: red;">&nbsp;*</span></label>
+                            <span class="tooltiptext tooltip-right">
+                                El tipo de material del filamento.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item roll-material" required [(ngModel)]="roll.material" id="material" name="material" minlength="5" maxlength="32" #spy>
+                    </td>
+                    <!-- C O L O R -->
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="label">Color<span style="color: red;">&nbsp;*</span></label>
+                            <span class="tooltiptext tooltip-right">
+                                El color del filamento.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item roll-color" required [(ngModel)]="roll.color" id="material" name="color" minlength="5" maxlength="32" #spy>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- W E I G H T -->
+                    <td>
+                        <div class="dsf-tooltip">
+                            <label class="dsf-form-label" for="label">Peso<span style="color: red;">&nbsp;*</span></label>
+                            <span class="tooltiptext tooltip-right">
+                                El peso del rollo.
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item roll-weight" required [(ngModel)]="roll.weight" id="weight" name="weight" minlength="5" maxlength="32" #spy>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </section>
+    <footer id="modal-footer">
+        <div class="centered-container button-area">
+            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newRollForm.form.valid" (click)="savePart()">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                &nbsp;&nbsp;Guardar Datos
+            </button>
+            <button id="cancel-button" type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                &nbsp;&nbsp;Go Back/Cancel
+            </button>
+        </div>
+        <div class="centered-container button-area">
+            <button id="repeat-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newRollForm.form.valid" (click)="savePartAndRepeat()">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                &nbsp;&nbsp;Guardar y Repetir
+            </button>
+        </div>
+    </footer>
+</div>

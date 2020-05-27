@@ -33,7 +33,8 @@ export class V1FeatureRenderComponent {
                     break;
                 case 'DIALOG':
                     this.node.activate();
-                    this.dialogFactory.processClick(this.node).afterClosed()
+                    const dialogRef = this.dialogFactory.processClick(this.node);
+                    dialogRef.afterClosed()
                         .subscribe(result => {
                             console.log('[V1FeatureRenderComponent.onClick]> Close detected');
                             this.node.activate();

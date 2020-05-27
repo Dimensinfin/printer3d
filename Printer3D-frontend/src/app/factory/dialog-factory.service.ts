@@ -11,25 +11,35 @@ import { MatDialogRef } from '@angular/material/dialog';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
+import { NewRollDialogComponent } from '@app/modules/materials/dialogs/new-roll-dialog/new-roll-dialog.component';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DialogFactoryService {
-    private modalDialog: MatDialogRef<NewPartDialogComponent>;
+    private modalDialog: MatDialogRef<any>;
 
     constructor(public matDialog: MatDialog) { }
 
-    public processClick(target: Feature): MatDialogRef<NewPartDialogComponent> {
+    public processClick(target: Feature): MatDialogRef<any> {
         console.log('>[DialogFactoryComponent.processClick]> Feature: ' + JSON.stringify(target))
-        switch (target.dialog) {
+        let dialogConfig: MatDialogConfig;
+        switch (target.route) {
             case 'NewPartDialog':
-                const dialogConfig = new MatDialogConfig();
+                dialogConfig = new MatDialogConfig();
                 dialogConfig.disableClose = true;
                 dialogConfig.id = "newpart-component";
                 dialogConfig.height = "86vh";
                 dialogConfig.width = "70vw";
                 this.modalDialog = this.matDialog.open(NewPartDialogComponent, dialogConfig);
+                break;
+            case 'NewRollDialog':
+                dialogConfig = new MatDialogConfig();
+                dialogConfig.disableClose = true;
+                dialogConfig.id = "newroll-component";
+                dialogConfig.height = "86vh";
+                dialogConfig.width = "60vw";
+                this.modalDialog = this.matDialog.open(NewRollDialogComponent, dialogConfig);
                 break;
         }
         return this.modalDialog;
