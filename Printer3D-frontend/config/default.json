@@ -1,10 +1,10 @@
 {
     "settings": {
-        "appname": "NeoCom.Infinity",
-        "version": "v0.16.2",
+        "appname": "3DPrinterManagement - UI",
+        "version": "v0.4.0",
         "port": 8080,
-        "applicationhome": "/dist/NeoCom-Infinity",
-        "backendproxy": "http://neocom.infinity.local:6099",
+        "applicationhome": "/dist/Printer3D-frontend",
+        "backendproxy": "https://printer3d-backend-uat.herokuapp.com/",
         "apppath": "/app",
         "apipath": "/api"
     },

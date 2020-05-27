@@ -11,7 +11,8 @@
         "build:dev": "ng build --base-href /app",
         "build:prod": "ng build --aot --prod --configuration production",
         "test:dev": "ng test --code-coverage --watch --progress ",
-        "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI"
+        "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI",
+        "deploy:prod": "npm run build:prod "
     },
     "private": true,
     "engines": {

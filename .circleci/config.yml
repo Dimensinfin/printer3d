@@ -142,22 +142,26 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             ./gradlew test
-  frontend-deploy-to-heroku:
+  frontend-uat-to-heroku:
     docker:
       - image: circleci/node:12.16.3-browsers
         environment:
-          HEROKU_APP_NAME: printer3d-backend
+          HEROKU_APP_NAME: printer3d-frontend-uat
           HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
       - run:
-          name: FRONTEND - Create Heroku repository
+          name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend
           command: |
-            git init
-            git config --global user.email "adamantinoo.git@gmaul.com"
+            git config --global user.email "adamantinoo.git@gmail.com"
             git config --global user.name "Adam antinoo"
-            git add .gitignore
+            git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
+      - run:
+          name: FRONTEND - Clone Heroku repository
+          working_directory: Printer3D-frontend
+          command: |
+            git add .*
             git add *.*
             git add config
             git add src
@@ -165,32 +169,38 @@ jobs:
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
           name: Deploy Master to Heroku
-          working_directory: Printer3D-backend
+          working_directory: Printer3D-frontend
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
-  backend-deploy-to-heroku:
+  backend-uat-to-heroku:
     docker:
       - image: circleci/openjdk:11-jdk
         environment:
           _JAVA_OPTIONS: "-Xmx3g"
           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+          HEROKU_APP_NAME: printer3d-backend-uat
+          HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
-      - checkout
       - run:
-          name: BACKEND - Create Heroku repository
+          name: BACKEND - Clone Heroku repository
           working_directory: Printer3D-backend
           command: |
-            git init
-            git config --global user.email "adamantinoo.git@gmaul.com"
+            git config --global user.email "adamantinoo.git@gmail.com"
             git config --global user.name "Adam antinoo"
-            git add .gitignore
+            git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
+      - checkout
+      - run:
+          name: BACKEND - Update commit code
+          working_directory: Printer3D-backend
+          command: |
+            git add .*
             git add *.*
             git add src
             git add gradle
             git add gradlew
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
-          name: Deploy Master to Heroku
+          name: BACKEND - Deploy Master to Heroku
           working_directory: Printer3D-backend
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
@@ -245,17 +255,17 @@ workflows:
       #       branches:
       #         only:
       #           - development
-      # - frontend-deploy-to-heroku:
-      #     requires:
-      #        - start-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - backend-deploy-to-heroku:
-      #     requires:
-      #       - start-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - frontend-uat-to-heroku:
+          requires:
+             - start-job
+          filters:
+            branches:
+              only:
+                - test
+      - backend-uat-to-heroku:
+          requires:
+            - start-job
+          filters:
+            branches:
+              only:
+                - test
