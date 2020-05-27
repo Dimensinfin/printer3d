@@ -156,6 +156,17 @@ jobs:
       #       git config --global user.name "Adam antinoo"
       #       git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
       - run:
+          name: FRONTEND - Install & build distribution
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm install
+      - run:
+          name: FRONTEND - Build deployment code
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:prod
+      - run:
           name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend
           command: |
@@ -166,6 +177,7 @@ jobs:
             git add *.*
             git add config
             git add src
+            git add dist
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
           name: Deploy Master to Heroku
