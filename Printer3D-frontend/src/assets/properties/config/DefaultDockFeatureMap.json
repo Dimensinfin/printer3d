@@ -16,7 +16,7 @@
     {
         "jsonClass": "Feature",
         "label": "/Trabajos Pend",
-        "enabled": true,
+        "enabled": false,
         "active": false,
         "interaction": "PAGEROUTE",
         "route": "/inventory"
@@ -24,7 +24,7 @@
     {
         "jsonClass": "Feature",
         "label": "/Maquinas",
-        "enabled": true,
+        "enabled": false,
         "active": false,
         "interaction": "PAGEROUTE",
         "route": "/inventory"
@@ -34,15 +34,15 @@
         "label": "/Nuevo Rollo",
         "enabled": true,
         "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "/inventory"
+        "interaction": "DIALOG",
+        "route": "NewRollDialog"
     },
     {
         "jsonClass": "Feature",
         "label": "/Rollos",
-        "enabled": true,
+        "enabled": false,
         "active": false,
         "interaction": "PAGEROUTE",
-        "route": "/inventory"
+        "route": "/materials"
     }
 ]
