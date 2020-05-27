@@ -11,9 +11,8 @@
 // });
 export const environment = {
     production: false,
-    mockStatus: true,
     showexceptions: true,
-    backendPath: 'http://localhost:5100',
+    backendPath: '',
     copyright: '© 2019,2020 Dimensinfin Industries',
     appName: require('../../package.json').name,
     appVersion: require('../../package.json').version + ' dev',

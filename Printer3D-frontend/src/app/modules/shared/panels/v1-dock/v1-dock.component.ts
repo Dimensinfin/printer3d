@@ -81,6 +81,7 @@ export class V1DockComponent implements OnInit {
             target.activate();
             this.activeFeature = target;
         }
+        // IMPROVEMENT: Do not detect if the Feature target is the same.
         // 2. Page change
         this.pageChange(this.activeFeature.getRoute());
     }
