@@ -10,6 +10,7 @@ export class Part extends Node {
     public id: string;
     public label: string;
     public description: string;
+    public material: string = 'PLA'
     public colorCode: string;
     public cost: number;
     public price: number;
@@ -30,9 +31,9 @@ export class Part extends Node {
         return this.id;
     }
     public composePartIdentifier(): string {
-        if ( null != this.colorCode)
-        return this.label + ':' + this.colorCode;
-        else 
-        return this.label + ':' + 'INDEFINIDO';
+        if (null != this.colorCode)
+            return this.label + ':' + this.colorCode;
+        else
+            return this.label + ':' + 'INDEFINIDO';
     }
 }

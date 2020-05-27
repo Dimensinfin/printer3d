@@ -53,23 +53,40 @@
                     </td>
                     <!-- C O L O R C O D E -->
                     <td>
-                        <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="label">Color<span
+                        <div style="display: flex; flex-direction: column;">
+                            <div class="dsf-tooltip" style="margin-bottom: 23px;">
+                                <label class="dsf-form-label" for="label">Material<span
+                                    style="color: red;">&nbsp;*</span><span
                                       style="color: red;">&nbsp;*</span></label>
-                            <span class="tooltiptext tooltip-right">
-                                Color de fabricacion de esta pieza.
-                            </span>
+                                <span class="tooltiptext tooltip-right">
+                                    Material de fabricacion de esta pieza.
+                                </span>
+                            </div>
+                            <div class="dsf-tooltip">
+                                <label class="dsf-form-label" for="label">Color<span
+                                    style="color: red;">&nbsp;*</span><span
+                                      style="color: red;">&nbsp;*</span></label>
+                                <span class="tooltiptext tooltip-right">
+                                    Color de fabricacion de esta pieza.
+                                </span>
+                            </div>
                         </div>
                     </td>
                     <td>
-                        <select class="part-colorcode" id="colorCode" [(ngModel)]="part.colorCode" required name="colorCode" #colorCode="ngModel" #spy>
-                            <option selected value="UNDEFINED">UNDEFINED</option>
-                            <option value="WHITE">WHITE</option>
-                            <option value="GREEN">GREEN</option>
-                            <option value="GREEN-TRANSP">GREEN-TRANSP</option>
-                            <option value="RED">RED</option>
-                            <option value="LIGHT-BLUE">LIGHT-BLUE</option>
-                        </select>
+                        <div style="display: flex; flex-direction: column;">
+                            <div style="margin-bottom: 5px;">
+                                <select class="dsf-form-control part-material" id="material" [(ngModel)]="part.material" required name="material" #colorCode="ngModel" (change)="materialSelectorChanged($event.target.value)" #spy>
+                                    <option value="PLA">PLA</option>
+                                    <option value="TPU">TPU</option>
+                                </select>
+                                <br>
+                            </div>
+                            <div>
+                                <select class="dsf-form-control part-colorcode" id="colorCode" [(ngModel)]="part.colorCode" required name="colorCode" #colorCode="ngModel" #spy>
+                                    <option *ngFor="let color of colors"[value]="color">{{color}}</option>
+                                </select>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <!-- C O S T -->

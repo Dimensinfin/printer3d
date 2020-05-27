@@ -73,12 +73,17 @@ export class NewPartForm extends IsolationService {
                         cy.log('[NewPartForm.validatePanel]> ID=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-label').type(value)
                         break;
-                        case 'colorCode':
-                            value = this.decodeDataTableRow(row, key);
-                            cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
-                            cy.get('new-part-dialog').get('form').find('.part-colorcode').select(value)
-                            break;
-                        case 'buildTime':
+                    case 'material':
+                        value = this.decodeDataTableRow(row, key);
+                        cy.log('[NewPartForm.validatePanel]> MATERIAL=' + value);
+                        cy.get('new-part-dialog').get('form').find('.part-material').select(value)
+                        break;
+                    case 'colorCode':
+                        value = this.decodeDataTableRow(row, key);
+                        cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
+                        cy.get('new-part-dialog').get('form').find('.part-colorcode').select(value)
+                        break;
+                    case 'buildTime':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> BUILD_TIME=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-build-time').type(value)

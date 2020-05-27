@@ -26,6 +26,7 @@ export class NewPartDialogComponent implements OnInit {
     public downloading: boolean = true;
     public development: boolean = false;
     public part: Part = new Part();
+    public colors: string[] = [];
     public label;
     public cost;
     public price;
@@ -43,7 +44,12 @@ export class NewPartDialogComponent implements OnInit {
         console.log('><[NewPartDialogComponent.ngOnInit]')
         // If there is no previous pending part then initialize a new one with default values but new ID.
         const pendingPart = this.isolationService.getFromStorage(platformconstants.PARTIAL_PART_KEY);
-        if (null == pendingPart) this.part.id = uuidv4();
+        if (null == pendingPart) {
+            this.part.id = uuidv4();
+            this.part.material = 'PLA';
+            this.part.colorCode = 'INDEFINIDO';
+            this.materialSelectorChanged('PLA');
+        }
         else this.part = JSON.parse(pendingPart);
     }
     // - I N T E R A C T I O N S
@@ -77,5 +83,14 @@ export class NewPartDialogComponent implements OnInit {
     public closeModal(): void {
         console.log('>[NewPartDialogComponent.closeModal]')
         this.dialogRef.close();
+    }
+    public materialSelectorChanged(event: any): void {
+        console.log('>[NewPartDialogComponent.materialSelectorChanged]> Selection: ' + event);
+        if (event == 'PLA') {
+            this.colors = ['INDEFINIDO', 'BLANCO', 'VERDE', 'ROSA-T', 'GRIS'];
+        }
+        if (event == 'TPU') {
+            this.colors = ['INDEFINIDO', 'ROJO'];
+        }
     }
 }
