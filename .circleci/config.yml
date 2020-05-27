@@ -10,11 +10,9 @@ jobs:
   start-job:
     docker:
       - image: circleci/node:12.16.3-browsers
-      - image: circleci/openjdk:11.0.1-jdk
-      - image: circleci/postgres:11.1
     steps:
       - run:
-          name: Start-Frontend Environment Validation
+          name: FRONTEND - Validate node version
           command: |
             node -v
   create-frontend-environment-job:
@@ -150,13 +148,13 @@ jobs:
           HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
-      - run:
-          name: FRONTEND - Clone Heroku repository
-          working_directory: Printer3D-frontend
-          command: |
-            git config --global user.email "adamantinoo.git@gmail.com"
-            git config --global user.name "Adam antinoo"
-            git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
+      # - run:
+      #     name: FRONTEND - Clone Heroku repository
+      #     working_directory: Printer3D-frontend
+      #     command: |
+      #       git config --global user.email "adamantinoo.git@gmail.com"
+      #       git config --global user.name "Adam antinoo"
+      #       git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
       - run:
           name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend
@@ -165,7 +163,6 @@ jobs:
             git add *.*
             git add config
             git add src
-            git add public
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
           name: Deploy Master to Heroku
@@ -182,13 +179,13 @@ jobs:
           HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
-      - run:
-          name: BACKEND - Clone Heroku repository
-          working_directory: Printer3D-backend
-          command: |
-            git config --global user.email "adamantinoo.git@gmail.com"
-            git config --global user.name "Adam antinoo"
-            git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
+      # - run:
+      #     name: BACKEND - Clone Heroku repository
+      #     working_directory: Printer3D-backend
+      #     command: |
+      #       git config --global user.email "adamantinoo.git@gmail.com"
+      #       git config --global user.name "Adam antinoo"
+      #       git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
       - run:
           name: BACKEND - Update commit code
           working_directory: Printer3D-backend
