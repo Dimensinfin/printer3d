@@ -258,16 +258,16 @@ workflows:
       #       branches:
       #         only:
       #           - development
-      - frontend-uat-to-heroku:
+      - backend-uat-to-heroku:
           requires:
-             - start-job
+            - start-job
           filters:
             branches:
               only:
                 - test
-      - backend-uat-to-heroku:
+      - frontend-uat-to-heroku:
           requires:
-            - start-job
+             - backend-uat-to-heroku
           filters:
             branches:
               only:

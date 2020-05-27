@@ -62,7 +62,6 @@
         "@angular-devkit/build-angular": "0.901.6",
         "@angular/cli": "9.1.6",
         "@angular/compiler-cli": "9.1.7",
-        "@bahmutov/add-typescript-to-cypress": "2.1.2",
         "@cypress/code-coverage": "3.7.2",
         "@cypress/webpack-preprocessor": "5.2.1",
         "@types/chai": "4.2.11",
