@@ -55,3 +55,7 @@ Then('the dialog closes', function () {
     console.log('[THEN] the dialog closes');
     cy.get('new-roll-dialog').should('have.length', 0);
 });
+
+Then('there is one field called {string} with the content {string}', function (fieldName, value) {
+    cy.get('mat-dialog-container').find('input').get('[name=' + fieldName + ']').should('have.value', value)
+});
