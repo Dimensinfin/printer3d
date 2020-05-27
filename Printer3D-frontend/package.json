@@ -12,7 +12,8 @@
         "build:prod": "ng build --aot --prod --configuration production",
         "test:dev": "ng test --code-coverage --watch --progress ",
         "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI",
-        "deploy:prod": "npm run build:prod "
+        "deploy:prod": "npm run build:prod ",
+        "start": "npm run build:prod && node server.js"
     },
     "private": true,
     "engines": {
