@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
-import org.dimensinfin.printer3d.client.part.domain.ColorCodeType;
 
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.BUILD_TIME;
@@ -15,6 +14,7 @@ import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.DE
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.LABEL;
+import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.MATERIAL;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.MODEL_PATH;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.PRICE;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.STOCK_AVAILABLE;
@@ -27,7 +27,8 @@ public class CucumberTableToPartConverter extends CucumberTableConverter<Part> {
 		if (null != cucumberRow.get( ID )) builder = builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
 		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( DESCRIPTION )) builder = builder.withDescription( cucumberRow.get( DESCRIPTION ) );
-		if (null != cucumberRow.get( COLOR_CODE )) builder = builder.withColorCode( ColorCodeType.valueOf( cucumberRow.get( COLOR_CODE ) ) );
+		if (null != cucumberRow.get( MATERIAL )) builder = builder.withMaterial(  cucumberRow.get( MATERIAL )  );
+		if (null != cucumberRow.get( COLOR_CODE )) builder = builder.withColorCode(  cucumberRow.get( COLOR_CODE )  );
 		if (null != cucumberRow.get( BUILD_TIME )) builder = builder.withBuildTime( Integer.parseInt( cucumberRow.get( BUILD_TIME ) ) );
 		if (null != cucumberRow.get( COST )) builder = builder.withCost( Float.parseFloat( cucumberRow.get( COST ) ) );
 		if (null != cucumberRow.get( PRICE )) builder = builder.withPrice( Float.parseFloat( cucumberRow.get( PRICE ) ) );

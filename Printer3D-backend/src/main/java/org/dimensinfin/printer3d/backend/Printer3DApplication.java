@@ -37,13 +37,14 @@ public class Printer3DApplication {
 		private boolean printedVersion = false;
 
 		private void printVersion() {
-			LogWrapper.info( "\n\n" +
-					"        ___   _ ____    ___  \n" +
-					"__   __/ _ \\ / |___ \\  / _ \\ \n" +
-					"\\ \\ / / | | || | __) || | | |\n" +
-					" \\ V /| |_| || |/ __/ | |_| |\n" +
-					"  \\_/  \\___(_)_|_____(_)___/ \n" +
-					"                             \n" );
+			LogWrapper.info("\n"+
+					"        ___   ____   ___  \n" +
+					"__   __/ _ \\ | ___| / _ \\ \n" +
+					"\\ \\ / / | | ||___ \\| | | |\n" +
+					" \\ V /| |_| | ___) | |_| |\n" +
+					"  \\_/  \\___(_)____(_)___/ \n" +
+					"                          \n"
+			);
 		}
 
 		void print() {

@@ -13,6 +13,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_LABEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MATERIAL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MODEL_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PRICE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_AVAILABLE;
@@ -25,6 +26,7 @@ public class PartTest {
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
 				.withColorCode( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
@@ -45,6 +47,7 @@ public class PartTest {
 					.withId( null )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
@@ -61,6 +64,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( null )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
@@ -77,6 +81,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( null )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
@@ -93,6 +98,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( null )
 					.withCost( TEST_PART_COST )
@@ -109,6 +115,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( null )
@@ -125,6 +132,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
@@ -141,11 +149,29 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
 					.withPrice( TEST_PART_PRICE )
 					.withStockLevel( null )
+					.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+					.withImagePath( TEST_PART_IMAGE_PATH )
+					.withModelPath( TEST_PART_MODEL_PATH )
+					.withActive( false )
+					.build();
+		} );
+		Assertions.assertThrows( NullPointerException.class, () -> {
+			new Part.Builder()
+					.withId( TEST_PART_ID )
+					.withLabel( TEST_PART_LABEL )
+					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( null )
+					.withColorCode( TEST_PART_COLOR_CODE )
+					.withBuildTime( TEST_PART_BUILD_TIME )
+					.withCost( TEST_PART_COST )
+					.withPrice( TEST_PART_PRICE )
+					.withStockLevel( TEST_PART_STOCK_LEVEL )
 					.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
 					.withImagePath( TEST_PART_IMAGE_PATH )
 					.withModelPath( TEST_PART_MODEL_PATH )
@@ -160,6 +186,7 @@ public class PartTest {
 			new Part.Builder()
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
@@ -175,6 +202,7 @@ public class PartTest {
 			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
@@ -191,6 +219,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
 					.withPrice( TEST_PART_PRICE )
@@ -206,6 +235,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withCost( TEST_PART_COST )
 					.withPrice( TEST_PART_PRICE )
@@ -221,6 +251,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withPrice( TEST_PART_PRICE )
@@ -236,6 +267,7 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
@@ -251,10 +283,27 @@ public class PartTest {
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
+					.withMaterial( TEST_PART_MATERIAL )
 					.withColorCode( TEST_PART_COLOR_CODE )
 					.withBuildTime( TEST_PART_BUILD_TIME )
 					.withCost( TEST_PART_COST )
 					.withPrice( TEST_PART_PRICE )
+					.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+					.withImagePath( TEST_PART_IMAGE_PATH )
+					.withModelPath( TEST_PART_MODEL_PATH )
+					.withActive( false )
+					.build();
+		} );
+		Assertions.assertThrows( NullPointerException.class, () -> {
+			new Part.Builder()
+					.withId( TEST_PART_ID )
+					.withLabel( TEST_PART_LABEL )
+					.withDescription( TEST_PART_DESCRIPTION )
+					.withColorCode( TEST_PART_COLOR_CODE )
+					.withBuildTime( TEST_PART_BUILD_TIME )
+					.withCost( TEST_PART_COST )
+					.withPrice( TEST_PART_PRICE )
+					.withStockLevel( TEST_PART_STOCK_LEVEL )
 					.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
 					.withImagePath( TEST_PART_IMAGE_PATH )
 					.withModelPath( TEST_PART_MODEL_PATH )
@@ -276,6 +325,7 @@ public class PartTest {
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
 				.withColorCode( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
@@ -308,6 +358,7 @@ public class PartTest {
 				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
 				.withColorCode( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
@@ -319,9 +370,7 @@ public class PartTest {
 				.withActive( false )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\"," +
-				"\"description\":\"-TEST_PART_DESCRIPTION-\",\"colorCode\":\"GREEN_TRANSP\",\"buildTime\":60,\"cost\":0.76,\"price\":2.0," +
-				"\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}";
+		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"colorCode\":\"VERDE-T\",\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}";
 		final String obtained = part.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

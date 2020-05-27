@@ -4,8 +4,6 @@ import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -16,10 +14,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-
-import org.dimensinfin.printer3d.client.part.domain.ColorCodeType;
 
 @Entity
 @Table(name = "inventory", schema = "printer3d")
@@ -34,34 +29,35 @@ public class Part {
 	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
 	@Size(max = 500)
-	@Column(name = "description", updatable = true, nullable = true)
+	@Column(name = "description")
 	private String description;
+	@NotNull(message = "Part 'material' is mandatory.")
+	@Column(name = "material", nullable = false)
+	private String material;
 	@NotNull(message = "Part 'colorCode' is mandatory.")
-	@Enumerated(EnumType.STRING)
-	@Column(name = "color_code", updatable = true, nullable = false)
-	@Type(type = "pgsql_enum")
-	private ColorCodeType colorCode;
+	@Column(name = "color_code", nullable = false)
+	private String colorCode;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
-	@Column(name = "build_time", updatable = true, nullable = false)
+	@Column(name = "build_time", nullable = false)
 	private Integer buildTime;
 	@NotNull(message = "Part 'cost' value is mandatory.")
-	@Column(name = "cost", updatable = true, nullable = false)
+	@Column(name = "cost", nullable = false)
 	private Float cost;
 	@NotNull(message = "Part 'price' value is mandatory.")
-	@Column(name = "price", updatable = true, nullable = false)
+	@Column(name = "price", nullable = false)
 	private Float price;
 	@NotNull(message = "Part 'stockLevel' value is mandatory.")
-	@Column(name = "stock_level", updatable = true, nullable = false)
+	@Column(name = "stock_level", nullable = false)
 	private Integer stockLevel;
-	@Column(name = "stock_available", updatable = true, nullable = false)
+	@Column(name = "stock_available", nullable = false)
 	private int stockAvailable = 0;
 	@Size(max = 100)
-	@Column(name = "image_path", updatable = true, nullable = true)
+	@Column(name = "image_path")
 	private String imagePath;
 	@Size(max = 100)
-	@Column(name = "model_path", updatable = true, nullable = true)
+	@Column(name = "model_path")
 	private String modelPath;
-	@Column(name = "active", updatable = true, nullable = false)
+	@Column(name = "active", nullable = false)
 	private boolean active = true;
 
 	// - G E T T E R S   &   S E T T E R S
@@ -69,7 +65,7 @@ public class Part {
 		return this.buildTime;
 	}
 
-	public ColorCodeType getColorCode() {
+	public String getColorCode() {
 		return this.colorCode;
 	}
 
@@ -91,6 +87,10 @@ public class Part {
 
 	public String getLabel() {
 		return this.label;
+	}
+
+	public String getMaterial() {
+		return material;
 	}
 
 	public String getModelPath() {
@@ -118,6 +118,7 @@ public class Part {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.label )
 				.append( this.description )
+				.append( this.material )
 				.append( this.colorCode )
 				.append( this.buildTime )
 				.append( this.cost )
@@ -140,6 +141,7 @@ public class Part {
 				.append( this.active, part.active )
 				.append( this.label, part.label )
 				.append( this.description, part.description )
+				.append( this.material, part.material )
 				.append( this.colorCode, part.colorCode )
 				.append( this.buildTime, part.buildTime )
 				.append( this.cost, part.cost )
@@ -156,6 +158,7 @@ public class Part {
 				.append( "id", this.id )
 				.append( "label", this.label )
 				.append( "description", this.description )
+				.append( "material", this.material )
 				.append( "colorCode", this.colorCode )
 				.append( "buildTime", this.buildTime )
 				.append( "cost", this.cost )
@@ -180,6 +183,7 @@ public class Part {
 		public Part build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
+			Objects.requireNonNull( this.onConstruction.material );
 			Objects.requireNonNull( this.onConstruction.colorCode );
 			Objects.requireNonNull( this.onConstruction.buildTime );
 			Objects.requireNonNull( this.onConstruction.cost );
@@ -198,7 +202,7 @@ public class Part {
 			return this;
 		}
 
-		public Part.Builder withColorCode( final ColorCodeType colorCode ) {
+		public Part.Builder withColorCode( final String colorCode ) {
 			this.onConstruction.colorCode = Objects.requireNonNull( colorCode );
 			return this;
 		}
@@ -225,6 +229,11 @@ public class Part {
 
 		public Part.Builder withLabel( final String label ) {
 			this.onConstruction.label = Objects.requireNonNull( label );
+			return this;
+		}
+
+		public Part.Builder withMaterial( final String material ) {
+			this.onConstruction.material = Objects.requireNonNull( material );
 			return this;
 		}
 

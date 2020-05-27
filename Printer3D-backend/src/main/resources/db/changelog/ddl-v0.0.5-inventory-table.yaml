@@ -1,0 +1,89 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_0_5_001_printer3d_alter_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropColumn:
+            schemaName: printer3d
+            tableName: inventory
+            columnName: color_code
+  - changeSet:
+      id: 0_0_5_002_printer3d_drop_inventory_colorcode
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - sql:
+            sql: DROP TYPE printer3d.color_code
+  - changeSet:
+      id: 0_0_5_003_printer3d_alter_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: material
+                  type: varchar(16)
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: color_code
+                  type: varchar(16)
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_0_5_004_printer3d_inventory_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: varchar(16)
+            columnName: material
+            defaultValue: 'INDEFINIDO'
+  - changeSet:
+      id: 0_0_5_005_printer3d_inventory_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: varchar(16)
+            columnName: color_code
+            defaultValue: 'INDEFINIDO'
+  - changeSet:
+      id: 0_0_5_006_printer3d_fix_stock_available
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: inventory
+            columns:
+              - column:
+                  name: material
+                  value: 'INDEFINIDO'
+              - column:
+                  name: color_code
+                  value: 'INDEFINIDO'
+  - changeSet:
+      id: 0_0_5_007_printer3d_fix_stock_available_contraint
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: varchar(16)
+            columnName: material
+            validate:  true
+  - changeSet:
+      id: 0_0_5_008_printer3d_fix_stock_available_contraint
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: inventory
+            columnDataType: varchar(16)
+            columnName: color_code
+            validate:  true
