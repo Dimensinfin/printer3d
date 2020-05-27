@@ -112,3 +112,14 @@ When('there is a click on Feature {string}', function (featureLabel: string) {
         .closest('.feature-block')
         .click('top');
 });
+
+Then('there is a dialog title saying {string}', function (dialogLabel) {
+    console.log('[THEN] there is a dialog title saying {string}');
+    cy.get('mat-dialog-container').find('header').find('div').contains(dialogLabel, {matchCase: false})
+});
+
+Then('there is one field called {string} with the label {string}', function (fieldId, label) {
+    console.log('[THEN] there is one field called {string} with the label {string}');
+    cy.get('mat-dialog-container').find('tr').find(fieldId).should('have.length', 1)
+    cy.get('mat-dialog-container').find('tr').find('label').contains(label, {matchCase: false})
+});

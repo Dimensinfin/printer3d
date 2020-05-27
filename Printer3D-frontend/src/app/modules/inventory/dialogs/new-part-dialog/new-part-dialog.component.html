@@ -16,12 +16,7 @@
                             </span>
                         </div>
                     </td>
-
-                    <td><span class="dsf-form-control dsf-untouchable-form-item part-id">{{part.id}}</span>
-                        <div *ngIf="development">
-                            Field Class: {{spy.className}}<br>
-                        </div>
-                    </td>
+                    <td><span class="dsf-form-control dsf-untouchable-form-item part-id">{{part.id}}</span></td>
                     <!-- L A B E L -->
                     <td>
                         <div class="dsf-tooltip">
@@ -37,8 +32,8 @@
                         <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="part.label" name="label" minlength="5" maxlength="32" #spy>
                     </td>
                 </tr>
-                <!-- D E S C R I P T I O N -->
                 <tr>
+                    <!-- D E S C R I P T I O N -->
                     <td>
                         <div class="dsf-tooltip">
                             <label class="dsf-form-label" for="label">Descripcion</label>

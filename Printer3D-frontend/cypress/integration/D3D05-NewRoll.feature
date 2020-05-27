@@ -13,3 +13,28 @@ Feature: [D3D05]-Define the requirements fopr the Roll dialog.
         Given one instance of Dock
         When there is a click on Feature "/NUEVO ROLLO"
         Then the New Roll dialog opens and blocks the display
+
+    @D3D05 @D3D05.02
+    Scenario: [D3D05.02]-The new Roll dialog has an specific set of fields.
+        Given one instance of Dock
+        When there is a click on Feature "/NUEVO ROLLO"
+        Then the New Roll dialog opens and blocks the display
+        And there is a dialog title saying "/INVENTARIO/NUEVO ROLLO"
+        And there is one field called "#roll-id" with the label "ID"
+        And there is one field called "#roll-material" with the label "Material"
+        And there is one field called "#roll-weight" with the label "Peso"
+
+    @D3D05 @D3D05.03
+    Scenario: [D3D05.03]-When the dialog is open the number and state of the buttons is the predicted.
+        Given one instance of Dock
+        When there is a click on Feature "/NUEVO ROLLO"
+        Then the New Roll dialog opens and blocks the display
+        And the button "GUARDAR" has the next properties
+            | label         | state    |
+            | Guardar Datos | disabled |
+        And the button "CANCEL" has the next properties
+            | label          | state   |
+            | Go Back/Cancel | enabled |
+        And the button "GUARDARYCONTINUAR" has the next properties
+            | label             | state    |
+            | Guardar y Repetir | disabled |

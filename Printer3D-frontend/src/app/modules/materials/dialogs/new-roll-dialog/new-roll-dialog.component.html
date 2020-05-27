@@ -1,6 +1,6 @@
 <div id="modal-content-wrapper">
     <header id="modal-header">
-        <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventario/Nueva Pieza</div>
+        <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventario/Nuevo rollo</div>
     </header>
     <section id="modal-body">
         <!-- N E W   S E R V I C E   F O R M -->
@@ -16,7 +16,7 @@
                             </span>
                         </div>
                     </td>
-                    <td><span class="dsf-form-control dsf-untouchable-form-item part-id">{{roll.id}}</span></td>
+                    <td><span id="roll-id" class="dsf-form-control dsf-untouchable-form-item roll-id">{{roll.id}}</span></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -32,7 +32,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="dsf-form-control dsf-editable-form-item roll-material" required [(ngModel)]="roll.material" id="material" name="material" minlength="5" maxlength="32" #spy>
+                        <input id="roll-material" type="text" class="dsf-form-control dsf-editable-form-item roll-material" required [(ngModel)]="roll.material" name="material" minlength="5" maxlength="32" #spy>
                     </td>
                     <!-- C O L O R -->
                     <td>
@@ -44,7 +44,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="dsf-form-control dsf-editable-form-item roll-color" required [(ngModel)]="roll.color" id="material" name="color" minlength="5" maxlength="32" #spy>
+                        <input id="roll-color" type="text" class="dsf-form-control dsf-editable-form-item roll-color" required [(ngModel)]="roll.color" name="color" minlength="5" maxlength="32" #spy>
                     </td>
                 </tr>
                 <tr>
@@ -58,7 +58,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="dsf-form-control dsf-editable-form-item roll-weight" required [(ngModel)]="roll.weight" id="weight" name="weight" minlength="5" maxlength="32" #spy>
+                        <input id="roll-weight" type="text" class="dsf-form-control dsf-editable-form-item roll-weight" required [(ngModel)]="roll.weight" name="weight" minlength="5" maxlength="32" #spy>
                     </td>
                 </tr>
             </table>

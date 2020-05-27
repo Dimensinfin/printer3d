@@ -30,7 +30,7 @@ export class NewRollDialogComponent implements OnInit {
         public dialogRef: MatDialogRef<NewRollDialogComponent>,
         private isolationService: IsolationService,
         private backendService: BackendService
-    ) {}
+    ) { }
     /**
      * Retrieves the list of current rolls to populate the list of materials and colors. Selects should be editable to be able to add to this list.
      */

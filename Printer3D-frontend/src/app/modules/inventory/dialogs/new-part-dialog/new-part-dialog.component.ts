@@ -27,12 +27,6 @@ export class NewPartDialogComponent implements OnInit {
     public development: boolean = false;
     public part: Part = new Part();
     public colors: string[] = [];
-    public label;
-    public cost;
-    public price;
-    public stockLevel;
-    public imagePath;
-    public modelPath;
 
     constructor(
         public dialogRef: MatDialogRef<NewPartDialogComponent>,
