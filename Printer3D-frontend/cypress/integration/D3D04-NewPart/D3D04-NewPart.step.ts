@@ -67,9 +67,11 @@ When('there is a click on the {string} button', function (buttonName) {
             break;
     }
 });
+
 Then('the part is persisted at the backend', function () {
     console.log('[THEN] the part is persisted at the backend');
 });
+
 Then('the dialog closes', function () {
     console.log('[THEN] the dialog closes');
     cy.get('new-part-dialog').should('have.length', 0);

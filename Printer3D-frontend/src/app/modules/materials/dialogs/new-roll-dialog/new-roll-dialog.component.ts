@@ -17,6 +17,7 @@ import { Part } from '@domain/Part.domain';
 import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Roll } from '@domain/Roll.domain';
+import { RollConstructor } from '@domain/constructor/Roll.constructor';
 
 @Component({
     selector: 'new-roll-dialog',
@@ -39,9 +40,19 @@ export class NewRollDialogComponent implements OnInit {
         this.roll.id = uuidv4();
     }
     // - I N T E R A C T I O N S
-    public savePart(): void {
+    public saveRoll(): void {
+        console.log('><[NewRollDialogComponent.saveRoll]')
+        const newRoll: Roll = new RollConstructor().construct(this.roll);
+        this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
+            .setTransformation((entrydata: any): Roll => {
+                this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
+                return new Roll(entrydata);
+            }))
+            .subscribe((persistedRoll: Roll) => {
+                this.closeModal();
+            });
     }
-    public savePartAndRepeat() {
+    public saveRollAndRepeat() {
     }
     public closeModal(): void {
         console.log('>[NewRollDialogComponent.closeModal]')

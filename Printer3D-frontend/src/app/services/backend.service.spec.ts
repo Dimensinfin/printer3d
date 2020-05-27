@@ -26,6 +26,7 @@ import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from './support/ResponseTransformer';
 import { PartListResponse } from '@domain/dto/part-list-response.domain';
 import { Part } from '@domain/Part.domain';
+import { Roll } from '@domain/Roll.domain';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -78,6 +79,16 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     return new Part(entrydata);
                 }))
                 .subscribe((response: Part) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('apiNewRoll_v1.default: get the persisted roll', () => {
+            const roll = new Roll();
+            service.apiNewRoll_v1(roll, new ResponseTransformer().setDescription('Transforma data into Roll.')
+                .setTransformation((entrydata: any): Roll => {
+                    return new Roll(entrydata);
+                }))
+                .subscribe((response: Roll) => {
                     expect(response).toBeDefined();
                 });
         });

@@ -66,7 +66,7 @@
     </section>
     <footer id="modal-footer">
         <div class="centered-container button-area">
-            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newRollForm.form.valid" (click)="savePart()">
+            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newRollForm.form.valid" (click)="saveRoll()">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 &nbsp;&nbsp;Guardar Datos
             </button>
@@ -76,7 +76,7 @@
             </button>
         </div>
         <div class="centered-container button-area">
-            <button id="repeat-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newRollForm.form.valid" (click)="savePartAndRepeat()">
+            <button id="repeat-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newRollForm.form.valid" (click)="saveRollAndRepeat()">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 &nbsp;&nbsp;Guardar y Repetir
             </button>

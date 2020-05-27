@@ -29,3 +29,29 @@ Then('when all required fields have next values', function (dataTable) {
     expect(form).to.not.be.null;
     form.formInput(row);
 });
+
+When('there is a click on the {string} button', function (buttonName) {
+    console.log('[WHEN] there is a click on the {string} button');
+    switch (buttonName) {
+        case 'GUARDAR':
+            cy.get('new-roll-dialog').find('button').get('#submit-button').should('not.be.disabled')
+            cy.get('new-roll-dialog').find('button').get('#submit-button').click();
+            break;
+        case 'CLOSE':
+            cy.get('new-roll-dialog').find('button').get('#cancel-button').should('not.be.disabled')
+            cy.get('new-roll-dialog').find('button').get('#cancel-button').click();
+            break;
+        case 'GUARDARYCONTINUAR':
+            cy.get('new-roll-dialog').find('button').get('#repeat-button').should('not.be.disabled')
+            cy.get('new-roll-dialog').find('button').get('#repeat-button').click();
+            break;
+    }
+});
+
+Then('the roll is persisted at the backend', function () {
+});
+
+Then('the dialog closes', function () {
+    console.log('[THEN] the dialog closes');
+    cy.get('new-roll-dialog').should('have.length', 0);
+});

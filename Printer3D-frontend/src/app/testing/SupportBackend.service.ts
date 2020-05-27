@@ -2,6 +2,7 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Observable } from 'rxjs';
 import { PartListResponse } from '@domain/dto/part-list-response.domain';
 import { Part } from '@domain/Part.domain';
+import { Roll } from '@domain/Roll.domain';
 
 export class SupportBackendService {
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
@@ -34,8 +35,16 @@ export class SupportBackendService {
     }
     public apiNewPart_v1(newPart: Part, transformer: ResponseTransformer): Observable<Part> {
         return Observable.create((observer) => {
-            observer.next(new Part({id: '-ID-'}));
-            observer.complete();
+            observer.next(new Part({ id: '-ID-' }));
+            // observer.complete();
         });
+    }
+    public apiNewRoll_v1(newRoll: Roll, transformer: ResponseTransformer): Observable<Roll> {
+        const result = Observable.create((observer) => {
+            observer.next(new Roll({ id: '-ID-' }));
+            // observer.complete();
+        });
+        console.log('[apiNewRoll_v1]' + JSON.stringify(result))
+        return result;
     }
 }

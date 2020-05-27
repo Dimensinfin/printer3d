@@ -49,3 +49,20 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/newpart.json"
+
+---
+
+simlet: inventory-newroll
+
+request:
+  - method: POST
+  - uriPathPattern: "/api/v1/inventory/rolls"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/newroll.json"
