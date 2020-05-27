@@ -238,24 +238,24 @@ workflows:
             branches:
               only:
                 - development
-      - test-backend-job:
-          requires:
-            - build-backend-job
-          filters:
-            branches:
-              only:
-                - development
-      - frontend-deploy-to-heroku:
-          requires:
-             - start-job
-          filters:
-            branches:
-              only:
-                - master
-      - backend-deploy-to-heroku:
-          requires:
-            - start-job
-          filters:
-            branches:
-              only:
-                - master
+      # - test-backend-job:
+      #     requires:
+      #       - build-backend-job
+      #     filters:
+      #       branches:
+      #         only:
+      #           - development
+      # - frontend-deploy-to-heroku:
+      #     requires:
+      #        - start-job
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - backend-deploy-to-heroku:
+      #     requires:
+      #       - start-job
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
