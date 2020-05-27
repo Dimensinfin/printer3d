@@ -22,7 +22,7 @@ Feature: [D3D01]-When the application starts show the dashboard page with the de
         Then there is a "app-version" with the next fields
             | app-version               |
             | <environment.app-version> |
-        Then there is a "page-name" with the next fields
+        Then there is a "page-path" with the next fields
             | page-name  |
             | /DASHBOARD |
 

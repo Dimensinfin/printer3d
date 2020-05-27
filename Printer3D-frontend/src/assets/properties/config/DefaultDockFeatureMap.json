@@ -1,48 +1,15 @@
 [{
-        "jsonClass": "Feature",
-        "label": "/Nueva Pieza",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "dialog": "NewPartDialog"
-    }, {
-        "jsonClass": "Feature",
-        "label": "/Inventario",
-        "enabled": true,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "/inventory"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Trabajos Pend",
-        "enabled": false,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "/inventory"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Maquinas",
-        "enabled": false,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "/inventory"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Nuevo Rollo",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "route": "NewRollDialog"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Rollos",
-        "enabled": false,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "/materials"
-    }
-]
+    "jsonClass": "Feature",
+    "label": "/Nueva Pieza",
+    "enabled": true,
+    "active": false,
+    "interaction": "DIALOG",
+    "dialog": "NewPartDialog"
+}, {
+    "jsonClass": "Feature",
+    "label": "/Inventario",
+    "enabled": true,
+    "active": false,
+    "interaction": "PAGEROUTE",
+    "route": "/inventory"
+}]

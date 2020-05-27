@@ -20,3 +20,13 @@ Then('the target page is InventoryPartListPage', function () {
     console.log('[THEN] the target page is InventoryPartListPage');
     cy.get('app-root').find('inventory-part-list-page').should('have.length', 1);
 });
+
+Then('there are {int} Features', function (featureCount) {
+    console.log('[THEN] there are {int} Features');
+    cy.get('app-root').find('v1-feature-render').should('have.length', featureCount)
+});
+
+Then('there is a v1-feature-render with label {string}', function (label) {
+    console.log('[THEN] there is a v1-feature-render with label {string}');
+    cy.get('app-root').find('v1-dock').find('v1-feature-render').contains(label)
+});

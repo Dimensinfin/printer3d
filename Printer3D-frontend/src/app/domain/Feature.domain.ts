@@ -6,6 +6,7 @@ import { FeatureConverter } from './Feature.converter';
 export class Feature extends Node {
     public label: string = '/';
     public active: boolean = false;
+    public enabled: boolean = false;
     public route: string = '/';
     public interaction: EInteraction = EInteraction.PAGEROUTE;
     public dialog: string;

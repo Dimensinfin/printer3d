@@ -10,7 +10,7 @@ import { V1Dock } from '../../support/page-objects/V1Dock.panel';
 import { V1Feature } from '../../support/page-objects/V1Feature.panel';
 import { GridRow } from '../../support/page-objects/GridRow.panel';
 
-const TITLE_VALIDATION = 'Printer3DFrontend';
+const TITLE_VALIDATION = '3DPrinterManagement - UI';
 
 Given('the Default Dock Configuration', function () {
     console.log('[GIVEN] the Default Dock Configuration');
@@ -44,8 +44,6 @@ Given('one instance of Dock', function () {
 
 Given('one instance of GridAngular', function () {
     console.log('[GIVEN] one instance of GridAngular');
-    // const dock: V1Dock = new V1Dock();
-    // expect(dock).to.not.be.null;
     cy.get('app-root').find('inventory-part-list-page').find('ag-grid-angular').should('have.length', 1)
 });
 
