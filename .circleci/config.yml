@@ -162,7 +162,7 @@ jobs:
             git config --global user.email "adamantinoo.git@gmail.com"
             git config --global user.name "Adam antinoo"
             git init
-            git add .*
+            git add .gitignore
             git add *.*
             git add config
             git add src
@@ -196,7 +196,7 @@ jobs:
             git config --global user.email "adamantinoo.git@gmail.com"
             git config --global user.name "Adam antinoo"
             git init
-            git add .*
+            git add .gitignore
             git add *.*
             git add src
             git add gradle
