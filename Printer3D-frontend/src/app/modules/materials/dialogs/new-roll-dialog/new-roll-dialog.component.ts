@@ -53,6 +53,19 @@ export class NewRollDialogComponent implements OnInit {
             });
     }
     public saveRollAndRepeat() {
+        console.log('><[NewRollDialogComponent.saveRoll]')
+        const newRoll: Roll = new RollConstructor().construct(this.roll);
+        this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
+            .setTransformation((entrydata: any): Roll => {
+                this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
+                return new Roll(entrydata);
+            }))
+            .subscribe((persistedRoll: Roll) => {
+                this.roll.createNewId();
+                this.roll.material = 'PLA';
+                this.roll.color = '';
+                this.roll.weight = '';
+            });
     }
     public closeModal(): void {
         console.log('>[NewRollDialogComponent.closeModal]')

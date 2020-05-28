@@ -7,14 +7,16 @@ import { IsolationService } from '../../support/IsolationService.support';
 
 const INVENTORY_PART_LIST_PAGE_NAME = '/Inventory/Part List';
 
-// When('there is a click on v1-feature-render with index {int}', function (featureIndex) {
-//     console.log('[WHEN] there is a click on v1-feature-render with index {int}');
-//     cy.get('v1-dock').find('v1-feature-render').get('.feature-block').each(($el, index, $list) => {
-//         if (index === featureIndex) {
-//             cy.wrap($el).click()
-//         }
-//     });
-// });
+Then('there are no Features active', function () {
+    cy.get('v1-dock')
+        .find('v1-feature-render')
+        .find('.feature-block').within(($panel) => {
+            cy.get('.clip')
+                .find('div')
+                .eq(0)
+                .should('have.class', 'container').and('not.have.class', 'active');
+        });
+});
 
 Then('the target page is InventoryPartListPage', function () {
     console.log('[THEN] the target page is InventoryPartListPage');

@@ -56,4 +56,33 @@ export class NewRollForm extends IsolationService {
             }
         }
     }
+    public validateFields(row: any): void {
+        console.log('[NewPartForm.validateField]> row:' + JSON.stringify(row));
+        for (const key in row) {
+            if (row.hasOwnProperty(key)) {
+                const element = row[key];
+                let value: string;
+                switch (key) {
+                    case 'material':
+                        value = this.decodeDataTableRow(row, key).toLowerCase();
+                        cy.log('[NewPartForm.validatePanel]> MATERIAL=' + value);
+                        cy.get('new-roll-dialog').get('form').find('.roll-material')
+                            .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        break;
+                    case 'color':
+                        value = this.decodeDataTableRow(row, key);
+                        cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
+                        cy.get('new-roll-dialog').get('form').find('.roll-color')
+                            .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        break;
+                    case 'peso':
+                        value = this.decodeDataTableRow(row, key);
+                        cy.log('[NewPartForm.validatePanel]> BUILD_TIME=' + value);
+                        cy.get('new-roll-dialog').get('form').find('.roll-weight')
+                            .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        break;
+                }
+            }
+        }
+    }
 }

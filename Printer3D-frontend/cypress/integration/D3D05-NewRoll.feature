@@ -48,13 +48,13 @@ Feature: [D3D05]-Define the requirements fopr the Roll dialog.
             | material | color | peso |
             | PLA      | ROJO  | 750  |
         And the button "GUARDAR" has the next properties
-            | label         | state    |
+            | label         | state   |
             | Guardar Datos | enabled |
         And the button "CANCEL" has the next properties
             | label          | state   |
             | Go Back/Cancel | enabled |
         And the button "GUARDARYCONTINUAR" has the next properties
-            | label             | state    |
+            | label             | state   |
             | Guardar y Repetir | enabled |
 
     @D3D05 @D3D05.05
@@ -68,6 +68,28 @@ Feature: [D3D05]-Define the requirements fopr the Roll dialog.
         When there is a click on the "GUARDAR" button
         Then the roll is persisted at the backend
         And the dialog closes
+
+    @D3D05 @D3D05.06
+    Scenario: [D3D05.06]-If the New Roll Cancel button is clicked then dialog is closed.
+        Given one instance of Dock
+        When there is a click on Feature "/NUEVO ROLLO"
+        Then the New Roll dialog opens and blocks the display
+        When there is a click on the "CLOSE" button
+        Then the dialog closes
+
+    @D3D06 @D3D06.07
+    Scenario: [D3D06.07]-If the New Roll Save and Continue button is clicked then roll is persisted but the dialog is kept open and the contents updated.
+        Given one instance of Dock
+        When there is a click on Feature "/NUEVO ROLLO"
+        Then the New Roll dialog opens and blocks the display
+        And when all required fields have next values
+            | material | color | peso |
+            | PLA      | ROJO  | 750  |
+        When there is a click on the "GUARDARYCONTINUAR" button
+        Then the roll is persisted at the backend
+        And form fields have the next values
+            | material | color | weight |
+            | PLA      |       |        |
 
     # - E X C E P T I O N S
     @D3D05.E @D3D05.E.01
