@@ -17,9 +17,7 @@ const featureTransformer = new ResponseTransformer().setDescription('Do property
         if (entrydata instanceof Array) {
             for (let key in entrydata)
                 results.push(new Feature(entrydata[key]));
-        } else
-            results.push(new Feature(entrydata));
-
+        }
         return results;
     });
 
@@ -29,7 +27,7 @@ const featureTransformer = new ResponseTransformer().setDescription('Do property
     styleUrls: ['./v1-dock.component.scss']
 })
 export class V1DockComponent implements OnInit {
-    @Input() routerDetector : AppComponent;
+    @Input() routerDetector: AppComponent;
     public self: V1DockComponent;
     private activeFeature: Feature;
     private configuredFeatures: Feature[] = [];
@@ -64,25 +62,24 @@ export class V1DockComponent implements OnInit {
         if (null == target) {
             this.activeFeature = null;
             this.pageChange('/');
-            return
-        }
-        if (null != this.activeFeature) {
-            if (!this.activeFeature.equals(target)) {
-                // Change the active feature following the requirements.
-                // 1. Deactivate all Features and activate this target
-                for (let feature of this.configuredFeatures) {
-                    feature.deactivate();
-                    if (target.equals(feature)) {
-                        feature.activate();
-                        this.activeFeature = feature;
+        } else
+            if (null != this.activeFeature) {
+                if (!this.activeFeature.equals(target)) {
+                    // Change the active feature following the requirements.
+                    // 1. Deactivate all Features and activate this target
+                    for (let feature of this.configuredFeatures) {
+                        feature.deactivate();
+                        if (target.equals(feature)) {
+                            feature.activate();
+                            this.activeFeature = feature;
+                        }
                     }
                 }
+            } else {
+                // 1. Activate the selected feature
+                target.activate();
+                this.activeFeature = target;
             }
-        } else {
-            // 1. Activate the selected feature
-            target.activate();
-            this.activeFeature = target;
-        }
         // IMPROVEMENT: Do not detect if the Feature target is the same.
         // 2. Page change
         this.pageChange(this.activeFeature.getRoute());

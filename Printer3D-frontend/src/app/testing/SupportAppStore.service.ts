@@ -55,29 +55,7 @@ export class SupportAppStoreService {
     public readDockConfiguration(): Observable<Feature[]> {
         return this.directAccessMockResource('assets/properties/config/DefaultDockFeatureMap')
     }
-   // private dockActiveConfiguration: BehaviorSubject<Feature[]> = new BehaviorSubject<Feature[]>([]);
-    // public fireAccessDockConfiguration(): BehaviorSubject<Feature[]> {
-    //     const currentConfiguration = this.isolationService.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY);
-    //     if (this.isEmpty(currentConfiguration)) {
-    //         this.accessProperty('/config/DefaultDockFeatureMap')
-    //             .subscribe((fileData: any) => {
-    //                 const defaultConfiguration: Feature[] = featureTransformer.transform(fileData) as Feature[];
-    //                 this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, defaultConfiguration);
-    //                 this.dockActiveConfiguration.next(defaultConfiguration);
-    //             });
-    //     } else {
-    //         const defaultConfiguration = featureTransformer.transform(JSON.parse(currentConfiguration));
-    //         this.dockActiveConfiguration.next(defaultConfiguration);
-    //     }
-    //     return this.dockActiveConfiguration;
-    // }
-    // public synchronize2DockConfiguration(): BehaviorSubject<Feature[]> {
-    //     return this.dockActiveConfiguration;
-    // }
-    // public saveDockConfiguration(configuration: Feature[]): void {
-    //     this.isolationService.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, configuration);
-    // }
-
+ 
     // - G L O B A L   A C C E S S   M E T H O D S
     public isNonEmptyString(str: string): boolean {
         return str && str.length > 0; // Or any other logic, removing whitespace, etc.

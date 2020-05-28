@@ -13,10 +13,12 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { V1DockComponent } from './v1-dock.component';
 import { Feature } from '@domain/Feature.domain';
+import { AppComponent } from '@app/app.component';
 
 describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
     let component: V1DockComponent;
     let isolationService: SupportIsolationService;
+    let routerDetector: AppComponent;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -25,6 +27,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
                 RouterTestingModule.withRoutes(routes)
             ],
             declarations: [
+                AppComponent,
                 V1DockComponent
             ],
             providers: [
@@ -35,6 +38,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
 
         const fixture = TestBed.createComponent(V1DockComponent);
         component = fixture.componentInstance;
+        routerDetector = TestBed.createComponent(AppComponent).componentInstance;
         isolationService = TestBed.get(IsolationService);
     }));
 
@@ -52,8 +56,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
 
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
-        it('ngOnInit.none: validate initialization flow', async () => {
-            const configuration = [new Feature({ label: '/Inventory', active: false, route: 'inventory' })];
+        it('ngOnInit: validate initialization flow', async () => {
             await component.ngOnInit();
             const componentAsAny = component as any;
             expect(componentAsAny.configuredFeatures.length).toBe(2);
@@ -82,11 +85,12 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    fdescribe('Code Coverage Phase [Methods]', () => {
+    describe('Code Coverage Phase [Methods]', () => {
         it('activateFeature.firstTime: activate a new feature when there is none active', () => {
-            const featureA = new Feature({ label: '/Inventatio', active: false, route: 'inventory' });
+            const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
             const featureB = new Feature({ label: '/Nueva Pieza', active: false });
             const componentAsAny = component as any;
+            componentAsAny.routerDetector=routerDetector;
             componentAsAny.configuredFeatures.push(featureA);
             componentAsAny.configuredFeatures.push(featureB);
             expect(componentAsAny.activeFeature).toBeUndefined();
@@ -97,6 +101,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
             const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
             const featureB = new Feature({ label: '/Nueva Pieza', active: false });
             const componentAsAny = component as any;
+            componentAsAny.routerDetector=routerDetector;
             componentAsAny.configuredFeatures.push(featureA);
             componentAsAny.configuredFeatures.push(featureB);
             expect(componentAsAny.activeFeature).toBeUndefined();

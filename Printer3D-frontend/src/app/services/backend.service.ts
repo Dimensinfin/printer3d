@@ -10,7 +10,7 @@ import { HttpClientWrapperService } from '@app/services/httpclientwrapper.servic
 import { ResponseTransformer } from './support/ResponseTransformer';
 // - ENVIRONMENT
 import { environment } from '@env/environment';
-import { PartListResponse } from '@domain/dto/part-list-response.dto';
+import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/Part.domain';
 import { Roll } from '@domain/Roll.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';

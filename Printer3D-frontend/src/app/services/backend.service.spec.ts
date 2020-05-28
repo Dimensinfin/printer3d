@@ -24,7 +24,7 @@ import { SupportHttpClientWrapperService } from '../testing/SupportHttpClientWra
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from './support/ResponseTransformer';
-import { PartListResponse } from '@domain/dto/part-list-response.dto';
+import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/Part.domain';
 import { Roll } from '@domain/Roll.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';

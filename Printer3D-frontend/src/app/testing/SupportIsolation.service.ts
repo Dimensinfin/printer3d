@@ -102,5 +102,6 @@ export class SupportIsolationService {
     public warningNotification(message: string, title?: string, options?: any): void {
     }
     public infoNotification(message: string, title?: string, options?: any): void {
+        console.log('>[SupportIsolationService.infoNotification]> Title: '+title)
     }
 }
