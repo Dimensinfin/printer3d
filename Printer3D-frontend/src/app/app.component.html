@@ -1,6 +1,6 @@
 <div class="app-title">{{appTitle}}<span class="app-version">{{appVersion}}</span></div>
 <div class="page-path">/DASHBOARD</div>
 <hr>
-<v1-dock></v1-dock>
+<v1-dock [routerDetector]="self"></v1-dock>
 <hr style="margin-top: 3px;">
-<router-outlet></router-outlet>
+<router-outlet (activate)="setRoutedComponent($event)"></router-outlet>

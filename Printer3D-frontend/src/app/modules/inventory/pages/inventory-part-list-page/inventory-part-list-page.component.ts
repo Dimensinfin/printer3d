@@ -10,6 +10,7 @@ import { PartRecord } from '@domain/PartRecord.domain';
 import { GridColumn } from '@domain/GridColumn.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { PartListResponse } from '@domain/dto/part-list-response.domain';
+import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
 const DEFAULT_PART_RECORD: string = '{    "label": "Covid - 19 Key - A",    "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",    "buildTime": 60,    "affinity": "OFF",    "stockLevel": 2,   "colours": "ALL",    "active": true}';
 @Component({
@@ -17,10 +18,12 @@ const DEFAULT_PART_RECORD: string = '{    "label": "Covid - 19 Key - A",    "des
     templateUrl: './inventory-part-list-page.component.html',
     styleUrls: ['./inventory-part-list-page.component.scss']
 })
-export class InventoryPartListPageComponent implements OnInit {
+export class InventoryPartListPageComponent implements OnInit, Refreshable {
     public pagePath: string = '/Inventory/Part List';
     public columnDefs: GridColumn[] = [];
     public rowData: PartRecord[] = [];
+    private routedComponent: Refreshable;
+
     constructor(protected appStore: AppStoreService,
         protected backend: BackendService) { }
 
@@ -38,6 +41,12 @@ export class InventoryPartListPageComponent implements OnInit {
         ];
         // this.rowData.push(new PartRecord(DEFAULT_PART_RECORD));
         // Read row data from the assets mock data.
+        this.refresh();
+    }
+    public setRoutedComponent(componentRef: Refreshable): void {
+        this.routedComponent = componentRef;
+    }
+    public refresh(): void {
         this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
             .setTransformation((entrydata: any): PartListResponse => {
                 return new PartListResponse(entrydata);

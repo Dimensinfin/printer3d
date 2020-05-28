@@ -9,6 +9,7 @@ import { AppStoreService } from '@app/services/app-store.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
+import { AppComponent } from '@app/app.component';
 
 const featureTransformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
     .setTransformation((entrydata: any): Feature[] => {
@@ -28,6 +29,7 @@ const featureTransformer = new ResponseTransformer().setDescription('Do property
     styleUrls: ['./v1-dock.component.scss']
 })
 export class V1DockComponent implements OnInit {
+    @Input() routerDetector : AppComponent;
     public self: V1DockComponent;
     private activeFeature: Feature;
     private configuredFeatures: Feature[] = [];
@@ -97,5 +99,6 @@ export class V1DockComponent implements OnInit {
         // this.appStore.saveDockConfiguration(this.configuredFeatures);
         console.log('><[V1DockComponent.pageChange]> Route: ' + route);
         this.router.navigate([route]);
+        this.routerDetector.refresh();
     }
 }
