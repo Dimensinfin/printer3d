@@ -1,18 +1,19 @@
 package org.dimensinfin.printer3d.backend.steps;
 
-public class GivenANewUUIDNamedAsID {
-	private GivenANewUUIDNamedAsID() {}
+import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
-	// - B U I L D E R
-	public static class Builder {
-		private GivenANewUUIDNamedAsID onConstruction;
+import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 
-		public Builder() {
-			this.onConstruction = new GivenANewUUIDNamedAsID();
-		}
+import io.cucumber.java.en.Given;
 
-		public GivenANewUUIDNamedAsID build() {
-			return this.onConstruction;
-		}
+public class GivenANewUUIDNamedAsID  extends StepSupport{
+	public GivenANewUUIDNamedAsID( final @NotNull Printer3DWorld printer3DWorld ) {
+		super( printer3DWorld );
+	}
+
+	@Given("a new UUID named as ID")
+	public void a_new_UUID_named_as_ID()  {
+		this.printer3DWorld.setId( UUID.randomUUID());
 	}
 }

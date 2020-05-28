@@ -1,18 +1,20 @@
 package org.dimensinfin.printer3d.backend.support.core;
 
+import org.dimensinfin.acceptance.support.CommonWorld;
+
 public class CommonValidator {
-	private CommonValidator() {}
+	protected String cleanKey( final String key ) {
+		return key.replace( '>', ' ' ).trim();
+	}
 
-	// - B U I L D E R
-	public static class Builder {
-		private CommonValidator onConstruction;
-
-		public Builder() {
-			this.onConstruction = new CommonValidator();
+	protected String cucumberDataMap( final CommonWorld world, final String cucumberData ) {
+		if (cucumberData.contains( "world" )) {
+			final String key = this.cleanKey( cucumberData.split( ":" )[1] );
+			switch (key) {
+				case "id":
+					return world.getId().toString();
+			}
 		}
-
-		public CommonValidator build() {
-			return this.onConstruction;
-		}
+		return cucumberData;
 	}
 }

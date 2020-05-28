@@ -1,9 +1,14 @@
 package org.dimensinfin.printer3d.backend;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.core.io.ClassPathResource;
 
 import org.dimensinfin.logging.LogWrapper;
 
@@ -24,8 +29,7 @@ public class Printer3DApplication {
 	public static void main( String[] args ) {
 		LogWrapper.enter();
 		SpringApplication.run( Printer3DApplication.class, args );
-		printer = new LogoPrinter();
-		printer.print();
+		new LogoPrinter().print();
 		LogWrapper.exit();
 	}
 
@@ -36,20 +40,22 @@ public class Printer3DApplication {
 	private static final class LogoPrinter {
 		private boolean printedVersion = false;
 
-		private void printVersion() {
-			LogWrapper.info("\n\n"+
-					"          ___     _      ___  \n" +
-					"__   __  / _ \\   / |    / _ \\ \n" +
-					"\\ \\ / / | | | |  | |   | | | |\n" +
-					" \\ V /  | |_| |  | |_  | |_| |\n" +
-					"  \\_/    \\___(_) |_(_)  \\___/ \n" +
-					"                              \n"
-			);
+		private void printVersion(final String banner ) {
+			LogWrapper.info( "\n\n" +banner+"\n");
+		}
+
+		private String readAllBytesJava7( String filePath ) {
+		 	String content = "";
+			try {
+				content = new String( Files.readAllBytes( Paths.get( filePath ) ) );
+			} catch (final IOException ioe) {
+				LogWrapper.error( ioe );
+			}
+			return content;
 		}
 
 		void print() {
-			if (!this.printedVersion) this.printVersion();
-			this.printedVersion = true;
+			this.printVersion(this.readAllBytesJava7(   new ClassPathResource("classpath:banner.txt").getPath()));
 		}
 	}
 }

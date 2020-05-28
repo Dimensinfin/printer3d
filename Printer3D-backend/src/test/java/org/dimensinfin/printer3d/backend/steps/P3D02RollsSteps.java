@@ -25,14 +25,14 @@ public class P3D02RollsSteps extends StepSupport {
 		Assertions.assertNotNull( this.printer3DWorld.getNewRollResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getNewRollResponseEntity().getBody() );
 		Assertions.assertTrue(
-				new RollValidator().validate( dataTable.get( 0 ),
+				new RollValidator(this.printer3DWorld).validate( dataTable.get( 0 ),
 						this.printer3DWorld.getNewRollResponseEntity().getBody() )
 		);
 	}
 
 	@Given("the next New Roll request")
 	public void the_next_New_Roll_request( final List<Map<String, String>> dataTable ) {
-		final Roll roll = new CucumberTableToRollConverter().convert( dataTable.get( 0 ) );
+		final Roll roll = new CucumberTableToRollConverter( this.printer3DWorld ).convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( roll );
 		this.printer3DWorld.setRoll( roll );
 	}

@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 
+import org.dimensinfin.acceptance.support.CommonWorld;
+
 public abstract class CucumberTableConverter<T> implements Converter<List<Map<String, String>>, List<T>> {
 
 	private static final String LIST_SEPARATOR = ",";
@@ -22,6 +24,10 @@ public abstract class CucumberTableConverter<T> implements Converter<List<Map<St
 
 	public abstract T convert( Map<String, String> cucumberRow );
 
+	protected String cleanKey( final String key ) {
+		return key.replace( '>', ' ' ).trim();
+	}
+
 	protected boolean containsAnyField( Set<String> keys, Map<String, String> cucumberRow ) {
 		for (String key : keys) {
 			if (StringUtils.isNotEmpty( cucumberRow.get( key ) )) {
@@ -29,6 +35,17 @@ public abstract class CucumberTableConverter<T> implements Converter<List<Map<St
 			}
 		}
 		return Boolean.FALSE;
+	}
+
+	protected String cucumberDataMap( final CommonWorld world, final String cucumberData ) {
+		if (cucumberData.contains( "world" )) {
+			final String key = this.cleanKey( cucumberData.split( ":" )[1] );
+			switch (key) {
+				case "id":
+					return world.getId().toString();
+			}
+		}
+		return cucumberData;
 	}
 
 	protected List<String> getListFromCucumberValue( String value ) {
