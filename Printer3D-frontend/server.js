@@ -32,7 +32,6 @@ app.locals.port = process.env.PORT || config.get('settings.port');
 app.locals.applicationhome = config.get('settings.applicationhome');
 app.locals.backendproxy = config.get('settings.backendproxy');
 app.locals.apppath = config.get('settings.apppath');
-// app.locals.apipath = config.get('apipath');
 app.locals.homepage = config.get('pages.homepage');
 app.locals.staticpublic = config.get('pages.staticpublic');
 
@@ -65,7 +64,8 @@ app.get('*.*', function(req, res) {
 // - A P I   M O U N T P O I N T
 app.use('/api', proxy(app.locals.backendproxy, {
     proxyReqPathResolver: function(req) {
-        console.log('backend: ' + app.locals.backendproxy + 'api' + req.url)
+        console.log('Backend Host: ' + app.locals.backendproxy)
+        console.log('Backend: ' + app.locals.backendproxy + 'api' + req.url)
         return app.locals.backendproxy + 'api' + req.url;
     }
 }));
@@ -77,7 +77,13 @@ app.get('/*', function(req, res) {
 
 // - L I S T E N
 app.listen(process.env.PORT || app.locals.port || 3000, function() {
-    console.log("Node Express server for " + app.locals.appname +
-        " listening on [" + app.locals.backendproxy + "] " +
-        app.locals.port);
+    console.log("Node Express server for '" + app.locals.appname + "'");
+    console.log("Backend listening on [" + app.locals.backendproxy + "]");
+    console.log("Listening on port: " + app.locals.port);
+    console.log("        ___     ____       ___  \n" +
+        "__   __/ _ \\   |___ \\     / _ \\ \n" +
+        "\\ \\ / / | | |    __) |   | | | |\n" +
+        " \\ V /| |_| |   / __/ _  | |_| |\n" +
+        "  \\_/  \\___(_) |_____(_)  \\___/ \n" +
+        "                                \n");
 });
