@@ -1,7 +1,7 @@
 #!/bin/bash
 # - PARAMETERS & CONSTANTS
-SERVICE=$1
-COMMAND=$2
+SERVICE='backend'
+COMMAND=$1
 
 WORKING_DIRECTORY="$(dirname "$0")"
 DOCKER_DIRECTORY="${WORKING_DIRECTORY}/src/main/resources/docker"
@@ -40,7 +40,7 @@ case $COMMAND in
   stop
   ;;
 *)
-  echo "Usage: $0 { <service> | backend } { generate | start | stop }"
+  echo "Usage: $0 { generate | start | stop }"
   echo
   exit 1
   ;;

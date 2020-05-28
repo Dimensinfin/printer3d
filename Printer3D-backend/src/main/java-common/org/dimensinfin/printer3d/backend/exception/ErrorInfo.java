@@ -22,7 +22,10 @@ public enum ErrorInfo {
 					"There is an SQL error on the Inventory repository. {0}. Cause: {1}" ),
 	PART_ALREADY_EXISTS(HttpStatus.CONFLICT,
 			APPLICATION_ERROR_CODE_PREFIX+".already.exists",
-			"The Part [{0}] already exists. Use the Update endpoint.");
+			"The Part [{0}] already exists. Use the Update endpoint."),
+	ROLL_ALREADY_EXISTS(HttpStatus.CONFLICT,
+	                    APPLICATION_ERROR_CODE_PREFIX+".already.exists",
+			"The Roll [{0}] already exists at the repository. This should not be possible and means a development defect.");
 
 	public final HttpStatus status;
 	public final String errorCode;

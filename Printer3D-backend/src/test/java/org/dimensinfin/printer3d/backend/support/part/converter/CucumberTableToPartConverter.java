@@ -11,7 +11,7 @@ import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.BU
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.COLOR_CODE;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.COST;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.DESCRIPTION;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.ID;
+import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.PART_ID;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.MATERIAL;
@@ -24,7 +24,7 @@ public class CucumberTableToPartConverter extends CucumberTableConverter<Part> {
 	@Override
 	public Part convert( final Map<String, String> cucumberRow ) {
 		Part.Builder builder = new Part.Builder();
-		if (null != cucumberRow.get( ID )) builder = builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
+		if (null != cucumberRow.get( PART_ID )) builder = builder.withId( UUID.fromString( cucumberRow.get( PART_ID ) ) );
 		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( DESCRIPTION )) builder = builder.withDescription( cucumberRow.get( DESCRIPTION ) );
 		if (null != cucumberRow.get( MATERIAL )) builder = builder.withMaterial(  cucumberRow.get( MATERIAL )  );

@@ -14,16 +14,25 @@ info:
 
     # API Description
 
-    The API will expose the next list of entities:
+    The API will expose endpoints aggregated by the information unit. Entities under the same information unit shre part of the path. For example
+    the Inventory is an information unit that will report the existence of different types of elements liek Parts or Materials. All these entities
+    are part of the system Inventory.
+
+    On other information units we can find other not so real entities like pending jobs or user request for materials or any other data request.
+
+    Under the *+Inventory** information unit we now can found two entities. The **Parts** are models that can be built with the other entity
+    that are the plastic filament material identified by the **Material** entity. There should be a third entity called **Machine** that is where
+    the plastic filament is converted on the Part.
 
     * **Part** - This is the definition of an item that can be sold independently. The Part is the view side from the 3D printer stand view. Parts
     define the time slot use of the 3D printer and have some cost and price attached. The Part will also store the stock information so for active
     parts this information is used to calculate the jobs pending to stabilize a stock level.
 
-    * **Machine** - This is the entity that describes a 3D printer model and its configutation.
+    * **Roll** - To build a Part we require to use a plastic filament **Roll** on a 3D printer so we can print a thin plastic layer upon
+    another layer until we have the model complete. The **Rolls** are the storage for the plastic. It comes in long mono filament plastic lines of
+    thousands of metres of length. Usually they are bought by weight.
 
-    * **Inventory** - This is the list of Parts declared on the system. Used as the base point to generate the list of print jobs. Reading the
-    list of parts and evaluating the stock levels we can obtain the list of jobs that are required to complete the stock levels.
+    * **Machine** - This is the entity that describes a 3D printer model and its configuration.
 
   license:
     name: Apache 2.0
@@ -34,14 +43,17 @@ servers:
     description: OpenAPI 0.1.0 for 3D Printer Queue Management Backend Service
 
 tags:
-  ### R E P O S I T I R I E S
+  ### R E P O S I T O R I E S
   - name: Inventory
     description: >
-      The API section that manages Inventory contents. This cover Part creation and expiration and request fulfillment and query filters.
+      The API information section that manages physical Inventory contents.
   ### E N T I T I E S
   - name: Parts
     description: >
       The Part creation, update and general management endpoints.
+  - name: Material
+    description: >
+      The tag for the endpoints for Roll and material management.
   - name: Machines
     description: >
       The management of machines and their features to control jobs.
@@ -137,6 +149,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Part'
+
+  ### M A T E R I A L S
+  /api/v1/inventory/rolls:
+    post:
+      tags:
+        - Inventory
+      summary: Creates a new **Roll** instance on the persistence repository.
+      description: >
+        The 3D printers need and use plastic filament to build the models. The rolls have as main characteristics the type of plastic, the color
+        and the quantity of the material.
+      operationId: newRoll
+      requestBody:
+        description: >
+          Contains the *Roll** fields requested to the user on the frontend UI.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roll'
+      responses:
+        201:
+          description: >
+            The new Part as stored at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roll'
 
   ### M A C H I N E S
   /api/v1/inventory/machines:
@@ -335,6 +373,53 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Machine'
+
+    Roll:
+      type: object
+      required:
+        - id
+        - material
+        - color
+      properties:
+        id:
+          type: string
+          format: uuid
+          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          description: >
+            The unique identifier for a single roll. Used for job identification when used on a machine. We should attach a label with this
+            identifier to the roll for visual identification.
+          example:
+            009ab011-03ad-4e84-9a88-25708d1cfd64
+        material:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 16
+          description: >
+            It is the acronym or code for the type of plastic. There are different types of plastics for different uses and some of them require an
+            specialized machine or a particular machine configuration.
+          example:
+            PLA
+        color:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 32
+          description: >
+            The color name for the plastic on the roll. A roll should have this field as mandatory
+          example:
+            VERDE-T
+        weight:
+          type: string
+          format: int32
+          minimum: 0
+          maximum: 2000
+          default: 1000
+          description: >
+            The weight of the roll when bought. Initially this field is not being used for logistics purposes but would be needed to remove rolls
+            from the inventory when they have their weight under a predetermined level. The unit or representation is grames.
+          example:
+            1000
 
     ColorCode:
       type: string

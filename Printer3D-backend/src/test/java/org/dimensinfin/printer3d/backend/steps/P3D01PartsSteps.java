@@ -16,10 +16,10 @@ import org.dimensinfin.printer3d.client.part.domain.PartList;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
-public class P3D01PartsStep extends StepSupport {
+public class P3D01PartsSteps extends StepSupport {
 
 	// - C O N S T R U C T O R S
-	public P3D01PartsStep( final @NotNull Printer3DWorld printer3DWorld ) {
+	public P3D01PartsSteps( final @NotNull Printer3DWorld printer3DWorld ) {
 		super( printer3DWorld );
 	}
 

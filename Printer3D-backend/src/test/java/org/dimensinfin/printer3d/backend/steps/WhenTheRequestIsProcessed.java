@@ -8,56 +8,43 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.part.rest.v1.PartFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.roll.rest.v1.RollFeignClientV1;
 import org.dimensinfin.printer3d.client.part.domain.PartList;
 
 import io.cucumber.java.en.When;
 
 public class WhenTheRequestIsProcessed extends StepSupport {
 	private final PartFeignClientV1 partFeignClientV1;
+	private final RollFeignClientV1 rollFeignClientV1;
 
 	// - C O N S T R U C T O R S
-	public WhenTheRequestIsProcessed( @NotNull final Printer3DWorld printer3DWorld,
-	                                  @NotNull final PartFeignClientV1 partFeignClientV1 ) {
+	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
+	                                  final @NotNull PartFeignClientV1 partFeignClientV1,
+	                                  final @NotNull RollFeignClientV1 rollFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
+		this.rollFeignClientV1 = Objects.requireNonNull( rollFeignClientV1 );
+	}
+
+	@When("the Get Parts request is processed")
+	public void the_Get_Parts_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.PART_LIST );
 	}
 
 	@When("the New Part request is processed")
 	public void the_New_Part_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_PART );
 	}
-	@When("the Get Parts request is processed")
-	public void the_Get_Parts_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.PART_LIST );
+
+	@When("the New Roll request is processed")
+	public void the_New_Roll_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.NEW_ROLL );
 	}
-
-
-	//	/**
-	//	 * If there is an exception I have to check if this is the application format or the springboot format.
-	//	 */
-	//	//	@When("the {string} request is processed")
-	//	public void the_request_is_processed( final String apiRequestName ) throws IOException {
-	//		try {
-	//			final RequestType requestType = RequestType.from( apiRequestName );
-	//			final ResponseEntity innoDentalResponse = this.processRequest( requestType );
-	//			this.innoDentalWorld.setHttpStatus( innoDentalResponse.getStatusCode() );
-	//		} catch (final RuntimeException runtime) {
-	//			if (runtime instanceof InnoDentalRuntimeException) {
-	//				this.innoDentalWorld.setHttpStatus( ((InnoDentalRuntimeException) runtime).getHttpStatus() );
-	//				this.innoDentalWorld.setErrorInfo( ((InnoDentalRuntimeException) runtime).getErrorInfo() );
-	//				this.innoDentalWorld.setErrorMessage( runtime.getMessage() );
-	//			} else {
-	//				final InvalidRequestException exception = new InvalidRequestException( runtime );
-	//				this.innoDentalWorld.setHttpStatus( exception.getHttpStatus() );
-	//				this.innoDentalWorld.setErrorInfo( exception.getErrorInfo() );
-	//				this.innoDentalWorld.setErrorMessage( exception.getMessage() );
-	//			}
-	//		}
-	//	}
 
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
 		switch (requestType) {
@@ -75,6 +62,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( partListResponseEntity );
 				this.printer3DWorld.setPartListResponseEntity( partListResponseEntity );
 				return partListResponseEntity;
+			case NEW_ROLL:
+				Assertions.assertNotNull( this.printer3DWorld.getRoll() );
+				final ResponseEntity<Roll> newRollResponseEntity = this.rollFeignClientV1
+						.newRoll( this.printer3DWorld.getJwtAuthorizationToken(),
+								this.printer3DWorld.getRoll() );
+				Assertions.assertNotNull( newRollResponseEntity );
+				this.printer3DWorld.setNewRollResponseEntity( newRollResponseEntity );
+				return newRollResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
@@ -85,16 +80,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 			final ResponseEntity innoDentalResponse = this.processRequest( requestType );
 			this.printer3DWorld.setHttpStatus( innoDentalResponse.getStatusCode() );
 		} catch (final RuntimeException runtime) {
-			//			if (runtime instanceof RuntimeException) {
-			//				this.printer3DWorld.setHttpStatus( ((InnoDentalRuntimeException) runtime).getHttpStatus() );
-			//				this.printer3DWorld.setErrorInfo( ((InnoDentalRuntimeException) runtime).getErrorInfo() );
-			//				this.printer3DWorld.setErrorMessage( runtime.getMessage() );
-			//			} else {
-			//				final InvalidRequestException exception = new InvalidRequestException( runtime );
-			//				this.printer3DWorld.setHttpStatus( exception.getHttpStatus() );
-			//				this.printer3DWorld.setErrorInfo( exception.getErrorInfo() );
-			//				this.printer3DWorld.setErrorMessage( exception.getMessage() );
-			//			}
 		}
 	}
 }

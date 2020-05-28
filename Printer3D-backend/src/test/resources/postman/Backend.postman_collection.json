@@ -72,6 +72,42 @@
 			"response": []
 		},
 		{
+			"name": "NewRoll",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n  \"label\": \"Covid-19 Key\",\n  \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n  \"colorCode\": \"WHITE\",\n  \"buildTime\": 15,\n  \"cost\": 0.85,\n  \"price\": 4,\n  \"stockLevel\": 3,\n  \"stockAvailable\": 4,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"parts"
+					]
+				},
+				"description": "Creates a new Part at the Inventory repository."
+			},
+			"response": []
+		},
+		{
 			"name": "PartList",
 			"request": {
 				"method": "GET",
@@ -128,6 +164,42 @@
 					]
 				},
 				"description": "Get the list of active Parts from the Inventory repository."
+			},
+			"response": []
+		},
+		{
+			"name": "NewRoll",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"009ab011-03ad-4e84-9a88-25708d1cfd64\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE-T\",\n  \"weight\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/rolls",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"rolls"
+					]
+				},
+				"description": "Create a new roll at the backend repository."
 			},
 			"response": []
 		}

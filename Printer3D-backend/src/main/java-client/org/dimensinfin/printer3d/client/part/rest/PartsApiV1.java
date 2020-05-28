@@ -25,8 +25,8 @@ public interface PartsApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@POST("api/v1/inventory/parts")
-	Call<Part> newPart( @Header("Authorization") @NotNull final String authorizationToken,
-	                    @Body @Valid @NotNull final Part newPart );
+	Call<Part> newPart( @Header("Authorization") final @NotNull  String authorizationToken,
+	                    @Body @NotNull   @Valid final Part newPart );
 
 	/**
 	 * Get the list of Parts persisted at the Inventory repository.
@@ -38,7 +38,7 @@ public interface PartsApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/parts")
-	Call<PartList> partList( @Header("Authorization") @NotNull final String authorizationToken,
+	Call<PartList> partList( @Header("Authorization") final @NotNull  String authorizationToken,
 	                         @Query("activesOnly") Boolean activesOnly );
 //
 //	/**

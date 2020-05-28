@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/ddl-v0.0.4-inventory-table.yaml
   - include:
       file: db/changelog/ddl-v0.0.5-inventory-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.2.1-rolls-table.yaml
