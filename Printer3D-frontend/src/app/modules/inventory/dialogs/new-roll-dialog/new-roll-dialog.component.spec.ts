@@ -84,6 +84,16 @@ describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
         });
     });
 
+    // - O N D E S T R O Y   P H A S E
+    describe('On Destroy Phase', () => {
+        it('ngOnDestroy: validate destruction flow', async () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.backendConnections.length).toBe(0, 'The initial subscription list should be 0.');
+            component.saveRoll();
+            expect(componentAsAny.backendConnections.length).toBe(1, 'After initialization should be 1.');
+        });
+    });
+
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
         xit('saveRoll: persist the roll on the backend repository', async () => {

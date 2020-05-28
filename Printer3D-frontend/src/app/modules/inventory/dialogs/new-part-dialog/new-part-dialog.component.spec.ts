@@ -71,12 +71,11 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const componentAsAny = component as any;
             expect(component).toBeDefined('component has not been created.');
-            // expect(component.self).toBeDefined('field "self" not defined.');
             expect(componentAsAny.part).toBeDefined('field "part" should have initial value.');
         });
     });
 
-    // - O N I N I A T I Z A T I O N   P H A S E
+    // - O N I N I T I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
         it('ngOnInit.notPreviousPart: validate initialization flow', async () => {
             isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY);
@@ -92,17 +91,27 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             expect(component.part.id).toBeDefined('Empty Part should have id.');
         });
     });
+    
+    // - O N D E S T R O Y   P H A S E
+    describe('On Destroy Phase', () => {
+        it('ngOnDestroy: validate destruction flow', async () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.backendConnections.length).toBe(1, 'The initial subscription list should be 1.');
+            component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
+            expect(componentAsAny.backendConnections.length).toBe(2, 'After initialization should be 2.');
+       });
+    });
 
     describe('On Initialization Phase', () => {
         it('ngOnInit.validateFinisings: validate initialization flow with finishings', async () => {
             component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
             const data = component.finishings;
-            console.log('[ngOnInit.validateFinisings]> finishings: ' + JSON.stringify(data))          
+            console.log('[ngOnInit.validateFinisings]> finishings: ' + JSON.stringify(data))
             expect(data).toBeDefined('Check that finishing is not empty');
-            expect(data.size).toBe(2);
+            expect(data.size).toBe(2, 'The number of materials does not match');
             const obtained = component.finishings.get('PLA')
             console.log('[ngOnInit.validateFinisings]> obtained: ' + obtained)
-            expect(obtained.length).toBe(2);
+            expect(obtained.length).toBe(3, 'The number of colors does not match');
         });
     });
 
@@ -118,7 +127,9 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             const part: Part = new Part({ id: '-ID-' });
             const componentAsAny = component as any;
             componentAsAny.part = part;
-            component.savePartAndRepeat();
+            console.log('[savePartAndRepeat: persist the part on the backend repository]> about to call "savePartAndRepeat"')
+            await component.savePartAndRepeat();
+            // expect(component.part.colorCode).toBe('INDEFINIDO')
         });
         it('closeModal: start closing the dialog', async () => {
             const componentAsAny = component as any;

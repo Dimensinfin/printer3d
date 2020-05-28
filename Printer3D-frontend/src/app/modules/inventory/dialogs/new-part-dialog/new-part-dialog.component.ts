@@ -1,6 +1,7 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { platformconstants } from '@app/platform/platform-constants';
 import { v4 as uuidv4 } from 'uuid';
@@ -24,7 +25,7 @@ import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
     templateUrl: './new-part-dialog.component.html',
     styleUrls: ['./new-part-dialog.component.scss']
 })
-export class NewPartDialogComponent implements OnInit {
+export class NewPartDialogComponent implements OnInit, OnDestroy {
     public part: Part = new Part();
     public finishings: Map<string, string[]> = new Map<string, string[]>();
     public colors: string[] = [];
@@ -53,6 +54,14 @@ export class NewPartDialogComponent implements OnInit {
         }
         this.readFinishings();
     }
+    /**
+     * Unsubscribe from any open subscription made to the backend.
+     */
+    public ngOnDestroy(): void {
+        this.backendConnections.forEach(element => {
+            element.unsubscribe();
+        });
+    }
     // - I N T E R A C T I O N S
     public savePart(): void {
         // Get the form data.
@@ -69,6 +78,7 @@ export class NewPartDialogComponent implements OnInit {
         );
     }
     public savePartAndRepeat() {
+        console.log('>[NewPartDialogComponent.savePartAndRepeat]')
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
@@ -76,12 +86,14 @@ export class NewPartDialogComponent implements OnInit {
                 .setTransformation((entrydata: any): Part => {
                     this.isolationService.infoNotification('Pieza [' +
                         entrydata.composePartIdentifier() +
-                        '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
+                        '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
+                    console.log('>[NewPartDialogComponent.savePartAndRepeat]> return the persisted Part');
                     return new Part(entrydata);
                 }))
                 .subscribe((persistedPart: Part) => {
+                    console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')
                     this.part.createNewId();
-                    this.part.colorCode = 'GREEN';
+                    this.part.colorCode = 'INDEFINIDO';
                 })
         );
     }

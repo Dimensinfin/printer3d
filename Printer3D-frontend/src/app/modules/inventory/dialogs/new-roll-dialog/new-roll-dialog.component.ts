@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { platformconstants } from '@app/platform/platform-constants';
 import { v4 as uuidv4 } from 'uuid';
 // - MATERIAL
@@ -27,6 +28,8 @@ import { RollConstructor } from '@domain/constructor/Roll.constructor';
 export class NewRollDialogComponent implements OnInit {
     public roll: Roll = new Roll();
     public colors: string[] = [];
+    private backendConnections: Subscription[] = [];
+
     constructor(
         public dialogRef: MatDialogRef<NewRollDialogComponent>,
         private isolationService: IsolationService,
@@ -39,33 +42,45 @@ export class NewRollDialogComponent implements OnInit {
         console.log('><[NewRollDialogComponent.ngOnInit]')
         this.roll.id = uuidv4();
     }
+    /**
+     * Unsubscribe from any open subscription made to the backend.
+     */
+    public ngOnDestroy(): void {
+        this.backendConnections.forEach(element => {
+            element.unsubscribe();
+        });
+    }
     // - I N T E R A C T I O N S
     public saveRoll(): void {
         console.log('><[NewRollDialogComponent.saveRoll]')
         const newRoll: Roll = new RollConstructor().construct(this.roll);
-        this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
-            .setTransformation((entrydata: any): Roll => {
-                this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
-                return new Roll(entrydata);
-            }))
-            .subscribe((persistedRoll: Roll) => {
-                this.closeModal();
-            });
+        this.backendConnections.push(
+            this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
+                .setTransformation((entrydata: any): Roll => {
+                    this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
+                    return new Roll(entrydata);
+                }))
+                .subscribe((persistedRoll: Roll) => {
+                    this.closeModal();
+                })
+        )
     }
     public saveRollAndRepeat() {
         console.log('><[NewRollDialogComponent.saveRoll]')
         const newRoll: Roll = new RollConstructor().construct(this.roll);
-        this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
-            .setTransformation((entrydata: any): Roll => {
-                this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
-                return new Roll(entrydata);
-            }))
-            .subscribe((persistedRoll: Roll) => {
-                this.roll.createNewId();
-                this.roll.material = 'PLA';
-                this.roll.color = '';
-                this.roll.weight = '';
-            });
+        this.backendConnections.push(
+            this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
+                .setTransformation((entrydata: any): Roll => {
+                    this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
+                    return new Roll(entrydata);
+                }))
+                .subscribe((persistedRoll: Roll) => {
+                    this.roll.createNewId();
+                    this.roll.material = 'PLA';
+                    this.roll.color = '';
+                    this.roll.weight = undefined;
+                })
+        );
     }
     public closeModal(): void {
         console.log('>[NewRollDialogComponent.closeModal]')
