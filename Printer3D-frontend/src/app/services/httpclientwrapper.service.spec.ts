@@ -18,10 +18,10 @@ import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { HttpClientWrapperService } from './httpclientwrapper.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Part } from '@domain/Part.domain';
 
 describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
     let service: HttpClientWrapperService;
-    // let appStoreService: SupportAppStoreService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -42,7 +42,12 @@ describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
                                 observer.next({});
                                 observer.complete();
                             });
-
+                        },
+                        post: (request: string, bodu: string, headers: object) => {
+                            return Observable.create((observer) => {
+                                observer.next({});
+                                observer.complete();
+                            });
                         }
                     }
                 },
@@ -75,6 +80,12 @@ describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
                     expect(response).toBeDefined();
                 });
         });
+        it('wrapHttpPOSTCall.success: make a POST request', () => {
+            service.wrapHttpPOSTCall('request', JSON.stringify(new Part()))
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
         it('wrapHttpSecureHeaders.empty: make a GET request', () => {
             const serviceAsAny = service as any;
             expect(serviceAsAny.wrapHttpSecureHeaders(new HttpHeaders())).toBeDefined();
@@ -84,7 +95,7 @@ describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
             const headers = new HttpHeaders()
                 .set('Content-Type', 'application/json; charset=utf-8')
                 .set('xApp-Name', 'name');
-            expect(serviceAsAny.wrapHttpSecureHeaders(new HttpHeaders())).toBeDefined();
+            expect(serviceAsAny.wrapHttpSecureHeaders(headers)).toBeDefined();
         });
     });
 });

@@ -82,7 +82,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Methods]', () => {
+    fdescribe('Code Coverage Phase [Methods]', () => {
         it('activateFeature.firstTime: activate a new feature when there is none active', () => {
             const featureA = new Feature({ label: '/Inventatio', active: false, route: 'inventory' });
             const featureB = new Feature({ label: '/Nueva Pieza', active: false });

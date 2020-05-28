@@ -10,9 +10,10 @@ import { HttpClientWrapperService } from '@app/services/httpclientwrapper.servic
 import { ResponseTransformer } from './support/ResponseTransformer';
 // - ENVIRONMENT
 import { environment } from '@env/environment';
-import { PartListResponse } from '@domain/dto/part-list-response.domain';
+import { PartListResponse } from '@domain/dto/part-list-response.dto';
 import { Part } from '@domain/Part.domain';
 import { Roll } from '@domain/Roll.domain';
+import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,7 @@ export class BackendService {
     }
     // - B A C K E N D - A P I
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
-         const request = this.APIV1 + '/inventory/parts';
+        const request = this.APIV1 + '/inventory/parts';
         let headers = new HttpHeaders() // Additional mockup headers to apisimulation.
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpGETCall(request, headers)
@@ -54,6 +55,17 @@ export class BackendService {
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewRoll_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Roll;
+                return response;
+            }));
+    }
+    public apiGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
+        const request = this.APIV1 + '/inventory/finishings';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiGetFinishings_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as FinishingResponse;
                 return response;
             }));
     }

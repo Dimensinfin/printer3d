@@ -72,7 +72,7 @@ response:
 simlet: inventory-finishings
 
 request:
-  - method: POST
+  - method: GET
   - uriPathPattern: "/api/v1/inventory/finishings"
 
 response:

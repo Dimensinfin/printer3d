@@ -9,7 +9,7 @@ import { BackendService } from '@app/services/backend.service';
 import { PartRecord } from '@domain/PartRecord.domain';
 import { GridColumn } from '@domain/GridColumn.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { PartListResponse } from '@domain/dto/part-list-response.domain';
+import { PartListResponse } from '@domain/dto/part-list-response.dto';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
 const DEFAULT_PART_RECORD: string = '{    "label": "Covid - 19 Key - A",    "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",    "buildTime": 60,    "affinity": "OFF",    "stockLevel": 2,   "colours": "ALL",    "active": true}';

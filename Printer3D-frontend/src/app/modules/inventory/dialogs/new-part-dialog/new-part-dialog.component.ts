@@ -16,6 +16,8 @@ import { PartRecord } from '@domain/PartRecord.domain';
 import { Part } from '@domain/Part.domain';
 import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
+import { Subscription } from 'rxjs';
+import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 
 @Component({
     selector: 'new-part-dialog',
@@ -23,10 +25,10 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
     styleUrls: ['./new-part-dialog.component.scss']
 })
 export class NewPartDialogComponent implements OnInit {
-    public downloading: boolean = true;
-    public development: boolean = false;
     public part: Part = new Part();
+    public finishings: Map<string, string[]> = new Map<string, string[]>();
     public colors: string[] = [];
+    private backendConnections: Subscription[] = [];
 
     constructor(
         public dialogRef: MatDialogRef<NewPartDialogComponent>,
@@ -35,44 +37,53 @@ export class NewPartDialogComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        console.log('><[NewPartDialogComponent.ngOnInit]')
+        console.log('>[NewPartDialogComponent.ngOnInit]')
         // If there is no previous pending part then initialize a new one with default values but new ID.
         const pendingPart = this.isolationService.getFromStorage(platformconstants.PARTIAL_PART_KEY);
+        console.log('-[NewPartDialogComponent.ngOnInit]> Previous Part: ' + pendingPart)
         if (null == pendingPart) {
             this.part.id = uuidv4();
             this.part.material = 'PLA';
             this.part.colorCode = 'INDEFINIDO';
-            this.materialSelectorChanged('PLA');
+            // this.materialSelectorChanged('PLA');
         }
-        else this.part = JSON.parse(pendingPart);
+        else {
+            console.log('-[NewPartDialogComponent.ngOnInit]> Previous Part: ' + pendingPart)
+            this.part = JSON.parse(pendingPart);
+        }
+        this.readFinishings();
     }
     // - I N T E R A C T I O N S
     public savePart(): void {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
-        this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-            .setTransformation((entrydata: any): Part => {
-                this.isolationService.infoNotification('Pieza [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
-                return new Part(entrydata);
-            }))
-            .subscribe((persistedPart: Part) => {
-                this.closeModal();
-            });
+        this.backendConnections.push(
+            this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
+                .setTransformation((entrydata: any): Part => {
+                    this.isolationService.infoNotification('Pieza [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
+                    return new Part(entrydata);
+                }))
+                .subscribe((persistedPart: Part) => {
+                    this.closeModal();
+                })
+        );
     }
     public savePartAndRepeat() {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
-        this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-            .setTransformation((entrydata: any): Part => {
-                this.isolationService.infoNotification('Pieza [' +
-                    entrydata.composePartIdentifier() +
-                    '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
-                return new Part(entrydata);
-            }))
-            .subscribe((persistedPart: Part) => {
-                this.part.createNewId();
-                this.part.colorCode = 'GREEN';
-            });
+        this.backendConnections.push(
+            this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
+                .setTransformation((entrydata: any): Part => {
+                    this.isolationService.infoNotification('Pieza [' +
+                        entrydata.composePartIdentifier() +
+                        '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
+                    return new Part(entrydata);
+                }))
+                .subscribe((persistedPart: Part) => {
+                    this.part.createNewId();
+                    this.part.colorCode = 'GREEN';
+                })
+        );
     }
     public closeModal(): void {
         console.log('>[NewPartDialogComponent.closeModal]')
@@ -80,11 +91,27 @@ export class NewPartDialogComponent implements OnInit {
     }
     public materialSelectorChanged(event: any): void {
         console.log('>[NewPartDialogComponent.materialSelectorChanged]> Selection: ' + event);
-        if (event == 'PLA') {
-            this.colors = ['INDEFINIDO', 'BLANCO', 'VERDE', 'ROSA-T', 'GRIS'];
-        }
-        if (event == 'TPU') {
-            this.colors = ['INDEFINIDO', 'ROJO'];
-        }
+        this.colors = this.finishings.get(event);
+    }
+    // - B A C K G R O U N D
+    protected readFinishings(): void {
+        this.backendConnections.push(
+            this.backendService.apiGetFinishings_v1(new ResponseTransformer().setDescription('Do HTTP transformation to "Finishing" list.')
+                .setTransformation((entrydata: any): FinishingResponse => {
+                    return new FinishingResponse(entrydata);
+                }))
+                .subscribe((finishings: FinishingResponse) => {
+                    console.log('>[NewPartDialogComponent.readFinishings]> finishings: ' + JSON.stringify(finishings))
+                    const data = finishings.getMaterials()
+                    for (let index = 0; index < data.length; index++) {
+                        const element = data[index];
+                        const colors = element['colors'];
+                        colors.push('INDEFINIDO')
+                        this.finishings.set(element['material'], colors);
+                    }
+                    console.log('>[NewPartDialogComponent.readFinishings]> finishings: ' + JSON.stringify(this.finishings))
+                    this.materialSelectorChanged(data[0]['material'])
+                })
+        );
     }
 }

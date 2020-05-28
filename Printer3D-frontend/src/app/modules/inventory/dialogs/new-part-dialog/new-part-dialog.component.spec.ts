@@ -62,7 +62,6 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
 
         const fixture = TestBed.createComponent(NewPartDialogComponent);
         component = fixture.componentInstance;
-        // loader = TestbedHarnessEnvironment.loader(fixture);
         isolationService = TestBed.get(IsolationService);
         fixture.detectChanges();
     }));
@@ -83,20 +82,40 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY);
             console.log(JSON.stringify(component.part));
             expect(component.part.id).toBeDefined('Empty Part should have id.');
-            // await component.ngOnInit();
+        });
+    });
+    describe('On Initialization Phase', () => {
+        it('ngOnInit.previousPart: validate initialization flow', async () => {
+            const part: Part = new Part({ id: '-ID-' });
+            isolationService.setToStorageObject(platformconstants.PARTIAL_PART_KEY, part);
+            component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
+            expect(component.part.id).toBeDefined('Empty Part should have id.');
+        });
+    });
+
+    describe('On Initialization Phase', () => {
+        it('ngOnInit.validateFinisings: validate initialization flow with finishings', async () => {
+            component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
+            const data = component.finishings;
+            console.log('[ngOnInit.validateFinisings]> finishings: ' + JSON.stringify(data))          
+            expect(data).toBeDefined('Check that finishing is not empty');
+            expect(data.size).toBe(2);
+            const obtained = component.finishings.get('PLA')
+            console.log('[ngOnInit.validateFinisings]> obtained: ' + obtained)
+            expect(obtained.length).toBe(2);
         });
     });
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
         it('savePart: persist the part on the backend repository', async () => {
-            const part: Part = new Part({id: '-ID-'});
+            const part: Part = new Part({ id: '-ID-' });
             const componentAsAny = component as any;
             componentAsAny.part = part;
             component.savePart();
         });
         it('savePartAndRepeat: persist the part on the backend repository', async () => {
-            const part: Part = new Part({id: '-ID-'});
+            const part: Part = new Part({ id: '-ID-' });
             const componentAsAny = component as any;
             componentAsAny.part = part;
             component.savePartAndRepeat();

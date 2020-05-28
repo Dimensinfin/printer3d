@@ -24,9 +24,10 @@ import { SupportHttpClientWrapperService } from '../testing/SupportHttpClientWra
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from './support/ResponseTransformer';
-import { PartListResponse } from '@domain/dto/part-list-response.domain';
+import { PartListResponse } from '@domain/dto/part-list-response.dto';
 import { Part } from '@domain/Part.domain';
 import { Roll } from '@domain/Roll.domain';
+import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -89,6 +90,15 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     return new Roll(entrydata);
                 }))
                 .subscribe((response: Roll) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('apiGetFinishings_v1.default: get the list of finishings available', () => {
+            service.apiGetFinishings_v1(new ResponseTransformer().setDescription('Transforma data into FinishingResponse.')
+                .setTransformation((entrydata: any): FinishingResponse => {
+                    return new FinishingResponse(entrydata);
+                }))
+                .subscribe((response: FinishingResponse) => {
                     expect(response).toBeDefined();
                 });
         });

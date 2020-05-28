@@ -24,6 +24,7 @@ export class SupportIsolationService {
         return this.storage.set(_key, _content)
     }
     public setToStorageObject(key: string, object: any): void {
+        console.log(">>[SupportIsolationService.setToStorageObject]> key: " + key);
         this.setToStorage(key, JSON.stringify(object));
     }
     public removeFromStorage(key: string): void {

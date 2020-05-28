@@ -35,9 +35,6 @@ export class HttpClientWrapperService {
         console.log("><[HttpClientWrapperService.wrapHttpPOSTCall]> request: " + request);
         let newheaders = this.wrapHttpSecureHeaders(requestHeaders);
         return this.http.post(request, body, { headers: newheaders })
-            .pipe(
-                catchError(this.wrapHttpHandleError)
-            );
     }
     /**
      * Reads a JSON formatted resource. There is no specific convertion to a types class and so can be done on the caller method.
@@ -71,27 +68,5 @@ export class HttpClientWrapperService {
             }
         }
         return headers;
-    }
-    private wrapHttpHandleError(error: HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.error('An error occurred:', error.error.message);
-        } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong,
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `Error message ${error.message}, `);
-
-            // Do some generic error processing.
-            // 401 are accesses without the token so we should move right to the login page.
-            if (error.status == 401) {
-                // this.router.navigate(['login']);
-                return throwError('Autenticacion ya no valida. Es necesario logarse de nuevo.');
-            }
-        }
-        // return an observable with a user-facing error message
-        return throwError(
-            'Something bad happened; please try again later.');
     }
 }

@@ -1,4 +1,4 @@
-import { PartListResponse } from './part-list-response.domain';
+import { PartListResponse } from './part-list-response.dto';
 
 describe('PartListResponse', () => {
   it('should create an instance', () => {
