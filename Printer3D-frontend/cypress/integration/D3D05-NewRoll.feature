@@ -15,7 +15,7 @@ Feature: [D3D05]-Define the requirements fopr the Roll dialog.
         Then the New Roll dialog opens and blocks the display
 
     @D3D05 @D3D05.02
-    Scenario: [D3D05.02]-The new Roll dialog has an specific set of fields.
+    Scenario: [D3D05.02]-The New Roll dialog has an specific set of fields.
         Given one instance of Dock
         When there is a click on Feature "/NUEVO ROLLO"
         Then the New Roll dialog opens and blocks the display

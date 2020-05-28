@@ -138,4 +138,29 @@ export class NewPartForm extends IsolationService {
                 break;
         }
     }
+    public validateFields(row: any): void {
+        console.log('[NewPartForm.validateField]> row:' + JSON.stringify(row));
+        for (const key in row) {
+            if (row.hasOwnProperty(key)) {
+                const element = row[key];
+                let value: string;
+                switch (key) {
+                    case 'material':
+                        value = this.decodeDataTableRow(row, key).toLowerCase();
+                        cy.log('[NewPartForm.validatePanel]> MATERIAL=' + value);
+                        cy.get('new-part-dialog').get('form').get('#material')
+                        .get('[ng-reflect-model="PLA"]')
+                        .should ( 'have.length', 1)
+                            // .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        break;
+                    case 'color':
+                        value = this.decodeDataTableRow(row, key);
+                        cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
+                        cy.get('new-part-dialog').get('form').get('#colorCode')
+                            .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        break;
+                }
+            }
+        }
+    }
 }

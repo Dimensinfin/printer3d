@@ -76,3 +76,28 @@ Then('the dialog closes', function () {
     console.log('[THEN] the dialog closes');
     cy.get('new-part-dialog').should('have.length', 0);
 });
+
+Then('there is a call to the backend to get the Finishings', function () {
+    console.log('[THEN] there is a call to the backend to get the Finishings');
+});
+
+Then('the Material dropdown has {int} elements', function (options) {
+    cy.get('new-part-dialog')
+        .find('select').get('#material')
+        .find('option')
+        .should('have.length', options);
+});
+
+Then('form fields have the next values', function (dataTable) {
+    const row = dataTable.hashes()[0];
+    const form = new NewPartForm();
+    expect(form).to.not.be.null;
+    form.validateFields(row);
+});
+
+Then('the Color dropdown has {int} values', function (options) {
+    cy.get('new-part-dialog')
+    .find('select').get('#colorCode')
+    .find('option')
+    .should('have.length', options);
+});

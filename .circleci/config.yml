@@ -216,6 +216,15 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
 
+  backend-prod-to-heroku:
+    docker:
+      - image: circleci/node:12.16.3-browsers
+    steps:
+      - run:
+          name: FRONTEND - Validate node version
+          command: |
+            node -v
+
 workflows:
   version: 2
   printer3d-deploy:
@@ -270,3 +279,9 @@ workflows:
             branches:
               only:
                 - test
+      - backend-prod-to-heroku:
+          requires:
+            - start-job
+          filters:
+            tags:
+              only: /^b[0-9]+(\.[0-9]+)*/
