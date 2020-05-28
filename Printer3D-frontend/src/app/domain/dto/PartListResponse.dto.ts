@@ -1,19 +1,19 @@
+// - DOMAIN
 import { PartRecord } from '@domain/PartRecord.domain'
 import { Node } from '../Node'
+import { Part } from '@domain/Part.domain';
 
-export class PartListResponse extends Node {
+export class PartListResponse {
     public partCount: number = 0;
-    public records: PartRecord[] = [];
+    public records: Part[] = [];
 
     constructor(values: Object = {}) {
-        super();
         Object.assign(this, values);
-        this.jsonClass = 'PartListResponse';
         // Transform input records.
-        if (null != this['parts']) {
-            const recordList: PartRecord[] = [];
+        if (null != this['parts']) { // The API returns parts but we call it records
+            const recordList: Part[] = [];
             for (let entry of this['parts'])
-                recordList.push(new PartRecord(entry));
+                recordList.push(new Part(entry));
             this.records = recordList;
         }
     }
