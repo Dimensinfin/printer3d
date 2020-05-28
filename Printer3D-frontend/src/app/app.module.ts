@@ -16,7 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 // - SERVICES
 import { IsolationService } from './platform/isolation.service';
 import { AppStoreService } from './services/app-store.service';
-import { DialogFactoryService } from './factory/dialog-factory.service';
+import { DialogFactoryService } from './services/dialog-factory.service';
 import { BackendService } from './services/backend.service';
 // - COMPONENTS-CORE
 import { AppComponent } from './app.component';
@@ -65,8 +65,8 @@ registerLocaleData(localeEs);
         // - SERVICES
         { provide: IsolationService, useClass: IsolationService },
         { provide: AppStoreService, useClass: AppStoreService },
-        { provide: DialogFactoryService, useClass: DialogFactoryService },
         { provide: BackendService, useClass: BackendService },
+        { provide: DialogFactoryService, useClass: DialogFactoryService },
         // { provide: AuthenticationService, useClass: AuthenticationService },
         // - ERROR INTERCEPTION
         // { provide: ErrorHandler, useClass: RollbarErrorHandler },

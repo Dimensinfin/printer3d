@@ -5,7 +5,7 @@ import { Input } from '@angular/core';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { V1DockComponent } from '../../panels/v1-dock/v1-dock.component';
-import { DialogFactoryService } from '@app/factory/dialog-factory.service';
+import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { IsolationService } from '@app/platform/isolation.service';
 import { platformconstants } from '@app/platform/platform-constants';
 

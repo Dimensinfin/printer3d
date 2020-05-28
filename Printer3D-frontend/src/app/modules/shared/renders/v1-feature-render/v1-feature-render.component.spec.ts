@@ -22,7 +22,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { V1FeatureRenderComponent } from './v1-feature-render.component';
-import { DialogFactoryService } from '@app/factory/dialog-factory.service';
+import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { V1DockComponent } from '../../panels/v1-dock/v1-dock.component';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { BackendService } from '@app/services/backend.service';

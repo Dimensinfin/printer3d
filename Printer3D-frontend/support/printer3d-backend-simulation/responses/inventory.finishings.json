@@ -1,0 +1,15 @@
+[{
+        "material": "PLA",
+        "colors": [
+            "BLANCO",
+            "ROJO"
+        ]
+    },
+    {
+        "material": "TPU",
+        "colors": [
+            "ROJO",
+            "GRIS"
+        ]
+    }
+]
