@@ -24,7 +24,6 @@ import { AppComponent } from './app.component';
 // - APPLICATION MODULES
 import { SharedModule } from './modules/shared/shared.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
-import { MaterialsModule } from './modules/materials/materials.module';
 
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
@@ -55,8 +54,7 @@ registerLocaleData(localeEs);
         MatDialogModule,
         // - APPLICATION MODULES
         SharedModule,
-        InventoryModule,
-        MaterialsModule
+        InventoryModule
     ],
     declarations: [
         AppComponent,

@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 // - COMPONENTS
 import { InventoryPartListPageComponent } from './pages/inventory-part-list-page/inventory-part-list-page.component';
 import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialog.component';
+import { NewRollDialogComponent } from './dialogs/new-roll-dialog/new-roll-dialog.component';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialo
     ],
     declarations: [
         InventoryPartListPageComponent, 
-        NewPartDialogComponent
+        NewPartDialogComponent,
+        NewRollDialogComponent
     ],
     exports: [
         InventoryPartListPageComponent, 

@@ -11,7 +11,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
-import { NewRollDialogComponent } from '@app/modules/materials/dialogs/new-roll-dialog/new-roll-dialog.component';
+import { NewRollDialogComponent } from '@app/modules/inventory/dialogs/new-roll-dialog/new-roll-dialog.component';
 
 @Injectable({
     providedIn: 'root'
