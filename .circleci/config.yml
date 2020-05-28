@@ -155,6 +155,7 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             node -v
+            sed -i '/bahmutov.add/d' package.json
             npm install
       - run:
           name: FRONTEND - Build deployment code
@@ -215,7 +216,6 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
 
-
 workflows:
   version: 2
   printer3d-deploy:
@@ -256,13 +256,6 @@ workflows:
             branches:
               only:
                 - development
-      # - test-backend-job:
-      #     requires:
-      #       - build-backend-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - development
       - backend-uat-to-heroku:
           requires:
             - start-job
