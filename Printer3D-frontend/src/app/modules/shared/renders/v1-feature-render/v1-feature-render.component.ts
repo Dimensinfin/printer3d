@@ -37,7 +37,7 @@ export class V1FeatureRenderComponent {
                     dialogRef.afterClosed()
                         .subscribe(result => {
                             console.log('[V1FeatureRenderComponent.onClick]> Close detected');
-                            this.node.activate();
+                            this.node.deactivate();
                         });
                     break;
                 // case 'ACTION-TO-DEFINE':
