@@ -26,26 +26,27 @@ export class V1FeatureRenderComponent {
      */
     public onClick() {
         console.log('><[V1FeatureRenderComponent,onClick]> Label: ' + this.node.label)
-        if (null != this.node) {
-            switch (this.node.interaction) {
-                case 'PAGEROUTE':
-                    if (null != this.dock) this.dock.activateFeature(this.node);
-                    break;
-                case 'DIALOG':
-                    this.node.activate();
-                    const dialogRef = this.dialogFactory.processClick(this.node);
-                    dialogRef.afterClosed()
-                        .subscribe(result => {
-                            console.log('[V1FeatureRenderComponent.onClick]> Close detected');
-                            this.node.deactivate();
-                        });
-                    break;
-                // case 'ACTION-TO-DEFINE':
-                //     this.isolationService.removeFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)
-                //     if (null != this.dock) this.dock.clean();
-                //     if (null != this.dock) this.dock.activateFeature(this.node);
-                //     break;
+        if (this.node.enabled) // Only interact with enabled Features
+            if (null != this.node) {
+                switch (this.node.interaction) {
+                    case 'PAGEROUTE':
+                        if (null != this.dock) this.dock.activateFeature(this.node);
+                        break;
+                    case 'DIALOG':
+                        this.node.activate();
+                        const dialogRef = this.dialogFactory.processClick(this.node);
+                        dialogRef.afterClosed()
+                            .subscribe(result => {
+                                console.log('[V1FeatureRenderComponent.onClick]> Close detected');
+                                this.node.deactivate();
+                            });
+                        break;
+                    // case 'ACTION-TO-DEFINE':
+                    //     this.isolationService.removeFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)
+                    //     if (null != this.dock) this.dock.clean();
+                    //     if (null != this.dock) this.dock.activateFeature(this.node);
+                    //     break;
+                }
             }
-        }
     }
 }

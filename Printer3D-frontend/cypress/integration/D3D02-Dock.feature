@@ -53,7 +53,7 @@ Feature: [D3D02]-Test the activities with the dock.
     #     Then there is a v1-feature-render with label "/INVENTARIO"
 
     @D3D02 @D3D02.05
-    Scenario: [D3D02.05] When the dialog closes the Feature tht openned it should go back to inactive.
+    Scenario: [D3D02.05] When the dialog closes the Feature that open it should go back to inactive.
         Given the DashboardPage is activated
         And one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
