@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -51,6 +53,27 @@ public class Roll {
 	}
 
 	// - C O R E
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder( 17, 37 )
+				.append( this.material )
+				.append( this.color )
+				.append( this.weight )
+				.toHashCode();
+	}
+
+	@Override
+	public boolean equals( final Object o ) {
+		if (this == o) return true;
+		if (!(o instanceof Roll)) return false;
+		final Roll roll = (Roll) o;
+		return new EqualsBuilder()
+				.append( this.material, roll.material )
+				.append( this.color, roll.color )
+				.append( this.weight, roll.weight )
+				.isEquals();
+	}
+
 	@Override
 	public String toString() {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )

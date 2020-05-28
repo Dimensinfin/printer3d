@@ -7,4 +7,9 @@
 6. Run the **RunAcceptanceTests** configuration. If it completes OK.
 7. Commit the code with the scenario title.
 8. Run all the tests with the **Printer3D-backend [unit test]** configuration.
-9. Fix all defects
+9. Fix all defects.
+10. Run unit tests with code coverage.
+11. Generate code coverage report.
+12. Line level should be > 80%
+13. Remove most sonar defects.
+14. Commit changes under the **test** branch.

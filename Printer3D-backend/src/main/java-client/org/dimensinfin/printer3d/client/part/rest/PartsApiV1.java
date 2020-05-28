@@ -40,23 +40,4 @@ public interface PartsApiV1 {
 	@GET("api/v1/inventory/parts")
 	Call<PartList> partList( @Header("Authorization") final @NotNull  String authorizationToken,
 	                         @Query("activesOnly") Boolean activesOnly );
-//
-//	/**
-//	 * Update an alrady existing Part. Only some of the firlds are allowed for update. The rest of the fields are ignored.
-//	 * Process a request to update an existing Part on the repository by giving the new field contents. Only the allowed modifiable contents are
-//	 * processed and the other fields are ignored.
-//	 *
-//	 * @param partId      The unique id (uuid) for the Part to be edited. (required)
-//	 * @param partRequest The new contents for the Part record.
-//	 *                    (optional)
-//	 * @return Call&lt;PartList&gt;
-//	 */
-//	@Headers({
-//			"Content-Type:application/json"
-//	})
-//	@PATCH("api/v1/parts/{partId}")
-//	Call<PartList> updatePart(
-//			@Path("partId") UUID partId, @Body PartRequest partRequest
-//	);
-
 }

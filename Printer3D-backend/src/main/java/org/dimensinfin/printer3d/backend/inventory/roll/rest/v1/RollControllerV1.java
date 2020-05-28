@@ -26,14 +26,14 @@ class RollControllerV1 {
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public RollControllerV1(  final  @NotNull RollServiceV1 rollServiceV1 ) {
+	public RollControllerV1( final @NotNull RollServiceV1 rollServiceV1 ) {
 		this.rollServiceV1 = Objects.requireNonNull( rollServiceV1 );
 	}
 
 	@PostMapping(path = "/inventory/rolls",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Roll> newRoll( final  @RequestBody @Valid @NotNull  Roll roll ) {
+	public ResponseEntity<Roll> newRoll( final @RequestBody @Valid @NotNull Roll roll ) {
 		return new ResponseEntity<>( this.rollServiceV1.newRoll( roll ), HttpStatus.CREATED );
 	}
 }

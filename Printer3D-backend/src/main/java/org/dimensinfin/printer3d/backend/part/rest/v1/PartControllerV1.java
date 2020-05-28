@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.part.rest.v1;
 
 import java.util.Optional;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -36,15 +35,14 @@ public class PartControllerV1 {
 	@PostMapping(path = "/inventory/parts",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Part> newPart( @RequestBody @Valid @NotNull final Part part ) {
+	public ResponseEntity<Part> newPart( final @RequestBody @Valid @NotNull Part part ) {
 		return new ResponseEntity<>( this.partServiceV1.newPart( part ), HttpStatus.CREATED );
 	}
 
-	@GetMapping(path ="/inventory/parts",
+	@GetMapping(path = "/inventory/parts",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<PartList> partsList( @NotNull final HttpServletResponse response,
-	                                           @RequestParam(name = "activesOnly") final Optional<Boolean> activesOnly ) {
+	public ResponseEntity<PartList> partsList( final @RequestParam(name = "activesOnly") Optional<Boolean> activesOnly ) {
 		final boolean activeState = activesOnly.isPresent() && activesOnly.get();
 		return new ResponseEntity<>( this.partServiceV1.partsList( activeState ), HttpStatus.OK );
 	}

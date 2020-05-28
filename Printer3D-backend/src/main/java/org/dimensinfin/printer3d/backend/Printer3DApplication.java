@@ -38,8 +38,6 @@ public class Printer3DApplication {
 	}
 
 	private static final class LogoPrinter {
-		private boolean printedVersion = false;
-
 		private void printVersion(final String banner ) {
 			LogWrapper.info( "\n\n" +banner+"\n");
 		}
