@@ -2,17 +2,17 @@
 import { GridColumn } from '@domain/GridColumn.domain';
 import { PartRecord } from '@domain/PartRecord.domain';
 import { Part } from '@domain/Part.domain';
-import { PartToPartRecordConverter } from '@domain/PartToPartRecord.converter';
+import { PartToPartRecordConverter } from '@domain/converter/PartToPartRecord.converter';
 
 export class PartTransformer {
     private columnDefinitions: GridColumn[] = [];
     private rowData: PartRecord[] = [];
 
-    constructor(){
-        this.columnDefinitions.push(            new GridColumn({ headerName: 'Etiqueta', field: 'etiqueta', sortable: true,  width: 200 }));
-        this.columnDefinitions.push(            new GridColumn({ headerName: 'Descripción', field: 'descripcion', sortable: true,  width: 650 }));
-        this.columnDefinitions.push(            new GridColumn({ headerName: 'Material', field: 'material', sortable: true,  width: 100 }));
-        this.columnDefinitions.push(            new GridColumn({ headerName: 'Color', field: 'color', sortable: true,  width: 100 }));
+    constructor() {
+        this.columnDefinitions.push(new GridColumn({ headerName: 'Etiqueta', field: 'etiqueta', sortable: true, width: 200 }));
+        this.columnDefinitions.push(new GridColumn({ headerName: 'Descripción', field: 'descripcion', sortable: true, width: 650 }));
+        this.columnDefinitions.push(new GridColumn({ headerName: 'Material', field: 'material', sortable: true, width: 100 }));
+        this.columnDefinitions.push(new GridColumn({ headerName: 'Color', field: 'color', sortable: true, width: 100 }));
         const data = [
             new GridColumn({ headerName: 'Description', field: 'description', sortable: true, width: 650 }),
             new GridColumn({ headerName: 'BuildTime', field: 'buildTime', sortable: true, filter: true, width: 150 }),
