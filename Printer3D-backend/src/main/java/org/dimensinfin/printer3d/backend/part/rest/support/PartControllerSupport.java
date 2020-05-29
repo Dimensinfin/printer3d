@@ -19,7 +19,7 @@ import org.dimensinfin.common.client.rest.CountResponse;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.2.0
  */
-@Profile({ "local", "acceptance" })
+@Profile({ "local", "acceptance", "test" })
 @RestController
 @CrossOrigin
 @Validated

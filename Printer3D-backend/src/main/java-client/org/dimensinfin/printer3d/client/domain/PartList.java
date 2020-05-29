@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.client.part.domain;
+package org.dimensinfin.printer3d.client.domain;
 
 import java.util.ArrayList;
 import java.util.List;

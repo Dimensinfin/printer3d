@@ -19,8 +19,8 @@ public class GivenTheFollowingPartsInMyService extends StepSupport {
 	private PartFeignClientV1 partFeignClientV1;
 
 	// - C O N S T R U C T O R S
-	public GivenTheFollowingPartsInMyService( @NotNull final Printer3DWorld printer3DWorld,
-	                                          @NotNull final PartFeignClientV1 partFeignClientV1 ) {
+	public GivenTheFollowingPartsInMyService( final @NotNull Printer3DWorld printer3DWorld,
+	                                          final @NotNull PartFeignClientV1 partFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 	}

@@ -11,7 +11,7 @@ import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.part.PartValidator;
 import org.dimensinfin.printer3d.backend.support.part.converter.CucumberTableToPartConverter;
-import org.dimensinfin.printer3d.client.part.domain.PartList;
+import org.dimensinfin.printer3d.client.domain.PartList;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

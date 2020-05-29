@@ -19,7 +19,7 @@ Feature: Manage the Rolls on the Inventory information section
 
   @P3D02.H @P3D02.02
   Scenario: [P3D02.02] There is and endpoint to get all Rolls persisted at the repository.
-    Given a clean Inventory repository
+    Given a clean Roll repository table
     And the following Rolls in my service
       | id                                   | material | color    | weight |
       | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ROJO     | 500    |

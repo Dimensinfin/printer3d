@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
-import org.dimensinfin.printer3d.client.part.domain.PartList;
+import org.dimensinfin.printer3d.client.domain.PartList;
 
 @RestController
 @CrossOrigin

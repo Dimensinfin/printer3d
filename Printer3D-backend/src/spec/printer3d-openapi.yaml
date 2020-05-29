@@ -32,6 +32,8 @@ info:
     another layer until we have the model complete. The **Rolls** are the storage for the plastic. It comes in long mono filament plastic lines of
     thousands of metres of length. Usually they are bought by weight.
 
+    * **Finishing** - This is an especial response entity to collect all the distinct colors available for an specific type of material.
+
     * **Machine** - This is the entity that describes a 3D printer model and its configuration.
 
   license:
@@ -88,7 +90,6 @@ paths:
     get:
       tags:
         - Inventory
-        - Parts
       summary: Get the list of Parts persisted at the Inventory repository.
       description: >
         Get the complete list of <b>Parts</b> persisted at the Inventory repository. If the active filter is active retrieve only the active Parts.
@@ -150,7 +151,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Part'
 
-  ### M A T E R I A L S
+  ### R O L L S
   /api/v1/inventory/rolls:
     post:
       tags:
@@ -175,6 +176,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Roll'
+    get:
+      tags:
+        - Inventory
+      summary: Get the list of Rolls persisted at the Inventory repository.
+      description: >
+        Get the complete list of **Rolls** persisted at the Inventory repository.
+      operationId: getRolls
+      responses:
+        200:
+          description: >
+            The list of Rolls persisted at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RollList'
+
+  /api/v1/inventory/finishings:
+    get:
+      tags:
+        - Inventory
+      summary: Returns the list of Materials with the colors available for each one.
+      description: >
+        The endpoint collects the materials and colors from all the stock of available rolls. Collects the data and sorts the colors before packing
+        them to be retuned to the frontend.
+      operationId: finishingList
+      responses:
+        200:
+          description: >
+            The current list of finishings constructed with the rolls available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinishingsResponse'
 
   ### M A C H I N E S
   /api/v1/inventory/machines:
@@ -420,6 +454,58 @@ components:
             from the inventory when they have their weight under a predetermined level. The unit or representation is grames.
           example:
             1000
+    RollList:
+      type: object
+      required:
+        - count
+        - rolls
+      properties:
+        count:
+          type: number
+          format: int32
+          description: >
+            The number of Rolls that follow on the response.
+          example:
+            8
+        rolls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Roll'
+
+    FinishingsResponse:
+      type: object
+      required:
+        - materials
+      properties:
+        materials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Finishing'
+          description: >
+            The list of unique plastic filament materials ordered alphabetically ascending.
+    Finishing:
+      type: object
+      required:
+        - material
+        - colors
+      properties:
+        material:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 16
+          description: >
+            This is the material name as records on the **Roll** record. Used to collect all this same material colors.
+          example:
+            'PLA'
+        colors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Colors'
+          description: >
+            The list of unique colors for active rolls ordered alphabetically descending.
+          example:
+            ['BLANCO', 'NEGRO', 'ROJO']
 
     ColorCode:
       type: string
@@ -441,3 +527,10 @@ components:
       pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
       example:
         4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+    Colors:
+      type: array
+      items:
+        type: string
+        format: string
+        minLength: 1
+        maxLength: 32

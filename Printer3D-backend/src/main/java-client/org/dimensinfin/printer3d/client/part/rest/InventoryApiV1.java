@@ -5,8 +5,9 @@ import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.RollList;
-import org.dimensinfin.printer3d.client.part.domain.PartList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
