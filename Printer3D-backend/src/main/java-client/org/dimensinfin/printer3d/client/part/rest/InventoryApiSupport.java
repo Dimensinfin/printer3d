@@ -8,6 +8,10 @@ import retrofit2.http.Headers;
 
 public interface InventoryApiSupport {
 	@Headers({ "Content-Type:application/json" })
+	@GET("/api/v1/inventory/parts/delete/all")
+	Call<CountResponse> deleteAllParts();
+
+	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/inventory/rolls/delete/all")
 	Call<CountResponse> deleteAllRolls();
 }

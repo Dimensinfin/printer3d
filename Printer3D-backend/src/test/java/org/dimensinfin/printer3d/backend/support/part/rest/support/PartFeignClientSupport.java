@@ -7,7 +7,7 @@ import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
-import org.dimensinfin.printer3d.client.part.rest.PartsApiSupport;
+import org.dimensinfin.printer3d.client.part.rest.InventoryApiSupport;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -25,7 +25,7 @@ public class PartFeignClientSupport extends CommonFeignClient {
 					.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 					.addConverterFactory( GSON_CONVERTER_FACTORY )
 					.build()
-					.create( PartsApiSupport.class )
+					.create( InventoryApiSupport.class )
 					.deleteAllParts()
 					.execute();
 			if (response.isSuccessful()) {

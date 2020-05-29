@@ -20,7 +20,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+        format_sql: false
   datasource:
     url: "jdbc:postgresql://postgres-dev:5432/postgres"
     driver-class-name: org.postgresql.Driver

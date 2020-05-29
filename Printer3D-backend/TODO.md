@@ -9,5 +9,11 @@
 * FinishingsResponse
 * RollServiceV1
 * RollControllerV1
+* FinishingsServiceV1
+* FinishingsControllerV1
+* Finishing
+* FinishinfSerializer
+* FinishingResponse
+* FinishingResponseSerializer
 
 

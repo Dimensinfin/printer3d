@@ -42,7 +42,7 @@ class RollControllerV1 {
 	@GetMapping(path = "/inventory/rolls",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<RollList> partsList() {
+	public ResponseEntity<RollList> getRolls() {
 		return new ResponseEntity<>( this.rollServiceV1.getRolls(), HttpStatus.OK );
 	}
 }
