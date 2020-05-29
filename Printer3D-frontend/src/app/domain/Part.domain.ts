@@ -1,7 +1,6 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { Node } from './Node';
 
 export class Part {
     public id: string;

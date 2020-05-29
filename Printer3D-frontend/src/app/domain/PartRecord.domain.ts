@@ -3,8 +3,8 @@ export class PartRecord {
     public descripcion: string;
     public material: string;
     public color: string;
-    // public cost: number;
-    // public price: number;
+    public coste: string;
+    public precio: string;
     // public buildTime: number;
     // public stockLevel: number = 1;
     // public stockAvailable: number = 0;
