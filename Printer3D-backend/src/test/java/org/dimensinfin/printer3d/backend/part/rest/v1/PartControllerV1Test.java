@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.part.rest.v1;
 
 import java.util.Optional;
-import javax.servlet.http.HttpServletResponse;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +9,7 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
-import org.dimensinfin.printer3d.client.part.domain.PartList;
+import org.dimensinfin.printer3d.client.domain.PartList;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_COUNT;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_PARTLIST;
@@ -48,7 +47,6 @@ public class PartControllerV1Test {
 	@Test
 	public void partsList() {
 		// Given
-		final HttpServletResponse response = Mockito.mock( HttpServletResponse.class );
 		final PartList partList = new PartList.Builder()
 				.withCount( TEST_PARTLIST_COUNT )
 				.withPartList( TEST_PARTLIST_PARTLIST )
@@ -57,7 +55,7 @@ public class PartControllerV1Test {
 		Mockito.when( this.partServiceV1.partsList( true ) ).thenReturn( partList );
 		// Test
 		final PartControllerV1 controllerV1 = new PartControllerV1( this.partServiceV1 );
-		final ResponseEntity<PartList> obtained = controllerV1.partsList( response, Optional.of( true ) );
+		final ResponseEntity<PartList> obtained = controllerV1.partsList( Optional.of( true ) );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

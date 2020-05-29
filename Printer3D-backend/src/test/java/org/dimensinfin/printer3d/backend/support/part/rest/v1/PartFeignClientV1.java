@@ -10,8 +10,8 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
-import org.dimensinfin.printer3d.client.part.domain.PartList;
-import org.dimensinfin.printer3d.client.part.rest.PartsApiV1;
+import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.part.rest.InventoryApiV1;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -28,7 +28,7 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
-				.create( PartsApiV1.class )
+				.create( InventoryApiV1.class )
 				.partList( authorizationToken, false )
 				.execute();
 		if (response.isSuccessful()) {
@@ -42,7 +42,7 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
-				.create( PartsApiV1.class )
+				.create( InventoryApiV1.class )
 				.newPart( authorizationToken, part )
 				.execute();
 		if (response.isSuccessful()) {
@@ -51,13 +51,13 @@ public class PartFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<PartList> partList( final String authorizationToken ) throws IOException {
+	public ResponseEntity<PartList> getParts( final String authorizationToken ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the list of all parts including not active.";
 		final Response<PartList> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
-				.create( PartsApiV1.class )
+				.create( InventoryApiV1.class )
 				.partList( authorizationToken, false )
 				.execute();
 		if (response.isSuccessful()) {

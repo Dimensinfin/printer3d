@@ -5,7 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
-import org.dimensinfin.printer3d.client.part.domain.PartList;
+import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.domain.RollList;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;
@@ -13,15 +14,7 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<PartList> partListResponseEntity;
 	private Roll roll;
 	private ResponseEntity<Roll> newRollResponseEntity;
-
-	public ResponseEntity<Roll> getNewRollResponseEntity() {
-		return this.newRollResponseEntity;
-	}
-
-	public Printer3DWorld setNewRollResponseEntity( final ResponseEntity<Roll> newRollResponseEntity ) {
-		this.newRollResponseEntity = newRollResponseEntity;
-		return this;
-	}
+	private ResponseEntity<RollList> rollListResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public ResponseEntity<Part> getNewPartResponseEntity() {
@@ -30,6 +23,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setNewPartResponseEntity( final ResponseEntity<Part> newPartResponseEntity ) {
 		this.newPartResponseEntity = newPartResponseEntity;
+		return this;
+	}
+
+	public ResponseEntity<Roll> getNewRollResponseEntity() {
+		return this.newRollResponseEntity;
+	}
+
+	public Printer3DWorld setNewRollResponseEntity( final ResponseEntity<Roll> newRollResponseEntity ) {
+		this.newRollResponseEntity = newRollResponseEntity;
 		return this;
 	}
 
@@ -57,6 +59,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setRoll( final Roll roll ) {
 		this.roll = roll;
+		return this;
+	}
+
+	public ResponseEntity<RollList> getRollListResponseEntity() {
+		return this.rollListResponseEntity;
+	}
+
+	public Printer3DWorld setRollListResponseEntity( final ResponseEntity<RollList> rollListResponseEntity ) {
+		this.rollListResponseEntity = rollListResponseEntity;
 		return this;
 	}
 }
