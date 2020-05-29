@@ -5,9 +5,8 @@ import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
-import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.RollList;
-import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.part.domain.PartList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -35,7 +34,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/rolls")
-	Call<RollList> getRolls(@Header("Authorization") final @NotNull String authorizationToken);
+	Call<RollList> getRolls( @Header("Authorization") final @NotNull String authorizationToken);
 
 	/**
 	 * Create a new Part from the data on the request.
