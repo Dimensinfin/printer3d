@@ -93,10 +93,8 @@ export class V1DockComponent implements OnInit {
      * @param route the new route path to be set as destination.
      */
     private pageChange(route: string): void {
-        // this.appStore.saveDockConfiguration(this.configuredFeatures);
         console.log('><[V1DockComponent.pageChange]> Route: ' + route);
-        this.router.navigate(['/']);
-        this.router.navigate([route]);
-        this.routerDetector.refresh();
+         this.router.navigate([route]);
+        if (null != this.routerDetector) this.routerDetector.refresh();
     }
 }
