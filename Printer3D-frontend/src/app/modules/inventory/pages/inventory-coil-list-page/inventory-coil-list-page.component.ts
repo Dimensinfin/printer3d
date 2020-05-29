@@ -16,23 +16,22 @@ import { Subscription } from 'rxjs';
 import { PartTransformer } from '@domain/transformer/PartTransformer.tranformer';
 import { Part } from '@domain/Part.domain';
 
+
 @Component({
-    selector: 'inventory-part-list-page',
-    templateUrl: './inventory-part-list-page.component.html',
-    styleUrls: ['./inventory-part-list-page.component.scss']
+  selector: 'inventory-coil-list-page',
+  templateUrl: './inventory-coil-list-page.component.html',
+  styleUrls: ['./inventory-coil-list-page.component.scss']
 })
-export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refreshable {
+export class InventoryCoilListPageComponent implements OnInit, OnDestroy, Refreshable {
     public pagePath: string = '/Inventario/Lista Piezas';
     public columnDefs: GridColumn[] = [];
     public rowData: PartRecord[] = [];
-     private recordContainer: PartTransformer = new PartTransformer();
+    private recordContainer: PartTransformer = new PartTransformer();
     private backendConnections: Subscription[] = [];
 
-    constructor(
-        protected appStore: AppStoreService,
-        protected backend: BackendService) { }
+    constructor(  protected backend: BackendService) { }
 
-    public ngOnInit(): void {
+   public ngOnInit(): void {
         this.columnDefs = this.recordContainer.getDefinitions();
         this.refresh();
     }
@@ -45,16 +44,16 @@ export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refres
         });
     }
     public refresh(): void {
-        this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
-            .setTransformation((entrydata: any): PartListResponse => {
-                return new PartListResponse(entrydata);
-            }))
-            .subscribe((response: PartListResponse) => {
-                // Convert DTO data into Grid data with a Converter
-                response.records.forEach(record => {
-                    this.recordContainer.transform(record);
-                });
-                this.rowData = this.recordContainer.getRecords();
-            });
+        // this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+        //     .setTransformation((entrydata: any): PartListResponse => {
+        //         return new PartListResponse(entrydata);
+        //     }))
+        //     .subscribe((response: PartListResponse) => {
+        //         // Convert DTO data into Grid data with a Converter
+        //         response.records.forEach(record => {
+        //             this.recordContainer.transform(record);
+        //         });
+        //         this.rowData = this.recordContainer.getRecords();
+        //     });
     }
 }

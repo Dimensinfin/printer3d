@@ -7,6 +7,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from '../shared/shared.module';
 // - COMPONENTS
 import { InventoryPartListPageComponent } from './pages/inventory-part-list-page/inventory-part-list-page.component';
+import { InventoryCoilListPageComponent } from './pages/inventory-coil-list-page/inventory-coil-list-page.component';
 import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialog.component';
 import { NewRollDialogComponent } from './dialogs/new-roll-dialog/new-roll-dialog.component';
 
@@ -19,12 +20,13 @@ import { NewRollDialogComponent } from './dialogs/new-roll-dialog/new-roll-dialo
     ],
     declarations: [
         InventoryPartListPageComponent, 
+        InventoryCoilListPageComponent,
         NewPartDialogComponent,
         NewRollDialogComponent
     ],
     exports: [
         InventoryPartListPageComponent, 
-        NewPartDialogComponent
+        NewPartDialogComponent, InventoryCoilListPageComponent
     ]
 })
 export class InventoryModule { }

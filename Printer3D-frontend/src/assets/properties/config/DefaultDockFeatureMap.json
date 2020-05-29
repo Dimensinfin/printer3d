@@ -12,7 +12,7 @@
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
-        "route": "/inventory"
+        "route": "/inventory/partlist"
     },
     {
         "jsonClass": "Feature",
@@ -25,9 +25,9 @@
     {
         "jsonClass": "Feature",
         "label": "/Rollos",
-        "enabled": false,
+        "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
-        "route": "/materials"
+        "route": "inventory/coillist"
     }
 ]
