@@ -16,7 +16,6 @@ Feature: Process and compose the list of Finishings
   # - H A P P Y   P A T H
   @P3D03.H @P3D03.01
   Scenario: [P3D03.01] When we receive a new Finishing request we collect all the records for active rolls and create the response.
-#    And a new Get Finishings request
     When the Get Finishings request is processed
     Then there is a valid response with return code of "200 OK"
 

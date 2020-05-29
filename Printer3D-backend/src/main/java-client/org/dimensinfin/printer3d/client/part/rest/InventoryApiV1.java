@@ -27,7 +27,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/finishings")
-	Call<FinishingsResponse> finishingList( @Header("Authorization") final @NotNull String authorizationToken );
+	Call<FinishingsResponse> getFinishings( @Header("Authorization") final @NotNull String authorizationToken );
 	/**
 	 * Get the list of Rolls persisted at the Inventory repository.
 	 * Get the complete list of **Rolls** persisted at the Inventory repository.

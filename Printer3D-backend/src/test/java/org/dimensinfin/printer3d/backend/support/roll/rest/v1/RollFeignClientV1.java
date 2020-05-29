@@ -10,6 +10,7 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
+import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.RollList;
 import org.dimensinfin.printer3d.client.part.rest.InventoryApiV1;
 
@@ -22,6 +23,36 @@ public class RollFeignClientV1 extends CommonFeignClient {
 		super( acceptanceTargetConfig );
 	}
 
+	public ResponseEntity<FinishingsResponse> getFinishings( final String authorizationToken ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the list of Finishings to report the available colors.";
+		final Response<FinishingsResponse> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.getFinishings( authorizationToken )
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
+
+	public ResponseEntity<RollList> getRolls( final String authorizationToken ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
+		final Response<RollList> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.getRolls( authorizationToken )
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
+
 	public ResponseEntity<Roll> newRoll( final String authorizationToken, final Roll roll ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
 		final Response<Roll> response = new Retrofit.Builder()
@@ -30,20 +61,6 @@ public class RollFeignClientV1 extends CommonFeignClient {
 				.build()
 				.create( InventoryApiV1.class )
 				.newRoll( authorizationToken, roll )
-				.execute();
-		if (response.isSuccessful()) {
-			LogWrapper.info( ENDPOINT_MESSAGE );
-			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
-	}
-	public ResponseEntity<RollList> getRolls ( final String authorizationToken) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
-		final Response<RollList> response = new Retrofit.Builder()
-				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
-				.addConverterFactory( GSON_CONVERTER_FACTORY )
-				.build()
-				.create( InventoryApiV1.class )
-				.getRolls( authorizationToken )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
 import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.RollList;
 
@@ -15,8 +16,18 @@ public class Printer3DWorld extends CommonWorld {
 	private Roll roll;
 	private ResponseEntity<Roll> newRollResponseEntity;
 	private ResponseEntity<RollList> rollListResponseEntity;
+	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
+	public ResponseEntity<FinishingsResponse> getFinishingsResponseEntity() {
+		return this.finishingsResponseEntity;
+	}
+
+	public Printer3DWorld setFinishingsResponseEntity( final ResponseEntity<FinishingsResponse> finishingsResponseEntity ) {
+		this.finishingsResponseEntity = finishingsResponseEntity;
+		return this;
+	}
+
 	public ResponseEntity<Part> getNewPartResponseEntity() {
 		return this.newPartResponseEntity;
 	}

@@ -4,5 +4,6 @@ public enum RequestType {
 	NEW_PART,
 	GET_PARTS,
 	NEW_ROLL,
-	GET_ROLLS
+	GET_ROLLS,
+	GET_FINISHINGS
 }

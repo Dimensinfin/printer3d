@@ -200,7 +200,7 @@ paths:
       description: >
         The endpoint collects the materials and colors from all the stock of available rolls. Collects the data and sorts the colors before packing
         them to be retuned to the frontend.
-      operationId: finishingList
+      operationId: getFinishings
       responses:
         200:
           description: >

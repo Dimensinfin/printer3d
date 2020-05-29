@@ -14,6 +14,7 @@ import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.part.rest.v1.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.RollFeignClientV1;
+import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.RollList;
 
@@ -32,9 +33,19 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.rollFeignClientV1 = Objects.requireNonNull( rollFeignClientV1 );
 	}
 
+	@When("the Get Finishings request is processed")
+	public void the_Get_Finishings_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_FINISHINGS );
+	}
+
 	@When("the Get Parts request is processed")
 	public void the_Get_Parts_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_PARTS );
+	}
+
+	@When("the Get Rolls request is processed")
+	public void the_Get_Rolls_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_ROLLS );
 	}
 
 	@When("the New Part request is processed")
@@ -45,10 +56,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the New Roll request is processed")
 	public void the_New_Roll_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_ROLL );
-	}
-	@When("the Get Rolls request is processed")
-	public void the_Get_Rolls_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_ROLLS );
 	}
 
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
@@ -81,6 +88,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( rollListResponseEntity );
 				this.printer3DWorld.setRollListResponseEntity( rollListResponseEntity );
 				return rollListResponseEntity;
+			case GET_FINISHINGS:
+				final ResponseEntity<FinishingsResponse> finishingsResponseEntity = this.rollFeignClientV1
+						.getFinishings( this.printer3DWorld.getJwtAuthorizationToken() );
+				Assertions.assertNotNull( finishingsResponseEntity );
+				this.printer3DWorld.setFinishingsResponseEntity( finishingsResponseEntity );
+				return finishingsResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
