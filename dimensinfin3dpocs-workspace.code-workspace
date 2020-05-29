@@ -2,9 +2,6 @@
     "folders": [
         {
             "path": "."
-        },
-        {
-            "path": "../../InnoDentalv0.12.0/CitasCentro.frontend"
         }
     ],
     "settings": {

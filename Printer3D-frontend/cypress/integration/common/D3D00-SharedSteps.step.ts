@@ -42,23 +42,11 @@ Given('one instance of Dock', function () {
     cy.get('app-root').find('v1-dock').should('have.length', 1)
 });
 
-Given('one instance of GridAngular', function () {
-    console.log('[GIVEN] one instance of GridAngular');
-    cy.get('app-root').find('inventory-part-list-page').find('ag-grid-angular').should('have.length', 1)
-});
-
 Given('one or more instances of Feature', function () {
     console.log('[GIVEN] one or more instances of Feature');
     const feature: V1Feature = new V1Feature();
     expect(feature).to.not.be.null;
     cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)
-});
-
-Given('one or more instances of Row', function () {
-    console.log('[GIVEN] one or more instances of Feature');
-    // const feature: V1Feature = new V1Feature();
-    // expect(feature).to.not.be.null;
-    cy.get('app-root').find('inventory-part-list-page').find('ag-grid-angular').get('[role="row"]')
 });
 
 Then('there is a {string} with the next fields', (panelType, dataTable) => {
