@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.part.rest.v1.PartFeignClientV1;

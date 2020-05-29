@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
 public class TestDataConstants {
 	public static class PartListConstants {

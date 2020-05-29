@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.rest.support;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.support;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 
 import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
-import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.InventoryRepository;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_COUNT;
 

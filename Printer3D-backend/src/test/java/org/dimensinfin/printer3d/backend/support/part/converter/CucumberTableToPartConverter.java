@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.BUILD_TIME;

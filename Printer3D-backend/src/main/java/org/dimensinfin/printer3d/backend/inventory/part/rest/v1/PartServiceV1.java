@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.rest.v1;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.v1;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.InventoryRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
 
 @Service

@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.rest.support;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.support;
 
 import java.util.Objects;
 import javax.validation.constraints.NotNull;

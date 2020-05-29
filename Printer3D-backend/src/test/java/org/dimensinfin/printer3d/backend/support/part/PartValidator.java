@@ -5,7 +5,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 
 import org.dimensinfin.acceptance.support.Validator;
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.COST;

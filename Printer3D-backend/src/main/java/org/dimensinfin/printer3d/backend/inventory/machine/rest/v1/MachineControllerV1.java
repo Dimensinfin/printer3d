@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.machine.rest.v1;
+package org.dimensinfin.printer3d.backend.inventory.machine.rest.v1;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;

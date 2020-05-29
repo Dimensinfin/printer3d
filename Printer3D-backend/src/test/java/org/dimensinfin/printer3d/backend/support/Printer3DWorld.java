@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.RollList;

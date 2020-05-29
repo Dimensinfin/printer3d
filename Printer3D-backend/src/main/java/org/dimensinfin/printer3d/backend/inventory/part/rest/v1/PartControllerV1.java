@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.rest.v1;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.v1;
 
 import java.util.Optional;
 import javax.validation.Valid;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
 
 @RestController

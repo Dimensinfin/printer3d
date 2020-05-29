@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.rest.v1;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.v1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.InventoryRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;

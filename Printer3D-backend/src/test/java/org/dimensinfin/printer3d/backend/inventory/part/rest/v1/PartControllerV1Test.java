@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.rest.v1;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.v1;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_COUNT;

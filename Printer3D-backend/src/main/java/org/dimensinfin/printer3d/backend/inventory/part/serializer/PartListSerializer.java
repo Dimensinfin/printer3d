@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.serializer;
+package org.dimensinfin.printer3d.backend.inventory.part.serializer;
 
 import java.io.IOException;
 

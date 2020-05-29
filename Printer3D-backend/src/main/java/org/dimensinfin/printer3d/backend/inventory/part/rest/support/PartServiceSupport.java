@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.part.rest.support;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.support;
 
 import java.sql.SQLException;
 import java.util.Objects;
@@ -11,7 +11,7 @@ import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.part.persistence.InventoryRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.InventoryRepository;
 
 @Service
 public class PartServiceSupport {
