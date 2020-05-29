@@ -31,7 +31,7 @@ response:
     - "Content-Type: application/json"
   body:
     type: text
-    file: "${sim.path}/responses/inventory.parts.active.json"
+    file: "${sim.path}/responses/inventory.parts.onlyActive.json"
 
 ---
 
@@ -83,3 +83,20 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.finishings.json"
+
+---
+
+simlet: inventory-coils
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v1/inventory/coils"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.coils.json"
