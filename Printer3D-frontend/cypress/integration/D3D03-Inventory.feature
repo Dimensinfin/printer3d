@@ -42,4 +42,6 @@ Feature: [D3D03]-Validate the Inventory features and page contents.
         Given there is a click on Feature "/ROLLOS"
         Given the InventoryCoilListPage is activated
         Given one instance of GridAngular
-        Then there is a column with "etiqueta" data
+        Then there is a column with "material" data
+        Then there is a column with "color" data
+        Then there is a column with "peso" data
