@@ -33,12 +33,15 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
     let component: V1FeatureRenderComponent;
     let dock: V1DockComponent;
-    let dialogRef = { afterClosed: () => { 
-        return Observable.create((observer) => {
-            observer.complete();
-        });
-    }}
-    let dialogFactoryService = { processClick: (feature: Feature) => { return dialogRef }};
+    let dialogRef = {
+        afterClosed: () => {
+            return Observable.create((observer) => {
+                observer.next({})
+                observer.complete();
+            });
+        }
+    }
+    let dialogFactoryService = { processClick: (feature: Feature) => { console.log('POINT'); return dialogRef } };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -52,9 +55,9 @@ describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
             ],
             providers: [
                 { provide: DialogFactoryService, useValue: dialogFactoryService },
+                { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: AppStoreService, useClass: SupportAppStoreService },
                 { provide: BackendService, useClass: SupportBackendService },
-                { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]
         }).compileComponents();
@@ -75,12 +78,19 @@ describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
-        it('onClick.empty: run the action connected to the feature click', () => {
-            component.node = new Feature();
+        it('onClick.null: run the action when there is no feature', () => {
+            component.node = undefined;
+            spyOn(dialogFactoryService, 'processClick');
             component.onClick();
-            expect(component.node).toBeDefined();
+            expect(dialogFactoryService.processClick).not.toHaveBeenCalled();
         });
-        it('onClick.route: run the action connected to the feature click', () => {
+        it('onClick.disabled: run the action then the feature is diasabled', () => {
+            component.node = new Feature({ enabled: false });
+            spyOn(dialogFactoryService, 'processClick');
+            component.onClick();
+            expect(dialogFactoryService.processClick).not.toHaveBeenCalled();
+        });
+        it('onClick.PAGEROUTE: run the action for a PAGEROUTE', () => {
             component.dock = dock;
             component.node = new Feature({
                 "jsonClass": "Feature",
@@ -94,8 +104,8 @@ describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
             component.onClick();
             expect(dock.activateFeature).toHaveBeenCalled();
         });
-        xit('onClick.dialog: run the action connected to the feature click', () => {
-            // component.dock = dock;
+        it('onClick.DIALOG: run the action connected to the feature click', async () => {
+            component.dock = dock;
             component.node = new Feature({
                 "jsonClass": "Feature",
                 "label": "/Nueva Pieza",
@@ -104,8 +114,8 @@ describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
                 "interaction": "DIALOG",
                 "dialog": "NewPartDialog"
             });
-            spyOn(dialogFactoryService, 'processClick');
-            component.onClick();
+            spyOn(dialogFactoryService, 'processClick').and.returnValue(dialogRef)
+            await component.onClick();
             expect(dialogFactoryService.processClick).toHaveBeenCalled();
         });
     });

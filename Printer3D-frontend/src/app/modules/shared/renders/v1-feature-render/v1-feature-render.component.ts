@@ -25,14 +25,16 @@ export class V1FeatureRenderComponent {
      * If the feature is of type DIALOG then we can process the click here by opening the dialog requested.
      */
     public onClick() {
-        console.log('><[V1FeatureRenderComponent,onClick]> Label: ' + this.node.label)
-        if (this.node.enabled) // Only interact with enabled Features
-            if (null != this.node) {
+        if (null != this.node) {
+            console.log('><[V1FeatureRenderComponent,onClick]> Label: ' + this.node.label)
+            if (this.node.enabled) // Only interact with enabled Features
                 switch (this.node.interaction) {
                     case 'PAGEROUTE':
+                        console.log('><[V1FeatureRenderComponent,onClick]> PAGEROUTE')
                         if (null != this.dock) this.dock.activateFeature(this.node);
                         break;
                     case 'DIALOG':
+                        console.log('><[V1FeatureRenderComponent,onClick]> DIALOG')
                         this.node.activate();
                         const dialogRef = this.dialogFactory.processClick(this.node);
                         dialogRef.afterClosed()
@@ -47,6 +49,6 @@ export class V1FeatureRenderComponent {
                     //     if (null != this.dock) this.dock.activateFeature(this.node);
                     //     break;
                 }
-            }
+        }
     }
 }

@@ -5,7 +5,7 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { IsolationService } from '../../support/IsolationService.support';
 import { NewPartForm } from '../../support/page-objects/NewPartForm.form';
-import { NewRollForm } from '../../support/page-objects/NewRollForm.form';
+import { NewCoilForm } from '../../support/page-objects/NewRollForm.form';
 
 Then('the New Roll dialog opens and blocks the display', function () {
     console.log('[THEN] the New Roll dialog opens and blocks the display');
@@ -14,7 +14,7 @@ Then('the New Roll dialog opens and blocks the display', function () {
 
 Then('the button {string} has the next properties', function (buttonName: string, dataTable: any) {
     console.log('[THEN] the button {string} has the next properties');
-    const form = new NewRollForm();
+    const form = new NewCoilForm();
     expect(form).to.not.be.null;
     for (let index = 0; index < dataTable.hashes().length; index++) {
         const row = dataTable.hashes()[index];
@@ -25,7 +25,7 @@ Then('the button {string} has the next properties', function (buttonName: string
 Then('when all required fields have next values', function (dataTable) {
     console.log('[THEN] the button {string} has the next properties');
     const row = dataTable.hashes()[0];
-    const form = new NewRollForm();
+    const form = new NewCoilForm();
     expect(form).to.not.be.null;
     form.formInput(row);
 });
@@ -62,7 +62,7 @@ Then('there is one field called {string} with the content {string}', function (f
 
 Then('form fields have the next values', function (dataTable) {
     const row = dataTable.hashes()[0];
-    const form = new NewRollForm();
+    const form = new NewCoilForm();
     expect(form).to.not.be.null;
     form.validateFields(row);
   });
