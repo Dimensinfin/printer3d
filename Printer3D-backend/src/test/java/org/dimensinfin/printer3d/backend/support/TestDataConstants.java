@@ -27,10 +27,12 @@ public class TestDataConstants {
 		public static final String TEST_PART_MODEL_PATH = "pieza3.STL";
 	}
 
-	public static class RollConstants {
+	public static class CoilConstants {
 		public static final UUID TEST_ROLL_ID = UUID.randomUUID();
 		public static final String TEST_ROLL_MATERIAL = "PLA";
 		public static final String TEST_ROLL_COLOR = "-COLOR-";
 		public static final Integer TEST_ROLL_WEIGHT = 750;
+	}public static class FinishingConstants{
+		public static final String TEST_FINISHING_MATERIAL="-TEST_FINISHING_MATERIAL-";
 	}
 }

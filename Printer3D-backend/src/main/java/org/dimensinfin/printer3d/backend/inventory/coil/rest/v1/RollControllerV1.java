@@ -32,17 +32,18 @@ class RollControllerV1 {
 		this.coilviceV1 = Objects.requireNonNull( coilviceV1 );
 	}
 
-	@PostMapping(path = "/inventory/rolls",
-			consumes = "application/json",
-			produces = "application/json")
-	public ResponseEntity<Coil> newRoll( final @RequestBody @Valid @NotNull Coil coil ) {
-		return new ResponseEntity<>( this.coilviceV1.newCoil( coil ), HttpStatus.CREATED );
-	}
-
+// - G E T T E R S   &   S E T T E R S
 	@GetMapping(path = "/inventory/rolls",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<CoilList> getRolls() {
 		return new ResponseEntity<>( this.coilviceV1.getRolls(), HttpStatus.OK );
+	}
+
+	@PostMapping(path = "/inventory/rolls",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Coil> newRoll( final @RequestBody @Valid @NotNull Coil coil ) {
+		return new ResponseEntity<>( this.coilviceV1.newCoil( coil ), HttpStatus.CREATED );
 	}
 }

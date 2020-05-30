@@ -54,7 +54,7 @@ public class CoilControllerSupportTest {
 		} );
 	}
 
-	@Test
-	public void testDeleteAllRolls() {
-	}
+	////	@Test
+	//	public void testDeleteAllRolls() {
+	//	}
 }

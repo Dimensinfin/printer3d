@@ -30,6 +30,8 @@ public class Finishing {
 		}
 
 		public Finishing build() {
+			Objects.requireNonNull( this.onConstruction.material );
+			Objects.requireNonNull( this.onConstruction.colors );
 			return this.onConstruction;
 		}
 

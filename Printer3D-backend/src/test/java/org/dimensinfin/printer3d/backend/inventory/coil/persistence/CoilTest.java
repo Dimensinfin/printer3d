@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RollConstants.TEST_ROLL_COLOR;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RollConstants.TEST_ROLL_ID;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RollConstants.TEST_ROLL_MATERIAL;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RollConstants.TEST_ROLL_WEIGHT;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_COLOR;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_MATERIAL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_WEIGHT;
 
 public class CoilTest {
 	@Test

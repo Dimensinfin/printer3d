@@ -13,7 +13,8 @@ RollControllerV1
 FinishingsServiceV1
 FinishingsControllerV1
 * Finishing
-* FinishinfSerializer
+
+FinishinfSerializer
 * FinishingResponse
 * FinishingResponseSerializer
 

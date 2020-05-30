@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FinishingsResponse {
-	private List<Finishing> materials = new ArrayList<Finishing>();
+	private List<Finishing> materials = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
 	private FinishingsResponse() {}

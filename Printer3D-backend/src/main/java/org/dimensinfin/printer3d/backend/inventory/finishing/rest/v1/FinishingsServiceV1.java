@@ -51,12 +51,12 @@ public class FinishingsServiceV1 {
 
 	private FinishingsResponse composeFittingsResponse( final Map<String, Set<String>> finishingsOnConstruction ) {
 		final FinishingsResponse finishingsResponse = new FinishingsResponse.Builder().build();
-		for (String key : finishingsOnConstruction.keySet()) {
-			final Set<String> colors = finishingsOnConstruction.get( key );
+		for (Map.Entry<String, Set<String>> entry : finishingsOnConstruction.entrySet()) {
+			final Set<String> colors = entry.getValue();
 			final ArrayList<String> col = new ArrayList<>( colors );
 			Collections.sort( col );
 			final Finishing material = new Finishing.Builder()
-					.withMaterial( key )
+					.withMaterial( entry.getKey() )
 					.withColors( col )
 					.build();
 			finishingsResponse.addFinishing( material );
