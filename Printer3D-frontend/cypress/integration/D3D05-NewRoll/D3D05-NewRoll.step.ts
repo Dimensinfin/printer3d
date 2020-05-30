@@ -57,7 +57,7 @@ Then('the dialog closes', function () {
 });
 
 Then('there is one field called {string} with the content {string}', function (fieldName, value) {
-    cy.get('mat-dialog-container').find('input').get('[name=' + fieldName + ']').should('have.value', value)
+    cy.get('mat-dialog-container').find('input').get('[name="' + fieldName + '"]').should('have.value', value)
 });
 
 Then('form fields have the next values', function (dataTable) {

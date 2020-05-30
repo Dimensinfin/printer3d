@@ -40,16 +40,19 @@ export class NewRollForm extends IsolationService {
                     case 'material':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> MATERIAL=' + value);
+                        cy.get('new-roll-dialog').get('form').find('.roll-material').clear()
                         cy.get('new-roll-dialog').get('form').find('.roll-material').type(value)
                         break;
                     case 'color':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
+                        cy.get('new-roll-dialog').get('form').find('.roll-color').clear()
                         cy.get('new-roll-dialog').get('form').find('.roll-color').type(value)
                         break;
                     case 'peso':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> BUILD_TIME=' + value);
+                        cy.get('new-roll-dialog').get('form').find('.roll-weight').clear()
                         cy.get('new-roll-dialog').get('form').find('.roll-weight').type(value)
                         break;
                 }
@@ -60,26 +63,29 @@ export class NewRollForm extends IsolationService {
         console.log('[NewPartForm.validateField]> row:' + JSON.stringify(row));
         for (const key in row) {
             if (row.hasOwnProperty(key)) {
-                const element = row[key];
+                // const element = row[key];
                 let value: string;
                 switch (key) {
                     case 'material':
-                        value = this.decodeDataTableRow(row, key).toLowerCase();
+                        value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> MATERIAL=' + value);
-                        cy.get('new-roll-dialog').get('form').find('.roll-material')
-                            .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        cy.get('new-roll-dialog').get('form')
+                            .get('input[name="' + key + '"]')
+                            .invoke('val').should('eq', value)
                         break;
                     case 'color':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
-                        cy.get('new-roll-dialog').get('form').find('.roll-color')
-                            .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        cy.get('new-roll-dialog').get('form')
+                            .get('input[name="' + key + '"]')
+                            .invoke('val').should('eq', value)
                         break;
                     case 'peso':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> BUILD_TIME=' + value);
-                        cy.get('new-roll-dialog').get('form').find('.roll-weight')
-                            .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                        cy.get('new-roll-dialog').get('form')
+                            .get('input[name="' + key + '"]')
+                            .invoke('val').should('eq', value)
                         break;
                 }
             }
