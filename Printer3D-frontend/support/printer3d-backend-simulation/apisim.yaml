@@ -56,7 +56,7 @@ simlet: inventory-newroll
 
 request:
   - method: POST
-  - uriPathPattern: "/api/v1/inventory/rolls"
+  - uriPathPattern: "/api/v1/inventory/coils"
 
 response:
   from: template

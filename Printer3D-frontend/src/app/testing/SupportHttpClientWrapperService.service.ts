@@ -10,14 +10,6 @@ import { HttpHeaders } from '@angular/common/http';
 // - SERVICES
 import { IsolationService } from '@app/platform/isolation.service';
 // - DOMAIN
-// import { ValidateAuthorizationTokenResponse } from '@app/domain/dto/ValidateAuthorizationTokenResponse';
-// import { environment } from '@env/environment.prod';
-// import { NeoComResponse } from '@app/domain/dto/NeoComResponse.dto';
-// import { NeoComException } from '@app/platform/NeoComException';
-// import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-// import { Corporation } from '@app/domain/Corporation.domain';
-// import { SupportAppStoreService } from './SupportAppStore.service';
-// import { Pilot } from '@app/domain/Pilot.domain';
 
 const REQUEST_PREFIX = 'http://neocom.infinity.local/api/v1/neocom';
 
@@ -85,27 +77,73 @@ export class SupportHttpClientWrapperService {
         console.log("><[HttpClientWrapperService.decodeRequestPath]> request: " + request);
         let keyword = '-NOT-FOUND-';
         if (request.includes('/inventory/parts')) keyword = 'INVENTORY-PARTS';
+        if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
 
         console.log("><[HttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
             case 'INVENTORY-PARTS':
                 console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryPartsResponseJson = {
-                    "partCount": 1,
-                    "records": [{
-                        "label": "Covid - 19 Key - A",
-                        "description": "Llavero para evitar tocar manillas y pulsadores durante la campaña de Covi - 19. Modelo A que es el más simple en un solo color y sin refuerzos.",
-                        "buildTime": 60,
-                        "affinity": "OFF",
-                        "stockLevel": 2,
-                        "colours": "ALL",
-                        "cost": 0.8,
+                    "jsonClass": "PartList",
+                    "count": 2,
+                    "parts": [{
+                        "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                        "label": "Covid-19 Key",
+                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                        "material": "PLA",
+                        "colorCode": "WHITE",
+                        "buildTime": 15,
+                        "cost": 0.85,
+                        "price": 4.0,
+                        "stockLevel": 3,
+                        "stockAvailable": 4,
+                        "imagePath": "https://ibb.co/3dGbsRh",
+                        "modelPath": "pieza3.sft",
                         "active": true
-                    }]
-
+                    },
+                    {
+                        "id": "55236c12-1322-4e32-8285-dac2a45a65fe",
+                        "label": "Covid-19 Key",
+                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                        "material": "PLA",
+                        "colorCode": "WHITE",
+                        "buildTime": 15,
+                        "cost": 0.85,
+                        "price": 4.0,
+                        "stockLevel": 3,
+                        "stockAvailable": 4,
+                        "imagePath": "https://ibb.co/3dGbsRh",
+                        "modelPath": "pieza3.sft",
+                        "active": true
+                    }
+                    ]
                 };
                 return inventoryPartsResponseJson;
-                break;
+            case 'INVENTORY-COILS':
+                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                const inventoryCoilsResponseJson = {
+                    "count": 3,
+                    "coils": [{
+                        "id": "5f01a53a-7ede-487d-ac3b-51388a7d8e93",
+                        "material": "PLA",
+                        "color": "ROJO",
+                        "weight": 1000
+                    },
+                    {
+                        "id": "2365aee7-9eba-4ad8-9aa0-b3091147158f",
+                        "material": "TPU",
+                        "color": "BLANCO",
+                        "weight": 250
+                    },
+                    {
+                        "id": "16cd8324-f569-41dd-b66f-0a2e188b7e92",
+                        "material": "WER",
+                        "color": "ROJO",
+                        "weight": 300
+                    }
+                    ]
+                }
+                return inventoryCoilsResponseJson;
             default:
                 return {};
         }

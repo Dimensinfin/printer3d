@@ -62,8 +62,8 @@ fdescribe('SERVICE BackendService [Module: CORE]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Backend-API]', async () => {
-        it('apiInventoryParts_v1.default: get the list of Parts', () => {
+    describe('Code Coverage Phase [Backend-API]', () => {
+        it('apiInventoryParts_v1.default: get the list of Parts', async () => {
             service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
                     return new PartListResponse(entrydata);
@@ -74,7 +74,7 @@ fdescribe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.parts.length).toBe(2);
                 });
         });
-        it('apiNewPart_v1.default: get the persisted part', () => {
+        it('apiNewPart_v1.default: get the persisted part', async () => {
             const part = new Part();
             service.apiNewPart_v1(part, new ResponseTransformer().setDescription('Transforms data into Part.')
                 .setTransformation((entrydata: any): Part => {
@@ -84,7 +84,7 @@ fdescribe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('apiNewRoll_v1.default: get the persisted roll', () => {
+        it('apiNewRoll_v1.default: get the persisted roll', async () => {
             const roll = new Coil();
             service.apiNewRoll_v1(roll, new ResponseTransformer().setDescription('Transforms data into Roll.')
                 .setTransformation((entrydata: any): Coil => {
@@ -94,7 +94,7 @@ fdescribe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('apiGetFinishings_v1.default: get the list of finishings available', () => {
+        it('apiGetFinishings_v1.default: get the list of finishings available', async () => {
             service.apiGetFinishings_v1(new ResponseTransformer().setDescription('Transforms data into FinishingResponse.')
                 .setTransformation((entrydata: any): FinishingResponse => {
                     return new FinishingResponse(entrydata);
@@ -103,15 +103,15 @@ fdescribe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('apiInventoryCoils_v1.default: get the list of Coils', () => {
+        it('apiInventoryCoils_v1.default: get the list of Coils', async () => {
             service.apiInventoryCoils_v1(new ResponseTransformer().setDescription('Transforms Inventory Coil list form backend.')
                 .setTransformation((entrydata: any): CoilListResponse => {
                     return new CoilListResponse(entrydata);
                 }))
                 .subscribe((response: CoilListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(2);
-                    expect(response.coils.length).toBe(2);
+                    expect(response.count).toBe(3);
+                    expect(response.coils.length).toBe(3);
                 });
         });
     });

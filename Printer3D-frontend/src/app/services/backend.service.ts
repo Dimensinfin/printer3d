@@ -49,7 +49,7 @@ export class BackendService {
             }));
     }
     public apiNewRoll_v1(newRoll: Coil, transformer: ResponseTransformer): Observable<Coil> {
-        const request = this.APIV1 + '/inventory/rolls';
+        const request = this.APIV1 + '/inventory/coils';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newRoll), headers)
