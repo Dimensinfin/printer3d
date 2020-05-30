@@ -51,7 +51,7 @@ export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refres
             }))
             .subscribe((response: PartListResponse) => {
                 // Convert DTO data into Grid data with a Converter
-                response.records.forEach(record => {
+                response.parts.forEach(record => {
                     this.recordContainer.transform(record);
                 });
                 this.rowData = this.recordContainer.getRecords();

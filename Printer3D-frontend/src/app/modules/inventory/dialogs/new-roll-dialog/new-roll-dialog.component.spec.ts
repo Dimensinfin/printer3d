@@ -33,7 +33,7 @@ import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { Part } from '@domain/Part.domain';
 import { NewRollDialogComponent } from './new-roll-dialog.component';
-import { Roll } from '@domain/Roll.domain';
+import { Coil } from '@domain/Coil.domain';
 
 describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
     let component: NewRollDialogComponent;
@@ -97,7 +97,7 @@ describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
         xit('saveRoll: persist the roll on the backend repository', async () => {
-            const roll: Roll = new Roll({ id: '-ID-' });
+            const roll: Coil = new Coil({ id: '-ID-' });
             const componentAsAny = component as any;
             componentAsAny.roll = roll;
             // const backendService = TestBed.get(BackendService);

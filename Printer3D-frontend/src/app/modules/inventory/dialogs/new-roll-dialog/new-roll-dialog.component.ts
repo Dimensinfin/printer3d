@@ -17,7 +17,7 @@ import { PartRecord } from '@domain/PartRecord.domain';
 import { Part } from '@domain/Part.domain';
 import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Roll } from '@domain/Roll.domain';
+import { Coil } from '@domain/Coil.domain';
 import { RollConstructor } from '@domain/constructor/Roll.constructor';
 
 @Component({
@@ -26,7 +26,7 @@ import { RollConstructor } from '@domain/constructor/Roll.constructor';
     styleUrls: ['./new-roll-dialog.component.scss']
 })
 export class NewRollDialogComponent implements OnInit {
-    public roll: Roll = new Roll();
+    public roll: Coil = new Coil();
     public colors: string[] = [];
     private backendConnections: Subscription[] = [];
 
@@ -53,28 +53,28 @@ export class NewRollDialogComponent implements OnInit {
     // - I N T E R A C T I O N S
     public saveRoll(): void {
         console.log('><[NewRollDialogComponent.saveRoll]')
-        const newRoll: Roll = new RollConstructor().construct(this.roll);
+        const newRoll: Coil = new RollConstructor().construct(this.roll);
         this.backendConnections.push(
             this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
-                .setTransformation((entrydata: any): Roll => {
+                .setTransformation((entrydata: any): Coil => {
                     this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
-                    return new Roll(entrydata);
+                    return new Coil(entrydata);
                 }))
-                .subscribe((persistedRoll: Roll) => {
+                .subscribe((persistedRoll: Coil) => {
                     this.closeModal();
                 })
         )
     }
     public saveRollAndRepeat() {
         console.log('><[NewRollDialogComponent.saveRoll]')
-        const newRoll: Roll = new RollConstructor().construct(this.roll);
+        const newRoll: Coil = new RollConstructor().construct(this.roll);
         this.backendConnections.push(
             this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
-                .setTransformation((entrydata: any): Roll => {
+                .setTransformation((entrydata: any): Coil => {
                     this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
-                    return new Roll(entrydata);
+                    return new Coil(entrydata);
                 }))
-                .subscribe((persistedRoll: Roll) => {
+                .subscribe((persistedRoll: Coil) => {
                     this.roll.createNewId();
                     this.roll.material = 'PLA';
                     this.roll.color = '';

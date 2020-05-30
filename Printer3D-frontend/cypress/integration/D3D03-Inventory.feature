@@ -30,16 +30,16 @@ Feature: [D3D03]-Validate the Inventory features and page contents.
     #     # Then there is a column with "stockDisponible" data
     #     # Then there is a column with "active" data
 
-    @D3D03 @D3D03.03
-    Scenario: [D3D03.03]-Validate the structure of the Inventory Coil List Page.
+    # @D3D03 @D3D03.03
+    # Scenario: [D3D03.03]-Validate the structure of the Inventory Coil List Page.
+    #     Given there is a click on Feature "/ROLLOS"
+    #     Given the InventoryCoilListPage is activated
+    #     Given one instance of GridAngular
+    #     Given one or more instances of Row
+
+    @D3D03 @D3D03.04
+    Scenario: [D3D03.04]-Check that the Inventory Coil List informs of the required fields.
         Given there is a click on Feature "/ROLLOS"
         Given the InventoryCoilListPage is activated
         Given one instance of GridAngular
-        Given one or more instances of Row
-
-# @D3D03 @D3D03.04
-# Scenario: [D3D03.02]-Check that the Inventory Part List informs of the required fields.
-#     Given the InventoryPartListPage is activated
-#     Given one instance of GridAngular
-#     Then there is a column with Etiqueta data
-#     Then there is a column with Descripcion data
+        Then there is a column with "etiqueta" data

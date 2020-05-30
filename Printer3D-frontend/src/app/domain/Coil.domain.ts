@@ -1,9 +1,7 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
-// - DOMAIN
-import { Node } from './Node';
 
-export class Roll {
+export class Coil {
     public id: string;
     public label: string;
     public material: string;

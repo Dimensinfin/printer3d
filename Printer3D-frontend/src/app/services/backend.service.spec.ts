@@ -26,10 +26,11 @@ import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from './support/ResponseTransformer';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/Part.domain';
-import { Roll } from '@domain/Roll.domain';
+import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
+import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 
-describe('SERVICE BackendService [Module: CORE]', () => {
+fdescribe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
     let isolationService: IsolationService;
 
@@ -61,21 +62,21 @@ describe('SERVICE BackendService [Module: CORE]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Backend-API]', async function () {
+    describe('Code Coverage Phase [Backend-API]', async () => {
         it('apiInventoryParts_v1.default: get the list of Parts', () => {
-            service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforma Inventory Part list form backend.')
+            service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
                     return new PartListResponse(entrydata);
                 }))
                 .subscribe((response: PartListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.partCount).toBe(1);
-                    expect(response.records.length).toBe(1);
+                    expect(response.count).toBe(2);
+                    expect(response.parts.length).toBe(2);
                 });
         });
         it('apiNewPart_v1.default: get the persisted part', () => {
             const part = new Part();
-            service.apiNewPart_v1(part, new ResponseTransformer().setDescription('Transforma data into Part.')
+            service.apiNewPart_v1(part, new ResponseTransformer().setDescription('Transforms data into Part.')
                 .setTransformation((entrydata: any): Part => {
                     return new Part(entrydata);
                 }))
@@ -84,22 +85,33 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 });
         });
         it('apiNewRoll_v1.default: get the persisted roll', () => {
-            const roll = new Roll();
-            service.apiNewRoll_v1(roll, new ResponseTransformer().setDescription('Transforma data into Roll.')
-                .setTransformation((entrydata: any): Roll => {
-                    return new Roll(entrydata);
+            const roll = new Coil();
+            service.apiNewRoll_v1(roll, new ResponseTransformer().setDescription('Transforms data into Roll.')
+                .setTransformation((entrydata: any): Coil => {
+                    return new Coil(entrydata);
                 }))
-                .subscribe((response: Roll) => {
+                .subscribe((response: Coil) => {
                     expect(response).toBeDefined();
                 });
         });
         it('apiGetFinishings_v1.default: get the list of finishings available', () => {
-            service.apiGetFinishings_v1(new ResponseTransformer().setDescription('Transforma data into FinishingResponse.')
+            service.apiGetFinishings_v1(new ResponseTransformer().setDescription('Transforms data into FinishingResponse.')
                 .setTransformation((entrydata: any): FinishingResponse => {
                     return new FinishingResponse(entrydata);
                 }))
                 .subscribe((response: FinishingResponse) => {
                     expect(response).toBeDefined();
+                });
+        });
+        it('apiInventoryCoils_v1.default: get the list of Coils', () => {
+            service.apiInventoryCoils_v1(new ResponseTransformer().setDescription('Transforms Inventory Coil list form backend.')
+                .setTransformation((entrydata: any): CoilListResponse => {
+                    return new CoilListResponse(entrydata);
+                }))
+                .subscribe((response: CoilListResponse) => {
+                    expect(response).toBeDefined();
+                    expect(response.count).toBe(2);
+                    expect(response.coils.length).toBe(2);
                 });
         });
     });

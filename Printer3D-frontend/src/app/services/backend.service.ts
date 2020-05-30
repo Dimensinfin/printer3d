@@ -12,8 +12,9 @@ import { ResponseTransformer } from './support/ResponseTransformer';
 import { environment } from '@env/environment';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/Part.domain';
-import { Roll } from '@domain/Roll.domain';
+import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
+import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -47,14 +48,14 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiNewRoll_v1(newRoll: Roll, transformer: ResponseTransformer): Observable<Roll> {
+    public apiNewRoll_v1(newRoll: Coil, transformer: ResponseTransformer): Observable<Coil> {
         const request = this.APIV1 + '/inventory/rolls';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newRoll), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewRoll_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Roll;
+                const response = transformer.transform(data) as Coil;
                 return response;
             }));
     }
@@ -66,6 +67,17 @@ export class BackendService {
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiGetFinishings_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as FinishingResponse;
+                return response;
+            }));
+    }
+    public apiInventoryCoils_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
+        const request = this.APIV1 + '/inventory/coils';
+        let headers = new HttpHeaders() // Additional mockup headers to apisimulation.
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryCoils_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as CoilListResponse;
                 return response;
             }));
     }

@@ -10,19 +10,18 @@ describe('CLASS PartRecord [Module: DOMAIN]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const instance = new PartRecord();
             expect(instance).toBeDefined();
-            // expect(instance.colorCode).toBe('INDEFINIDO');
-            expect(instance.stockLevel).toBe(1);
-            expect(instance.stockAvailable).toBe(0);
+            expect(instance.stockRequerido).toBe(1);
+            expect(instance.stockDisponible).toBe(0);
             expect(instance.active).toBeTrue();
         });
         it('constructor.object: validate initial state with object data', () => {
-            const instance = new PartRecord({ id: '-ID-', label: '-TEST-LABEL-', colorCode: 'WHITE', stockLevel: 8, active: false });
+            const instance = new PartRecord({ etiqueta: '-ID-',descripcion:'-DESCRIPCION-', color: 'WHITE', stockLevel: 8, active: false });
             expect(instance).toBeDefined();
-            expect(instance.id).toBe('-ID-');
-            expect(instance.colorCode).toBe('WHITE');
-            expect(instance.label).toBe('-TEST-LABEL-');
-            expect(instance.stockLevel).toBe(8);
-            expect(instance.stockAvailable).toBe(0);
+            expect(instance.etiqueta).toBe('-ID-');
+            expect(instance.descripcion).toBe('-DESCRIPCION-');
+            expect(instance.color).toBe('WHITE');
+            expect(instance.stockRequerido).toBe(8);
+            expect(instance.stockDisponible).toBe(0);
             expect(instance.active).toBeFalse();
         });
     });
