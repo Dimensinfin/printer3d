@@ -11,6 +11,7 @@ jobs:
     docker:
       - image: circleci/node:12.16.3-browsers
     steps:
+      - checkout
       - run:
           name: PROJECT - Check version and environment
           command: |
