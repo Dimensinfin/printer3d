@@ -17,9 +17,9 @@ import org.dimensinfin.printer3d.client.part.rest.InventoryApiV1;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class RollFeignClientV1 extends CommonFeignClient {
+public class CoilFeignClientV1 extends CommonFeignClient {
 	// - C O N S T R U C T O R S
-	public RollFeignClientV1( final @NotNull AcceptanceTargetConfig acceptanceTargetConfig ) {
+	public CoilFeignClientV1( final @NotNull AcceptanceTargetConfig acceptanceTargetConfig ) {
 		super( acceptanceTargetConfig );
 	}
 
@@ -38,7 +38,7 @@ public class RollFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<CoilList> getRolls( final String authorizationToken ) throws IOException {
+	public ResponseEntity<CoilList> getCoils( final String authorizationToken ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
 		final Response<CoilList> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
@@ -53,7 +53,7 @@ public class RollFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<Coil> newRoll( final String authorizationToken, final Coil coil ) throws IOException {
+	public ResponseEntity<Coil> newCoil( final String authorizationToken, final Coil coil ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
 		final Response<Coil> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )

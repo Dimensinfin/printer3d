@@ -14,11 +14,11 @@ import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.PA
 import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.COLOR;
 import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.WEIGHT;
 
-public class RollValidator extends CommonValidator implements Validator<Coil> {
+public class CoilValidator extends CommonValidator implements Validator<Coil> {
 	private final Printer3DWorld printer3DWorld;
 
 // - C O N S T R U C T O R S
-	public RollValidator( final Printer3DWorld printer3DWorld ) {
+	public CoilValidator( final Printer3DWorld printer3DWorld ) {
 		this.printer3DWorld = printer3DWorld;
 	}
 

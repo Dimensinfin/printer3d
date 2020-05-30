@@ -14,8 +14,8 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<Part> newPartResponseEntity;
 	private ResponseEntity<PartList> partListResponseEntity;
 	private Coil coil;
-	private ResponseEntity<Coil> newRollResponseEntity;
-	private ResponseEntity<CoilList> rollListResponseEntity;
+	private ResponseEntity<Coil> newCoilResponseEntity;
+	private ResponseEntity<CoilList> coilListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
@@ -37,12 +37,12 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<Coil> getNewRollResponseEntity() {
-		return this.newRollResponseEntity;
+	public ResponseEntity<Coil> getNewCoilResponseEntity() {
+		return this.newCoilResponseEntity;
 	}
 
-	public Printer3DWorld setNewRollResponseEntity( final ResponseEntity<Coil> newRollResponseEntity ) {
-		this.newRollResponseEntity = newRollResponseEntity;
+	public Printer3DWorld setNewCoilResponseEntity( final ResponseEntity<Coil> newCoilResponseEntity ) {
+		this.newCoilResponseEntity = newCoilResponseEntity;
 		return this;
 	}
 
@@ -73,12 +73,12 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<CoilList> getRollListResponseEntity() {
-		return this.rollListResponseEntity;
+	public ResponseEntity<CoilList> getCoilListResponseEntity() {
+		return this.coilListResponseEntity;
 	}
 
-	public Printer3DWorld setRollListResponseEntity( final ResponseEntity<CoilList> rollListResponseEntity ) {
-		this.rollListResponseEntity = rollListResponseEntity;
+	public Printer3DWorld setCoilListResponseEntity( final ResponseEntity<CoilList> coilListResponseEntity ) {
+		this.coilListResponseEntity = coilListResponseEntity;
 		return this;
 	}
 }

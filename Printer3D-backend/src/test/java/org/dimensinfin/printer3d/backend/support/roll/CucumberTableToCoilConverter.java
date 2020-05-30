@@ -12,11 +12,11 @@ import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.MA
 import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.ROLL_ID;
 import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.WEIGHT;
 
-public class CucumberTableToRollConverter extends CucumberTableConverter<Coil> {
+public class CucumberTableToCoilConverter extends CucumberTableConverter<Coil> {
 	protected final Printer3DWorld printer3DWorld;
 
 	// - C O N S T R U C T O R S
-	public CucumberTableToRollConverter( final Printer3DWorld printer3DWorld ) {
+	public CucumberTableToCoilConverter( final Printer3DWorld printer3DWorld ) {
 		this.printer3DWorld = printer3DWorld;
 	}
 

@@ -12,12 +12,12 @@ import org.dimensinfin.printer3d.client.part.rest.InventoryApiSupport;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class RollFeignClientSupport extends CommonFeignClient {
-	public RollFeignClientSupport( final @NotNull AcceptanceTargetConfig acceptanceTargetConfig ) {
+public class CoilFeignClientSupport extends CommonFeignClient {
+	public CoilFeignClientSupport( final @NotNull AcceptanceTargetConfig acceptanceTargetConfig ) {
 		super( acceptanceTargetConfig );
 	}
 
-	public Integer clearRollRepositoryTable() {
+	public Integer clearCoilRepositoryTable() {
 		final String ENDPOINT_MESSAGE = "Request to delete all Roll records.";
 		try {
 			final Response<CountResponse> response = new Retrofit.Builder()

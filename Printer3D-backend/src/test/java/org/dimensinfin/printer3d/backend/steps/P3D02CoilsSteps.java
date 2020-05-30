@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
-import org.dimensinfin.printer3d.backend.support.roll.CucumberTableToRollConverter;
-import org.dimensinfin.printer3d.backend.support.roll.RollValidator;
+import org.dimensinfin.printer3d.backend.support.roll.CucumberTableToCoilConverter;
+import org.dimensinfin.printer3d.backend.support.roll.CoilValidator;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 
 import io.cucumber.java.en.Given;
@@ -22,38 +22,38 @@ public class P3D02CoilsSteps extends StepSupport {
 		super( printer3DWorld );
 	}
 
-	@Then("the Roll repository has a record for new Roll with the next fields")
-	public void the_Roll_repository_has_a_record_for_new_Roll_with_the_next_fields( final List<Map<String, String>> dataTable ) {
-		Assertions.assertNotNull( this.printer3DWorld.getNewRollResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getNewRollResponseEntity().getBody() );
+	@Then("the Coil repository has a record for new Coil with the next fields")
+	public void the_Coil_repository_has_a_record_for_new_Coil_with_the_next_fields( final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getNewCoilResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getNewCoilResponseEntity().getBody() );
 		Assertions.assertTrue(
-				new RollValidator( this.printer3DWorld ).validate( dataTable.get( 0 ),
-						this.printer3DWorld.getNewRollResponseEntity().getBody() )
+				new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ),
+						this.printer3DWorld.getNewCoilResponseEntity().getBody() )
 		);
 	}
 
-	@Then("the item {string} of the list of Rolls has the next fields")
-	public void the_item_of_the_list_of_Rolls_has_the_next_fields( final String row, final List<Map<String, String>> dataTable ) {
-		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity().getBody().getCoils() );
-		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity().getBody().getCoils().get( Integer.parseInt( row ) - 1 ) );
-		final Coil record = this.printer3DWorld.getRollListResponseEntity().getBody().getCoils().get( Integer.parseInt( row ) - 1 );
+	@Then("the item {string} of the list of Coils has the next fields")
+	public void the_item_of_the_list_of_Coils_has_the_next_fields( final String row, final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils().get( Integer.parseInt( row ) - 1 ) );
+		final Coil record = this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils().get( Integer.parseInt( row ) - 1 );
 		Assertions.assertTrue(
-				new RollValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), record )
+				new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), record )
 		);
 	}
 
-	@Then("the list of Rolls has {string} items")
-	public void the_list_of_Rolls_has_items( final String rollCount ) {
-		final ResponseEntity<CoilList> rollListResponseEntity = this.printer3DWorld.getRollListResponseEntity();
-		Assertions.assertNotNull( rollListResponseEntity );
-		Assertions.assertNotNull( rollListResponseEntity.getBody() );
-		Assertions.assertEquals( Integer.parseInt( rollCount ), rollListResponseEntity.getBody().getCount() );
+	@Then("the list of Coils has {string} items")
+	public void the_list_of_Coils_has_items( final String coilCount ) {
+		final ResponseEntity<CoilList> coilListResponseEntity = this.printer3DWorld.getCoilListResponseEntity();
+		Assertions.assertNotNull( coilListResponseEntity );
+		Assertions.assertNotNull( coilListResponseEntity.getBody() );
+		Assertions.assertEquals( Integer.parseInt( coilCount ), coilListResponseEntity.getBody().getCount() );
 	}
 
-	@Given("the next New Roll request")
-	public void the_next_New_Roll_request( final List<Map<String, String>> dataTable ) {
-		final Coil coil = new CucumberTableToRollConverter( this.printer3DWorld ).convert( dataTable.get( 0 ) );
+	@Given("the next New Coil request")
+	public void the_next_New_Coil_request( final List<Map<String, String>> dataTable ) {
+		final Coil coil = new CucumberTableToCoilConverter( this.printer3DWorld ).convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( coil );
 		this.printer3DWorld.setCoil( coil );
 	}

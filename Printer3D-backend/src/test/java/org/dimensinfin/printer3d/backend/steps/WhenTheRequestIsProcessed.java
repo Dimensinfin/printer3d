@@ -13,7 +13,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.part.rest.v1.PartFeignClientV1;
-import org.dimensinfin.printer3d.backend.support.roll.rest.v1.RollFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.roll.rest.v1.CoilFeignClientV1;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.CoilList;
@@ -22,15 +22,15 @@ import io.cucumber.java.en.When;
 
 public class WhenTheRequestIsProcessed extends StepSupport {
 	private final PartFeignClientV1 partFeignClientV1;
-	private final RollFeignClientV1 rollFeignClientV1;
+	private final CoilFeignClientV1 coilFeignClientV1;
 
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
 	                                  final @NotNull PartFeignClientV1 partFeignClientV1,
-	                                  final @NotNull RollFeignClientV1 rollFeignClientV1 ) {
+	                                  final @NotNull CoilFeignClientV1 coilFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
-		this.rollFeignClientV1 = Objects.requireNonNull( rollFeignClientV1 );
+		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
 	}
 
 	@When("the Get Finishings request is processed")
@@ -43,9 +43,9 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_PARTS );
 	}
 
-	@When("the Get Rolls request is processed")
-	public void the_Get_Rolls_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_ROLLS );
+	@When("the Get Coils request is processed")
+	public void the_Get_Coils_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_COILS );
 	}
 
 	@When("the New Part request is processed")
@@ -53,9 +53,9 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.NEW_PART );
 	}
 
-	@When("the New Roll request is processed")
-	public void the_New_Roll_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.NEW_ROLL );
+	@When("the New Coil request is processed")
+	public void the_New_Coil_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.NEW_COIL );
 	}
 
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
@@ -74,22 +74,22 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( partListResponseEntity );
 				this.printer3DWorld.setPartListResponseEntity( partListResponseEntity );
 				return partListResponseEntity;
-			case NEW_ROLL:
+			case NEW_COIL:
 				Assertions.assertNotNull( this.printer3DWorld.getCoil() );
-				final ResponseEntity<Coil> newRollResponseEntity = this.rollFeignClientV1
-						.newRoll( this.printer3DWorld.getJwtAuthorizationToken(),
+				final ResponseEntity<Coil> newCoilResponseEntity = this.coilFeignClientV1
+						.newCoil( this.printer3DWorld.getJwtAuthorizationToken(),
 								this.printer3DWorld.getCoil() );
-				Assertions.assertNotNull( newRollResponseEntity );
-				this.printer3DWorld.setNewRollResponseEntity( newRollResponseEntity );
-				return newRollResponseEntity;
-			case GET_ROLLS:
-				final ResponseEntity<CoilList> rollListResponseEntity = this.rollFeignClientV1
-						.getRolls( this.printer3DWorld.getJwtAuthorizationToken() );
-				Assertions.assertNotNull( rollListResponseEntity );
-				this.printer3DWorld.setRollListResponseEntity( rollListResponseEntity );
-				return rollListResponseEntity;
+				Assertions.assertNotNull( newCoilResponseEntity );
+				this.printer3DWorld.setNewCoilResponseEntity( newCoilResponseEntity );
+				return newCoilResponseEntity;
+			case GET_COILS:
+				final ResponseEntity<CoilList> coilListResponseEntity = this.coilFeignClientV1
+						.getCoils( this.printer3DWorld.getJwtAuthorizationToken() );
+				Assertions.assertNotNull( coilListResponseEntity );
+				this.printer3DWorld.setCoilListResponseEntity( coilListResponseEntity );
+				return coilListResponseEntity;
 			case GET_FINISHINGS:
-				final ResponseEntity<FinishingsResponse> finishingsResponseEntity = this.rollFeignClientV1
+				final ResponseEntity<FinishingsResponse> finishingsResponseEntity = this.coilFeignClientV1
 						.getFinishings( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( finishingsResponseEntity );
 				this.printer3DWorld.setFinishingsResponseEntity( finishingsResponseEntity );
