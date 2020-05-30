@@ -29,4 +29,4 @@ Feature: Process and compose the list of Finishings
   Scenario: [P3D03.03] The material finishing on the response has the colors sorted alphabetically.
     When the Get Finishings request is processed
     And the "TPU" material record has 3 colors
-    And the list of colors is ordered alphabetically
+    And the list of colors  of material "TPU" is ordered alphabetically

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
+import org.dimensinfin.printer3d.client.domain.Finishing;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 
 import io.cucumber.java.en.When;
@@ -16,6 +17,25 @@ public class P3D03FinishingsSteps extends StepSupport {
 	// - C O N S T R U C T O R S
 	public P3D03FinishingsSteps( final @NotNull Printer3DWorld printer3DWorld ) {
 		super( printer3DWorld );
+	}
+
+	@When("the list of colors  of material {string} is ordered alphabetically")
+	public void the_list_of_colors_of_material_is_ordered_alphabetically( final String materialName ) {
+		final ResponseEntity<FinishingsResponse> response = this.printer3DWorld.getFinishingsResponseEntity();
+		Assertions.assertNotNull( response );
+		for (Finishing material : response.getBody().getMaterials())
+			if (material.getMaterial().equalsIgnoreCase( materialName ))
+				Assertions.assertTrue( this.checkIfSorted( material.getColors() ) );
+	}
+
+	@When("the {string} material record has {int} colors")
+	public void the_material_record_has_colors( final String materialName, final Integer colorCount ) {
+		final ResponseEntity<FinishingsResponse> response = this.printer3DWorld.getFinishingsResponseEntity();
+		Assertions.assertNotNull( response );
+		for (Finishing material : response.getBody().getMaterials())
+			if (material.getMaterial().equalsIgnoreCase( materialName )) {
+				Assertions.assertEquals( colorCount, material.getColors().size() );
+			}
 	}
 
 	@When("the material records are ordered alphabetically")
