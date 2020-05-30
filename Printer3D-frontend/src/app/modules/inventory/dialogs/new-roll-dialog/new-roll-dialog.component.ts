@@ -55,7 +55,7 @@ export class NewRollDialogComponent implements OnInit {
         console.log('><[NewRollDialogComponent.saveRoll]')
         const newRoll: Coil = new RollConstructor().construct(this.roll);
         this.backendConnections.push(
-            this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
+            this.backendService.apiNewCoil_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
                 .setTransformation((entrydata: any): Coil => {
                     this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
                     return new Coil(entrydata);
@@ -69,7 +69,7 @@ export class NewRollDialogComponent implements OnInit {
         console.log('><[NewRollDialogComponent.saveRoll]')
         const newRoll: Coil = new RollConstructor().construct(this.roll);
         this.backendConnections.push(
-            this.backendService.apiNewRoll_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
+            this.backendService.apiNewCoil_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
                 .setTransformation((entrydata: any): Coil => {
                     this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
                     return new Coil(entrydata);

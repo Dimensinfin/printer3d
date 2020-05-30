@@ -53,11 +53,11 @@ export class SupportBackendService {
             observer.next(transformer.transform(JSON.stringify(newPart)));
         });
     }
-    public apiNewRoll_v1(newRoll: Coil, transformer: ResponseTransformer): Observable<Coil> {
+    public apiNewCoil_v1(newCoil: Coil, transformer: ResponseTransformer): Observable<Coil> {
         const result = Observable.create((observer) => {
-            observer.next(transformer.transform(JSON.stringify(newRoll)));
+            observer.next(transformer.transform(JSON.stringify(newCoil)));
         });
-        console.log('[apiNewRoll_v1]' + JSON.stringify(result))
+        console.log('[apiNewCoil_v1]' + JSON.stringify(result))
         return result;
     }
     public apiGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InventoryCoilListPageComponent } from './inventory-coil-list-page.component';
 
-describe('InventoryCoilListPageComponent', () => {
+xdescribe('InventoryCoilListPageComponent', () => {
   let component: InventoryCoilListPageComponent;
   let fixture: ComponentFixture<InventoryCoilListPageComponent>;
 

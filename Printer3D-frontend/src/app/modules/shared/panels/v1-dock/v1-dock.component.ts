@@ -82,7 +82,7 @@ export class V1DockComponent implements OnInit {
             }
         // IMPROVEMENT: Do not detect if the Feature target is the same.
         // 2. Page change
-        this.pageChange(this.activeFeature.getRoute());
+        if (null != this.activeFeature) this.pageChange(this.activeFeature.getRoute());
     }
     public clean(): void {
         this.activeFeature = null;
@@ -94,7 +94,7 @@ export class V1DockComponent implements OnInit {
      */
     private pageChange(route: string): void {
         console.log('><[V1DockComponent.pageChange]> Route: ' + route);
-         this.router.navigate([route]);
+        this.router.navigate([route]);
         if (null != this.routerDetector) this.routerDetector.refresh();
     }
 }

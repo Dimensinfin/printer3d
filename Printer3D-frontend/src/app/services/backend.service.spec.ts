@@ -30,7 +30,7 @@ import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 
-fdescribe('SERVICE BackendService [Module: CORE]', () => {
+describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
     let isolationService: IsolationService;
 
@@ -84,9 +84,9 @@ fdescribe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('apiNewRoll_v1.default: get the persisted roll', async () => {
-            const roll = new Coil();
-            service.apiNewRoll_v1(roll, new ResponseTransformer().setDescription('Transforms data into Roll.')
+        it('apiNewCoil_v1.default: get the persisted coils', async () => {
+            const coil = new Coil();
+            service.apiNewCoil_v1(coil, new ResponseTransformer().setDescription('Transforms data into Coil.')
                 .setTransformation((entrydata: any): Coil => {
                     return new Coil(entrydata);
                 }))

@@ -25,7 +25,7 @@ export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refres
     public pagePath: string = '/Inventario/Lista Piezas';
     public columnDefs: GridColumn[] = [];
     public rowData: PartRecord[] = [];
-     private recordContainer: PartTransformer = new PartTransformer();
+    private recordContainer: PartTransformer = new PartTransformer();
     private backendConnections: Subscription[] = [];
 
     constructor(
@@ -45,7 +45,8 @@ export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refres
         });
     }
     public refresh(): void {
-        this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+        this.backendConnections.push(
+            this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
             .setTransformation((entrydata: any): PartListResponse => {
                 return new PartListResponse(entrydata);
             }))
@@ -55,6 +56,7 @@ export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refres
                     this.recordContainer.transform(record);
                 });
                 this.rowData = this.recordContainer.getRecords();
-            });
+            })
+        )
     }
 }

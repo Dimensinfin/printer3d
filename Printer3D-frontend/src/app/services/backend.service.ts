@@ -48,13 +48,13 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiNewRoll_v1(newRoll: Coil, transformer: ResponseTransformer): Observable<Coil> {
+    public apiNewCoil_v1(newCoil: Coil, transformer: ResponseTransformer): Observable<Coil> {
         const request = this.APIV1 + '/inventory/coils';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newRoll), headers)
+        return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newCoil), headers)
             .pipe(map((data: any) => {
-                console.log(">[BackendService.apiNewRoll_v1]> Transformation: " + transformer.description);
+                console.log(">[BackendService.apiNewCoil_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Coil;
                 return response;
             }));

@@ -101,9 +101,9 @@ describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
             const componentAsAny = component as any;
             componentAsAny.roll = roll;
             // const backendService = TestBed.get(BackendService);
-            spyOn(backendService, 'apiNewRoll_v1');
+            spyOn(backendService, 'apiNewCoil_v1');
             component.saveRoll();
-            expect(backendService.apiNewRoll_v1).toHaveBeenCalled();
+            expect(backendService.apiNewCoil_v1).toHaveBeenCalled();
         });
         // it('savePartAndRepeat: persist the part on the backend repository', async () => {
         //     const part: Part = new Part({id: '-ID-'});

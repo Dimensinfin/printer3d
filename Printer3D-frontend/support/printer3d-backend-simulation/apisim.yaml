@@ -52,7 +52,7 @@ response:
 
 ---
 
-simlet: inventory-newroll
+simlet: inventory-newcoil
 
 request:
   - method: POST
@@ -65,7 +65,7 @@ response:
     - "Content-Type: application/json"
   body:
     type: text
-    file: "${sim.path}/responses/newroll.json"
+    file: "${sim.path}/responses/newcoil.json"
 
 ---
 
