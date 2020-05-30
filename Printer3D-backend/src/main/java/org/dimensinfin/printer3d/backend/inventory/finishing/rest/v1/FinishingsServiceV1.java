@@ -11,7 +11,7 @@ import java.util.Set;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.CoilRepository;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.client.domain.Finishing;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 

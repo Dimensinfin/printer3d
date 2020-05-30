@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.roll.rest.v1;
+package org.dimensinfin.printer3d.backend.inventory.coil.rest.v1;
 
 import java.util.Objects;
 import javax.validation.Valid;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
-import org.dimensinfin.printer3d.client.domain.RollList;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 
 @RestController
 @CrossOrigin
@@ -24,25 +24,25 @@ import org.dimensinfin.printer3d.client.domain.RollList;
 @RequestMapping("/api/v1")
 public
 class RollControllerV1 {
-	private final RollServiceV1 rollServiceV1;
+	private final CoilServiceV1 coilviceV1;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public RollControllerV1( final @NotNull RollServiceV1 rollServiceV1 ) {
-		this.rollServiceV1 = Objects.requireNonNull( rollServiceV1 );
+	public RollControllerV1( final @NotNull CoilServiceV1 coilviceV1 ) {
+		this.coilviceV1 = Objects.requireNonNull( coilviceV1 );
 	}
 
 	@PostMapping(path = "/inventory/rolls",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<Coil> newRoll( final @RequestBody @Valid @NotNull Coil coil ) {
-		return new ResponseEntity<>( this.rollServiceV1.newRoll( coil ), HttpStatus.CREATED );
+		return new ResponseEntity<>( this.coilviceV1.newCoil( coil ), HttpStatus.CREATED );
 	}
 
 	@GetMapping(path = "/inventory/rolls",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<RollList> getRolls() {
-		return new ResponseEntity<>( this.rollServiceV1.getRolls(), HttpStatus.OK );
+	public ResponseEntity<CoilList> getRolls() {
+		return new ResponseEntity<>( this.coilviceV1.getRolls(), HttpStatus.OK );
 	}
 }

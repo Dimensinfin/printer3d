@@ -3,11 +3,11 @@ package org.dimensinfin.printer3d.backend.support;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
-import org.dimensinfin.printer3d.client.domain.RollList;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;
@@ -15,7 +15,7 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<PartList> partListResponseEntity;
 	private Coil coil;
 	private ResponseEntity<Coil> newRollResponseEntity;
-	private ResponseEntity<RollList> rollListResponseEntity;
+	private ResponseEntity<CoilList> rollListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
@@ -73,11 +73,11 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<RollList> getRollListResponseEntity() {
+	public ResponseEntity<CoilList> getRollListResponseEntity() {
 		return this.rollListResponseEntity;
 	}
 
-	public Printer3DWorld setRollListResponseEntity( final ResponseEntity<RollList> rollListResponseEntity ) {
+	public Printer3DWorld setRollListResponseEntity( final ResponseEntity<CoilList> rollListResponseEntity ) {
 		this.rollListResponseEntity = rollListResponseEntity;
 		return this;
 	}

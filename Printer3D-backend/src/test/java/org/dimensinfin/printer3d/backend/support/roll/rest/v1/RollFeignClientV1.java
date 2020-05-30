@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
-import org.dimensinfin.printer3d.client.domain.RollList;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.part.rest.InventoryApiV1;
 
 import retrofit2.Response;
@@ -38,9 +38,9 @@ public class RollFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<RollList> getRolls( final String authorizationToken ) throws IOException {
+	public ResponseEntity<CoilList> getRolls( final String authorizationToken ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
-		final Response<RollList> response = new Retrofit.Builder()
+		final Response<CoilList> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()

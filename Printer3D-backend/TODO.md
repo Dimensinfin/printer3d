@@ -7,9 +7,9 @@ PartControllerSupport
 * RollList
 * Finishing
 * FinishingsResponse
-* RollServiceV1
-* RollControllerV1
 
+RollServiceV1
+RollControllerV1
 FinishingsServiceV1
 FinishingsControllerV1
 * Finishing

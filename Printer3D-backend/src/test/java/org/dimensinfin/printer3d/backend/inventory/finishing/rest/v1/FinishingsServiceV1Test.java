@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Sort;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.CoilRepository;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 
 public class FinishingsServiceV1Test {

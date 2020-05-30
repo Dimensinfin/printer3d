@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.roll.rest.v1;
+package org.dimensinfin.printer3d.backend.inventory.coil.rest.v1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,30 +11,30 @@ import org.springframework.stereotype.Service;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.CoilRepository;
-import org.dimensinfin.printer3d.client.domain.RollList;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 
 @Service
-public class RollServiceV1 {
+public class CoilServiceV1 {
 	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
-	public RollServiceV1( final @NotNull CoilRepository coilRepository ) {
+	public CoilServiceV1( final @NotNull CoilRepository coilRepository ) {
 		this.coilRepository = Objects.requireNonNull( coilRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public RollList getRolls() {
+	public CoilList getRolls() {
 		final List<Coil> coils = new ArrayList<>( this.coilRepository.findAll() );
-		return new RollList.Builder()
+		return new CoilList.Builder()
 				.withCount( coils.size() )
 				.withRollList( coils )
 				.build();
 
 	}
 
-	public Coil newRoll( final Coil newCoil ) {
+	public Coil newCoil( final Coil newCoil ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Roll by id. If found reject the request because this should be a new creation.

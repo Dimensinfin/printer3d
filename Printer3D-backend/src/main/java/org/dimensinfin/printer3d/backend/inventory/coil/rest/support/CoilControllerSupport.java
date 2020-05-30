@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.roll.rest.support;
+package org.dimensinfin.printer3d.backend.inventory.coil.rest.support;
 
 import java.sql.SQLException;
 import java.util.Objects;
@@ -16,7 +16,7 @@ import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.CoilRepository;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 
 @Profile({ "local", "acceptance", "test" })
 @RestController

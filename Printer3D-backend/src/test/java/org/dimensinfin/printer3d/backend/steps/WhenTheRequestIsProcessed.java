@@ -8,7 +8,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
@@ -16,7 +16,7 @@ import org.dimensinfin.printer3d.backend.support.part.rest.v1.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.RollFeignClientV1;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
-import org.dimensinfin.printer3d.client.domain.RollList;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 
 import io.cucumber.java.en.When;
 
@@ -83,7 +83,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setNewRollResponseEntity( newRollResponseEntity );
 				return newRollResponseEntity;
 			case GET_ROLLS:
-				final ResponseEntity<RollList> rollListResponseEntity = this.rollFeignClientV1
+				final ResponseEntity<CoilList> rollListResponseEntity = this.rollFeignClientV1
 						.getRolls( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( rollListResponseEntity );
 				this.printer3DWorld.setRollListResponseEntity( rollListResponseEntity );

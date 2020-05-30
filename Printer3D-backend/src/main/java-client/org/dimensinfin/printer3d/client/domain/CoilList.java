@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 
-public class RollList {
+public class CoilList {
 	private Integer count = 0;
 	private List<Coil> coils = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
-	private RollList() {}
+	private CoilList() {}
 
 	public Integer getCount() {
 		return this.count;
@@ -23,23 +23,23 @@ public class RollList {
 
 	// - B U I L D E R
 	public static class Builder {
-		private RollList onConstruction;
+		private CoilList onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new RollList();
+			this.onConstruction = new CoilList();
 		}
-		public RollList.Builder withCount( final Integer count ) {
+		public CoilList.Builder withCount( final Integer count ) {
 			if (null != count) this.onConstruction.count = count;
 			return this;
 		}
 
-		public RollList.Builder withRollList( final List<Coil> coils ) {
+		public CoilList.Builder withRollList( final List<Coil> coils ) {
 			if (null != coils) this.onConstruction.coils = Objects.requireNonNull( coils );
 			return this;
 		}
 
-		public RollList build() {
+		public CoilList build() {
 			Objects.requireNonNull( this.onConstruction.count );
 			Objects.requireNonNull( this.onConstruction.coils );
 			return this.onConstruction;

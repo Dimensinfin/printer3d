@@ -7,18 +7,18 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.roll.CucumberTableToRollConverter;
 import org.dimensinfin.printer3d.backend.support.roll.RollValidator;
-import org.dimensinfin.printer3d.client.domain.RollList;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
-public class P3D02RollsSteps extends StepSupport {
+public class P3D02CoilsSteps extends StepSupport {
 	// - C O N S T R U C T O R S
-	public P3D02RollsSteps( final @NotNull Printer3DWorld printer3DWorld ) {
+	public P3D02CoilsSteps( final @NotNull Printer3DWorld printer3DWorld ) {
 		super( printer3DWorld );
 	}
 
@@ -45,7 +45,7 @@ public class P3D02RollsSteps extends StepSupport {
 
 	@Then("the list of Rolls has {string} items")
 	public void the_list_of_Rolls_has_items( final String rollCount ) {
-		final ResponseEntity<RollList> rollListResponseEntity = this.printer3DWorld.getRollListResponseEntity();
+		final ResponseEntity<CoilList> rollListResponseEntity = this.printer3DWorld.getRollListResponseEntity();
 		Assertions.assertNotNull( rollListResponseEntity );
 		Assertions.assertNotNull( rollListResponseEntity.getBody() );
 		Assertions.assertEquals( Integer.parseInt( rollCount ), rollListResponseEntity.getBody().getCount() );

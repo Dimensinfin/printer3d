@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.roll.persistence;
+package org.dimensinfin.printer3d.backend.inventory.coil.persistence;
 
 import java.util.Objects;
 import java.util.UUID;

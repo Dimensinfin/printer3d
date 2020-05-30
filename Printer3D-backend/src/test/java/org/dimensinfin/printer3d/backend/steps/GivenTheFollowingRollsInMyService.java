@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.roll.CucumberTableToRollConverter;
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.RollFeignClientV1;
-import org.dimensinfin.printer3d.client.domain.RollList;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 
 import io.cucumber.java.en.Given;
 
@@ -34,7 +34,7 @@ public class GivenTheFollowingRollsInMyService extends StepSupport {
 			final Coil coil = new CucumberTableToRollConverter( this.printer3DWorld ).convert( row );
 			this.rollFeignClientV1.newRoll( this.printer3DWorld.getJwtAuthorizationToken(), coil );
 		}
-		final ResponseEntity<RollList> rollList = this.rollFeignClientV1.getRolls( this.printer3DWorld.getJwtAuthorizationToken() );
+		final ResponseEntity<CoilList> rollList = this.rollFeignClientV1.getRolls( this.printer3DWorld.getJwtAuthorizationToken() );
 		Assertions.assertEquals( dataTable.size(), rollList.getBody().getCount() );
 	}
 }
