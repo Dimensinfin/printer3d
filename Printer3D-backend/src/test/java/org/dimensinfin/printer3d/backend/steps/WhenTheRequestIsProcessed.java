@@ -8,7 +8,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
@@ -75,10 +75,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setPartListResponseEntity( partListResponseEntity );
 				return partListResponseEntity;
 			case NEW_ROLL:
-				Assertions.assertNotNull( this.printer3DWorld.getRoll() );
-				final ResponseEntity<Roll> newRollResponseEntity = this.rollFeignClientV1
+				Assertions.assertNotNull( this.printer3DWorld.getCoil() );
+				final ResponseEntity<Coil> newRollResponseEntity = this.rollFeignClientV1
 						.newRoll( this.printer3DWorld.getJwtAuthorizationToken(),
-								this.printer3DWorld.getRoll() );
+								this.printer3DWorld.getCoil() );
 				Assertions.assertNotNull( newRollResponseEntity );
 				this.printer3DWorld.setNewRollResponseEntity( newRollResponseEntity );
 				return newRollResponseEntity;

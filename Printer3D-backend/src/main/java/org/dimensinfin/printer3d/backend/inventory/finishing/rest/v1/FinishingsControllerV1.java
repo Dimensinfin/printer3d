@@ -14,10 +14,10 @@ import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 @CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
-public class FinishingControllerV1 {
+public class FinishingsControllerV1 {
 	private final FinishingsServiceV1 finishingsServiceV1;
 
-	public FinishingControllerV1( final FinishingsServiceV1 finishingsServiceV1 ) {
+	public FinishingsControllerV1( final FinishingsServiceV1 finishingsServiceV1 ) {
 		this.finishingsServiceV1 = finishingsServiceV1;
 	}
 

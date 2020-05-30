@@ -11,17 +11,17 @@ import java.util.Set;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.RollRepository;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.CoilRepository;
 import org.dimensinfin.printer3d.client.domain.Finishing;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 
 @Service
 public class FinishingsServiceV1 {
-	private final RollRepository rollRepository;
+	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
-	public FinishingsServiceV1( final RollRepository rollRepository ) {
-		this.rollRepository = Objects.requireNonNull( rollRepository );
+	public FinishingsServiceV1( final CoilRepository coilRepository ) {
+		this.coilRepository = Objects.requireNonNull( coilRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -35,16 +35,16 @@ public class FinishingsServiceV1 {
 	 */
 	public FinishingsResponse getFinishings() {
 		final Map<String, Set<String>> finishingsOnConstruction = new HashMap<>();
-		this.rollRepository.findAll( Sort.by( Sort.Direction.ASC, "material" ) )
+		this.coilRepository.findAll( Sort.by( Sort.Direction.ASC, "material" ) )
 				.stream()
-				.forEach( roll -> {
+				.forEach( coil -> {
 					// Check if there is a material.
-					final String material = roll.getMaterial();
+					final String material = coil.getMaterial();
 					if (!finishingsOnConstruction.containsKey( material ))
 						finishingsOnConstruction.put( material, new HashSet<>() );
 					final Set<String> hit = finishingsOnConstruction.get( material );
 					// Add the color to this material set
-					hit.add( roll.getColor() );
+					hit.add( coil.getColor() );
 				} );
 		return this.composeFittingsResponse( finishingsOnConstruction );
 	}

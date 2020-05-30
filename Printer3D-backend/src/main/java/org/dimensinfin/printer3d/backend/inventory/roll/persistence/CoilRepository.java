@@ -4,5 +4,5 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RollRepository extends JpaRepository<Roll, UUID> {
+public interface CoilRepository extends JpaRepository<Coil, UUID> {
 }

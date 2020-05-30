@@ -1,5 +1,5 @@
 # Classes to create Unit Test
-* PartControllerSupport
+PartControllerSupport
 * ColorCode
 * Printer3DApplication
 * DimensinfinRuntimeException
@@ -9,8 +9,9 @@
 * FinishingsResponse
 * RollServiceV1
 * RollControllerV1
-* FinishingsServiceV1
-* FinishingsControllerV1
+
+FinishingsServiceV1
+FinishingsControllerV1
 * Finishing
 * FinishinfSerializer
 * FinishingResponse

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 
-public class RollControllerV1Test {
+public class CoilControllerV1Test {
 
 	private RollServiceV1 rollServiceV1;
 
@@ -26,15 +26,15 @@ public class RollControllerV1Test {
 	@Test
 	public void newRoll() {
 		// Given
-		final Roll roll = Mockito.mock(Roll.class);
+		final Coil coil = Mockito.mock( Coil.class);
 		// When
-		Mockito.when( this.rollServiceV1.newRoll(Mockito.any(Roll.class)) ).thenReturn( roll );
+		Mockito.when( this.rollServiceV1.newRoll(Mockito.any( Coil.class)) ).thenReturn( coil );
 		// Test
 		final RollControllerV1 rollControllerV1=new RollControllerV1(this.rollServiceV1);
-		final ResponseEntity<Roll> obtained = rollControllerV1.newRoll( roll );
+		final ResponseEntity<Coil> obtained = rollControllerV1.newRoll( coil );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
-		Assertions.assertTrue( obtained.getBody().equals( roll ) );
+		Assertions.assertTrue( obtained.getBody().equals( coil ) );
 	}
 }

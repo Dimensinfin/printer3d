@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 
 import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.COLOR;
@@ -12,7 +12,7 @@ import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.MA
 import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.ROLL_ID;
 import static org.dimensinfin.printer3d.backend.support.roll.RollMapConstants.WEIGHT;
 
-public class CucumberTableToRollConverter extends CucumberTableConverter<Roll> {
+public class CucumberTableToRollConverter extends CucumberTableConverter<Coil> {
 	protected final Printer3DWorld printer3DWorld;
 
 	// - C O N S T R U C T O R S
@@ -21,8 +21,8 @@ public class CucumberTableToRollConverter extends CucumberTableConverter<Roll> {
 	}
 
 	@Override
-	public Roll convert( final Map<String, String> cucumberRow ) {
-		Roll.Builder builder = new Roll.Builder();
+	public Coil convert( final Map<String, String> cucumberRow ) {
+		Coil.Builder builder = new Coil.Builder();
 		if (null != cucumberRow.get( ROLL_ID )) builder = builder.withId( UUID.fromString( this.cucumberDataMap( printer3DWorld,
 				cucumberRow.get( ROLL_ID ) ) ) );
 		if (null != cucumberRow.get( MATERIAL )) builder = builder.withMaterial( cucumberRow.get( MATERIAL ) );

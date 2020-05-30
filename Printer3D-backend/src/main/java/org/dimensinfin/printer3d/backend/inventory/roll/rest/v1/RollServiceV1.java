@@ -11,37 +11,37 @@ import org.springframework.stereotype.Service;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.RollRepository;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.CoilRepository;
 import org.dimensinfin.printer3d.client.domain.RollList;
 
 @Service
 public class RollServiceV1 {
-	private final RollRepository rollRepository;
+	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
-	public RollServiceV1( final @NotNull RollRepository rollRepository ) {
-		this.rollRepository = Objects.requireNonNull( rollRepository );
+	public RollServiceV1( final @NotNull CoilRepository coilRepository ) {
+		this.coilRepository = Objects.requireNonNull( coilRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
 	public RollList getRolls() {
-		final List<Roll> rolls = new ArrayList<>( this.rollRepository.findAll() );
+		final List<Coil> coils = new ArrayList<>( this.coilRepository.findAll() );
 		return new RollList.Builder()
-				.withCount( rolls.size() )
-				.withRollList( rolls )
+				.withCount( coils.size() )
+				.withRollList( coils )
 				.build();
 
 	}
 
-	public Roll newRoll( final Roll newRoll ) {
+	public Coil newRoll( final Coil newCoil ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Roll by id. If found reject the request because this should be a new creation.
-			final Optional<Roll> target = this.rollRepository.findById( newRoll.getId() );
+			final Optional<Coil> target = this.coilRepository.findById( newCoil.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( ErrorInfo.ROLL_ALREADY_EXISTS, newRoll.getId().toString() );
-			return this.rollRepository.save( newRoll );
+				throw new DimensinfinRuntimeException( ErrorInfo.ROLL_ALREADY_EXISTS, newCoil.getId().toString() );
+			return this.coilRepository.save( newCoil );
 		} finally {
 			LogWrapper.exit();
 		}

@@ -16,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Entity
 @Table(name = "rolls", schema = "printer3d")
-public class Roll {
+public class Coil {
 	@Id
 	@NotNull(message = "Roll unique UUID 'id' is a mandatory field and cannot be null.")
 	@Column(name = "id", updatable = false, nullable = false)
@@ -33,7 +33,7 @@ public class Roll {
 	private Integer weight = 1000;
 
 	// - C O N S T R U C T O R S
-	private Roll() {}
+	private Coil() {}
 
 	// - G E T T E R S   &   S E T T E R S
 	public String getColor() {
@@ -65,12 +65,12 @@ public class Roll {
 	@Override
 	public boolean equals( final Object o ) {
 		if (this == o) return true;
-		if (!(o instanceof Roll)) return false;
-		final Roll roll = (Roll) o;
+		if (!(o instanceof Coil)) return false;
+		final Coil coil = (Coil) o;
 		return new EqualsBuilder()
-				.append( this.material, roll.material )
-				.append( this.color, roll.color )
-				.append( this.weight, roll.weight )
+				.append( this.material, coil.material )
+				.append( this.color, coil.color )
+				.append( this.weight, coil.weight )
 				.isEquals();
 	}
 
@@ -86,36 +86,36 @@ public class Roll {
 
 	// - B U I L D E R
 	public static class Builder {
-		private Roll onConstruction;
+		private Coil onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new Roll();
+			this.onConstruction = new Coil();
 		}
 
-		public Roll build() {
+		public Coil build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.material );
 			Objects.requireNonNull( this.onConstruction.color );
 			return this.onConstruction;
 		}
 
-		public Roll.Builder withColor( final String color ) {
+		public Coil.Builder withColor( final String color ) {
 			this.onConstruction.color = Objects.requireNonNull( color );
 			return this;
 		}
 
-		public Roll.Builder withId( final UUID id ) {
+		public Coil.Builder withId( final UUID id ) {
 			this.onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
-		public Roll.Builder withMaterial( final String material ) {
+		public Coil.Builder withMaterial( final String material ) {
 			this.onConstruction.material = Objects.requireNonNull( material );
 			return this;
 		}
 
-		public Roll.Builder withWeight( final Integer weight ) {
+		public Coil.Builder withWeight( final Integer weight ) {
 			if (null != weight) this.onConstruction.weight = weight;
 			return this;
 		}

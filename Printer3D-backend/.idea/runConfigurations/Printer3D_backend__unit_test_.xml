@@ -23,6 +23,13 @@
       </option>
       <option name="vmOptions" value="" />
     </ExternalSystemSettings>
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.dimensinfin.printer3d.backend.Printer3DApplication" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+    </extension>
     <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
     <method v="2" />
   </configuration>

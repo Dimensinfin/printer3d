@@ -16,19 +16,19 @@ import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.RollRepository;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.CoilRepository;
 
 @Profile({ "local", "acceptance", "test" })
 @RestController
 @CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
-public class RollControllerSupport {
-	private final RollRepository rollRepository;
+public class CoilControllerSupport {
+	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
-	public RollControllerSupport( final RollRepository rollRepository ) {
-		this.rollRepository = Objects.requireNonNull( rollRepository );
+	public CoilControllerSupport( final CoilRepository coilRepository ) {
+		this.coilRepository = Objects.requireNonNull( coilRepository );
 	}
 
 	@GetMapping(path = "/inventory/rolls/delete/all",
@@ -36,8 +36,8 @@ public class RollControllerSupport {
 			produces = "application/json")
 	public ResponseEntity<CountResponse> deleteAllRolls() {
 		try {
-			final long recordCount = this.rollRepository.count();
-			this.rollRepository.deleteAll();
+			final long recordCount = this.coilRepository.count();
+			this.coilRepository.deleteAll();
 			return new ResponseEntity<>( new CountResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build(), HttpStatus.OK );

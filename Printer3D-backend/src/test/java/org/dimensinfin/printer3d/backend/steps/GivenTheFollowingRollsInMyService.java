@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.roll.CucumberTableToRollConverter;
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.RollFeignClientV1;
@@ -31,8 +31,8 @@ public class GivenTheFollowingRollsInMyService extends StepSupport {
 	public void the_following_Rolls_in_my_service( final List<Map<String, String>> dataTable ) throws IOException {
 		for (int i = 0; i < dataTable.size(); i++) {
 			final Map<String, String> row = dataTable.get( i );
-			final Roll roll = new CucumberTableToRollConverter( this.printer3DWorld ).convert( row );
-			this.rollFeignClientV1.newRoll( this.printer3DWorld.getJwtAuthorizationToken(), roll );
+			final Coil coil = new CucumberTableToRollConverter( this.printer3DWorld ).convert( row );
+			this.rollFeignClientV1.newRoll( this.printer3DWorld.getJwtAuthorizationToken(), coil );
 		}
 		final ResponseEntity<RollList> rollList = this.rollFeignClientV1.getRolls( this.printer3DWorld.getJwtAuthorizationToken() );
 		Assertions.assertEquals( dataTable.size(), rollList.getBody().getCount() );

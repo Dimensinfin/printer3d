@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.roll.CucumberTableToRollConverter;
 import org.dimensinfin.printer3d.backend.support.roll.RollValidator;
@@ -35,9 +35,9 @@ public class P3D02RollsSteps extends StepSupport {
 	@Then("the item {string} of the list of Rolls has the next fields")
 	public void the_item_of_the_list_of_Rolls_has_the_next_fields( final String row, final List<Map<String, String>> dataTable ) {
 		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity().getBody().getRolls() );
-		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity().getBody().getRolls().get( Integer.parseInt( row ) - 1 ) );
-		final Roll record = this.printer3DWorld.getRollListResponseEntity().getBody().getRolls().get( Integer.parseInt( row ) - 1 );
+		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity().getBody().getCoils() );
+		Assertions.assertNotNull( this.printer3DWorld.getRollListResponseEntity().getBody().getCoils().get( Integer.parseInt( row ) - 1 ) );
+		final Coil record = this.printer3DWorld.getRollListResponseEntity().getBody().getCoils().get( Integer.parseInt( row ) - 1 );
 		Assertions.assertTrue(
 				new RollValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), record )
 		);
@@ -53,8 +53,8 @@ public class P3D02RollsSteps extends StepSupport {
 
 	@Given("the next New Roll request")
 	public void the_next_New_Roll_request( final List<Map<String, String>> dataTable ) {
-		final Roll roll = new CucumberTableToRollConverter( this.printer3DWorld ).convert( dataTable.get( 0 ) );
-		Assertions.assertNotNull( roll );
-		this.printer3DWorld.setRoll( roll );
+		final Coil coil = new CucumberTableToRollConverter( this.printer3DWorld ).convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( coil );
+		this.printer3DWorld.setCoil( coil );
 	}
 }

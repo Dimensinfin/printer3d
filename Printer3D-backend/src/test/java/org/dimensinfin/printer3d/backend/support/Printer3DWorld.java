@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.backend.support;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
@@ -13,8 +13,8 @@ public class Printer3DWorld extends CommonWorld {
 	private Part part;
 	private ResponseEntity<Part> newPartResponseEntity;
 	private ResponseEntity<PartList> partListResponseEntity;
-	private Roll roll;
-	private ResponseEntity<Roll> newRollResponseEntity;
+	private Coil coil;
+	private ResponseEntity<Coil> newRollResponseEntity;
 	private ResponseEntity<RollList> rollListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 
@@ -37,11 +37,11 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<Roll> getNewRollResponseEntity() {
+	public ResponseEntity<Coil> getNewRollResponseEntity() {
 		return this.newRollResponseEntity;
 	}
 
-	public Printer3DWorld setNewRollResponseEntity( final ResponseEntity<Roll> newRollResponseEntity ) {
+	public Printer3DWorld setNewRollResponseEntity( final ResponseEntity<Coil> newRollResponseEntity ) {
 		this.newRollResponseEntity = newRollResponseEntity;
 		return this;
 	}
@@ -64,12 +64,12 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public Roll getRoll() {
-		return this.roll;
+	public Coil getCoil() {
+		return this.coil;
 	}
 
-	public Printer3DWorld setRoll( final Roll roll ) {
-		this.roll = roll;
+	public Printer3DWorld setCoil( final Coil coil ) {
+		this.coil = coil;
 		return this;
 	}
 

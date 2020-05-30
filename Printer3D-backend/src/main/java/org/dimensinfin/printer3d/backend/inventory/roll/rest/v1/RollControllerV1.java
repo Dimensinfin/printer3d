@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 import org.dimensinfin.printer3d.client.domain.RollList;
 
 @RestController
@@ -35,8 +35,8 @@ class RollControllerV1 {
 	@PostMapping(path = "/inventory/rolls",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Roll> newRoll( final @RequestBody @Valid @NotNull Roll roll ) {
-		return new ResponseEntity<>( this.rollServiceV1.newRoll( roll ), HttpStatus.CREATED );
+	public ResponseEntity<Coil> newRoll( final @RequestBody @Valid @NotNull Coil coil ) {
+		return new ResponseEntity<>( this.rollServiceV1.newRoll( coil ), HttpStatus.CREATED );
 	}
 
 	@GetMapping(path = "/inventory/rolls",

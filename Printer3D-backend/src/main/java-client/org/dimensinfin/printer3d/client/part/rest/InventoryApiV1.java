@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.client.part.rest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Roll;
+import org.dimensinfin.printer3d.backend.inventory.roll.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
@@ -55,13 +55,13 @@ public interface InventoryApiV1 {
 	 * The 3D printers need and use plastic filament to build the models. The rolls have as main characteristics the type of plastic, the color and
 	 * the quantity of the material.
 	 *
-	 * @param roll Contains the *Roll** fields requested to the user on the frontend UI.
+	 * @param coil Contains the *Roll** fields requested to the user on the frontend UI.
 	 * @return the persisted Roll record.
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@POST("api/v1/inventory/rolls")
-	Call<Roll> newRoll( @Header("Authorization") final @NotNull String authorizationToken,
-	                    @Body @NotNull @Valid Roll roll
+	Call<Coil> newRoll( @Header("Authorization") final @NotNull String authorizationToken,
+	                    @Body @NotNull @Valid Coil coil
 	);
 
 	/**
