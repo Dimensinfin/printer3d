@@ -2,7 +2,7 @@
 import { environment } from './environment';
 
 export class IsolationService {
-  public  doLandingPage() {
+    public doLandingPage() {
         let urlRequest = '/';
         cy.log('-[IsolationService.doLandingPage]> urlRequest=' + urlRequest);
         cy.visit(urlRequest);
@@ -50,6 +50,8 @@ export class IsolationService {
         switch (templateName) {
             case 'app-name':
                 return environment.appName;
+            case 'app-title':
+                return environment.appTitle;
             case 'app-version':
                 return environment.appVersion;
             case 'copyright':

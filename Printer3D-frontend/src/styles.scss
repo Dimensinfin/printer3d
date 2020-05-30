@@ -14,7 +14,6 @@
 }
 
 .ag-theme-alpine-dark .ag-cell {
-    // line-height: 30px;
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -31,7 +30,7 @@ hr {
     filter: blur(1px);
 }
 
-$page-path-color: white; // Red 50%
+$page-path-color: white;
 .page-path {
     font-size: 20px;
     font-weight: bold;

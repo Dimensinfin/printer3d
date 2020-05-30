@@ -5,9 +5,6 @@ Feature: [D3D02]-Test the activities with the dock.
     If the interaction is a Dialog then the click should open a new dialog and check the user interaction.
     Other actions can be configured for each action name and can be any of the previous actions.
 
-    # Background: Dock Default Configuration setup
-    #     Given the application Printer3DManager
-
     @D3D02 @D3D02.01
     Scenario: [D3D02.01]-If there is a click on a Feature that is a PAGE-ROUTE then the route changes to the configured destination.
         Given the DashboardPage is activated

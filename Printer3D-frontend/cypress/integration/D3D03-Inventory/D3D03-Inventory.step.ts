@@ -25,7 +25,7 @@ Given('one or more instances of Row', function () {
 Then('there is a column with {string} data', function (fieldName) {
     const columnIdentifer = '[col-id="' + fieldName + '"]'
     cy.get('ag-grid-angular').find('.ag-center-cols-container')
-        .get('[role="row"]').get(columnIdentifer).should('have.length.greaterThan', 1)
+        .get('[role="row"]').get('div').get(columnIdentifer).should('have.length.greaterThan', 1)
 });
 
 Given('the InventoryCoilListPage is activated', function () {

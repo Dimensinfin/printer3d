@@ -1,10 +1,10 @@
 <div id="modal-content-wrapper">
     <header id="modal-header">
-        <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventario/Nuevo rollo</div>
+        <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventario/Nuevo Rollo</div>
     </header>
     <section id="modal-body">
         <!-- N E W   S E R V I C E   F O R M -->
-        <form #newRollForm="ngForm" class="dsf-form" autocomplete="off">
+        <form #newCoilForm="ngForm" class="dsf-form" autocomplete="off">
             <table cellspacing="5px">
                 <!-- I D E N T I F I E R -->
                 <tr>
@@ -16,7 +16,7 @@
                             </span>
                         </div>
                     </td>
-                    <td><span id="roll-id" class="dsf-form-control dsf-untouchable-form-item roll-id">{{roll.id}}</span></td>
+                    <td><span id="coil-id" class="dsf-form-control dsf-untouchable-form-item coil-id">{{coil.id}}</span></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -32,7 +32,7 @@
                         </div>
                     </td>
                     <td>
-                        <input id="roll-material" type="text" class="dsf-form-control dsf-editable-form-item roll-material" required [(ngModel)]="roll.material" name="material" minlength="1" maxlength="16" #spy>
+                        <input id="coil-material" type="text" class="dsf-form-control dsf-editable-form-item coil-material" required [(ngModel)]="coil.material" name="material" minlength="1" maxlength="16" #spy>
                     </td>
                     <!-- C O L O R -->
                     <td>
@@ -44,7 +44,7 @@
                         </div>
                     </td>
                     <td>
-                        <input id="roll-color" type="text" class="dsf-form-control dsf-editable-form-item roll-color" required [(ngModel)]="roll.color" name="color" minlength="1" maxlength="32" #spy>
+                        <input id="coil-color" type="text" class="dsf-form-control dsf-editable-form-item coil-color" required [(ngModel)]="coil.color" name="color" minlength="1" maxlength="32" #spy>
                     </td>
                 </tr>
                 <tr>
@@ -58,7 +58,7 @@
                         </div>
                     </td>
                     <td>
-                        <input id="roll-weight" type="number" class="dsf-form-control dsf-number dsf-editable-form-item roll-weight" required [(ngModel)]="roll.weight" name="weight">
+                        <input id="coil-weight" type="number" class="dsf-form-control dsf-number dsf-editable-form-item coil-weight" required [(ngModel)]="coil.weight" name="weight">
                     </td>
                 </tr>
             </table>
@@ -66,7 +66,7 @@
     </section>
     <footer id="modal-footer">
         <div class="centered-container button-area">
-            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newRollForm.form.valid" (click)="saveRoll()">
+            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newCoilForm.form.valid" (click)="saveCoil()">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 &nbsp;&nbsp;Guardar Datos
             </button>
@@ -76,7 +76,7 @@
             </button>
         </div>
         <div class="centered-container button-area">
-            <button id="repeat-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newRollForm.form.valid" (click)="saveRollAndRepeat()">
+            <button id="repeat-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newCoilForm.form.valid" (click)="saveCoilAndRepeat()">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 &nbsp;&nbsp;Guardar y Repetir
             </button>
