@@ -9,7 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { InventoryPartListPageComponent } from './pages/inventory-part-list-page/inventory-part-list-page.component';
 import { InventoryCoilListPageComponent } from './pages/inventory-coil-list-page/inventory-coil-list-page.component';
 import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialog.component';
-import { NewRollDialogComponent } from './dialogs/new-roll-dialog/new-roll-dialog.component';
+import { NewCoilDialogComponent } from './dialogs/new-coil-dialog/new-coil-dialog.component';
 
 @NgModule({
     imports: [
@@ -22,7 +22,7 @@ import { NewRollDialogComponent } from './dialogs/new-roll-dialog/new-roll-dialo
         InventoryPartListPageComponent, 
         InventoryCoilListPageComponent,
         NewPartDialogComponent,
-        NewRollDialogComponent
+        NewCoilDialogComponent
     ],
     exports: [
         InventoryPartListPageComponent, 

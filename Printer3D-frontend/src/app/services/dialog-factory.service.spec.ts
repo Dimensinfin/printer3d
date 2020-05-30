@@ -55,21 +55,36 @@ describe('COMPONENT DialogFactoryService [Module: CORE]', () => {
             const feature = new Feature();
             const serviceAsAny = service as any;
             spyOn(dialog, 'open');
-            service.processClick(feature);
+            const dialogRef = service.processClick(feature);
             expect(dialog.open).not.toHaveBeenCalled();
+            expect(dialogRef).toBeUndefined();
         });
-        xit('processClick.NewPart: process the click action on a Feature', async () => {
+        it('processClick.NewPartDialog: process the click action on a Feature', async () => {
             const feature = new Feature({
                 "jsonClass": "Feature",
                 "label": "/Nueva Pieza",
                 "enabled": true,
                 "active": false,
                 "interaction": "DIALOG",
-                "dialog": "NewPartDialog"
+                "route": "NewPartDialog"
             });
             const serviceAsAny = service as any;
             spyOn(dialog, 'open');
-            service.processClick(feature);
+            await service.processClick(feature);
+            expect(dialog.open).toHaveBeenCalled();
+        });
+        it('processClick.NewCoilDialog: process the click action on a Feature', async () => {
+            const feature = new Feature({
+                "jsonClass": "Feature",
+                "label": "/Nuevo Rollo",
+                "enabled": true,
+                "active": false,
+                "interaction": "DIALOG",
+                "route": "NewCoilDialog"
+            });
+            const serviceAsAny = service as any;
+            spyOn(dialog, 'open');
+            await service.processClick(feature);
             expect(dialog.open).toHaveBeenCalled();
         });
     });

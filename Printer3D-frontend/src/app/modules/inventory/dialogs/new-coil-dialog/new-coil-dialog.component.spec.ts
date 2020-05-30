@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { platformconstants } from '../../../../platform/platform-constants';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
 // - MATERIAL
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,12 +33,11 @@ import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { Part } from '@domain/Part.domain';
-import { NewRollDialogComponent } from './new-roll-dialog.component';
+import { NewCoilDialogComponent } from './new-coil-dialog.component';
 import { Coil } from '@domain/Coil.domain';
 
-describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
-    let component: NewRollDialogComponent;
-    let isolationService: SupportIsolationService;
+describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
+    let component: NewCoilDialogComponent;
     let backendService: SupportBackendService;
 
     beforeEach(async(() => {
@@ -50,7 +50,7 @@ describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
                 MatDialogModule
             ],
             declarations: [
-                NewRollDialogComponent
+                NewCoilDialogComponent
             ],
             providers: [
                 // { provide: MatDialog, useValue: {} },
@@ -61,11 +61,9 @@ describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
             ]
         }).compileComponents();
 
-        const fixture = TestBed.createComponent(NewRollDialogComponent);
+        const fixture = TestBed.createComponent(NewCoilDialogComponent);
         component = fixture.componentInstance;
-        isolationService = TestBed.get(IsolationService);
         backendService = TestBed.get(BackendService);
-        fixture.detectChanges();
     }));
 
     // - C O N S T R U C T I O N   P H A S E
@@ -73,14 +71,16 @@ describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const componentAsAny = component as any;
             expect(component).toBeDefined('component has not been created.');
-            expect(componentAsAny.roll).toBeDefined('field "roll" should have initial value.');
+            expect(componentAsAny.coil).toBeDefined('field "coil" should have initial value.');
         });
     });
 
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
         it('ngOnInit: validate initialization flow', async () => {
-            expect(component.roll.id).toBeDefined('Empty Roll should have id.');
+            expect(component.coil.id).toBeUndefined();
+            component.ngOnInit();
+            expect(component.coil.id).toBeDefined('Empty Coil should have id.');
         });
     });
 
@@ -89,34 +89,46 @@ describe('COMPONENT NewRollDialogComponent [Module: INVENTORY]', () => {
         it('ngOnDestroy: validate destruction flow', async () => {
             const componentAsAny = component as any;
             expect(componentAsAny.backendConnections.length).toBe(0, 'The initial subscription list should be 0.');
-            component.saveRoll();
+            component.saveCoil();
             expect(componentAsAny.backendConnections.length).toBe(1, 'After initialization should be 1.');
         });
     });
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
-        xit('saveRoll: persist the roll on the backend repository', async () => {
-            const roll: Coil = new Coil({ id: '-ID-' });
+        it('saveCoil: persist the Coil on the backend repository', async () => {
+            const coil: Coil = new Coil({ id: '-ID-' });
             const componentAsAny = component as any;
-            componentAsAny.roll = roll;
-            // const backendService = TestBed.get(BackendService);
-            spyOn(backendService, 'apiNewCoil_v1');
-            component.saveRoll();
-            expect(backendService.apiNewCoil_v1).toHaveBeenCalled();
+            component.coil = coil;
+            expect(componentAsAny.backendConnections.length).toBe(0, 'The number of subscriptions should be 0.')
+            spyOn(component, 'closeModal').and.callThrough()
+            await component.saveCoil();
+            expect(componentAsAny.backendConnections.length).toBe(1, 'The number of subscriptions should be 1.')
+            expect(component.closeModal).toHaveBeenCalled();
         });
-        // it('savePartAndRepeat: persist the part on the backend repository', async () => {
-        //     const part: Part = new Part({id: '-ID-'});
-        //     const componentAsAny = component as any;
-        //     componentAsAny.part = part;
-        //     component.savePartAndRepeat();
-        // });
-        // it('closeModal: start closing the dialog', async () => {
-        //     const componentAsAny = component as any;
-        //     spyOn(componentAsAny.dialogRef, 'close');
-        //     expect(componentAsAny.dialogRef).toBeDefined();
-        //     component.closeModal();
-        //     expect(componentAsAny.dialogRef.close).toHaveBeenCalled();
-        // });
+        it('saveCoilAndRepeat: persist the Coil on the backend repository', async () => {
+            const coil: Coil = new Coil({
+                "id": "df23d097-4a7c-40e2-837f-e716459a526d",
+                "material": "PLA",
+                "color": "ROJO",
+                "weight": 1000
+            });
+            component.coil = coil;
+            console.log('[saveCoilAndRepeat: persist the Coil on the backend repository]> about to call "saveCoilAndRepeat"')
+            expect(component.coil.id).toBe('df23d097-4a7c-40e2-837f-e716459a526d', 'Initial id should be the mock value');
+            await component.saveCoilAndRepeat();
+            console.log('>[saveCoilAndRepeat]> Coil: ' + JSON.stringify(component.coil))
+            expect('df23d097-4a7c-40e2-837f-e716459a526d' === component.coil.id).toBeFalse();
+            expect(component.coil.material).toBe('PLA');
+            expect(component.coil.color).toBe('')
+            expect(component.coil.weight).toBeUndefined('Weight should be undefined');
+        });
+        it('closeModal: start closing the dialog', async () => {
+            const componentAsAny = component as any;
+            spyOn(componentAsAny.dialogRef, 'close');
+            expect(componentAsAny.dialogRef).toBeDefined();
+            component.closeModal();
+            expect(componentAsAny.dialogRef.close).toHaveBeenCalled();
+        });
     });
 });

@@ -20,7 +20,7 @@
         "enabled": true,
         "active": false,
         "interaction": "DIALOG",
-        "route": "NewRollDialog"
+        "route": "NewCoilDialog"
     },
     {
         "jsonClass": "Feature",

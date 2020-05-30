@@ -1,6 +1,7 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { platformconstants } from '@app/platform/platform-constants';
@@ -18,20 +19,20 @@ import { Part } from '@domain/Part.domain';
 import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Coil } from '@domain/Coil.domain';
-import { RollConstructor } from '@domain/constructor/Roll.constructor';
+import { CoilConstructor } from '@domain/constructor/Coil.constructor';
 
 @Component({
-    selector: 'new-roll-dialog',
-    templateUrl: './new-roll-dialog.component.html',
-    styleUrls: ['./new-roll-dialog.component.scss']
+    selector: 'new-coil-dialog',
+    templateUrl: './new-coil-dialog.component.html',
+    styleUrls: ['./new-coil-dialog.component.scss']
 })
-export class NewRollDialogComponent implements OnInit {
-    public roll: Coil = new Coil();
+export class NewCoilDialogComponent implements OnInit, OnDestroy {
+    public coil: Coil = new Coil();
     public colors: string[] = [];
     private backendConnections: Subscription[] = [];
 
     constructor(
-        public dialogRef: MatDialogRef<NewRollDialogComponent>,
+        public dialogRef: MatDialogRef<NewCoilDialogComponent>,
         private isolationService: IsolationService,
         private backendService: BackendService
     ) { }
@@ -39,8 +40,8 @@ export class NewRollDialogComponent implements OnInit {
      * Retrieves the list of current rolls to populate the list of materials and colors. Selects should be editable to be able to add to this list.
      */
     public ngOnInit(): void {
-        console.log('><[NewRollDialogComponent.ngOnInit]')
-        this.roll.id = uuidv4();
+        console.log('><[NewCoilDialogComponent.ngOnInit]')
+        this.coil.id = uuidv4();
     }
     /**
      * Unsubscribe from any open subscription made to the backend.
@@ -51,9 +52,9 @@ export class NewRollDialogComponent implements OnInit {
         });
     }
     // - I N T E R A C T I O N S
-    public saveRoll(): void {
-        console.log('><[NewRollDialogComponent.saveRoll]')
-        const newRoll: Coil = new RollConstructor().construct(this.roll);
+    public saveCoil(): void {
+        console.log('><[NewCoilDialogComponent.saveCoil]')
+        const newRoll: Coil = new CoilConstructor().construct(this.coil);
         this.backendConnections.push(
             this.backendService.apiNewCoil_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
                 .setTransformation((entrydata: any): Coil => {
@@ -65,9 +66,9 @@ export class NewRollDialogComponent implements OnInit {
                 })
         )
     }
-    public saveRollAndRepeat() {
-        console.log('><[NewRollDialogComponent.saveRoll]')
-        const newRoll: Coil = new RollConstructor().construct(this.roll);
+    public saveCoilAndRepeat() {
+        console.log('><[NewCoilDialogComponent.saveCoilAndRepeat]')
+        const newRoll: Coil = new CoilConstructor().construct(this.coil);
         this.backendConnections.push(
             this.backendService.apiNewCoil_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
                 .setTransformation((entrydata: any): Coil => {
@@ -75,15 +76,16 @@ export class NewRollDialogComponent implements OnInit {
                     return new Coil(entrydata);
                 }))
                 .subscribe((persistedRoll: Coil) => {
-                    this.roll.createNewId();
-                    this.roll.material = 'PLA';
-                    this.roll.color = '';
-                    this.roll.weight = undefined;
+                    console.log('><[NewCoilDialogComponent.saveCoilAndRepeat]> Restarting form')
+                    this.coil.createNewId();
+                    this.coil.material = 'PLA';
+                    this.coil.color = '';
+                    this.coil.weight = undefined;
                 })
         );
     }
     public closeModal(): void {
-        console.log('>[NewRollDialogComponent.closeModal]')
+        console.log('>[NewCoilDialogComponent.closeModal]')
         this.dialogRef.close();
     }
 }
