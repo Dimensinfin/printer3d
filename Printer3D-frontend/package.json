@@ -13,7 +13,8 @@
         "test:dev": "ng test --code-coverage --watch --progress ",
         "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI",
         "deploy:prod": "npm run build:prod ",
-        "acceptance:cypress": "npm run start:dev & wait-on http://localhost:5100 && cypress open"
+        "acceptance:cypress": "npm run start:dev & wait-on http://localhost:5100 && cypress open",
+        "start:simulator": "bash ./support/simulator-backend.sh start "
     },
     "private": true,
     "engines": {

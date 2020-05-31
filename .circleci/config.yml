@@ -31,14 +31,10 @@ jobs:
             node -v
       - run:
           name: CHECK - Verify if the image can start the apisimulator
-          working_directory: Printer3D-frontend
+          working_directory: Printer3D-frontend/support
           command: |
             java -version
-            # npm install
-
-      #       npm run docker:start
-      #       npm run build:dev
-      #       node server.js
+            tar xvfz apisimulator.tar .
   create-frontend-environment-job:
     docker:
       - image: circleci/node:12.16.3-browsers
