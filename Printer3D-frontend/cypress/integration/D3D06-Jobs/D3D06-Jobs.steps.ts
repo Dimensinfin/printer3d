@@ -3,10 +3,27 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
 import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
-import { IsolationService } from '../../support/IsolationService.support';
-import { NewPartForm } from '../../support/page-objects/NewPartForm.form';
-import { NewCoilForm } from '../../support/page-objects/NewCoilForm.form';
+import { V1PendingJob } from '../../support/page-objects/V1PendingJob.panel';
 
 Then('there are a Feature with label {string}', function (label: string) {
-    cy.get('app-root').find('v1-dock').find('v1-feature-render').contains(label, {matchCase: false})
+    cy.get('app-root').find('v1-dock').find('v1-feature-render').contains(label, { matchCase: false })
+});
+
+Then('the ProductionJobListPage is activated', function () {
+    cy.get('app-root').find('production-job-list-page').should('have.length', 1);
+});
+
+Then('one instance of v1-pending-jobs-panel', function () {
+    const dock: V1PendingJob = new V1PendingJob();
+    expect(dock).to.not.be.null;
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-pending-jobs-panel').should('have.length', 1)
+});
+
+Then('one or more instances of v1-pending-job-render', function () {
+    // const dock: V1PendingJob = new V1PendingJob();
+    // expect(dock).to.not.be.null;
+    cy.get('app-root').find('production-job-list-page')
+        // .find('v1-pending-jobs-panel')
+        .find('v1-pending-job-render').should('have.length.gt', 0)
 });

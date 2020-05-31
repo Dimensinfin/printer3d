@@ -33,7 +33,7 @@
     {
         "jsonClass": "Feature",
         "label": "/Trabajos Pnd.",
-        "enabled": false,
+        "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
         "route": "production/pendingjobs"

@@ -2,7 +2,7 @@
     "name": "printer3d-frontend",
     "version": "v0.4.0",
     "scripts": {
-        "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --tags @D3D06.01",
+        "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --tags @D3D06.02",
         "start:network": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 443 -j REDIRECT --to-ports 5100",
         "docker:start": "docker-compose -f ./support/docker/docker-compose.yml up & ",
         "docker:stop": "docker-compose -f ./support/docker/docker-compose.yml down ",

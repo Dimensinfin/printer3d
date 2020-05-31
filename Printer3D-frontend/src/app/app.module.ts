@@ -23,7 +23,9 @@ import { AppComponent } from './app.component';
 
 // - APPLICATION MODULES
 import { SharedModule } from './modules/shared/shared.module';
+import { RendersModule } from './modules/renders/renders.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
+import { ProductionModule } from './modules/production/production.module';
 
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
@@ -45,16 +47,18 @@ registerLocaleData(localeEs);
         ReactiveFormsModule,
         BrowserModule,
         BrowserAnimationsModule,
-         // - ROUTING
-         RouterModule,
-         AppRoutingModule,
+        // - ROUTING
+        RouterModule,
+        AppRoutingModule,
         // - ADDITIONAL MODULES
         HttpClientModule,
         ToastrModule.forRoot(),
         MatDialogModule,
         // - APPLICATION MODULES
         SharedModule,
-        InventoryModule
+        RendersModule,
+        InventoryModule,
+        ProductionModule
     ],
     declarations: [
         AppComponent,
