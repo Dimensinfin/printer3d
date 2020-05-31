@@ -14,10 +14,15 @@ Then('the ProductionJobListPage is activated', function () {
 });
 
 Then('one instance of v1-pending-jobs-panel', function () {
-    const dock: V1PendingJob = new V1PendingJob();
-    expect(dock).to.not.be.null;
+    // const dock: V1PendingJob = new V1PendingJob();
+    // expect(dock).to.not.be.null;
     cy.get('app-root').find('production-job-list-page')
         .find('v1-pending-jobs-panel').should('have.length', 1)
+});
+
+Then('one instance of v1-machines-panel', function () {
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-machines-panel').should('have.length', 1)
 });
 
 Then('one or more instances of v1-pending-job-render', function () {

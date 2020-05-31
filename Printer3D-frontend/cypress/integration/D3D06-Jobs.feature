@@ -13,9 +13,16 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     Given one instance of Dock
     #     Then there are a Feature with label "/TRABAJOS PND."
 
-    @D3D06 @D3D06.02
-    Scenario: [D3D06.02]-Validate the content of the Jobs page once the Jobs feature is clicked.
+    # @D3D06 @D3D06.02
+    # Scenario: [D3D06.02]-Validate the content of the Jobs page once the Jobs feature is clicked.
+    #     Given there is a click on Feature "/TRABAJOS PND."
+    #     Then the ProductionJobListPage is activated
+    #     # And one instance of v1-pending-jobs-panel
+    #     And one or more instances of v1-pending-job-render
+
+    @D3D06 @D3D06.03
+    Scenario: [D3D06.03]-The pending Jobs page has two main panels inside two columns. Check that both panels are visible.
         Given there is a click on Feature "/TRABAJOS PND."
         Then the ProductionJobListPage is activated
-        # And one instance of v1-pending-jobs-panel
-        And one or more instances of v1-pending-job-render
+        And one instance of v1-pending-jobs-panel
+        And one instance of v1-machines-panel
