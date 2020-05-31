@@ -121,12 +121,8 @@ jobs:
       CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
     steps:
       - checkout
-      - restore_cache:
-          key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-      - restore_cache:
-          key: printer3d-frontend-deploy
       - run:
-          name: Validate node version in use and install
+          name: FRONTEND - Install the framework
           working_directory: Printer3D-frontend
           command: |
             node -v
@@ -136,17 +132,12 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm run build:prod
-            npm run start:simulator
-      - run:
-          name: FRONTEND - Start application service
-          working_directory: Printer3D-frontend
-          command: |
-            npm run start:dev & wait-on http://localhost:5100
+            npm run acceptance:simulator
       - run:
           name: FRONTEND - Run Cypress acceptance tests
           working_directory: Printer3D-frontend
           command: |
-            cypress run --record --key ${CYPRESS_KEY}
+            npm run acceptance:cypress
   
   build-backend-job:
     docker:
@@ -323,13 +314,6 @@ workflows:
             branches:
               only:
                 - development
-      - acceptance-frontend-job:
-          requires:
-            - build-frontend-job
-          filters:
-            branches:
-              only:
-                - development
       - build-backend-job:
           requires:
             - start-job
@@ -337,6 +321,14 @@ workflows:
             branches:
               only:
                 - development
+      - acceptance-frontend-job:
+          requires:
+            - start-job
+          filters:
+            branches:
+              only:
+                - development
+                - test
       - backend-stage-to-heroku:
           requires:
             - start-job
@@ -351,9 +343,3 @@ workflows:
             branches:
               only:
                 - test
-      # - backend-prod-to-heroku:
-      #     requires:
-      #       - start-job
-      #     filters:
-      #       tags:
-      #         only: /^b[0-9]+(\.[0-9]+)*/
