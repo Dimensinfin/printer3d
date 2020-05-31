@@ -37,13 +37,13 @@ jobs:
           working_directory: Printer3D-frontend/support
           command: |
             java -version
-      - run:
-          name: CHECK - Start the backend api simulator
-          working_directory: Printer3D-frontend
-          command: |
-            npm install
-            npm run start:simulator
-            npm run stop:simulator
+      # - run:
+      #     name: CHECK - Start the backend api simulator
+      #     working_directory: Printer3D-frontend
+      #     command: |
+      #       npm install
+      #       npm run start:simulator
+      #       npm run stop:simulator
      
   create-frontend-environment-job:
     docker:
@@ -331,7 +331,7 @@ workflows:
             branches:
               only:
                 - development
-                - test
+                - test-fix
       - backend-stage-to-heroku:
           requires:
             - start-job
