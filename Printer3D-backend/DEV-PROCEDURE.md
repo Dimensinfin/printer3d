@@ -13,7 +13,9 @@
 8. Run the **RunAcceptanceTests** configuration.
 9. Commit the code with the scenario title.
 10. Do steps 4 through 12 for each new scenario
-9. Run all the tests with the **Printer3D-backend [unit test]** configuration.
+10. Push development brach to origin
+10. Change to the **test-backend** branch to start doing tests
+10. Run all the tests with the **Printer3D-backend [unit test]** configuration.
 10. Fix all defects.
 10. Run unit tests with code coverage.
 11. Generate code coverage report.

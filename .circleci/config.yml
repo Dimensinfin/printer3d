@@ -6,10 +6,17 @@
 # Start creationg the workflow to clone the repository, then build the 'frontend'
 #   module of the project.
 version: 2.1
+orbs:
+  # "cypress-io/cypress@1" installs the latest published
+  # version "1.x.y" of the orb. We recommend you then use
+  # the strict explicit version "cypress-io/cypress@1.x.y"
+  # to lock the version and prevent unexpected CI changes
+  cypress: cypress-io/cypress@1
 jobs:
   start-job:
     docker:
       - image: circleci/node:12.16.3-browsers
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
       - run:
@@ -20,10 +27,12 @@ jobs:
           name: CHECK - Verify if the image can start the apisimulator
           working_directory: Printer3D-frontend
           command: |
+            java -version
             npm install
-            npm run docker:start
-            npm run build:dev
-            node server.js
+
+      #       npm run docker:start
+      #       npm run build:dev
+      #       node server.js
   create-frontend-environment-job:
     docker:
       - image: circleci/node:12.16.3-browsers

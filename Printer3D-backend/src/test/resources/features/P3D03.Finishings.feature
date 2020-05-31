@@ -4,8 +4,8 @@ Feature: Process and compose the list of Finishings
   This is an especial response entity to collect all the distinct colors available for an specific type of material.
 
   Background:
-    Given a clean Roll repository table
-    And the following Rolls in my service
+    Given a clean Coil repository table
+    And the following Coils in my service
       | id                                   | material | color    | weight |
       | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ROJO     | 500    |
       | 6aee8cff-6d33-43d9-99eb-4b86800fa0dd | TPU      | BLANCO   | 500    |
