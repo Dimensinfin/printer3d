@@ -94,21 +94,16 @@ jobs:
       - restore_cache:
           key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
       - run:
-          name: Validate node version in use and install
+          name: FRONTEND - Install the framework
           working_directory: Printer3D-frontend
           command: |
             node -v
             npm install
       - run:
-          name: FRONTEND - Build deployment code
+          name: FRONTEND - Build production deployment code
           working_directory: Printer3D-frontend
           command: |
             npm run build:prod
-      - run:
-          name: FRONTEND - Test application
-          working_directory: Printer3D-frontend
-          command: |
-            npm run test:prod
       - save_cache:
           paths:
             - ~/project/Printer3D-frontend/node_modules
@@ -123,10 +118,13 @@ jobs:
     environment:
       # Customize the environment values to use on the jobs
       PORT: 5100
+      CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
     steps:
       - checkout
       - restore_cache:
           key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+      - restore_cache:
+          key: printer3d-frontend-deploy
       - run:
           name: Validate node version in use and install
           working_directory: Printer3D-frontend
@@ -134,20 +132,21 @@ jobs:
             node -v
             npm install
       - run:
-          name: FRONTEND - Create the application to be tested
+          name: FRONTEND - Start backend simulator
           working_directory: Printer3D-frontend
           command: |
             npm run build:prod
+            npm run start:simulator
       - run:
-          name: FRONTEND - Start the application server
+          name: FRONTEND - Start application service
           working_directory: Printer3D-frontend
           command: |
-            node server.js
+            npm run start:dev & wait-on http://localhost:5100
       - run:
           name: FRONTEND - Run Cypress acceptance tests
           working_directory: Printer3D-frontend
           command: |
-            cypress run --record --key 9eebb605-a163-4da0-bb36-6af73faddf1b
+            cypress run --record --key ${CYPRESS_KEY}
   
   build-backend-job:
     docker:
@@ -326,11 +325,11 @@ workflows:
                 - development
       - acceptance-frontend-job:
           requires:
-            - start-job
+            - build-frontend-job
           filters:
             branches:
               only:
-                - test-frontend-disabled
+                - development
       - build-backend-job:
           requires:
             - start-job
