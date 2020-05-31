@@ -26,15 +26,22 @@ jobs:
     steps:
       - checkout
       - run:
-          name: PROJECT - Check version and environment
+          name: PROJECT - Check node version
           command: |
             node -v
       - run:
-          name: CHECK - Verify if the image can start the apisimulator
+          name: CHECK - Verify if we have java along node
           working_directory: Printer3D-frontend/support
           command: |
             java -version
-            tar xvfz apisimulator.tar .
+      - run:
+          name: CHECK - Start the backend api simulator
+          working_directory: Printer3D-frontend
+          command: |
+            npm install
+            npm run start:simulator
+            npm run stop:simulator
+     
   create-frontend-environment-job:
     docker:
       - image: circleci/node:12.16.3-browsers

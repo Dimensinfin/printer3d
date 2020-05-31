@@ -1,0 +1,41 @@
+#----------------------------------------------------------------------
+# Default Built-In Simlet
+#----------------------------------------------------------------------
+simlet: apisimulator-simlet-404
+
+# The lowest rank -2^31
+rank: -2147483648
+
+
+# This simlet matches no request
+request: none
+
+
+response:
+  from: stub
+  status: 404
+  headers:
+  - "Content-Type: application/text; charset=UTF-8"
+  body: "API Simulator couldn't find a matching simlet for the request."
+---
+#----------------------------------------------------------------------
+# Simlet for simulating OK response to HTTP CONNECT requests when API
+# Simulator is called as a HTTP/S proxy.
+#----------------------------------------------------------------------
+simlet: apisimulator-proxy-connect
+
+# The lowest rank is -2^31 = -2147483648.
+# -2147483648 + 100 = -2147483548
+rank: -2147483548
+
+
+request:
+- method: CONNECT
+
+
+response:
+  from: stub
+  status: 200
+  headers:
+  - "Connection: keep-alive"
+---
