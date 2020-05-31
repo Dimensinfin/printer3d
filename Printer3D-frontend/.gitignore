@@ -48,3 +48,5 @@ Thumbs.db
 
 # - ApiSimulator code
 support/apisimulator-http-1.4/
+support/apisimulator-http-1.6.1/
+support/**/*.log

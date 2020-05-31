@@ -302,14 +302,14 @@ workflows:
           filters:
             branches:
               only:
-                - experimental
+                - master
       - create-backend-environment-job:
           requires:
             - start-job
           filters:
             branches:
               only:
-                - experimental
+                - master
       - build-frontend-job:
           requires:
             - start-job

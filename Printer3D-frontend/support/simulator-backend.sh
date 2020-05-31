@@ -3,12 +3,12 @@
 # $1 - the command to execute
 COMMAND=$1
 
-SERVICE_PORT=6099
+SERVICE_PORT=5101
 ADMIN_PORT=$(($SERVICE_PORT + 100))
 SIMULATION_NAME='printer3d-backend-simulation'
 
 WORKING_DIRECTORY="."
-APISIMULATOR_COMMAND="${WORKING_DIRECTORY}/support/apisimulator-http-1.4/bin/apisimulator"
+APISIMULATOR_COMMAND="${WORKING_DIRECTORY}/support/apisimulator-http-1.6.1/bin/apisimulator"
 export APISIMULATOR_LOG_LEVEL=debug
 
 export APISIMULATOR_JAVA='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
@@ -17,7 +17,7 @@ export APISIMULATOR_JAVA='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
 start() {
   cd ${WORKING_DIRECTORY}
   APISIMULATOR_SIMULATION="${WORKING_DIRECTORY}/support/$SIMULATION_NAME"
-  echo ">> Starting api simulator with: $APISIMULATOR_SIMULATION"
+  echo ">>> Starting api simulator with: $APISIMULATOR_SIMULATION"
   echo ">>> Service port: $SERVICE_PORT"
   echo ">>> Administration port: $ADMIN_PORT"
   echo ">>> Simulation: $SIMULATION_NAME"
