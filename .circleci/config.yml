@@ -34,7 +34,7 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             java -version
-            npm install
+            # npm install
 
       #       npm run docker:start
       #       npm run build:dev

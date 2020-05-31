@@ -16,6 +16,8 @@
 5110 - SpringBoot backend development server
 5130 - SpringBoot backend acceptance server
 
+5190 - Experimental GUI Fronte end
+
 # PROCEDURES
 ## Development Procedures
 1. Start writing the STORY card to describe what is expected from the user.

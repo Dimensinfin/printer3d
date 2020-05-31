@@ -12,6 +12,22 @@ info:
     ##
     The current API specification matches the Printer3D backend system published with version **0.4.0**.
 
+    # System Description
+
+    The system is composes of 4 subsystems interconnected by interchange lines. The first system represents the external user demand. They
+    have a catalog of Parts and generate a queue of Requests. This is connected to the second subsystem that is the Storage system. The storage
+    contains the elements available to other systems or the elements to generate Parts. This second system connects with the third subsystem called
+    Production that is the responsible to calculate and control the elements to be produced and the tool to build them. The input are the demand of
+    Storage to keep the stocks or to fulfill the Requests. And finally this reports to the four subsystem to buy materials and tools to maintain
+    the Production operative and at the right levels.
+
+    Not all the systems have an application implementation. There are two main applications. One called **frontend** to deal with the Graphical User
+    Interface to create Reports and to control the Storage and another called **backend** to persist all the system data and to run the different
+    Production algorithms that are required.
+
+    This API is the communication channel between the backend and the frontent and represents a contract so the two applications can be developed
+    independently but having the assurance that they will interface properly when deployed into their corresponding hardware.
+
     # API Description
 
     The API will expose endpoints aggregated by the information unit. Entities under the same information unit shre part of the path. For example
@@ -28,8 +44,8 @@ info:
     define the time slot use of the 3D printer and have some cost and price attached. The Part will also store the stock information so for active
     parts this information is used to calculate the jobs pending to stabilize a stock level.
 
-    * **Roll** - To build a Part we require to use a plastic filament **Roll** on a 3D printer so we can print a thin plastic layer upon
-    another layer until we have the model complete. The **Rolls** are the storage for the plastic. It comes in long mono filament plastic lines of
+    * **Coil** - To build a Part we require to use a plastic filament **Coil** on a 3D printer so we can print a thin plastic layer upon
+    another layer until we have the model complete. The **Coils** are the storage for the plastic. It comes in long mono filament plastic lines of
     thousands of metres of length. Usually they are bought by weight.
 
     * **Finishing** - This is an especial response entity to collect all the distinct colors available for an specific type of material.
@@ -55,7 +71,7 @@ tags:
       The Part creation, update and general management endpoints.
   - name: Material
     description: >
-      The tag for the endpoints for Roll and material management.
+      The tag for the endpoints for Coil and material management.
   - name: Machines
     description: >
       The management of machines and their features to control jobs.
@@ -66,7 +82,6 @@ paths:
     post:
       tags:
         - Inventory
-        - Parts
       summary: Create a new Part from the data on the request.
       description: >
         The Printer3D user interface should have requested the Part contents to the user. This endpoint should validate all the fields against the
@@ -93,7 +108,7 @@ paths:
       summary: Get the list of Parts persisted at the Inventory repository.
       description: >
         Get the complete list of <b>Parts</b> persisted at the Inventory repository. If the active filter is active retrieve only the active Parts.
-      operationId: partList
+      operationId: getParts
       parameters:
         - in: query
           name: activesOnly
@@ -152,22 +167,22 @@ paths:
                 $ref: '#/components/schemas/Part'
 
   ### R O L L S
-  /api/v1/inventory/rolls:
+  /api/v1/inventory/coils:
     post:
       tags:
         - Inventory
-      summary: Creates a new **Roll** instance on the persistence repository.
+      summary: Creates a new **Coil** instance on the persistence repository.
       description: >
-        The 3D printers need and use plastic filament to build the models. The rolls have as main characteristics the type of plastic, the color
+        The 3D printers need and use plastic filament to build the models. The Coils have as main characteristics the type of plastic, the color
         and the quantity of the material.
-      operationId: newRoll
+      operationId: newCoil
       requestBody:
         description: >
-          Contains the *Roll** fields requested to the user on the frontend UI.
+          Contains the *Coil** fields requested to the user on the frontend UI.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Roll'
+              $ref: '#/components/schemas/Coil'
       responses:
         201:
           description: >
@@ -175,22 +190,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Roll'
+                $ref: '#/components/schemas/Coil'
     get:
       tags:
         - Inventory
-      summary: Get the list of Rolls persisted at the Inventory repository.
+      summary: Get the list of Coils persisted at the Inventory repository.
       description: >
-        Get the complete list of **Rolls** persisted at the Inventory repository.
-      operationId: getRolls
+        Get the complete list of **Coils** persisted at the Inventory repository.
+      operationId: getCoils
       responses:
         200:
           description: >
-            The list of Rolls persisted at the Inventory repository.
+            The list of Coils persisted at the Inventory repository.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RollList'
+                $ref: '#/components/schemas/CoilList'
 
   /api/v1/inventory/finishings:
     get:
@@ -198,13 +213,13 @@ paths:
         - Inventory
       summary: Returns the list of Materials with the colors available for each one.
       description: >
-        The endpoint collects the materials and colors from all the stock of available rolls. Collects the data and sorts the colors before packing
+        The endpoint collects the materials and colors from all the stock of available coils. Collects the data and sorts the colors before packing
         them to be retuned to the frontend.
       operationId: getFinishings
       responses:
         200:
           description: >
-            The current list of finishings constructed with the rolls available.
+            The current list of finishings constructed with the coils available.
           content:
             application/json:
               schema:
@@ -408,7 +423,7 @@ components:
           items:
             $ref: '#/components/schemas/Machine'
 
-    Roll:
+    Coil:
       type: object
       required:
         - id
@@ -420,8 +435,8 @@ components:
           format: uuid
           pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
           description: >
-            The unique identifier for a single roll. Used for job identification when used on a machine. We should attach a label with this
-            identifier to the roll for visual identification.
+            The unique identifier for a single coil. Used for job identification when used on a machine. We should attach a label with this
+            identifier to the coil for visual identification.
           example:
             009ab011-03ad-4e84-9a88-25708d1cfd64
         material:
@@ -440,7 +455,7 @@ components:
           minLength: 1
           maxLength: 32
           description: >
-            The color name for the plastic on the roll. A roll should have this field as mandatory
+            The color name for the plastic on the coil. A coil should have this field as mandatory
           example:
             VERDE-T
         weight:
@@ -450,27 +465,27 @@ components:
           maximum: 2000
           default: 1000
           description: >
-            The weight of the roll when bought. Initially this field is not being used for logistics purposes but would be needed to remove rolls
+            The weight of the coil when bought. Initially this field is not being used for logistics purposes but would be needed to remove coils
             from the inventory when they have their weight under a predetermined level. The unit or representation is grames.
           example:
             1000
-    RollList:
+    CoilList:
       type: object
       required:
         - count
-        - rolls
+        - coils
       properties:
         count:
           type: number
           format: int32
           description: >
-            The number of Rolls that follow on the response.
+            The number of Coils that follow on the response.
           example:
             8
-        rolls:
+        coils:
           type: array
           items:
-            $ref: '#/components/schemas/Roll'
+            $ref: '#/components/schemas/Coil'
 
     FinishingsResponse:
       type: object
@@ -495,7 +510,7 @@ components:
           minLength: 1
           maxLength: 16
           description: >
-            This is the material name as records on the **Roll** record. Used to collect all this same material colors.
+            This is the material name as records on the **Coil** record. Used to collect all this same material colors.
           example:
             'PLA'
         colors:
@@ -503,7 +518,7 @@ components:
           items:
             $ref: '#/components/schemas/Colors'
           description: >
-            The list of unique colors for active rolls ordered alphabetically descending.
+            The list of unique colors for active coils ordered alphabetically descending.
           example:
             ['BLANCO', 'NEGRO', 'ROJO']
 
