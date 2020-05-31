@@ -19,8 +19,8 @@ public class CoilControllerV1Test {
 
 	@Test
 	public void constructorContract() {
-		final RollControllerV1 rollControllerV1=new RollControllerV1(this.coilviceV1 );
-		Assertions.assertNotNull(rollControllerV1);
+		final CoilControllerV1 coilControllerV1 =new CoilControllerV1(this.coilviceV1 );
+		Assertions.assertNotNull( coilControllerV1 );
 	}
 
 	@Test
@@ -30,8 +30,8 @@ public class CoilControllerV1Test {
 		// When
 		Mockito.when( this.coilviceV1.newCoil(Mockito.any( Coil.class)) ).thenReturn( coil );
 		// Test
-		final RollControllerV1 rollControllerV1=new RollControllerV1(this.coilviceV1 );
-		final ResponseEntity<Coil> obtained = rollControllerV1.newRoll( coil );
+		final CoilControllerV1 coilControllerV1 =new CoilControllerV1(this.coilviceV1 );
+		final ResponseEntity<Coil> obtained = coilControllerV1.newCoil( coil );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

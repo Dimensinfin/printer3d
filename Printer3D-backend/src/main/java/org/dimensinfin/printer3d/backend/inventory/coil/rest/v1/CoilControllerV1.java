@@ -23,27 +23,27 @@ import org.dimensinfin.printer3d.client.domain.CoilList;
 @Validated
 @RequestMapping("/api/v1")
 public
-class RollControllerV1 {
-	private final CoilServiceV1 coilviceV1;
+class CoilControllerV1 {
+	private final CoilServiceV1 coilServiceV1;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public RollControllerV1( final @NotNull CoilServiceV1 coilviceV1 ) {
-		this.coilviceV1 = Objects.requireNonNull( coilviceV1 );
+	public CoilControllerV1( final @NotNull CoilServiceV1 coilServiceV1 ) {
+		this.coilServiceV1 = Objects.requireNonNull( coilServiceV1 );
 	}
 
 // - G E T T E R S   &   S E T T E R S
-	@GetMapping(path = "/inventory/rolls",
+	@GetMapping(path = "/inventory/coils",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CoilList> getRolls() {
-		return new ResponseEntity<>( this.coilviceV1.getRolls(), HttpStatus.OK );
+	public ResponseEntity<CoilList> getCoils() {
+		return new ResponseEntity<>( this.coilServiceV1.getRolls(), HttpStatus.OK );
 	}
 
-	@PostMapping(path = "/inventory/rolls",
+	@PostMapping(path = "/inventory/coils",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Coil> newRoll( final @RequestBody @Valid @NotNull Coil coil ) {
-		return new ResponseEntity<>( this.coilviceV1.newCoil( coil ), HttpStatus.CREATED );
+	public ResponseEntity<Coil> newCoil( final @RequestBody @Valid @NotNull Coil coil ) {
+		return new ResponseEntity<>( this.coilServiceV1.newCoil( coil ), HttpStatus.CREATED );
 	}
 }
