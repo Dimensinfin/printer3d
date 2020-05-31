@@ -60,6 +60,9 @@ public class Part {
 	@Column(name = "active", nullable = false)
 	private boolean active = true;
 
+	// - C O N S T R U C T O R S
+	private Part() {}
+
 	// - G E T T E R S   &   S E T T E R S
 	public Integer getBuildTime() {
 		return this.buildTime;

@@ -29,8 +29,8 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 
 public class PartServiceV1Test {
-	private Part testPart ;
-	private Part testPartNotActive ;
+	private Part testPart;
+	private Part testPartNotActive;
 	private InventoryRepository inventoryRepository;
 
 	@BeforeEach
@@ -105,10 +105,28 @@ public class PartServiceV1Test {
 	}
 
 	@Test
+	public void partsListActivesOnly() {
+		// Given
+		final Part part = Mockito.mock( Part.class );
+		final List<Part> partList = new ArrayList<>();
+		partList.add( part );
+		partList.add( this.testPartNotActive );
+		// When
+		Mockito.when( this.inventoryRepository.findAll() ).thenReturn( partList );
+		// Test
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
+		final PartList obtained = serviceV1.partsList( true );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 1, obtained.getCount() );
+		Assertions.assertEquals( 1, obtained.getParts().size() );
+	}
+
+	@Test
 	public void partsListAll() {
 		// Given
 		final List<Part> partList = new ArrayList<>();
-		partList.add( this.testPart);
+		partList.add( this.testPart );
 		partList.add( this.testPartNotActive );
 		// When
 		Mockito.when( this.inventoryRepository.findAll() ).thenReturn( partList );
@@ -119,22 +137,5 @@ public class PartServiceV1Test {
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.getCount() );
 		Assertions.assertEquals( 2, obtained.getParts().size() );
-	}
-
-	@Test
-	public void partsListActivesOnly() {
-		// Given
-		final List<Part> partList = new ArrayList<>();
-		partList.add( new Part() );
-		partList.add( this.testPartNotActive);
-		// When
-		Mockito.when( this.inventoryRepository.findAll() ).thenReturn( partList );
-		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
-		final PartList obtained = serviceV1.partsList( true );
-		// Assertions
-		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( 1, obtained.getCount() );
-		Assertions.assertEquals( 1, obtained.getParts().size() );
 	}
 }

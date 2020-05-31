@@ -31,7 +31,7 @@ public class PartControllerV1Test {
 	@Test
 	public void newPart() {
 		// Given
-		final Part part = new Part();
+		final Part part = Mockito.mock( Part.class );
 		// When
 		Mockito.when( this.partServiceV1.newPart( Mockito.any( Part.class ) ) ).thenReturn( part );
 		// Test
@@ -48,10 +48,10 @@ public class PartControllerV1Test {
 		// Given
 		final Part part = Mockito.mock( Part.class );
 		final List<Part> partList = new ArrayList<>();
-		partList.add( new Part() );
-		partList.add( new Part() );
-		partList.add( new Part() );
-		partList.add( new Part() );
+		partList.add( part );
+		partList.add( part );
+		partList.add( part );
+		partList.add( part );
 		final PartList partListContainer = new PartList.Builder()
 				.withPartList( partList )
 				.build();

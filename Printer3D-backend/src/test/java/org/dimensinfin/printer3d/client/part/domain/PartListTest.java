@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
@@ -32,9 +33,10 @@ public class PartListTest {
 	@Test
 	public void getterContract() {
 		// Given
+		final Part part = Mockito.mock( Part.class );
 		final List<Part> partList = new ArrayList<>();
-		partList.add( new Part() );
-		partList.add( new Part() );
+		partList.add( part );
+		partList.add( part );
 		final PartList partListContainer = new PartList.Builder()
 				.withPartList( partList )
 				.build();
