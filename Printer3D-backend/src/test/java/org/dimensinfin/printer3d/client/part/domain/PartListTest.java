@@ -9,33 +9,24 @@ import org.junit.jupiter.api.Test;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
 
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_COUNT;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_PARTLIST;
 
 public class PartListTest {
 	@Test
 	public void buildContract() {
 		final PartList partList = new PartList.Builder()
-				.withCount( TEST_PARTLIST_COUNT )
 				.withPartList( TEST_PARTLIST_PARTLIST )
 				.build();
 		Assertions.assertNotNull( partList );
-		new PartList.Builder()
-				.withCount( null )
-				.withPartList( TEST_PARTLIST_PARTLIST )
-				.build();
-		new PartList.Builder()
-				.withCount( TEST_PARTLIST_COUNT )
-				.withPartList( null )
-				.build();
-		new PartList.Builder()
-				.withPartList( TEST_PARTLIST_PARTLIST )
-				.build();
-		new PartList.Builder()
-				.withCount( TEST_PARTLIST_COUNT )
-				.build();
-		new PartList.Builder()
-				.build();
+	}
+
+	@Test
+	public void buildFailure() {
+		Assertions.assertThrows( NullPointerException.class, () -> {
+			new PartList.Builder()
+					.withPartList( null )
+					.build();
+		} );
 	}
 
 	@Test
@@ -44,13 +35,12 @@ public class PartListTest {
 		final List<Part> partList = new ArrayList<>();
 		partList.add( new Part() );
 		partList.add( new Part() );
-		final PartList partListEntity = new PartList.Builder()
-				.withCount( partList.size())
+		final PartList partListContainer = new PartList.Builder()
 				.withPartList( partList )
 				.build();
 		// Assertions
-		Assertions.assertEquals( 2, partListEntity.getCount() );
-		Assertions.assertEquals( partList.size(), partListEntity.getCount() );
-		Assertions.assertEquals( partList.size(), partListEntity.getParts().size() );
+		Assertions.assertEquals( 2, partListContainer.getCount() );
+		Assertions.assertEquals( 2, partListContainer.getCount() );
+		Assertions.assertEquals( 2, partListContainer.getParts().size() );
 	}
 }

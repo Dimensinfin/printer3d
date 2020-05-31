@@ -36,6 +36,20 @@ public class PartFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
+	public ResponseEntity<PartList> getParts( final String authorizationToken ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the list of all parts including not active.";
+		final Response<PartList> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.getParts( authorizationToken, false )
+				.execute();
+		if (response.isSuccessful()) {
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
+
 	public ResponseEntity<Part> newPart( final String authorizationToken, final Part part ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Part.";
 		final Response<Part> response = new Retrofit.Builder()
@@ -47,20 +61,6 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );
-			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
-	}
-
-	public ResponseEntity<PartList> getParts( final String authorizationToken ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the list of all parts including not active.";
-		final Response<PartList> response = new Retrofit.Builder()
-				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
-				.addConverterFactory( GSON_CONVERTER_FACTORY )
-				.build()
-				.create( InventoryApiV1.class )
-				.getParts( authorizationToken, false )
-				.execute();
-		if (response.isSuccessful()) {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}

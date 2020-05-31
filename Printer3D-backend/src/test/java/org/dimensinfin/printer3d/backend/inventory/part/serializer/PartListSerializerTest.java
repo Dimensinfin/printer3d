@@ -31,7 +31,6 @@ public class PartListSerializerTest {
 		final List<Part> partList = new ArrayList<>();
 		partList.add( part );
 		final PartList partContainer = new PartList.Builder()
-				.withCount( 2 )
 				.withPartList( partList )
 				.build();
 		// Testing

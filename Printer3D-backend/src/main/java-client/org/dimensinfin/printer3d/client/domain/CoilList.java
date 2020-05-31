@@ -7,18 +7,18 @@ import java.util.Objects;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 
 public class CoilList {
-	private Integer count = 0;
 	private List<Coil> coils = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
 	private CoilList() {}
 
-	public Integer getCount() {
-		return this.count;
-	}
-
+	// - G E T T E R S   &   S E T T E R S
 	public List<Coil> getCoils() {
 		return this.coils;
+	}
+
+	public Integer getCount() {
+		return this.coils.size();
 	}
 
 	// - B U I L D E R
@@ -29,20 +29,15 @@ public class CoilList {
 		public Builder() {
 			this.onConstruction = new CoilList();
 		}
-		public CoilList.Builder withCount( final Integer count ) {
-			if (null != count) this.onConstruction.count = count;
-			return this;
-		}
-
-		public CoilList.Builder withRollList( final List<Coil> coils ) {
-			if (null != coils) this.onConstruction.coils = Objects.requireNonNull( coils );
-			return this;
-		}
 
 		public CoilList build() {
-			Objects.requireNonNull( this.onConstruction.count );
 			Objects.requireNonNull( this.onConstruction.coils );
 			return this.onConstruction;
+		}
+
+		public CoilList.Builder withCoilList( final List<Coil> coils ) {
+			this.onConstruction.coils = Objects.requireNonNull( coils );
+			return this;
 		}
 	}
 }

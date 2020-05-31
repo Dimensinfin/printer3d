@@ -28,8 +28,7 @@ public class CoilServiceV1 {
 	public CoilList getRolls() {
 		final List<Coil> coils = new ArrayList<>( this.coilRepository.findAll() );
 		return new CoilList.Builder()
-				.withCount( coils.size() )
-				.withRollList( coils )
+				.withCoilList( coils )
 				.build();
 
 	}

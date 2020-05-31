@@ -1,5 +1,7 @@
 package org.dimensinfin.printer3d.backend.inventory.part.rest.v1;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -10,9 +12,6 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
-
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_COUNT;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_PARTLIST;
 
 public class PartControllerV1Test {
 
@@ -47,19 +46,24 @@ public class PartControllerV1Test {
 	@Test
 	public void partsList() {
 		// Given
-		final PartList partList = new PartList.Builder()
-				.withCount( TEST_PARTLIST_COUNT )
-				.withPartList( TEST_PARTLIST_PARTLIST )
+		final Part part = Mockito.mock( Part.class );
+		final List<Part> partList = new ArrayList<>();
+		partList.add( new Part() );
+		partList.add( new Part() );
+		partList.add( new Part() );
+		partList.add( new Part() );
+		final PartList partListContainer = new PartList.Builder()
+				.withPartList( partList )
 				.build();
 		// When
-		Mockito.when( this.partServiceV1.partsList( true ) ).thenReturn( partList );
+		Mockito.when( this.partServiceV1.partsList( true ) ).thenReturn( partListContainer );
 		// Test
 		final PartControllerV1 controllerV1 = new PartControllerV1( this.partServiceV1 );
 		final ResponseEntity<PartList> obtained = controllerV1.partsList( Optional.of( true ) );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
-		Assertions.assertEquals( TEST_PARTLIST_COUNT, obtained.getBody().getCount() );
-		Assertions.assertEquals( TEST_PARTLIST_PARTLIST.size(), obtained.getBody().getParts().size() );
+		Assertions.assertEquals( 4, obtained.getBody().getCount() );
+		Assertions.assertEquals( 4, obtained.getBody().getParts().size() );
 	}
 }

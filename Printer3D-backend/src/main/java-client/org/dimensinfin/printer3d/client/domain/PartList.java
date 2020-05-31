@@ -7,12 +7,11 @@ import java.util.Objects;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
 public class PartList {
-	private Integer count=0;
 	private List<Part> parts = new ArrayList<>();
 
 	// - G E T T E R S   &   S E T T E R S
-	public Integer getCount() {
-		return this.count;
+	public int getCount() {
+		return this.parts.size();
 	}
 
 	public List<Part> getParts() {
@@ -29,18 +28,12 @@ public class PartList {
 		}
 
 		public PartList build() {
-			Objects.requireNonNull( this.onConstruction.count );
 			Objects.requireNonNull( this.onConstruction.parts );
 			return this.onConstruction;
 		}
 
-		public PartList.Builder withCount( final Integer count ) {
-			if (null != count) this.onConstruction.count = count;
-			return this;
-		}
-
 		public PartList.Builder withPartList( final List<Part> parts ) {
-			if (null != parts)	this.onConstruction.parts = Objects.requireNonNull( parts );
+			this.onConstruction.parts = Objects.requireNonNull( parts );
 			return this;
 		}
 	}

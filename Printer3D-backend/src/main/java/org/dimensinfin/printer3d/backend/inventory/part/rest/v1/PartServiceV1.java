@@ -19,7 +19,7 @@ import org.dimensinfin.printer3d.client.domain.PartList;
 public class PartServiceV1 {
 	private final InventoryRepository inventoryRepository;
 
-// - C O N S T R U C T O R S
+	// - C O N S T R U C T O R S
 	@Autowired
 	public PartServiceV1( @NotNull final InventoryRepository inventoryRepository ) {
 		this.inventoryRepository = inventoryRepository;
@@ -41,11 +41,10 @@ public class PartServiceV1 {
 	public PartList partsList( final boolean activesOnly ) {
 		final List<Part> parts = this.inventoryRepository.findAll()
 				.stream()
-				.filter( part -> (!activesOnly || part.isActive()))
+				.filter( part -> (!activesOnly || part.isActive()) )
 				.collect( Collectors.toList() );
 		return new PartList.Builder()
-				.withCount( parts.size())
-				.withPartList ( parts)
+				.withPartList( parts )
 				.build();
 
 	}
