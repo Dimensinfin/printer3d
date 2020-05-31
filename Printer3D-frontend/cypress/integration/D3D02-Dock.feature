@@ -1,5 +1,5 @@
 @D3D02
-Feature: [D3D02]-Test the activities with the dock.
+Feature: [D3D02]-Test the activities within the dock.
 
     The Dock contains the links to the feature result pages when it is related to a route interaction.
     If the interaction is a Dialog then the click should open a new dialog and check the user interaction.
@@ -24,10 +24,10 @@ Feature: [D3D02]-Test the activities with the dock.
     Scenario: [D3D02.04]-Validate the list and presentation of the created Features.
         Given the DashboardPage is activated
         And one instance of Dock
-        Then there are 4 Features
+        Then there are 5 Features
 
     @D3D02 @D3D02.05
-    Scenario: [D3D02.05] When the dialog closes the Feature that open it should go back to inactive.
+    Scenario: [D3D02.05] When the dialog closes the Feature that opens it should go back to inactive.
         Given the DashboardPage is activated
         And one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"

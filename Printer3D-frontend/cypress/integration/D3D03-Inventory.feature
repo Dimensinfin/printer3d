@@ -1,9 +1,9 @@
 @D3D03
 Feature: [D3D03]-Validate the Inventory features and page contents.
 
-    The inventory is an information section that groups elements that sre available. Availability means that they cane be used
+    The inventory is an information section that groups elements that are in stock. Availability means that they can be used
     to build things. Stock control may be used to decide if more things should be obtained.
-    Inventory actions shluld allow to create, edit and see the differents elements that can be stocked.
+    Inventory actions should allow to create, edit and see the differents elements that can be stocked.
 
     Background: Start the application and move to the initial page
         Given the application Printer3DManager
