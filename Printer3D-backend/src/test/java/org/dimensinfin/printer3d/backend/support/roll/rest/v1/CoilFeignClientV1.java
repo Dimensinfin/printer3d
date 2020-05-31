@@ -45,7 +45,7 @@ public class CoilFeignClientV1 extends CommonFeignClient {
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( InventoryApiV1.class )
-				.getRolls( authorizationToken )
+				.getCoils( authorizationToken )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );
@@ -60,7 +60,7 @@ public class CoilFeignClientV1 extends CommonFeignClient {
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( InventoryApiV1.class )
-				.newRoll( authorizationToken, coil )
+				.newCoil( authorizationToken, coil )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

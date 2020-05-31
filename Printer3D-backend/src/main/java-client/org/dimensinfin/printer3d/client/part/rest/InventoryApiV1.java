@@ -5,9 +5,9 @@ import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.PartList;
-import org.dimensinfin.printer3d.client.domain.CoilList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,7 +26,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/coils")
-	Call<CoilList> getCoils();
+	Call<CoilList> getCoils( @Header("Authorization") final @NotNull String authorizationToken );
 
 	/**
 	 * Returns the list of Materials with the colors available for each one.
@@ -38,6 +38,20 @@ public interface InventoryApiV1 {
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/finishings")
 	Call<FinishingsResponse> getFinishings( @Header("Authorization") final @NotNull String authorizationToken );
+
+	/**
+	 * Get the list of Parts persisted at the Inventory repository.
+	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
+	 * active Parts.
+	 *
+	 * @param activesOnly Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are
+	 *                    included on the list. If tru only active parts will be returned by the filter.  (optional, default to false)
+	 * @return Call&lt;PartList&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@GET("api/v1/inventory/parts")
+	Call<PartList> getParts( @Header("Authorization") final @NotNull String authorizationToken,
+	                         @Query("activesOnly") Boolean activesOnly );
 
 	/**
 	 * Creates a new **Coil** instance on the persistence repository.
@@ -66,18 +80,4 @@ public interface InventoryApiV1 {
 	@POST("api/v1/inventory/parts")
 	Call<Part> newPart( @Header("Authorization") final @NotNull String authorizationToken,
 	                    @Body @NotNull @Valid final Part newPart );
-
-	/**
-	 * Get the list of Parts persisted at the Inventory repository.
-	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
-	 * active Parts.
-	 *
-	 * @param activesOnly Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are
-	 *                    included on the list. If tru only active parts will be returned by the filter.  (optional, default to false)
-	 * @return Call&lt;PartList&gt;
-	 */
-	@Headers({ "Content-Type:application/json" })
-	@GET("api/v1/inventory/parts")
-	Call<PartList> getParts( @Header("Authorization") final @NotNull String authorizationToken,
-	                         @Query("activesOnly") Boolean activesOnly );
 }
