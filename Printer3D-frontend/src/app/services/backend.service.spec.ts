@@ -29,6 +29,7 @@ import { Part } from '@domain/Part.domain';
 import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
+import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -112,6 +113,17 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                     expect(response.count).toBe(3);
                     expect(response.coils.length).toBe(3);
+                });
+        });
+        it('apiInventoryMachines_v1.default: get the list of Coils', async () => {
+            service.apiInventoryMachines_v1(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
+                .setTransformation((entrydata: any): MachineListResponse => {
+                    return new MachineListResponse(entrydata);
+                }))
+                .subscribe((response: MachineListResponse) => {
+                    expect(response).toBeDefined();
+                    expect(response.count).toBe(3);
+                    expect(response.machines.length).toBe(3);
                 });
         });
     });

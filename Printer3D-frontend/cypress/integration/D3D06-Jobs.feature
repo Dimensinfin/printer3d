@@ -26,3 +26,6 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Then the ProductionJobListPage is activated
         And one instance of v1-pending-jobs-panel
         And one instance of v1-machines-panel
+
+    @D3D06 @D3D06.04
+    Scenario: [D3D06.03]-The pending Jobs page has two main panels inside two columns. Check that both panels are visible.

@@ -255,29 +255,22 @@ paths:
 
   ### M A C H I N E S
   /api/v1/inventory/machines:
-    post:
+    get:
       tags:
         - Inventory
-      summary: Creates a new Machine service.
+      summary: Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
       description: >
-        The Printer3D user interface requests the information to the user to create and setup a new Machine and its configuration. Machines are
-        able to build parts from jobs that may have special requirements and dependencies ties to the Machine configuration.
-      operationId: newMachine
-      requestBody:
-        description: >
-          Contains the Machine identifier and configuration fields to be used to create a new Machine record at the repository.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Machine'
+        Machines do not change frequently so there is no need to have their UI. The Machine records are created manually but anyway the system is
+        able to return their list form the repository
+      operationId: getMachines
       responses:
-        201:
+        202:
           description: >
-            The new Part as stored at the Inventory repository.
+            The list of **Machines** persisted at the repository.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Machine'
+                $ref: '#/components/schemas/MachineList'
 
   ### P E N D I N G J O B S
   /api/v1/production/jobs/pending:
@@ -421,10 +414,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Part'
+
     Machine:
       type: object
       required:
         - id
+        - label
         - model
       properties:
         id:
@@ -437,6 +432,7 @@ components:
         label:
           type: string
           format: string
+          maxLength: 32
           description: >
             The user readable label to be assigned to a single Machine. Can be used instead of the unique identifier UUID.
           example:
@@ -444,15 +440,35 @@ components:
         model:
           type: string
           format: string
+          maxLength: 64
           description: >
             The model type of the 3D printer Machine.
           example:
             'Creality 3D Ender 3 Pro'
-        plasticType:
+        characteristics:
           type: string
-          enum:
-            - PLA
-            - FLEXIBLE
+          format: string
+          maxLength: 300
+          description: >
+            A free text with the list of the machine characteristics like special configurations, limits or sizes.
+          example:
+            'Max size set to 200mm. Has adaptor for flexible plastic filament.'
+        currentJob:
+          type: string
+          format: uuid
+          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          description: >
+            The unique identifier for the scheduled job if configured. Machines can be idle or disconnected by maintenance.
+          example:
+            009ab011-03ad-4e84-9a88-25708d1cfd64
+        jobInstallmentDate:
+          type: string
+          format: date-time
+          description: >
+            The date and time when the job was stared on the machine. The Part infrormation says the time it is expected that the machine will be
+            occupied by this job. If the current time is greater that this point it is expected that the job has finished.
+          example:
+            2020-06-01T22:05:00Z
     MachineList:
       type: object
       required:
