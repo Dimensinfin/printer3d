@@ -10,7 +10,7 @@
 			"name": "Support",
 			"item": [
 				{
-					"name": "DeleteAllRolls",
+					"name": "DeleteAllCoils",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -21,52 +21,52 @@
 							}
 						],
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/rolls/delete/all",
+							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/coils/delete/all",
 							"host": [
 								"{{backendServer}}{{backendPort}}{{inventory}}"
 							],
 							"path": [
-								"rolls",
+								"coils",
 								"delete",
 								"all"
 							]
 						},
-						"description": "Deletes all the records from the Rolls table at the Inventory repository."
+						"description": "Delete all the Coils persisted at the repository."
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAllParts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/delete/all",
+							"host": [
+								"{{backendServer}}{{backendPort}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"inventory",
+								"parts",
+								"delete",
+								"all"
+							]
+						},
+						"description": "Deletes all the Parts from the Inventory repository."
 					},
 					"response": []
 				}
 			],
 			"description": "Support calls only available on development environments and not in Production.",
 			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "DeleteAllParts",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/delete/all",
-					"host": [
-						"{{backendServer}}{{backendPort}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"inventory",
-						"parts",
-						"delete",
-						"all"
-					]
-				},
-				"description": "Deletes all the Parts from the Inventory repository."
-			},
-			"response": []
 		},
 		{
 			"name": "NewPart",
@@ -105,7 +105,7 @@
 			"response": []
 		},
 		{
-			"name": "PartList",
+			"name": "GetParts",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -132,7 +132,7 @@
 			"response": []
 		},
 		{
-			"name": "PartList-filter active",
+			"name": "GetParts-filter active",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -165,7 +165,7 @@
 			"response": []
 		},
 		{
-			"name": "NewRoll",
+			"name": "NewCoil",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -222,23 +222,23 @@
 			"response": []
 		},
 		{
-			"name": "GetRolls",
+			"name": "GetCoils",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/rolls",
+					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/coils",
 					"host": [
 						"{{backendServer}}{{backendPort}}{{inventory}}"
 					],
 					"path": [
-						"rolls"
+						"coils"
 					]
 				},
 				"description": "Get the complete list of Rolls persisted at the Inventory repository."

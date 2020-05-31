@@ -22,3 +22,4 @@
 12. Line level should be > 80%
 13. Remove most sonar defects.
 14. Commit changes under the **test** branch.
+15. Validate the CI configuration before uploading the commits to origin.

@@ -2,9 +2,15 @@
 # Download, compile, test and deploy to the production server at Heroku.
 # CircleCI has the ability to deploy to Heroku and integrate more than one
 #   project on the same pipeline.
-# V1:
-# Start creationg the workflow to clone the repository, then build the 'frontend'
-#   module of the project.
+# 
+# Rules:
+# 1. Try to keep the front end and the back end aligned. So event they seem to be two different applications I can reduce
+#   exceptions if I drop both on staging even if there are no changes on one or both of the applications. The stage
+#   branch that triggers Heroku installation id "test".
+# 2. There is no possibility to run docker containers. So I have to create an special configuration to start in parallel
+#   the ApiSimulator on the frontend and the application for acceptance on the backend. Get back the manual start and
+#   stop for the ApiSimulator and include the code on the Heroku repository only.
+#
 version: 2.1
 # orbs:
 #   # "cypress-io/cypress@1" installs the latest published
@@ -190,7 +196,10 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             ./gradlew test
+
   frontend-stage-to-heroku:
+  # This job requires to change the code that is deployed to Heroku so the installation-build-run steps on that
+  #   environment will work without eceptions.
     docker:
       - image: circleci/node:12.16.3-browsers
         environment:
@@ -198,14 +207,23 @@ jobs:
           HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
+      # Restore the node_modules installation. Optimization will include the precompiled packages.
       - restore_cache:
           key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
       - run:
-          name: FRONTEND - Install distribution
+          name: FRONTEND - Show the current node configuration
           working_directory: Printer3D-frontend
           command: |
             node -v
+      - run:
+          name: FRONTEND - Remove cypress dependent package
+          working_directory: Printer3D-frontend
+          command: |
             sed -i '/bahmutov.add/d' package.json
+      - run:
+          name: FRONTEND - Install node packages
+          working_directory: Printer3D-frontend
+          command: |
             npm install
       - run:
           name: FRONTEND - Build deployment code
@@ -240,13 +258,6 @@ jobs:
           HEROKU_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
-      # - run:
-      #     name: BACKEND - Clone Heroku repository
-      #     working_directory: Printer3D-backend
-      #     command: |
-      #       git config --global user.email "adamantinoo.git@gmail.com"
-      #       git config --global user.name "Adam antinoo"
-      #       git clone https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
       - run:
           name: BACKEND - Update commit code
           working_directory: Printer3D-backend
@@ -285,6 +296,7 @@ workflows:
               only:
                 - experimental
                 - development
+                - test
                 - test-frontend
                 - test-backend
                 - master
@@ -329,14 +341,14 @@ workflows:
           filters:
             branches:
               only:
-                - test-backend
+                - test
       - frontend-stage-to-heroku:
           requires:
              - start-job
           filters:
             branches:
               only:
-                - test-frontend
+                - test
       # - backend-prod-to-heroku:
       #     requires:
       #       - start-job
