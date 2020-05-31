@@ -19,7 +19,7 @@
 5190 - Experimental GUI Fronte end
 
 # PROCEDURES
-## Development Procedures
+## Development Procedures Frontend
 1. Start writing the STORY card to describe what is expected from the user.
 2. From the story create the **features** and the **scenarios**.
 3. For each of the scenarios identified do steps **4** to **11**.

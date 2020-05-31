@@ -29,5 +29,13 @@
         "active": false,
         "interaction": "PAGEROUTE",
         "route": "inventory/coillist"
+    },
+    {
+        "jsonClass": "Feature",
+        "label": "/Trabajos Pnd.",
+        "enabled": false,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "production/pendingjobs"
     }
 ]
