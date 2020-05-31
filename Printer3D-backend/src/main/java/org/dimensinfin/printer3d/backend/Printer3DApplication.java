@@ -47,7 +47,13 @@ public class Printer3DApplication {
 		}
 
 		private void printVersion( final String banner ) {
-			LogWrapper.info( "\n\n" + banner + "\n" );
+			final String bannelHard = "  ___     _  _       ___  \n" +
+					" / _ \\   | || |     / _ \\ \n" +
+					"| | | |  | || |_   | | | |\n" +
+					"| |_| |  |__   _|  | |_| |\n" +
+					" \\___(_)    |_|(_)  \\___/ \n" +
+					"                          \n";
+			LogWrapper.info( "\n\n" + bannelHard + "\n" );
 		}
 
 		private String readAllBytesJava7( final Resource banner ) {

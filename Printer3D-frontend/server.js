@@ -80,10 +80,10 @@ app.listen(process.env.PORT || app.locals.port || 3000, function() {
     console.log("Node Express server for '" + app.locals.appname + "'");
     console.log("Backend listening on [" + app.locals.backendproxy + "]");
     console.log("Listening on port: " + app.locals.port);
-    console.log("        ___     _____     ___  \n" +
-        "__   __/ _ \\   |___ /    / _ \\ \n" +
-        "\\ \\ / / | | |    |_ \\   | | | |\n" +
-        " \\ V /| |_| |   ___) |  | |_| |\n" +
-        "  \\_/  \\___(_) |____(_)  \\___/ \n" +
-        "                               \n");
+    console.log("  ___     _  _       ___  \n" +
+        " / _ \\   | || |     / _ \\ \n" +
+        "| | | |  | || |_   | | | |\n" +
+        "| |_| |  |__   _|  | |_| |\n" +
+        " \\___(_)    |_|(_)  \\___/ \n" +
+        "                          \n");
 });

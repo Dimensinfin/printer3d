@@ -5,12 +5,15 @@
 # 
 # Rules:
 # 1. Try to keep the front end and the back end aligned. So event they seem to be two different applications I can reduce
-#   exceptions if I drop both on staging even if there are no changes on one or both of the applications. The stage
-#   branch that triggers Heroku installation id "test".
+#    exceptions if I drop both on staging even if there are no changes on one or both of the applications. The stage
+#    branch that triggers Heroku installation id "test".
 # 2. There is no possibility to run docker containers. So I have to create an special configuration to start in parallel
-#   the ApiSimulator on the frontend and the application for acceptance on the backend. Get back the manual start and
-#   stop for the ApiSimulator and include the code on the Heroku repository only.
-#
+#    the ApiSimulator on the frontend and the application for acceptance on the backend. Get back the manual start and
+#    stop for the ApiSimulator and include the code on the Heroku repository only.
+# 3. Test deployment go to the **stage** instances. To deploy tests we should be sure that all test checks have been passed
+#    or we can deploy changes that go to stage without passing unit testing or acceptance testing. So test should do all
+#    previous stages until some sort of optimization is found.
+# 4. Until script adjustment acceptance is optional to allow a commit to pass stage.
 version: 2.1
 # orbs:
 #   # "cypress-io/cypress@1" installs the latest published
@@ -337,6 +340,7 @@ workflows:
               only:
                 - test
       - frontend-stage-to-heroku:
+        # This isolation from acceptance tests is provisional
           requires:
              - start-job
           filters:
