@@ -1,3 +1,21 @@
 <div *ngFor="let machine of machines">
-    <v1-machine-render [node]="machine"></v1-machine-render>
+    <div>
+        <div class="panel-block row" draggable>
+            <div class="panel-corner clip">
+                <div class="container"></div>
+                <svg class="topleft" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" />
+                </svg>
+            </div>
+            <svg class="corner-topleft" viewBox="0 0 100 100" *ngIf="active">
+                <path d="M0,0 L0,100 L100,0 L0,0" />
+            </svg>
+            <div class="panel-left">
+                <div class=label>
+                    <v1-machine-render [node]="machine"></v1-machine-render>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

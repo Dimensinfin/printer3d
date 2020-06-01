@@ -16,19 +16,20 @@ import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 
 @Component({
-  selector: 'v1-machines-panel',
-  templateUrl: './v1-machines-panel.component.html',
-  styleUrls: ['./v1-machines-panel.component.scss']
+    selector: 'v1-machines-panel',
+    templateUrl: './v1-machines-panel.component.html',
+    styleUrls: ['./v1-machines-panel.component.scss']
 })
-export class V1MachinesPanelComponent implements OnInit , OnDestroy{
+export class V1MachinesPanelComponent implements OnInit, OnDestroy {
     private backendConnections: Subscription[] = [];
-    public machines : Machine[]=[];
+    public active: boolean = true;
+    public machines: Machine[] = [];
 
-  constructor(private backendService: BackendService) { }
+    constructor(private backendService: BackendService) { }
 
- public ngOnInit(): void {
-     this.getMachines();
-  }
+    public ngOnInit(): void {
+        this.getMachines();
+    }
     /**
      * Unsubscribe from any open subscription made to the backend.
      */
@@ -37,17 +38,17 @@ export class V1MachinesPanelComponent implements OnInit , OnDestroy{
             element.unsubscribe();
         });
     }
-private getMachines() : void {
-    this.backendConnections.push(
-        this.backendService.apiInventoryGetMachines_v1( new ResponseTransformer().setDescription('Do HTTP transformation to "MachineListResponse".')
-            .setTransformation((entrydata: any): MachineListResponse => {
-                return new MachineListResponse(entrydata);
-            }))
-            .subscribe((response: MachineListResponse) => {
-                // Process the response to extract the Machines to the render list
-                this.machines=response.getMachines();
-            })
-    );
+    private getMachines(): void {
+        this.backendConnections.push(
+            this.backendService.apiInventoryGetMachines_v1(new ResponseTransformer().setDescription('Do HTTP transformation to "MachineListResponse".')
+                .setTransformation((entrydata: any): MachineListResponse => {
+                    return new MachineListResponse(entrydata);
+                }))
+                .subscribe((response: MachineListResponse) => {
+                    // Process the response to extract the Machines to the render list
+                    this.machines = response.getMachines();
+                })
+        );
 
-}
+    }
 }
