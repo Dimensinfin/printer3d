@@ -1,7 +1,8 @@
 .machine-image {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     background-color: white;
+    margin-top: 4px;
 }
 
 .machine-data {
@@ -22,7 +23,7 @@
     margin-top: 6px;
 }
 
-.machine-part {
+.machine-job {
     margin-top: 10px;
     border: 2px dashed green;
     height: 30px;
@@ -38,4 +39,77 @@
 
 .drag-hint {
     border: 2px solid green;
+}
+
+.set-job {
+    border: 2px solid blue;
+    margin: 2px;
+}
+
+//  B U T T O N S 
+$button-border-color: grey;
+$green-button-color: #66FF66;
+$submit-button-color: #66FF66;
+$repeat-button-color: #47B347;
+$cancel-button-color: #FF7733;
+$clearform-button-color: #FF7733;
+.start-button {
+    height: 60px;
+    flex-grow: 1;
+    margin-left: 32px;
+    margin-right: 16px;
+    background-color: #180A16;
+    border: 3px solid green;
+    border-radius: 8px;
+    font-family: 'Electrolize', sans-serif;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.start-button:disabled {
+    border: 3px solid #D0D0D0;
+    color: #D0D0D0;
+}
+
+.start-button:hover {
+    background-color: $green-button-color;
+    color: white;
+}
+
+.start-button:hover:disabled {
+    background: #D0D0D0;
+    color: white;
+}
+
+.clear-button {
+    height: 60px;
+    flex-grow: 1;
+    margin-left: 32px;
+    margin-right: 16px;
+    background-color: #180A16;
+    border: 3px solid $clearform-button-color;
+    border-radius: 8px;
+    font-family: 'Electrolize', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: transparent;
+    color: $clearform-button-color;
+}
+
+.clear-button:disabled {
+    border: 3px solid #D0D0D0;
+    color: #D0D0D0;
+}
+
+.clear-button:hover {
+    background: $clearform-button-color;
+    color: white;
+}
+
+.clear-button:hover:disabled {
+    background: #D0D0D0;
+    color: white;
 }
