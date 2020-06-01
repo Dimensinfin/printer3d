@@ -15,20 +15,14 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
+import { Part } from '@domain/Part.domain';
 
 @Component({
   selector: 'v1-pending-job-render',
   templateUrl: './v1-pending-job-render.component.html',
   styleUrls: ['./v1-pending-job-render.component.scss']
 })
-export class V1PendingJobRenderComponent implements OnInit {
-    @Input() node: Job;
+export class V1PendingJobRenderComponent {
+    @Input() node: Part;
     public image = '/assets/media/default-part-image.png'
-
-    constructor() { }
-
-    ngOnInit(): void {
-        // if ( null == this.image)this.image = '/assets/media/default-part-image.png'
-    }
-
 }

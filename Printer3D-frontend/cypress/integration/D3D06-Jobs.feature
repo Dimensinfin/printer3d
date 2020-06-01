@@ -38,12 +38,6 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     And on the v2-machine-render component there is a field named "model"
     #     And on the v2-machine-render component there is a field named "characteristics"
     #     And on the v2-machine-render component there is a field named "drop-job"
-    #     And the button "COMENZAR" has the next properties
-    #         | label    | state    |
-    #         | Comenzar | disabled |
-    #     And the button "CLEAR" has the next properties
-    #         | label | state   |
-    #         | Clear | enabled |
 
     # @D3D06 @D3D06.05
     # Scenario: [D3D06.05]-The pending job list at the left panel shows the job records and they have the next list of required fields.
@@ -74,28 +68,48 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     Then the v2-machine-render is droppable
     #     And there is a constraint named "JOB"
 
-    @D3D06 @D3D06.08
-    Scenario: [D3D06.08]-If the user drops a Pending Job to a machine that has no job active then the COMENZAR button gets active and illuminates.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the ProductionJobListPage is activated
-        When the Job is dragged and dropped on the Machine
-        Then the machine has a Job
-        Then the button "COMENZAR" has the next properties
-            | label    | state   |
-            | Comenzar | enabled |
-        And one instance of v1-build-countdown-timer-panel
+    # @D3D06 @D3D06.08
+    # Scenario: [D3D06.08]-If the user drops a Pending Job to a machine that has no job active then the COMENZAR button gets active and illuminates.
+    #     Given there is a click on Feature "/TRABAJOS PND."
+    #     Then the ProductionJobListPage is activated
+    #     When the Job is dragged and dropped on the Machine
+    #     Then the machine has a Job
+    #     Then the button "COMENZAR" is visible
+    #     Then the button "COMENZAR" has the next properties
+    #         | label    | state   |
+    #         | Comenzar | enabled |
+    #     Then the button "CLEAR" is visible
+    #     And the button "CLEAR" has the next properties
+    #         | label | state   |
+    #         | Clear | enabled |
+    #     And one instance of v1-build-countdown-timer-panel
 
-    @D3D06 @D3D06.09
-    Scenario: [D3D06.09]-If the Machine has a job atached the COMENZAR button is available. If the user clicks this button the build time count starts.
+    # @D3D06 @D3D06.09
+    # Scenario: [D3D06.09]-If the Machine has a job atached the COMENZAR button is available. If the user clicks this button the build time count starts.
+    #     Given there is a click on Feature "/TRABAJOS PND."
+    #     Then the ProductionJobListPage is activated
+    #     When the Job is dragged and dropped on the Machine
+    #     Then the machine has a Job
+    #     Then the button "COMENZAR" has the next properties
+    #         | label    | state   |
+    #         | Comenzar | enabled |
+    # When there is a click on the "COMENZAR" button
+    # Then the job is atached to the Machine persisted at the backend
+    # Then the button "COMENZAR" has the next properties
+    #     | label    | state   |
+    #     | Comenzar | disabled |
+
+    @D3D06 @D3D06.10
+    Scenario: [D3D06.10]-If at initialization the Machine has already a running job the Part is shown on the part and the timer is activated.
         Given there is a click on Feature "/TRABAJOS PND."
-        Then the ProductionJobListPage is activated
-        When the Job is dragged and dropped on the Machine
-        Then the machine has a Job
-        Then the button "COMENZAR" has the next properties
+        When the ProductionJobListPage is activated
+        And the target Machine has a Part on build
+        Then the target Machine button "COMENZAR" is visible
+        And the target Machine button "COMENZAR" has the next properties
             | label    | state   |
             | Comenzar | enabled |
-        # When there is a click on the "COMENZAR" button
-        # Then the job is atached to the Machine persisted at the backend
-        # Then the button "COMENZAR" has the next properties
-        #     | label    | state   |
-        #     | Comenzar | disabled |
+        Then the target Machine button "CLEAR" is visible
+        And the target Machine button "CLEAR" has the next properties
+            | label | state   |
+            | Clear | enabled |
+        And the target Machine has one instance of "v1-build-countdown-timer-panel"

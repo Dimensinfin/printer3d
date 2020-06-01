@@ -21,7 +21,7 @@
                 </div>
             </td>
             <td *ngIf="target">
-                <v1-build-countdown-timer-panel [time]="target.part.buildTime"></v1-build-countdown-timer-panel>
+                <v1-build-countdown-timer-panel [parent]="self" [time]="target.buildTime"></v1-build-countdown-timer-panel>
                 <div class="centered-container" style="margin-top: 16px;">
                     <button id="start-button" type="button" class="start-button" [disabled]="!target" (click)="startBuild()">
                             <i class="fa fa-check" aria-hidden="true"></i>

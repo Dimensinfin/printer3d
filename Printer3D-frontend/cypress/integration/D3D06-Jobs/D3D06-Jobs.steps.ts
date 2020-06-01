@@ -123,6 +123,7 @@ When('there is a click on the {string} button', function (buttonName: string) {
     console.log('[WHEN] there is a click on the {string} button');
     switch (buttonName) {
         case 'COMENZAR':
+            cy.get('v2-machine-render').find('button').get('#start-button').should('not.be.disabled')
             cy.get('app-root').find('production-job-list-page')
                 .find('v1-machines-panel')
                 .find('v2-machine-render')
@@ -130,7 +131,7 @@ When('there is a click on the {string} button', function (buttonName: string) {
             break;
         case 'CLEAR':
             cy.get('v2-machine-render').find('button').get('#clear-button').should('not.be.disabled')
-            cy.get('v2-machine-render').find('button').get('#cler-button').click();
+            cy.get('v2-machine-render').find('button').get('#clear-button').click();
             break;
     }
 });
@@ -143,4 +144,38 @@ Then('one instance of v1-build-countdown-timer-panel', function () {
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
         .find('v1-build-countdown-timer-panel').should('exist')
+});
+
+When('the target Machine has a Part on build', function () {
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-machines-panel')
+        .find('v2-machine-render').as('target-machine')
+        .find('v1-pending-job-render').should('exist')
+});
+
+Then('the target Machine button {string} is visible', function (buttonName: string) {
+    switch (buttonName) {
+        case 'COMENZAR':
+            cy.get('@target-machine')
+                .find('button').get('#start-button').should('be.visible')
+            break;
+        case 'CLEAR':
+            cy.get('@target-machine')
+                .find('button').get('#clear-button').should('be.visible')
+            break;
+    }
+});
+
+Then('the target Machine button {string} has the next properties', function (buttonName: string, dataTable) {
+    const form = new MachinePanel(cy.get('@target-machine'));
+    expect(form).to.not.be.null;
+    for (let index = 0; index < dataTable.hashes().length; index++) {
+        const row = dataTable.hashes()[index];
+        form.validateButton(buttonName, row)
+    }
+});
+
+Then('the target Machine has one instance of {string}', function (panelName) {
+    cy.get('@target-machine')
+        .find(panelName).should('exist')
 });

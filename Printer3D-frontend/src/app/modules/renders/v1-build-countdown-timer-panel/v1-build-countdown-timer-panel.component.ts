@@ -17,6 +17,7 @@ import { tap } from 'rxjs/operators';
 import { takeWhile } from 'rxjs/operators';
 import { startWith } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
+import { V2MachineRenderComponent } from '../v2-machine-render/v2-machine-render.component';
 
 const K = 1000;
 const INTERVAL = K;
@@ -31,6 +32,7 @@ const toSeconds = (ms: number) =>
     styleUrls: ['./v1-build-countdown-timer-panel.component.scss']
 })
 export class V1BuildCountdownTimerPanelComponent implements OnInit {
+    @Input() parent: V2MachineRenderComponent;
     @Input() time: number;
     public minutes: number = 10;
     public seconds: number = 0;
@@ -38,8 +40,12 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit {
     private timerSubscription: Subscription;
 
     public ngOnInit(): void {
+        console.log('>[V1BuildCountdownTimerPanelComponent.ngOnInit]')
         this.minutes = toMinutes(this.time * 60 * K);
         this.seconds = toSeconds(this.time * 6 * K);
+        // If the parent is available report to it that we have benn loaded.
+        if (null != this.parent)
+            this.activate(this.parent.getRemainingTime());
     }
 
     // - V I E W   I N T E R A C T I O N
