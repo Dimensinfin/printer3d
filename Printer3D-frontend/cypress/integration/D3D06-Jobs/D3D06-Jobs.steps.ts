@@ -61,3 +61,28 @@ Then('the v1-pending-job-render is dragabble', function () {
         .find('div').find('.panel-left')
         .get('[draggable="true"]').first().should('exist')
 });
+
+Then('there is a constraint named {string}', function (constraintName:string) {
+    const constraint = '[ng-reflect-drag-scope="'+constraintName+'"]'
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-pending-jobs-panel')
+        .find('div').find('.panel-left')
+        .get('[draggable="true"]').first()
+        .get(constraint).should('exist')
+  });
+
+  Then('the v1-machine-render is droppable', function () {
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-machines-panel')
+        .find('v1-machine-render').find('.machine-part')
+        .get('[droppable]').first().should('exist')
+  });
+
+  Then('there is a constraint named {string}', function (constraintName:string) {
+    const constraint = '[ng-reflect-drag-scope="'+constraintName+'"]'
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-machines-panel')
+        .find('v1-machine-render').find('.machine-part')
+        .get('[droppable]').first()
+        .get(constraint).should('exist')
+  });

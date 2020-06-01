@@ -9,7 +9,7 @@
         <svg class="corner-topleft" viewBox="0 0 100 100" *ngIf="active">
             <path d="M0,0 L0,100 L100,0 L0,0" />
         </svg>
-        <div class="panel-left" draggable [dragData]="job" [dragScope]="'Job'" [dragClass]="'job-selected'">
+        <div class="panel-left" draggable [dragData]="job" [dragScope]="'JOB'" [dragClass]="'job-selected'">
             <div class=label>
                 <v1-pending-job-render [node]="job"></v1-pending-job-render>
             </div>

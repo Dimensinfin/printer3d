@@ -28,16 +28,16 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     And one instance of v1-pending-jobs-panel
     #     And one instance of v1-machines-panel
 
-    # @D3D06 @D3D06.04
-    # Scenario: [D3D06.04]-The machine list is at the right and displays at leash one Machine with some fields. Validate the fields.
-    #     Given there is a click on Feature "/TRABAJOS PND."
-    #     Then the ProductionJobListPage is activated
-    #     And one instance of v1-machines-panel
-    #     And one or more instances of v1-machine-render
-    #     And on the v1-machine-render component there is a field named "label"
-    #     And on the v1-machine-render component there is a field named "model"
-    #     And on the v1-machine-render component there is a field named "characteristics"
-    #     And on the v1-machine-render component there is a field named "drop-part"
+    @D3D06 @D3D06.04
+    Scenario: [D3D06.04]-The machine list is at the right and displays at leash one Machine with some fields. Validate the fields.
+        Given there is a click on Feature "/TRABAJOS PND."
+        Then the ProductionJobListPage is activated
+        And one instance of v1-machines-panel
+        And one or more instances of v1-machine-render
+        And on the v1-machine-render component there is a field named "label"
+        And on the v1-machine-render component there is a field named "model"
+        And on the v1-machine-render component there is a field named "characteristics"
+        And on the v1-machine-render component there is a field named "drop-part"
 
     # @D3D06 @D3D06.05
     # Scenario: [D3D06.05]-The pending job list at the left panel shows the job records and they have the next list of required fields.
@@ -51,12 +51,22 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     And on the v1-pending-job-render component there is a field named "buildtime"
 
    @D3D06 @D3D06.06
-    Scenario: [D3D06.06]-The pending job elements can be dragged to another place.
+    Scenario: [D3D06.06]-The pending job elements can be dragged to another place with the constraint 'JOB'.
        Given there is a click on Feature "/TRABAJOS PND."
         Then the ProductionJobListPage is activated
         And one instance of v1-pending-jobs-panel
         And one or more instances of v1-pending-job-render
         Then the v1-pending-job-render is dragabble
+        And there is a constraint named "JOB"
+
+   @D3D06 @D3D06.07
+    Scenario: [D3D06.07]-The machine block has a place where to drop jobs.
+       Given there is a click on Feature "/TRABAJOS PND."
+        Then the ProductionJobListPage is activated
+        And one instance of v1-machines-panel
+        And one or more instances of v1-machine-render
+        Then the v1-machine-render is droppable
+        And there is a constraint named "JOB"
 
 
 #     @D3D06 @D3D06.07

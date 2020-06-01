@@ -7,7 +7,7 @@
         <div class="machine-model"><span name="model">{{node.model}}</span></div>
         <div><span name="characteristics">{{node.characteristics}}</span></div>
         <div *ngIf="!target">
-            <div class="machine-part" droppable [dropScope]="'Job'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-part">PIEZA</span></div>
+            <div class="machine-part" droppable [dropScope]="'JOB'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-part">PIEZA</span></div>
         </div>
         <div *ngIf="target">
             <v1-pending-job-render [node]="target"></v1-pending-job-render>
