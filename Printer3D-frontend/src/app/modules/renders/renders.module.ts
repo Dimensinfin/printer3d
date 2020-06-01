@@ -9,6 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 // - COMPONENTS
 import { V1PendingJobRenderComponent } from './v1-pending-job-render/v1-pending-job-render.component';
 import { V1MachineRenderComponent } from './v1-machine-render/v1-machine-render.component';
+import { V2MachineRenderComponent } from './v2-machine-render/v2-machine-render.component';
+import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 
 @NgModule({
     imports: [
@@ -20,11 +22,15 @@ import { V1MachineRenderComponent } from './v1-machine-render/v1-machine-render.
     ],
     declarations: [
         V1PendingJobRenderComponent,
-        V1MachineRenderComponent
+        V1MachineRenderComponent,
+        V2MachineRenderComponent,
+        V1BuildCountdownTimerPanelComponent
     ],
     exports: [
         V1PendingJobRenderComponent,
-        V1MachineRenderComponent
+        V1MachineRenderComponent,
+        V2MachineRenderComponent,
+        V1BuildCountdownTimerPanelComponent
     ]
 })
 export class RendersModule { }

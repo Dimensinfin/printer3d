@@ -34,17 +34,17 @@ Then('one or more instances of v1-pending-job-render', function () {
         .find('v1-pending-job-render').should('have.length.gt', 1)
 });
 
-Then('one or more instances of v1-machine-render', function () {
+Then('one or more instances of v2-machine-render', function () {
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
-        .find('v1-machine-render').should('exist')
+        .find('v2-machine-render').should('exist')
 });
 
-Then('on the v1-machine-render component there is a field named {string}', function (fieldName: string) {
+Then('on the v2-machine-render component there is a field named {string}', function (fieldName: string) {
     const columnIdentifer = '[name="' + fieldName + '"]'
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
-        .find('v1-machine-render')
+        .find('v2-machine-render')
         .find(columnIdentifer).should('exist')
 });
 
@@ -72,10 +72,10 @@ Then('there is a constraint named {string}', function (constraintName: string) {
         .get(constraint).should('exist')
 });
 
-Then('the v1-machine-render is droppable', function () {
+Then('the v2-machine-render is droppable', function () {
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
-        .find('v1-machine-render').find('.machine-job')
+        .find('v2-machine-render').find('.machine-job')
         .get('[droppable]').first().should('exist')
 });
 
@@ -83,7 +83,7 @@ Then('there is a constraint named {string}', function (constraintName: string) {
     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
-        .find('v1-machine-render').find('.machine-job')
+        .find('v2-machine-render').find('.machine-job')
         .get('[droppable]').first()
         .get(constraint).should('exist')
 });
@@ -106,7 +106,7 @@ When('the Job is dragged and dropped on the Machine', function () {
         .trigger('dragstart')
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
-        .find('v1-machine-render').find('.machine-job')
+        .find('v2-machine-render').find('.machine-job')
         .get('[droppable]').first()
         .trigger('drop')
 });
@@ -115,6 +115,32 @@ Then('the machine has a Job', function () {
     // Check the job is on place
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
-        .find('v1-machine-render')
+        .find('v2-machine-render')
         .find('v1-pending-job-render').should('exist')
+});
+
+When('there is a click on the {string} button', function (buttonName: string) {
+    console.log('[WHEN] there is a click on the {string} button');
+    switch (buttonName) {
+        case 'COMENZAR':
+            cy.get('app-root').find('production-job-list-page')
+                .find('v1-machines-panel')
+                .find('v2-machine-render')
+                .find('button').get('#start-button').click();
+            break;
+        case 'CLEAR':
+            cy.get('v2-machine-render').find('button').get('#clear-button').should('not.be.disabled')
+            cy.get('v2-machine-render').find('button').get('#cler-button').click();
+            break;
+    }
+});
+
+Then('the job is atached to the Machine persisted at the backend', function () {
+    cy.log('need to verify that backed call is completed')
+});
+
+Then('one instance of v1-build-countdown-timer-panel', function () {
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-machines-panel')
+        .find('v1-build-countdown-timer-panel').should('exist')
 });

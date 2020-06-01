@@ -33,11 +33,11 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     Given there is a click on Feature "/TRABAJOS PND."
     #     Then the ProductionJobListPage is activated
     #     And one instance of v1-machines-panel
-    #     And one or more instances of v1-machine-render
-    #     And on the v1-machine-render component there is a field named "label"
-    #     And on the v1-machine-render component there is a field named "model"
-    #     And on the v1-machine-render component there is a field named "characteristics"
-    #     And on the v1-machine-render component there is a field named "drop-job"
+    #     And one or more instances of v2-machine-render
+    #     And on the v2-machine-render component there is a field named "label"
+    #     And on the v2-machine-render component there is a field named "model"
+    #     And on the v2-machine-render component there is a field named "characteristics"
+    #     And on the v2-machine-render component there is a field named "drop-job"
     #     And the button "COMENZAR" has the next properties
     #         | label    | state    |
     #         | Comenzar | disabled |
@@ -70,8 +70,8 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     Given there is a click on Feature "/TRABAJOS PND."
     #     Then the ProductionJobListPage is activated
     #     And one instance of v1-machines-panel
-    #     And one or more instances of v1-machine-render
-    #     Then the v1-machine-render is droppable
+    #     And one or more instances of v2-machine-render
+    #     Then the v2-machine-render is droppable
     #     And there is a constraint named "JOB"
 
     @D3D06 @D3D06.08
@@ -83,4 +83,19 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Then the button "COMENZAR" has the next properties
             | label    | state   |
             | Comenzar | enabled |
-        And on the v1-machine-render component there is a field named "build-time"
+        And one instance of v1-build-countdown-timer-panel
+
+    @D3D06 @D3D06.09
+    Scenario: [D3D06.09]-If the Machine has a job atached the COMENZAR button is available. If the user clicks this button the build time count starts.
+        Given there is a click on Feature "/TRABAJOS PND."
+        Then the ProductionJobListPage is activated
+        When the Job is dragged and dropped on the Machine
+        Then the machine has a Job
+        Then the button "COMENZAR" has the next properties
+            | label    | state   |
+            | Comenzar | enabled |
+        # When there is a click on the "COMENZAR" button
+        # Then the job is atached to the Machine persisted at the backend
+        # Then the button "COMENZAR" has the next properties
+        #     | label    | state   |
+        #     | Comenzar | disabled |
