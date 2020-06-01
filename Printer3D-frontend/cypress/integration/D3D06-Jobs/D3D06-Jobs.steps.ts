@@ -53,4 +53,11 @@ Then('on the v1-pending-job-render component there is a field named {string}', f
         .find('v1-pending-jobs-panel')
         .find('v1-pending-job-render')
         .find(columnIdentifer).should('have.length.greaterThan', 1)
-  });
+});
+
+Then('the v1-pending-job-render is dragabble', function () {
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-pending-jobs-panel')
+        .find('div').find('.panel-left')
+        .get('[draggable="true"]').first().should('exist')
+});
