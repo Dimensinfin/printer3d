@@ -23,11 +23,12 @@ import { Job } from '@domain/Job.domain';
 })
 export class V1PendingJobRenderComponent implements OnInit {
     @Input() node: Job;
+    public image = '/assets/media/default-part-image.png'
 
     constructor() { }
 
     ngOnInit(): void {
-        if ( null == this.image)this.image = '/assets/media/default-part-image.png'
+        // if ( null == this.image)this.image = '/assets/media/default-part-image.png'
     }
 
 }

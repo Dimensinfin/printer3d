@@ -46,3 +46,11 @@ Then('on the v1-machine-render component there is a field named {string}', funct
         .find('v1-machine-render')
         .find(columnIdentifer).should('have.length.greaterThan', 1)
 });
+
+Then('on the v1-pending-job-render component there is a field named {string}', function (fieldName: string) {
+    const columnIdentifer = '[name="' + fieldName + '"]'
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-pending-jobs-panel')
+        .find('v1-pending-job-render')
+        .find(columnIdentifer).should('have.length.greaterThan', 1)
+  });

@@ -25,6 +25,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     Given there is a click on Feature "/TRABAJOS PND."
     #     Then the ProductionJobListPage is activated
     #     And one instance of v1-pending-jobs-panel
+    #     And one instance of v1-pending-jobs-panel
     #     And one instance of v1-machines-panel
 
     @D3D06 @D3D06.04
@@ -38,8 +39,16 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         And on the v1-machine-render component there is a field named "characteristics"
         And on the v1-machine-render component there is a field named "drop-part"
 
-#     @D3D06 @D3D06.05
-#     Scenario: [D3D06.05]-The pending job list at the left panel shows the job records and they have the next list of required fields.
+    @D3D06 @D3D06.05
+    Scenario: [D3D06.05]-The pending job list at the left panel shows the job records and they have the next list of required fields.
+       Given there is a click on Feature "/TRABAJOS PND."
+        Then the ProductionJobListPage is activated
+        And one instance of v1-pending-jobs-panel
+        And one or more instances of v1-pending-job-render
+        And on the v1-pending-job-render component there is a field named "label"
+        And on the v1-pending-job-render component there is a field named "material"
+        And on the v1-pending-job-render component there is a field named "color"
+        And on the v1-pending-job-render component there is a field named "buildtime"
 #    @D3D06 @D3D06.06
 #     Scenario: [D3D06.06]-The pending job elements can be dragged to another place
 

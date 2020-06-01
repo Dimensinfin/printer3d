@@ -1,9 +1,8 @@
+import { Part } from './Part.domain';
+
 export class Job {
-    public image: string;
-    public label: string;
-    public material: string;
-    public color: string;
-    public buildTime: number;
+    public id: string;
+    public part: Part;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

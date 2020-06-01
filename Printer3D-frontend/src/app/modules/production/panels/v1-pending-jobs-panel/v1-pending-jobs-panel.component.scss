@@ -62,23 +62,9 @@ $panel-color:white;
 }
 
 .label {
-    // font-family: 'Electrolize', sans-serif;
-    // font-size: 36px;
-    // color: white;
     padding-left: 14x;
-    // padding-right: 10px;
-    // position: relative;
-    // top: 16px;
 }
 
-// .bottomright {
-//     position: absolute;
-//     bottom: 0;
-//     right: 0;
-// }
-// .current {
-//     color: #56c056
-// }
-// .previous {
-//     color: #4444B8
-// }
+.job-selected {
+    background-color: blue;
+}

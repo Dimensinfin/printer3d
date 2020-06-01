@@ -31,6 +31,7 @@ import { ProductionModule } from './modules/production/production.module';
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+// import { V1PendingJobsPanelComponent } from './panels/v1-pending-jobs-panel/v1-pending-jobs-panel.component';
 registerLocaleData(localeEs);
 
 // - ERROR INTERCEPTION
@@ -64,6 +65,7 @@ registerLocaleData(localeEs);
     ],
     declarations: [
         AppComponent,
+        // V1PendingJobsPanelComponent
     ],
     providers: [
         // - SERVICES
@@ -79,6 +81,7 @@ registerLocaleData(localeEs);
         // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
         // { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
     ],
+    // exports:[V1PendingJobsPanelComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
