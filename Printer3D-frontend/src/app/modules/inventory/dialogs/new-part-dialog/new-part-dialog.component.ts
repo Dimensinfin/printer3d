@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { platformconstants } from '@app/platform/platform-constants';
 import { v4 as uuidv4 } from 'uuid';
 // - MATERIAL
@@ -17,7 +18,6 @@ import { PartRecord } from '@domain/PartRecord.domain';
 import { Part } from '@domain/Part.domain';
 import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Subscription } from 'rxjs';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 
 @Component({
@@ -108,7 +108,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
     // - B A C K G R O U N D
     protected readFinishings(): void {
         this.backendConnections.push(
-            this.backendService.apiGetFinishings_v1(new ResponseTransformer().setDescription('Do HTTP transformation to "Finishing" list.')
+            this.backendService.apiInventoryGetFinishings_v1(new ResponseTransformer().setDescription('Do HTTP transformation to "Finishing" list.')
                 .setTransformation((entrydata: any): FinishingResponse => {
                     return new FinishingResponse(entrydata);
                 }))

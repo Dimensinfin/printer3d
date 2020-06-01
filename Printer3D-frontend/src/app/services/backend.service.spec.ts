@@ -96,7 +96,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 });
         });
         it('apiGetFinishings_v1.default: get the list of finishings available', async () => {
-            service.apiGetFinishings_v1(new ResponseTransformer().setDescription('Transforms data into FinishingResponse.')
+            service.apiInventoryGetFinishings_v1(new ResponseTransformer().setDescription('Transforms data into FinishingResponse.')
                 .setTransformation((entrydata: any): FinishingResponse => {
                     return new FinishingResponse(entrydata);
                 }))
@@ -116,7 +116,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 });
         });
         it('apiInventoryMachines_v1.default: get the list of Coils', async () => {
-            service.apiInventoryMachines_v1(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
+            service.apiInventoryGetMachines_v1(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
                 .setTransformation((entrydata: any): MachineListResponse => {
                     return new MachineListResponse(entrydata);
                 }))

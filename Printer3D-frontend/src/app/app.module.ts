@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
+import { NgDragDropModule } from 'ng-drag-drop';
 // - SERVICES
 import { IsolationService } from './platform/isolation.service';
 import { AppStoreService } from './services/app-store.service';
@@ -54,6 +55,7 @@ registerLocaleData(localeEs);
         HttpClientModule,
         ToastrModule.forRoot(),
         MatDialogModule,
+        NgDragDropModule.forRoot(),
         // - APPLICATION MODULES
         SharedModule,
         RendersModule,

@@ -7,6 +7,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from '../shared/shared.module';
 // - COMPONENTS
 import { V1PendingJobRenderComponent } from './v1-pending-job-render/v1-pending-job-render.component';
+import { V1MachineRenderComponent } from './v1-machine-render/v1-machine-render.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,13 @@ import { V1PendingJobRenderComponent } from './v1-pending-job-render/v1-pending-
         AgGridModule.withComponents([]),
         SharedModule
     ],
-    declarations: [V1PendingJobRenderComponent],
-    exports: [V1PendingJobRenderComponent]
+    declarations: [
+        V1PendingJobRenderComponent,
+        V1MachineRenderComponent
+    ],
+    exports: [
+        V1PendingJobRenderComponent,
+        V1MachineRenderComponent
+    ]
 })
 export class RendersModule { }

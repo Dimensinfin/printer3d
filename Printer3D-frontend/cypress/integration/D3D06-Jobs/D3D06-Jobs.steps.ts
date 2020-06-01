@@ -30,5 +30,19 @@ Then('one or more instances of v1-pending-job-render', function () {
     // expect(dock).to.not.be.null;
     cy.get('app-root').find('production-job-list-page')
         // .find('v1-pending-jobs-panel')
-        .find('v1-pending-job-render').should('have.length.gt', 0)
+        .find('v1-pending-job-render').should('have.length.gt', 1)
+});
+
+Then('one or more instances of v1-machine-render', function () {
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-machines-panel')
+        .find('v1-machine-render').should('have.length.gt', 1)
+});
+
+Then('on the v1-machine-render component there is a field named {string}', function (fieldName: string) {
+    const columnIdentifer = '[name="' + fieldName + '"]'
+    cy.get('app-root').find('production-job-list-page')
+        .find('v1-machines-panel')
+        .find('v1-machine-render')
+        .find(columnIdentifer).should('have.length.greaterThan', 1)
 });

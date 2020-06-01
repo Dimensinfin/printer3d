@@ -60,7 +60,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
+    public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
         const request = this.APIV1 + '/inventory/finishings';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
@@ -82,7 +82,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryMachines_v1(transformer: ResponseTransformer): Observable<MachineListResponse> {
+    public apiInventoryGetMachines_v1(transformer: ResponseTransformer): Observable<MachineListResponse> {
         const request = this.APIV1 + '/inventory/machines';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
