@@ -30,6 +30,7 @@ import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
+import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -124,6 +125,17 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                     expect(response.count).toBe(3);
                     expect(response.machines.length).toBe(3);
+                });
+        });
+        it('apiProductionGetPendingJobs_v1.default: get the list of Coils', async () => {
+            service.apiProductionGetPendingJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
+                .setTransformation((entrydata: any): PendingJobListResponse => {
+                    return new PendingJobListResponse(entrydata);
+                }))
+                .subscribe((response: PendingJobListResponse) => {
+                    expect(response).toBeDefined();
+                    expect(response.count).toBe(3);
+                    expect(response.jobs.length).toBe(3);
                 });
         });
     });

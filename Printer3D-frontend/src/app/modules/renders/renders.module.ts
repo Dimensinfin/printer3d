@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
+import { NgDragDropModule } from 'ng-drag-drop';
 // - APPLICATION MODULES
 import { SharedModule } from '../shared/shared.module';
 // - COMPONENTS
@@ -14,6 +15,7 @@ import { V1MachineRenderComponent } from './v1-machine-render/v1-machine-render.
         CommonModule,
         FormsModule,
         AgGridModule.withComponents([]),
+        NgDragDropModule.forRoot(),
         SharedModule
     ],
     declarations: [

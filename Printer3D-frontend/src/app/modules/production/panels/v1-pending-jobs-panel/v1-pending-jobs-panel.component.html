@@ -1,1 +1,18 @@
-<p>v1-pending-jobs-panel works!</p>
+<div *ngFor="let job of jobs">
+    <div class="panel-block row" draggable>
+        <div class="panel-corner clip">
+            <div class="container"></div>
+            <svg class="topleft" viewBox="0 0 100 100">
+                <path d="M0,0 L0,100 L100,0 L0,0" />
+            </svg>
+        </div>
+        <svg class="corner-topleft" viewBox="0 0 100 100" *ngIf="active">
+            <path d="M0,0 L0,100 L100,0 L0,0" />
+        </svg>
+        <div class="panel-left">
+            <div class=label>
+                <v1-pending-job-render [node]="job"></v1-pending-job-render>
+            </div>
+        </div>
+    </div>
+</div>
