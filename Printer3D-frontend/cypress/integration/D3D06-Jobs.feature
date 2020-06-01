@@ -79,7 +79,8 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given there is a click on Feature "/TRABAJOS PND."
         Then the ProductionJobListPage is activated
         When the Job is dragged and dropped on the Machine
-        # Then the button "COMENZAR" has the next properties
-        #     | label    | state   |
-        #     | Comenzar | enabled |
-        # And on the v1-machine-render component there is a field named "build-time"
+        Then the machine has a Job
+        Then the button "COMENZAR" has the next properties
+            | label    | state   |
+            | Comenzar | enabled |
+        And on the v1-machine-render component there is a field named "build-time"

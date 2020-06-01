@@ -37,7 +37,7 @@ Then('one or more instances of v1-pending-job-render', function () {
 Then('one or more instances of v1-machine-render', function () {
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
-        .find('v1-machine-render').should('have.length.gt', 1)
+        .find('v1-machine-render').should('exist')
 });
 
 Then('on the v1-machine-render component there is a field named {string}', function (fieldName: string) {
@@ -45,7 +45,7 @@ Then('on the v1-machine-render component there is a field named {string}', funct
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
         .find('v1-machine-render')
-        .find(columnIdentifer).should('have.length.greaterThan', 1)
+        .find(columnIdentifer).should('exist')
 });
 
 Then('on the v1-pending-job-render component there is a field named {string}', function (fieldName: string) {
@@ -108,7 +108,10 @@ When('the Job is dragged and dropped on the Machine', function () {
         .find('v1-machines-panel')
         .find('v1-machine-render').find('.machine-job')
         .get('[droppable]').first()
-        .trigger('drop')    
+        .trigger('drop')
+});
+
+Then('the machine has a Job', function () {
     // Check the job is on place
     cy.get('app-root').find('production-job-list-page')
         .find('v1-machines-panel')
