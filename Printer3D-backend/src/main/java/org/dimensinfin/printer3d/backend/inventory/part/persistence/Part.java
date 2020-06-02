@@ -9,16 +9,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.TypeDef;
 
 @Entity
-@Table(name = "inventory", schema = "printer3d")
-@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
+@Table(name = "parts", schema = "printer3d")
 public class Part {
 	@Id
 	@NotNull(message = "Part unique UUID 'id' is a mandatory field and cannot be null.")
@@ -172,6 +169,11 @@ public class Part {
 				.append( "modelPath", this.modelPath )
 				.append( "active", this.active )
 				.toString();
+	}
+
+	public Part incrementStock( final int increment ) {
+		this.stockAvailable += increment;
+		return this;
 	}
 
 	// - B U I L D E R

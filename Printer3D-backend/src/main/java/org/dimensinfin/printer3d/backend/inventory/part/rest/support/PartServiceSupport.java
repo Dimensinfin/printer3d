@@ -11,22 +11,22 @@ import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.InventoryRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
 @Service
 public class PartServiceSupport {
-	private InventoryRepository inventoryRepository;
+	private PartRepository partRepository;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public PartServiceSupport( @NotNull final InventoryRepository inventoryRepository ) {
-		this.inventoryRepository = Objects.requireNonNull( inventoryRepository );
+	public PartServiceSupport( @NotNull final PartRepository partRepository ) {
+		this.partRepository = Objects.requireNonNull( partRepository );
 	}
 
 	public CountResponse deleteAllParts() {
 		try {
-			final long recordCount = this.inventoryRepository.count();
-			this.inventoryRepository.deleteAll();
+			final long recordCount = this.partRepository.count();
+			this.partRepository.deleteAll();
 			return new CountResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build();

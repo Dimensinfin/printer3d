@@ -7,6 +7,7 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.domain.MachineList;
 import org.dimensinfin.printer3d.client.domain.PartList;
 
 import retrofit2.Call;
@@ -27,6 +28,14 @@ public interface InventoryApiV1 {
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/coils")
 	Call<CoilList> getCoils( @Header("Authorization") final @NotNull String authorizationToken );
+	/**
+	 * Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
+	 * Machines do not change frequently so there is no need to have their UI. The Machine records are created manually but anyway the system is able to return their list form the repository. When the list of Machine records is collected from the repository the fields for job installation time are checked. If the elapsed time from this recorded time is less than the current time, then the job is expected to have finished. At this moment the machine is cleared and the part count for the target **Part** job is increased in the number of instances built.
+	 * @return Call&lt;MachineList&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@GET("api/v1/inventory/machines")
+	Call<MachineList> getMachines( @Header("Authorization") final @NotNull String authorizationToken);
 
 	/**
 	 * Returns the list of Materials with the colors available for each one.

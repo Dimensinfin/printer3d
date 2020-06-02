@@ -56,10 +56,10 @@ public class PartControllerV1Test {
 				.withPartList( partList )
 				.build();
 		// When
-		Mockito.when( this.partServiceV1.partsList( true ) ).thenReturn( partListContainer );
+		Mockito.when( this.partServiceV1.getParts( true ) ).thenReturn( partListContainer );
 		// Test
 		final PartControllerV1 controllerV1 = new PartControllerV1( this.partServiceV1 );
-		final ResponseEntity<PartList> obtained = controllerV1.partsList( Optional.of( true ) );
+		final ResponseEntity<PartList> obtained = controllerV1.getParts( Optional.of( true ) );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

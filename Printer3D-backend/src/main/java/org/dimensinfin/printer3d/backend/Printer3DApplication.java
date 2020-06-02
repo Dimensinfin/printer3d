@@ -60,6 +60,7 @@ public class Printer3DApplication {
 			String content = "";
 			if (null != banner) {
 				try {
+					final String bannerPath = Paths.get( banner.getURI() ).toAbsolutePath().toString();
 					content = new String( Files.readAllBytes( Paths.get( banner.getURI() ) ) );
 				} catch (final IOException ioe) {
 					LogWrapper.error( ioe );

@@ -25,7 +25,10 @@ public enum ErrorInfo {
 			"The Part [{0}] already exists. Use the Update endpoint."),
 	ROLL_ALREADY_EXISTS(HttpStatus.CONFLICT,
 	                    APPLICATION_ERROR_CODE_PREFIX+".already.exists",
-			"The Roll [{0}] already exists at the repository. This should not be possible and means a development defect.");
+			"The Roll [{0}] already exists at the repository. This should not be possible and means a development defect."),
+	PART_NOT_FOUND(HttpStatus.NOT_FOUND,
+	                    APPLICATION_ERROR_CODE_PREFIX+".notfound",
+			"The Part [{0}] not found at the repository.");
 
 	public final HttpStatus status;
 	public final String errorCode;

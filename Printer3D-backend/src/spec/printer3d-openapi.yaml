@@ -58,7 +58,8 @@ info:
 
     * **Finishing** - This is an especial response entity to collect all the distinct colors available for an specific type of material.
 
-    * **Machine** - This is the entity that describes a 3D printer model and its configuration.
+    * **Machine** - This is the entity that describes a 3D printer model and its configuration. The information about Machines is hardcoded at
+    initialization time and the machine records can only update the current buil **Part** job.
 
     ### PRODUCTION UNIT
 
@@ -261,7 +262,10 @@ paths:
       summary: Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
       description: >
         Machines do not change frequently so there is no need to have their UI. The Machine records are created manually but anyway the system is
-        able to return their list form the repository
+        able to return their list form the repository.
+        When the list of Machine records is collected from the repository the fields for job installation time are checked. If the elapsed time
+        from this recorded time is less than the current time, then the job is expected to have finished. At this moment the machine is cleared and
+        the part count for the target **Part** job is increased in the number of instances built.
       operationId: getMachines
       responses:
         202:
@@ -271,6 +275,75 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MachineList'
+  /api/inventory/machines/build/{machineId}/start/{partId}:
+    put:
+      tags:
+        - Inventory
+      summary: Signals the registration and start of a new build job.
+      description: >
+        With this command the **Machine** will be active and building one new instance of the referenced Part model. The front end will not allow
+        setting new jobs until this ends or it is cancelled.
+      operationId: startBuild
+      parameters:
+        - in: path
+          name: machineId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Machine that will execute the build job.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+        - in: path
+          name: partId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Part item to be built.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The registration of the build start is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
+  /api/inventory/machines/build/{machineId}/cancel:
+    put:
+      tags:
+        - Inventory
+      summary: Signals the cancellation of the current build.
+      description: >
+        With this command the **Machine** will be recorded as ready. This cancellation command has not to be related toa real cancellation at the
+        real 3D printer. Maybe used to correct the current job being performed by the real printer..
+      operationId: cancelBuild
+      parameters:
+        - in: path
+          name: machineId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Machine we are requesting to cancel the build job.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The registration of the build cancellation is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
 
   ### P E N D I N G J O B S
   /api/v1/production/jobs/pending:
@@ -453,14 +526,23 @@ components:
             A free text with the list of the machine characteristics like special configurations, limits or sizes.
           example:
             'Max size set to 200mm. Has adaptor for flexible plastic filament.'
-        currentJob:
+        currentJobPart:
           type: string
           format: uuid
           pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
           description: >
-            The unique identifier for the scheduled job if configured. Machines can be idle or disconnected by maintenance.
+            If the machine is running a build this is the reference to the Part model being built.
           example:
             009ab011-03ad-4e84-9a88-25708d1cfd64
+        currentPartInstances:
+          type: number
+          format: int32
+          minimum: 1
+          default: 1
+          description: >
+            The is the number of exact identical parts are being built at the same time on a single printer job.
+          example:
+            1
         jobInstallmentDate:
           type: string
           format: date-time

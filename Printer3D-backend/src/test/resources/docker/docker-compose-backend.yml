@@ -21,9 +21,12 @@ services:
     ports:
       - "5120:5432"
     environment:
+      - CURRENT_UID=1000
       - POSTGRES_DB=postgres
       - POSTGRES_USER=inno-user
       - POSTGRES_PASSWORD=inno-password
+#    networks:
+#      - printer3d-dev
 
   acceptance:
     container_name: printer3d-backend
@@ -32,3 +35,5 @@ services:
       - "5130:9500"
     environment:
       - SPRING_PROFILES_ACTIVE=acceptance
+#    networks:
+#      - printer3d-dev

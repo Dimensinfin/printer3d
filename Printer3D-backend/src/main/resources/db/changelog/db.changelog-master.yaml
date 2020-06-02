@@ -11,3 +11,11 @@ databaseChangeLog:
       file: db/changelog/ddl-v0.0.5-inventory-table.yaml
   - include:
       file: db/changelog/ddl-v0.2.1-rolls-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.4.0-tables-rename.yaml
+  - include:
+      file: db/changelog/ddl-v0.4.0-machines-table.yaml
+  - include:
+      file: db/changelog/dml-v0.4.0-machines-data.yaml
+  - include:
+      file: db/changelog/ddl-v0.4.0-alter-machines-table.yaml

@@ -5,5 +5,6 @@ public enum RequestType {
 	GET_PARTS,
 	NEW_COIL,
 	GET_COILS,
-	GET_FINISHINGS
+	GET_FINISHINGS,
+	GET_MACHINES
 }

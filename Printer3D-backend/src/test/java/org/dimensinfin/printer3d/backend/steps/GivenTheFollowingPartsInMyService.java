@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.part.converter.CucumberTableToPartConverter;
-import org.dimensinfin.printer3d.backend.support.part.rest.v1.PartFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
 
 import io.cucumber.java.en.Given;
 

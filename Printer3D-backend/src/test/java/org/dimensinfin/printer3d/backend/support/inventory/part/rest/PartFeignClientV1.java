@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.part.rest.v1;
+package org.dimensinfin.printer3d.backend.support.inventory.part.rest;
 
 import java.io.IOException;
 import javax.validation.constraints.NotNull;

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.InventoryRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.PartList;
 
@@ -31,7 +31,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 public class PartServiceV1Test {
 	private Part testPart;
 	private Part testPartNotActive;
-	private InventoryRepository inventoryRepository;
+	private PartRepository partRepository;
 
 	@BeforeEach
 	public void beforeEach() {
@@ -65,12 +65,12 @@ public class PartServiceV1Test {
 				.withModelPath( TEST_PART_MODEL_PATH )
 				.withActive( false )
 				.build();
-		this.inventoryRepository = Mockito.mock( InventoryRepository.class );
+		this.partRepository = Mockito.mock( PartRepository.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		Assertions.assertNotNull( serviceV1 );
 	}
 
@@ -79,10 +79,10 @@ public class PartServiceV1Test {
 		// Given
 		final Part part = Mockito.mock( Part.class );
 		// When
-		Mockito.when( this.inventoryRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
-		Mockito.when( this.inventoryRepository.save( Mockito.any( Part.class ) ) ).thenReturn( part );
+		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
+		Mockito.when( this.partRepository.save( Mockito.any( Part.class ) ) ).thenReturn( part );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		final Part obtained = serviceV1.newPart( part );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -95,11 +95,11 @@ public class PartServiceV1Test {
 		final Part part = Mockito.mock( Part.class );
 		// When
 		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
-		Mockito.when( this.inventoryRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
+		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			// Test
-			final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
+			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 			serviceV1.newPart( part );
 		} );
 	}
@@ -112,10 +112,10 @@ public class PartServiceV1Test {
 		partList.add( part );
 		partList.add( this.testPartNotActive );
 		// When
-		Mockito.when( this.inventoryRepository.findAll() ).thenReturn( partList );
+		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
-		final PartList obtained = serviceV1.partsList( true );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartList obtained = serviceV1.getParts( true );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 1, obtained.getCount() );
@@ -129,10 +129,10 @@ public class PartServiceV1Test {
 		partList.add( this.testPart );
 		partList.add( this.testPartNotActive );
 		// When
-		Mockito.when( this.inventoryRepository.findAll() ).thenReturn( partList );
+		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.inventoryRepository );
-		final PartList obtained = serviceV1.partsList( false );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartList obtained = serviceV1.getParts( false );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.getCount() );

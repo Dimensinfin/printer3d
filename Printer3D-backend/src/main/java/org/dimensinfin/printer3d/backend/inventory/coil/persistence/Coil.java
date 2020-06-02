@@ -15,7 +15,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Entity
-@Table(name = "rolls", schema = "printer3d")
+@Table(name = "coils", schema = "printer3d")
 public class Coil {
 	@Id
 	@NotNull(message = "Roll unique UUID 'id' is a mandatory field and cannot be null.")

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_4_0_001_printer3d_rename_inventory_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameTable:
+            schemaName: printer3d
+            newTableName: parts
+            oldTableName: inventory
+  - changeSet:
+      id: 0_4_0_001_printer3d_rename_rolls_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameTable:
+            schemaName: printer3d
+            newTableName: coils
+            oldTableName: rolls

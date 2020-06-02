@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_4_0_001_printer3d_create_machines_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createTable:
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: label
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: model
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: characteristics
+                  type: varchar(300)
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: current_job_part
+                  type: uuid
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: jobInstallmentDate
+                  type: timestamp
+                  constraints:
+                    nullable: true
+                    updatable: true
+
+  - changeSet:
+      id: 0_4_0_002_printer3d_machines_foreignkey
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addForeignKeyConstraint:
+            baseTableSchemaName: printer3d
+            baseTableName: machines
+            baseColumnNames: current_job_part
+            constraintName: fk_current_job_part
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: SET NULL
+            onUpdate: SET NULL
+            referencedTableSchemaName: printer3d
+            referencedTableName: parts
+            referencedColumnNames: id
+            validate: true

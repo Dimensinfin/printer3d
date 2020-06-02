@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_4_0_001_printer3d_alter_machines_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: current_part_instances
+                  type: int
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_4_0_002_printer3d_fix_current_part_instances
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: current_part_instances
+                  value: 1
+  - changeSet:
+      id: 0_4_0_003_printer3d_fix_current_part_instances
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: machines
+            columnDataType: int
+            columnName: current_part_instances
+            validate:  true
+  - changeSet:
+      id: 0_4_0_004_printer3d_machines_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: machines
+            columnDataType: int
+            columnName: current_part_instances
+            defaultValueNumeric: 1
+  - changeSet:
+      id: 0_4_0_005_printer3d_drop_foreingkey
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableSchemaName: printer3d
+            baseTableName: machines
+            constraintName: fk_current_job_part
+  - changeSet:
+      id: 0_4_0_006_printer3d_alter_machines_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameColumn:
+            schemaName: printer3d
+            tableName: machines
+            columnDataType: uuid
+            newColumnName: current_job_part_id
+            oldColumnName: current_job_part
+            remarks: The key relations should have the id suffix
+  - changeSet:
+      id: 0_4_0_007_printer3d_alter_machines_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameColumn:
+            schemaName: printer3d
+            tableName: machines
+            columnDataType: timestamp
+            newColumnName: job_installment_date
+            oldColumnName: jobInstallmentDate
+            remarks: The key relations should have the id suffix
