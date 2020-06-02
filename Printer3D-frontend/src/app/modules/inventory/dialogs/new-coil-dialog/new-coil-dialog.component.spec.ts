@@ -84,7 +84,7 @@ describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
         });
     });
 
-    // - O N D E S T R O Y   P H A S E
+    // - O N D E S T R U C T I O N   P H A S E
     describe('On Destroy Phase', () => {
         it('ngOnDestroy: validate destruction flow', async () => {
             const componentAsAny = component as any;

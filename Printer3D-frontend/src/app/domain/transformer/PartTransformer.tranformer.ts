@@ -18,12 +18,6 @@ export class PartTransformer {
         this.columnDefinitions.push(new GridColumn({ headerName: 'Stock Rq.', field: 'stockRequerido', sortable: true, width: 120 }))
         this.columnDefinitions.push(new GridColumn({ headerName: 'Stock Disp.', field: 'stockDisponible', sortable: true, width: 120 }))
         this.columnDefinitions.push(new GridColumn({ headerName: 'Activa', field: 'active', sortable: true, width: 80 }))
-        const data = [
-            new GridColumn({ headerName: 'Description', field: 'description', sortable: true, width: 650 }),
-            new GridColumn({ headerName: 'BuildTime', field: 'buildTime', sortable: true, filter: true, width: 150 }),
-            // new GridColumn({ headerName: 'Affinity', field: 'affinity', sortable: false, width: 150 }),
-            new GridColumn({ headerName: 'Colours', field: 'colours', sortable: true, width: 100 }),
-        ];
     }
     public getDefinitions(): GridColumn[] {
         return this.columnDefinitions;
@@ -38,7 +32,10 @@ export class PartTransformer {
     public recordCount(): number {
         return this.rowData.length;
     }
-    public transform(part: Part): void {
-        this.rowData.push(new PartToPartRecordConverter().convert(part));
+    public addData(newRecord: PartRecord): void {
+        this.rowData.push(newRecord);
+    }
+    public transform(part: Part): PartRecord {
+       return new PartToPartRecordConverter().convert(part);
     }
 }

@@ -27,7 +27,7 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { V2MachinesPanelComponent } from './v2-machines-panel.component';
 
-fdescribe('COMPONENT V2MachinesPanelComponent [Module: SHARED]', () => {
+describe('COMPONENT V2MachinesPanelComponent [Module: SHARED]', () => {
     let component: V2MachinesPanelComponent;
 
     beforeEach(async(() => {
@@ -39,6 +39,8 @@ fdescribe('COMPONENT V2MachinesPanelComponent [Module: SHARED]', () => {
                 V2MachinesPanelComponent,
             ],
             providers: [
+                { provide: BackendService, useClass: SupportBackendService },
+                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]
         }).compileComponents();
 
@@ -56,6 +58,26 @@ fdescribe('COMPONENT V2MachinesPanelComponent [Module: SHARED]', () => {
             expect(component.active).toBeTrue();
             expect(component.machines).toBeDefined();
             expect(component.machines.length).toBe(0);
+        });
+    });
+
+    // - O N I N I A T I Z A T I O N   P H A S E
+    describe('On Initialization Phase', () => {
+        it('ngOnInit.empty: validate initialization flow', async () => {
+            await component.ngOnInit();
+            expect(component.machines).toBeDefined();
+            expect(component.machines.length).toBe(2);
+        });
+    });
+
+    // - O N D E S T R U C T I O N   P H A S E
+    describe('On Destruction Phase', () => {
+        it('ngOnDestroy: check the unsubscription', async () => {
+            const componetAsAny = component as any;
+            expect(componetAsAny.backendConnections.length).toBe(0);
+            await component.ngOnInit();
+            expect(componetAsAny.backendConnections.length).toBe(1);
+            await component.ngOnDestroy();
         });
     });
 });

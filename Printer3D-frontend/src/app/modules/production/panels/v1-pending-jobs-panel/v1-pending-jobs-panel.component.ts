@@ -24,7 +24,7 @@ import { Job } from '@domain/Job.domain';
 })
 export class V1PendingJobsPanelComponent implements OnInit, OnDestroy {
     private backendConnections: Subscription[] = [];
-    public active:boolean=false;
+    public active: boolean = false;
     public jobs: Job[] = [];
 
     constructor(private backendService: BackendService) { }
