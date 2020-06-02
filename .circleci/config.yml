@@ -34,9 +34,11 @@ jobs:
             node -v
       - run:
           name: CHECK - Verify if we have java along node
-          working_directory: Printer3D-frontend/support
+          working_directory: Printer3D-frontend
           command: |
             java -version
+            npm install
+            npm run test:prod
       # - run:
       #     name: CHECK - Start the backend api simulator
       #     working_directory: Printer3D-frontend
@@ -327,7 +329,7 @@ workflows:
             branches:
               only:
                 - development
-                - test-fix
+                - test
       - backend-stage-to-heroku:
           requires:
             - start-job
