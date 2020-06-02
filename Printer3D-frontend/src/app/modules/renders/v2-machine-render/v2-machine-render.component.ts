@@ -29,31 +29,18 @@ export class V2MachineRenderComponent implements OnInit {
     @Input() node: Machine;
     public self: V2MachineRenderComponent;
     public target: Part;
+    public building: boolean = false;
     /**
     * When the component is created check of the Machine has already a part associated. If so the load the target field so it will disable the drop and also will start the countdown timer.
     */
     public ngOnInit(): void {
         console.log('>[V2MachineRenderComponent.ngOnInit]')
         this.self = this;
-        if (null != this.node)
-            if (null != this.node.currentPart)
-                this.target = this.node.currentPart;
-        //     // Check if the Machine is running.
-        //     if (null != this.node)
-        //         if (null != this.node.currentPart) {
-        //             this.target = this.node.currentPart;
-        //             this.sessionTimer.activate(this.getRemainingTime(this.node.jobInstallmentDate))
-        //         }
+        this.loadBuildPart();
     }
-    // public ngAfterViewInit(): void {
-    //     if (null != this.node)
-    //         if (null != this.node.currentPart) {
-    //             this.target = this.node.currentPart;
-    //             // setTimeout(() => {
-    //             //     if (null != this.sessionTimer)
-    //             //         this.sessionTimer.activate(this.getRemainingTime(this.node.jobInstallmentDate))
-    //             // }, 1000);
-    //         }
+    // public getActivateOn(): boolean {
+    //     if (null != this.node.currentPart) return true
+    //     else return false;
     // }
     public getRemainingTime(): number {
         console.log('>[V2MachineRenderComponent.getRemainingTime]')
@@ -65,8 +52,21 @@ export class V2MachineRenderComponent implements OnInit {
     }
     public startBuild(): void {
         this.sessionTimer.activate(this.target.buildTime * 60);
+        this.building = true;
+    }
+    public onClearClick(): void {
+        console.log('>[V2MachineRenderComponent.onClearClick]')
+        this.target = null;
+        this.building = false;
     }
     private getRemainingTimeConverter(startDate: string): number {
         return 23 * 60;
+    }
+    private loadBuildPart(): void {
+        if (null != this.node)
+            if (null != this.node.currentPart) {
+                this.target = this.node.currentPart;
+                this.building = true;
+            }
     }
 }

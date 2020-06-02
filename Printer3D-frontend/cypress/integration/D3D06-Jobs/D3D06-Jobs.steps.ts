@@ -21,9 +21,9 @@ Then('one instance of v1-pending-jobs-panel', function () {
         .find('v1-pending-jobs-panel').should('have.length', 1)
 });
 
-Then('one instance of v1-machines-panel', function () {
+Then('one instance of v2-machines-panel', function () {
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel').should('have.length', 1)
+        .find('v2-machines-panel').should('have.length', 1)
 });
 
 Then('one or more instances of v1-pending-job-render', function () {
@@ -36,14 +36,14 @@ Then('one or more instances of v1-pending-job-render', function () {
 
 Then('one or more instances of v2-machine-render', function () {
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v2-machine-render').should('exist')
 });
 
 Then('on the v2-machine-render component there is a field named {string}', function (fieldName: string) {
     const columnIdentifer = '[name="' + fieldName + '"]'
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v2-machine-render')
         .find(columnIdentifer).should('exist')
 });
@@ -74,7 +74,7 @@ Then('there is a constraint named {string}', function (constraintName: string) {
 
 Then('the v2-machine-render is droppable', function () {
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v2-machine-render').find('.machine-job')
         .get('[droppable]').first().should('exist')
 });
@@ -82,7 +82,7 @@ Then('the v2-machine-render is droppable', function () {
 Then('there is a constraint named {string}', function (constraintName: string) {
     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v2-machine-render').find('.machine-job')
         .get('[droppable]').first()
         .get(constraint).should('exist')
@@ -105,7 +105,7 @@ When('the Job is dragged and dropped on the Machine', function () {
         .get('[draggable="true"]').first()
         .trigger('dragstart')
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v2-machine-render').find('.machine-job')
         .get('[droppable]').first()
         .trigger('drop')
@@ -114,7 +114,7 @@ When('the Job is dragged and dropped on the Machine', function () {
 Then('the machine has a Job', function () {
     // Check the job is on place
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v2-machine-render')
         .find('v1-pending-job-render').should('exist')
 });
@@ -125,7 +125,7 @@ When('there is a click on the {string} button', function (buttonName: string) {
         case 'COMENZAR':
             cy.get('v2-machine-render').find('button').get('#start-button').should('not.be.disabled')
             cy.get('app-root').find('production-job-list-page')
-                .find('v1-machines-panel')
+                .find('v2-machines-panel')
                 .find('v2-machine-render')
                 .find('button').get('#start-button').click();
             break;
@@ -142,13 +142,13 @@ Then('the job is atached to the Machine persisted at the backend', function () {
 
 Then('one instance of v1-build-countdown-timer-panel', function () {
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v1-build-countdown-timer-panel').should('exist')
 });
 
 When('the target Machine has a Part on build', function () {
     cy.get('app-root').find('production-job-list-page')
-        .find('v1-machines-panel')
+        .find('v2-machines-panel')
         .find('v2-machine-render').as('target-machine')
         .find('v1-pending-job-render').should('exist')
 });
@@ -165,6 +165,12 @@ Then('the target Machine button {string} is visible', function (buttonName: stri
             break;
     }
 });
+Then('the target Machine button {string} is not visible', function (buttonName: string) {
+    const buttonReference = '#' + buttonName;
+    cy.get('@target-machine')
+        .find('button').get(buttonReference).should('not.exist')
+});
+
 
 Then('the target Machine button {string} has the next properties', function (buttonName: string, dataTable) {
     const form = new MachinePanel(cy.get('@target-machine'));
@@ -175,7 +181,10 @@ Then('the target Machine button {string} has the next properties', function (but
     }
 });
 
-Then('the target Machine has one instance of {string}', function (panelName) {
-    cy.get('@target-machine')
-        .find(panelName).should('exist')
+Then('the target Machine has one instance of {string}', function (panelName: string) {
+    cy.get('@target-machine').find(panelName).should('exist')
+});
+
+Then('the target Machine has no instances of {string}', function (panelName: string) {
+    cy.get('@target-machine').find(panelName).should('not.exist')
 });

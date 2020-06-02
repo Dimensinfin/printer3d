@@ -23,14 +23,15 @@
             <td *ngIf="target">
                 <v1-build-countdown-timer-panel [parent]="self" [time]="target.buildTime"></v1-build-countdown-timer-panel>
                 <div class="centered-container" style="margin-top: 16px;">
-                    <button id="start-button" type="button" class="start-button" [disabled]="!target" (click)="startBuild()">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            &nbsp;&nbsp;Comenzar
+                    <div *ngIf="!building">
+                        <button id="start-button" type="button" class="start-button" [disabled]="!target" (click)="startBuild()">
+                        <i class="fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp;Comenzar
                         </button>
-                    <button id="clear-button" type="button" class="clear-button">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            &nbsp;&nbsp;Clear
-                        </button>
+                    </div>
+                    <button id="clear-button" type="button" class="clear-button" (click)="onClearClick()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Clear
+                    </button>
                 </div>
             </td>
         </tr>

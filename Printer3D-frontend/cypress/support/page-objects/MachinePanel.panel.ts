@@ -15,7 +15,7 @@ export class MachinePanel extends IsolationService {
             case 'COMENZAR':
                 cy.log('[validateButton]> State: ' + state);
                 if (null == this.target)
-                    cy.get('v1-machines-panel').find('v2-machine-render').first()
+                    cy.get('v2-machines-panel').find('v2-machine-render').first()
                         .find('button').get('#start-button')
                         .should($el => expect($el.text().trim()).to.equal(label));
                 else
@@ -24,11 +24,11 @@ export class MachinePanel extends IsolationService {
                         .should($el => expect($el.text().trim()).to.equal(label));
                 if (null == this.target)
                     if (state === 'disabled')
-                        cy.get('v1-machines-panel').find('v2-machine-render').first()
+                        cy.get('v2-machines-panel').find('v2-machine-render').first()
                             .find('button').get('#start-button')
                             .should('be.disabled')
                     else
-                        cy.get('v1-machines-panel').find('v2-machine-render').first()
+                        cy.get('v2-machines-panel').find('v2-machine-render').first()
                             .find('button').get('#start-button')
                             .should('not.be.disabled')
                 else
@@ -45,7 +45,7 @@ export class MachinePanel extends IsolationService {
                 const buttonName = '#clear-button'
                 cy.log('[validateButton]> State: ' + state);
                 if (null == this.target)
-                    cy.get('v1-machines-panel').find('v2-machine-render').first()
+                    cy.get('v2-machines-panel').find('v2-machine-render').first()
                         .find('button').get('#clear-button')
                         .should($el => expect($el.text().trim()).to.equal(label));
                 else
@@ -54,11 +54,11 @@ export class MachinePanel extends IsolationService {
                         .should($el => expect($el.text().trim()).to.equal(label));
                 if (null == this.target)
                     if (state === 'disabled')
-                        cy.get('v1-machines-panel').find('v2-machine-render').first()
+                        cy.get('v2-machines-panel').find('v2-machine-render').first()
                             .find('button').get('#clear-button')
                             .should('be.disabled')
                     else
-                        cy.get('v1-machines-panel').find('v2-machine-render').first()
+                        cy.get('v2-machines-panel').find('v2-machine-render').first()
                             .find('button').get('#clear-button')
                             .should('not.be.disabled')
                 else

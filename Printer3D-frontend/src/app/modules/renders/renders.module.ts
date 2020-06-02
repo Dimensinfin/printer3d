@@ -24,13 +24,13 @@ import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-
         V1PendingJobRenderComponent,
         V1MachineRenderComponent,
         V2MachineRenderComponent,
-        V1BuildCountdownTimerPanelComponent
+        V1BuildCountdownTimerPanelComponent,
     ],
     exports: [
         V1PendingJobRenderComponent,
         V1MachineRenderComponent,
         V2MachineRenderComponent,
-        V1BuildCountdownTimerPanelComponent
+        V1BuildCountdownTimerPanelComponent,
     ]
 })
 export class RendersModule { }

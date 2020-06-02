@@ -26,13 +26,13 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     #     Then the ProductionJobListPage is activated
     #     And one instance of v1-pending-jobs-panel
     #     And one instance of v1-pending-jobs-panel
-    #     And one instance of v1-machines-panel
+    #     And one instance of v2-machines-panel
 
     # @D3D06 @D3D06.04
     # Scenario: [D3D06.04]-The machine list is at the right and displays at leash one Machine with some fields. Validate the fields.
     #     Given there is a click on Feature "/TRABAJOS PND."
     #     Then the ProductionJobListPage is activated
-    #     And one instance of v1-machines-panel
+    #     And one instance of v2-machines-panel
     #     And one or more instances of v2-machine-render
     #     And on the v2-machine-render component there is a field named "label"
     #     And on the v2-machine-render component there is a field named "model"
@@ -63,7 +63,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     # Scenario: [D3D06.07]-The machine panel has a drop slot where the user can drop PendingJobs.
     #     Given there is a click on Feature "/TRABAJOS PND."
     #     Then the ProductionJobListPage is activated
-    #     And one instance of v1-machines-panel
+    #     And one instance of v2-machines-panel
     #     And one or more instances of v2-machine-render
     #     Then the v2-machine-render is droppable
     #     And there is a constraint named "JOB"
@@ -104,12 +104,21 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given there is a click on Feature "/TRABAJOS PND."
         When the ProductionJobListPage is activated
         And the target Machine has a Part on build
-        Then the target Machine button "COMENZAR" is visible
-        And the target Machine button "COMENZAR" has the next properties
-            | label    | state   |
-            | Comenzar | enabled |
+        Then the target Machine button "COMENZAR" is not visible
         Then the target Machine button "CLEAR" is visible
         And the target Machine button "CLEAR" has the next properties
             | label | state   |
             | Clear | enabled |
+        And the target Machine has one instance of "v1-pending-job-render"
         And the target Machine has one instance of "v1-build-countdown-timer-panel"
+
+    @D3D06 @D3D06.11
+    Scenario: [D3D06.11]-If the user clicks the CLEAR button it cancels the timer and clears the associated build Part.
+        Given there is a click on Feature "/TRABAJOS PND."
+        When the ProductionJobListPage is activated
+        And the target Machine has a Part on build
+        Then the target Machine button "COMENZAR" is not visible
+        Then the target Machine button "CLEAR" is visible
+        When there is a click on the "CLEAR" button
+        Then the target Machine has no instances of "v1-build-countdown-timer-panel"
+        Then the target Machine has no instances of "v1-pending-job-render"
