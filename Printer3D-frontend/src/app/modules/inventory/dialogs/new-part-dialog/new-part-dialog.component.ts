@@ -84,11 +84,12 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         this.backendConnections.push(
             this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
                 .setTransformation((entrydata: any): Part => {
+                    const newPart = new Part(entrydata);
                     this.isolationService.infoNotification('Pieza [' +
-                        entrydata.composePartIdentifier() +
+                        newPart.composePartIdentifier() +
                         '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> return the persisted Part');
-                    return new Part(entrydata);
+                    return newPart;
                 }))
                 .subscribe((persistedPart: Part) => {
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')

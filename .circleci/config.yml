@@ -37,16 +37,13 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             java -version
+      - run:
+          name: CHECK - Check if the Unit Tests complete
+          working_directory: Printer3D-frontend
+          command: |
             npm install
             npm run test:prod
-      # - run:
-      #     name: CHECK - Start the backend api simulator
-      #     working_directory: Printer3D-frontend
-      #     command: |
-      #       npm install
-      #       npm run start:simulator
-      #       npm run stop:simulator
-     
+    
   create-frontend-environment-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -136,6 +133,7 @@ jobs:
           name: FRONTEND - Start backend simulator & run tests
           working_directory: Printer3D-frontend
           command: |
+            npm run test:prod
             npm run build:prod
             npm run acceptance:simulator
             npm run acceptance:cypress
