@@ -136,10 +136,6 @@ jobs:
           command: |
             npm run build:prod
             npm run acceptance:simulator
-      # - run:
-      #     name: FRONTEND - Run Cypress acceptance tests
-      #     working_directory: Printer3D-frontend
-      #     command: |
             npm run acceptance:cypress
   
   build-backend-job:

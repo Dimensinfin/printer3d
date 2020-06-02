@@ -112,8 +112,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: CoilListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(3);
-                    expect(response.coils.length).toBe(3);
+                    expect(response.count).toBe(3, 'Number of Coils do not match.');
+                    expect(response.coils.length).toBe(3, 'Number of Coils do not match.');
                 });
         });
         it('apiInventoryMachines_v1.default: get the list of Coils', async () => {
@@ -123,8 +123,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: MachineListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(3);
-                    expect(response.machines.length).toBe(3);
+                    expect(response.count).toBe(2, 'Number of Machines do not match.');
+                    expect(response.machines.length).toBe(2, 'Number of Machines do not match.');
                 });
         });
         it('apiProductionGetPendingJobs_v1.default: get the list of Coils', async () => {
@@ -134,8 +134,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: PendingJobListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(3);
-                    expect(response.jobs.length).toBe(3);
+                    expect(response.count).toBe(9, 'Number of Jobs do not match');
+                    expect(response.jobs.length).toBe(9, 'Number of Jobs do not match');
                 });
         });
     });

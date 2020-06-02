@@ -43,8 +43,7 @@ export class SupportBackendService {
                     "active": true
                 }
                 ]
-            }
-            ));
+            }));
             observer.complete();
         });
     }
@@ -60,7 +59,7 @@ export class SupportBackendService {
         console.log('[apiNewCoil_v1]' + JSON.stringify(result))
         return result;
     }
-    public apiGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
+    public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
         const result = Observable.create((observer) => {
             observer.next(transformer.transform({
                 "materials": [{

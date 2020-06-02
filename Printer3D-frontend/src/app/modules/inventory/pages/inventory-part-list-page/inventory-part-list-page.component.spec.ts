@@ -60,7 +60,7 @@ describe('COMPONENT InventoryPartListPageComponent [Module: INVENTORY]', () => {
     });
 
     // - O N I N I A T I Z A T I O N   P H A S E
-    describe('On Initialization Phase', () => {
+    xdescribe('On Initialization Phase', () => {
         it('ngOnInit.none: validate initialization flow', async function () {
             expect(component.rowData.length).toBe(0);
             await component.ngOnInit();
