@@ -18,6 +18,7 @@ import { Machine } from '@domain/Machine.domain';
 import { Part } from '@domain/Part.domain';
 import { Job } from '@domain/Job.domain';
 import { V1BuildCountdownTimerPanelComponent } from '@app/modules/renders/v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'v2-machine-render',
@@ -38,10 +39,6 @@ export class V2MachineRenderComponent implements OnInit {
         this.self = this;
         this.loadBuildPart();
     }
-    // public getActivateOn(): boolean {
-    //     if (null != this.node.currentPart) return true
-    //     else return false;
-    // }
     public getRemainingTime(): number {
         console.log('>[V2MachineRenderComponent.getRemainingTime]')
         return this.getRemainingTimeConverter(this.node.jobInstallmentDate)
@@ -60,7 +57,7 @@ export class V2MachineRenderComponent implements OnInit {
         this.building = false;
     }
     private getRemainingTimeConverter(startDate: string): number {
-        return 23 * 60;
+        if (!environment.production) return 23 * 60;
     }
     private loadBuildPart(): void {
         if (null != this.node)

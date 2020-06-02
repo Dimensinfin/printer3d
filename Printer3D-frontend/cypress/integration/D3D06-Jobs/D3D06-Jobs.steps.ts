@@ -165,12 +165,12 @@ Then('the target Machine button {string} is visible', function (buttonName: stri
             break;
     }
 });
+
 Then('the target Machine button {string} is not visible', function (buttonName: string) {
     const buttonReference = '#' + buttonName;
     cy.get('@target-machine')
         .find('button').get(buttonReference).should('not.exist')
 });
-
 
 Then('the target Machine button {string} has the next properties', function (buttonName: string, dataTable) {
     const form = new MachinePanel(cy.get('@target-machine'));
@@ -187,4 +187,36 @@ Then('the target Machine has one instance of {string}', function (panelName: str
 
 Then('the target Machine has no instances of {string}', function (panelName: string) {
     cy.get('@target-machine').find(panelName).should('not.exist')
+});
+
+Then('the button {string} is not visible', function (buttonName: string) {
+    let buttonReference: string='#start-button';
+    switch (buttonName) {
+        case 'COMENZAR':
+            buttonReference = '#start-button';
+            break;
+        case 'CLER':
+            buttonReference = '#clear-button';
+            break;
+    }
+    cy.get('app-root').find('production-job-list-page')
+        .find('v2-machines-panel')
+        .find('v2-machine-render')
+        .find('button').get(buttonReference).should('not.exist')
+});
+
+Then('the button {string} is visible', function (buttonName: string) {
+    let buttonReference: string='#start-button';
+    switch (buttonName) {
+        case 'COMENZAR':
+            buttonReference = '#start-button';
+            break;
+        case 'CLER':
+            buttonReference = '#clear-button';
+            break;
+    }
+    cy.get('app-root').find('production-job-list-page')
+        .find('v2-machines-panel')
+        .find('v2-machine-render')
+        .find('button').get(buttonReference).should('exist')
 });

@@ -34,15 +34,13 @@ const toSeconds = (ms: number) =>
 export class V1BuildCountdownTimerPanelComponent implements OnInit {
     @Input() parent: V2MachineRenderComponent;
     @Input() time: number;
-    public minutes: number = 10;
-    public seconds: number = 0;
-    private duration: number = 100;
+    public minutes: number;
+    public seconds: number;
+    private duration: number;
     private timerSubscription: Subscription;
 
     public ngOnInit(): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.ngOnInit]')
-        this.minutes = toMinutes(this.time * 60 * K);
-        this.seconds = toSeconds(this.time * 6 * K);
         // If the parent is available report to it that we have benn loaded.
         if (null != this.parent)
             this.activate(this.parent.getRemainingTime());
@@ -53,7 +51,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit {
      * Interaction function to start the timer count down.
      * @param durationInSeconds the duration of the timing.
      */
-    public activate(durationInSeconds: number): void {
+    public activate(durationInSeconds?: number): void {
         if (null != durationInSeconds) {
             this.duration = durationInSeconds;
             const timer$ = timer(0, 1000);
@@ -66,7 +64,8 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit {
                 if (left < 1) this.completeTimer();
             });
         } else {
-            // The can be a restart of the previous timer.
+            // This can be a restart of the previous timer.
+            console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Restart: ' + this.duration);
             if (this.duration > 0) this.activate(this.duration);
         }
     }
@@ -74,11 +73,11 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit {
      * Stops the timer by disconnecting the subscription.
      */
     public deactivate(): void {
-        console.log('>[SessionTimerComponent.deactivate]> Timer deactivated');
+        console.log('>[V1BuildCountdownTimerPanelComponent.deactivate]> Timer deactivated');
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
     private completeTimer(): void {
-        console.log('>[SessionTimerComponent.completeTimer]> Timer completed');
+        console.log('>[V1BuildCountdownTimerPanelComponent.completeTimer]> Timer completed');
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
 }
