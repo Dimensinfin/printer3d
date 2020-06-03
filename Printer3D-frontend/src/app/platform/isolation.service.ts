@@ -36,11 +36,13 @@ export class IsolationService {
 
     // - N O T I F I C A T I O N S
     private notifierConfiguration: any = {
+        autoDismiss: false,
         toastTimeout: 5000,
         newestOnTop: true,
         position: 'bottom-right',
-        messageClass: 'notifier-message',
+        toastClass: 'notifier-box',
         titleClass: 'notifier-title',
+        messageClass: 'notifier-message',
         animate: 'slideFromLeft'
     };
     public successNotification(message: string, title?: string, options?: any): void {

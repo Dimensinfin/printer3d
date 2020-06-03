@@ -49,6 +49,22 @@ export class SupportHttpClientWrapperService {
             observer.complete();
         });
     }
+    public wrapHttpPUTCall(_request: string, _requestHeaders?: HttpHeaders): Observable<any> {
+        console.log("><[HttpClientWrapperService.wrapHttpPUTCall]> request: " + _request);
+        return Observable.create((observer) => {
+            try {
+                let data = this.decodeRequestPath(_request);
+                if (null == data)
+                    observer.next('');
+                else
+                    observer.next(data);
+            } catch (error) {
+                console.log("><[HttpClientWrapperService.wrapHttpPUTCall]> error: " + JSON.stringify(error));
+                observer.next('');
+            }
+            observer.complete();
+        });
+    }
     public wrapHttpPOSTCall(_request: string, body: any, _requestHeaders?: HttpHeaders): Observable<any> {
         console.log("><[HttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
         return Observable.create((observer) => {

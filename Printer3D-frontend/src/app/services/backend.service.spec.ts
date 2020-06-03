@@ -150,7 +150,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 .subscribe((response: Machine) => {
                     expect(response).toBeDefined();
                     expect(response.currentJobPartId).toBeNull();
-                    expect(response.jobInstallmentDate).toBeNUll();
+                    expect(response.jobInstallmentDate).toBeNull();
                 });
         });
     });
