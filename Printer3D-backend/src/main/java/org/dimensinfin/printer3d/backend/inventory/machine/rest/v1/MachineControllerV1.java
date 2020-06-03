@@ -37,14 +37,14 @@ public class MachineControllerV1 {
 		return new ResponseEntity<>( this.machineServiceV1.getMachines(), HttpStatus.OK );
 	}
 
-	@PutMapping(path = "/inventory/machines/build/{machineId}/cancel",
+	@PutMapping(path = "/inventory/machines/{machineId}/cancelbuild",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<Machine> cancelBuild( final @PathVariable @NotNull UUID machineId ) {
 		return new ResponseEntity<>( this.machineServiceV1.cancelBuild( machineId ), HttpStatus.OK );
 	}
 
-	@PutMapping(path = "/inventory/machines/build/{machineId}/start/{partId}",
+	@PutMapping(path = "/inventory/machines/{machineId}/startbuild/{partId}",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<Machine> startBuild( final @PathVariable @NotNull UUID machineId,
