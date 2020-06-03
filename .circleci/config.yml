@@ -37,12 +37,12 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             java -version
-      - run:
-          name: CHECK - Check if the Unit Tests complete
-          working_directory: Printer3D-frontend
-          command: |
-            npm install
-            npm run test:prod
+      # - run:
+      #     name: CHECK - Check if the Unit Tests complete
+      #     working_directory: Printer3D-frontend
+      #     command: |
+      #       npm install
+      #       npm run test:prod
     
   create-frontend-environment-job:
     docker:

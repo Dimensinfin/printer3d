@@ -275,7 +275,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MachineList'
-  /api/inventory/machines/build/{machineId}/start/{partId}:
+  /api/v1/inventory/machines/{machineId}/startbuild/{partId}:
     put:
       tags:
         - Inventory
@@ -315,7 +315,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Machine'
-  /api/inventory/machines/build/{machineId}/cancel:
+  /api/v1/inventory/machines/{machineId}/cancelbuild:
     put:
       tags:
         - Inventory
@@ -526,7 +526,7 @@ components:
             A free text with the list of the machine characteristics like special configurations, limits or sizes.
           example:
             'Max size set to 200mm. Has adaptor for flexible plastic filament.'
-        currentJobPart:
+        currentJobPartId:
           type: string
           format: uuid
           pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
