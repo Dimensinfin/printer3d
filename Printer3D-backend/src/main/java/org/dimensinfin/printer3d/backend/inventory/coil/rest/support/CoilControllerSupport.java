@@ -31,7 +31,7 @@ public class CoilControllerSupport {
 		this.coilRepository = Objects.requireNonNull( coilRepository );
 	}
 
-	@GetMapping(path = "/inventory/rolls/delete/all",
+	@GetMapping(path = "/inventory/coils/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<CountResponse> deleteAllRolls() {

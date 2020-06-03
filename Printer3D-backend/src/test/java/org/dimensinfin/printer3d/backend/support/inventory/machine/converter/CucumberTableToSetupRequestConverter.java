@@ -11,7 +11,7 @@ import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
 
 public class CucumberTableToSetupRequestConverter extends CucumberTableConverter<SetupRequest> {
-	private static final String SETUPREQUEST_PART_ID = "partId";
+	private static final String SETUPREQUEST_PART_ID = "currentJobPart";
 	private static final String SETUPREQUEST_JOB_INSTALLMENT_DATE = "jobInstallmentDate";
 	private static final String SETUPREQUEST_PART_INSTANCES_COUNT = "partInstancesCount";
 	private final String machineLabel;
@@ -35,9 +35,9 @@ public class CucumberTableToSetupRequestConverter extends CucumberTableConverter
 
 	protected String dynamicDateConversion( final String reference ) {
 		if (reference.equalsIgnoreCase( "<today>" ))
-			return LocalDateTime.now().format( DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm" ) );
+			return LocalDateTime.now().format( DateTimeFormatter.ISO_LOCAL_DATE_TIME );
 		if (reference.equalsIgnoreCase( "<yesterday>" ))
-			return LocalDateTime.now().minus( Period.ofDays( 1 ) ).format( DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm" ) );
+			return LocalDateTime.now().minus( Period.ofDays( 1 ) ).format( DateTimeFormatter.ISO_LOCAL_DATE_TIME );
 		return reference;
 	}
 }

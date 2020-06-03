@@ -32,7 +32,15 @@ public class TestDataConstants {
 		public static final String TEST_ROLL_MATERIAL = "PLA";
 		public static final String TEST_ROLL_COLOR = "-COLOR-";
 		public static final Integer TEST_ROLL_WEIGHT = 750;
-	}public static class FinishingConstants{
-		public static final String TEST_FINISHING_MATERIAL="-TEST_FINISHING_MATERIAL-";
+	}
+
+	public static class FinishingConstants {
+		public static final String TEST_FINISHING_MATERIAL = "-TEST_FINISHING_MATERIAL-";
+	}
+	public static class SetupRequest {
+		public static final String TEST_SETUPREQUEST_MACHINE_LABEL = "-TEST_MACHINE_LABEL-";
+		public static final UUID TEST_SETUPREQUEST_PART_ID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
+		public static final String TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE = "2020-06-03T13:31:20.929896";
+		public static final Integer TEST_SETUPREQUEST_PART_INSTANCES_COUNT = 2;
 	}
 }

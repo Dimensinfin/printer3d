@@ -65,8 +65,7 @@ public class SetupRequest {
 		}
 
 		private LocalDateTime convertToDate( final String source ) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm" );
-			return LocalDateTime.parse( source, formatter );
+			return LocalDateTime.parse( source, DateTimeFormatter.ISO_LOCAL_DATE_TIME );
 		}
 	}
 }

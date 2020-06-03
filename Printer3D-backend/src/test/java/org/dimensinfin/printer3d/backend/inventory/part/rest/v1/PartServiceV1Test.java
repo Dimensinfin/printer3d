@@ -107,9 +107,8 @@ public class PartServiceV1Test {
 	@Test
 	public void partsListActivesOnly() {
 		// Given
-		final Part part = Mockito.mock( Part.class );
 		final List<Part> partList = new ArrayList<>();
-		partList.add( part );
+		partList.add( this.testPart );
 		partList.add( this.testPartNotActive );
 		// When
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );

@@ -27,7 +27,7 @@ Feature: Process the jobs scheduled on the 3D printers
       |                |                    | 1                    |
     When the Get Parts request is processed
     Then there is a valid response with return code of "200 OK"
-    And the item "1" of the list of Parts has the next fields
+    And the item "4e7001ee-6bf5-40b4-9c15-61802e4c59ea" of the list of Parts has the next fields
       | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 3              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
@@ -58,7 +58,7 @@ Feature: Process the jobs scheduled on the 3D printers
       | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE     | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
     And the next setup for Machine "Ender 3 Pro - A"
       | currentJobPart                       | jobInstallmentDate | currentPartInstances |
-      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | <today>              | 1                    |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | <today>            | 1                    |
     When the Get Machines request is processed
     Then there is a valid response with return code of "200 OK"
     And the machine "Ender 3 Pro - A" has the next state

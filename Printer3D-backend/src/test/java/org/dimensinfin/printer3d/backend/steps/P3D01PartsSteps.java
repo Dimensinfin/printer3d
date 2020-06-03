@@ -24,14 +24,15 @@ public class P3D01PartsSteps extends StepSupport {
 	}
 
 	@Then("the item {string} of the list of Parts has the next fields")
-	public void the_item_of_the_list_of_Parts_has_the_next_fields( final String row, final List<Map<String, String>> dataTable ) {
+	public void the_item_of_the_list_of_Parts_has_the_next_fields( final String partId, final List<Map<String, String>> dataTable ) {
 		Assertions.assertNotNull( this.printer3DWorld.getPartListResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getPartListResponseEntity().getBody().getParts() );
-		Assertions.assertNotNull( this.printer3DWorld.getPartListResponseEntity().getBody().getParts().get( Integer.parseInt( row ) - 1 ) );
-		final Part record = this.printer3DWorld.getPartListResponseEntity().getBody().getParts().get( Integer.parseInt( row ) - 1 );
-		Assertions.assertTrue(
-				new PartValidator().validate( dataTable.get( 0 ), record )
-		);
+		for ( Part part : this.printer3DWorld.getPartListResponseEntity().getBody().getParts()){
+			if ( part.getId().toString().equalsIgnoreCase( partId ))
+				Assertions.assertTrue(
+						new PartValidator().validate( dataTable.get( 0 ), part )
+				);
+		}
 	}
 
 	@Then("the list of Parts has {string} items")
