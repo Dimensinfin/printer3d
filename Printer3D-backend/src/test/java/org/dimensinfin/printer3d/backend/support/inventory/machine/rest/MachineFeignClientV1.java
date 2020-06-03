@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.support.inventory.machine.rest;
 
 import java.io.IOException;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,20 @@ public class MachineFeignClientV1 extends CommonFeignClient {
 	// - C O N S T R U C T O R S
 	public MachineFeignClientV1( final @NotNull AcceptanceTargetConfig acceptanceTargetConfig ) {
 		super( acceptanceTargetConfig );
+	}
+
+	public ResponseEntity<Machine> cancelBuild( final String authorizationToken, final UUID machineId ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request to cancel a build job.";
+		final Response<Machine> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.cancelBuild( authorizationToken, machineId )
+				.execute();
+		if (response.isSuccessful()) {
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
 	public ResponseEntity<MachineList> getMachines( final String authorizationToken ) throws IOException {

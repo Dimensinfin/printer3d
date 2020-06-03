@@ -42,6 +42,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.machineFeignClientV1 = Objects.requireNonNull( machineFeignClientV1 );
 	}
 
+	@When("the Cancel Build for Machine {string} request is processed")
+	public void the_Cancel_Build_for_Machine_request_is_processed( final String machineId ) throws IOException {
+		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
+		this.processRequestByType( RequestType.CANCEL_BUILD );
+	}
+
 	@When("the Get Coils request is processed")
 	public void the_Get_Coils_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_COILS );
@@ -122,15 +128,21 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setMachineListResponseEntity( machinesResponseEntity );
 				return machinesResponseEntity;
 			case START_BUILD:
-				final ResponseEntity<Machine> machineResponseEntity = this.machineFeignClientV1
+				final ResponseEntity<Machine> startBuildResponseEntity = this.machineFeignClientV1
 						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
 								new StartBuildRequest.Builder()
 										.withMachineId( this.printer3DWorld.getMachineId() )
 										.withPartId( this.printer3DWorld.getPartId() )
 										.build() );
-				Assertions.assertNotNull( machineResponseEntity );
-				this.printer3DWorld.setStartBuildResponseEntity( machineResponseEntity );
-				return machineResponseEntity;
+				Assertions.assertNotNull( startBuildResponseEntity );
+				this.printer3DWorld.setStartBuildResponseEntity( startBuildResponseEntity );
+				return startBuildResponseEntity;
+			case CANCEL_BUILD:
+				final ResponseEntity<Machine> cancelBuildResponseEntity = this.machineFeignClientV1
+						.cancelBuild( this.printer3DWorld.getJwtAuthorizationToken(), this.printer3DWorld.getMachineId() );
+				Assertions.assertNotNull( cancelBuildResponseEntity );
+				this.printer3DWorld.setStartBuildResponseEntity( cancelBuildResponseEntity );
+				return cancelBuildResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
