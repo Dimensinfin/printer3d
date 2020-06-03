@@ -6,8 +6,8 @@ export class Machine {
     public model: string;
     public characteristics: string;
     public currentJobPartId: Part;
-    public currentPartInstances:number =1;
-    public jobInstallmentDate:string;
+    public currentPartInstances: number = 1;
+    public jobInstallmentDate: string;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
@@ -18,5 +18,14 @@ export class Machine {
             this.currentJobPartId = new Part(this.currentJobPartId)
         }
     }
-
+    public isRunning(): boolean {
+        if (null != this.currentJobPartId) return true;
+        else return false;
+    }
+    public getRunTime(): number {
+        if (this.isRunning()) {
+            // Calculate the remaining time from the installment time.
+            return Math.abs(Date.parse(this.jobInstallmentDate) - Date.now()) / 1000 / 60;
+        }
+    }
 }

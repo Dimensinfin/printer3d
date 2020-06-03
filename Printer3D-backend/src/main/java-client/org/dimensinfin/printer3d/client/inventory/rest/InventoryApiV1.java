@@ -32,7 +32,7 @@ public interface InventoryApiV1 {
 	 * @return Call&lt;Machine&gt;
 	 */
 	@Headers({ "Content-Type:application/json" })
-	@PUT("api/v1/inventory/machines/build/{machineId}/cancel")
+	@PUT("api/v1/inventory/machines/{machineId}/cancelbuild")
 	Call<Machine> cancelBuild( @Header("Authorization") final @NotNull String authorizationToken,
 	                           @Path("machineId") final @NotNull UUID machineId );
 
@@ -122,7 +122,7 @@ public interface InventoryApiV1 {
 	 * @return Call&lt;Machine&gt;
 	 */
 	@Headers({ "Content-Type:application/json" })
-	@PUT("api/v1/inventory/machines/build/{machineId}/start/{partId}")
+	@PUT("api/v1/inventory/machines/{machineId}/startbuild/{partId}")
 	Call<Machine> startBuild( @Header("Authorization") final @NotNull String authorizationToken,
 	                          @Path("machineId") final @NotNull UUID machineId,
 	                          @Path("partId") final @NotNull UUID partId );

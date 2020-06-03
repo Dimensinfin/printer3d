@@ -32,6 +32,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
     @Input() node: Machine;
     public self: V2MachineRenderComponent;
     public target: Part;
+    public buildTime: number = 0;
     public building: boolean = false;
 
     constructor(protected isolationService: IsolationService,
@@ -45,15 +46,27 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
     public ngOnInit(): void {
         console.log('>[V2MachineRenderComponent.ngOnInit]')
         this.self = this;
-        this.loadBuildPart();
+        if (null != this.node) this.loadBuildPart();
     }
-    public getRemainingTime(): number {
-        console.log('>[V2MachineRenderComponent.getRemainingTime]')
-        return this.getRemainingTimeConverter(this.node.jobInstallmentDate)
+    /**
+     * Use this to report the child timer that the timer should be started automatically. Because the child can initialize later than the Machine render we should use this to report when the target build part is loaded manually or not.
+     */
+    public isAutostart(): boolean {
+        return this.building;
+    }
+    /**
+     * Calculated the build time to setup on the Timer. If the Job was set by dragging the target then the time is the target 'buildTime'.
+     * If the target is filled but because the Machine has a running job then the time is the remaining time.
+     */
+    public getBuildTime(): number {
+        console.log('>[V2MachineRenderComponent.getBuildTime]')
+        return this.buildTime;
     }
     public onDrop(drop: any) {
-        if (null != drop)
+        if (null != drop) {
             this.target = drop.dragData;
+            this.buildTime = this.target.buildTime*60;
+        }
     }
     public startBuild(): void {
         this.backendConnections.push(
@@ -86,20 +99,19 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
                         return new Machine(entrydata);
                     }))
                 .subscribe((resultMachine: Machine) => {
+                    this.sessionTimer.deactivate();
                     this.node = resultMachine;
                     this.target = null;
                     this.building = false;
                 })
         );
     }
-    private getRemainingTimeConverter(startDate: string): number {
-        if (!environment.production) return 23 * 60;
-    }
     private loadBuildPart(): void {
-        if (null != this.node)
-            if (null != this.node.currentJobPartId) {
-                this.target = this.node.currentJobPartId;
-                this.building = true;
-            }
+        if (this.node.isRunning()) {
+            this.target = this.node.currentJobPartId;
+            this.building = true;
+            this.buildTime = this.node.getRunTime();
+            // this.sessionTimer.activate(this.buildTime);
+        }
     }
 }

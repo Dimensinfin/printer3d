@@ -1,6 +1,7 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Observable } from "rxjs";
 // import { ISubscription } from 'rxjs/Subscription';
@@ -31,7 +32,7 @@ const toSeconds = (ms: number) =>
     templateUrl: './v1-build-countdown-timer-panel.component.html',
     styleUrls: ['./v1-build-countdown-timer-panel.component.scss']
 })
-export class V1BuildCountdownTimerPanelComponent implements OnInit {
+export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
     @Input() parent: V2MachineRenderComponent;
     @Input() time: number;
     public minutes: number;
@@ -41,9 +42,11 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit {
 
     public ngOnInit(): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.ngOnInit]')
-        // If the parent is available report to it that we have benn loaded.
-        if (null != this.parent)
-            this.activate(this.parent.getRemainingTime());
+        this.setTimer(this.time);
+        if (null != this.parent) if (this.parent.isAutostart()) this.activate(this.time);
+    }
+    public ngOnDestroy(): void {
+        if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
 
     // - V I E W   I N T E R A C T I O N
@@ -54,7 +57,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit {
     public activate(durationInSeconds?: number): void {
         if (null != durationInSeconds) {
             this.duration = durationInSeconds;
-            const timer$ = timer(0, 1000);
+            const timer$ = timer(1000, 1000);
             this.timerSubscription = timer$.subscribe(elapsed => {
                 // Calculate the number of secods left.
                 let left = this.duration - elapsed;
@@ -79,5 +82,13 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit {
     private completeTimer(): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.completeTimer]> Timer completed');
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
+    }
+    private setTimer(durationInSeconds: number): void {
+        console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Duration: ' + durationInSeconds);
+        this.duration = durationInSeconds;
+        this.minutes = toMinutes(durationInSeconds * K);
+        console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Minutes: ' + this.minutes);
+        this.seconds = toSeconds(durationInSeconds * K);
+        console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Seconds: ' + this.seconds);
     }
 }
