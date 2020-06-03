@@ -31,6 +31,7 @@ import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
+import { Machine } from '@domain/Machine.domain';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -64,7 +65,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Backend-API]', () => {
+    fdescribe('Code Coverage Phase [INVENTORY]', () => {
         it('apiInventoryParts_v1.default: get the list of Parts', async () => {
             service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
@@ -127,6 +128,33 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.machines.length).toBe(2, 'Number of Machines do not match.');
                 });
         });
+        it('apiMachinesStartBuild_v1.default: start a build jot on a Machine', async () => {
+            const machineId: string = "-MACHINE-ID-"
+            const partId: string = "-PART-ID-"
+            service.apiMachinesStartBuild_v1(machineId, partId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
+                .setTransformation((entrydata: any): Machine => {
+                    return new Machine(entrydata);
+                }))
+                .subscribe((response: Machine) => {
+                    expect(response).toBeDefined();
+                    expect(response.currentJobPartId).toBeDefined();
+                    expect(response.jobInstallmentDate).toBeDefined();
+                });
+        });
+        it('apiMachinesCancelBuild_v1.default: cancel the build job on a Machine', async () => {
+            const machineId: string = "-MACHINE-ID-"
+            service.apiMachinesCancelBuild_v1(machineId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
+                .setTransformation((entrydata: any): Machine => {
+                    return new Machine(entrydata);
+                }))
+                .subscribe((response: Machine) => {
+                    expect(response).toBeDefined();
+                    expect(response.currentJobPartId).toBeNull();
+                    expect(response.jobInstallmentDate).toBeNUll();
+                });
+        });
+    });
+    describe('Code Coverage Phase [PRODUCTION]', () => {
         it('apiProductionGetPendingJobs_v1.default: get the list of Coils', async () => {
             service.apiProductionGetPendingJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
                 .setTransformation((entrydata: any): PendingJobListResponse => {

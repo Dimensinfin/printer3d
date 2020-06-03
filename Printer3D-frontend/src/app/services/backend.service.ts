@@ -17,6 +17,7 @@ import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
+import { Machine } from '@domain/Machine.domain';
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +29,7 @@ export class BackendService {
         this.APIV1 = environment.backendPath + environment.apiVersion1;
     }
     // - B A C K E N D - A P I
+    // - I N V E N T O R Y
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
         const request = this.APIV1 + '/inventory/parts';
         let headers = new HttpHeaders()
@@ -94,6 +96,30 @@ export class BackendService {
                 return response;
             }));
     }
+    public apiMachinesStartBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
+        const request = this.APIV1 + '/inventory/machines/' + machineId + '/startbuild/' + partId;
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPUTCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiMachinesStartBuild_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Machine;
+                return response;
+            }));
+    }
+    public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+        const request = this.APIV1 + '/inventory/machines/' + machineId + '/cancelbuild';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPUTCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiMachinesCancelBuild_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Machine;
+                return response;
+            }));
+    }
+
+    // - P R O D U C T I O N
     public apiProductionGetPendingJobs_v1(transformer: ResponseTransformer): Observable<PendingJobListResponse> {
         const request = this.APIV1 + '/production/jobs/pending';
         let headers = new HttpHeaders()

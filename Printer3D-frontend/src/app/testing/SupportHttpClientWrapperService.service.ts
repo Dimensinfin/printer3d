@@ -80,6 +80,11 @@ export class SupportHttpClientWrapperService {
         if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
         if (request.includes('/inventory/machines')) keyword = 'INVENTORY-MACHINES';
         if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
+        if (request.includes('/inventory/machines/')) {
+            if (request.includes('startbuild')) keyword = 'MACHINE-STARTBUILD';
+            if (request.includes('cancelbuild')) keyword = 'MACHINE-CANCELBUILD';
+        }
+        if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
 
         console.log("><[HttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
@@ -350,6 +355,44 @@ export class SupportHttpClientWrapperService {
                     ]
                 }
                 return inventoryJobsResponseJson;
+            case 'MACHINE-STARTBUILD':
+                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                const machineStartBuildResponseJson = {
+                    "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
+                    "label": "Machine B",
+                    "model": "Creality 3D Ender 3 Pro",
+                    "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
+                    "currentJobPartId": {
+                        "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
+                        "label": "Covid-19 Key",
+                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                        "material": "PLA",
+                        "colorCode": "NARANJA-T",
+                        "buildTime": 30,
+                        "cost": 0.85,
+                        "price": 3.0,
+                        "stockLevel": 5,
+                        "stockAvailable": 0,
+                        "imagePath": "https://ibb.co/3dGbsRh",
+                        "modelPath": "pieza3.sft",
+                        "active": true
+                    },
+                    "currentPartInstances": 1,
+                    "jobInstallmentDate": "2020-06-01T22:05:00Z"
+                };
+                return machineStartBuildResponseJson;
+            case 'MACHINE-CANCELBUILD':
+                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                const machineCancelBuildResponseJson = {
+                    "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
+                    "label": "Machine B",
+                    "model": "Creality 3D Ender 3 Pro",
+                    "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
+                    "currentJobPartId": null,
+                    "currentPartInstances": 1,
+                    "jobInstallmentDate": null
+                };
+                return machineCancelBuildResponseJson;
             default:
                 return {};
         }

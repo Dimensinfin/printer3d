@@ -5,7 +5,8 @@ export class Machine {
     public label: string;
     public model: string;
     public characteristics: string;
-    public currentPart: Part;
+    public currentJobPartId: Part;
+    public currentPartInstances:number =1;
     public jobInstallmentDate:string;
 
     constructor(values: Object = {}) {
@@ -13,8 +14,8 @@ export class Machine {
         this.transformInput();
     }
     private transformInput(): void {
-        if (null != this.currentPart) {
-            this.currentPart = new Part(this.currentPart)
+        if (null != this.currentJobPartId) {
+            this.currentJobPartId = new Part(this.currentJobPartId)
         }
     }
 
