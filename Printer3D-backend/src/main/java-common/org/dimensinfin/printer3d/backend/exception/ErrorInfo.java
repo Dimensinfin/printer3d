@@ -27,8 +27,11 @@ public enum ErrorInfo {
 	                    APPLICATION_ERROR_CODE_PREFIX+".already.exists",
 			"The Roll [{0}] already exists at the repository. This should not be possible and means a development defect."),
 	PART_NOT_FOUND(HttpStatus.NOT_FOUND,
-	                    APPLICATION_ERROR_CODE_PREFIX+".notfound",
-			"The Part [{0}] not found at the repository.");
+			APPLICATION_ERROR_CODE_PREFIX+".notfound",
+			"The Part [{0}] not found at the repository."),
+	SUPPORT_MACHINE_NOT_FOUND(HttpStatus.NOT_FOUND,
+	               APPLICATION_ERROR_CODE_PREFIX+".notfound",
+			"The Machine with label [{0}] not found at the repository.");
 
 	public final HttpStatus status;
 	public final String errorCode;

@@ -1,5 +1,7 @@
 package org.dimensinfin.printer3d.backend.support.core;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
@@ -14,6 +16,8 @@ public class CommonFeignClient {
 	public static final Converter.Factory GSON_CONVERTER_FACTORY =
 			GsonConverterFactory.create(
 					new GsonBuilder()
+							.registerTypeAdapter( LocalDate.class, new GSONLocalDateDeserializer() )
+							.registerTypeAdapter( LocalDateTime.class, new GSONLocalDateTimeDeserializer() )
 							.create() );
 	protected final AcceptanceTargetConfig acceptanceTargetConfig;
 

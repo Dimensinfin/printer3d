@@ -12,13 +12,14 @@ Feature: Process the jobs scheduled on the 3D printers
   @P3D04.H @P3D04.02
   Scenario: [P3D04.02] If one machine had a build request and the build time has elapsed then the job is completed and the number of Parts on stock
   is increased.
+    Given a clean Inventory repository
     Given the following Parts in my service
       | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
       | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE     | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-    And setting the next state for Machine "Ender 3 Pro - B"
-      | machine         | currentJobPart                       | jobInstallmentDate |
-      | Ender 3 Pro - B | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | <yesterday>        |
+    And the next setup for Machine "Ender 3 Pro - B"
+      | currentJobPart                       | jobInstallmentDate | currentPartInstances |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | <yesterday>        | 1                    |
     When the Get Machines request is processed
     Then there is a valid response with return code of "200 OK"
     And the machine "Ender 3 Pro - B" has the next state
@@ -27,8 +28,8 @@ Feature: Process the jobs scheduled on the 3D printers
     When the Get Parts request is processed
     Then there is a valid response with return code of "200 OK"
     And the item "1" of the list of Parts has the next fields
-      | id                                   | stockLevel | stockAvailable |
-      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | 3          | 3              |
+      | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 3              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
   @P3D04.H @P3D04.03
   Scenario: [P3D04.03] When a build start request is processed the Machine record gets updated.

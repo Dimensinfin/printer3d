@@ -20,26 +20,30 @@ public class Machine {
 	@Id
 	@NotNull(message = "Machine unique UUID 'id' is a mandatory field and cannot be null.")
 	@Column(name = "id", updatable = false, nullable = false)
-	private UUID id = null;
+	private UUID id;
 	@NotNull(message = "Machine 'label' is mandatory.")
 	@Size(max = 32)
 	@Column(name = "label", updatable = true, nullable = false)
-	private String label = null;
+	private String label;
 	@NotNull(message = "Machine 'model' is mandatory.")
 	@Size(max = 64)
 	@Column(name = "model", updatable = true, nullable = false)
-	private String model = null;
+	private String model;
 	@Size(max = 300)
 	@Column(name = "characteristics", updatable = true, nullable = false)
-	private String characteristics = null;
+	private String characteristics;
 	@Column(name = "current_job_part_id")
 	private UUID currentJobPartId;
 	@Column(name = "current_part_instances")
 	private int currentPartInstances = 1;
 	@Column(name = "job_installment_date", columnDefinition = "TIMESTAMP")
-	private LocalDateTime jobInstallmentDate = null;
+	private LocalDateTime jobInstallmentDate;
 
 	// - G E T T E R S   &   S E T T E R S
+	public String getCharacteristics() {
+		return this.characteristics;
+	}
+
 	public UUID getCurrentJobPartId() {
 		return this.currentJobPartId;
 	}
@@ -48,12 +52,35 @@ public class Machine {
 		return this.currentPartInstances;
 	}
 
+	public UUID getId() {
+		return this.id;
+	}
+
 	public LocalDateTime getJobInstallmentDate() {
 		return this.jobInstallmentDate;
 	}
 
 	public String getLabel() {
 		return this.label;
+	}
+
+	public String getModel() {
+		return this.model;
+	}
+
+	public Machine setCurrentJobPartId( final UUID currentJobPartId ) {
+		this.currentJobPartId = currentJobPartId;
+		return this;
+	}
+
+	public Machine setCurrentPartInstances( final int currentPartInstances ) {
+		this.currentPartInstances = currentPartInstances;
+		return this;
+	}
+
+	public Machine setJobInstallmentDate( final LocalDateTime jobInstallmentDate ) {
+		this.jobInstallmentDate = jobInstallmentDate;
+		return this;
 	}
 
 	public void clearJob() {

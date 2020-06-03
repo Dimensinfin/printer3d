@@ -12,7 +12,7 @@ import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
-import org.dimensinfin.printer3d.client.part.rest.InventoryApiV1;
+import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
