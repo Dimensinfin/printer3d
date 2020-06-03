@@ -45,9 +45,9 @@ public class MachineControllerSupport {
 		// Change the setup for the selected machine
 		final List<Machine> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
 		if (null == machines)
-			throw new DimensinfinRuntimeException( ErrorInfo.SUPPORT_MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
+			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
 		if (machines.size() < 1)
-			throw new DimensinfinRuntimeException( ErrorInfo.SUPPORT_MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
+			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
 		for (Machine machine : machines)
 			this.machineRepository.save( new SupportMachineUpdater( machine ).update( setupRequest ) );
 		return new ResponseEntity<>( true, HttpStatus.OK );

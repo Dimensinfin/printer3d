@@ -1,0 +1,19 @@
+{
+	"id": "1431412e-c4f7-4d1f-84ee-04dadeffb8a4",
+	"values": [
+		{
+			"key": "inventory",
+			"value": "/api/v1/inventory",
+			"enabled": true
+		},
+		{
+			"key": "production",
+			"value": "/api/v1/production",
+			"enabled": true
+		}
+	],
+	"name": "3DPrinter Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2020-06-03T11:36:03.254Z",
+	"_postman_exported_using": "Postman/7.25.1"
+}

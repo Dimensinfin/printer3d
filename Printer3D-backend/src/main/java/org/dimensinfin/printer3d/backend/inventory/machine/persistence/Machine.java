@@ -83,10 +83,11 @@ public class Machine {
 		return this;
 	}
 
-	public void clearJob() {
+	public Machine clearJob() {
 		this.currentJobPartId = null;
 		this.jobInstallmentDate = null;
 		this.currentPartInstances = 1;
+		return this;
 	}
 
 	// - C O R E

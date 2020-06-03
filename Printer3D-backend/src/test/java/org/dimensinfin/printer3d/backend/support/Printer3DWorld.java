@@ -1,9 +1,12 @@
 package org.dimensinfin.printer3d.backend.support;
 
+import java.util.UUID;
+
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.Machine;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
@@ -19,6 +22,9 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<CoilList> coilListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 	private ResponseEntity<MachineList> machineListResponseEntity;
+	private UUID partId;
+	private UUID machineId;
+	private ResponseEntity<Machine> startBuildResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public Coil getCoil() {
@@ -45,6 +51,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setFinishingsResponseEntity( final ResponseEntity<FinishingsResponse> finishingsResponseEntity ) {
 		this.finishingsResponseEntity = finishingsResponseEntity;
+		return this;
+	}
+
+	public UUID getMachineId() {
+		return this.machineId;
+	}
+
+	public Printer3DWorld setMachineId( final UUID machineId ) {
+		this.machineId = machineId;
 		return this;
 	}
 
@@ -84,12 +99,30 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public UUID getPartId() {
+		return this.partId;
+	}
+
+	public Printer3DWorld setPartId( final UUID partId ) {
+		this.partId = partId;
+		return this;
+	}
+
 	public ResponseEntity<PartList> getPartListResponseEntity() {
 		return this.partListResponseEntity;
 	}
 
 	public Printer3DWorld setPartListResponseEntity( final ResponseEntity<PartList> partListResponseEntity ) {
 		this.partListResponseEntity = partListResponseEntity;
+		return this;
+	}
+
+	public ResponseEntity<Machine> getStartBuildResponseEntity() {
+		return this.startBuildResponseEntity;
+	}
+
+	public Printer3DWorld setStartBuildResponseEntity( final ResponseEntity<Machine> startBuildResponseEntity ) {
+		this.startBuildResponseEntity = startBuildResponseEntity;
 		return this;
 	}
 }

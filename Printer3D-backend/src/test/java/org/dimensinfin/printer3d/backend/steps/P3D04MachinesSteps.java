@@ -9,23 +9,26 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.Machine;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
+import org.dimensinfin.printer3d.backend.support.inventory.machine.MachineValidator;
 import org.dimensinfin.printer3d.client.domain.MachineList;
 
 import io.cucumber.java.en.Then;
 
-public class P3D04MachinesSteps   extends StepSupport  {
+public class P3D04MachinesSteps extends StepSupport {
 
+	// - C O N S T R U C T O R S
 	public P3D04MachinesSteps( final @NotNull Printer3DWorld printer3DWorld ) {
 		super( printer3DWorld );
 	}
+
 	@Then("the machine {string} has the next state")
-	public void the_machine_has_the_next_state(final String machineLabel, final List<Map<String, String>> dataTable ) {
+	public void the_machine_has_the_next_state( final String machineLabel, final List<Map<String, String>> dataTable ) {
 		final ResponseEntity<MachineList> machinesResponse = this.printer3DWorld.getMachineListResponseEntity();
 		Assertions.assertNotNull( machinesResponse );
 		Assertions.assertNotNull( machinesResponse.getBody() );
-		for (Machine machine : machinesResponse.getBody().getMachines()){
-			if ( machine.getLabel().equalsIgnoreCase(  machineLabel)){
-
+		for (Machine machine : machinesResponse.getBody().getMachines()) {
+			if (machine.getLabel().equalsIgnoreCase( machineLabel )) {
+				Assertions.assertTrue( new MachineValidator().validate( dataTable.get( 0 ), machine ) );
 			}
 		}
 	}

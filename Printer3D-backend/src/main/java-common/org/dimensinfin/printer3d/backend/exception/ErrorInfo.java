@@ -29,7 +29,7 @@ public enum ErrorInfo {
 	PART_NOT_FOUND(HttpStatus.NOT_FOUND,
 			APPLICATION_ERROR_CODE_PREFIX+".notfound",
 			"The Part [{0}] not found at the repository."),
-	SUPPORT_MACHINE_NOT_FOUND(HttpStatus.NOT_FOUND,
+	MACHINE_NOT_FOUND(HttpStatus.NOT_FOUND,
 	               APPLICATION_ERROR_CODE_PREFIX+".notfound",
 			"The Machine with label [{0}] not found at the repository.");
 

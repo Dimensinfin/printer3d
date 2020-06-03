@@ -6,5 +6,6 @@ public enum RequestType {
 	NEW_COIL,
 	GET_COILS,
 	GET_FINISHINGS,
-	GET_MACHINES
+	GET_MACHINES,
+	START_BUILD;
 }

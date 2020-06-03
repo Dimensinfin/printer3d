@@ -33,21 +33,25 @@ Feature: Process the jobs scheduled on the 3D printers
 
   @P3D04.H @P3D04.03
   Scenario: [P3D04.03] When a build start request is processed the Machine record gets updated.
+    Given a clean Inventory repository
     Given the following Parts in my service
       | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
       | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE     | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-    And setting the next state for Machine "Ender 3 Pro - B"
+    And the next setup for Machine "Ender 3 Pro - A"
       | currentJobPart | jobInstallmentDate | currentPartInstances |
       |                |                    | 1                    |
-    When the Start Build for Part "63fff2bc-a93f-4ee5-b753-185d83a13151" for Machine "Ender 3 Pro - B" request is processed
+    When the Start Build for Part "63fff2bc-a93f-4ee5-b753-185d83a13151" for Machine "e18aa442-19cd-4b08-8ed0-9f1917821fac" request is processed
     Then there is a valid response with return code of "200 OK"
-    And the machine "Ender 3 Pro - B" has the next state
-      | currentJobPart                       | jobInstallmentDate | currentPartInstances |
-      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | <now>              | 1                    |
+    When the Get Machines request is processed
+    Then there is a valid response with return code of "200 OK"
+    And the machine "Ender 3 Pro - A" has the next state
+      | currentJobPart                       | currentPartInstances |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 1                    |
 
   @P3D04.H @P3D04.04
   Scenario: [P3D04.04] When a build cancel request is processed the Machine record gets updated.
+    Given a clean Inventory repository
     Given the following Parts in my service
       | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |

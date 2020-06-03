@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.backend.steps;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.NotImplementedException;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.Machine;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
@@ -20,6 +22,7 @@ import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
 import org.dimensinfin.printer3d.client.domain.MachineList;
 import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
 import io.cucumber.java.en.When;
 
@@ -31,22 +34,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
 	                                  final @NotNull PartFeignClientV1 partFeignClientV1,
-	                                  final @NotNull CoilFeignClientV1 coilFeignClientV1 ,
-	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1) {
+	                                  final @NotNull CoilFeignClientV1 coilFeignClientV1,
+	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
 		this.machineFeignClientV1 = Objects.requireNonNull( machineFeignClientV1 );
-	}
-
-	@When("the Get Finishings request is processed")
-	public void the_Get_Finishings_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_FINISHINGS );
-	}
-
-	@When("the Get Parts request is processed")
-	public void the_Get_Parts_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_PARTS );
 	}
 
 	@When("the Get Coils request is processed")
@@ -54,19 +47,38 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_COILS );
 	}
 
-	@When("the New Part request is processed")
-	public void the_New_Part_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.NEW_PART );
+	@When("the Get Finishings request is processed")
+	public void the_Get_Finishings_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_FINISHINGS );
+	}
+
+	@When("the Get Machines request is processed")
+	public void the_Get_Machines_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_MACHINES );
+	}
+
+	@When("the Get Parts request is processed")
+	public void the_Get_Parts_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_PARTS );
 	}
 
 	@When("the New Coil request is processed")
 	public void the_New_Coil_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_COIL );
 	}
-	@When("the Get Machines request is processed")
-	public void the_Get_Machines_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_MACHINES );
+
+	@When("the New Part request is processed")
+	public void the_New_Part_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.NEW_PART );
 	}
+
+	@When("the Start Build for Part {string} for Machine {string} request is processed")
+	public void the_Start_Build_for_Part_for_Machine_request_is_processed( final String partId, final String machineId ) throws IOException {
+		this.printer3DWorld.setPartId( UUID.fromString( partId ) );
+		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
+		this.processRequestByType( RequestType.START_BUILD );
+	}
+
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
 		switch (requestType) {
 			case NEW_PART:
@@ -109,6 +121,16 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( machinesResponseEntity );
 				this.printer3DWorld.setMachineListResponseEntity( machinesResponseEntity );
 				return machinesResponseEntity;
+			case START_BUILD:
+				final ResponseEntity<Machine> machineResponseEntity = this.machineFeignClientV1
+						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
+								new StartBuildRequest.Builder()
+										.withMachineId( this.printer3DWorld.getMachineId() )
+										.withPartId( this.printer3DWorld.getPartId() )
+										.build() );
+				Assertions.assertNotNull( machineResponseEntity );
+				this.printer3DWorld.setStartBuildResponseEntity( machineResponseEntity );
+				return machineResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
