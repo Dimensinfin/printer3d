@@ -29,7 +29,7 @@
                         </div>
                     </td>
                     <td>
-                        <input id="part-label" type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="part.label" name="label" minlength="5" maxlength="32" #spy>
+                        <input id="part-label" type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="part.label" name="label" minlength="3" maxlength="50" #spy>
                     </td>
                 </tr>
                 <tr>
@@ -44,7 +44,7 @@
                     </td>
 
                     <td>
-                        <textarea id="part-description" cols="40" rows="5" class="dsf-form-control dsf-editable-form-item part-description" [(ngModel)]="part.description" name="description" minlength="5" maxlength="400" #spy></textarea>
+                        <textarea id="part-description" cols="40" rows="5" class="dsf-form-control dsf-editable-form-item part-description" [(ngModel)]="part.description" name="description" minlength="5" maxlength="500" #spy></textarea>
                     </td>
                     <!-- C O L O R C O D E -->
                     <td>
@@ -161,7 +161,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="dsf-form-control dsf-editable-form-item part-image-path" [(ngModel)]="part.imagePath" name="imagePath" minlength="1" maxlength="10" #spy>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item part-image-path" [(ngModel)]="part.imagePath" name="imagePath" maxlength="100" #spy>
                     </td>
                     <!-- M O D E L   P A T H -->
                     <td>
@@ -173,7 +173,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="dsf-form-control dsf-editable-form-item part-model-path" [(ngModel)]="part.modelPath" name="modelPath" minlength="1" maxlength="10" #spy>
+                        <input type="text" class="dsf-form-control dsf-editable-form-item part-model-path" [(ngModel)]="part.modelPath" name="modelPath" maxlength="100" #spy>
                     </td>
                 </tr>
             </table>

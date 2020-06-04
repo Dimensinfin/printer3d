@@ -18,6 +18,7 @@ import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
+import { Job } from '@domain/Job.domain';
 
 @Injectable({
     providedIn: 'root'
@@ -120,14 +121,14 @@ export class BackendService {
     }
 
     // - P R O D U C T I O N
-    public apiProductionGetPendingJobs_v1(transformer: ResponseTransformer): Observable<PendingJobListResponse> {
+    public apiProductionGetJobs_v1(transformer: ResponseTransformer): Observable<Job[]> {
         const request = this.APIV1 + '/production/jobs/pending';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
-                console.log(">[BackendService.apiProductionGetPendingJobs_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as PendingJobListResponse;
+                console.log(">[BackendService.apiProductionGetJobs_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Job[];
                 return response;
             }));
     }

@@ -66,7 +66,7 @@ describe('COMPONENT V1PendingJobsPanelComponent [Module: SHARED]', () => {
         it('ngOnInit.empty: validate initialization flow', async () => {
             await component.ngOnInit();
             expect(component.jobs).toBeDefined();
-            expect(component.jobs.length).toBe(9);
+            expect(component.jobs.length).toBe(6);
         });
     });
 });

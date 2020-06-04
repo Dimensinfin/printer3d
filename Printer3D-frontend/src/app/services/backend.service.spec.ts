@@ -32,6 +32,7 @@ import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
+import { Job } from '@domain/Job.domain';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -155,15 +156,19 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         });
     });
     describe('Code Coverage Phase [PRODUCTION]', () => {
-        it('apiProductionGetPendingJobs_v1.default: get the list of Coils', async () => {
-            service.apiProductionGetPendingJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
-                .setTransformation((entrydata: any): PendingJobListResponse => {
-                    return new PendingJobListResponse(entrydata);
+        it('apiProductionGetJobs_v1.default: get the list jobs required to level the stocks', async () => {
+            service.apiProductionGetJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
+                .setTransformation((entrydata: any): Job[] => {
+                    const jobs: Job[] = []
+                    entrydata.forEach(element => {
+                        jobs.push(new Job(element));
+                    });
+                    return jobs;
                 }))
-                .subscribe((response: PendingJobListResponse) => {
+                .subscribe((response: Job[]) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(9, 'Number of Jobs do not match');
-                    expect(response.jobs.length).toBe(9, 'Number of Jobs do not match');
+                    // expect(response.count).toBe(9, 'Number of Jobs do not match');
+                    expect(response.length).toBe(6, 'Number of Jobs do not match');
                 });
         });
     });

@@ -38,6 +38,29 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             java -version
+      - run:
+          name: BACKEND - Start the application in local profile
+          working_directory: Printer3D-backend
+          environment:
+            SPRING_PROFILES_ACTIVE: local
+            PORT: 5130
+            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
+          command: |
+            ./gradlew bootRun
+          background: true
+      - run:
+          name: BACKEND - Waiting for application start
+          working_directory: Printer3D-backend
+          command: |
+            dockerize -wait tcp://localhost:9500/actuator/health -timeout 2m
+      - run:
+          name: BACKEND - Unit Testing application
+          working_directory: Printer3D-backend
+          command: |
+            rm -rf src/test/java/org/dimensinfin/printer3d/backend/RunAcceptance*.java
+            ./gradlew test
 
   compile-frontend-job:
     docker:

@@ -194,7 +194,7 @@ export class SupportBackendService {
             observer.complete();
         });
     }
-    public apiProductionGetPendingJobs_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
+    public apiProductionGetJobs_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
         return Observable.create((observer) => {
             observer.next(transformer.transform({
                 "count": 9,
