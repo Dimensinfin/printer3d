@@ -4,17 +4,15 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.printer3d.client.domain.Machine;
-
 public class MachineUpdater {
-	private final Machine machine;
+	private final MachineEntity machine;
 
 	// - C O N S T R U C T O R S
-	public MachineUpdater( final @NotNull Machine machine ) {
+	public MachineUpdater( final @NotNull MachineEntity machine ) {
 		this.machine = machine;
 	}
 
-	public Machine update( final @NotNull UUID partId ) {
+	public MachineEntity update( final @NotNull UUID partId ) {
 		this.machine.setCurrentJobPartId( partId );
 		this.machine.setCurrentPartInstances( 1 );
 		this.machine.setJobInstallmentDate( LocalDateTime.now() );

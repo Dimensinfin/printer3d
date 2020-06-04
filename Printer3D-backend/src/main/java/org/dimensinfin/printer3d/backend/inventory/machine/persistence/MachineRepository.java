@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.dimensinfin.printer3d.client.domain.Machine;
-
-public interface MachineRepository extends JpaRepository<Machine, UUID> {
-	List<Machine> findByLabel( final String label);
+public interface MachineRepository extends JpaRepository<MachineEntity, UUID> {
+	List<MachineEntity> findByLabel( final String label);
 }

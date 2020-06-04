@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.client.domain.Machine;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
 
@@ -36,8 +36,8 @@ public class MachineControllerSupportTest {
 	@Test
 	public void setupMachine() {
 		// Given
-		final Machine machine = new Machine();
-		final List<Machine> machines = new ArrayList<>();
+		final MachineEntity machine = new MachineEntity();
+		final List<MachineEntity> machines = new ArrayList<>();
 		machines.add( machine );
 		final SetupRequest setupRequest = new SetupRequest.Builder()
 				.withMachineLabel( TEST_SETUPREQUEST_MACHINE_LABEL )
@@ -59,7 +59,7 @@ public class MachineControllerSupportTest {
 	@Test
 	public void setupMachineEmptyLit() {
 		// Given
-		final List<Machine> machines = new ArrayList<>();
+		final List<MachineEntity> machines = new ArrayList<>();
 		final SetupRequest setupRequest = Mockito.mock( SetupRequest.class );
 		// When
 		Mockito.when( this.machineRepository.findByLabel( Mockito.anyString() ) ).thenReturn( machines );

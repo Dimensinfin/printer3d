@@ -16,7 +16,7 @@ public class MachineValidator implements Validator<Machine> {
 	@Override
 	public boolean validate( final Map<String, String> rowData, final Machine record ) {
 		if (null != rowData.get( MACHINE_CURRENT_JOB_PART ))
-			Assertions.assertEquals( rowData.get( MACHINE_CURRENT_JOB_PART ), record.getCurrentJobPartId().toString() );
+			Assertions.assertEquals( rowData.get( MACHINE_CURRENT_JOB_PART ), record.getCurrentJobPart().getId().toString() );
 		if (null != rowData.get( MACHINE_JOB_INSTALLMENT_DATE ))
 			Assertions.assertEquals( rowData.get( MACHINE_JOB_INSTALLMENT_DATE ), record.getJobInstallmentDate().toString() );
 		if (null != rowData.get( MACHINE_CURRENT_PART_INSTANCES ))

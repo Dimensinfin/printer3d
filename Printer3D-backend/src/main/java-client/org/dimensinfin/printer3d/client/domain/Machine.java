@@ -1,42 +1,24 @@
 package org.dimensinfin.printer3d.client.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.lang.Nullable;
 
-@Entity
-@Table(name = "machines", schema = "printer3d")
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+
 public class Machine {
-	@Id
-	@NotNull(message = "Machine unique UUID 'id' is a mandatory field and cannot be null.")
-	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
-	@NotNull(message = "Machine 'label' is mandatory.")
-	@Size(max = 32)
-	@Column(name = "label", updatable = true, nullable = false)
 	private String label;
-	@NotNull(message = "Machine 'model' is mandatory.")
-	@Size(max = 64)
-	@Column(name = "model", updatable = true, nullable = false)
 	private String model;
-	@Size(max = 300)
-	@Column(name = "characteristics", updatable = true, nullable = false)
 	private String characteristics;
-	@Column(name = "current_job_part_id")
-	private UUID currentJobPartId;
-	@Column(name = "current_part_instances")
+	private Part currentJobPart;
 	private int currentPartInstances = 1;
-	@Column(name = "job_installment_date", columnDefinition = "TIMESTAMP")
 	private LocalDateTime jobInstallmentDate;
 
 	// - G E T T E R S   &   S E T T E R S
@@ -44,8 +26,8 @@ public class Machine {
 		return this.characteristics;
 	}
 
-	public UUID getCurrentJobPartId() {
-		return this.currentJobPartId;
+	public Part getCurrentJobPart() {
+		return this.currentJobPart;
 	}
 
 	public int getCurrentPartInstances() {
@@ -68,28 +50,6 @@ public class Machine {
 		return this.model;
 	}
 
-	public Machine setCurrentJobPartId( final UUID currentJobPartId ) {
-		this.currentJobPartId = currentJobPartId;
-		return this;
-	}
-
-	public Machine setCurrentPartInstances( final int currentPartInstances ) {
-		this.currentPartInstances = currentPartInstances;
-		return this;
-	}
-
-	public Machine setJobInstallmentDate( final LocalDateTime jobInstallmentDate ) {
-		this.jobInstallmentDate = jobInstallmentDate;
-		return this;
-	}
-
-	public Machine clearJob() {
-		this.currentJobPartId = null;
-		this.jobInstallmentDate = null;
-		this.currentPartInstances = 1;
-		return this;
-	}
-
 	// - C O R E
 	@Override
 	public int hashCode() {
@@ -97,7 +57,7 @@ public class Machine {
 				.append( this.label )
 				.append( this.model )
 				.append( this.characteristics )
-				.append( this.currentJobPartId )
+				.append( this.currentJobPart )
 				.append( this.currentPartInstances )
 				.append( this.jobInstallmentDate )
 				.toHashCode();
@@ -113,7 +73,7 @@ public class Machine {
 				.append( this.label, machine.label )
 				.append( this.model, machine.model )
 				.append( this.characteristics, machine.characteristics )
-				.append( this.currentJobPartId, machine.currentJobPartId )
+				.append( this.currentJobPart, machine.currentJobPart )
 				.append( this.jobInstallmentDate, machine.jobInstallmentDate )
 				.isEquals();
 	}
@@ -125,10 +85,59 @@ public class Machine {
 				.append( "label", this.label )
 				.append( "model", this.model )
 				.append( "characteristics", this.characteristics )
-				.append( "currentJobPartId", this.currentJobPartId )
+				.append( "currentJobPart", (null != this.currentJobPart) ? this.currentJobPart.toString() : "null" )
 				.append( "currentPartInstances", this.currentPartInstances )
-				.append( "jobInstallmentDate", this.jobInstallmentDate )
+				.append( "jobInstallmentDate", (null != this.jobInstallmentDate) ? this.jobInstallmentDate.toString() : "null" )
 				.toString();
+	}
+
+	// - B U I L D E R
+	public static class Builder {
+		private final Machine onConstruction;
+
+		// - C O N S T R U C T O R S
+		public Builder() {
+			this.onConstruction = new Machine();
+		}
+
+		public Machine build() {
+			return this.onConstruction;
+		}
+
+		public Machine.Builder withCharacteristics( final String characteristics ) {
+			this.onConstruction.characteristics = Objects.requireNonNull( characteristics );
+			return this;
+		}
+
+		public Machine.Builder withId( final UUID id ) {
+			this.onConstruction.id = Objects.requireNonNull( id );
+			return this;
+		}
+
+		public Machine.Builder withInstallmentDate( final @Nullable LocalDateTime installmentDate ) {
+			this.onConstruction.jobInstallmentDate = installmentDate;
+			return this;
+		}
+
+		public Machine.Builder withInstances( final Integer instances ) {
+			this.onConstruction.currentPartInstances = Objects.requireNonNull( instances );
+			return this;
+		}
+
+		public Machine.Builder withLabel( final String label ) {
+			this.onConstruction.label = Objects.requireNonNull( label );
+			return this;
+		}
+
+		public Machine.Builder withModel( final String model ) {
+			this.onConstruction.model = Objects.requireNonNull( model );
+			return this;
+		}
+
+		public Machine.Builder withPart( final @Nullable Part part ) {
+			this.onConstruction.currentJobPart = part;
+			return this;
+		}
 	}
 }
 

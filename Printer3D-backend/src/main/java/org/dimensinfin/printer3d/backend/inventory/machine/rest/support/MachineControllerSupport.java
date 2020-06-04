@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.client.domain.Machine;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
 
@@ -43,12 +43,12 @@ public class MachineControllerSupport {
 			produces = "application/json")
 	public ResponseEntity<Boolean> setupMachine( final @RequestBody @Valid @NotNull SetupRequest setupRequest ) {
 		// Change the setup for the selected machine
-		final List<Machine> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
+		final List<MachineEntity> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
 		if (null == machines)
 			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
-		if (machines.size() < 1)
+		if (machines.isEmpty())
 			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
-		for (Machine machine : machines)
+		for (MachineEntity machine : machines)
 			this.machineRepository.save( new SupportMachineUpdater( machine ).update( setupRequest ) );
 		return new ResponseEntity<>( true, HttpStatus.OK );
 	}

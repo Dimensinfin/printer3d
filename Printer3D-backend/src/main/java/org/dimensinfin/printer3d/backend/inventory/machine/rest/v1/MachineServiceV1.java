@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.client.domain.Machine;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdater;
+import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.client.domain.MachineList;
 import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
@@ -39,41 +42,50 @@ public class MachineServiceV1 {
 
 	// - G E T T E R S   &   S E T T E R S
 	public MachineList getMachines() {
-		final List<Machine> machines = this.machineRepository.findAll();
-		machines.forEach( machine -> {
-			// Check for completed jobs.
-			if (null != machine.getCurrentJobPartId()) { // Check if the job has completed
-				final Optional<Part> jobPartOpt = this.partRepository.findById( machine.getCurrentJobPartId() );
-				if (!jobPartOpt.isPresent())
-					throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machine.getCurrentJobPartId() ) );
-				final Part jobPart = jobPartOpt.get();
-				final Duration jobDuration = Duration.ofMinutes( jobPart.getBuildTime() );
-				final LocalDateTime jobCompletionTime = machine.getJobInstallmentDate().plus( jobDuration );
-				if (LocalDateTime.now().isAfter( jobCompletionTime )) { // Job completed
-					machine.clearJob();
-					this.machineRepository.save( machine );
-					jobPart.incrementStock( machine.getCurrentPartInstances() );
-					this.partRepository.save( jobPart );
-				}
-			}
-		} );
+		final List<Machine> machines = this.machineRepository.findAll()
+				.stream()
+				.map( machineEntity -> {
+					// Check for completed jobs.
+					if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
+						final Optional<Part> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
+						if (jobPartOpt.isEmpty())
+							throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
+						// Replace the MachineEntitu by an expanded api Machine
+						final Machine machine = new MachineEntityToMachineConverter( jobPartOpt.get() ).convert( machineEntity );
+						final Duration jobDuration = Duration.ofMinutes( machine.getCurrentJobPart().getBuildTime() );
+						final LocalDateTime jobCompletionTime = machineEntity.getJobInstallmentDate().plus( jobDuration );
+						if (LocalDateTime.now().isAfter( jobCompletionTime )) { // Job completed
+							machineEntity.clearJob();
+							this.machineRepository.save( machineEntity );
+							machine.getCurrentJobPart().incrementStock( machineEntity.getCurrentPartInstances() );
+							this.partRepository.save( machine.getCurrentJobPart() );
+						}
+						return machine;
+					} else return new MachineEntityToMachineConverter( null ).convert( machineEntity );
+				} )
+				.collect( Collectors.toList() );
 		return new MachineList.Builder()
 				.withMachines( machines )
 				.build();
 	}
 
 	public Machine cancelBuild( final @NotNull UUID machineId ) {
-		final Optional<Machine> machineOpt = this.machineRepository.findById( machineId );
-		if (!machineOpt.isPresent())
+		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
+		if (machineOpt.isEmpty())
 			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
-		return this.machineRepository.save( machineOpt.get().clearJob() );
+		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
 	}
 
 	public Machine startBuild( final StartBuildRequest startBuildRequest ) {
 		// Find the machine nad update it.
-		final Optional<Machine> machineOpt = this.machineRepository.findById( startBuildRequest.getMachineId() );
-		if (!machineOpt.isPresent())
+		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( startBuildRequest.getMachineId() );
+		if (machineOpt.isEmpty())
 			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( startBuildRequest.getMachineId() ) );
-		return this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( startBuildRequest.getPartId() ) );
+		final Optional<Part> jobPartOpt = this.partRepository.findById( startBuildRequest.getPartId() );
+		if (jobPartOpt.isEmpty())
+			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineOpt.get().getCurrentJobPartId() ) );
+		return new MachineEntityToMachineConverter( jobPartOpt.get() ).convert(
+				this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( startBuildRequest.getPartId() ) )
+		);
 	}
 }

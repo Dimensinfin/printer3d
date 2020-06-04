@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.support;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,5 +43,14 @@ public class TestDataConstants {
 		public static final UUID TEST_SETUPREQUEST_PART_ID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
 		public static final String TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE = "2020-06-03T13:31:20.929896";
 		public static final Integer TEST_SETUPREQUEST_PART_INSTANCES_COUNT = 2;
+	}
+	public static class MachineConstants{
+		public static final UUID TEST_MACHINE_ID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
+		public static final String TEST_MACHINE_LABEL = "-TEST_MACHINE_LABEL-";
+		public static final String TEST_MACHINE_MODEL = "-TEST_MACHINE_MODEL-";
+		public static final String TEST_MACHINE_CHARACTERISTICS = "-TEST_MACHINE_CHARACTERISTICS-";
+		public static final UUID TEST_MACHINE_CURRENTJOBPARTID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
+		public static final Integer TEST_MACHINE_CURRENTPARTINSTANCES = 8;
+		public static final LocalDateTime TEST_MACHINE_JOBINSTALLMENTDATE = LocalDateTime.now();
 	}
 }
