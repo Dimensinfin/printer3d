@@ -14,13 +14,14 @@ import { platformconstants } from '@app/platform/platform-constants';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
+import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
 @Component({
     selector: 'v2-machines-panel',
     templateUrl: './v2-machines-panel.component.html',
     styleUrls: ['./v2-machines-panel.component.scss']
 })
-export class V2MachinesPanelComponent implements OnInit, OnDestroy {
+export class V2MachinesPanelComponent implements OnInit, OnDestroy, Refreshable {
     private backendConnections: Subscription[] = [];
     public active: boolean = true;
     public machines: Machine[] = [];
@@ -49,6 +50,8 @@ export class V2MachinesPanelComponent implements OnInit, OnDestroy {
                     this.machines = response.getMachines();
                 })
         );
-
+    }
+    public refresh(): void {
+        this.getMachines();
     }
 }

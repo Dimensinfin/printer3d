@@ -44,6 +44,7 @@ export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refres
             element.unsubscribe();
         });
     }
+    // - R E F R E S H A B L E
     public refresh(): void {
         this.backendConnections.push(
             this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')

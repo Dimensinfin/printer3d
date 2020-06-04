@@ -16,13 +16,14 @@ import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Job } from '@domain/Job.domain';
+import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
 @Component({
     selector: 'v1-pending-jobs-panel',
     templateUrl: './v1-pending-jobs-panel.component.html',
     styleUrls: ['./v1-pending-jobs-panel.component.scss']
 })
-export class V1PendingJobsPanelComponent implements OnInit, OnDestroy {
+export class V1PendingJobsPanelComponent implements OnInit, OnDestroy, Refreshable {
     private backendConnections: Subscription[] = [];
     public active: boolean = false;
     public jobs: Job[] = [];
@@ -56,5 +57,8 @@ export class V1PendingJobsPanelComponent implements OnInit, OnDestroy {
                     this.jobs = response;
                 })
         );
+    }
+    public refresh(): void {
+        this.getJobs();
     }
 }
