@@ -50,7 +50,7 @@ export class V1PendingJobsPanelComponent implements OnInit, OnDestroy {
                         jobs.push(new Job(element));
                     });
                     return jobs;
-               }))
+                }))
                 .subscribe((response: Job[]) => {
                     // Process the response to extract the Machines to the render list
                     this.jobs = response;

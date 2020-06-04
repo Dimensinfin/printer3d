@@ -87,7 +87,7 @@ jobs:
           name: BACKEND - Waiting for application start
           working_directory: Printer3D-backend
           command: |
-            dockerize -wait tcp://localhost:9500/actuator/health -timeout 2m
+            dockerize -wait tcp://localhost:9500/actuator/health -timeout 3m
       - run:
           name: BACKEND - Unit Testing application
           working_directory: Printer3D-backend
