@@ -22,12 +22,6 @@
 #   we deply the code to the Heroku server for restart on the Stage servers.
 #
 version: 2.1
-# orbs:
-#   # "cypress-io/cypress@1" installs the latest published
-#   # version "1.x.y" of the orb. We recommend you then use
-#   # the strict explicit version "cypress-io/cypress@1.x.y"
-#   # to lock the version and prevent unexpected CI changes
-#   cypress: cypress-io/cypress@1
 jobs:
   start-job:
     docker:
@@ -89,7 +83,7 @@ jobs:
           working_directory: Printer3D-backend
           environment:
             SPRING_PROFILES_ACTIVE: local
-            PORT: 9500
+            PORT: 5130
             JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
             DB_USER: inno-user
             DB_PASSWORD: inno-password
@@ -113,7 +107,6 @@ jobs:
     docker:
       - image: circleci/node:12.16.3-browsers
     environment:
-      # Customize the environment values to use on the jobs
       PORT: 5100
       CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
     steps:
@@ -128,9 +121,9 @@ jobs:
           name: FRONTEND - Start backend simulator & run tests
           working_directory: Printer3D-frontend
           command: |
+            npm run acceptance:simulator
             npm run test:prod
             npm run build:prod
-            npm run acceptance:simulator
             npm run acceptance:cypress
 
   stage-to-heroku:
@@ -163,6 +156,11 @@ jobs:
       - run:
           name: BACKEND - Deploy Master to Heroku
           working_directory: Printer3D-backend
+          environment:
+            _JAVA_OPTIONS: "-Xmx3g"
+            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+            HEROKU_BACKEND_APP_NAME: printer3d-backend-stage
+            HEROKU_BACKEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
           command: |
             git push https://heroku:$HEROKU_BACKEND_API_KEY@git.heroku.com/$HEROKU_BACKEND_APP_NAME.git master --force
       - run:
@@ -188,108 +186,13 @@ jobs:
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
           name: Deploy Master to Heroku
+          environment:
+            HEROKU_FRONTEND_APP_NAME: printer3d-frontend-stage
+            HEROKU_FRONTEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
           working_directory: Printer3D-frontend
           command: |
             git push https://heroku:$HEROKU_FRONTEND_API_KEY@git.heroku.com/$HEROKU_FRONTEND_APP_NAME.git master --force
  
-  # frontend-stage-to-heroku:
-  # # This job requires to change the code that is deployed to Heroku so the installation-build-run steps on that
-  # #   environment will work without eceptions.
-  #   docker:
-  #   steps:
-  #     - checkout
-      # Restore the node_modules installation. Optimization will include the precompiled packages.
-      # - restore_cache:
-      #     key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-      # - run:
-      #     name: FRONTEND - Install node packages
-      #     working_directory: Printer3D-frontend
-      #     command: |
-      # - run:
-      #     name: FRONTEND - Build deployment code
-      #     working_directory: Printer3D-frontend
-      #     command: |
-
-  # create-frontend-environment-job:
-  #   docker:
-  #     - image: circleci/node:12.16.3-browsers
-  #   steps:
-  #     - run:
-  #         name: Start-Frontend Environment Validation
-  #         command: |
-  #           node -v
-  #     - checkout
-  #     - run:
-  #         name: Validate node version in use and install
-  #         working_directory: Printer3D-frontend
-  #         command: |
-  #           echo '>> Printer3D - frontend: Validate environment version and store cache'
-  #           node -v
-  #           npm install
-  #     - save_cache:
-  #         paths:
-  #           - ~/project/Printer3D-frontend/node_modules
-  #         key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-  # create-backend-environment-job:
-  #   docker:
-  #     - image: circleci/openjdk:11.0.1-jdk
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Start-Backend Environment Validation
-  #         environment:
-  #           _JAVA_OPTIONS: "-Xmx3g"
-  #           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-  #         command: |
-  #           ~/project/Printer3D-backend/gradlew -version
-  #     - run:
-  #         name: BACKEND - Build SpringBoot code
-  #         working_directory: Printer3D-backend
-  #         command: |
-  #           ./gradlew clean dependencies
-  #     - save_cache:
-  #         paths:
-  #           - ~/project/Printer3D-backend/.gradle
-  #         key: printer3d-backend-{{ checksum "~/project/Printer3D-backend/gradle/wrapper/gradle-wrapper.properties" }}
-  # test-frontend-job:
-  #   docker:
-  #     - image: circleci/node:12.16.3-browsers
-  #   environment:
-  #     # Customize the environment values to use on the jobs
-  #     PORT: 5100
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-  #     - run:
-  #         name: FRONTEND - Install the framework
-  #         working_directory: Printer3D-frontend
-  #         command: |
-  #           node -v
-  #           npm install
-  #     - run:
-  #         name: FRONTEND - Build production deployment code
-  #         working_directory: Printer3D-frontend
-  #         command: |
-  #           npm run build:prod
-  #     - save_cache:
-  #         paths:
-  #           - ~/project/Printer3D-frontend/node_modules
-  #         key: printer3d-frontend-{{ checksum "~/project/Printer3D-frontend/package.json" }}
-  #     - save_cache:
-  #         paths:
-  #           - ~/project/Printer3D-frontend/deploy
-  #         key: printer3d-frontend-deploy
-  
-
-  # backend-prod-to-heroku:
-  #   docker:
-  #     - image: circleci/node:12.16.3-browsers
-  #   steps:
-  #     - run:
-  #         name: FRONTEND - Validate node version
-  #         command: |
-  #           node -v
 
 workflows:
   version: 2
@@ -321,21 +224,6 @@ workflows:
               only:
                 - experimental
 
-      # - create-frontend-environment-job:
-      #     requires:
-      #       - start-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - create-backend-environment-job:
-      #     requires:
-      #       - start-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-
       - test-backend-job:
           requires:
             - start-job
@@ -343,7 +231,6 @@ workflows:
             branches:
               only:
                 - development
-                - test
       - test-frontend-job:
           requires:
             - start-job
@@ -351,15 +238,6 @@ workflows:
             branches:
               only:
                 - development
-                - test
-      # - acceptance-frontend-job:
-      #     requires:
-      #       - start-job
-      #     filters:
-      #       branches:
-      #         only:
-      #           - development
-      #           - test
 
       - stage-to-heroku:
           requires:
