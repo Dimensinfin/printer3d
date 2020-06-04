@@ -106,6 +106,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
         );
     }
     private loadBuildPart(): void {
+        console.log('>[V2MachineRenderComponent.ngOnInit]> Running: '+ this.node.isRunning())
         if (this.node.isRunning()) {
             this.target = this.node.currentJobPart;
             this.building = true;

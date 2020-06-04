@@ -72,8 +72,8 @@ export class NewCoilDialogComponent implements OnInit, OnDestroy {
         this.backendConnections.push(
             this.backendService.apiNewCoil_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
                 .setTransformation((entrydata: any): Coil => {
-                    this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
-                    return new Coil(entrydata);
+                    const targetCoil: Coil = new Coil(entrydata);
+                    this.isolationService.infoNotification('Rollo [' + targetCoil.getCoildIdentifier() + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
                 }))
                 .subscribe((persistedRoll: Coil) => {
                     console.log('><[NewCoilDialogComponent.saveCoilAndRepeat]> Restarting form')
