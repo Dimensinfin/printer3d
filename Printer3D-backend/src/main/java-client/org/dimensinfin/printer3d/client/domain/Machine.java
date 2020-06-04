@@ -114,7 +114,7 @@ public class Machine {
 			return this;
 		}
 
-		public Machine.Builder withInstallmentDate( final @Nullable LocalDateTime installmentDate ) {
+		public Machine.Builder withInstallmentDate( final LocalDateTime installmentDate ) {
 			this.onConstruction.jobInstallmentDate = installmentDate;
 			return this;
 		}
@@ -134,10 +134,9 @@ public class Machine {
 			return this;
 		}
 
-		public Machine.Builder withPart( final @Nullable Part part ) {
+		public Machine.Builder withPart( final Part part ) {
 			this.onConstruction.currentJobPart = part;
 			return this;
 		}
 	}
 }
-

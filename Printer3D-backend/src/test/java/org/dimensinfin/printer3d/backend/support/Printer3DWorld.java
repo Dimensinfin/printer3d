@@ -1,17 +1,19 @@
 package org.dimensinfin.printer3d.backend.support;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.client.domain.MachineList;
 import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.production.domain.Job;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;
@@ -25,6 +27,7 @@ public class Printer3DWorld extends CommonWorld {
 	private UUID partId;
 	private UUID machineId;
 	private ResponseEntity<Machine> startBuildResponseEntity;
+	private ResponseEntity<List<Job>> jobListResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public Coil getCoil() {
@@ -51,6 +54,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setFinishingsResponseEntity( final ResponseEntity<FinishingsResponse> finishingsResponseEntity ) {
 		this.finishingsResponseEntity = finishingsResponseEntity;
+		return this;
+	}
+
+	public ResponseEntity<List<Job>> getJobListResponseEntity() {
+		return this.jobListResponseEntity;
+	}
+
+	public Printer3DWorld setJobListResponseEntity( final ResponseEntity<List<Job>> jobListResponseEntity ) {
+		this.jobListResponseEntity = jobListResponseEntity;
 		return this;
 	}
 

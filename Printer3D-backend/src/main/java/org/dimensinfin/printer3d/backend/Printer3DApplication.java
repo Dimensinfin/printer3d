@@ -54,7 +54,12 @@ public class Printer3DApplication {
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final IOException ioe) {
 				LogWrapper.error( ioe );
-				return " -- INVALID BANNER RESOURCE -- ";
+				return "        ___     _  _      ____  \n" +
+						"__   __/ _ \\   | || |    |___ \\ \n" +
+						"\\ \\ / / | | |  | || |_     __) |\n" +
+						" \\ V /| |_| |  |__   _|   / __/ \n" +
+						"  \\_/  \\___(_)    |_|(_) |_____|\n" +
+						"                                \n";
 			}
 		}
 	}

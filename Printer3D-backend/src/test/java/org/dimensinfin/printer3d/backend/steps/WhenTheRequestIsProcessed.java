@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.steps;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
@@ -11,18 +12,20 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.CoilFeignClientV1;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.client.domain.MachineList;
 import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
+import org.dimensinfin.printer3d.client.production.domain.Job;
 
 import io.cucumber.java.en.When;
 
@@ -30,16 +33,19 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final PartFeignClientV1 partFeignClientV1;
 	private final CoilFeignClientV1 coilFeignClientV1;
 	private final MachineFeignClientV1 machineFeignClientV1;
+	private final JobFeignClientV1 jobFeignClientV1;
 
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
 	                                  final @NotNull PartFeignClientV1 partFeignClientV1,
 	                                  final @NotNull CoilFeignClientV1 coilFeignClientV1,
-	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1 ) {
+	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1,
+	                                  final @NotNull JobFeignClientV1 jobFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
 		this.machineFeignClientV1 = Objects.requireNonNull( machineFeignClientV1 );
+		this.jobFeignClientV1 = Objects.requireNonNull( jobFeignClientV1 );
 	}
 
 	@When("the Cancel Build for Machine {string} request is processed")
@@ -56,6 +62,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the Get Finishings request is processed")
 	public void the_Get_Finishings_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_FINISHINGS );
+	}
+
+	@When("the Get Jobs request is processed")
+	public void the_Get_Jobs_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_JOBS );
 	}
 
 	@When("the Get Machines request is processed")
@@ -143,6 +154,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( cancelBuildResponseEntity );
 				this.printer3DWorld.setStartBuildResponseEntity( cancelBuildResponseEntity );
 				return cancelBuildResponseEntity;
+			case GET_JOBS:
+				final ResponseEntity<List<Job>> pendingJobsResponseEntity = this.jobFeignClientV1
+						.getPendingJobs(  );
+				Assertions.assertNotNull( pendingJobsResponseEntity );
+				this.printer3DWorld.setJobListResponseEntity( pendingJobsResponseEntity );
+				return pendingJobsResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

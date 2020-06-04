@@ -11,7 +11,7 @@ public class MachineEntityToMachineConverter implements Converter<MachineEntity,
 	private final Part part;
 
 	// - C O N S T R U C T O R S
-	public MachineEntityToMachineConverter( final @Nullable Part part ) {
+	public MachineEntityToMachineConverter( final Part part ) {
 		this.part = part;
 	}
 

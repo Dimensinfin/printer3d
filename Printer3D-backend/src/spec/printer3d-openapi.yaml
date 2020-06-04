@@ -364,7 +364,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PendingJobsList'
+                $ref: '#/components/schemas/JobList'
 
 components:
   schemas:
@@ -663,7 +663,7 @@ components:
           example:
             ['BLANCO', 'NEGRO', 'ROJO']
 
-    PendingJob:
+    Job:
       type: object
       required:
         - id
@@ -687,7 +687,7 @@ components:
           example:
             009ab011-03ad-4e84-9a88-25708d1cfd64
 
-    PendingJobsList:
+    JobList:
       type: object
       required:
         - count
@@ -703,7 +703,7 @@ components:
         jobs:
           type: array
           items:
-            $ref: '#/components/schemas/PendingJob'
+            $ref: '#/components/schemas/Job'
 
     ColorCode:
       type: string

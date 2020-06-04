@@ -8,5 +8,6 @@ public enum RequestType {
 	GET_FINISHINGS,
 	GET_MACHINES,
 	START_BUILD,
-	CANCEL_BUILD;
+	CANCEL_BUILD,
+	GET_JOBS;
 }
