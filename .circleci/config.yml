@@ -94,12 +94,12 @@ jobs:
             DB_USER: inno-user
             DB_PASSWORD: inno-password
           command: |
-            ./gradlew bootRun
+            ./gradlew bootRun &
       - run:
           name: BACKEND - Unit Testing application
           working_directory: Printer3D-backend
           command: |
-            ./gradlew test
+            ./gradlew test -wait tcp://localhost:9500 -timeout 2m
       - store_artifacts:
           path: ~/project/Printer3D-backend/build/libs
   test-frontend-job:
