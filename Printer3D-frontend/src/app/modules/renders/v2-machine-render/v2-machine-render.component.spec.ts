@@ -29,6 +29,8 @@ import { V2MachineRenderComponent } from './v2-machine-render.component';
 import { Machine } from '@domain/Machine.domain';
 import { Part } from '@domain/Part.domain';
 
+const TEST_TIME: number = 12 * 60;
+
 describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
     let component: V2MachineRenderComponent;
 
@@ -41,6 +43,8 @@ describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
                 V2MachineRenderComponent,
             ],
             providers: [
+                { provide: IsolationService, useClass: SupportIsolationService },
+                { provide: BackendService, useClass: SupportBackendService }
             ]
         }).compileComponents();
 
@@ -57,6 +61,7 @@ describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
             expect(componentAsAny.node).toBeUndefined();
             expect(component.self).toBeUndefined();
             expect(component.target).toBeUndefined();
+            expect(component.buildTime).toBe(0);
             expect(component.building).toBeFalse();
         });
     });
@@ -70,39 +75,58 @@ describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
         });
         it('ngOnInit.building: validate initialization flow', async () => {
             const componentAsAny = component as any;
-            componentAsAny.node = new Machine({ currentPart: new Part() });
+            componentAsAny.node = new Machine({
+                currentJobPartId: new Part(),
+                buildTime: TEST_TIME,
+                jobInstallmentDate: Date.now().toString,
+                getRunTime: () => { return TEST_TIME }
+            });
             await component.ngOnInit();
             expect(component.self).toBeDefined();
             expect(componentAsAny.node).toBeDefined();
-            expect(componentAsAny.node.currentPart).toBeDefined();
-            expect(component.target).toBeDefined();
-            expect(component.building).toBeTrue();
+            expect(componentAsAny.node.currentJobPartId).toBeDefined();
+            // expect(component.target).toBeDefined();
+            // expect(component.building).toBeTrue();
+            // expect(component.buildTime).toBe(TEST_TIME);
         });
     });
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
-        it('getRemainingTime: if a part is building get the remaining time', () => {
-            const componentAsAny = component as any;
-            componentAsAny.node = new Machine({ jobInstallmentDate: 'today' });
-            expect(component.getRemainingTime()).toBe(23 * 60);
+        it('isAutostart: true if the part is loaded from a running machine', () => {
+            expect(component.building).toBeFalse();
+            expect(component.isAutostart()).toBeFalse();
         });
-        it('getRemainingTime: if a part is building get the remaining time', () => {
-            const componentAsAny = component as any;
-            component.onDrop({ dragData: new Part({ label: '-TEST-DATA-' }) })
-            expect(componentAsAny.target.label).toBe('-TEST-DATA-');
+        it('getBuildTime: get the time left to build', () => {
+            expect(component.getBuildTime()).toBe(0);
+            component.buildTime = 100;
+            expect(component.getBuildTime()).toBe(100);
         });
-        it('startBuild: start the countdown built timer', () => {
+        it('onDrop.empty: drop an empty element', () => {
+            component.onDrop(null);
+            expect(component.target).toBeUndefined();
+        });
+        it('onDrop.part: drop an empty element', () => {
+            component.onDrop({ dragData: { buildTime: 300 } });
+            expect(component.target).toBeDefined();
+            expect(component.buildTime).toBe(300 * 60);
+        });
+        xit('startBuild: start the countdown built timer', async () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.backendConnections.length).toBe(0);
+            componentAsAny.node = new Machine({ id: "009ab011-03ad-4e84-9a88-25708d1cfd64" })
+            component.target = new Part({ id: "009ab011-03ad-4e84-9a88-25708d1cfd64" })
+            componentAsAny.sessionTimer = { activate: () => { } }
+            spyOn(componentAsAny.sessionTimer, 'activate')
+            await component.startBuild();
+            expect(componentAsAny.backendConnections.length).toBe(1);
+            // expect(component.building).toBeTrue();
+            expect(componentAsAny.sessionTimer.activate).toHaveBeenCalled();
+        });
+        xit('onClearClick: start the countdown built timer', () => {
             const componentAsAny = component as any;
             componentAsAny.target = new Part({ buildTime: 60 });
-            componentAsAny.sessionTimer = {activate: (time: number) => { }}
-            component.startBuild();
-            expect(component.building).toBeTrue();
-        });
-        it('onClearClick: start the countdown built timer', () => {
-            const componentAsAny = component as any;
-            componentAsAny.target = new Part({ buildTime: 60 });
-            componentAsAny.sessionTimer = {activate: (time: number) => { }}
+            componentAsAny.sessionTimer = { activate: (time: number) => { } }
             component.startBuild();
             expect(component.building).toBeTrue();
             component.onClearClick();

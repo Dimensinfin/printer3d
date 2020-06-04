@@ -3,7 +3,7 @@
     "label": "Machine B",
     "model": "Creality 3D Ender 3 Pro",
     "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
-    "currentJobPartId": null,
+    "currentJobPart": null,
     "currentPartInstances": 1,
     "jobInstallmentDate": null
 }

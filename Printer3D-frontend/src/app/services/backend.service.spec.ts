@@ -65,7 +65,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    fdescribe('Code Coverage Phase [INVENTORY]', () => {
+    describe('Code Coverage Phase [INVENTORY]', () => {
         it('apiInventoryParts_v1.default: get the list of Parts', async () => {
             service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
@@ -137,7 +137,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: Machine) => {
                     expect(response).toBeDefined();
-                    expect(response.currentJobPartId).toBeDefined();
+                    expect(response.currentJobPart).toBeDefined();
                     expect(response.jobInstallmentDate).toBeDefined();
                 });
         });
@@ -149,8 +149,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: Machine) => {
                     expect(response).toBeDefined();
-                    expect(response.currentJobPartId).toBeNull();
-                    expect(response.jobInstallmentDate).toBeNull();
+                    expect(response.currentJobPart).toBeNull()
+                    expect(response.jobInstallmentDate).toBeNull()
                 });
         });
     });

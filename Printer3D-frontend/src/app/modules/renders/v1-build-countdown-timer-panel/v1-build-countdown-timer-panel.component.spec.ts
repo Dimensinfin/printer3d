@@ -28,9 +28,13 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 import { Machine } from '@domain/Machine.domain';
 import { Part } from '@domain/Part.domain';
 import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-panel.component';
+import { V2MachineRenderComponent } from '../v2-machine-render/v2-machine-render.component';
+
+const TEST_TIME: number = 12 * 60;
 
 describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () => {
     let component: V1BuildCountdownTimerPanelComponent;
+    let machineRender = { isAutostart: () => { return 12 * 60; } };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -39,6 +43,7 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             ],
             declarations: [
                 V1BuildCountdownTimerPanelComponent,
+                V2MachineRenderComponent
             ],
             providers: [
             ]
@@ -70,15 +75,49 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
         });
         it('ngOnInit.parent: validate initialization flow', async () => {
             const componentAsAny = component as any;
-            componentAsAny.parent = { getRemainingTime: () => { return 12 * 60; } }
-            spyOn(componentAsAny.parent, 'getRemainingTime')
+            componentAsAny.parent = { isAutostart: () => { return false; } }
+            spyOn(componentAsAny.parent, 'isAutostart')
             await component.ngOnInit();
             expect(component).toBeDefined();
-            expect(componentAsAny.parent.getRemainingTime).toHaveBeenCalled();
+            expect(componentAsAny.parent.isAutostart).toHaveBeenCalled();
+            expect(componentAsAny.duration).toBeUndefined();
+        });
+        xit('ngOnInit.running: validate initialization flow', () => {
+            const componentAsAny = component as any;
+            componentAsAny.timer = TEST_TIME;
+            componentAsAny.parent = { isAutostart: () => { return true; } }
+            component.ngOnInit();
+            expect(componentAsAny.timerSubscription).toBeDefined();
+            expect(componentAsAny.duration).toBe(TEST_TIME);
+            expect(component.minutes).toBe(12);
+            expect(component.seconds).toBe(0);
         });
     });
+
+    // - O N D E S T R U C T I O N   P H A S E
+    describe('On Destroy Phase', () => {
+        it('ngOnDestroy.empty: validate destruction flow', async () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.timerSubscription).toBeUndefined()
+        });
+        it('ngOnDestroy.building: validate destruction flow', async () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.timerSubscription).toBeUndefined()
+            componentAsAny.activate(100);
+            expect(componentAsAny.timerSubscription).toBeDefined();
+        });
+    });
+
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
+        it('setTimer: set the timer fields', () => {
+            const componentAsAny = component as any;
+            componentAsAny.time = TEST_TIME;
+            component.ngOnInit();
+            expect(componentAsAny.duration).toBe(TEST_TIME);
+            expect(component.minutes).toBe(12);
+            expect(component.seconds).toBe(0);
+        });
         it('activate.timer: start the timer', async () => {
             const TEST_TIME: number = 12 * 60;
             const componentAsAny = component as any;
@@ -101,8 +140,12 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             }, 5000);
         });
         it('deactivate: start the timer', () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.timerSubscription).toBeUndefined()
+            componentAsAny.activate(100);
+            expect(componentAsAny.timerSubscription).toBeDefined();
             component.deactivate();
-            expect(component).toBeDefined();
+            expect(componentAsAny.timerSubscription).toBeDefined();
         });
         it('completeTimer: start the timer', fakeAsync(() => {
             const TEST_TIME: number = 1;

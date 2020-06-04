@@ -11,7 +11,7 @@ describe('CLASS Coil [Module: DOMAIN]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const instance = new Coil();
             expect(instance).toBeDefined();
-            expect(instance.weight).toBe(1000);
+            expect(instance.weight).toBeUndefined();
         });
         it('constructor.object: validate initial state with object data', () => {
             const instance = new Coil({ id: '-ID-', label: '-TEST-LABEL-', material: 'PLA', color: 'WHITE', weight: 500 });

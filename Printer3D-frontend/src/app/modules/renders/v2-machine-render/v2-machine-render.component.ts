@@ -80,7 +80,6 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
                         return new Machine(entrydata);
                     }))
                 .subscribe((resultMachine: Machine) => {
-                    // this.node = resultMachine;
                     this.sessionTimer.activate(this.target.buildTime * 60);
                     this.building = true;
                 })
@@ -108,10 +107,9 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
     }
     private loadBuildPart(): void {
         if (this.node.isRunning()) {
-            this.target = this.node.currentJobPartId;
+            this.target = this.node.currentJobPart;
             this.building = true;
             this.buildTime = this.node.getRunTime();
-            // this.sessionTimer.activate(this.buildTime);
         }
     }
 }

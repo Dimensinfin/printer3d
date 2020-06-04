@@ -6,7 +6,7 @@ export class Coil {
     public label: string;
     public material: string;
     public color: string;
-    public weight: number = 1000;
+    public weight: number;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

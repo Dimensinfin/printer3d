@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { platformconstants } from '../../../../platform/platform-constants';
+import { platformconstants } from '../../../platform/platform-constants';
 // - TESTING
 import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
@@ -23,7 +23,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { Feature } from '@domain/Feature.domain';
 import { V1FeatureRenderComponent } from './v1-feature-render.component';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { V1DockComponent } from '../../panels/v1-dock/v1-dock.component';
+import { V1DockComponent } from '../../shared/panels/v1-dock/v1-dock.component';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { BackendService } from '@app/services/backend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';

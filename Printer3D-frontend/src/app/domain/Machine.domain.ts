@@ -5,7 +5,7 @@ export class Machine {
     public label: string;
     public model: string;
     public characteristics: string;
-    public currentJobPartId: Part;
+    public currentJobPart: Part;
     public currentPartInstances: number = 1;
     public jobInstallmentDate: string;
 
@@ -14,12 +14,12 @@ export class Machine {
         this.transformInput();
     }
     private transformInput(): void {
-        if (null != this.currentJobPartId) {
-            this.currentJobPartId = new Part(this.currentJobPartId)
+        if (null != this.currentJobPart) {
+            this.currentJobPart = new Part(this.currentJobPart)
         }
     }
     public isRunning(): boolean {
-        if (null != this.currentJobPartId) return true;
+        if (null != this.currentJobPart) return true;
         else return false;
     }
     public getRunTime(): number {

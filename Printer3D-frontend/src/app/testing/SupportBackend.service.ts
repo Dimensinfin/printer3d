@@ -5,6 +5,7 @@ import { Part } from '@domain/Part.domain';
 import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
+import { Machine } from '@domain/Machine.domain';
 
 export class SupportBackendService {
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
@@ -115,17 +116,20 @@ export class SupportBackendService {
             observer.next(transformer.transform({
                 "count": 2,
                 "machines": [{
-                    "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
-                    "label": "Machine A",
+                    "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
+                    "label": "Ender 3 Pro - B",
                     "model": "Creality 3D Ender 3 Pro",
-                    "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament."
+                    "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+                    "currentJobPart": null,
+                    "currentPartInstances": 1,
+                    "jobInstallmentDate": null
                 },
                 {
                     "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
                     "label": "Machine B",
                     "model": "Creality 3D Ender 3 Pro",
                     "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
-                    "currentPart": {
+                    "currentJobPart": {
                         "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
                         "label": "Covid-19 Key",
                         "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
@@ -140,9 +144,52 @@ export class SupportBackendService {
                         "modelPath": "pieza3.sft",
                         "active": true
                     },
+                    "currentPartInstances": 2,
                     "jobInstallmentDate": "2020-06-01T22:05:00Z"
                 }
                 ]
+            }));
+            observer.complete();
+        });
+    }
+    public apiMachinesStartBuild_v1(transformer: ResponseTransformer): Observable<Machine> {
+        return Observable.create((observer) => {
+            observer.next(transformer.transform({
+                "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
+                "label": "Machine B",
+                "model": "Creality 3D Ender 3 Pro",
+                "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
+                "currentJobPart": {
+                    "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
+                    "label": "Covid-19 Key",
+                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                    "material": "PLA",
+                    "colorCode": "NARANJA-T",
+                    "buildTime": 30,
+                    "cost": 0.85,
+                    "price": 3.0,
+                    "stockLevel": 5,
+                    "stockAvailable": 0,
+                    "imagePath": "https://ibb.co/3dGbsRh",
+                    "modelPath": "pieza3.sft",
+                    "active": true
+                },
+                "currentPartInstances": 1,
+                "jobInstallmentDate": "2020-06-01T22:05:00Z"
+            }));
+            observer.complete();
+        });
+    }
+    public apiMachinesCancelBuild_v1(transformer: ResponseTransformer): Observable<Machine> {
+        return Observable.create((observer) => {
+            observer.next(transformer.transform({
+                "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
+                "label": "Machine B",
+                "model": "Creality 3D Ender 3 Pro",
+                "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
+                "currentJobPart": null,
+                "currentPartInstances": 1,
+                "jobInstallmentDate": null
             }));
             observer.complete();
         });

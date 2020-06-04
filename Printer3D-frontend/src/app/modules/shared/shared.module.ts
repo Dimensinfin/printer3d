@@ -4,23 +4,25 @@ import { CommonModule } from '@angular/common';
 // - COMPONENTS
 import { V1PagePathPanelComponent } from './panels/v1-page-path-panel/v1-page-path-panel.component';
 import { V1DockComponent } from './panels/v1-dock/v1-dock.component';
-import { V1FeatureRenderComponent } from './renders/v1-feature-render/v1-feature-render.component';
+// import { V1FeatureRenderComponent } from '../renders/v1-feature-render/v1-feature-render.component';
 import { BackgroundEnabledComponent } from './core/background-enabled/background-enabled.component';
+import { RendersModule } from '../renders/renders.module';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        RendersModule
     ],
     declarations: [
         V1PagePathPanelComponent,
         V1DockComponent,
-        V1FeatureRenderComponent,
+        // V1FeatureRenderComponent,
         BackgroundEnabledComponent,
     ],
     exports: [
         V1PagePathPanelComponent,
         V1DockComponent,
-        V1FeatureRenderComponent,
+        // V1FeatureRenderComponent,
         BackgroundEnabledComponent,
     ]
 })
