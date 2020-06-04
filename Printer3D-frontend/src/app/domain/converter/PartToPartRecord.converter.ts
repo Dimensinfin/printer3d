@@ -13,6 +13,7 @@ export class PartToPartRecordConverter implements Converter<Part, PartRecord>{
             color: input.colorCode,
             coste: this.convertToMoney(input.cost),
             precio: this.convertToMoney(input.price),
+            tiempo: this.convertToBuildTime(input.buildTime),
             stockRequerido: input.stockLevel,
             stockDisponible: input.stockAvailable,
             active: this.convertToActive(input.active)
@@ -26,5 +27,8 @@ export class PartToPartRecordConverter implements Converter<Part, PartRecord>{
     private convertToActive(input: boolean): string {
         if (input) return 'ACTIVA';
         else return 'INACTIVA'
+    }
+    private convertToBuildTime(time: number): string {
+        return time + ' min.';
     }
 }

@@ -5,6 +5,7 @@ export class PartRecord {
     public color: string;
     public coste: string;
     public precio: string;
+    public tiempo:number;
     public stockRequerido: number;
     public stockDisponible: number
     public active: string = 'ACTIVA';

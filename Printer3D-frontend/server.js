@@ -77,11 +77,11 @@ app.get('/*', function(req, res) {
 
 // - L I S T E N
 app.listen(process.env.PORT || app.locals.port || 3000, function() {
-    console.log("        ___     _  _      ____  \n" +
-        "__   __/ _ \\   | || |    |___ \\ \n" +
-        "\\ \\ / / | | |  | || |_     __) |\n" +
-        " \\ V /| |_| |  |__   _|   / __/ \n" +
-        "  \\_/  \\___(_)    |_|(_) |_____|\n" +
+    console.log("        ___     _  _      _____ \n" +
+        "__   __/ _ \\   | || |    |___ / \n" +
+        "\\ \\ / / | | |  | || |_     |_ \\ \n" +
+        " \\ V /| |_| |  |__   _|   ___) |\n" +
+        "  \\_/  \\___(_)    |_|(_) |____/ \n" +
         "                                \n");
     console.log("Node Express server for '" + app.locals.appname + "'");
     console.log("Backend listening on [" + app.locals.backendproxy + "]");
