@@ -13,11 +13,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
+import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.client.domain.MachineList;
+import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_CHARACTERISTICS;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_CURRENTJOBPARTID;
@@ -26,6 +29,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.Machin
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_JOBINSTALLMENTDATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_MODEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_ID;
 
 public class MachineServiceV1Test {
 
@@ -36,6 +40,107 @@ public class MachineServiceV1Test {
 	public void beforeEach() {
 		this.machineRepository = Mockito.mock( MachineRepository.class );
 		this.partRepository = Mockito.mock( PartRepository.class );
+	}
+
+	@Test
+	public void cancelBuild() {
+		// Given
+		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
+		// When
+		Mockito.when( this.machineRepository.findById( TEST_MACHINE_ID ) ).thenReturn( Optional.of( machineEntity ) );
+		Mockito.when( this.machineRepository.save( Mockito.any( MachineEntity.class ) ) ).thenReturn( machineEntity );
+		Mockito.when( machineEntity.getId() ).thenReturn( TEST_MACHINE_ID );
+		Mockito.when( machineEntity.getLabel() ).thenReturn( TEST_MACHINE_LABEL );
+		Mockito.when( machineEntity.getModel() ).thenReturn( TEST_MACHINE_MODEL );
+		Mockito.when( machineEntity.getCharacteristics() ).thenReturn( TEST_MACHINE_CHARACTERISTICS );
+		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( null );
+		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( 1 );
+		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( null );
+		Mockito.when( machineEntity.clearJob() ).thenReturn( machineEntity );
+		// Test
+		final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+		final Machine obtained = machineServiceV1.cancelBuild( TEST_MACHINE_ID );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertNull( obtained.getCurrentJobPart() );
+		Assertions.assertNull( obtained.getJobInstallmentDate() );
+		Assertions.assertEquals( 1, obtained.getCurrentPartInstances() );
+	}
+
+	@Test
+	public void startBuild() {
+		// Given
+		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
+		final StartBuildRequest startBuildRequest= new StartBuildRequest.Builder()
+				.withMachineId( TEST_MACHINE_ID )
+				.withPartId( TEST_PART_ID )
+				.build();
+		final Part part = Mockito.mock(Part.class);
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any(UUID.class) ) ).thenReturn( Optional.of( machineEntity ) );
+		Mockito.when( this.machineRepository.save( Mockito.any( MachineEntity.class ) ) ).thenReturn( machineEntity );
+		Mockito.when( this.partRepository.findById ( Mockito.any(UUID.class) )).thenReturn( Optional.of(part) );
+		Mockito.when( machineEntity.getId() ).thenReturn( TEST_MACHINE_ID );
+		Mockito.when( machineEntity.getLabel() ).thenReturn( TEST_MACHINE_LABEL );
+		Mockito.when( machineEntity.getModel() ).thenReturn( TEST_MACHINE_MODEL );
+		Mockito.when( machineEntity.getCharacteristics() ).thenReturn( TEST_MACHINE_CHARACTERISTICS );
+		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( TEST_MACHINE_CURRENTJOBPARTID );
+		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( 1 );
+		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( TEST_MACHINE_JOBINSTALLMENTDATE );
+		Mockito.when( machineEntity.clearJob() ).thenReturn( machineEntity );
+		Mockito.when( part.getId() ).thenReturn( TEST_PART_ID );
+		// Test
+		final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+		final Machine obtained = machineServiceV1.startBuild( startBuildRequest );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( TEST_PART_ID.toString(), obtained.getCurrentJobPart().getId().toString() );
+		Assertions.assertEquals( TEST_MACHINE_JOBINSTALLMENTDATE, obtained.getJobInstallmentDate() );
+		Assertions.assertEquals( 1, obtained.getCurrentPartInstances() );
+	}
+
+	@Test
+	public void startBuildMachineNotFound() {
+		// Given
+		final StartBuildRequest startBuildRequest= new StartBuildRequest.Builder()
+				.withMachineId( TEST_MACHINE_ID )
+				.withPartId( TEST_PART_ID )
+				.build();
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any(UUID.class) ) ).thenReturn( Optional.empty() );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
+			final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+			machineServiceV1.startBuild( startBuildRequest );
+		} );
+	}
+	@Test
+	public void startBuildPartNotFound() {
+		// Given
+		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
+		final StartBuildRequest startBuildRequest= new StartBuildRequest.Builder()
+				.withMachineId( TEST_MACHINE_ID )
+				.withPartId( TEST_PART_ID )
+				.build();
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any(UUID.class) ) ).thenReturn( Optional.of(machineEntity) );
+		Mockito.when( this.partRepository.findById ( Mockito.any(UUID.class) )).thenReturn( Optional.empty() );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
+			final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+			machineServiceV1.startBuild( startBuildRequest );
+		} );
+	}
+
+	@Test
+	public void cancelBuildNotFound() {
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
+			final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+			machineServiceV1.cancelBuild( TEST_MACHINE_ID );
+		} );
 	}
 
 	@Test
@@ -72,7 +177,7 @@ public class MachineServiceV1Test {
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.getMachines().size() );
 		Assertions.assertNotNull( obtained.getMachines().get( 0 ).getCurrentJobPart() );
-		Assertions.assertEquals(TEST_PART_ID,  obtained.getMachines().get( 0 ).getCurrentJobPart().getId() );
+		Assertions.assertEquals( TEST_PART_ID, obtained.getMachines().get( 0 ).getCurrentJobPart().getId() );
 		Mockito.verify( machineEntity, Mockito.times( 2 ) ).clearJob();
 		Mockito.verify( this.machineRepository, Mockito.times( 2 ) ).save( Mockito.any( MachineEntity.class ) );
 		Mockito.verify( part, Mockito.times( 2 ) ).incrementStock( Mockito.anyInt() );
@@ -150,6 +255,6 @@ public class MachineServiceV1Test {
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.getMachines().size() );
 		Assertions.assertNotNull( obtained.getMachines().get( 0 ).getCurrentJobPart() );
-		Assertions.assertEquals(TEST_PART_ID,  obtained.getMachines().get( 0 ).getCurrentJobPart().getId() );
+		Assertions.assertEquals( TEST_PART_ID, obtained.getMachines().get( 0 ).getCurrentJobPart().getId() );
 	}
 }

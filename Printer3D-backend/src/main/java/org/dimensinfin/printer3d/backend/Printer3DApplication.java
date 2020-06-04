@@ -1,15 +1,14 @@
 package org.dimensinfin.printer3d.backend;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.ClassPathResource;
 
 import org.dimensinfin.logging.LogWrapper;
 
@@ -39,34 +38,24 @@ public class Printer3DApplication {
 	}
 
 	private static final class LogoPrinter {
-		@Value("classpath:app-banner.txt")
-		private Resource banner;
+		private final String banner = "app-banner.txt";
 
 		public void print() {
-			this.printVersion( this.readAllBytesJava7( this.banner ) );
+			this.printVersion( this.readAllBytes( this.banner ) );
 		}
 
-		private void printVersion( final String banner ) {
-			final String bannelHard = "        ___     _  _      _ \n" +
-					"__   __/ _ \\   | || |    / |\n" +
-					"\\ \\ / / | | |  | || |_   | |\n" +
-					" \\ V /| |_| |  |__   _|  | |\n" +
-					"  \\_/  \\___(_)    |_|(_) |_|\n" +
-					"                            \n";
-			LogWrapper.info( "\n\n" + bannelHard + "\n" );
+		private void printVersion( final String bannerData ) {
+			LogWrapper.info( "\n\n" + bannerData + "\n" );
 		}
 
-		private String readAllBytesJava7( final Resource banner ) {
-			String content = "";
-			if (null != banner) {
-				try {
-					final String bannerPath = Paths.get( banner.getURI() ).toAbsolutePath().toString();
-					content = new String( Files.readAllBytes( Paths.get( banner.getURI() ) ) );
-				} catch (final IOException ioe) {
-					LogWrapper.error( ioe );
-				}
+		private String readAllBytes( final String resourceName ) {
+			try {
+				File resource = new ClassPathResource( resourceName ).getFile();
+				return new String( Files.readAllBytes( resource.toPath() ) );
+			} catch (final IOException ioe) {
+				LogWrapper.error( ioe );
+				return " -- INVALID BANNER RESOURCE -- ";
 			}
-			return content;
 		}
 	}
 }
