@@ -44,9 +44,13 @@ export class V1PendingJobsPanelComponent implements OnInit, OnDestroy {
         this.backendConnections.push(
             this.backendService.apiProductionGetJobs_v1(new ResponseTransformer()
                 .setDescription('Do HTTP transformation to "PendingJobListResponse".')
-                .setTransformation((entrydata: any): PendingJobListResponse => {
-                    return new PendingJobListResponse(entrydata);
-                }))
+                .setTransformation((entrydata: any): Job[] => {
+                    const jobs: Job[] = []
+                    entrydata.forEach(element => {
+                        jobs.push(new Job(element));
+                    });
+                    return jobs;
+               }))
                 .subscribe((response: Job[]) => {
                     // Process the response to extract the Machines to the render list
                     this.jobs = response;

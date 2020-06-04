@@ -1,10 +1,10 @@
 server:
   port: 9500
-  version: 0.4.0
+  version: 0.4.2
 info:
   tags:
     environment: acceptance
-    version: 0.4.0
+    version: 0.4.2
 
 endpoints:
   health:
@@ -33,4 +33,3 @@ spring:
 
 logging.logstash:
   enabled: true
-

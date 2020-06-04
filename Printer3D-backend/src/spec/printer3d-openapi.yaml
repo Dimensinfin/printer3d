@@ -10,7 +10,7 @@ info:
     and there are provisioning for automatic code generation for this API clients.
 
     ##
-    The current API specification matches the Printer3D backend system published with version **0.4.0**.
+    The current API specification matches the Printer3D backend system published with version **0.4.2**.
 
     # System Description
 
@@ -78,12 +78,12 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.4.0
+  version: 0.4.2
 servers:
   - url: https://printer3d-backend-stage.herokuapp.com
-    description: OpenAPI 0.4.0 for 3D Printer Queue Management Backend Service. Stage environment
+    description: OpenAPI 0.4.2 for 3D Printer Queue Management Backend Service. Stage environment
   - url: https://printer3d-backend.herokuapp.com
-    description: OpenAPI 0.4.0 for 3D Printer Queue Management Backend Service. Production
+    description: OpenAPI 0.4.2 for 3D Printer Queue Management Backend Service. Production
 
 tags:
   ### R E P O S I T O R I E S

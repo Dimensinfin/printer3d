@@ -1,6 +1,6 @@
 {
     "name": "printer3d-frontend",
-    "version": "v0.4.0",
+    "version": "v0.4.2",
     "scripts": {
         "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --tags @D3D06.08",
         "start:network": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 443 -j REDIRECT --to-ports 5100",

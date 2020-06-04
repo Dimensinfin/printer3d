@@ -9,7 +9,7 @@ export const environment = {
     copyright: '© 2019,2020 Dimensinfin Industries',
     appName: 'printer3d-frontend',
     appTitle: '3DPrinterManagement - UI',
-    appVersion: 'v0.4.0' + ' dev',
+    appVersion: 'v0.4.2' + ' dev',
     appSignature: "S000.01.001-20200518",
     platform: 'Angular 9.1.7 - RxJs 6.5.4 - Rollbar 2.16.1',
     apiVersion1: '/api/v1'
