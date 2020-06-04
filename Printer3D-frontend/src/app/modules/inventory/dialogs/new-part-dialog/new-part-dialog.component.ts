@@ -20,13 +20,6 @@ import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 
-const dataToPartTransformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-    .setTransformation((entrydata: any): Part => {
-        const targetPart: Part = new Part(entrydata);
-        this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
-        return targetPart;
-    });
-
 @Component({
     selector: 'new-part-dialog',
     templateUrl: './new-part-dialog.component.html',
@@ -37,12 +30,20 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
     public finishings: Map<string, string[]> = new Map<string, string[]>();
     public colors: string[] = [];
     private backendConnections: Subscription[] = [];
+    private dataToPartTransformer: ResponseTransformer;
 
     constructor(
         public dialogRef: MatDialogRef<NewPartDialogComponent>,
         private isolationService: IsolationService,
         private backendService: BackendService
-    ) { }
+    ) {
+        this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
+            .setTransformation((entrydata: any): Part => {
+                const targetPart: Part = new Part(entrydata);
+                this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
+                return targetPart;
+            });
+    }
 
     public ngOnInit(): void {
         console.log('>[NewPartDialogComponent.ngOnInit]')
@@ -74,7 +75,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
-            this.backendService.apiNewPart_v1(newPart, dataToPartTransformer)
+            this.backendService.apiNewPart_v1(newPart, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
                     this.closeModal();
                 })
@@ -85,7 +86,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
-            this.backendService.apiNewPart_v1(newPart, dataToPartTransformer)
+            this.backendService.apiNewPart_v1(newPart, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')
                     this.part.createNewId();

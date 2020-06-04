@@ -26,7 +26,9 @@ import { Job } from '@domain/Job.domain';
 export class BackendService {
     private APIV1: string;
 
-    constructor(protected httpService: HttpClientWrapperService) {
+    constructor(
+        private isolationService: IsolationService,
+        protected httpService: HttpClientWrapperService) {
         this.APIV1 = environment.backendPath + environment.apiVersion1;
     }
     // - B A C K E N D - A P I

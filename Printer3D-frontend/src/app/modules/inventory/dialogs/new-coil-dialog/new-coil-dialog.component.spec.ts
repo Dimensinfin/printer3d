@@ -36,9 +36,10 @@ import { Part } from '@domain/Part.domain';
 import { NewCoilDialogComponent } from './new-coil-dialog.component';
 import { Coil } from '@domain/Coil.domain';
 
-fdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
+describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
     let component: NewCoilDialogComponent;
     let backendService: SupportBackendService;
+    let fixture: ComponentFixture<NewCoilDialogComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -61,7 +62,7 @@ fdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
             ]
         }).compileComponents();
 
-        const fixture = TestBed.createComponent(NewCoilDialogComponent);
+        fixture = TestBed.createComponent(NewCoilDialogComponent);
         component = fixture.componentInstance;
         backendService = TestBed.get(BackendService);
     }));
@@ -117,11 +118,13 @@ fdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
             console.log('[saveCoilAndRepeat: persist the Coil on the backend repository]> about to call "saveCoilAndRepeat"')
             expect(component.coil.id).toBe('df23d097-4a7c-40e2-837f-e716459a526d', 'Initial id should be the mock value');
             await component.saveCoilAndRepeat();
-            console.log('>[saveCoilAndRepeat]> Coil: ' + JSON.stringify(component.coil))
-            expect('df23d097-4a7c-40e2-837f-e716459a526d' === component.coil.id).toBeFalse();
-            expect(component.coil.material).toBe('PLA');
-            expect(component.coil.color).toBe('')
-            expect(component.coil.weight).toBeUndefined('Weight should be undefined');
+            // fixture.whenStable().then(() => {
+                console.log('>[saveCoilAndRepeat]> Coil: ' + JSON.stringify(component.coil))
+                expect('df23d097-4a7c-40e2-837f-e716459a526d' === component.coil.id).toBeFalse();
+                expect(component.coil.material).toBe('PLA');
+                expect(component.coil.color).toBe('')
+                expect(component.coil.weight).toBeUndefined('Weight should be undefined');
+            // })
         });
         it('closeModal: start closing the dialog', async () => {
             const componentAsAny = component as any;

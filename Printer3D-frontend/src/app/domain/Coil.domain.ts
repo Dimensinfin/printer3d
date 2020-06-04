@@ -14,7 +14,7 @@ export class Coil {
         this.id = uuidv4();
         return this.id;
     }
-    public getCoildIdentifier(): string {
+    public getCoilIdentifier(): string {
         return this.material + ':' + this.color;
     }
 }

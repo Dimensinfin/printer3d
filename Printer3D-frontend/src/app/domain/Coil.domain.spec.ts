@@ -14,10 +14,9 @@ describe('CLASS Coil [Module: DOMAIN]', () => {
             expect(instance.weight).toBeUndefined();
         });
         it('constructor.object: validate initial state with object data', () => {
-            const instance = new Coil({ id: '-ID-', label: '-TEST-LABEL-', material: 'PLA', color: 'WHITE', weight: 500 });
+            const instance = new Coil({ id: '-ID-', material: 'PLA', color: 'WHITE', weight: 500 });
             expect(instance).toBeDefined();
             expect(instance.id).toBe('-ID-');
-            expect(instance.label).toBe('-TEST-LABEL-');
             expect(instance.material).toBe('PLA');
             expect(instance.color).toBe('WHITE');
             expect(instance.weight).toBe(500);
@@ -27,11 +26,18 @@ describe('CLASS Coil [Module: DOMAIN]', () => {
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Methods]', () => {
         it('createNewId: generate a new UUID value', () => {
-            const instance = new Coil({ id: '-ID-', label: '-TEST-LABEL-', material: 'PLA', color: 'WHITE' });
+            const instance = new Coil({ id: '-ID-', material: 'PLA', color: 'WHITE' });
             expect(instance).toBeDefined();
             expect(instance.id).toBe('-ID-');
             const obtained = instance.createNewId()
             expect(instance.id).toBe(obtained);
+        });
+        it('getCoilIdentifier: create a unique human readable identifier', () => {
+            const instance :Coil= new Coil({ id: '-ID-', material: 'PLA', color: 'WHITE' });
+            expect(instance).toBeDefined();
+            const expected : string= 'PLA' + ':' + 'WHITE';
+            const obtained = instance.getCoilIdentifier();
+            expect(expected).toBe(obtained);
         });
     });
 });
