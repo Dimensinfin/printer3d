@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.machine.persistence.Machine;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.MachineValidator;
 import org.dimensinfin.printer3d.client.domain.MachineList;

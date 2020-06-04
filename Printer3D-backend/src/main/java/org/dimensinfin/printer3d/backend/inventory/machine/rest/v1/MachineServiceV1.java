@@ -15,12 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.machine.persistence.Machine;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdater;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.domain.MachineList;
+import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
 @Service
 @Transactional
@@ -68,11 +69,11 @@ public class MachineServiceV1 {
 		return this.machineRepository.save( machineOpt.get().clearJob() );
 	}
 
-	public Machine startBuild( final @NotNull UUID machineId, final @NotNull UUID partId ) {
+	public Machine startBuild( final StartBuildRequest startBuildRequest ) {
 		// Find the machine nad update it.
-		final Optional<Machine> machineOpt = this.machineRepository.findById( machineId );
+		final Optional<Machine> machineOpt = this.machineRepository.findById( startBuildRequest.getMachineId() );
 		if (!machineOpt.isPresent())
-			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
-		return this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( partId ) );
+			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( startBuildRequest.getMachineId() ) );
+		return this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( startBuildRequest.getPartId() ) );
 	}
 }

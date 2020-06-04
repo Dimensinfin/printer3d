@@ -1,7 +1,5 @@
 package org.dimensinfin.printer3d.client.domain;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,6 +10,7 @@ public class StartBuildRequest {
 	// - C O N S T R U C T O R S
 	private StartBuildRequest() {}
 
+	// - G E T T E R S   &   S E T T E R S
 	public UUID getMachineId() {
 		return this.machineId;
 	}
@@ -22,7 +21,7 @@ public class StartBuildRequest {
 
 	// - B U I L D E R
 	public static class Builder {
-		private StartBuildRequest onConstruction;
+		private final StartBuildRequest onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {

@@ -3,6 +3,8 @@ package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import org.dimensinfin.printer3d.client.domain.Machine;
+
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class MachineTest {

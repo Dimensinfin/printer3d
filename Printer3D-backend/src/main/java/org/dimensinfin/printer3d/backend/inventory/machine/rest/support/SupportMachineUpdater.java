@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.backend.inventory.machine.rest.support;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import org.dimensinfin.printer3d.backend.inventory.machine.persistence.Machine;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
 
 public class SupportMachineUpdater {

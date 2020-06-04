@@ -335,15 +335,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/build/{{machineId}}/start/{{partId}}",
+					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/{{machineId}}/startbuild/{{partId}}",
 					"host": [
 						"{{backendServer}}{{backendPort}}{{inventory}}"
 					],
 					"path": [
 						"machines",
-						"build",
 						"{{machineId}}",
-						"start",
+						"startbuild",
 						"{{partId}}"
 					]
 				},
@@ -363,15 +362,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/build/{{machineId}}/cancel",
+					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/{{machineId}}/cancelbuild",
 					"host": [
 						"{{backendServer}}{{backendPort}}{{inventory}}"
 					],
 					"path": [
 						"machines",
-						"build",
 						"{{machineId}}",
-						"cancel"
+						"cancelbuild"
 					]
 				},
 				"description": "Requests to clear the Machine data representing the current build Job."

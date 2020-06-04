@@ -526,14 +526,9 @@ components:
             A free text with the list of the machine characteristics like special configurations, limits or sizes.
           example:
             'Max size set to 200mm. Has adaptor for flexible plastic filament.'
-        currentJobPartId:
-          type: string
-          format: uuid
-          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-          description: >
-            If the machine is running a build this is the reference to the Part model being built.
-          example:
-            009ab011-03ad-4e84-9a88-25708d1cfd64
+        currentJobPart:
+          allOf:
+            - $ref: '#/components/schemas/Part'
         currentPartInstances:
           type: number
           format: int32

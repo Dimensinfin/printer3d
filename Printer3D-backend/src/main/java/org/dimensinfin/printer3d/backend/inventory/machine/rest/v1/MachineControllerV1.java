@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.backend.inventory.machine.persistence.Machine;
+import org.dimensinfin.printer3d.client.domain.Machine;
 import org.dimensinfin.printer3d.client.domain.MachineList;
+import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
 @RestController
 @CrossOrigin
@@ -49,6 +50,10 @@ public class MachineControllerV1 {
 			produces = "application/json")
 	public ResponseEntity<Machine> startBuild( final @PathVariable @NotNull UUID machineId,
 	                                           final @PathVariable @NotNull UUID partId ) {
-		return new ResponseEntity<>( this.machineServiceV1.startBuild( machineId, partId ), HttpStatus.OK );
+		return new ResponseEntity<>( this.machineServiceV1.startBuild(
+				new StartBuildRequest.Builder()
+				.withMachineId( machineId)
+				.withPartId( partId ).build()
+		), HttpStatus.OK );
 	}
 }

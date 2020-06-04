@@ -47,12 +47,12 @@ public class Printer3DApplication {
 		}
 
 		private void printVersion( final String banner ) {
-			final String bannelHard = "  ___     _  _       ___  \n" +
-					" / _ \\   | || |     / _ \\ \n" +
-					"| | | |  | || |_   | | | |\n" +
-					"| |_| |  |__   _|  | |_| |\n" +
-					" \\___(_)    |_|(_)  \\___/ \n" +
-					"                          \n";
+			final String bannelHard = "        ___     _  _      _ \n" +
+					"__   __/ _ \\   | || |    / |\n" +
+					"\\ \\ / / | | |  | || |_   | |\n" +
+					" \\ V /| |_| |  |__   _|  | |\n" +
+					"  \\_/  \\___(_)    |_|(_) |_|\n" +
+					"                            \n";
 			LogWrapper.info( "\n\n" + bannelHard + "\n" );
 		}
 

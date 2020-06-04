@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
+import org.dimensinfin.printer3d.client.domain.Machine;
+
 public class MachineUpdater {
 	private final Machine machine;
 

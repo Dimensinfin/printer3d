@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
+package org.dimensinfin.printer3d.client.domain;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
