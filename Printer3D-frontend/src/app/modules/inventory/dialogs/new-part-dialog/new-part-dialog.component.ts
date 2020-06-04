@@ -20,6 +20,13 @@ import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 
+const dataToPartTransformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
+    .setTransformation((entrydata: any): Part => {
+        const targetPart: Part = new Part(entrydata);
+        this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
+        return targetPart;
+    });
+
 @Component({
     selector: 'new-part-dialog',
     templateUrl: './new-part-dialog.component.html',
@@ -67,11 +74,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
-            this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-                .setTransformation((entrydata: any): Part => {
-                    this.isolationService.infoNotification('Pieza [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
-                    return new Part(entrydata);
-                }))
+            this.backendService.apiNewPart_v1(newPart, dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
                     this.closeModal();
                 })
@@ -82,15 +85,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         // Get the form data.
         const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
-            this.backendService.apiNewPart_v1(newPart, new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-                .setTransformation((entrydata: any): Part => {
-                    const newPart = new Part(entrydata);
-                    this.isolationService.infoNotification('Pieza [' +
-                        newPart.composePartIdentifier() +
-                        '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
-                    console.log('>[NewPartDialogComponent.savePartAndRepeat]> return the persisted Part');
-                    return newPart;
-                }))
+            this.backendService.apiNewPart_v1(newPart, dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')
                     this.part.createNewId();

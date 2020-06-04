@@ -21,6 +21,13 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Coil } from '@domain/Coil.domain';
 import { CoilConstructor } from '@domain/constructor/Coil.constructor';
 
+const dataToCoilTransformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
+    .setTransformation((entrydata: any): Coil => {
+        const targetCoil: Coil = new Coil(entrydata);
+        this.isolationService.successNotification('Rollo [' + targetCoil.getCoildIdentifier() + '] almacenado correctamente.', '/INVENTARIO/NUEVO ROLL/OK');
+        return targetCoil;
+    });
+    
 @Component({
     selector: 'new-coil-dialog',
     templateUrl: './new-coil-dialog.component.html',
@@ -56,11 +63,7 @@ export class NewCoilDialogComponent implements OnInit, OnDestroy {
         console.log('><[NewCoilDialogComponent.saveCoil]')
         const newRoll: Coil = new CoilConstructor().construct(this.coil);
         this.backendConnections.push(
-            this.backendService.apiNewCoil_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
-                .setTransformation((entrydata: any): Coil => {
-                    this.isolationService.infoNotification('Rollo [' + entrydata.id + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
-                    return new Coil(entrydata);
-                }))
+            this.backendService.apiNewCoil_v1(newRoll, dataToCoilTransformer)
                 .subscribe((persistedRoll: Coil) => {
                     this.closeModal();
                 })
@@ -70,11 +73,7 @@ export class NewCoilDialogComponent implements OnInit, OnDestroy {
         console.log('><[NewCoilDialogComponent.saveCoilAndRepeat]')
         const newRoll: Coil = new CoilConstructor().construct(this.coil);
         this.backendConnections.push(
-            this.backendService.apiNewCoil_v1(newRoll, new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
-                .setTransformation((entrydata: any): Coil => {
-                    const targetCoil: Coil = new Coil(entrydata);
-                    this.isolationService.infoNotification('Rollo [' + targetCoil.getCoildIdentifier() + '] almacenada correctamente.', '/INVENTARIO/NUEVO ROLL/OK')
-                }))
+            this.backendService.apiNewCoil_v1(newRoll, dataToCoilTransformer)
                 .subscribe((persistedRoll: Coil) => {
                     console.log('><[NewCoilDialogComponent.saveCoilAndRepeat]> Restarting form')
                     this.coil.createNewId();
