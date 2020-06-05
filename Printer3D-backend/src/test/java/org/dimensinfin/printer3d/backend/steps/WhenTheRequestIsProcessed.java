@@ -16,15 +16,17 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV2;
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.CoilFeignClientV1;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
 import org.dimensinfin.printer3d.client.production.domain.Job;
 
 import io.cucumber.java.en.When;
@@ -33,6 +35,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final PartFeignClientV1 partFeignClientV1;
 	private final CoilFeignClientV1 coilFeignClientV1;
 	private final MachineFeignClientV1 machineFeignClientV1;
+	private final MachineFeignClientV2 machineFeignClientV2;
 	private final JobFeignClientV1 jobFeignClientV1;
 
 	// - C O N S T R U C T O R S
@@ -40,11 +43,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  final @NotNull PartFeignClientV1 partFeignClientV1,
 	                                  final @NotNull CoilFeignClientV1 coilFeignClientV1,
 	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1,
+	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
 	                                  final @NotNull JobFeignClientV1 jobFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
 		this.machineFeignClientV1 = Objects.requireNonNull( machineFeignClientV1 );
+		this.machineFeignClientV2 = Objects.requireNonNull( machineFeignClientV2 );
 		this.jobFeignClientV1 = Objects.requireNonNull( jobFeignClientV1 );
 	}
 
@@ -71,7 +76,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 
 	@When("the Get Machines request is processed")
 	public void the_Get_Machines_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_MACHINES );
+		this.processRequestByType( RequestType.GET_MACHINES_V1 );
 	}
 
 	@When("the Get Parts request is processed")
@@ -95,7 +100,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		this.processRequestByType( RequestType.START_BUILD );
 	}
-
+	@When("the Get Machines V2 request is processed")
+	public void the_Get_Machines_V2_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_MACHINES_V2 );
+	}
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
 		switch (requestType) {
 			case NEW_PART:
@@ -132,12 +140,18 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( finishingsResponseEntity );
 				this.printer3DWorld.setFinishingsResponseEntity( finishingsResponseEntity );
 				return finishingsResponseEntity;
-			case GET_MACHINES:
+			case GET_MACHINES_V1:
 				final ResponseEntity<MachineList> machinesResponseEntity = this.machineFeignClientV1
 						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( machinesResponseEntity );
 				this.printer3DWorld.setMachineListResponseEntity( machinesResponseEntity );
 				return machinesResponseEntity;
+			case GET_MACHINES_V2:
+				final ResponseEntity<MachineListv2> machinesv2ResponseEntity = this.machineFeignClientV2
+						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
+				Assertions.assertNotNull( machinesv2ResponseEntity );
+				this.printer3DWorld.setMachineListv2ResponseEntity( machinesv2ResponseEntity );
+				return machinesv2ResponseEntity;
 			case START_BUILD:
 				final ResponseEntity<Machine> startBuildResponseEntity = this.machineFeignClientV1
 						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),

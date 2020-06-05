@@ -44,7 +44,6 @@ public class BuildRecord {
 	@JsonAdapter(StateEnum.Adapter.class)
 	public enum StateEnum {
 		IDLE( "IDLE" ),
-		SETUP( "SETUP" ),
 		RUNNING( "RUNNING" );
 
 		public static StateEnum fromValue( String text ) {
@@ -86,7 +85,6 @@ public class BuildRecord {
 			}
 		}
 	}
-
 	public static final String SERIALIZED_NAME_STATE = "state";
 	public static final String SERIALIZED_NAME_PART = "part";
 	public static final String SERIALIZED_NAME_PART_COPIES = "partCopies";
@@ -100,10 +98,8 @@ public class BuildRecord {
 	private Integer partCopies = 1;
 	@SerializedName(SERIALIZED_NAME_JOB_INSTALLMENT_DATE)
 	private LocalDateTime jobInstallmentDate = null;
-	//	private Integer remainingTime = null;
 
 	// - G E T T E R S   &   S E T T E R S
-
 	/**
 	 * The date and time when the job was stared on the machine. The Part information says the time it is expected that the machine will be occupied
 	 * by this job. If the current time is greater that this point it is expected that the job has finished. If the machine is IDLE then this field
@@ -164,14 +160,11 @@ public class BuildRecord {
 	//	}
 	@SerializedName(SERIALIZED_NAME_REMAINING_TIME)
 	public int getRemainingTime() {
+		if (null == this.jobInstallmentDate) return 0;
 		final long elapsed = this.getJobInstallmentDate().until( LocalDateTime.now(), ChronoUnit.MINUTES );
 		if (elapsed < 0) return 0;
 		else return (int) elapsed;
 	}
-
-	//	public void setRemainingTime( Integer remainingTime ) {
-	//		this.remainingTime = remainingTime;
-	//	}
 
 	/**
 	 * This is a virtual api field that will reflect the state of the Machine so the front end will not have to relay on any logic to detect idle or
@@ -185,8 +178,19 @@ public class BuildRecord {
 		return state;
 	}
 
+	//	public void setRemainingTime( Integer remainingTime ) {
+	//		this.remainingTime = remainingTime;
+	//	}
+
 	public void setState( StateEnum state ) {
 		this.state = state;
+	}
+
+	public void clearJob() {
+		this.part = null;
+		this.jobInstallmentDate = null;
+		this.state = StateEnum.IDLE;
+		this.partCopies = 1;
 	}
 
 	@Override

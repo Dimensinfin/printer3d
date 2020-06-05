@@ -10,9 +10,10 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
-import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
 import org.dimensinfin.printer3d.client.production.domain.Job;
 
 public class Printer3DWorld extends CommonWorld {
@@ -24,6 +25,17 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<CoilList> coilListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 	private ResponseEntity<MachineList> machineListResponseEntity;
+	private ResponseEntity<MachineListv2> machineListv2ResponseEntity;
+
+	public ResponseEntity<MachineListv2> getMachineListv2ResponseEntity() {
+		return this.machineListv2ResponseEntity;
+	}
+
+	public Printer3DWorld setMachineListv2ResponseEntity( final ResponseEntity<MachineListv2> machineListv2ResponseEntity ) {
+		this.machineListv2ResponseEntity = machineListv2ResponseEntity;
+		return this;
+	}
+
 	private UUID partId;
 	private UUID machineId;
 	private ResponseEntity<Machine> startBuildResponseEntity;

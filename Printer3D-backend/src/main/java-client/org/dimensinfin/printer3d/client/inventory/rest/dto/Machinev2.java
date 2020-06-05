@@ -124,10 +124,6 @@ public class Machinev2 {
 		return (this.buildRecord.getState() == BuildRecord.StateEnum.RUNNING);
 	}
 
-	public boolean isSetup() {
-		return (this.buildRecord.getState() == BuildRecord.StateEnum.SETUP);
-	}
-
 	public Machinev2 buildRecord( BuildRecord buildRecord ) {
 		this.buildRecord = buildRecord;
 		return this;

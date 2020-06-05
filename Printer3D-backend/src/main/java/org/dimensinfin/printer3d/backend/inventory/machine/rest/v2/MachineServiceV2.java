@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
@@ -17,6 +19,8 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machinev2;
 
+@Service
+@Transactional
 public class MachineServiceV2 {
 	protected final MachineRepository machineRepository;
 	protected final PartRepository partRepository;
@@ -46,12 +50,13 @@ public class MachineServiceV2 {
 					machineModel.setCharacteristics( machineEntity.getCharacteristics() );
 					machineModel.setBuildRecord( buildRecord );
 
-					if (machineModel.isSetup()) { // The Machine has a part but it can have finished the build time
+					if (machineModel.isRunning()) { // The Machine has a part but it can have finished the build time
 						final int remainingTime = machineModel.getRemainingTime();
 						if (0 == remainingTime) { // Job completed
 							machineModel.getBuildRecord().getPart().incrementStock( machineEntity.getCurrentPartInstances() );
 							this.partRepository.save( machineModel.getBuildRecord().getPart() );
 							machineEntity.clearJob();
+							buildRecord.clearJob();
 							this.machineRepository.save( machineEntity );
 						}
 						//						final Duration jobDuration = Duration.ofMinutes( machine.getCurrentJobPart().getBuildTime() );
