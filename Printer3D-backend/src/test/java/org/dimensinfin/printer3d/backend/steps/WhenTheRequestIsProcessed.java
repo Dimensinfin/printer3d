@@ -21,8 +21,8 @@ import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignCli
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.CoilFeignClientV1;
 import org.dimensinfin.printer3d.client.domain.CoilList;
 import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
-import org.dimensinfin.printer3d.client.domain.Machine;
-import org.dimensinfin.printer3d.client.domain.MachineList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.domain.PartList;
 import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 import org.dimensinfin.printer3d.client.production.domain.Job;

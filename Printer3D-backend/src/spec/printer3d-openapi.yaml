@@ -59,7 +59,8 @@ info:
     * **Finishing** - This is an especial response entity to collect all the distinct colors available for an specific type of material.
 
     * **Machine** - This is the entity that describes a 3D printer model and its configuration. The information about Machines is hardcoded at
-    initialization time and the machine records can only update the current buil **Part** job.
+    initialization time and the machine records can only update the current build **Part** job. Each Machine has a slot to record the current
+    build action is one is running. This block will keep track of the remaining time to complete the job and then update the stock records.
 
     ### PRODUCTION UNIT
 
@@ -78,10 +79,10 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.4.2
+  version: 0.4.3
 servers:
   - url: https://printer3d-backend-stage.herokuapp.com
-    description: OpenAPI 0.4.2 for 3D Printer Queue Management Backend Service. Stage environment
+    description: OpenAPI 0.4.3 for 3D Printer Queue Management Backend Service. Stage environment
   - url: https://printer3d-backend.herokuapp.com
     description: OpenAPI 0.4.2 for 3D Printer Queue Management Backend Service. Production
 
@@ -93,16 +94,6 @@ tags:
   - name: Production
     description: >
       The API information unit that manages the Production requirements and needs from the adjacent units of **Inventory** and **Market**.
-  ### E N T I T I E S
-  - name: Parts
-    description: >
-      The Part creation, update and general management endpoints.
-  - name: Material
-    description: >
-      The tag for the endpoints for Coil and material management.
-  - name: Machines
-    description: >
-      The management of machines and their features to control jobs.
 
 paths:
   ### P A R T S
@@ -255,6 +246,25 @@ paths:
                 $ref: '#/components/schemas/FinishingsResponse'
 
   ### M A C H I N E S
+  /api/v2/inventory/machines:
+    get:
+      tags:
+        - Inventory
+      summary: Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
+      description: >
+        This version changes the contents so it is not compatible with previous versions. The build job information is collected into a new data
+        structure and there are more fields added to the build record.
+      operationId: getMachinesv2
+      responses:
+        200:
+          description: >
+            The list of Machines persisted on the repository and each one of them with a build record. Inside the record there is the information
+            to know if there is a job running or it is empty and in the case of a job running the timing information about it.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineListV2'
+
   /api/v1/inventory/machines:
     get:
       tags:
@@ -268,7 +278,7 @@ paths:
         the part count for the target **Part** job is increased in the number of instances built.
       operationId: getMachines
       responses:
-        202:
+        200:
           description: >
             The list of **Machines** persisted at the repository.
           content:
@@ -345,7 +355,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Machine'
 
-  ### P E N D I N G J O B S
+  ### J O B S
   /api/v1/production/jobs/pending:
     get:
       tags:
@@ -563,6 +573,122 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Machine'
+    MachineListV2:
+      type: object
+      required:
+        - count
+        - machines
+      properties:
+        count:
+          type: number
+          format: int32
+          description: >
+            The number of machines that follow on the response.
+          example:
+            2
+        machines:
+          type: array
+          items:
+            $ref: '#/components/schemas/MachineV2'
+    MachineV2:
+      type: object
+      description: >
+        The record that describes a **Machine** and their current status. If a machine is running a build job then there is some more information
+        persisted on the repository record and also reflected on the exported api.
+      required:
+        - id
+        - label
+        - model
+        - buildRecord
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >
+            The unique identifier for a single machine. Used for machine-job identification.
+          example:
+            009ab011-03ad-4e84-9a88-25708d1cfd64
+        label:
+          type: string
+          format: string
+          maxLength: 32
+          description: >
+            The user readable label to be assigned to a single Machine. Can be used instead of the unique identifier UUID.
+          example:
+            'Machine A'
+        model:
+          type: string
+          format: string
+          maxLength: 64
+          description: >
+            The model type of the 3D printer Machine.
+          example:
+            'Creality 3D Ender 3 Pro'
+        characteristics:
+          type: string
+          format: string
+          maxLength: 300
+          description: >
+            A free text with the list of the machine characteristics like special configurations, limits or sizes.
+          example:
+            'Max size set to 200mm. Has adaptor for flexible plastic filament.'
+        buildRecord:
+          $ref: '#/components/schemas/BuildRecord'
+    BuildRecord:
+      type: object
+      description: >
+        When the machine has a running job this record reflects the **Part** being built and the timing information about when the job was
+        submitted and the time left to completion of the job. Date references are kept local to the backs so there is no date format conversion on
+        the api interchange.
+      required:
+        - state
+      properties:
+        state:
+          type: string
+          enum:
+            - IDLE
+            - RUNNING
+          default: IDLE
+          description: >
+            This is a virtual api field that will reflect the state of the Machine so the front end will not have to relay on any logic to detect
+            idle or running machines.
+
+            * **IDLE** - The Machine has no job running.
+
+            * **RUNNING** - There is a Part being built. Once this job completes the Machine continues on this state until the next request where
+            the record is updated and the stocks updated.
+        part:
+          description: >
+            The part reference that is being built. If the Machine is IDLE then this field contains **null**.
+          allOf:
+            - $ref: '#/components/schemas/Part'
+        partCopies:
+          type: number
+          format: int32
+          minimum: 1
+          default: 1
+          description: >
+            The is the number of exact identical parts are being built at the same time on a single printer job.
+          example:
+            1
+        jobInstallmentDate:
+          type: string
+          format: date-time
+          description: >
+            The date and time when the job was stared on the machine. The Part information says the time it is expected that the machine will be
+            occupied by this job. If the current time is greater that this point it is expected that the job has finished.
+            If the machine is IDLE then this field contains **null**.
+          example:
+            2020-06-01T22:05:00Z
+        remainingTime:
+          type: number
+          format: int32
+          minimum: 0
+          description: >
+            Represents the number of minutes left between the **jobInstallmentDate** and the current date. If this number is 0 or negative then the
+            job is completed. Detecting this event will clear the Machine state to IDLE and update the stocks.
+          example:
+            18
 
     Coil:
       type: object

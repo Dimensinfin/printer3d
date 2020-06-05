@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_CHARACTERISTICS;

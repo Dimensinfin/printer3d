@@ -22,15 +22,15 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUp
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.client.domain.Machine;
-import org.dimensinfin.printer3d.client.domain.MachineList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
 @Service
 @Transactional
 public class MachineServiceV1 {
-	private final MachineRepository machineRepository;
-	private final PartRepository partRepository;
+	protected final MachineRepository machineRepository;
+	protected final PartRepository partRepository;
 
 	// - C O N S T R U C T O R S
 	@Autowired

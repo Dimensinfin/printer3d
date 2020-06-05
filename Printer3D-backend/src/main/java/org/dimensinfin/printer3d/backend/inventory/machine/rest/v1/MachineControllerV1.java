@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.client.domain.Machine;
-import org.dimensinfin.printer3d.client.domain.MachineList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
 @RestController

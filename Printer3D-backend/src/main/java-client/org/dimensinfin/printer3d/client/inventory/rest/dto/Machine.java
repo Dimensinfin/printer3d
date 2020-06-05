@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.client.domain;
+package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -8,18 +8,17 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.lang.Nullable;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
 public class Machine {
-	private UUID id;
-	private String label;
-	private String model;
-	private String characteristics;
-	private Part currentJobPart;
-	private int currentPartInstances = 1;
-	private LocalDateTime jobInstallmentDate;
+	protected UUID id;
+	protected String label;
+	protected String model;
+	protected String characteristics;
+	protected Part currentJobPart;
+	protected int currentPartInstances = 1;
+	protected LocalDateTime jobInstallmentDate;
 
 	// - G E T T E R S   &   S E T T E R S
 	public String getCharacteristics() {

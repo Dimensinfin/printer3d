@@ -18,8 +18,8 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEn
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.client.domain.Machine;
-import org.dimensinfin.printer3d.client.domain.MachineList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_CHARACTERISTICS;
