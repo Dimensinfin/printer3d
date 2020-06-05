@@ -98,8 +98,9 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             ./gradlew test
-      - store_test_results
-      - store_artifacts:
+      - store_test_results:
+          path: ~/project/Printer3D-backend/build/test-results
+      - store_artifacts:  
           path: ~/project/Printer3D-backend/build/libs
   test-frontend-job:
     docker:
@@ -123,7 +124,8 @@ jobs:
             npm run build:prod
             npm run test:prod
             npm run acceptance:cypress
-      - store_test_results
+      - store_test_results;
+          path: ~/project/Printer3D-frontend/cypress/cucumber-json
 
   stage-to-heroku:
     docker:
@@ -231,7 +233,6 @@ workflows:
           filters:
             branches:
               only:
-                - development
                 - test
       - test-frontend-job:
           requires:
