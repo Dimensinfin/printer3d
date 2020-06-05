@@ -241,6 +241,7 @@ workflows:
             branches:
               only:
                 - development
+                - test
 
       - stage-to-heroku:
           requires:
