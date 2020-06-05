@@ -85,6 +85,7 @@ public class BuildRecord {
 			}
 		}
 	}
+
 	public static final String SERIALIZED_NAME_STATE = "state";
 	public static final String SERIALIZED_NAME_PART = "part";
 	public static final String SERIALIZED_NAME_PART_COPIES = "partCopies";
@@ -100,6 +101,7 @@ public class BuildRecord {
 	private LocalDateTime jobInstallmentDate = null;
 
 	// - G E T T E R S   &   S E T T E R S
+
 	/**
 	 * The date and time when the job was stared on the machine. The Part information says the time it is expected that the machine will be occupied
 	 * by this job. If the current time is greater that this point it is expected that the job has finished. If the machine is IDLE then this field
@@ -162,8 +164,8 @@ public class BuildRecord {
 	public int getRemainingTime() {
 		if (null == this.jobInstallmentDate) return 0;
 		final long elapsed = this.getJobInstallmentDate().until( LocalDateTime.now(), ChronoUnit.MINUTES );
-		if (elapsed < 0) return 0;
-		else return (int) elapsed;
+		if ((this.part.getBuildTime() - elapsed) < 0) return 0;
+		else return this.part.getBuildTime() - (int) elapsed;
 	}
 
 	/**
