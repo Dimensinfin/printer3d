@@ -31,6 +31,7 @@ describe('CLASS PartToPartRecordConverter [Module: DOMAIN]', () => {
                 material: "PLA",
                 color: "NARANJA-T",
                 coste: "0.85 €",
+                tiempo: '30 min.',
                 precio: "3 €",
                 stockRequerido: 5,
                 stockDisponible: 0,

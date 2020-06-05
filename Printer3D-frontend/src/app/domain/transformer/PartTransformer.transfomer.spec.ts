@@ -17,7 +17,7 @@ describe('CLASS PartTransformer [Module: DOMAIN]', () => {
             const instanceAsAny = instance as any;
             expect(instance).toBeDefined();
             expect(instanceAsAny.columnDefinitions).toBeDefined()
-            expect(instanceAsAny.columnDefinitions.length).toBe(9);
+            expect(instanceAsAny.columnDefinitions.length).toBe(10);
             expect(instanceAsAny.rowData).toBeDefined()
             expect(instanceAsAny.rowData.length).toBe(0, 'Initial data should have 0 records.');
         });
@@ -29,7 +29,7 @@ describe('CLASS PartTransformer [Module: DOMAIN]', () => {
             const instance = new PartTransformer();
             expect(instance).toBeDefined();
             expect(instance.getDefinitions()).toBeDefined()
-            expect(instance.getDefinitions().length).toBe(9);
+            expect(instance.getDefinitions().length).toBe(10);
         });
         it('getRecords: get the list of column definitions.', () => {
             const instance = new PartTransformer();
