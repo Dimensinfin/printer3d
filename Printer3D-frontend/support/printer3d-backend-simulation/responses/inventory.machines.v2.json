@@ -1,0 +1,48 @@
+{
+    "machines": [{
+            "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
+            "label": "Ender 3 Pro - B",
+            "model": "Creality 3D Ender 3 Pro",
+            "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+            "buildRecord": {
+                "state": "IDLE",
+                "part": null,
+                "partCopies": 1,
+                "jobInstallmentDate": null,
+                "remainingTime": 0
+            },
+            "remainingTime": 0,
+            "running": false
+        },
+        {
+            "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
+            "label": "Ender 3 Pro - A",
+            "model": "Creality 3D Ender 3 Pro",
+            "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+            "buildRecord": {
+                "state": "RUNNING",
+                "part": {
+                    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                    "label": "Covid-19 Key",
+                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                    "material": "PLA",
+                    "colorCode": "BLANCO",
+                    "buildTime": 30,
+                    "cost": 0.85,
+                    "price": 4.0,
+                    "stockLevel": 3,
+                    "stockAvailable": 5,
+                    "imagePath": "https://ibb.co/3dGbsRh",
+                    "modelPath": "pieza3.sft",
+                    "active": true
+                },
+                "partCopies": 1,
+                "jobInstallmentDate": "2020-06-05T14:27:16.041973",
+                "remainingTime": 21
+            },
+            "remainingTime": 21,
+            "running": true
+        }
+    ],
+    "count": 2
+}

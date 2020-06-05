@@ -34,7 +34,7 @@ export class SupportHttpClientWrapperService {
         });
     }
     public wrapHttpGETCall(_request: string, _requestHeaders?: HttpHeaders): Observable<any> {
-        console.log("><[HttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
+        console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
         return Observable.create((observer) => {
             try {
                 let data = this.decodeRequestPath(_request);
@@ -43,14 +43,14 @@ export class SupportHttpClientWrapperService {
                 else
                     observer.next(data);
             } catch (error) {
-                console.log("><[HttpClientWrapperService.wrapHttpGETCall]> error: " + JSON.stringify(error));
+                console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> error: " + JSON.stringify(error));
                 observer.next('');
             }
             observer.complete();
         });
     }
     public wrapHttpPUTCall(_request: string, _requestHeaders?: HttpHeaders): Observable<any> {
-        console.log("><[HttpClientWrapperService.wrapHttpPUTCall]> request: " + _request);
+        console.log("><[SupportHttpClientWrapperService.wrapHttpPUTCall]> request: " + _request);
         return Observable.create((observer) => {
             try {
                 let data = this.decodeRequestPath(_request);
@@ -59,14 +59,14 @@ export class SupportHttpClientWrapperService {
                 else
                     observer.next(data);
             } catch (error) {
-                console.log("><[HttpClientWrapperService.wrapHttpPUTCall]> error: " + JSON.stringify(error));
+                console.log("><[SupportHttpClientWrapperService.wrapHttpPUTCall]> error: " + JSON.stringify(error));
                 observer.next('');
             }
             observer.complete();
         });
     }
     public wrapHttpPOSTCall(_request: string, body: any, _requestHeaders?: HttpHeaders): Observable<any> {
-        console.log("><[HttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
+        console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
         return Observable.create((observer) => {
             try {
                 let data = {
@@ -83,18 +83,19 @@ export class SupportHttpClientWrapperService {
                 else
                     observer.next(data);
             } catch (error) {
-                console.log("><[HttpClientWrapperService.wrapHttpGETCall]> error: " + JSON.stringify(error));
+                console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> error: " + JSON.stringify(error));
                 observer.next('');
             }
             observer.complete();
         });
     }
     private decodeRequestPath(request: string): any {
-        console.log("><[HttpClientWrapperService.decodeRequestPath]> request: " + request);
+        console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> request: " + request);
         let keyword = '-NOT-FOUND-';
         if (request.includes('/inventory/parts')) keyword = 'INVENTORY-PARTS';
         if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
-        if (request.includes('/inventory/machines')) keyword = 'INVENTORY-MACHINES';
+        if (request.includes('/api/v1/inventory/machines')) keyword = 'INVENTORY-MACHINES';
+        if (request.includes('/api/v2/inventory/machines')) keyword = 'INVENTORY-MACHINESV2';
         if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
         if (request.includes('/inventory/machines/')) {
             if (request.includes('startbuild')) keyword = 'MACHINE-STARTBUILD';
@@ -102,10 +103,10 @@ export class SupportHttpClientWrapperService {
         }
         if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
 
-        console.log("><[HttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
+        console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
             case 'INVENTORY-PARTS':
-                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryPartsResponseJson = {
                     "jsonClass": "PartList",
                     "count": 2,
@@ -143,7 +144,7 @@ export class SupportHttpClientWrapperService {
                 };
                 return inventoryPartsResponseJson;
             case 'INVENTORY-COILS':
-                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryCoilsResponseJson = {
                     "count": 3,
                     "coils": [{
@@ -168,7 +169,7 @@ export class SupportHttpClientWrapperService {
                 }
                 return inventoryCoilsResponseJson;
             case 'INVENTORY-MACHINES':
-                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryMachinesResponseJson = {
                     "count": 2,
                     "machines": [{
@@ -202,8 +203,45 @@ export class SupportHttpClientWrapperService {
                     ]
                 }
                 return inventoryMachinesResponseJson;
+            case 'INVENTORY-MACHINESV2':
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                const inventoryMachinesv2ResponseJson = {
+                    "machines": [{
+                        "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
+                        "label": "Ender 3 Pro - B",
+                        "model": "Creality 3D Ender 3 Pro",
+                        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+                        "buildRecord": {
+                            "state": "IDLE",
+                            "part": null,
+                            "partCopies": 1,
+                            "jobInstallmentDate": null,
+                            "remainingTime": 0
+                        },
+                        "remainingTime": 0,
+                        "running": false
+                    },
+                    {
+                        "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
+                        "label": "Ender 3 Pro - A",
+                        "model": "Creality 3D Ender 3 Pro",
+                        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+                        "buildRecord": {
+                            "state": "IDLE",
+                            "part": null,
+                            "partCopies": 1,
+                            "jobInstallmentDate": null,
+                            "remainingTime": 0
+                        },
+                        "remainingTime": 0,
+                        "running": false
+                    }
+                    ],
+                    "count": 2
+                }
+                return inventoryMachinesv2ResponseJson;
             case 'PRODUCTION-JOBS':
-                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryJobsResponseJson = [{
                     "id": "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56",
                     "part": {
@@ -315,7 +353,7 @@ export class SupportHttpClientWrapperService {
                 ]
                 return inventoryJobsResponseJson;
             case 'MACHINE-STARTBUILD':
-                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const machineStartBuildResponseJson = {
                     "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
                     "label": "Machine B",
@@ -341,7 +379,7 @@ export class SupportHttpClientWrapperService {
                 };
                 return machineStartBuildResponseJson;
             case 'MACHINE-CANCELBUILD':
-                console.log("><[HttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const machineCancelBuildResponseJson = {
                     "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
                     "label": "Machine B",

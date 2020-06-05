@@ -4,5 +4,11 @@
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
+    },
+    "/api/v2/*": {
+        "target": "http://localhost:5101",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }

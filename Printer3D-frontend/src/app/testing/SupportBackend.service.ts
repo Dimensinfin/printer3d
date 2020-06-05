@@ -6,8 +6,15 @@ import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
+import { SupportHttpClientWrapperService } from './SupportHttpClientWrapperService.service';
 
 export class SupportBackendService {
+    private httpWrapper: SupportHttpClientWrapperService;
+
+    constructor() {
+        this.httpWrapper = new SupportHttpClientWrapperService();
+    }
+
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
         return Observable.create((observer) => {
             observer.next(transformer.transform({
@@ -171,6 +178,17 @@ export class SupportBackendService {
             observer.complete();
         });
     }
+    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<CoilListResponse> {
+        console.log('>[SupportBackendService.apiInventoryGetMachines_v2]')
+        return Observable.create((observer) => {
+            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
+        });
+    }
+
     public apiMachinesStartBuild_v1(transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
             observer.next(transformer.transform({

@@ -25,12 +25,14 @@ import { Job } from '@domain/Job.domain';
 })
 export class BackendService {
     private APIV1: string;
+    private APIV2: string;
 
     constructor(
         private isolationService: IsolationService,
         protected httpService: HttpClientWrapperService) {
-        this.APIV1 = environment.backendPath + environment.apiVersion1;
-    }
+            this.APIV1 = environment.backendPath + environment.apiVersion1;
+            this.APIV2 = environment.backendPath + environment.apiVersion2;
+        }
     // - B A C K E N D - A P I
     // - I N V E N T O R Y
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
@@ -91,7 +93,20 @@ export class BackendService {
     public apiInventoryGetMachines_v1(transformer: ResponseTransformer): Observable<MachineListResponse> {
         const request = this.APIV1 + '/inventory/machines';
         let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName);
+            .set('xapp-name', environment.appName)
+            .set('x-api-version', 'api v1');
+            return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as MachineListResponse;
+                return response;
+            }));
+    }
+    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<MachineListResponse> {
+        const request = this.APIV2 + '/inventory/machines';
+        let headers = new HttpHeaders()
+        .set('xapp-name', environment.appName)
+        .set('x-api-version', 'api v2');
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);

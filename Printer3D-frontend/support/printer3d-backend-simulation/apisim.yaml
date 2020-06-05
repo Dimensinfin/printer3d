@@ -138,7 +138,25 @@ response:
     
 ---
 
-simlet: inventory-machines
+simlet: inventory-machines-start-build
+
+request:
+  - method: PUT
+  - where: uriPathPattern
+    matchesIgnoreCase: "/api/v1/inventory/machines/{machineId}/startbuild/{partId}"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.machines.startbuild.json"
+
+---
+
+simlet: inventory-machines-v1
 
 request:
   - method: GET
@@ -155,12 +173,11 @@ response:
 
 ---
 
-simlet: inventory-machines-start-build
+simlet: inventory-machines-v2
 
 request:
-  - method: PUT
-  - where: uriPathPattern
-    matchesIgnoreCase: "/api/v1/inventory/machines/{machineId}/startbuild/{partId}"
+  - method: GET
+  - uriPathPattern: "/api/v2/inventory/machines"
 
 response:
   from: template
@@ -169,4 +186,4 @@ response:
     - "Content-Type: application/json"
   body:
     type: text
-    file: "${sim.path}/responses/inventory.machines.startbuild.json"
+    file: "${sim.path}/responses/inventory.machines.v2.json"

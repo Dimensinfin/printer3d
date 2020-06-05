@@ -18,7 +18,8 @@ export const environment = {
     appVersion: require('../../package.json').version + ' dev',
     appSignature: "S000.01.001-20200518",
     platform: 'Angular 9.1.7 - RxJs 6.5.4 - Rollbar 2.16.1',
-    apiVersion1: '/api/v1'
+    apiVersion1: '/api/v1',
+    apiVersion2: '/api/v2'
 };
 
 /*

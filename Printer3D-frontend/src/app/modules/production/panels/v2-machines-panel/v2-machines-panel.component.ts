@@ -41,7 +41,8 @@ export class V2MachinesPanelComponent implements OnInit, OnDestroy, Refreshable 
     }
     private getMachines(): void {
         this.backendConnections.push(
-            this.backendService.apiInventoryGetMachines_v1(new ResponseTransformer().setDescription('Do HTTP transformation to "MachineListResponse".')
+            this.backendService.apiInventoryGetMachines_v2(
+                new ResponseTransformer().setDescription('Do HTTP transformation to "MachineListResponse".')
                 .setTransformation((entrydata: any): MachineListResponse => {
                     return new MachineListResponse(entrydata);
                 }))

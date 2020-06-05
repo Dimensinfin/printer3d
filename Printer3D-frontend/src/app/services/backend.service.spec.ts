@@ -118,12 +118,25 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.coils.length).toBe(3, 'Number of Coils do not match.');
                 });
         });
-        it('apiInventoryMachines_v1.default: get the list of Coils', async () => {
+        it('apiInventoryMachines_v1.default: get the list of Machines', async () => {
             service.apiInventoryGetMachines_v1(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
                 .setTransformation((entrydata: any): MachineListResponse => {
                     return new MachineListResponse(entrydata);
                 }))
                 .subscribe((response: MachineListResponse) => {
+                    expect(response).toBeDefined();
+                    expect(response.count).toBe(2, 'Number of Machines do not match.');
+                    expect(response.machines.length).toBe(2, 'Number of Machines do not match.');
+                });
+        });
+        it('apiInventoryMachines_v2.default: get the list of Machines', async () => {
+            console.log('apiInventoryMachines_v2.default: get the list of Coils')
+            await service.apiInventoryGetMachines_v2(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
+                .setTransformation((entrydata: any): MachineListResponse => {
+                    return new MachineListResponse(entrydata);
+                }))
+                .subscribe((response: MachineListResponse) => {
+                    console.log(response)
                     expect(response).toBeDefined();
                     expect(response.count).toBe(2, 'Number of Machines do not match.');
                     expect(response.machines.length).toBe(2, 'Number of Machines do not match.');
@@ -144,7 +157,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         });
         it('apiMachinesCancelBuild_v1.default: cancel the build job on a Machine', async () => {
             const machineId: string = "-MACHINE-ID-"
-            service.apiMachinesCancelBuild_v1(machineId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
+            await service.apiMachinesCancelBuild_v1(machineId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
                 .setTransformation((entrydata: any): Machine => {
                     return new Machine(entrydata);
                 }))
