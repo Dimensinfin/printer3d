@@ -1,5 +1,5 @@
 server:
-  port: 9500
+  port: ${PORT}
   version: 0.4.2
 info:
   tags:
@@ -20,13 +20,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: false
+        format_sql: true
   datasource:
-    url: "jdbc:postgresql://postgres-dev:5432/postgres"
+    url: ${JDBC_DATABASE_URL}
     driver-class-name: org.postgresql.Driver
     platform: postgres
-    username: inno-user
-    password: inno-password
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml

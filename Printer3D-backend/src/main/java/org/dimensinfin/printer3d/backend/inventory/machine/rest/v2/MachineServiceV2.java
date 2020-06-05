@@ -1,14 +1,17 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.v2;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
@@ -44,15 +47,17 @@ public class MachineServiceV2 {
 							.withPart( this.getBuildPart( machineEntity ) )
 							.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
 							.build();
-					final Machinev2 machineModel = new Machinev2();
-					machineModel.setId( machineEntity.getId() );
-					machineModel.setLabel( machineEntity.getLabel() );
-					machineModel.setModel( machineEntity.getModel() );
-					machineModel.setCharacteristics( machineEntity.getCharacteristics() );
-					machineModel.setBuildRecord( buildRecord );
+					final Machinev2 machineModel = new Machinev2.Builder()
+							.withId( machineEntity.getId() )
+							.withLabel( machineEntity.getLabel() )
+							.withModel( machineEntity.getModel() )
+							.withCharacteristics( machineEntity.getCharacteristics() )
+							.withBuildRecord( buildRecord )
+							.build();
 
 					if (machineModel.isRunning()) { // The Machine has a part but it can have finished the build time
 						final int remainingTime = machineModel.getRemainingTime();
+						LogWrapper.info( "RemainingTime: {0}", remainingTime + "" );
 						if (0 == remainingTime) { // Job completed
 							machineModel.getBuildRecord().getPart().incrementStock( machineEntity.getCurrentPartInstances() );
 							this.partRepository.save( machineModel.getBuildRecord().getPart() );
@@ -64,7 +69,27 @@ public class MachineServiceV2 {
 					return machineModel;
 				} )
 				.collect( Collectors.toList() );
-		return new MachineListv2().machines( machines );
+		LogWrapper.info( machines.toString() );
+		return new MachineListv2.Builder().withMachines( machines ).build();
+	}
+
+	public MachineListv2 getMachinesTest() {
+		final BuildRecord buildRecord = new BuildRecord.Builder()
+				.withPart( null )
+				.withJobInstallmentDate( null )
+				.withPartCopies( 2 )
+				.build();
+		final Machinev2 machine = new Machinev2.Builder()
+				.withId( UUID.randomUUID() )
+				.withLabel( "TEST_MACHINE_LABEL" )
+				.withModel( "-MODEL-" )
+				.withCharacteristics( "-CHARACTERISTICS-" )
+				.withBuildRecord( buildRecord )
+				.build();
+		final List<Machinev2> machines = new ArrayList<>();
+		machines.add( machine );
+		return new MachineListv2.Builder()
+				.withMachines( machines ).build();
 	}
 
 	private Part getBuildPart( final MachineEntity machineEntity ) {

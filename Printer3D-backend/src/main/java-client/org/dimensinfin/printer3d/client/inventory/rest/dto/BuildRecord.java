@@ -3,6 +3,8 @@ package org.dimensinfin.printer3d.client.inventory.rest.dto;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
@@ -52,6 +54,16 @@ public class BuildRecord {
 		this.partCopies = 1;
 	}
 
+	@Override
+	public String toString() {
+		return new ToStringBuilder( this )
+				.append( "state", this.state )
+				.append( "part", this.part )
+				.append( "partCopies", this.partCopies )
+				.append( "jobInstallmentDate", (null == this.jobInstallmentDate) ? "null" : this.jobInstallmentDate.toString() )
+				.toString();
+	}
+
 	// - B U I L D E R
 	public static class Builder {
 		private final BuildRecord onConstruction;
@@ -62,6 +74,10 @@ public class BuildRecord {
 		}
 
 		public BuildRecord build() {
+			// Validate the installment date and the part. Both should be null.
+			if (null == this.onConstruction.part)
+				this.onConstruction.jobInstallmentDate = null;
+			if (null == this.onConstruction.state) this.onConstruction.state = BuildState.IDLE;
 			return this.onConstruction;
 		}
 

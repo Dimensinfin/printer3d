@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
 
 @RestController
@@ -29,7 +30,16 @@ public class MachineControllerV2 {
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<MachineListv2> getMachines() {
-		return new ResponseEntity<>( this.machineServiceV2.getMachines(), HttpStatus.OK );
+		final MachineListv2 data = this.machineServiceV2.getMachines();
+		LogWrapper.info( data.toString() );
+		return new ResponseEntity<>(data, HttpStatus.OK );
 	}
-
+	@GetMapping(path = "/inventory/machines/test",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<MachineListv2> getMachinesTest() {
+		final MachineListv2 data = this.machineServiceV2.getMachinesTest();
+		LogWrapper.info( data.toString() );
+		return new ResponseEntity<>(data, HttpStatus.OK );
+	}
 }

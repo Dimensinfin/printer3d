@@ -124,7 +124,7 @@ jobs:
             npm run build:prod
             npm run test:prod
             npm run acceptance:cypress
-      - store_test_results;
+      - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
 
   stage-to-heroku:
