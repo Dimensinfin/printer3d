@@ -39,10 +39,11 @@ public class MachineServiceV2 {
 				.stream()
 				.map( machineEntity -> {
 					// Convert the entity to the api domain
-					final BuildRecord buildRecord = new BuildRecord();
-					buildRecord.setPartCopies( machineEntity.getCurrentPartInstances() );
-					buildRecord.setPart( this.getBuildPart( machineEntity ) );
-					buildRecord.setJobInstallmentDate( machineEntity.getJobInstallmentDate() );
+					final BuildRecord buildRecord = new BuildRecord.Builder()
+							.withPartCopies( machineEntity.getCurrentPartInstances() )
+							.withPart( this.getBuildPart( machineEntity ) )
+							.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
+							.build();
 					final Machinev2 machineModel = new Machinev2();
 					machineModel.setId( machineEntity.getId() );
 					machineModel.setLabel( machineEntity.getLabel() );
@@ -59,18 +60,7 @@ public class MachineServiceV2 {
 							buildRecord.clearJob();
 							this.machineRepository.save( machineEntity );
 						}
-						//						final Duration jobDuration = Duration.ofMinutes( machine.getCurrentJobPart().getBuildTime() );
-						//						final LocalDateTime jobCompletionTime = machineEntity.getJobInstallmentDate().plus( jobDuration );
-						//						if (LocalDateTime.now().isAfter( jobCompletionTime ))
-
 					}
-					// Check for completed jobs.
-					//					if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
-					//						final Optional<Part> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
-					//						if (jobPartOpt.isEmpty())
-					//							throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
-					//						// Replace the MachineEntitu by an expanded api Machine
-					//						final Machine machine = new MachineEntityToMachineConverter( jobPartOpt.get() ).convert( machineEntity );
 					return machineModel;
 				} )
 				.collect( Collectors.toList() );

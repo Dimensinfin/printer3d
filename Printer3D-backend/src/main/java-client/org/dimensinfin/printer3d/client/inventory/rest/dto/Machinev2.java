@@ -121,7 +121,7 @@ public class Machinev2 {
 	}
 
 	public boolean isRunning() {
-		return (this.buildRecord.getState() == BuildRecord.StateEnum.RUNNING);
+		return this.buildRecord.isRunning();
 	}
 
 	public Machinev2 buildRecord( BuildRecord buildRecord ) {
