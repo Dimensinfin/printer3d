@@ -28,7 +28,7 @@ jobs:
       # - image: circleci/openjdk:11-jdk
       - image: apimastery/apisimulator
     steps:
-      - checkout
+      # - checkout
       - run:
           name: PROJECT - Check node version
           working_directory: Printer3D-frontend
