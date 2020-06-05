@@ -28,12 +28,13 @@ jobs:
       - image: circleci/openjdk:11-jdk
       - image: apimastery/apisimulator
     steps:
+      - checkout
       - run:
           name: PROJECT - Check node version
           working_directory: Printer3D-frontend
           command: |
             java -version
-            bin/apisimulator start /printer3d-backend-simulation -p 6090
+            apisimulator start printer3d-backend-simulation -p 6090
 
   compile-frontend-job:
     docker:
