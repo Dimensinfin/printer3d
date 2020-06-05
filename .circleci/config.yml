@@ -97,7 +97,6 @@ jobs:
           name: BACKEND - Unit Testing application
           working_directory: Printer3D-backend
           command: |
-            rm -rf src/test/java/org/dimensinfin/printer3d/backend/RunAcceptance*.java
             ./gradlew test
       - store_artifacts:
           path: ~/project/Printer3D-backend/build/libs
