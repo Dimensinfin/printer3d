@@ -8,7 +8,7 @@
         "docker:stop": "docker-compose -f ./support/docker/docker-compose.yml down ",
         "start:dev1": "ng serve --progress --ssl --ssl-key ~/.ssl/localhost.key --ssl-cert ~/.ssl/localhost.crt --proxy-config proxy.conf.json --base-href /app --public-host 3dprintermanager.frontend.dev --port 5100",
         "start:dev": "ng serve --progress --proxy-config proxy.conf.json --port 5100",
-        "build:dev": "ng build --base-href /app",
+        "build:dev": "ng build ",
         "build:prod": "ng build --aot --prod --configuration production",
         "test:dev": "ng test --code-coverage --watch --progress ",
         "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI",

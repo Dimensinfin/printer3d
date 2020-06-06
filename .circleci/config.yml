@@ -171,7 +171,7 @@ jobs:
             node -v
             sed -i '/bahmutov.add/d' package.json
             npm install
-            npm run build:prod
+            npm run build:dev
       - run:
           name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend
@@ -246,7 +246,7 @@ workflows:
       - stage-to-heroku:
           requires:
             - test-backend-job
-            - test-frontend-job
+            - 
           filters:
             branches:
               only:
