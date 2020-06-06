@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
-import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR_CODE;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 
 @RestController
 @CrossOrigin
@@ -29,8 +29,8 @@ public class MachineControllerV2 {
 	@GetMapping(path = "/inventory/machines",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<MachineListv2> getMachines() {
-		final MachineListv2 data = this.machineServiceV2.getMachines();
+	public ResponseEntity<MachineListV2> getMachines() {
+		final MachineListV2 data = this.machineServiceV2.getMachines();
 		LogWrapper.info( data.toString() );
 		return new ResponseEntity<>(data, HttpStatus.OK );
 	}

@@ -20,14 +20,14 @@ import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineF
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.CoilFeignClientV1;
-import org.dimensinfin.printer3d.client.domain.CoilList;
-import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
-import org.dimensinfin.printer3d.client.domain.PartList;
-import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
-import org.dimensinfin.printer3d.client.production.domain.Job;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 import io.cucumber.java.en.When;
 
@@ -147,7 +147,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setMachineListResponseEntity( machinesResponseEntity );
 				return machinesResponseEntity;
 			case GET_MACHINES_V2:
-				final ResponseEntity<MachineListv2> machinesv2ResponseEntity = this.machineFeignClientV2
+				final ResponseEntity<MachineListV2> machinesv2ResponseEntity = this.machineFeignClientV2
 						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( machinesv2ResponseEntity );
 				this.printer3DWorld.setMachineListv2ResponseEntity( machinesv2ResponseEntity );

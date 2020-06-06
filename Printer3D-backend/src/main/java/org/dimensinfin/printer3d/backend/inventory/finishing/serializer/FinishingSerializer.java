@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.boot.jackson.JsonComponent;
 
-import org.dimensinfin.printer3d.client.domain.Finishing;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Finishing;
 
 @JsonComponent
 public class FinishingSerializer extends JsonSerializer<Finishing> {

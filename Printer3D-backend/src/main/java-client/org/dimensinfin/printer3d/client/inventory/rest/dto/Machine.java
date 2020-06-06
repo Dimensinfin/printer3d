@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.client.inventory.rest.dto;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
+import javax.annotation.concurrent.Immutable;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -11,14 +12,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
+@Immutable
 public class Machine {
-	protected UUID id;
-	protected String label;
-	protected String model;
-	protected String characteristics;
-	protected Part currentJobPart;
-	protected int currentPartInstances = 1;
-	protected LocalDateTime jobInstallmentDate;
+	private UUID id;
+	private String label;
+	private String model;
+	private String characteristics;
+	private Part currentJobPart;
+	private int currentPartInstances = 1;
+	private LocalDateTime jobInstallmentDate;
 
 	// - G E T T E R S   &   S E T T E R S
 	public String getCharacteristics() {
@@ -53,6 +55,7 @@ public class Machine {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
+				.append( this.id )
 				.append( this.label )
 				.append( this.model )
 				.append( this.characteristics )
@@ -69,6 +72,7 @@ public class Machine {
 		final Machine machine = (Machine) o;
 		return new EqualsBuilder()
 				.append( this.currentPartInstances, machine.currentPartInstances )
+				.append( this.id, machine.id )
 				.append( this.label, machine.label )
 				.append( this.model, machine.model )
 				.append( this.characteristics, machine.characteristics )

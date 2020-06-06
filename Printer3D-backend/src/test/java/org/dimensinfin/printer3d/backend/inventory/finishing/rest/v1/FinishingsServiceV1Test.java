@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
 public class FinishingsServiceV1Test {
 

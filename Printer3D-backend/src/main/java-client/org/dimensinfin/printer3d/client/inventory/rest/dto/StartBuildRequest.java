@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.client.domain;
+package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.Objects;
 import java.util.UUID;

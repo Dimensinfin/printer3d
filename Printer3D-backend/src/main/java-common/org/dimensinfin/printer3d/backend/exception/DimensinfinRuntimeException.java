@@ -21,11 +21,11 @@ public class DimensinfinRuntimeException extends RuntimeException {
 		super( ErrorInfo.RUNTIME_INTERNAL_ERROR.getErrorMessage( " " ).trim() );
 	}
 
-	public DimensinfinRuntimeException( @NotNull final String errorMessage ) {
+	public DimensinfinRuntimeException( final @NotNull String errorMessage ) {
 		super( ErrorInfo.RUNTIME_INTERNAL_ERROR.getErrorMessage( errorMessage ) );
 	}
 
-	public DimensinfinRuntimeException( @NotNull final ErrorInfo errorInfo ) {
+	public DimensinfinRuntimeException( final @NotNull ErrorInfo errorInfo ) {
 		super( errorInfo.getErrorMessage() );
 		this.errorInfo = errorInfo;
 	}

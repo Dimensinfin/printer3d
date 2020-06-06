@@ -24,7 +24,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
-import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 
 @Service
 @Transactional

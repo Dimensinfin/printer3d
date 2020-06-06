@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
-import org.dimensinfin.printer3d.client.domain.StartBuildRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_ID;

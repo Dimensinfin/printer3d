@@ -15,10 +15,7 @@ public class BuildRecordSerializer extends JsonSerializer<BuildRecord> {
 	public void serialize( final BuildRecord value, final JsonGenerator jgen, final SerializerProvider serializers ) throws IOException {
 		jgen.writeStartObject();
 
-		if (null != value.getState())
-			jgen.writeStringField( "state", value.getState().toString() );
-		else
-			jgen.writeStringField( "state", "ERROR" );
+		jgen.writeStringField( "state", value.getState().toString() );
 		jgen.writeNumberField( "partCopies", value.getPartCopies() );
 		jgen.writeObjectField( "part", value.getPart() );
 		if (null != value.getJobInstallmentDate())

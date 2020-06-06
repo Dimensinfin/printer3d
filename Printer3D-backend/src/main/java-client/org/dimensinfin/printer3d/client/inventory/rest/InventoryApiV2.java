@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.client.inventory.rest;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -17,5 +17,5 @@ public interface InventoryApiV2 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v2/inventory/machines")
-	Call<MachineListv2> getMachines();
+	Call<MachineListV2> getMachines();
 }

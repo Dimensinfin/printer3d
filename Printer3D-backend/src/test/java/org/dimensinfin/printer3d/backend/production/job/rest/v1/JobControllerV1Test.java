@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.production.domain.Job;
+import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 public class JobControllerV1Test {
 

@@ -7,12 +7,12 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.boot.jackson.JsonComponent;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machinev2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 
 @JsonComponent
-public class MachineV2Serializer extends JsonSerializer<Machinev2> {
+public class MachineV2Serializer extends JsonSerializer<MachineV2> {
 	@Override
-	public void serialize( final Machinev2 value, final JsonGenerator jgen, final SerializerProvider serializers ) throws IOException {
+	public void serialize( final MachineV2 value, final JsonGenerator jgen, final SerializerProvider serializers ) throws IOException {
 		jgen.writeStartObject();
 
 		if (null != value.getId()) jgen.writeStringField( "id", value.getId().toString() );

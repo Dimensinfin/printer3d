@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.client.production.domain.Job;
+import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 public class JobServiceV1Test {
 

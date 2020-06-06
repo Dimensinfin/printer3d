@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.domain.Finishing;
-import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Finishing;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
 public class FinishingsControllerV1Test {
 

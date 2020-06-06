@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.client.production.domain.Job;
+import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 @RestController
 @CrossOrigin

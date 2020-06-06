@@ -2,7 +2,7 @@ package org.dimensinfin.printer3d.client.production.rest;
 
 import java.util.List;
 
-import org.dimensinfin.printer3d.client.production.domain.Job;
+import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 
 public class CoilListTest {
 	@Test

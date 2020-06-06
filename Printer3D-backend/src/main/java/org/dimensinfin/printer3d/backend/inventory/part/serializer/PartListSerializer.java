@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.boot.jackson.JsonComponent;
 
-import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 @JsonComponent
 public class PartListSerializer extends JsonSerializer<PartList> {

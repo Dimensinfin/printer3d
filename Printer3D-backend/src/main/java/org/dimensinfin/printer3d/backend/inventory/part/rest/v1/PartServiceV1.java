@@ -13,7 +13,7 @@ import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
-import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 @Service
 public class PartServiceV1 {

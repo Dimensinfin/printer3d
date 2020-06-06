@@ -11,6 +11,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_CHARACTERISTICS;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_CURRENTPARTINSTANCES;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_ID;
@@ -45,9 +46,10 @@ public class MachineTest {
 		Assertions.assertNotNull( machine );
 	}
 
-	//	@Test
+		@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass( Machine.class )
+				.suppress( Warning.STRICT_INHERITANCE)
 				.verify();
 	}
 

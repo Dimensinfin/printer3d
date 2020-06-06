@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.domain.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 
 @RestController
 @CrossOrigin

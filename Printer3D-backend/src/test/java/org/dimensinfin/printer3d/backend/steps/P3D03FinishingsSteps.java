@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
-import org.dimensinfin.printer3d.client.domain.Finishing;
-import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Finishing;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
 import io.cucumber.java.en.When;
 

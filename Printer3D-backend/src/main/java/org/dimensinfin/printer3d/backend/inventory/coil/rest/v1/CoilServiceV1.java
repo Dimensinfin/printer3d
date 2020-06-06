@@ -13,7 +13,7 @@ import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
-import org.dimensinfin.printer3d.client.domain.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 
 @Service
 public class CoilServiceV1 {

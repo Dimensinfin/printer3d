@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.dimensinfin.printer3d.client.domain.Finishing;
-import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Finishing;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.FinishingConstants.TEST_FINISHING_MATERIAL;
 

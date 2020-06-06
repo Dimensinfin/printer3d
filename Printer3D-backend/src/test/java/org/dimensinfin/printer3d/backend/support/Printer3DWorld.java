@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
-import org.dimensinfin.printer3d.client.domain.CoilList;
-import org.dimensinfin.printer3d.client.domain.FinishingsResponse;
-import org.dimensinfin.printer3d.client.domain.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListv2;
-import org.dimensinfin.printer3d.client.production.domain.Job;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;
@@ -25,13 +25,13 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<CoilList> coilListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 	private ResponseEntity<MachineList> machineListResponseEntity;
-	private ResponseEntity<MachineListv2> machineListv2ResponseEntity;
+	private ResponseEntity<MachineListV2> machineListv2ResponseEntity;
 
-	public ResponseEntity<MachineListv2> getMachineListv2ResponseEntity() {
+	public ResponseEntity<MachineListV2> getMachineListv2ResponseEntity() {
 		return this.machineListv2ResponseEntity;
 	}
 
-	public Printer3DWorld setMachineListv2ResponseEntity( final ResponseEntity<MachineListv2> machineListv2ResponseEntity ) {
+	public Printer3DWorld setMachineListv2ResponseEntity( final ResponseEntity<MachineListV2> machineListv2ResponseEntity ) {
 		this.machineListv2ResponseEntity = machineListv2ResponseEntity;
 		return this;
 	}
