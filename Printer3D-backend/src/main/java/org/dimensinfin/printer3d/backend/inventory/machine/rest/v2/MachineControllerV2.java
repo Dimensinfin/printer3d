@@ -34,12 +34,4 @@ public class MachineControllerV2 {
 		LogWrapper.info( data.toString() );
 		return new ResponseEntity<>(data, HttpStatus.OK );
 	}
-	@GetMapping(path = "/inventory/machines/test",
-			consumes = "application/json",
-			produces = "application/json")
-	public ResponseEntity<MachineListv2> getMachinesTest() {
-		final MachineListv2 data = this.machineServiceV2.getMachinesTest();
-		LogWrapper.info( data.toString() );
-		return new ResponseEntity<>(data, HttpStatus.OK );
-	}
 }

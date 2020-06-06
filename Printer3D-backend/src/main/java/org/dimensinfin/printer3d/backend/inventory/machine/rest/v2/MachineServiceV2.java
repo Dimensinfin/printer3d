@@ -1,10 +1,8 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.v2;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,26 +70,6 @@ public class MachineServiceV2 {
 		LogWrapper.info( machines.toString() );
 		return new MachineListv2.Builder().withMachines( machines ).build();
 	}
-
-	public MachineListv2 getMachinesTest() {
-		final BuildRecord buildRecord = new BuildRecord.Builder()
-				.withPart( null )
-				.withJobInstallmentDate( null )
-				.withPartCopies( 2 )
-				.build();
-		final Machinev2 machine = new Machinev2.Builder()
-				.withId( UUID.randomUUID() )
-				.withLabel( "TEST_MACHINE_LABEL" )
-				.withModel( "-MODEL-" )
-				.withCharacteristics( "-CHARACTERISTICS-" )
-				.withBuildRecord( buildRecord )
-				.build();
-		final List<Machinev2> machines = new ArrayList<>();
-		machines.add( machine );
-		return new MachineListv2.Builder()
-				.withMachines( machines ).build();
-	}
-
 	private Part getBuildPart( final MachineEntity machineEntity ) {
 		// Check for completed jobs.
 		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed

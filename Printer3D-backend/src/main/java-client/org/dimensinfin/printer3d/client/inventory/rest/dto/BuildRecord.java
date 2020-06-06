@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
@@ -54,9 +55,10 @@ public class BuildRecord {
 		this.partCopies = 1;
 	}
 
+	// - C O R E
 	@Override
 	public String toString() {
-		return new ToStringBuilder( this )
+		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
 				.append( "state", this.state )
 				.append( "part", this.part )
 				.append( "partCopies", this.partCopies )
@@ -77,6 +79,7 @@ public class BuildRecord {
 			// Validate the installment date and the part. Both should be null.
 			if (null == this.onConstruction.part)
 				this.onConstruction.jobInstallmentDate = null;
+			else this.onConstruction.state = BuildState.RUNNING;
 			if (null == this.onConstruction.state) this.onConstruction.state = BuildState.IDLE;
 			return this.onConstruction;
 		}

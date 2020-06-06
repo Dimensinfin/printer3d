@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.boot.jackson.JsonComponent;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildState;
 
 @JsonComponent
 public class BuildRecordSerializer extends JsonSerializer<BuildRecord> {
@@ -19,7 +18,7 @@ public class BuildRecordSerializer extends JsonSerializer<BuildRecord> {
 		if (null != value.getState())
 			jgen.writeStringField( "state", value.getState().toString() );
 		else
-			jgen.writeStringField( "state", BuildState.IDLE.toString() );
+			jgen.writeStringField( "state", "ERROR" );
 		jgen.writeNumberField( "partCopies", value.getPartCopies() );
 		jgen.writeObjectField( "part", value.getPart() );
 		if (null != value.getJobInstallmentDate())

@@ -53,4 +53,8 @@ public class TestDataConstants {
 		public static final Integer TEST_MACHINE_CURRENTPARTINSTANCES = 8;
 		public static final LocalDateTime TEST_MACHINE_JOBINSTALLMENTDATE = LocalDateTime.now();
 	}
+	public static class BuildRecordConstants{
+		public static final LocalDateTime TEST_BUILDRECORD_JOBINSTALLMENTDATE = LocalDateTime.now();
+		public static final Integer TEST_BUILDRECORD_PARTCOPIES = 8;
+	}
 }
