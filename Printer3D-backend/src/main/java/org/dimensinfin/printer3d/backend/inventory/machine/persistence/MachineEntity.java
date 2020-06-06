@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +37,7 @@ public class MachineEntity {
 	@Column(name = "current_part_instances")
 	private int currentPartInstances = 1;
 	@Column(name = "job_installment_date", columnDefinition = "TIMESTAMP")
-	private LocalDateTime jobInstallmentDate;
+	private OffsetDateTime jobInstallmentDate;
 
 	// - G E T T E R S   &   S E T T E R S
 	public String getCharacteristics() {
@@ -56,7 +56,7 @@ public class MachineEntity {
 		return this.id;
 	}
 
-	public LocalDateTime getJobInstallmentDate() {
+	public OffsetDateTime getJobInstallmentDate() {
 		return this.jobInstallmentDate;
 	}
 
@@ -78,7 +78,7 @@ public class MachineEntity {
 		return this;
 	}
 
-	public MachineEntity setJobInstallmentDate( final LocalDateTime jobInstallmentDate ) {
+	public MachineEntity setJobInstallmentDate( final OffsetDateTime jobInstallmentDate ) {
 		this.jobInstallmentDate = jobInstallmentDate;
 		return this;
 	}

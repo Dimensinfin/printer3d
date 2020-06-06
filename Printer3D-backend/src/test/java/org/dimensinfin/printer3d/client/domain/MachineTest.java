@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.client.domain;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
@@ -40,7 +40,7 @@ public class MachineTest {
 				.withModel( TEST_MACHINE_MODEL )
 				.withCharacteristics( TEST_MACHINE_CHARACTERISTICS )
 				.withPart( part )
-				.withInstallmentDate( LocalDateTime.now() )
+				.withInstallmentDate( OffsetDateTime.now() )
 				.withInstances( TEST_MACHINE_CURRENTPARTINSTANCES )
 				.build();
 		Assertions.assertNotNull( machine );
@@ -120,7 +120,7 @@ public class MachineTest {
 				.withModel( TEST_MACHINE_MODEL )
 				.withCharacteristics( TEST_MACHINE_CHARACTERISTICS )
 				.withPart( part )
-				.withInstallmentDate( LocalDateTime.parse( "2020-06-04T13:27:04.062792" ) )
+				.withInstallmentDate( OffsetDateTime.parse( "2020-06-04T13:27:04.062792" ) )
 				.withInstances( TEST_MACHINE_CURRENTPARTINSTANCES )
 				.build();
 		// Test

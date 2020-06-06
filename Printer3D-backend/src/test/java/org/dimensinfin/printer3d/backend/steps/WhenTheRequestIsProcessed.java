@@ -10,11 +10,11 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
+import org.dimensinfin.printer3d.backend.support.core.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV2;
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
@@ -22,11 +22,11 @@ import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignCli
 import org.dimensinfin.printer3d.backend.support.roll.rest.v1.CoilFeignClientV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 import io.cucumber.java.en.When;
@@ -184,7 +184,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 			final ResponseEntity response = this.processRequest( requestType );
 			this.printer3DWorld.setHttpStatus( response.getStatusCode() );
 		} catch (final RuntimeException runtime) {
-			LogWrapper.error( runtime );
+			LogWrapperLocal.error( runtime );
 		}
 	}
 }

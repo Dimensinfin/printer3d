@@ -1,7 +1,7 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.v1;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,8 +53,8 @@ public class MachineServiceV1 {
 						// Replace the MachineEntitu by an expanded api Machine
 						final Machine machine = new MachineEntityToMachineConverter( jobPartOpt.get() ).convert( machineEntity );
 						final Duration jobDuration = Duration.ofMinutes( machine.getCurrentJobPart().getBuildTime() );
-						final LocalDateTime jobCompletionTime = machineEntity.getJobInstallmentDate().plus( jobDuration );
-						if (LocalDateTime.now().isAfter( jobCompletionTime )) { // Job completed
+						final OffsetDateTime jobCompletionTime = machineEntity.getJobInstallmentDate().plus( jobDuration );
+						if (OffsetDateTime.now().isAfter( jobCompletionTime )) { // Job completed
 							machineEntity.clearJob();
 							this.machineRepository.save( machineEntity );
 							machine.getCurrentJobPart().incrementStock( machineEntity.getCurrentPartInstances() );

@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.support.inventory.machine;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -35,9 +35,9 @@ public class CucumberTableToSetupRequestConverter extends CucumberTableConverter
 
 	protected String dynamicDateConversion( final String reference ) {
 		if (reference.equalsIgnoreCase( "<today>" ))
-			return LocalDateTime.now().format( DateTimeFormatter.ISO_LOCAL_DATE_TIME );
+			return OffsetDateTime.now().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
 		if (reference.equalsIgnoreCase( "<yesterday>" ))
-			return LocalDateTime.now().minus( Period.ofDays( 1 ) ).format( DateTimeFormatter.ISO_LOCAL_DATE_TIME );
+			return OffsetDateTime.now().minus( Period.ofDays( 1 ) ).format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
 		return reference;
 	}
 }

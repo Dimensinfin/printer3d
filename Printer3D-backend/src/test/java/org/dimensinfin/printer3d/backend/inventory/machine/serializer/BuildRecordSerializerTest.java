@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.serializer;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -73,7 +73,7 @@ public class BuildRecordSerializerTest {
 				.build();
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( LocalDateTime.parse( "2020-06-05T12:49:42.059973" ) )
+				.withJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T12:49:42.059973" ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		// Test

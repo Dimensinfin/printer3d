@@ -1,7 +1,7 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.v1;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -166,7 +166,7 @@ public class MachineServiceV1Test {
 		Mockito.when( machineEntity.getCharacteristics() ).thenReturn( TEST_MACHINE_CHARACTERISTICS );
 		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( TEST_MACHINE_CURRENTJOBPARTID );
 		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( TEST_MACHINE_CURRENTPARTINSTANCES );
-		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( LocalDateTime.now().minus( Duration.ofMinutes( 45 ) ) );
+		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( OffsetDateTime.now().minus( Duration.ofMinutes( 45 ) ) );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		Mockito.when( part.getBuildTime() ).thenReturn( 30 );
 		Mockito.when( part.getId() ).thenReturn( TEST_PART_ID );
@@ -244,7 +244,7 @@ public class MachineServiceV1Test {
 		Mockito.when( machineEntity.getCharacteristics() ).thenReturn( TEST_MACHINE_CHARACTERISTICS );
 		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( TEST_MACHINE_CURRENTJOBPARTID );
 		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( TEST_MACHINE_CURRENTPARTINSTANCES );
-		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( LocalDateTime.now() );
+		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( OffsetDateTime.now() );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		Mockito.when( part.getBuildTime() ).thenReturn( 30 );
 		Mockito.when( part.getId() ).thenReturn( TEST_PART_ID );

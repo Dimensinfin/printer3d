@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.client.inventory.rest;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
@@ -64,8 +64,8 @@ public class SetupRequest {
 			return this;
 		}
 
-		private LocalDateTime convertToDate( final String source ) {
-			return LocalDateTime.parse( source, DateTimeFormatter.ISO_LOCAL_DATE_TIME );
+		private OffsetDateTime convertToDate( final String source ) {
+			return OffsetDateTime.parse( source, DateTimeFormatter.ISO_OFFSET_DATE_TIME );
 		}
 	}
 }

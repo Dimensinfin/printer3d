@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.support;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -51,10 +51,10 @@ public class TestDataConstants {
 		public static final String TEST_MACHINE_CHARACTERISTICS = "-TEST_MACHINE_CHARACTERISTICS-";
 		public static final UUID TEST_MACHINE_CURRENTJOBPARTID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
 		public static final Integer TEST_MACHINE_CURRENTPARTINSTANCES = 8;
-		public static final LocalDateTime TEST_MACHINE_JOBINSTALLMENTDATE = LocalDateTime.now();
+		public static final OffsetDateTime TEST_MACHINE_JOBINSTALLMENTDATE = OffsetDateTime.now();
 	}
 	public static class BuildRecordConstants{
-		public static final LocalDateTime TEST_BUILDRECORD_JOBINSTALLMENTDATE = LocalDateTime.now();
+		public static final OffsetDateTime TEST_BUILDRECORD_JOBINSTALLMENTDATE = OffsetDateTime.now();
 		public static final Integer TEST_BUILDRECORD_PARTCOPIES = 8;
 	}
 }

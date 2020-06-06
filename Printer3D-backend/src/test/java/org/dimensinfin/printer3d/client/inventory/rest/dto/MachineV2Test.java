@@ -1,7 +1,7 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
@@ -125,7 +125,7 @@ public class MachineV2Test {
 		final Part part = Mockito.mock( Part.class );
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( LocalDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
+				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
@@ -167,7 +167,7 @@ public class MachineV2Test {
 		// Given
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( null )
-				.withJobInstallmentDate( LocalDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
+				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
@@ -187,7 +187,7 @@ public class MachineV2Test {
 		final Part part = Mockito.mock( Part.class );
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( LocalDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
+				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
@@ -221,7 +221,7 @@ public class MachineV2Test {
 				.build();
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( LocalDateTime.parse( "2020-06-05T12:49:42.059973" ) )
+				.withJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T12:49:42.059973" ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()

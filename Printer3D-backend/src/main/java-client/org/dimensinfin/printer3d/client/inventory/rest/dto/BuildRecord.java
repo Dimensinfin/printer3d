@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,13 +13,13 @@ public class BuildRecord {
 	private BuildState state = BuildState.IDLE;
 	private Part part;
 	private int partCopies = 1;
-	private LocalDateTime jobInstallmentDate;
+	private OffsetDateTime jobInstallmentDate;
 
 	// - C O N S T R U C T O R S
 	private BuildRecord() {}
 
 	// - G E T T E R S   &   S E T T E R S
-	public LocalDateTime getJobInstallmentDate() {
+	public OffsetDateTime getJobInstallmentDate() {
 		return this.jobInstallmentDate;
 	}
 
@@ -35,7 +35,7 @@ public class BuildRecord {
 		LogWrapper.info( this.toString() );
 		if (null == this.jobInstallmentDate) return 0;
 		else {
-			final long remainingTime = this.part.getBuildTime() - this.getJobInstallmentDate().until( LocalDateTime.now(), ChronoUnit.MINUTES );
+			final long remainingTime = this.part.getBuildTime() - this.getJobInstallmentDate().until( OffsetDateTime.now(), ChronoUnit.MINUTES );
 			return (remainingTime < 0) ? 0 : (int) remainingTime;
 		}
 	}
@@ -84,7 +84,7 @@ public class BuildRecord {
 			return this.onConstruction;
 		}
 
-		public BuildRecord.Builder withJobInstallmentDate( final LocalDateTime installmentDate ) {
+		public BuildRecord.Builder withJobInstallmentDate( final OffsetDateTime installmentDate ) {
 			this.onConstruction.jobInstallmentDate = installmentDate;
 			return this;
 		}

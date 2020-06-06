@@ -1,7 +1,7 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.v2;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,7 +73,7 @@ public class MachineServiceV2Test {
 		final MachineEntity machineEntityIdle = Mockito.mock( MachineEntity.class );
 		final MachineEntity machineEntityRunning = Mockito.mock( MachineEntity.class );
 		machineEntityRunning.setCurrentJobPartId( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
-		machineEntityRunning.setJobInstallmentDate( LocalDateTime.parse( "2020-06-05T12:49:42.059973" ) );
+		machineEntityRunning.setJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T12:49:42.059973" ) );
 		machineEntityRunning.setCurrentPartInstances( 3 );
 		final List<MachineEntity> machineEntityList = new ArrayList<>();
 		machineEntityList.add( machineEntityIdle );
@@ -88,7 +88,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityIdle.getModel() ).thenReturn( TEST_MACHINE_MODEL );
 		Mockito.when( machineEntityRunning.getModel() ).thenReturn( TEST_MACHINE_MODEL );
 		Mockito.when( machineEntityRunning.getCurrentJobPartId() ).thenReturn( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
-		Mockito.when( machineEntityRunning.getJobInstallmentDate() ).thenReturn( LocalDateTime.now().minus( Duration.ofMinutes( 4 ) ) );
+		Mockito.when( machineEntityRunning.getJobInstallmentDate() ).thenReturn( OffsetDateTime.now().minus( Duration.ofMinutes( 4 ) ) );
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		// Test
 		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository );
@@ -118,7 +118,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityRunning.getLabel() ).thenReturn( TEST_MACHINE_LABEL );
 		Mockito.when( machineEntityRunning.getModel() ).thenReturn( TEST_MACHINE_MODEL );
 		Mockito.when( machineEntityRunning.getCurrentJobPartId() ).thenReturn( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
-		Mockito.when( machineEntityRunning.getJobInstallmentDate() ).thenReturn( LocalDateTime.now().minus( Duration.ofMinutes( 4 ) ) );
+		Mockito.when( machineEntityRunning.getJobInstallmentDate() ).thenReturn( OffsetDateTime.now().minus( Duration.ofMinutes( 4 ) ) );
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		// Exceptions
 		Assertions.assertThrows( InvalidRequestException.class, () -> {
@@ -148,7 +148,7 @@ public class MachineServiceV2Test {
 		final MachineEntity machineEntityIdle = Mockito.mock( MachineEntity.class );
 		final MachineEntity machineEntityRunning = Mockito.mock( MachineEntity.class );
 		machineEntityRunning.setCurrentJobPartId( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
-		machineEntityRunning.setJobInstallmentDate( LocalDateTime.parse( "2020-06-05T12:49:42.059973" ) );
+		machineEntityRunning.setJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T12:49:42.059973" ) );
 		machineEntityRunning.setCurrentPartInstances( 3 );
 		final List<MachineEntity> machineEntityList = new ArrayList<>();
 		machineEntityList.add( machineEntityIdle );
@@ -164,7 +164,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityRunning.getModel() ).thenReturn( TEST_MACHINE_MODEL );
 		Mockito.when( machineEntityRunning.getCurrentJobPartId() ).thenReturn( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
 		Mockito.when( machineEntityRunning.getJobInstallmentDate() )
-				.thenReturn( LocalDateTime.now().minus( Duration.ofMinutes( TEST_PART_BUILD_TIME + 2 ) ) );
+				.thenReturn( OffsetDateTime.now().minus( Duration.ofMinutes( TEST_PART_BUILD_TIME + 2 ) ) );
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		// Test
 		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository );
