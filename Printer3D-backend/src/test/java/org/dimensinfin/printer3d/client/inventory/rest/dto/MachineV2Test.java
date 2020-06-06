@@ -221,7 +221,7 @@ public class MachineV2Test {
 				.build();
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T12:49:42.059973" ) )
+				.withJobInstallmentDate( OffsetDateTime.parse( "2020-06-06T21:54:00.226181+02:00" ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
@@ -232,7 +232,7 @@ public class MachineV2Test {
 				.withBuildRecord( buildRecord )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"27c021cc-1b58-49db-870f-98d291041952\",\"label\":\"-TEST_MACHINE_LABEL-\",\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"buildRecord\":\"{\\\"state\\\":\\\"RUNNING\\\",\\\"part\\\":{\\\"id\\\":\\\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\\\",\\\"label\\\":\\\"-TEST_PART_LABEL-\\\",\\\"description\\\":\\\"-TEST_PART_DESCRIPTION-\\\",\\\"material\\\":\\\"PLA\\\",\\\"colorCode\\\":\\\"VERDE-T\\\",\\\"buildTime\\\":60,\\\"cost\\\":0.76,\\\"price\\\":2.0,\\\"stockLevel\\\":4,\\\"stockAvailable\\\":4,\\\"imagePath\\\":\\\"https:\\\\\\/\\\\\\/ibb.co\\\\\\/3dGbsRh\\\",\\\"modelPath\\\":\\\"pieza3.STL\\\",\\\"active\\\":false},\\\"partCopies\\\":8,\\\"jobInstallmentDate\\\":\\\"2020-06-05T12:49:42.059973\\\"}\"}";
+		final String expected = "{\"id\":\"27c021cc-1b58-49db-870f-98d291041952\",\"label\":\"-TEST_MACHINE_LABEL-\",\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"buildRecord\":\"{\\\"state\\\":\\\"RUNNING\\\",\\\"part\\\":{\\\"id\\\":\\\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\\\",\\\"label\\\":\\\"-TEST_PART_LABEL-\\\",\\\"description\\\":\\\"-TEST_PART_DESCRIPTION-\\\",\\\"material\\\":\\\"PLA\\\",\\\"colorCode\\\":\\\"VERDE-T\\\",\\\"buildTime\\\":60,\\\"cost\\\":0.76,\\\"price\\\":2.0,\\\"stockLevel\\\":4,\\\"stockAvailable\\\":4,\\\"imagePath\\\":\\\"https:\\\\\\/\\\\\\/ibb.co\\\\\\/3dGbsRh\\\",\\\"modelPath\\\":\\\"pieza3.STL\\\",\\\"active\\\":false},\\\"partCopies\\\":8,\\\"jobInstallmentDate\\\":\\\"2020-06-06T21:54:00.226181+02:00\\\"}\"}";
 		final String obtained = machineV2.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

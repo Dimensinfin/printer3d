@@ -73,7 +73,7 @@ public class MachineServiceV2Test {
 		final MachineEntity machineEntityIdle = Mockito.mock( MachineEntity.class );
 		final MachineEntity machineEntityRunning = Mockito.mock( MachineEntity.class );
 		machineEntityRunning.setCurrentJobPartId( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
-		machineEntityRunning.setJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T12:49:42.059973" ) );
+		machineEntityRunning.setJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T21:54:00.226181+02:00" ) );
 		machineEntityRunning.setCurrentPartInstances( 3 );
 		final List<MachineEntity> machineEntityList = new ArrayList<>();
 		machineEntityList.add( machineEntityIdle );
@@ -148,7 +148,7 @@ public class MachineServiceV2Test {
 		final MachineEntity machineEntityIdle = Mockito.mock( MachineEntity.class );
 		final MachineEntity machineEntityRunning = Mockito.mock( MachineEntity.class );
 		machineEntityRunning.setCurrentJobPartId( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
-		machineEntityRunning.setJobInstallmentDate( OffsetDateTime.parse( "2020-06-05T12:49:42.059973" ) );
+		machineEntityRunning.setJobInstallmentDate( OffsetDateTime.parse( "2020-06-06T21:54:00.226181+02:00" ) );
 		machineEntityRunning.setCurrentPartInstances( 3 );
 		final List<MachineEntity> machineEntityList = new ArrayList<>();
 		machineEntityList.add( machineEntityIdle );

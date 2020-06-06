@@ -41,7 +41,7 @@ public class TestDataConstants {
 	public static class SetupRequest {
 		public static final String TEST_SETUPREQUEST_MACHINE_LABEL = "-TEST_MACHINE_LABEL-";
 		public static final UUID TEST_SETUPREQUEST_PART_ID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
-		public static final String TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE = "2020-06-03T13:31:20.929896";
+		public static final String TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE = "2020-06-06T21:54:00.226181+02:00";
 		public static final Integer TEST_SETUPREQUEST_PART_INSTANCES_COUNT = 2;
 	}
 	public static class MachineConstants{
