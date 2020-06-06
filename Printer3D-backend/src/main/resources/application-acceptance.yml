@@ -1,6 +1,6 @@
 server:
   port: ${PORT}
-  version: 0.4.2
+  version: ${version}
 info:
   tags:
     environment: acceptance
