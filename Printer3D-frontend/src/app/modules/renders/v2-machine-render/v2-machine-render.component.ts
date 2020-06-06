@@ -74,7 +74,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.infoNotification(
-                            'Construccion de pieza [' + this.target.label + '] comensaca con éxito.',
+                            'Construccion de pieza [' + this.target.label + '] comenzada con éxito.',
                             '/INVENTARIO/MAQUINA/COMENZAR CONSTRUCCCION'
                         )
                         return new Machine(entrydata);

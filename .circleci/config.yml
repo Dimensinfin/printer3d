@@ -245,7 +245,8 @@ workflows:
 
       - stage-to-heroku:
           requires:
-            - start-job
+            - test-backend-job
+            - test-frontend-job
           filters:
             branches:
               only:
