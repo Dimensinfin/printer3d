@@ -7,4 +7,4 @@ ENV DB_USER=inno-user
 ENV DB_PASSWORD=inno-password
 RUN  ls -la
 EXPOSE 9500
-ENTRYPOINT ["java", "-Dspring.profiles.active=test", "-jar", "printer3d-backend-acceptance.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=acceptance", "-jar", "printer3d-backend-acceptance.jar"]

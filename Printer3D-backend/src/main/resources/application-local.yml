@@ -1,10 +1,10 @@
 server:
   port: ${PORT}
-  version: 0.4.2
+  version: 0.4.4
 info:
   tags:
     environment: production
-    version: 0.4.2
+    version: '@project.version@'
 
 spring:
   jpa:

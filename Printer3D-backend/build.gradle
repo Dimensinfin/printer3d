@@ -56,10 +56,6 @@ sourceSets {
 
 // - D E P E N D E N C I E S
 apply from: './dependencies.gradle'
-// - C O V E R A G E
-//    apply from: './jacoco.gradle'
-// - P U B L I S H I N G
-//apply from: './publishing.gradle'
 
 // - T A S K S
 task cleanResources(type: Delete, dependsOn: clean) {
@@ -82,35 +78,17 @@ task swaggerGenerate(type: GenerateSwaggerCode) {
     outputDir = file(swaggerGenerated)
     configFile = file('src/spec/openapi-config.json')
 }
-task swaggerClean(type: Delete, dependsOn: swaggerGenerate) {
-    group = 'openapi'
-    // Remove the client code because it is not used.
-//    delete "$swaggerGenerated/src/main/java/org/innovative/dimension/innodental/backend/client"
-//    delete "$swaggerGenerated/src/main/AndroidManifest.xml"
-}
-//task swaggerCopy(type: Copy, dependsOn: swaggerClean) {
-//    group = 'openapi'
-//    // Remove the client code because it is not used.
-//    from "$swaggerGenerated/src/main/java"
-//    into "src/main/java-client-generated"
-//    delete "src/main/java-client-generated/org/innovative/dimension/innodental/backend/api"
-//    delete "src/main/java-client-generated/org/innovative/dimension/innodental/backend/client"
-//}
 task swaggerBuild(type: Delete, dependsOn: swaggerGenerate) {
     delete "$swaggerGenerated/docs"
     delete "$swaggerGenerated/gradle"
     delete "$swaggerGenerated/src/test/"
     delete "$swaggerGenerated/src/main/AndroidManifest.xml"
-    // Remove the client code because it is not used.
-//    delete "$swaggerGenerated/src/main/java/org/innovative/dimension/innodental/backend/client"
     delete fileTree("$swaggerGenerated").include('*')
 }
-
 task swaggerDelete(type: Delete) {
     group = 'openapi'
     delete "$swaggerGenerated"
 }
-
 clean.doFirst {
     delete "$swaggerGenerated"
 }
@@ -129,4 +107,9 @@ dependencies {
 def profiles = 'default'
 bootRun {
     systemProperty "spring.profiles.active", "test"
+}
+
+// - S P R I N G B O O T
+springBoot {
+    buildInfo()
 }

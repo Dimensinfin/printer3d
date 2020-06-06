@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.inventory.machine.converter;
+package org.dimensinfin.printer3d.backend.support.inventory.machine;
 
 import java.time.LocalDateTime;
 import java.time.Period;

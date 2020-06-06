@@ -1,10 +1,10 @@
 server:
   port: ${PORT}
-  version: 0.4.2
+  version: '@project.version@'
 info:
   tags:
     environment: test
-    version: 0.4.2
+    version: '@project.version@'
 
 endpoints:
   health:

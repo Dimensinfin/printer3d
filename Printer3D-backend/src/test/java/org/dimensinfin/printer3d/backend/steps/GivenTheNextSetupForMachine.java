@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
-import org.dimensinfin.printer3d.backend.support.inventory.machine.converter.CucumberTableToSetupRequestConverter;
+import org.dimensinfin.printer3d.backend.support.inventory.machine.CucumberTableToSetupRequestConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientSupport;
 import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
 
