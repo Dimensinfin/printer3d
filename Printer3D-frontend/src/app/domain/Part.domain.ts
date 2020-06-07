@@ -7,7 +7,7 @@ export class Part {
     public label: string;
     public description: string;
     public material: string = 'PLA'
-    public colorCode: string;
+    public colorCode: string = 'INDEFINIDO';
     public cost: number;
     public price: number;
     public buildTime: number;

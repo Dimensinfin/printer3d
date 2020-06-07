@@ -52,13 +52,13 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         const pendingPart = this.isolationService.getFromStorage(platformconstants.PARTIAL_PART_KEY);
         console.log('-[NewPartDialogComponent.ngOnInit]> Previous Part: ' + pendingPart)
         if (null == pendingPart) {
+            console.log('-[NewPartDialogComponent.ngOnInit]> Initializing Part')
             this.part.id = uuidv4();
             this.part.material = 'PLA';
             this.part.colorCode = 'INDEFINIDO';
-            // this.materialSelectorChanged('PLA');
         }
         else {
-            console.log('-[NewPartDialogComponent.ngOnInit]> Previous Part: ' + pendingPart)
+            console.log('-[NewPartDialogComponent.ngOnInit]> Setting Previous Part: ' + pendingPart)
             this.part = JSON.parse(pendingPart);
         }
         this.readFinishings();
