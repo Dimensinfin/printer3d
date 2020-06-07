@@ -36,3 +36,9 @@ Then('there is a loading panel displaying {string}', function (downloadMessage: 
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
         .find('.index-loading').contains(downloadMessage)
 });
+
+Then('on the v1-part-render component there is a right arrow', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container').find('.arrow-box')
+        .find('.right-arrow').should('exist')
+});
