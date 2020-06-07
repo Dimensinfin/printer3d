@@ -10,6 +10,7 @@ import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 export class AppComponent {
     public appTitle: string = '3DPrinterManagement - UI';
     public appVersion: string = environment.appVersion;
+    public backendVersion: string = environment.backendVersion;
     public self: AppComponent;
     private routedComponent: Refreshable;
 

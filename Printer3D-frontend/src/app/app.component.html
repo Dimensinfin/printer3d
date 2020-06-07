@@ -1,4 +1,9 @@
-<div class="app-title">{{appTitle}}<span class="app-version">{{appVersion}}</span></div>
+<div class="row"><span class="app-title">{{appTitle}}</span>
+    <div>
+        <span class="app-version">{{appVersion}}</span><br>
+        <span class="backend-version">{{backendVersion}}</span>
+    </div>
+</div>
 <div class="page-path">/DASHBOARD</div>
 <hr>
 <v1-dock [routerDetector]="self"></v1-dock>

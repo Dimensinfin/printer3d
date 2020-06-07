@@ -1,29 +1,4 @@
 [{
-        "jsonClass": "Feature",
-        "label": "/Nueva Pieza",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "route": "NewPartDialog"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Inventario",
-        "enabled": true,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "/inventory/partlist"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Nuevo Rollo",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "route": "NewCoilDialog"
-    },
-    {
-        "jsonClass": "Feature",
         "label": "/Rollos",
         "enabled": true,
         "active": false,
@@ -31,11 +6,31 @@
         "route": "inventory/coillist"
     },
     {
-        "jsonClass": "Feature",
+        "label": "/Inventario",
+        "enabled": true,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "/inventory/partlist"
+    },
+    {
         "label": "/Trabajos Pnd.",
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
         "route": "production/pendingjobs"
+    },
+    {
+        "label": "/Nueva Pieza",
+        "enabled": true,
+        "active": false,
+        "interaction": "DIALOG",
+        "route": "NewPartDialog"
+    },
+    {
+        "label": "/Nuevo Rollo",
+        "enabled": true,
+        "active": false,
+        "interaction": "DIALOG",
+        "route": "NewCoilDialog"
     }
 ]

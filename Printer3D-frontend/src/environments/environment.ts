@@ -16,6 +16,7 @@ export const environment = {
     copyright: '© 2019,2020 Dimensinfin Industries',
     appName: require('../../package.json').name,
     appVersion: require('../../package.json').version + ' dev',
+    backendVersion: require('../../package.json').backversion + ' dev',
     appSignature: "S000.01.001-20200518",
     platform: 'Angular 9.1.7 - RxJs 6.5.4 - Rollbar 2.16.1',
     apiVersion1: '/api/v1',

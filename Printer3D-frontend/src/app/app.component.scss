@@ -10,7 +10,19 @@ $app-title-color: #FF0000; // Red 50%
 }
 
 .app-version {
-    font-size: 20px;
+    font-family: 'Electrolize', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: blue;
+    padding-left: 20px;
+    text-shadow: none;
+    text-transform: none;
+}
+
+.backend-version {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
     color: blue;
     padding-left: 20px;
     text-shadow: none;
