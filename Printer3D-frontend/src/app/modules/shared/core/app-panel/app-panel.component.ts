@@ -5,12 +5,14 @@ import { Input } from '@angular/core';
 import { EVariant } from '@app/domain/interfaces/EPack.enumerated';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
 import { IViewer } from '@domain/interfaces/core/IViewer.interface';
+import { BackendService } from '@app/services/backend.service';
+import { BackgroundEnabledComponent } from '../background-enabled/background-enabled.component';
 @Component({
     selector: 'app-panel',
     templateUrl: './app-panel.component.html',
     styleUrls: ['./app-panel.component.scss']
 })
-export class AppPanelComponent implements IViewer {
+export class AppPanelComponent extends BackgroundEnabledComponent implements IViewer {
     @Input() self: AppPanelComponent;
     @Input() variant: EVariant = EVariant.DEFAULT;
     protected downloading: boolean = true;
@@ -18,7 +20,8 @@ export class AppPanelComponent implements IViewer {
     private renderNodeList: ICollaboration[] = [];
     private target: ICollaboration;
 
-    constructor() {
+    constructor(protected backendService: BackendService) {
+        super(backendService)
         this.self = this;
     }
 

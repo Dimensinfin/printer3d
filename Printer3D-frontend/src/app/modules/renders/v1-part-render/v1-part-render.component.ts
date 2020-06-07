@@ -3,7 +3,7 @@ import { NodeContainerRenderComponent } from '../node-container-render/node-cont
 import { Part } from '@domain/Part.domain';
 
 @Component({
-    selector: 'v1-part',
+    selector: 'v1-part-render',
     templateUrl: './v1-part-render.component.html',
     styleUrls: ['./v1-part-render.component.scss']
 })

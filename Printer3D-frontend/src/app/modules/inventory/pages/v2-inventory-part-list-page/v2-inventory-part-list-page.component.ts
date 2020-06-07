@@ -18,13 +18,14 @@ import { Part } from '@domain/Part.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
+import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 
 @Component({
     selector: 'v2-inventory-part-list-page',
     templateUrl: './v2-inventory-part-list-page.component.html',
     styleUrls: ['./v2-inventory-part-list-page.component.scss']
 })
-export class V2InventoryPartListPageComponent extends BackgroundEnabledComponent implements OnInit {
+export class V2InventoryPartListPageComponent extends AppPanelComponent implements OnInit {
     private nodes: Part[] = []
     constructor(
         protected appStore: AppStoreService,
@@ -61,7 +62,7 @@ export class V2InventoryPartListPageComponent extends BackgroundEnabledComponent
                     console.log('-[V2InventoryPartListPageComponent.refresh]> nodes processed: ' + this.dataModelRoot.length);
                     setTimeout(() => {
                         this.completeDowload();    // Notify the completion of the download.
-                    }, 3000);
+                    }, 2000);
                 })
         )
     }
