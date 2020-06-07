@@ -28,6 +28,7 @@ import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 export class NewPartDialogComponent implements OnInit, OnDestroy {
     public part: Part = new Part();
     public finishings: Map<string, string[]> = new Map<string, string[]>();
+    public materials: string[] = [];
     public colors: string[] = [];
     private backendConnections: Subscription[] = [];
     private dataToPartTransformer: ResponseTransformer;
@@ -40,7 +41,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
             .setTransformation((entrydata: any): Part => {
                 const targetPart: Part = new Part(entrydata);
-                this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] almacenada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
+                this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] registrada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
                 return targetPart;
             });
     }
@@ -110,15 +111,17 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
                     return new FinishingResponse(entrydata);
                 }))
                 .subscribe((finishings: FinishingResponse) => {
-                    console.log('>[NewPartDialogComponent.readFinishings]> finishings: ' + JSON.stringify(finishings))
+                    console.log('-[NewPartDialogComponent.readFinishings]> finishings: ' + JSON.stringify(finishings))
                     const data = finishings.getMaterials()
                     for (let index = 0; index < data.length; index++) {
                         const element = data[index];
                         const colors = element['colors'];
                         colors.push('INDEFINIDO')
+                        console.log('-[NewPartDialogComponent.readFinishings]> Adding Finishing: ' + element['material'] + ':' + element['colors'])
                         this.finishings.set(element['material'], colors);
+                        this.materials.push(element['material']);
                     }
-                    console.log('>[NewPartDialogComponent.readFinishings]> finishings: ' + JSON.stringify(this.finishings))
+                    // console.log('-[NewPartDialogComponent.readFinishings]> finishings: ' + JSON.stringify(this.finishings))
                     this.materialSelectorChanged(data[0]['material'])
                 })
         );
