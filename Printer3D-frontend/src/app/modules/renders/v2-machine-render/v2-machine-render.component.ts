@@ -75,7 +75,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.infoNotification(
                             'Construccion de pieza [' + this.target.label + '] comenzada con éxito.',
-                            '/INVENTARIO/MAQUINA/COMENZAR CONSTRUCCCION'
+                            '/COMENZAR CONSTRUCCCION'
                         )
                         return new Machine(entrydata);
                     }))
@@ -93,7 +93,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.warningNotification(
                             'Construccion de pieza [' + this.target.label + '] cancelada.',
-                            '/INVENTARIO/MAQUINA/CANCELAR CONSTRUCCION'
+                            '/CANCELAR CONSTRUCCION'
                         )
                         return new Machine(entrydata);
                     }))

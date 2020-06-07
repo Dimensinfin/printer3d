@@ -87,27 +87,13 @@ export class SupportBackendService {
         });
     }
     public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
-        const result = Observable.create((observer) => {
-            observer.next(transformer.transform({
-                "materials": [{
-                    "material": "PLA",
-                    "colors": [
-                        "BLANCO",
-                        "ROJO"
-                    ]
-                },
-                {
-                    "material": "TPU",
-                    "colors": [
-                        "ROJO",
-                        "GRIS"
-                    ]
-                }
-                ]
-            }));
+        return Observable.create((observer) => {
+            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/finishings')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
         });
-        console.log('[apiGetFinishings_v1]' + JSON.stringify(result))
-        return result;
     }
     public apiInventoryCoils_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
         return Observable.create((observer) => {

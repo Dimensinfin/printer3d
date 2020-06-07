@@ -63,7 +63,7 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Then the New Part dialog opens and blocks the display
         And when all required fields have next values
             | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | BLANCO    | 35        | 0.8  | 3     | 3          | true   |
+            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
         And the button "SAVE" has the next properties
             | label         | state   |
             | Guardar Datos | enabled |
@@ -78,7 +78,7 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Then the New Part dialog opens and blocks the display
         And when all required fields have next values
             | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | BLANCO    | 35        | 0.8  | 3     | 3          | true   |
+            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
         When there is a click on the "GUARDAR" button
         Then the part is persisted at the backend
         And the dialog closes
@@ -90,7 +90,7 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Then the New Part dialog opens and blocks the display
         And when all required fields have next values
             | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | BLANCO    | 35        | 0.8  | 3     | 3          | true   |
+            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
         When there is a click on the "CLOSE" button
         Then the dialog closes
 
@@ -101,15 +101,15 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Then the New Part dialog opens and blocks the display
         And when all required fields have next values
             | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | BLANCO    | 35        | 0.8  | 3     | 3          | true   |
+            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
         And there is one instance of form with the next contents
-            | fieldName | value  | class      |
-            | colorCode | BLANCO | noteditble |
+            | fieldName | value | class      |
+            | colorCode | PLATA | noteditble |
         When there is a click on the "GUARDAR-NUEVO" button
         Then the part is persisted at the backend
         And when all required fields have next values
             | id                                   | material | colorCode |
-            | 43f2b077-3f25-4a04-ac81-67acb805a59b | PLA      | BLANCO    |
+            | 43f2b077-3f25-4a04-ac81-67acb805a59b | PLA      | PLATA     |
         And there is one instance of form with the next contents
             | fieldName | value | class      |
             | colorCode | GREEN | noteditble |
@@ -120,11 +120,11 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
         And there is a call to the backend to get the Finishings
-        And the Material dropdown has 2 elements
+        And the Material dropdown has 3 elements
         And form fields have the next values
             | material |
             | PLA      |
-        And the Color dropdown has 3 values
+        And the Color dropdown has 4 values
 
     @D3D04 @D3D04.12
     Scenario: [D3D04.12]-The New Part dialog has an specific set of fields.
@@ -132,6 +132,6 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
         And there is a dialog title saying "/INVENTARIO/NUEVA PIEZA"
-        And there is one field called "#part-id" with the label "ID"
+        # And there is one field called "#part-id" with the label "ID"
         And there is one field called "#part-label" with the label "Etiqueta"
         And there is one field called "#part-description" with the label "Descripción"

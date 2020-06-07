@@ -102,9 +102,36 @@ export class SupportHttpClientWrapperService {
             if (request.includes('cancelbuild')) keyword = 'MACHINE-CANCELBUILD';
         }
         if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
+        if (request.includes('/inventory/finishings')) keyword = 'INVENTORY-FINISHINGS';
 
         console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
+            case 'INVENTORY-FINISHINGS':
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                const inventoryFinishingsResponseJson = {
+                    "materials": [{
+                            "material": "PLA",
+                            "colors": [
+                                "GRIS",
+                                "PLATA",
+                                "ROJO"
+                            ]
+                        },
+                        {
+                            "material": "WER",
+                            "colors": [
+                                "ROJO"
+                            ]
+                        },
+                        {
+                            "material": "TPU",
+                            "colors": [
+                                "BLANCO"
+                            ]
+                        }
+                    ]
+                }
+                return inventoryFinishingsResponseJson;
             case 'INVENTORY-PARTS':
                 console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryPartsResponseJson = {

@@ -206,6 +206,7 @@ workflows:
                 - experimental
                 - development
                 - test
+                - hotfix
                 - test-frontend
                 - test-backend
                 - master
@@ -234,14 +235,15 @@ workflows:
             branches:
               only:
                 - test
+                - hotfix
       - test-frontend-job:
           requires:
             - start-job
           filters:
             branches:
               only:
-                - development
                 - test
+                - hotfix
 
       - stage-to-heroku:
           requires:
@@ -251,3 +253,4 @@ workflows:
             branches:
               only:
                 - test
+                - hotfix

@@ -76,22 +76,51 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
     });
 
     // - O N I N I T I A T I Z A T I O N   P H A S E
-    describe('On Initialization Phase', () => {
+    /**
+     * OnInit runs when the component is created. So use a clean component for this tests.
+     * Because the OnInit is run two time I should clean the object to the initial stage before running the second.
+     */
+    describe('On Initialization Phase', async () => {
         it('ngOnInit.notPreviousPart: validate initialization flow', async () => {
+            component.part = new Part();
+            component.finishings = new Map<string, string[]>();
+            component.materials = []
+            component.colors = []
             isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY);
-            console.log(JSON.stringify(component.part));
+            component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
+            console.log('[ngOnInit.notPreviousPart: validate initialization flow]> part: ' + JSON.stringify(component.part));
             expect(component.part.id).toBeDefined('Empty Part should have id.');
+            expect(component.part.material).toBe('PLA', 'The expected default material does not match.');
+            expect(component.part.colorCode).toBe('INDEFINIDO', 'The expected default color does not match.');
         });
-    });
-    describe('On Initialization Phase', () => {
         it('ngOnInit.previousPart: validate initialization flow', async () => {
+            component.part = new Part();
+            component.finishings = new Map<string, string[]>();
+            component.materials = []
+            component.colors = []
             const part: Part = new Part({ id: '-ID-' });
             isolationService.setToStorageObject(platformconstants.PARTIAL_PART_KEY, part);
             component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
             expect(component.part.id).toBeDefined('Empty Part should have id.');
         });
+        it('ngOnInit.validateFinisings: validate initialization flow with finishings', async () => {
+            component.part = new Part();
+            component.finishings = new Map<string, string[]>();
+            component.materials = []
+            component.colors = []
+            component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
+            const data = component.finishings;
+            console.log('[ngOnInit.validateFinisings]> finishings: ' + JSON.stringify(data))
+            expect(data).toBeDefined('Check that finishing is not empty');
+            expect(data.size).toBe(3, 'The number of materials does not match');
+            console.log('[ngOnInit.validateFinisings]> materials: ' + component.materials)
+            expect(component.materials.length).toBe(3, 'The number of materials does not match');
+            const obtained = component.finishings.get('PLA')
+            console.log('[ngOnInit.validateFinisings]> obtained: ' + obtained)
+            expect(obtained.length).toBe(4, 'The number of colors does not match');
+        });
     });
-    
+
     // - O N D E S T R U C T I O N   P H A S E
     describe('On Destroy Phase', () => {
         it('ngOnDestroy: validate destruction flow', async () => {
@@ -99,19 +128,6 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             expect(componentAsAny.backendConnections.length).toBe(1, 'The initial subscription list should be 1.');
             component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
             expect(componentAsAny.backendConnections.length).toBe(2, 'After initialization should be 2.');
-       });
-    });
-
-    describe('On Initialization Phase', () => {
-        it('ngOnInit.validateFinisings: validate initialization flow with finishings', async () => {
-            component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
-            const data = component.finishings;
-            console.log('[ngOnInit.validateFinisings]> finishings: ' + JSON.stringify(data))
-            expect(data).toBeDefined('Check that finishing is not empty');
-            expect(data.size).toBe(2, 'The number of materials does not match');
-            const obtained = component.finishings.get('PLA')
-            console.log('[ngOnInit.validateFinisings]> obtained: ' + obtained)
-            expect(obtained.length).toBe(3, 'The number of colors does not match');
         });
     });
 

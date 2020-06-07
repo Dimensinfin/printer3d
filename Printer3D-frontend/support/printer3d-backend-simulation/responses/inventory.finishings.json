@@ -2,15 +2,21 @@
     "materials": [{
             "material": "PLA",
             "colors": [
-                "BLANCO",
+                "GRIS",
+                "PLATA",
+                "ROJO"
+            ]
+        },
+        {
+            "material": "WER",
+            "colors": [
                 "ROJO"
             ]
         },
         {
             "material": "TPU",
             "colors": [
-                "ROJO",
-                "GRIS"
+                "BLANCO"
             ]
         }
     ]
