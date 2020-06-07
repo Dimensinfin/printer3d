@@ -16,7 +16,7 @@
 5110 - SpringBoot backend development server
 5130 - SpringBoot backend acceptance server
 
-5190 - Experimental GUI Fronte end
+5190 - Experimental GUI Frontend end
 
 # PROCEDURES
 ## Development Procedures Frontend

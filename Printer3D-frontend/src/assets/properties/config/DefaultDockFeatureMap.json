@@ -35,9 +35,9 @@
     },
     {
         "label": "/Invent 2",
-        "enabled": true,
+        "enabled": false,
         "active": false,
         "interaction": "PAGEROUTE",
-        "route": "/inventory/partlist2"
+        "route": "/inventory/partlist"
     }
 ]

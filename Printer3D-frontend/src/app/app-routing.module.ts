@@ -1,8 +1,17 @@
+// - CORE MODULES
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { InventoryPartListPageComponent } from './modules/inventory/pages/inventory-part-list-page/inventory-part-list-page.component';
+// - BROWSER & ANIMATIONS
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// - ROUTING
+import { Routes } from '@angular/router';
+import {  RouterModule } from '@angular/router';
+// - APPLICATION MODULES
 import { InventoryCoilListPageComponent } from './modules/inventory/pages/inventory-coil-list-page/inventory-coil-list-page.component';
 import { ProductionJobListPageComponent } from './modules/production/pages/production-job-list-page/production-job-list-page.component';
+import { V2InventoryPartListPageComponent } from './modules/inventory/pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
 
 const routes: Routes = [
     {
@@ -10,8 +19,9 @@ const routes: Routes = [
         redirectTo: '/',
         pathMatch: 'full'
     },
-    { path: 'inventory/partlist', component: InventoryPartListPageComponent },
-    { path: 'inventory/coillist', component: InventoryCoilListPageComponent },
+    { path: 'inventory', loadChildren: () => import('./modules/inventory/inventory.module').then(m => m.InventoryModule) },
+    // { path: 'inventory/partlist', component: V2InventoryPartListPageComponent },
+    // { path: 'inventory/coillist', component: InventoryCoilListPageComponent },
     { path: 'production/pendingjobs', component: ProductionJobListPageComponent }
 ];
 
