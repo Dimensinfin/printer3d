@@ -1,0 +1,66 @@
+.node-panel {
+    border: 1px solid white;
+}
+
+.body-box {
+    width: 100%;
+}
+
+.corner-bottom {
+    position: absolute;
+    width: 14px;
+    bottom: 0px;
+    right: -2px;
+    fill: orangered;
+}
+
+.corner-top {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 12px;
+}
+
+.active {
+    fill: green;
+}
+
+// - R I G H T   A R R O W   S E C T I O N
+
+/* Defines the cursor and aligment for the arrow container. Used mostly for the cursor. */
+
+.arrow-box {
+    cursor: pointer;
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+}
+
+
+/* Effect style to blur the arrow and remove artifacts. Applied ever to the arror image. */
+
+// .neocom-arrow {
+//     filter: blur(1px);
+// }
+
+/* Transformation to change the arrow when expansion is active. */
+
+.neocom-arrow {
+    transform: rotate(0deg);
+    transition: transform 0.5s linear;
+}
+
+.neocom-arrow.open {
+    transform: rotate(0deg);
+    transition: transform 0.5s linear;
+}
+
+.neocom-arrow-expanded {
+    transform: rotate(90deg);
+    transition: transform 0.5s linear;
+}
+
+.neocom-arrow-expanded.open {
+    transform: rotate(90deg);
+    transition: transform 0.5s linear;
+}

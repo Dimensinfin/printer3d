@@ -1,0 +1,31 @@
+<div *ngIf="node.getJsonClass() == 'Separator'">
+    <!-- <separator-render *ngIf="node.jsonClass == 'Separator'" [container]="container" [node]="node" [variant]="variant"></separator-render> -->
+    <hr>
+</div>
+<div *ngIf="node.getJsonClass() != 'Separator'" (mouseenter)="mouseEnter(node)" (click)="toggleExpanded()" style="position: relative; margin-bottom: 3px;">
+    <div class="row node-panel body-box">
+        <!-- BODY -->
+        <div class="row body-box">
+            <v1-part *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part>
+        </div>
+
+        <div class="row body-box">
+            <v1-part *ngIf="node.getJsonClass() == 'PartDetail'" [container]="container" [node]="node" [variant]="'-DETAIL-'"></v1-part>
+        </div>
+
+        <!-- RIGHT ARROW -->
+        <div *ngIf="node.isExpandable()" class="arrow-box">
+            <img class="neocom-arrow" [ngClass]="{'neocom-arrow-expanded': isExpanded()}" src="/assets/res-ui/drawable/arrowright.png">
+        </div>
+        <!-- SEPARATOR WHEN NO RIGHT ARROW -->
+        <div *ngIf="!node.isExpandable()" class="arrow-box">
+            &nbsp;
+        </div>
+    </div>
+    <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
+        <path d="M100,100 L0,100 L100,0 L100,100" />
+    </svg>
+    <svg class="corner-top" viewBox="0 0 100 100" *ngIf="false">
+        <path d="M0,0 L0,100 L100,0 L0,0" fill="orangered"/>
+    </svg>
+</div>

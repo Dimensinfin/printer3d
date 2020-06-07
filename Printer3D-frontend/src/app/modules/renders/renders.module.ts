@@ -12,6 +12,8 @@ import { V1MachineRenderComponent } from './v1-machine-render/v1-machine-render.
 import { V2MachineRenderComponent } from './v2-machine-render/v2-machine-render.component';
 import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 import { V1FeatureRenderComponent } from './v1-feature-render/v1-feature-render.component';
+import { NodeContainerRenderComponent } from './node-container-render/node-container-render.component';
+import { V1PartRenderComponent } from './v1-part-render/v1-part-render.component';
 
 @NgModule({
     imports: [
@@ -19,21 +21,24 @@ import { V1FeatureRenderComponent } from './v1-feature-render/v1-feature-render.
         FormsModule,
         AgGridModule.withComponents([]),
         NgDragDropModule.forRoot(),
-        // SharedModule
     ],
     declarations: [
         V1PendingJobRenderComponent,
         V1MachineRenderComponent,
         V2MachineRenderComponent,
         V1BuildCountdownTimerPanelComponent,
-        V1FeatureRenderComponent
+        V1FeatureRenderComponent,
+        NodeContainerRenderComponent,
+        V1PartRenderComponent
     ],
     exports: [
         V1PendingJobRenderComponent,
         V1MachineRenderComponent,
         V2MachineRenderComponent,
         V1BuildCountdownTimerPanelComponent,
-        V1FeatureRenderComponent
+        V1FeatureRenderComponent,
+        NodeContainerRenderComponent,
+        V1PartRenderComponent
     ]
 })
 export class RendersModule { }

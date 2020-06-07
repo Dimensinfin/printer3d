@@ -1,0 +1,14 @@
+<div *ngIf="!isDownloading(); else downloadSpinning" class="citamed-form-group">
+    <div *ngFor="let node of getNodes2Render()">
+        <node-container [container]="downloader" [node]="node" [variant]="variant"></node-container>
+    </div>
+</div>
+<!-- D O W N L O A D I N G   S P I N N E R -->
+<ng-template #downloadSpinning class="download-spinner">
+    <!-- <spinner-panel [title]="downloadtitle"></spinner-panel> -->
+    <div class="index-loading">
+        <span class="loading-box">
+            <span>{{downloadtitle}}</span>
+        </span>
+    </div>
+</ng-template>

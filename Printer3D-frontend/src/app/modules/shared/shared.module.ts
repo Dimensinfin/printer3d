@@ -7,6 +7,8 @@ import { V1DockComponent } from './panels/v1-dock/v1-dock.component';
 // import { V1FeatureRenderComponent } from '../renders/v1-feature-render/v1-feature-render.component';
 import { BackgroundEnabledComponent } from './core/background-enabled/background-enabled.component';
 import { RendersModule } from '../renders/renders.module';
+import { ViewerPanelComponent } from './core/viewer-panel/viewer-panel.component';
+import { AppPanelComponent } from './core/app-panel/app-panel.component';
 
 @NgModule({
     imports: [
@@ -18,12 +20,16 @@ import { RendersModule } from '../renders/renders.module';
         V1DockComponent,
         // V1FeatureRenderComponent,
         BackgroundEnabledComponent,
+        AppPanelComponent,
+        ViewerPanelComponent
     ],
     exports: [
         V1PagePathPanelComponent,
         V1DockComponent,
         // V1FeatureRenderComponent,
         BackgroundEnabledComponent,
+        AppPanelComponent,
+        ViewerPanelComponent
     ]
 })
 export class SharedModule { }
