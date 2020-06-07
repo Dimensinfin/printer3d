@@ -1,0 +1,71 @@
+<!-- P A R T - L I S T   V A R I A N T -->
+<div *ngIf="getVariant() === '-PART-LIST-'">
+    <div class="part-panel" (click)="onClick()">
+        <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
+            <tr>
+                <td>
+                    <div class="field">
+                        <span class="label">ETIQUETA</span><br>
+                        <span name="color" class="part-color">{{getLabel()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">DESCRIPCION</span><br>
+                        <span name="color" class="part-color">{{getDescription()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">TIEMPO</span><br>
+                        <span name="color" class="part-color">{{getBuildTime()}}</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div *ngIf="getVariant() === '-DETAIL-'">
+    <div class="part-panel" (click)="onClick()">
+        <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
+            <tr>
+                <td>
+                    <div class="field">
+                        <span class="label">MATERIAL</span><br>
+                        <span name="color" class="part-color">{{getMaterial()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">COLOR</span><br>
+                        <span name="color" class="part-color">{{getColor()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">STOCK</span><br>
+                        <span name="color" class="part-color">{{getStockRequired()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">DISPONIBLE</span><br>
+                        <span name="color" class="part-color">{{getStockAvailable()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">COSTE</span><br>
+                        <span name="color" class="part-color">{{getCost()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">PRECIO</span><br>
+                        <span name="color" class="part-color">{{getPrice()}}</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

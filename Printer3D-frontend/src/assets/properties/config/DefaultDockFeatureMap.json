@@ -32,5 +32,12 @@
         "active": false,
         "interaction": "DIALOG",
         "route": "NewCoilDialog"
+    },
+    {
+        "label": "/Invent 2",
+        "enabled": true,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "/inventory/partlist2"
     }
 ]

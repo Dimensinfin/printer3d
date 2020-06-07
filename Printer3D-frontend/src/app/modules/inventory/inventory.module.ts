@@ -10,6 +10,7 @@ import { InventoryPartListPageComponent } from './pages/inventory-part-list-page
 import { InventoryCoilListPageComponent } from './pages/inventory-coil-list-page/inventory-coil-list-page.component';
 import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialog.component';
 import { NewCoilDialogComponent } from './dialogs/new-coil-dialog/new-coil-dialog.component';
+import { V2InventoryPartListPageComponent } from './pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { NewCoilDialogComponent } from './dialogs/new-coil-dialog/new-coil-dialo
         InventoryPartListPageComponent, 
         InventoryCoilListPageComponent,
         NewPartDialogComponent,
-        NewCoilDialogComponent
+        NewCoilDialogComponent,
+        V2InventoryPartListPageComponent
     ],
     exports: [
         InventoryPartListPageComponent, 

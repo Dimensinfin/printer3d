@@ -3,10 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { ICollaboration } from './interfaces/core/ICollaboration.interface';
 import { AppStoreService } from '@app/services/app-store.service';
 import { NeoCom } from './NeoCom.domain';
-import { PartDetail } from './PartDetail.domain';
 // - DOMAIN
 
-export class Part extends NeoCom {
+export class PartDetail extends NeoCom {
     public id: string;
     public label: string;
     public description: string;
@@ -24,7 +23,7 @@ export class Part extends NeoCom {
     constructor(values: Object = {}) {
         super(values);
         Object.assign(this, values);
-        this.jsonClass = 'Part';
+        this.jsonClass = 'PartDetail';
     }
     public createNewId(): string {
         this.id = uuidv4();
@@ -40,17 +39,13 @@ export class Part extends NeoCom {
         return true;
     }
     public isActive(): boolean {
-        return this.active;
+        return false;
     }
     public collaborate2View(): ICollaboration[] {
         if (this.isExpanded()) {
-            const detail = new PartDetail(this) as any;
-            detail.jsonClass = 'PartDetail';
             const collaboration = [];
             collaboration.push(this);
-            collaboration.push(detail)
-            collaboration.push(detail)
-            collaboration.push(detail)
+            collaboration.push(this);
             return collaboration;
         }
         return [this];
