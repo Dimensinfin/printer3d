@@ -10,23 +10,25 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     Background: Start the application and move to the initial page
         Given the application Printer3DManager
 
-    @D3D07 @D3D07.01
-    Scenario: [D3D07.01]-Validate the structure of the Inventory Part List Page version 2.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the V2InventoryPartListPage is activated
-        And one instance of ViewerPanel
-        And one or more instances of NodeContainer
+    # @D3D07 @D3D07.01
+    # Scenario: [D3D07.01]-Validate the structure of the Inventory Part List Page version 2.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the V2InventoryPartListPage is activated
+    #     And one instance of ViewerPanel
+    #     And one or more instances of NodeContainer
 
     @D3D07 @D3D07.02
     Scenario: [D3D07.02]-Validate the contents of a Part render.
         Given there is a click on Feature "/INVENTARIO"
         When the V2InventoryPartListPage is activated
         Then the first NodeContainer contains a Part Render
-        And on the v1-part-render component there is a field named "label"
+        And on the v1-part-render component there is a field named "ETIQUETA" with class "part-label"
+        And on the v1-part-render component there is a field named "DESCRIPCION" with class "part-description"
+        And on the v1-part-render component there is a field named "TIEMPO" with class "part-buildTime"
 
-    @D3D07 @D3D07.03
-    Scenario: [D3D07.03]-When the user activates the Inventory Part List Page version 2 while the server download the data it shows a downloading panel.
-        Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        And one instance of ViewerPanel
-Then there is a loading panel displaying ""
+    # @D3D07 @D3D07.03
+    # Scenario: [D3D07.03]-When the user activates the Inventory Part List Page version 2 while the server download the data it shows a downloading panel.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     And one instance of ViewerPanel
+    #     Then there is a loading panel displaying "Descargando Lista de Piezas..."

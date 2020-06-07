@@ -22,7 +22,17 @@ Then('the first NodeContainer contains a Part Render', function () {
         .find('node-container').first().find('v1-part-render').should('exist');
 });
 
-Then('on the v1-part-render component there is a field named {string}', function (string) {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
-  });
+Then('on the v1-part-render component there is a field named {string} with class {string}', function (fieldName: string, fieldClass: string) {
+    const fieldClassIdentifier = '.' + fieldClass
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container').first().find('v1-part-render')
+        .find('.field').as('target-part-field')
+        .find(fieldClassIdentifier).should('exist')
+    cy.get('@target-part-field').find('.label').contains(fieldName)
+    cy.get('@target-part-field').find(fieldClassIdentifier).should('exist')
+});
+
+Then('there is a loading panel displaying {string}', function (downloadMessage: string) {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('.index-loading').contains(downloadMessage)
+});
