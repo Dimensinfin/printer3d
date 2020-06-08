@@ -82,3 +82,24 @@ Then('inactive Part show an orange corner', function () {
         .parents('node-container').as('target-node-inactive')
     cy.get('@target-node-inactive').find('.corner-bottom').should('not.have.class', 'active')
 });
+
+Then('any Part shows a editor button a the right', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container')
+        .find('v1-part')
+        .find('.edit-attributes').should('exist')
+});
+
+When('the target Part editor button is clicked', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container')
+        .find('v1-part').first().as('target-editable-part')
+        .find('.edit-attributes').click()
+});
+
+Then('the field {string} is editable', function (fieldName: string) {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container').find('v1-part').find('.field').as('target-part-field')
+        .find('.label').contains(fieldName)
+    cy.get('@target-part-field').find('input').should('exist')
+});

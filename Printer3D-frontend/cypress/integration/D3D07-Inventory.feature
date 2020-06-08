@@ -54,12 +54,36 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     And on the v1-part component there is a field named "PRECIO" with class "part-price"
     #     And on the v1-part component there is a field named "ACTIVA" with class "part-active"
 
-    @D3D07 @D3D07.06
-    Scenario: [D3D07.06]-Active Parts show a green corner while inactive show it orange.
+    # @D3D07 @D3D07.06
+    # Scenario: [D3D07.06]-Active Parts show a green corner while inactive show it orange.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     Then on the v1-part-container component there is a right arrow
+    #     When the right arrow is clicked
+    #     Then the container expands and there are one or more v1-part nodes
+    #     And active Parts show a green corner
+    #     And inactive Part show an orange corner
+
+    @D3D07 @D3D07.07
+    Scenario: [D3D07.07]-Active and inactive parts have a editor activation button at the left.
         Given there is a click on Feature "/INVENTARIO"
         When the V2InventoryPartListPage is activated
         Then on the v1-part-container component there is a right arrow
         When the right arrow is clicked
         Then the container expands and there are one or more v1-part nodes
-        And active Parts show a green corner
-        And inactive Part show an orange corner
+        And any Part shows a editor button a the right
+
+    @D3D07 @D3D07.08
+    Scenario: [D3D07.08]-When the Edit Attributes button is clicked the Part display changes and some fields are now editable.
+        Given there is a click on Feature "/INVENTARIO"
+        When the V2InventoryPartListPage is activated
+        Then on the v1-part-container component there is a right arrow
+        When the right arrow is clicked
+        Then the container expands and there are one or more v1-part nodes
+        And any Part shows a editor button a the right
+        When the target Part editor button is clicked
+        Then the field "STOCK" is editable
+        And the field "DISPONIBLE" is editable
+        And the field "COSTE" is editable
+        And the field "PRECIO" is editable
+        And the field "ACTIVA" is editable

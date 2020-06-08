@@ -1,5 +1,4 @@
 .part-panel {
-    // border: 1px solid white;
     width: 100%;
     font-family: 'Electrolize', sans-serif;
 }
@@ -24,4 +23,18 @@
 
 .label {
     font-size: 9px;
+}
+
+.edit-attributes {
+    width: 40px;
+}
+
+.part-stock-available {
+    min-width: 50px;
+    width: 60px;
+    // margin-left: 10px;
+}
+
+.field-height {
+    height: 20px;
 }

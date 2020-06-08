@@ -57,6 +57,17 @@ export class BackendService {
                 return response;
             }));
     }
+    public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
+        const request = this.APIV1 + '/inventory/parts/'+updatingPart.id;
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart), headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Part;
+                return response;
+            }));
+    }
     public apiNewCoil_v1(newCoil: Coil, transformer: ResponseTransformer): Observable<Coil> {
         const request = this.APIV1 + '/inventory/coils';
         let headers = new HttpHeaders()

@@ -52,6 +52,23 @@ response:
 
 ---
 
+simlet: inventory-updatepart
+
+request:
+  - method: PATCH
+  - uriPathPattern: "/api/v1/inventory/parts"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/newpart.json"
+
+---
+
 simlet: inventory-newcoil
 
 request:

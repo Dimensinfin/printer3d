@@ -32,9 +32,14 @@ export class HttpClientWrapperService {
         return this.http.get(request, { headers: newheaders });
     }
     public wrapHttpPUTCall(request: string, requestHeaders?: HttpHeaders): Observable<any> {
-        console.log("><[HttpClientWrapperService.wrapHttpGETCall]> request: " + request);
+        console.log("><[HttpClientWrapperService.wrapHttpPUTCall]> request: " + request);
         let newheaders = this.wrapHttpSecureHeaders(requestHeaders);
         return this.http.put(request, { headers: newheaders });
+    }
+    public wrapHttpPATCHCall(request: string, body: string, requestHeaders?: HttpHeaders): Observable<any> {
+        console.log("><[HttpClientWrapperService.wrapHttpPATCHCall]> request: " + request);
+        let newheaders = this.wrapHttpSecureHeaders(requestHeaders);
+        return this.http.patch(request, body, { headers: newheaders });
     }
     public wrapHttpPOSTCall(request: string, body: string, requestHeaders?: HttpHeaders): Observable<any> {
         console.log("><[HttpClientWrapperService.wrapHttpPOSTCall]> request: " + request);
