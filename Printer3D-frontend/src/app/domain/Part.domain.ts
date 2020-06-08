@@ -24,6 +24,7 @@ export class Part extends NeoCom {
         Object.assign(this, values);
         this.jsonClass = 'Part';
     }
+    
     public createNewId(): string {
         this.id = uuidv4();
         return this.id;
@@ -40,18 +41,4 @@ export class Part extends NeoCom {
     public isActive(): boolean {
         return this.active;
     }
-    public collaborate2View(): ICollaboration[] {
-        // if (this.isExpanded()) {
-        //     const detail = new PartDetail(this) as any;
-        //     detail.jsonClass = 'PartDetail';
-        //     const collaboration = [];
-        //     collaboration.push(this);
-        //     collaboration.push(detail)
-        //     collaboration.push(detail)
-        //     collaboration.push(detail)
-        //     return collaboration;
-        // }
-        return [this];
-    }
-
 }

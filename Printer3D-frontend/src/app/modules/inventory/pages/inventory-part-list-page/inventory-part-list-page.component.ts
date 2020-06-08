@@ -46,20 +46,24 @@ export class InventoryPartListPageComponent implements OnInit, OnDestroy, Refres
     }
     // - R E F R E S H A B L E
     public clean(): void {
+        this.columnDefs = [];
+        this.rowData = [];
+        this.recordContainer = new PartTransformer();
     }
     public refresh(): void {
+        this.clean();
         this.backendConnections.push(
             this.backend.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
-            .setTransformation((entrydata: any): PartListResponse => {
-                return new PartListResponse(entrydata);
-            }))
-            .subscribe((response: PartListResponse) => {
-                // Convert DTO data into Grid data with a Converter
-                response.parts.forEach(record => {
-                    this.recordContainer.addData(this.recordContainer.transform(record));
-                });
-                this.rowData = this.recordContainer.getRecords();
-            })
+                .setTransformation((entrydata: any): PartListResponse => {
+                    return new PartListResponse(entrydata);
+                }))
+                .subscribe((response: PartListResponse) => {
+                    // Convert DTO data into Grid data with a Converter
+                    response.parts.forEach(record => {
+                        this.recordContainer.addData(this.recordContainer.transform(record));
+                    });
+                    this.rowData = this.recordContainer.getRecords();
+                })
         )
     }
 }

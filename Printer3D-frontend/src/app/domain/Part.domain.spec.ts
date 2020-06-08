@@ -6,6 +6,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
 import { Part } from './Part.domain';
+import { ExpectedConditions } from 'protractor';
 
 describe('CLASS Part [Module: DOMAIN]', () => {
     let isolation: SupportIsolationService;
@@ -19,6 +20,8 @@ describe('CLASS Part [Module: DOMAIN]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const instance = new Part();
             expect(instance).toBeDefined();
+            expect(instance.material).toBe('PLA')
+            expect(instance.colorCode).toBe('INDEFINIDO')
             expect(instance.stockLevel).toBe(1);
             expect(instance.stockAvailable).toBe(0);
             expect(instance.active).toBeTrue();
@@ -43,12 +46,21 @@ describe('CLASS Part [Module: DOMAIN]', () => {
             const obtained = instance.createNewId()
             expect(instance.id).toBe(obtained);
         });
-        it('composePartIdentifier: generate the part identifier', () => {
-            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false });
+        it('composePartIdentifier.color: generate the part identifier', () => {
+            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, colorCode: null });
             expect(instance).toBeDefined();
+            instance.colorCode = null;
             expect(instance.composePartIdentifier()).toBe('-TEST-LABEL-' + ':' + 'INDEFINIDO');
             instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', colorCode: 'WHITE' });
             expect(instance.composePartIdentifier()).toBe('-TEST-LABEL-' + ':' + 'WHITE');
+        });
+        it('isActive: get the part active field', () => {
+            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, colorCode: null });
+            expect(instance.isActive()).toBeFalse();
+        });
+        it('isExpandable: parts are not expandable', () => {
+            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, colorCode: null });
+            expect(instance.isExpandable()).toBeFalse();
         });
     });
 });

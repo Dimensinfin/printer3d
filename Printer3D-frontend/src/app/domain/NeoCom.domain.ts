@@ -44,9 +44,11 @@ export class NeoCom implements INode, ICollaboration, IExpandable, ISelectable/*
         return this.expanded;
     }
     public collapse(): boolean {
+        this.expanded = false;
         return this.isExpanded();
     }
     public expand(): boolean {
+        this.expanded = true;
         return this.isExpanded();
     }
     public toggleExpanded() {

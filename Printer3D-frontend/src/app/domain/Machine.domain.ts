@@ -1,4 +1,5 @@
 import { Part } from './Part.domain';
+import { deprecate } from 'util';
 
 export class Machine {
     public id: string;
@@ -6,19 +7,15 @@ export class Machine {
     public model: string;
     public characteristics: string;
     public buildRecord: any;
+    // Deprecated. Machine version 1
     public currentJobPart: Part;
     public currentPartInstances: number = 1;
     public jobInstallmentDate: string;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
-        // this.transformInput();
     }
-    // private transformInput(): void {
-    //     if (null != this.currentJobPart) {
-    //         this.currentJobPart = new Part(this.currentJobPart)
-    //     }
-    // }
+    
     public isRunning(): boolean {
         if (null != this.buildRecord)
             if (this.buildRecord.state === 'RUNNING') return true;

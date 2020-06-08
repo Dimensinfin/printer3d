@@ -23,12 +23,11 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
+import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { InventoryPartListPageComponent } from './inventory-part-list-page.component';
 
 describe('COMPONENT InventoryPartListPageComponent [Module: INVENTORY]', () => {
     let component: InventoryPartListPageComponent;
-    let isolationService: SupportIsolationService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -49,22 +48,43 @@ describe('COMPONENT InventoryPartListPageComponent [Module: INVENTORY]', () => {
 
         const fixture = TestBed.createComponent(InventoryPartListPageComponent);
         component = fixture.componentInstance;
-        isolationService = TestBed.get(IsolationService);
     }));
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
             expect(component).toBeDefined('component has not been created.');
+            const componentAsAny = component as any;
+            expect(component.pagePath).toBe('/Inventario/Lista Piezas')
+            expect(component.columnDefs).toBeDefined('Check that the column definitions are ready.');
+            expect(component.columnDefs.length).toBe(0)
+            expect(component.rowData).toBeDefined('Check that the grid data is empty.');
+            expect(component.rowData.length).toBe(0)
+            expect(componentAsAny.recordContainer).toBeDefined()
+            expect(componentAsAny.backendConnections).toBeDefined();
+            expect(componentAsAny.backendConnections.length).toBe(0)
         });
     });
 
     // - O N I N I A T I Z A T I O N   P H A S E
-    xdescribe('On Initialization Phase', () => {
-        it('ngOnInit.none: validate initialization flow', async function () {
-            expect(component.rowData.length).toBe(0);
-            await component.ngOnInit();
-            expect(component.rowData.length).toBe(2);
+    describe('On Initialization Phase', () => {
+        it('ngOnInit.none: validate initialization flow', async () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.backendConnections.length).toBe(0)
+            await component.ngOnInit()
+            expect(componentAsAny.rowData).toBeDefined('Check that the container list exists.');
+            expect(componentAsAny.rowData.length).toBe(7)
+            expect(componentAsAny.backendConnections.length).toBe(1)
+        });
+    });
+
+    // - O N D E S T R U C T I O N   P H A S E
+    describe('On Destruction Phase', () => {
+        it('ngOnDestroy: validate destruction flow', async () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.backendConnections.length).toBe(0, 'The initial subscription list should be 0.');
+            component.ngOnInit();
+            expect(componentAsAny.backendConnections.length).toBe(1, 'After initialization should be 1.');
         });
     });
 });

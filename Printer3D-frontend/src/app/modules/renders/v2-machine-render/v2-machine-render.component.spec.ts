@@ -28,11 +28,13 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 import { V2MachineRenderComponent } from './v2-machine-render.component';
 import { Machine } from '@domain/Machine.domain';
 import { Part } from '@domain/Part.domain';
+import { TIMEOUT } from 'dns';
 
 const TEST_TIME: number = 12 * 60;
 
 describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
     let component: V2MachineRenderComponent;
+    let fixture: ComponentFixture<V2MachineRenderComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -48,7 +50,7 @@ describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
             ]
         }).compileComponents();
 
-        const fixture = TestBed.createComponent(V2MachineRenderComponent);
+        fixture = TestBed.createComponent(V2MachineRenderComponent);
         component = fixture.componentInstance;
     }));
 
@@ -73,29 +75,46 @@ describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
             const componentAsAny = component as any;
             expect(component.self).toBeDefined();
         });
-        it('ngOnInit.building: validate initialization flow', async () => {
+        it('ngOnInit.idle: validate initialization flow', async () => {
+            const componentAsAny = component as any;
+            componentAsAny.node = new Machine();
+            await component.ngOnInit();
+            expect(component.self).toBeDefined();
+        });
+        it('ngOnInit.running: validate initialization flow', async () => {
             const componentAsAny = component as any;
             componentAsAny.node = new Machine({
                 currentJobPartId: new Part(),
                 buildTime: TEST_TIME,
                 jobInstallmentDate: Date.now().toString,
-                getRunTime: () => { return TEST_TIME }
+                buildRecord: {
+                    part: new Part(),
+                    remainingTime: 10
+                },
+                isRunning: () => { return true }
             });
             await component.ngOnInit();
             expect(component.self).toBeDefined();
             expect(componentAsAny.node).toBeDefined();
             expect(componentAsAny.node.currentJobPartId).toBeDefined();
-            // expect(component.target).toBeDefined();
-            // expect(component.building).toBeTrue();
-            // expect(component.buildTime).toBe(TEST_TIME);
+            expect(component.target).toBeDefined();
+            expect(component.building).toBeTrue();
+            console.log('>[ngOnInit.running: validate initialization flow]> BuildTime: ' + component.buildTime)
+            expect(component.buildTime).toBe(600, 'Expect the build time to be the constant.');
         });
     });
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
-        it('isAutostart: true if the part is loaded from a running machine', () => {
+        it('isAutostart:false true if the part is loaded from a running machine', () => {
             expect(component.building).toBeFalse();
             expect(component.isAutostart()).toBeFalse();
+        });
+        it('isAutostart:true true if the part is loaded from a running machine', () => {
+            expect(component.building).toBeFalse();
+            const componentAsAny = component as any;
+            componentAsAny.building = true
+            expect(component.isAutostart()).toBeTrue();
         });
         it('getBuildTime: get the time left to build', () => {
             expect(component.getBuildTime()).toBe(0);
@@ -111,27 +130,38 @@ describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
             expect(component.target).toBeDefined();
             expect(component.buildTime).toBe(300 * 60);
         });
-        xit('startBuild: start the countdown built timer', async () => {
+        it('startBuild: start the countdown built timer', async () => {
             const componentAsAny = component as any;
+            componentAsAny.sessionTimer = {
+                activate: () => { }
+            }
+            componentAsAny.node = {
+                id: "85403a7a-4bf8-4e99-bbc1-8283ea91f99b",
+                isRunning: () => { return false; }
+            }
+            componentAsAny.target = { id: "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" }
             expect(componentAsAny.backendConnections.length).toBe(0);
-            componentAsAny.node = new Machine({ id: "009ab011-03ad-4e84-9a88-25708d1cfd64" })
-            component.target = new Part({ id: "009ab011-03ad-4e84-9a88-25708d1cfd64" })
-            componentAsAny.sessionTimer = { activate: () => { } }
-            spyOn(componentAsAny.sessionTimer, 'activate')
             await component.startBuild();
             expect(componentAsAny.backendConnections.length).toBe(1);
-            // expect(component.building).toBeTrue();
-            expect(componentAsAny.sessionTimer.activate).toHaveBeenCalled();
-        });
-        xit('onClearClick: start the countdown built timer', () => {
-            const componentAsAny = component as any;
-            componentAsAny.target = new Part({ buildTime: 60 });
-            componentAsAny.sessionTimer = { activate: (time: number) => { } }
-            component.startBuild();
             expect(component.building).toBeTrue();
-            component.onClearClick();
-            expect(component.target).toBeNull();
-            expect(component.building).toBeFalse();
+        });
+        it('onClearClick: start the countdown built timer', async () => {
+            const componentAsAny = component as any;
+            componentAsAny.sessionTimer = {
+                deactivate: () => { }
+            }
+            componentAsAny.node = {
+                id: "85403a7a-4bf8-4e99-bbc1-8283ea91f99b",
+                isRunning: () => { return false; }
+            }
+            componentAsAny.target = { id: "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" }
+            expect(componentAsAny.backendConnections.length).toBe(0);
+            // await component.startBuild();
+            await component.onClearClick();
+            expect(component.node).toBeDefined()
+            expect(component.target).toBeNull()
+            expect(component.building).toBeFalse()
+            expect(componentAsAny.backendConnections.length).toBe(1);
         });
     });
 });

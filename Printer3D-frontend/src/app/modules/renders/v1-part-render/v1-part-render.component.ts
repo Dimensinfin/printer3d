@@ -16,16 +16,6 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
 
     constructor() { super(); }
 
-    ngOnInit(): void {
-    }
-    public getLabel(): string {
-        const part = this.node as Part;
-        return part.label;
-    }
-    public getDescription(): string {
-        const part = this.node as Part;
-        return part.description;
-    }
     public getMaterial(): string {
         const part = this.node as Part;
         return part.material;
@@ -36,23 +26,19 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
     }
     public getCost(): string {
         const part = this.node as Part;
-        return part.cost + '';
+        return part.cost + ' €';
     }
     public getPrice(): string {
         const part = this.node as Part;
-        return part.price + '';
+        return part.price + ' €';
     }
-    public getBuildTime(): string {
+    public getStockRequired(): number {
         const part = this.node as Part;
-        return part.buildTime + '';
+        return part.stockLevel;
     }
-    public getStockRequired(): string {
+    public getStockAvailable(): number {
         const part = this.node as Part;
-        return part.stockLevel + '';
-    }
-    public getStockAvailable(): string {
-        const part = this.node as Part;
-        return part.stockLevel + '';
+        return part.stockAvailable;
     }
     public getActive(): string {
         const part = this.node as Part;

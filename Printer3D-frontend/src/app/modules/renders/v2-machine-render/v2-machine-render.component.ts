@@ -35,7 +35,8 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
     public buildTime: number = 0;
     public building: boolean = false;
 
-    constructor(protected isolationService: IsolationService,
+    constructor(
+        protected isolationService: IsolationService,
         protected backendService: BackendService) {
         super();
     }
@@ -47,6 +48,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
         console.log('>[V2MachineRenderComponent.ngOnInit]')
         this.self = this;
         if (null != this.node) this.loadBuildPart();
+        console.log('<[V2MachineRenderComponent.ngOnInit]')
     }
     /**
      * Use this to report the child timer that the timer should be started automatically. Because the child can initialize later than the Machine render we should use this to report when the target build part is loaded manually or not.
@@ -65,10 +67,11 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
     public onDrop(drop: any) {
         if (null != drop) {
             this.target = drop.dragData;
-            this.buildTime = this.target.buildTime*60;
+            this.buildTime = this.target.buildTime * 60;
         }
     }
     public startBuild(): void {
+        console.log('>[V2MachineRenderComponent.startBuild]')
         this.backendConnections.push(
             this.backendService.apiMachinesStartBuild_v1(this.node.id, this.target.id,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
@@ -77,13 +80,16 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
                             'Construccion de pieza [' + this.target.label + '] comenzada con éxito.',
                             '/COMENZAR CONSTRUCCCION'
                         )
+                        console.log('>[V2MachineRenderComponent.startBuild]> EntryData: ' + entrydata)
                         return new Machine(entrydata);
                     }))
                 .subscribe((resultMachine: Machine) => {
+                    console.log('>[V2MachineRenderComponent.startBuild.subscription]')
                     this.sessionTimer.activate(this.target.buildTime * 60);
                     this.building = true;
                 })
         );
+        console.log('<[V2MachineRenderComponent.startBuild]')
     }
     public onClearClick(): void {
         console.log('>[V2MachineRenderComponent.onClearClick]')
@@ -106,11 +112,11 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
         );
     }
     private loadBuildPart(): void {
-        console.log('>[V2MachineRenderComponent.ngOnInit]> Running: '+ this.node.isRunning())
+        console.log('>[V2MachineRenderComponent.loadBuildPart]> Running: ' + this.node.isRunning())
         if (this.node.isRunning()) {
             this.target = this.node.buildRecord.part;
             this.building = true;
-            this.buildTime = this.node.buildRecord.remainingTime*60;
+            this.buildTime = this.node.buildRecord.remainingTime * 60;
         }
     }
 }

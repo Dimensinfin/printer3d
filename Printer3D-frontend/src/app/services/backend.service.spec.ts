@@ -74,8 +74,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: PartListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(2);
-                    expect(response.parts.length).toBe(2);
+                    expect(response.count).toBe(7);
+                    expect(response.parts.length).toBe(7);
                 });
         });
         it('apiNewPart_v1.default: get the persisted part', async () => {

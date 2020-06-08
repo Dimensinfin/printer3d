@@ -9,7 +9,7 @@ export class PartContainer extends NeoCom {
     public id: string;
     public label: string;
     public description: string;
-    public buildTime:number;
+    public buildTime: number;
     public imagePath: string;
     public modelPath: string;
     public contents: Part[] = [];
@@ -18,7 +18,9 @@ export class PartContainer extends NeoCom {
         super(values);
         Object.assign(this, values);
         this.jsonClass = 'PartContainer';
-    } public isExpandable(): boolean {
+    }
+
+    public isExpandable(): boolean {
         return true;
     }
     public isActive(): boolean {
