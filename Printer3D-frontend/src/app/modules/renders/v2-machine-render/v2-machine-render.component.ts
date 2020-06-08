@@ -37,7 +37,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
 
     constructor(protected isolationService: IsolationService,
         protected backendService: BackendService) {
-        super(backendService);
+        super();
     }
 
     /**

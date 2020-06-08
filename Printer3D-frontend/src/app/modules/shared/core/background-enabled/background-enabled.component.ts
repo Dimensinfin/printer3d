@@ -26,9 +26,6 @@ import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 })
 export class BackgroundEnabledComponent implements OnDestroy {
     protected backendConnections: Subscription[] = [];
-
-    constructor(protected backendService: BackendService) { }
-
     /**
      * Unsubscribe from any open subscription made to the backend.
      */

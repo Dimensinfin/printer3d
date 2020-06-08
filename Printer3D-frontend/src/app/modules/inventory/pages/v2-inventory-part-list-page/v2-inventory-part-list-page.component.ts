@@ -26,7 +26,7 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
     // private nodes: Part[] = []
     constructor(
         protected appStore: AppStoreService,
-        protected backendService: BackendService) { super(backendService) }
+        protected backendService: BackendService) { super() }
 
 
     public ngOnInit(): void {

@@ -13,15 +13,15 @@ import { BackgroundEnabledComponent } from '../background-enabled/background-ena
     styleUrls: ['./app-panel.component.scss']
 })
 export class AppPanelComponent extends BackgroundEnabledComponent implements IViewer {
-    @Input() self: AppPanelComponent;
+    @Input() self: IViewer;
     @Input() variant: EVariant = EVariant.DEFAULT;
     protected downloading: boolean = true;
     protected dataModelRoot: ICollaboration[] = [];
     private renderNodeList: ICollaboration[] = [];
     private target: ICollaboration;
 
-    constructor(protected backendService: BackendService) {
-        super(backendService)
+    constructor() {
+        super()
         this.self = this;
     }
 
@@ -32,17 +32,17 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
     public isDownloading(): boolean {
         return this.downloading;
     }
-    public completeDowload(): void {
-        this.notifyDataChanged();
-        this.downloading = false;
-    }
     public getNodes2Render(): ICollaboration[] {
-        // console.log(">[AppPanelComponent.getNodes2Render]> node count: " + this.renderNodeList.length);
         return this.renderNodeList;
     }
 
     public setVariant(variant: EVariant): void {
         this.variant = variant;
+    }
+
+    public completeDowload(): void {
+        this.notifyDataChanged();
+        this.downloading = false;
     }
     // - I V I E W E R
     public enterSelected(node: ICollaboration): void {

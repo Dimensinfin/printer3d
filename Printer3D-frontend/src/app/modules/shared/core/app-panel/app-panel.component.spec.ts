@@ -7,56 +7,50 @@ import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - PROVIDERS
-import { IsolationService } from '@app/platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
+import { BackgroundEnabledComponent } from '../background-enabled/background-enabled.component';
 import { AppPanelComponent } from './app-panel.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
-import { AppStoreService } from '@app/services/app-store.service';
-// import { GroupContainer } from '@domain/GroupContainer.domain';
+import { NeoCom } from '@domain/NeoCom.domain';
 
-describe('PANEL AppPanelComponent [Module: SHARED]', () => {
+describe('PANEL AppPanelComponent [Module: CORE]', () => {
     let component: AppPanelComponent;
-    let fixture: ComponentFixture<AppPanelComponent>;
-    let isolationService: SupportIsolationService;
-    let appStoreService: SupportAppStoreService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [
                 AppPanelComponent,
+                BackgroundEnabledComponent
             ],
             providers: [
-                { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: AppStoreService, useClass: SupportAppStoreService },
             ]
         })
             .compileComponents();
-        fixture = TestBed.createComponent(AppPanelComponent);
+        const fixture = TestBed.createComponent(AppPanelComponent);
         component = fixture.componentInstance;
-        appStoreService = TestBed.get(AppStoreService);
+        // appStoreService = TestBed.get(AppStoreService);
     });
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
-        it('Should be created', () => {
-            console.log('><[shared/AppPanelComponent]> should be created');
+        it('constructor.none: validate initial state without constructor', () => {
+            const componentAsAny = component as any;
             expect(component).toBeDefined('component has not been created.');
+            expect(component.self).toBeDefined();
+            expect(component.variant).toBe(EVariant.DEFAULT);
+            expect(componentAsAny.downloading).toBeTrue();
+            expect(componentAsAny.dataModelRoot).toBeDefined()
+            expect(componentAsAny.dataModelRoot.length).toBe(0)
+            expect(componentAsAny.renderNodeList).toBeDefined()
+            expect(componentAsAny.renderNodeList.length).toBe(0)
+            expect(componentAsAny.target).toBeUndefined();
         });
     });
+
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [setters]', () => {
-        it('setVariant.success: validate the set for the variant', () => {
-            const expected = EVariant.DEFAULT;
-            component.setVariant(expected);
-            let obtained = component.getVariant();
-            expect(obtained).toBe(expected);
-        });
-    });
     describe('Code Coverage Phase [getters]', () => {
-        it('getFittingId.success: check the fitting identifier', () => {
-            const expected = EVariant.DEFAULT;;
+        it('getVariant.success: check the variant field', () => {
+            const expected = EVariant.PART_LIST
             component.variant = expected;
             let obtained = component.getVariant();
             expect(obtained).toBe(expected);
@@ -68,25 +62,49 @@ describe('PANEL AppPanelComponent [Module: SHARED]', () => {
             let obtained = component.isDownloading();
             expect(obtained).toBe(expected);
         });
-        // it('getNodes2Render.success: check the number of nodes collaborated', () => {
-        //     const expected = new GroupContainer();
-        //     let componentAny = component as any;
-        //     componentAny.dataModelRoot.push(expected);
-        //     component.completeDowload();
-        //     let obtained = component.getNodes2Render();
-        //     expect(obtained).toBeDefined();
-        //     expect(obtained.length).toBe(1);
-        // });
+        it('getNodes2Render.success: check the nodes to be rendered', () => {
+            let componentAny = component as any;
+            componentAny.renderNodeList.push(new NeoCom());
+            // component.completeDowload();
+            let obtained = component.getNodes2Render();
+            expect(obtained).toBeDefined();
+            expect(obtained.length).toBe(1);
+        });
     });
-    // describe('Validating interfaces [IViewer]', () => {
-    //     it('notifyDataChanged.success: check that nodes get processed when the root load completes', () => {
-    //         const expected = new GroupContainer();
-    //         let componentAny = component as any;
-    //         componentAny.dataModelRoot.push(expected);
-    //         component.completeDowload();
-    //         let obtained = component.getNodes2Render();
-    //         expect(obtained).toBeDefined();
-    //         expect(obtained.length).toBe(1);
-    //     });
-    // });
+    describe('Code Coverage Phase [setters]', () => {
+        it('setVariant.success: validate the set for the variant', () => {
+            const expected = EVariant.PART_LIST;
+            component.setVariant(expected);
+            let obtained = component.getVariant();
+            expect(obtained).toBe(expected);
+        });
+    });
+    // - C O D E   C O V E R A G E   P H A S E
+    describe('Code Coverage Phase [Methods]', () => {
+        it('completeDowload: singnal the completion of the download process to start the rendering', () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.renderNodeList).toBeDefined();
+            expect(componentAsAny.renderNodeList.length).toBe(0);
+            componentAsAny.dataModelRoot.push(new NeoCom())
+            component.completeDowload();
+            expect(componentAsAny.renderNodeList.length).toBe(1);
+        });
+    });
+    describe('Validating interfaces [IViewer]', () => {
+        it('enterSelected.success: check that nodes get processed when the root load completes', () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.target).toBeUndefined();
+            component.enterSelected(new NeoCom())
+            expect(componentAsAny.target).toBeDefined();
+        });
+        it('notifyDataChanged.success: check that nodes get processed when the root load completes', () => {
+            const expected = new NeoCom();
+            let componentAny = component as any;
+            componentAny.dataModelRoot.push(expected);
+            component.completeDowload();
+            let obtained = component.getNodes2Render();
+            expect(obtained).toBeDefined();
+            expect(obtained.length).toBe(1);
+        });
+    });
 });

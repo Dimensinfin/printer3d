@@ -31,4 +31,7 @@ export class ViewerPanelComponent {
     public getNextIndex(): number {
         return this.index++;
     }
+    public getVariant(): EVariant {
+        return this.variant;
+    }
 }
