@@ -17,14 +17,14 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     And one instance of ViewerPanel
     #     And one or more instances of NodeContainer
 
-    @D3D07 @D3D07.02
-    Scenario: [D3D07.02]-Validate the contents of a Part render.
-        Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        Then the first NodeContainer contains a Part Container Render
-        And on the v1-part-container component there is a field named "ETIQUETA" with class "part-label"
-        And on the v1-part-container component there is a field named "DESCRIPCION" with class "part-description"
-        And on the v1-part-container component there is a field named "TIEMPO" with class "part-buildTime"
+    # @D3D07 @D3D07.02
+    # Scenario: [D3D07.02]-Validate the contents of a Part render.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     Then the first NodeContainer contains a Part Container Render
+    #     And on the v1-part-container component there is a field named "ETIQUETA" with class "partcontainer-label"
+    #     And on the v1-part-container component there is a field named "DESCRIPCION" with class "partcontainer-description"
+    #     And on the v1-part-container component there is a field named "TIEMPO" with class "partcontainer-buildTime"
 
     # @D3D07 @D3D07.03
     # Scenario: [D3D07.03]-When the user activates the Inventory Part List Page version 2 while the server download the data it shows a downloading panel.
@@ -33,8 +33,23 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     And one instance of ViewerPanel
     #     Then there is a loading panel displaying "Descargando Lista de Piezas..."
 
-    @D3D07 @D3D07.04
-    Scenario: [D3D07.04]-The Part render is an expandable element so the node container shows a right arrow.
+    # @D3D07 @D3D07.04
+    # Scenario: [D3D07.04]-The Part render is an expandable element so the node container shows a right arrow.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     Then on the v1-part-container component there is a right arrow
+
+    @D3D07 @D3D07.05
+    Scenario: [D3D07.05]-If the arrow is clicked then the Part Container expands and shows the parts that match this same label.
         Given there is a click on Feature "/INVENTARIO"
         When the V2InventoryPartListPage is activated
         Then on the v1-part-container component there is a right arrow
+        When the right arrow is clicked
+        Then the container expands and there are one or more v1-part nodes
+        And on the v1-part component there is a field named "MATERIAL" with class "part-material"
+        And on the v1-part component there is a field named "COLOR" with class "part-color"
+        And on the v1-part component there is a field named "STOCK" with class "part-stock"
+        And on the v1-part component there is a field named "DISPONIBLE" with class "part-stockAvailable"
+        And on the v1-part component there is a field named "COSTE" with class "part-cost"
+        And on the v1-part component there is a field named "PRECIO" with class "part-price"
+        And on the v1-part component there is a field named "ACTIVA" with class "part-active"

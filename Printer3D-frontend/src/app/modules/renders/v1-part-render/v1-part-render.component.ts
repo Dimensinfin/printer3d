@@ -54,5 +54,9 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
         const part = this.node as Part;
         return part.stockLevel + '';
     }
-    public onClick(): void { }
+    public getActive(): string {
+        const part = this.node as Part;
+        if ( part.active ) return 'ACTIVA'
+        else return 'FUERA PROD.'
+    }
 }

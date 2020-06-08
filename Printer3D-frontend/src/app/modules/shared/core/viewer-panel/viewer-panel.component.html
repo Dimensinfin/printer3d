@@ -1,6 +1,6 @@
-<div *ngIf="!isDownloading(); else downloadSpinning" class="citamed-form-group">
+<div *ngIf="!isDownloading(); else downloadSpinning">
     <div *ngFor="let node of getNodes2Render()">
-        <node-container [container]="downloader" [node]="node" [variant]="variant"></node-container>
+        <node-container [container]="downloader" [node]="node" [variant]="variant" [index]="getNextIndex()"></node-container>
     </div>
 </div>
 <!-- D O W N L O A D I N G   S P I N N E R -->

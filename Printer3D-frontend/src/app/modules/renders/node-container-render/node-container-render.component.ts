@@ -18,6 +18,7 @@ export class NodeContainerRenderComponent implements IColorTheme {
     @Input() node: NeoCom;
     @Input() variant: EVariant = EVariant.DEFAULT;
     @Input() colorScheme: string = 'panel-white';  // The name of the panel style to be rendered.
+    @Input() index: number = 1;
 
     public getNode(): NeoCom {
         return this.node;
@@ -42,8 +43,8 @@ export class NodeContainerRenderComponent implements IColorTheme {
         if (null != this.node)
             return this.node.isExpanded();
     }
-    public isActive():boolean{
-        if ( null != this.node)return this.node.isActive();
+    public isActive(): boolean {
+        if (null != this.node) return this.node.isActive();
         else return true;
     }
 

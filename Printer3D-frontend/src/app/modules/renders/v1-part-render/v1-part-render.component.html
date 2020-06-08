@@ -1,12 +1,13 @@
 <!-- P A R T - L I S T   V A R I A N T -->
 <div *ngIf="getVariant() === '-PART-LIST-'">
-    <div class="part-panel" (click)="onClick()">
+    <div class="part-panel">
         <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
             <tr>
+                <td width="40px">&nbsp;</td>
                 <td>
                     <div class="field">
                         <span class="label">MATERIAL</span><br>
-                        <span name="color" class="part-color">{{getMaterial()}}</span>
+                        <span name="color" class="part-material">{{getMaterial()}}</span>
                     </div>
                 </td>
                 <td>
@@ -18,25 +19,31 @@
                 <td>
                     <div class="field">
                         <span class="label">STOCK</span><br>
-                        <span name="color" class="part-color">{{getStockRequired()}}</span>
+                        <span name="color" class="part-stock">{{getStockRequired()}}</span>
                     </div>
                 </td>
                 <td>
                     <div class="field">
                         <span class="label">DISPONIBLE</span><br>
-                        <span name="color" class="part-color">{{getStockAvailable()}}</span>
+                        <span name="color" class="part-stockAvailable">{{getStockAvailable()}}</span>
                     </div>
                 </td>
                 <td>
                     <div class="field">
                         <span class="label">COSTE</span><br>
-                        <span name="color" class="part-color">{{getCost()}}</span>
+                        <span name="color" class="part-cost">{{getCost()}}</span>
                     </div>
                 </td>
                 <td>
                     <div class="field">
                         <span class="label">PRECIO</span><br>
-                        <span name="color" class="part-color">{{getPrice()}}</span>
+                        <span name="color" class="part-price">{{getPrice()}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <span class="label">ACTIVA</span><br>
+                        <span name="color" class="part-active">{{getActive()}}</span>
                     </div>
                 </td>
             </tr>
