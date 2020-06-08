@@ -11,14 +11,10 @@ import { PartRecord } from '@domain/PartRecord.domain';
 import { GridColumn } from '@domain/GridColumn.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
-import { Refreshable } from '@domain/interfaces/Refreshable.interface';
-import { Subscription } from 'rxjs';
-import { PartTransformer } from '@domain/transformer/PartTransformer.tranformer';
 import { Part } from '@domain/Part.domain';
-import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
+import { PartContainer } from '@domain/PartContainer.domain';
 
 @Component({
     selector: 'v2-inventory-part-list-page',
@@ -26,7 +22,8 @@ import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.
     styleUrls: ['./v2-inventory-part-list-page.component.scss']
 })
 export class V2InventoryPartListPageComponent extends AppPanelComponent implements OnInit {
-    private nodes: Part[] = []
+    private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>();
+    // private nodes: Part[] = []
     constructor(
         protected appStore: AppStoreService,
         protected backendService: BackendService) { super(backendService) }
@@ -46,24 +43,49 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
             element.unsubscribe();
         });
     }
-    // public getNodes2Render(): ICollaboration[] {
-    //     return this.no
-    // }
     // - R E F R E S H A B L E
+    /**
+     * When the page gets the list of Parts it should scan it and generate a list of Part Containers with distinct labels. Inside that containers there will be the Parts, each one with their different configurations.
+     * Part containers will be ordered by their active status. Active parts will be listed before inactive groups.
+     */
     public refresh(): void {
+        // Clean up before processing
+        this.partContainers = new Map<string, PartContainer>();
         this.backendConnections.push(
             this.backendService.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
                     return new PartListResponse(entrydata);
                 }))
                 .subscribe((response: PartListResponse) => {
-                    this.nodes = response.parts;
-                    this.dataModelRoot = response.parts;
+                    // Sort the Parts before storing them inside the containers.
+                    const partList = this.sortPartsByActive(response.getParts());
+                    // Classify Parts on part containers.
+                    partList.forEach(element => {
+                        let hit = this.partContainers.get(element.label);
+                        if (null == hit) {
+                            hit = new PartContainer(element);
+                            this.partContainers.set(element.label, hit);
+                        }
+                        hit.addPart(element);
+                    });
+                    // Load the containers on the root for the MVC.
+                    const containers = this.partContainers.values();
+                    this.dataModelRoot = []
+                    for (const container of containers)
+                        this.dataModelRoot.push(container);
                     console.log('-[V2InventoryPartListPageComponent.refresh]> nodes processed: ' + this.dataModelRoot.length);
                     setTimeout(() => {
                         this.completeDowload();    // Notify the completion of the download.
                     }, 2000);
                 })
         )
+    }
+    private sortPartsByActive(parts: Part[]): Part[] {
+        return parts.sort((part1, part2) => {
+            if (part1.active == part2.active) return 0;
+            if (part1.active && !part2.active) return 1;
+            if (!part1.active && part2.active) return -1;
+            return 0;
+        })
     }
 }
