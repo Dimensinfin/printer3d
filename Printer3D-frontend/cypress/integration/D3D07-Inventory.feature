@@ -39,17 +39,27 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     When the V2InventoryPartListPage is activated
     #     Then on the v1-part-container component there is a right arrow
 
-    @D3D07 @D3D07.05
-    Scenario: [D3D07.05]-If the arrow is clicked then the Part Container expands and shows the parts that match this same label.
+    # @D3D07 @D3D07.05
+    # Scenario: [D3D07.05]-If the arrow is clicked then the Part Container expands and shows the parts that match this same label.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     Then on the v1-part-container component there is a right arrow
+    #     When the right arrow is clicked
+    #     Then the container expands and there are one or more v1-part nodes
+    #     And on the v1-part component there is a field named "MATERIAL" with class "part-material"
+    #     And on the v1-part component there is a field named "COLOR" with class "part-color"
+    #     And on the v1-part component there is a field named "STOCK" with class "part-stock"
+    #     And on the v1-part component there is a field named "DISPONIBLE" with class "part-stockAvailable"
+    #     And on the v1-part component there is a field named "COSTE" with class "part-cost"
+    #     And on the v1-part component there is a field named "PRECIO" with class "part-price"
+    #     And on the v1-part component there is a field named "ACTIVA" with class "part-active"
+
+    @D3D07 @D3D07.06
+    Scenario: [D3D07.06]-Active Parts show a green corner while inactive show it orange.
         Given there is a click on Feature "/INVENTARIO"
         When the V2InventoryPartListPage is activated
         Then on the v1-part-container component there is a right arrow
         When the right arrow is clicked
         Then the container expands and there are one or more v1-part nodes
-        And on the v1-part component there is a field named "MATERIAL" with class "part-material"
-        And on the v1-part component there is a field named "COLOR" with class "part-color"
-        And on the v1-part component there is a field named "STOCK" with class "part-stock"
-        And on the v1-part component there is a field named "DISPONIBLE" with class "part-stockAvailable"
-        And on the v1-part component there is a field named "COSTE" with class "part-cost"
-        And on the v1-part component there is a field named "PRECIO" with class "part-price"
-        And on the v1-part component there is a field named "ACTIVA" with class "part-active"
+        And active Parts show a green corner
+        And inactive Part show an orange corner

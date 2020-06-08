@@ -22,11 +22,6 @@ Then('the first NodeContainer contains a Part Container Render', function () {
         .find('node-container').find('v1-part-container').should('exist');
 });
 
-// Then('the first NodeContainer contains a Part Render', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container').first().find('v1-part-render').should('exist');
-// });
-
 Then('on the v1-part-container component there is a field named {string} with class {string}', function (fieldName: string, fieldClass: string) {
     const fieldClassIdentifier = '.' + fieldClass
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
@@ -67,4 +62,23 @@ Then('on the v1-part component there is a field named {string} with class {strin
         .find(fieldClassIdentifier).should('exist')
     cy.get('@target-part-field').find('.label').contains(fieldName)
     cy.get('@target-part-field').find(fieldClassIdentifier).should('exist')
+});
+
+Then('active Parts show a green corner', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container').as('target-node-active')
+        .find('v1-part')
+        .find('.field')
+        .find('.part-active').contains('ACTIVA')
+    cy.get('@target-node-active').find('.corner-bottom').should('have.class', 'active')
+});
+
+Then('inactive Part show an orange corner', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container').as('target-node-inactive')
+        .find('v1-part')
+        .find('.field')
+        .find('.part-active').contains('FUERA PROD.')
+        .parents('node-container').as('target-node-inactive')
+    cy.get('@target-node-inactive').find('.corner-bottom').should('not.have.class', 'active')
 });
