@@ -17,15 +17,20 @@ Then('one or more instances of NodeContainer', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').find('node-container').should('exist');
 });
 
-Then('the first NodeContainer contains a Part Render', function () {
+Then('the first NodeContainer contains a Part Container Render', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').first().find('v1-part-render').should('exist');
+        .find('node-container').first().find('v1-part-container').should('exist');
 });
 
-Then('on the v1-part-render component there is a field named {string} with class {string}', function (fieldName: string, fieldClass: string) {
+// Then('the first NodeContainer contains a Part Render', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container').first().find('v1-part-render').should('exist');
+// });
+
+Then('on the v1-part-container component there is a field named {string} with class {string}', function (fieldName: string, fieldClass: string) {
     const fieldClassIdentifier = '.' + fieldClass
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').first().find('v1-part-render')
+        .find('node-container').first().find('v1-part-container')
         .find('.field').as('target-part-field')
         .find(fieldClassIdentifier).should('exist')
     cy.get('@target-part-field').find('.label').contains(fieldName)
@@ -37,7 +42,7 @@ Then('there is a loading panel displaying {string}', function (downloadMessage: 
         .find('.index-loading').contains(downloadMessage)
 });
 
-Then('on the v1-part-render component there is a right arrow', function () {
+Then('on the v1-part-container component there is a right arrow', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
         .find('node-container').find('.arrow-box')
         .find('.right-arrow').should('exist')

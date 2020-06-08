@@ -14,6 +14,7 @@ import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-
 import { V1FeatureRenderComponent } from './v1-feature-render/v1-feature-render.component';
 import { NodeContainerRenderComponent } from './node-container-render/node-container-render.component';
 import { V1PartRenderComponent } from './v1-part-render/v1-part-render.component';
+import { V1PartContainerRenderComponent } from './v1-part-container-render/v1-part-container-render.component';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import { V1PartRenderComponent } from './v1-part-render/v1-part-render.component
         V1BuildCountdownTimerPanelComponent,
         V1FeatureRenderComponent,
         NodeContainerRenderComponent,
-        V1PartRenderComponent
+        V1PartRenderComponent,
+        V1PartContainerRenderComponent
     ],
     exports: [
         V1PendingJobRenderComponent,

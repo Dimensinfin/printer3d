@@ -1,10 +1,8 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
-import { ICollaboration } from './interfaces/core/ICollaboration.interface';
-import { AppStoreService } from '@app/services/app-store.service';
-import { NeoCom } from './NeoCom.domain';
-import { PartDetail } from './PartDetail.domain';
 // - DOMAIN
+import { ICollaboration } from './interfaces/core/ICollaboration.interface';
+import { NeoCom } from './NeoCom.domain';
 
 export class Part extends NeoCom {
     public id: string;
@@ -37,22 +35,22 @@ export class Part extends NeoCom {
             return this.label + ':' + 'INDEFINIDO';
     }
     public isExpandable(): boolean {
-        return true;
+        return false;
     }
     public isActive(): boolean {
         return this.active;
     }
     public collaborate2View(): ICollaboration[] {
-        if (this.isExpanded()) {
-            const detail = new PartDetail(this) as any;
-            detail.jsonClass = 'PartDetail';
-            const collaboration = [];
-            collaboration.push(this);
-            collaboration.push(detail)
-            collaboration.push(detail)
-            collaboration.push(detail)
-            return collaboration;
-        }
+        // if (this.isExpanded()) {
+        //     const detail = new PartDetail(this) as any;
+        //     detail.jsonClass = 'PartDetail';
+        //     const collaboration = [];
+        //     collaboration.push(this);
+        //     collaboration.push(detail)
+        //     collaboration.push(detail)
+        //     collaboration.push(detail)
+        //     return collaboration;
+        // }
         return [this];
     }
 

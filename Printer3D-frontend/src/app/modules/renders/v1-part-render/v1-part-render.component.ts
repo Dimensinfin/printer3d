@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+// - CORE
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { Input } from '@angular/core';
+// - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
 import { Part } from '@domain/Part.domain';
 
 @Component({
-    selector: 'v1-part-render',
+    selector: 'v1-part',
     templateUrl: './v1-part-render.component.html',
     styleUrls: ['./v1-part-render.component.scss']
 })

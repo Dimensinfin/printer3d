@@ -5,32 +5,6 @@
             <tr>
                 <td>
                     <div class="field">
-                        <span class="label">ETIQUETA</span><br>
-                        <span name="color" class="part-label">{{getLabel()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field">
-                        <span class="label">DESCRIPCION</span><br>
-                        <span name="color" class="part-description">{{getDescription()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field">
-                        <span class="label">TIEMPO</span><br>
-                        <span name="color" class="part-buildTime">{{getBuildTime()}}</span>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-<div *ngIf="getVariant() === '-DETAIL-'">
-    <div class="part-panel" (click)="onClick()">
-        <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
-            <tr>
-                <td>
-                    <div class="field">
                         <span class="label">MATERIAL</span><br>
                         <span name="color" class="part-color">{{getMaterial()}}</span>
                     </div>

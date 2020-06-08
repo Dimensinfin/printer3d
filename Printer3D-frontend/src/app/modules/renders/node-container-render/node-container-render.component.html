@@ -6,11 +6,8 @@
     <div class="row node-panel body-box">
         <!-- BODY -->
         <div class="row body-box">
-            <v1-part-render *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part-render>
-        </div>
-
-        <div class="row body-box">
-            <v1-part-render *ngIf="node.getJsonClass() == 'PartDetail'" [container]="container" [node]="node" [variant]="'-DETAIL-'"></v1-part-render>
+            <v1-part-container *ngIf="node.getJsonClass() == 'PartContainer'" [container]="container" [node]="node" [variant]="variant"></v1-part-container>
+            <v1-part *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part>
         </div>
 
         <!-- RIGHT ARROW -->

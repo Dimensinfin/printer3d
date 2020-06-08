@@ -1,6 +1,4 @@
 // - DOMAIN
-import { PartRecord } from '@domain/PartRecord.domain'
-import { Node } from '../Node'
 import { Part } from '@domain/Part.domain';
 
 export class PartListResponse {
@@ -16,5 +14,9 @@ export class PartListResponse {
                 recordList.push(new Part(entry));
             this.parts = recordList;
         }
+    }
+
+    public getParts(): Part[] {
+        return this.parts;
     }
 }
