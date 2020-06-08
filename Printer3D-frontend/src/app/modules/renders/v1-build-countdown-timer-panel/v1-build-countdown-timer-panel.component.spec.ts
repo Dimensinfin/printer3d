@@ -95,7 +95,7 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
     });
 
     // - O N D E S T R U C T I O N   P H A S E
-    describe('On Destroy Phase', () => {
+    describe('On Destruction Phase', () => {
         it('ngOnDestroy.empty: validate destruction flow', async () => {
             const componentAsAny = component as any;
             expect(componentAsAny.timerSubscription).toBeUndefined()

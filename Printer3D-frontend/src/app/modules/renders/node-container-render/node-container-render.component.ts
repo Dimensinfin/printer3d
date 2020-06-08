@@ -13,7 +13,7 @@ import { IColorTheme } from '@domain/interfaces/core/IColorTheme.interface';
     templateUrl: './node-container-render.component.html',
     styleUrls: ['./node-container-render.component.scss']
 })
-export class NodeContainerRenderComponent implements IColorTheme {
+export class NodeContainerRenderComponent {
     @Input() container: IViewer;
     @Input() node: NeoCom;
     @Input() variant: EVariant = EVariant.DEFAULT;
@@ -48,45 +48,45 @@ export class NodeContainerRenderComponent implements IColorTheme {
         else return true;
     }
 
-    // - I C O L O R T H E M E
-    /**
-     * Return the list of styles that should be applied to the Panel dependin of the state of the associated node.
-     * For panels the only color is the border color. More elaborated or actionable panels can have states and then we can return more detailed styles.
-     * @returns {string} the list of styles to be applied.
-     * @memberof AppPanelComponent
-     */
-    public getColorSchemePanelStyle(): string {
-        // Detect the state configuration.
-        if (this.node.isSelected())
-            if (this.node.isExpanded())
-                return this.getExpandedSelectedPanelStyle();
-        if (this.node.isSelected())
-            return this.getSelectedPanelStyle();
-        if (this.node.isExpanded())
-            return this.getExpandedPanelStyle();
-        return this.getPanelStyle();
-    }
+    // // - I C O L O R T H E M E
+    // /**
+    //  * Return the list of styles that should be applied to the Panel dependin of the state of the associated node.
+    //  * For panels the only color is the border color. More elaborated or actionable panels can have states and then we can return more detailed styles.
+    //  * @returns {string} the list of styles to be applied.
+    //  * @memberof AppPanelComponent
+    //  */
+    // public getColorSchemePanelStyle(): string {
+    //     // Detect the state configuration.
+    //     if (this.node.isSelected())
+    //         if (this.node.isExpanded())
+    //             return this.getExpandedSelectedPanelStyle();
+    //     if (this.node.isSelected())
+    //         return this.getSelectedPanelStyle();
+    //     if (this.node.isExpanded())
+    //         return this.getExpandedPanelStyle();
+    //     return this.getPanelStyle();
+    // }
 
-    public getPanelStyle(): string {
-        return this.decodeColor(this.node.getThemeColor());
-    }
-    public getExpandedPanelStyle(): string {
-        return this.getPanelStyle() + ' ' + this.getPanelStyle() + '-expanded';
-    }
-    public getSelectedPanelStyle(): string {
-        return this.getPanelStyle() + ' ' + this.getPanelStyle() + '-selected';
-    }
-    public getExpandedSelectedPanelStyle(): string {
-        return this.getPanelStyle() + ' ' + this.getPanelStyle() + '-expanded' + ' ' + this.getPanelStyle() + '-selected';
-    }
-    private decodeColor(theme: string): string {
-        switch (theme) {
-            // case ESeparator.WHITE:
-            //     return 'panel-white';
-            // case ESeparator.GREEN:
-            //     return 'panel-green';
-            default:
-                return 'panel-white';
-        }
-    }
+    // public getPanelStyle(): string {
+    //     return this.decodeColor(this.node.getThemeColor());
+    // }
+    // public getExpandedPanelStyle(): string {
+    //     return this.getPanelStyle() + ' ' + this.getPanelStyle() + '-expanded';
+    // }
+    // public getSelectedPanelStyle(): string {
+    //     return this.getPanelStyle() + ' ' + this.getPanelStyle() + '-selected';
+    // }
+    // public getExpandedSelectedPanelStyle(): string {
+    //     return this.getPanelStyle() + ' ' + this.getPanelStyle() + '-expanded' + ' ' + this.getPanelStyle() + '-selected';
+    // }
+    // private decodeColor(theme: string): string {
+    //     switch (theme) {
+    //         // case ESeparator.WHITE:
+    //         //     return 'panel-white';
+    //         // case ESeparator.GREEN:
+    //         //     return 'panel-green';
+    //         default:
+    //             return 'panel-white';
+    //     }
+    // }
 }

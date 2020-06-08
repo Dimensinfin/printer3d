@@ -6,7 +6,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { NeoCom } from './NeoCom.domain';
 import { EVariant, ESeparator } from './interfaces/EPack.enumerated';
 
-describe('CLASS NeoCom [Module: DOMAIN]', () => {
+xdescribe('CLASS NeoCom [Module: DOMAIN]', () => {
     let isolation: SupportIsolationService;
 
     beforeEach(() => {

@@ -58,6 +58,11 @@ export class V1PendingJobsPanelComponent implements OnInit, OnDestroy, Refreshab
                 })
         );
     }
+    // - R E F R E S H A B L E
+    public clean(): void {
+        this.active = true;
+        this.jobs = [];
+    }
     public refresh(): void {
         this.getJobs();
     }

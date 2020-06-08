@@ -40,6 +40,12 @@ export class InventoryCoilListPageComponent implements OnInit, OnDestroy, Refres
             element.unsubscribe();
         });
     }
+    // - R E F R E S H A B L E
+    public clean(): void {
+        this.columnDefs = [];
+        this.rowData = [];
+        this.recordContainer = new CoilTransformer();
+    }
     public refresh(): void {
         this.backendConnections.push(
             this.backend.apiInventoryCoils_v1(new ResponseTransformer().setDescription('Transforms Inventory Coil list form backend.')

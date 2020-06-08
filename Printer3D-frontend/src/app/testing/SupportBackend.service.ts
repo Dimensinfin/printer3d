@@ -16,43 +16,13 @@ export class SupportBackendService {
     }
 
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
+        console.log('>[SupportBackendService.apiInventoryGetMachines_v2]')
         return Observable.create((observer) => {
-            observer.next(transformer.transform({
-                "jsonClass": "PartList",
-                "count": 2,
-                "parts": [{
-                    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "colorCode": "WHITE",
-                    "buildTime": 15,
-                    "cost": 0.85,
-                    "price": 4.0,
-                    "stockLevel": 3,
-                    "stockAvailable": 4,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                },
-                {
-                    "id": "55236c12-1322-4e32-8285-dac2a45a65fe",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "colorCode": "WHITE",
-                    "buildTime": 15,
-                    "cost": 0.85,
-                    "price": 4.0,
-                    "stockLevel": 3,
-                    "stockAvailable": 4,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-                ]
-            }));
-            observer.complete();
+            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/parts')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
         });
     }
     public apiNewPart_v1(newPart: Part, transformer: ResponseTransformer): Observable<Part> {

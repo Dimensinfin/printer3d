@@ -28,6 +28,8 @@ export class ProductionJobListPageComponent implements Refreshable {
     @ViewChild(V1PendingJobsPanelComponent) private jobsPanel: V1PendingJobsPanelComponent;
     @ViewChild(V2MachinesPanelComponent) private machinesPanel: V2MachinesPanelComponent;
     // - R E F R E S H A B L E
+    public clean(): void {
+    }
     public refresh(): void {
         this.jobsPanel.refresh();
         this.machinesPanel.refresh();

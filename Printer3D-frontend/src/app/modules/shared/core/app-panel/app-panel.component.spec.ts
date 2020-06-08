@@ -28,7 +28,6 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
             .compileComponents();
         const fixture = TestBed.createComponent(AppPanelComponent);
         component = fixture.componentInstance;
-        // appStoreService = TestBed.get(AppStoreService);
     });
 
     // - C O N S T R U C T I O N   P H A S E

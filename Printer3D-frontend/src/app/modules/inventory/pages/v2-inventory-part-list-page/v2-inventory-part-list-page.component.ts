@@ -23,7 +23,6 @@ import { PartContainer } from '@domain/PartContainer.domain';
 })
 export class V2InventoryPartListPageComponent extends AppPanelComponent implements OnInit {
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>();
-    // private nodes: Part[] = []
     constructor(
         protected appStore: AppStoreService,
         protected backendService: BackendService) { super() }
@@ -45,12 +44,17 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
     }
     // - R E F R E S H A B L E
     /**
+     * Restart component contents before a refresh.
+     */
+    public clean(): void {
+        this.partContainers = new Map<string, PartContainer>();
+    }
+    /**
      * When the page gets the list of Parts it should scan it and generate a list of Part Containers with distinct labels. Inside that containers there will be the Parts, each one with their different configurations.
      * Part containers will be ordered by their active status. Active parts will be listed before inactive groups.
      */
     public refresh(): void {
-        // Clean up before processing
-        this.partContainers = new Map<string, PartContainer>();
+        this.clean();
         this.backendConnections.push(
             this.backendService.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {

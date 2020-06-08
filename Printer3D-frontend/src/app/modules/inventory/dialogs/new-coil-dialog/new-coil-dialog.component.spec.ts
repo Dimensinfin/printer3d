@@ -86,7 +86,7 @@ describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
     });
 
     // - O N D E S T R U C T I O N   P H A S E
-    describe('On Destroy Phase', () => {
+    describe('On Destruction Phase', () => {
         it('ngOnDestroy: validate destruction flow', async () => {
             const componentAsAny = component as any;
             expect(componentAsAny.backendConnections.length).toBe(0, 'The initial subscription list should be 0.');
