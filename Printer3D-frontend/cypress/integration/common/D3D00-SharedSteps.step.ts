@@ -127,7 +127,8 @@ Then('on target input form there is a field named {string} with name {string} an
             .clear().type(testContent)
         // Check that field trimms input
         cy.get('@target-field').find('[name="' + fieldName + '"]').then(($field) => {
-            cy.log('[on target input form there is a field named {string} with name {string} and content up to {string} characters]> Field text: ' + $field.text())
-            // expect($field.text().length).to.equal(maxLength)
+            const value = $field.text()
+            cy.log('[on target input form there is a field named {string} with name {string} and content up to {string} characters]> Field text: ' + value)
+            // expect(value.length).to.equal(maxLength)
         })
     });

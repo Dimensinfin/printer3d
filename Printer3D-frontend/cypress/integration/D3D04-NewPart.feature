@@ -1,10 +1,11 @@
 
 @D3D04
-Feature: [D3D04]-Define the requirements for the Part interactions like creation and update.
+Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
     If the user interacts with Inventory features that affect the Parts there should be requirements to control the
     presentation, contents and interaction flow. Parts cannot be eliminated but some of their fields are editable
     once the part is constructed.
+    This feature will deal with the requirements when a new Part is created.
 
     Background: Dock Default Configuration setup
         Given the application Printer3DManager
@@ -16,36 +17,29 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
 
-    @D3D04 @D3D04.02
-    Scenario: [D3D04.02]-A new part dialog should have the unique identifier not editable.
-        Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
-        Then the New Part dialog opens and blocks the display
-        And there is one instance of form with the next contents
-            | fieldName | value               | class      |
-            | id        | <constant.anyvalue> | noteditble |
-
     @D3D04 @D3D04.04
-    Scenario: [D3D04.04]-A new part dialog should have the fields empty.
-        Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
+    Scenario: [D3D04.04]-A new part dialog should have some fields empty. There are predefined values for the stock
+        Given there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
-        And the NewPart dialog input fields should be empty
+        And the New Part dialog input field "label" should be empty
+        And the New Part dialog input field "description" should be empty
+        And the New Part dialog input field "cost" should be empty
+        And the New Part dialog input field "price" should be empty
+        And the New Part dialog input field "buildTime" should be empty
+        And the New Part dialog input field "imagePath" should be empty
+        And the New Part dialog input field "modelPath" should be empty
 
     @D3D04 @D3D04.05
     Scenario: [D3D04.05]-A new part dialog should have some fields with default values
-        Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
+        Given there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
-        And there is one instance of form with the next contents
-            | fieldName      | value               | class      |
-            | id             | <constant.anyvalue> | noteditble |
-            | colorCode      | UNDEFINED           | noteditble |
-            | stockLevel     | 1                   | noteditble |
-            | stockAvailable | 0                   | noteditble |
+        And the New Part dialog input field "material" should not be empty
+        And the New Part dialog input field "colorCode" should be "INDEFINIDO"
+        And the New Part dialog input field "stockLevel" should be "1"
+        And the New Part dialog input field "stockAvailable" should be "0"
 
     @D3D04 @D3D04.06
-    Scenario: [D3D04.06]-A new part dialog should have two buttons. One to save the new part and another to cancel the operation.
+    Scenario: [D3D04.06]-A New Part dialog should have two buttons. One to save the new part and another to cancel the operation.
         Given one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
@@ -61,9 +55,13 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Given one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
-        And when all required fields have next values
-            | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
+        And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
+        And "PLA" is set on the New Part dialog dropdown field "material"
+        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "35" is set on the New Part dialog input field "buildTime"
+        And "0.8" is set on the New Part dialog input field "cost"
+        And "3" is set on the New Part dialog input field "price"
+        And "3" is set on the New Part dialog input field "stockLevel"
         And the button "SAVE" has the next properties
             | label         | state   |
             | Guardar Datos | enabled |
@@ -76,9 +74,13 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Given one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
-        And when all required fields have next values
-            | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
+        And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
+        And "PLA" is set on the New Part dialog dropdown field "material"
+        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "35" is set on the New Part dialog input field "buildTime"
+        And "0.8" is set on the New Part dialog input field "cost"
+        And "3" is set on the New Part dialog input field "price"
+        And "3" is set on the New Part dialog input field "stockLevel"
         When there is a click on the "GUARDAR" button
         Then the part is persisted at the backend
         And the dialog closes
@@ -88,9 +90,13 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Given one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
-        And when all required fields have next values
-            | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
+        And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
+        And "PLA" is set on the New Part dialog dropdown field "material"
+        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "35" is set on the New Part dialog input field "buildTime"
+        And "0.8" is set on the New Part dialog input field "cost"
+        And "3" is set on the New Part dialog input field "price"
+        And "3" is set on the New Part dialog input field "stockLevel"
         When there is a click on the "CLOSE" button
         Then the dialog closes
 
@@ -99,20 +105,16 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         Given one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
-        And when all required fields have next values
-            | id                                   | label             | material | colorCode | buildTime | cost | price | stockLevel | active |
-            | 9812a107-6c09-4b27-bdea-fbbbd35d12d4 | Pieza de Prueba 1 | PLA      | PLATA     | 35        | 0.8  | 3     | 3          | true   |
-        And there is one instance of form with the next contents
-            | fieldName | value | class      |
-            | colorCode | PLATA | noteditble |
+        And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
+        And "PLA" is set on the New Part dialog dropdown field "material"
+        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "35" is set on the New Part dialog input field "buildTime"
+        And "0.8" is set on the New Part dialog input field "cost"
+        And "3" is set on the New Part dialog input field "price"
+        And "3" is set on the New Part dialog input field "stockLevel"
         When there is a click on the "GUARDAR-NUEVO" button
         Then the part is persisted at the backend
-        And when all required fields have next values
-            | id                                   | material | colorCode |
-            | 43f2b077-3f25-4a04-ac81-67acb805a59b | PLA      | PLATA     |
-        And there is one instance of form with the next contents
-            | fieldName | value | class      |
-            | colorCode | GREEN | noteditble |
+        And the New Part dialog input field "colorCode" should be "INDEFINIDO"
 
     @D3D04 @D3D04.11
     Scenario: [D3D04.11] The dialog Material field should be populated with the list of material types from the backend list.
@@ -127,11 +129,10 @@ Feature: [D3D04]-Define the requirements for the Part interactions like creation
         And the Color dropdown has 4 values
 
     @D3D04 @D3D04.12
-    Scenario: [D3D04.12]-The New Part dialog has an specific set of fields.
+    Scenario: [D3D04.12]-The New Part dialog has an specific set of fields with length validation.
         Given one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
         Then the New Part dialog opens and blocks the display
         And there is a dialog title saying "/INVENTARIO/NUEVA PIEZA"
-        # And there is one field called "#part-id" with the label "ID"
-        And there is one field called "#part-label" with the label "Etiqueta"
-        And there is one field called "#part-description" with the label "Descripción"
+        When the target form is the New Part dialog
+        And on target input form there is a field named "ETIQUETA" with name "label" and content up to "50" characters

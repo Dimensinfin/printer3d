@@ -66,17 +66,16 @@ export class IsolationService {
         return '-undefined-';
     }
 
-    // - S T O R A G E   A C C E S S
-    // public setToSession(key: string, content: any): any {
-    //     console.log('>[IsolationService.setToSession]> ' + key + ': ' + content);
-    //     // console.log("sessionStorage.setItem('" + key + "','" + content + "');");
-    //     // browser.executeScript("sessionStorage.setItem('" + key + "','" + content + "');");
-    // }
-    // // public getFromSession(_key: string): any {
-    // //     return browser.executeScript('sessionStorage.setItem("' + key + '","' + content + '");');
-    // //     return this.sessionStorage.get(_key);
-    // // }
-    // public removeFromSession(key: string): any {
-    //     // browser.executeScript('sessionStorage.removeItem("' + key + '");');
-    // }
+    // - R A M D O M
+    public generateRandomNum(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+    public generateRandomString(length: number): string {
+        var string = '';
+        var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' //Include numbers if you want
+        for (let i = 0; i < length; i++) {
+            string += letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+        return string;
+    }
 }

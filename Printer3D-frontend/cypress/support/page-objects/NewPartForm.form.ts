@@ -19,24 +19,24 @@ export class NewPartForm extends IsolationService {
             }
         }
     }
-    public validateHasContents(dataTable: any) {
-        for (let index = 0; index < dataTable.hashes().length; index++) {
-            const row = dataTable.hashes()[index];
-            console.log('[NewPartForm.validateHasContents]> row:' + JSON.stringify(row));
-            const fieldName = this.decodeDataTableRow(row, 'fieldName');
-            const fieldValue = this.decodeDataTableRow(row, 'value');
-            const className = this.decodeDataTableRow(row, 'class');
-            switch (fieldName) {
-                case 'id':
-                    if (fieldValue === 'anyvalue')
-                        cy.get('new-part-dialog').get('form').find('.part-id').should('to.not.be.null');
-                    else
-                        cy.get('new-part-dialog').get('form').find('.part-id').contains(fieldValue)
-                    break;
-            }
+    // public validateHasContents(dataTable: any) {
+    //     for (let index = 0; index < dataTable.hashes().length; index++) {
+    //         const row = dataTable.hashes()[index];
+    //         console.log('[NewPartForm.validateHasContents]> row:' + JSON.stringify(row));
+    //         const fieldName = this.decodeDataTableRow(row, 'fieldName');
+    //         const fieldValue = this.decodeDataTableRow(row, 'value');
+    //         const className = this.decodeDataTableRow(row, 'class');
+    //         switch (fieldName) {
+    //             case 'id':
+    //                 if (fieldValue === 'anyvalue')
+    //                     cy.get('new-part-dialog').get('form').find('.part-id').should('to.not.be.null');
+    //                 else
+    //                     cy.get('new-part-dialog').get('form').find('.part-id').contains(fieldValue)
+    //                 break;
+    //         }
 
-        }
-    }
+    //     }
+    // }
     public validateButton(buttonName: string, row: any): void {
         switch (buttonName) {
             case 'SAVE':
