@@ -90,7 +90,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
     }
     public saveEditing(): void {
         console.log('>[V1PartRenderComponent.saveEditing]');
-        this.node = new Part(this.editing);
+        this.node = new Part(this.editPart);
         this.backendConnections.push(
             this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)
                 .subscribe((updatedPart: Part) => {

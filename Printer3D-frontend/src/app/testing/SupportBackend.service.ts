@@ -45,6 +45,16 @@ export class SupportBackendService {
             }));
         });
     }
+    public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
+        console.log('>[SupportBackendService.apiInventoryUpdatePart_v1]')
+        return Observable.create((observer) => {
+            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/parts/update')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
+        });
+    }
     public apiNewCoil_v1(newCoil: Coil, transformer: ResponseTransformer): Observable<Coil> {
         console.log('[SupportBackendService.apiNewCoil_v1]> Transformation: ' + transformer.description)
         return Observable.create((observer) => {

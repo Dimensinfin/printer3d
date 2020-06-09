@@ -103,9 +103,28 @@ export class SupportHttpClientWrapperService {
         }
         if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
         if (request.includes('/inventory/finishings')) keyword = 'INVENTORY-FINISHINGS';
+        if (request.includes('/api/v2/inventory/parts/update')) keyword = 'INVENTORY-UPDATEPART';
 
         console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
+            case 'INVENTORY-UPDATEPART':
+                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+                const inventoryUpdatePartResponseJson = {
+                    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                    "label": "Covid-19 Key",
+                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                    "material": "PLA",
+                    "colorCode": "WHITE",
+                    "buildTime": 15,
+                    "cost": 0.85,
+                    "price": 4,
+                    "stockLevel": 3,
+                    "stockAvailable": 4,
+                    "imagePath": "https://ibb.co/3dGbsRh",
+                    "modelPath": "pieza3.sft",
+                    "active": true
+                }
+                return inventoryUpdatePartResponseJson;
             case 'INVENTORY-FINISHINGS':
                 console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryFinishingsResponseJson = {

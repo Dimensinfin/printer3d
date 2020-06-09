@@ -31,9 +31,25 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { Part } from '@domain/Part.domain';
 import { V1PartRenderComponent } from './v1-part-render.component';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 
 describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
     let component: V1PartRenderComponent;
+    let testPart: Part = new Part({
+        "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
+        "label": "Boquilla Ganesha",
+        "description": "Boquilla Ganesha",
+        "material": "PLA",
+        "colorCode": "GRIS",
+        "buildTime": 90,
+        "cost": 1.0,
+        "price": 6.0,
+        "stockLevel": 5,
+        "stockAvailable": 0,
+        "imagePath": null,
+        "modelPath": null,
+        "active": true
+    });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -48,7 +64,7 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
                 { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: BackendService, useClass: SupportBackendService },
                 { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService },
-                { provide: ChangeDetectorRef, useValue: {detectChanges: ()=>{}} },
+                { provide: ChangeDetectorRef, useValue: { detectChanges: () => { } } },
             ]
         }).compileComponents();
 
@@ -59,162 +75,107 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
+            const componentAsAny = component as any;
             expect(component).toBeDefined('component has not been created.');
+            expect(component.editPart).toBeDefined();
+            expect(component.editing).toBeFalse()
+            expect(componentAsAny.backendConnections).toBeDefined();
+            expect(componentAsAny.backendConnections.length).toBe(0);
+            expect(componentAsAny.dataToPartTransformer).toBeDefined();
+        });
+        it('constructor.created: validate initial created instances', () => {
+            const componentAsAny = component as any;
+            const transformer: ResponseTransformer = componentAsAny.dataToPartTransformer;
+            expect(transformer.transform({}) instanceof Part).toBeTrue();
+        });
+    });
+
+    // - O N D E S T R U C T I O N   P H A S E
+    describe('On Destruction Phase', () => {
+        it('ngOnDestroy: check the unsubscription', async () => {
+            const componetAsAny = component as any;
+            expect(componetAsAny.backendConnections.length).toBe(0);
+            component.node = testPart
+            component.editPart = testPart
+            await component.saveEditing();
+            expect(componetAsAny.backendConnections.length).toBe(1);
+            await component.ngOnDestroy();
         });
     });
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [getters]', () => {
         it('getMaterial:success check the "material" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": true
-            });
+            component.node = testPart;
             expect(component.getMaterial()).toBe("PLA");
         });
         it('getColor:success check the "colorCode" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Descripcion de la Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": true
-            });
+            component.node = testPart
             expect(component.getColor()).toBe("GRIS");
         });
         it('getCost:success check the "cost" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Descripcion de la Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": true
-            });
+            component.node = testPart
             expect(component.getCost()).toBe('1 €');
         });
         it('getPrice:success check the "price" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Descripcion de la Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": true
-            });
+            component.node = testPart
             expect(component.getPrice()).toBe('6 €');
         });
         it('getStockRequired:success check the "stockLevel" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Descripcion de la Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": true
-            });
+            component.node = testPart
             expect(component.getStockRequired()).toBe(5);
         });
         it('getStockAvailable:success check the "stockAvailable" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Descripcion de la Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": true
-            });
+            component.node = testPart
             expect(component.getStockAvailable()).toBe(0);
         });
         it('getActive:active check the "active" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Descripcion de la Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": true
-            });
+            testPart.active = true;
+            component.node = testPart
             expect(component.getActive()).toBe('ACTIVA');
         });
         it('getActive:inactive check the "active" field when defined', () => {
-            component.node = new Part({
-                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-                "label": "Boquilla Ganesha",
-                "description": "Descripcion de la Boquilla Ganesha",
-                "material": "PLA",
-                "colorCode": "GRIS",
-                "buildTime": 90,
-                "cost": 1.0,
-                "price": 6.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": null,
-                "modelPath": null,
-                "active": false
-            });
+            testPart.active = false;
+            component.node = testPart
             expect(component.getActive()).toBe('FUERA PROD.');
+        });
+        it('isEditing: check the "editing" flag', () => {
+            expect(component.isEditing()).toBeFalse();
         });
     });
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [getters]', () => {
-        it('getLabel:failure check the "label" field when not initialized', () => {
-            component.node = new Part();
-            expect(component.getMaterial()).toBe('PLA')
+    describe('Code Coverage Phase [Methods]', () => {
+        it('toggleEdition: check the change on the editing', () => {
+            component.node = testPart;
+            component.toggleEdition()
+            expect(component.editing).toBeTrue();
+            component.toggleEdition()
+            expect(component.editing).toBeFalse();
+            component.toggleEdition()
+            expect(component.editing).toBeTrue();
+        });
+        it('saveEditing: check the save flow', async () => {
+            testPart.active = true;
+            component.node = testPart
+            component.editPart = testPart
+            expect(component.getMaterial()).toBe("PLA");
+            expect(component.getColor()).toBe("GRIS");
+            expect(component.getCost()).toBe('1 €');
+            expect(component.getPrice()).toBe('6 €');
+            expect(component.getStockRequired()).toBe(5);
+            expect(component.getStockAvailable()).toBe(0);
+            expect(component.getActive()).toBe('ACTIVA');
+            component.editing = false;
+            expect(component.editing).toBeFalse();
+            await component.saveEditing();
+            expect(component.editing).toBeTrue();
+            expect(component.getMaterial()).toBe("PLA");
+            expect(component.getColor()).toBe("WHITE");
+            expect(component.getCost()).toBe('0.85 €');
+            expect(component.getPrice()).toBe('4 €');
+            expect(component.getStockRequired()).toBe(3);
+            expect(component.getStockAvailable()).toBe(4);
+            expect(component.getActive()).toBe('ACTIVA');
         });
     });
 });
