@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { platformconstants } from '../../../platform/platform-constants';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 // - TESTING
 import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
@@ -43,6 +45,10 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
                 V1PartRenderComponent
             ],
             providers: [
+                { provide: IsolationService, useClass: SupportIsolationService },
+                { provide: BackendService, useClass: SupportBackendService },
+                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService },
+                { provide: ChangeDetectorRef, useValue: {detectChanges: ()=>{}} },
             ]
         }).compileComponents();
 

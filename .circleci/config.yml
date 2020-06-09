@@ -25,16 +25,13 @@ version: 2.1
 jobs:
   start-job:
     docker:
-      # - image: circleci/openjdk:11-jdk
       - image: apimastery/apisimulator
     steps:
-      # - checkout
       - run:
           name: PROJECT - Check node version
           working_directory: Printer3D-frontend
           command: |
             java -version
-            # apisimulator start printer3d-backend-simulation -p 6090
 
   compile-frontend-job:
     docker:
@@ -171,7 +168,7 @@ jobs:
             node -v
             sed -i '/bahmutov.add/d' package.json
             npm install
-            npm run build:dev
+            # npm run build:dev
       - run:
           name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend
@@ -183,7 +180,7 @@ jobs:
             git add *.*
             git add config
             git add src
-            git add dist
+            # git add dist
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
           name: Deploy Master to Heroku

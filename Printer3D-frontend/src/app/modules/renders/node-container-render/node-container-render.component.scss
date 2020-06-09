@@ -38,30 +38,24 @@
 }
 
 
-/* Effect style to blur the arrow and remove artifacts. Applied ever to the arror image. */
-
-// .neocom-arrow {
-//     filter: blur(1px);
-// }
-
 /* Transformation to change the arrow when expansion is active. */
 
 .neocom-arrow {
     transform: rotate(0deg);
-    transition: transform 0.5s linear;
+    transition: transform 0.4s linear;
 }
 
 .neocom-arrow.open {
     transform: rotate(0deg);
-    transition: transform 0.5s linear;
+    transition: transform 0.4s linear;
 }
 
 .neocom-arrow-expanded {
     transform: rotate(90deg);
-    transition: transform 0.5s linear;
+    transition: transform 0.4s linear;
 }
 
 .neocom-arrow-expanded.open {
     transform: rotate(90deg);
-    transition: transform 0.5s linear;
+    transition: transform 0.4s linear;
 }

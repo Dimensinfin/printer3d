@@ -24,3 +24,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Unit Tests pending
 * NeoCom.domain
+* V1PartRender
+* ProductionJobListPage
+* V2MachinesPanel

@@ -11,7 +11,7 @@
         "build:prod": "ng build --aot --configuration=production",
         "test:dev": "ng test --code-coverage --watch --progress ",
         "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI",
-        "test:deploy": "npm run build:prod && npm run test:prod && cypress run",
+        "check:deploy": "npm run build:prod && npm run test:prod && cypress run",
         "cypress:run": "cypress run ",
         "cypress:record": "cypress run --record --key 9eebb605-a163-4da0-bb36-6af73faddf1b",
         "acceptance:simulator": "bash ./support/simulator-backend.sh start &",

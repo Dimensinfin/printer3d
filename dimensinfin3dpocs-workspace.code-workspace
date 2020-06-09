@@ -10,7 +10,6 @@
         "editor.wordWrap": "wordWrapColumn",
         "editor.wrappingIndent": "indent",
         "editor.lineHeight": 12,
-        "files.autoSave": "afterDelay",
         "files.autoSaveDelay": 3000,
         "files.insertFinalNewline": true,
         "html.format.wrapAttributes": "aligned-multiple",
@@ -25,6 +24,7 @@
         "workbench.preferredDarkColorTheme": "Atom One Dark",
         "colorHelper.formatsOrder": [
             "hex"
-        ]
+        ],
+        "files.autoSave": "afterDelay"
     },
 }
