@@ -9,7 +9,7 @@ import { TestBed } from '@angular/core/testing';
 // - PROVIDERS
 import { ViewerPanelComponent } from './viewer-panel.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
-import { NeoCom } from '@domain/NeoCom.domain';
+import { Node } from '@domain/Node.domain';
 
 describe('PANEL ViewerPanelComponent [Module: CORE]', () => {
     let component: ViewerPanelComponent;
@@ -57,7 +57,7 @@ describe('PANEL ViewerPanelComponent [Module: CORE]', () => {
         });
         it('getNodes2Render.success: check the nodes to be rendered', () => {
             let componentAny = component as any;
-            componentAny.nodes2render.push(new NeoCom());
+            componentAny.nodes2render.push(new Node());
             let obtained = component.getNodes2Render();
             expect(obtained).toBeDefined();
             expect(obtained.length).toBe(1);

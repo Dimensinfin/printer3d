@@ -7,7 +7,7 @@ import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - PROVIDERS
-import { NeoCom } from '@domain/NeoCom.domain';
+import { Node } from '@domain/Node.domain';
 import { NodeContainerRenderComponent } from './node-container-render.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 
@@ -44,7 +44,7 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
     describe('Code Coverage Phase [getters]', () => {
         it('getNode.success: check the node field', () => {
             expect(component.node).toBeUndefined()
-            component.node = new NeoCom()
+            component.node = new Node()
             expect(component.node).toBeDefined()
             expect(component.getNode()).toBeDefined()
         });
@@ -68,12 +68,12 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             const componentAsAny = component as any;
             componentAsAny.container = { enterSelected: () => { } }
             spyOn(componentAsAny.container, 'enterSelected')
-            component.mouseEnter(new NeoCom())
+            component.mouseEnter(new Node())
             expect(componentAsAny.container.enterSelected).toHaveBeenCalled()
         });
         it('toggleExpanded.success: toggle the expand property for the node', () => {
             const componentAsAny = component as any;
-            component.node = new NeoCom({ expanded: true });
+            component.node = new Node({ expanded: true });
             expect(component.getNode().isExpanded()).toBeTrue();
             componentAsAny.container = { notifyDataChanged: () => { } }
             spyOn(componentAsAny.container, 'notifyDataChanged')
@@ -82,7 +82,7 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             expect(componentAsAny.container.notifyDataChanged).toHaveBeenCalled()
         });
         it('toggleExpanded.failure: toggle the expand property for the node', () => {
-            const node = new NeoCom();
+            const node = new Node();
             expect(component.getNode()).toBeUndefined();
             component.toggleExpanded();
             expect(component.getNode()).toBeUndefined();
@@ -90,7 +90,7 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
         it('isExpanded.success: get the node expand state', () => {
             const componentAsAny = component as any;
             componentAsAny.container = { notifyDataChanged: () => { } }
-            component.node = new NeoCom()
+            component.node = new Node()
             expect(component.isExpanded()).toBeFalsy();
             component.toggleExpanded();
             expect(component.isExpanded()).toBeTrue();
@@ -105,9 +105,9 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
         it('isActive.success: get the node expand state', () => {
             const componentAsAny = component as any;
             componentAsAny.container = { notifyDataChanged: () => { } }
-            component.node = new NeoCom()
+            component.node = new Node()
             expect(component.isActive()).toBeTrue();
-            component.node = new NeoCom({ active: false })
+            component.node = new Node({ active: false })
             expect(component.isActive()).toBeTrue();
         });
         it('isActive.failure: get the node expand state', () => {

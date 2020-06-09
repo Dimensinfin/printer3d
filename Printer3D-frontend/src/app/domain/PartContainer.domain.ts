@@ -2,10 +2,10 @@
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { ICollaboration } from './interfaces/core/ICollaboration.interface';
-import { NeoCom } from './NeoCom.domain';
+import { Node } from './Node.domain';
 import { Part } from './Part.domain';
 
-export class PartContainer extends NeoCom {
+export class PartContainer extends Node {
     public id: string;
     public label: string;
     public description: string;

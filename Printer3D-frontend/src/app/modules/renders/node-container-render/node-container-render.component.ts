@@ -5,7 +5,7 @@ import { Input } from '@angular/core';
 import { ICollaboration } from '@app/domain/interfaces/core/ICollaboration.interface';
 import { EVariant } from '@app/domain/interfaces/EPack.enumerated';
 import { IViewer } from '@app/domain/interfaces/core/IViewer.interface';
-import { NeoCom } from '@domain/NeoCom.domain';
+import { Node } from '@domain/Node.domain';
 import { IColorTheme } from '@domain/interfaces/core/IColorTheme.interface';
 
 @Component({
@@ -15,12 +15,12 @@ import { IColorTheme } from '@domain/interfaces/core/IColorTheme.interface';
 })
 export class NodeContainerRenderComponent {
     @Input() container: IViewer;
-    @Input() node: NeoCom;
+    @Input() node: Node;
     @Input() variant: EVariant = EVariant.DEFAULT;
     @Input() colorScheme: string = 'panel-white';  // The name of the panel style to be rendered.
     @Input() index: number = 1;
 
-    public getNode(): NeoCom {
+    public getNode(): Node {
         return this.node;
     }
     public getVariant(): EVariant {
@@ -35,7 +35,7 @@ export class NodeContainerRenderComponent {
     }
     public toggleExpanded(): void {
         if (null != this.node) {
-            console.log('><[Neocom.toggleExpanded]> expand: ' + this.node.toggleExpanded());
+            console.log('><[Node.toggleExpanded]> expand: ' + this.node.toggleExpanded());
             this.container.notifyDataChanged();
         }
     }

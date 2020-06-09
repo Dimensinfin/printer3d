@@ -10,7 +10,7 @@ import { TestBed } from '@angular/core/testing';
 import { BackgroundEnabledComponent } from '../background-enabled/background-enabled.component';
 import { AppPanelComponent } from './app-panel.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
-import { NeoCom } from '@domain/NeoCom.domain';
+import { Node } from '@domain/Node.domain';
 
 describe('PANEL AppPanelComponent [Module: CORE]', () => {
     let component: AppPanelComponent;
@@ -63,7 +63,7 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
         });
         it('getNodes2Render.success: check the nodes to be rendered', () => {
             let componentAny = component as any;
-            componentAny.renderNodeList.push(new NeoCom());
+            componentAny.renderNodeList.push(new Node());
             // component.completeDowload();
             let obtained = component.getNodes2Render();
             expect(obtained).toBeDefined();
@@ -84,7 +84,7 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
             const componentAsAny = component as any;
             expect(componentAsAny.renderNodeList).toBeDefined();
             expect(componentAsAny.renderNodeList.length).toBe(0);
-            componentAsAny.dataModelRoot.push(new NeoCom())
+            componentAsAny.dataModelRoot.push(new Node())
             component.completeDowload();
             expect(componentAsAny.renderNodeList.length).toBe(1);
         });
@@ -93,11 +93,11 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
         it('enterSelected.success: check that nodes get processed when the root load completes', () => {
             const componentAsAny = component as any;
             expect(componentAsAny.target).toBeUndefined();
-            component.enterSelected(new NeoCom())
+            component.enterSelected(new Node())
             expect(componentAsAny.target).toBeDefined();
         });
         it('notifyDataChanged.success: check that nodes get processed when the root load completes', () => {
-            const expected = new NeoCom();
+            const expected = new Node();
             let componentAny = component as any;
             componentAny.dataModelRoot.push(expected);
             component.completeDowload();

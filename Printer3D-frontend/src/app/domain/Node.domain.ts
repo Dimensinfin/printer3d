@@ -6,15 +6,15 @@ import { ISelectable } from './interfaces/core/ISelectable.interface';
 import { IColorTheme } from './interfaces/core/IColorTheme.interface';
 import { ESeparator } from './interfaces/EPack.enumerated';
 
-export class NeoCom implements INode, ICollaboration, IExpandable, ISelectable/*, IColorTheme*/ {
-    protected jsonClass: string = 'NeoCom';
+export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, IColorTheme*/ {
+    protected jsonClass: string = 'Node';
     protected expanded: boolean = false;
     protected selected: boolean = false;
     protected themeColor: ESeparator = ESeparator.WHITE;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
-        this.jsonClass = 'NeoCom';
+        this.jsonClass = 'Node';
     }
 
     protected isEmpty(target?: any): boolean {
@@ -40,7 +40,7 @@ export class NeoCom implements INode, ICollaboration, IExpandable, ISelectable/*
         return false;
     }
     public isExpanded(): boolean {
-        console.log('>[NeoCom.isExpanded]> Expanded: ' + this.expanded)
+        console.log('>[Node.isExpanded]> Expanded: ' + this.expanded)
         return this.expanded;
     }
     public collapse(): boolean {
