@@ -4,8 +4,13 @@
         <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
             <tr>
                 <td>
-                    <div (click)="toggleEdition()">
-                        <img class="edit-attributes" src="/assets/media/edit_attributes-24px-white.svg">
+                    <div class="edit-attributes" (click)="toggleEdition()">
+                        <img src="/assets/media/edit_attributes-white-36dp.svg">
+                    </div>
+                </td>
+                <td>
+                    <div class="save-modifications">
+                        <span>&nbsp;</span>
                     </div>
                 </td>
                 <td>
@@ -60,8 +65,13 @@
             <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
                 <tr>
                     <td>
-                        <div (click)="toggleEdition()">
-                            <img class="edit-attributes" src="/assets/media/edit_attributes-24px-white.svg">
+                        <div class="edit-attributes" (click)="toggleEdition()">
+                            <img src="/assets/media/edit_attributes-white-36dp.svg">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="save-modifications" (click)="saveEditing()">
+                            <img src="/assets/media/check_circle-white-36dp.svg">
                         </div>
                     </td>
                     <td>

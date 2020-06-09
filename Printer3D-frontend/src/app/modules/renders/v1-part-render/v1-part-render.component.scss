@@ -26,7 +26,12 @@
 }
 
 .edit-attributes {
-    width: 40px;
+    width: 60px;
+}
+
+.save-modifications {
+    width: 60px;
+    filter: invert(54%) sepia(16%) saturate(7150%) hue-rotate(85deg) brightness(123%) contrast(119%);
 }
 
 .part-stock-available {

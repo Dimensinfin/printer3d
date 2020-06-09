@@ -84,22 +84,23 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
         if (!this.isEditing())
             this.closeEditing()
     }
-    private activateEditing(): void {
-        this.variant = EVariant.EDITABLE_PART;
-        this.editPart = new Part(this.node);
-    }
-    private closeEditing(): void {
-        this.variant = EVariant.PART_LIST;
-        // this.node = new Part(this.editing);
-    }
-    private saveEditing(): void {
+    public saveEditing(): void {
         console.log('>[V1PartRenderComponent.saveEditing]');
         this.node = new Part(this.editing);
         this.backendConnections.push(
             this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)
                 .subscribe((updatedPart: Part) => {
                     console.log('-[V1PartRenderComponent.saveEditing]> Updated Part: ' + JSON.stringify(updatedPart))
+                    this.node=updatedPart;
+                    this.closeEditing();
                 })
         );
+    }
+    private activateEditing(): void {
+        this.variant = EVariant.EDITABLE_PART;
+        this.editPart = new Part(this.node);
+    }
+    private closeEditing(): void {
+        this.variant = EVariant.PART_LIST;
     }
 }

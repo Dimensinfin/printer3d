@@ -85,20 +85,6 @@ Then('inactive Part show an orange corner', function () {
     cy.get('@target-node-inactive').find('.corner-bottom').should('not.have.class', 'active')
 });
 
-Then('any Part shows a editor button a the right', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container')
-        .find('v1-part')
-        .find('.edit-attributes').should('exist')
-});
-
-When('the target Part editor button is clicked', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container')
-        .find('v1-part').first().as('target-editable-part')
-        .find('.edit-attributes').click()
-});
-
 Then('the field {string} is editable', function (fieldName: string) {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
         .find('node-container').find('v1-part').find('.field').as('target-part-field')
@@ -109,27 +95,50 @@ Then('the field {string} is editable', function (fieldName: string) {
 When('the first v1-part is selected as the target', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
         .find('node-container').find('v1-part')
-        .first().as('target-part-comparison')
+        .first().as('target-part')
 });
 
 Then('the field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
     // Clean store before getting the data
     // store = {};
-    cy.get('@target-part-comparison')
+    cy.get('@target-part')
         .find('.field').within(($panel) => {
             cy.get('[name="' + fieldName + '"]').then(($field) => {
                 cy.log('[the field {string} stores the current value into {string}]> Field text: ' + $field.text())
-                store[storeName] = $field.text().replace('€','').trim()
+                store[storeName] = $field.text().replace('€', '').trim()
             })
         });
 });
 
 Then('the field {string} is editable and the content equals the stored value {string}', function (fieldName: string, storeName: string) {
-    cy.get('@target-part-comparison')
-        // .get('input')
-        .within(($panel) => {
-            cy.log('[the field {string} is editable and the content equals the stored value {string}]> Store content: ' + store[storeName])
-            cy.get('[name="' + fieldName + '"]')
-                .should('have.value', store[storeName])
-        });
+    cy.get('@target-part').within(($panel) => {
+        cy.log('[the field {string} is editable and the content equals the stored value {string}]> Store content: ' + store[storeName])
+        cy.get('[name="' + fieldName + '"]')
+            .should('have.value', store[storeName])
+    });
+});
+
+When('any Part shows a Save button a the right', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container')
+        .find('v1-part')
+        .find('.save-modifications').should('exist')
+});
+
+Then('the target Part shows a Edit button a the right', function () {
+    cy.get('@target-part').within(($part) => {
+        cy.get('.edit-attributes').should('exist')
+    });
+});
+
+Then('the target Part shows a Save button a the right', function () {
+    cy.get('@target-part').within(($part) => {
+        cy.get('.save-modifications').should('exist')
+    });
+});
+
+When('the target Part Edit button is clicked', function () {
+    cy.get('@target-part').within(($part) => {
+        cy.get('.edit-attributes').click()
+    });
 });

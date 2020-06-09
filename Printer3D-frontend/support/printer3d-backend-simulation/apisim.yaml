@@ -56,7 +56,7 @@ simlet: inventory-updatepart
 
 request:
   - method: PATCH
-  - uriPathPattern: "/api/v1/inventory/parts"
+  - uriPathPattern: "/api/v1/inventory/parts/{partId}"
 
 response:
   from: template
