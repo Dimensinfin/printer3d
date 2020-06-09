@@ -103,11 +103,31 @@ When('there is a click on Feature {string}', function (featureLabel: string) {
 
 Then('there is a dialog title saying {string}', function (dialogLabel) {
     console.log('[THEN] there is a dialog title saying {string}');
-    cy.get('mat-dialog-container').find('header').find('div').contains(dialogLabel, {matchCase: false})
+    cy.get('mat-dialog-container').find('header').find('div').contains(dialogLabel, { matchCase: false })
 });
 
 Then('there is one field called {string} with the label {string}', function (fieldId, label) {
     console.log('[THEN] there is one field called {string} with the label {string}');
     cy.get('mat-dialog-container').find('tr').find(fieldId).should('have.length', 1)
-    cy.get('mat-dialog-container').find('tr').find('label').contains(label, {matchCase: false})
+    cy.get('mat-dialog-container').find('tr').find('label').contains(label, { matchCase: false })
 });
+
+When('the target form is the New Part dialog', function () {
+    cy.get('app-root').get('new-part-dialog').as('target-form')
+});
+
+Then('on target input form there is a field named {string} with name {string} and content up to {string} characters',
+    function (fieldLabel: string, fieldName: string, maxLength: number) {
+        cy.get('@target-form').find('.column').as('target-field')
+        cy.get('@target-field').find('label').contains(fieldLabel)
+        // Generate content
+        const service = new IsolationService()
+        const testContent = service.generateRandomString(maxLength + 1)
+        cy.get('@target-field').find('[name="' + fieldName + '"]')
+            .clear().type(testContent)
+        // Check that field trimms input
+        cy.get('@target-field').find('[name="' + fieldName + '"]').then(($field) => {
+            cy.log('[on target input form there is a field named {string} with name {string} and content up to {string} characters]> Field text: ' + $field.text())
+            // expect($field.text().length).to.equal(maxLength)
+        })
+    });
