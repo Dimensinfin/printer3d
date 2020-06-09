@@ -5,6 +5,8 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { IsolationService } from '../../support/IsolationService.support';
 
+let store: any = {};
+
 Then('the V2InventoryPartListPage is activated', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').should('exist');
 });
@@ -102,4 +104,32 @@ Then('the field {string} is editable', function (fieldName: string) {
         .find('node-container').find('v1-part').find('.field').as('target-part-field')
         .find('.label').contains(fieldName)
     cy.get('@target-part-field').find('input').should('exist')
+});
+
+When('the first v1-part is selected as the target', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container').find('v1-part')
+        .first().as('target-part-comparison')
+});
+
+Then('the field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
+    // Clean store before getting the data
+    // store = {};
+    cy.get('@target-part-comparison')
+        .find('.field').within(($panel) => {
+            cy.get('[name="' + fieldName + '"]').then(($field) => {
+                cy.log('[the field {string} stores the current value into {string}]> Field text: ' + $field.text())
+                store[storeName] = $field.text().replace('€','').trim()
+            })
+        });
+});
+
+Then('the field {string} is editable and the content equals the stored value {string}', function (fieldName: string, storeName: string) {
+    cy.get('@target-part-comparison')
+        // .get('input')
+        .within(($panel) => {
+            cy.log('[the field {string} is editable and the content equals the stored value {string}]> Store content: ' + store[storeName])
+            cy.get('[name="' + fieldName + '"]')
+                .should('have.value', store[storeName])
+        });
 });

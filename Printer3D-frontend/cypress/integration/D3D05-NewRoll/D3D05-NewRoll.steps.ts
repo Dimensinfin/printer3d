@@ -56,7 +56,7 @@ Then('the dialog closes', function () {
     cy.get('new-coil-dialog').should('have.length', 0);
 });
 
-Then('there is one field called {string} with the content {string}', function (fieldName, value) {
+Then('there is one field called {string} with the content {string}', function (fieldName:string, value:string) {
     cy.get('mat-dialog-container').find('input').get('[name="' + fieldName + '"]').should('have.value', value)
 });
 
