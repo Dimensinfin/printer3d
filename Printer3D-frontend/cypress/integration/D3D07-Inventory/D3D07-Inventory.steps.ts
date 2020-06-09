@@ -142,3 +142,27 @@ When('the target Part Edit button is clicked', function () {
         cy.get('.edit-attributes').click()
     });
 });
+
+When('the target Part Save button is clicked', function () {
+    cy.get('@target-part').within(($part) => {
+        cy.get('.save-modifications').click()
+    });
+});
+
+Then('the new part contents are persisted to the backend', function () {
+    cy.log('the new part contents are persisted to the backend')
+    cy.wait(1000)
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container')
+        .find('v1-part').should('exist')
+});
+
+Then('there is a Notification panel', function () {
+    cy.get('#toast-container').should('exist')
+});
+
+Then('the edit state is exited', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container')
+        .find('v1-part').find('input').should('not.exist')
+});

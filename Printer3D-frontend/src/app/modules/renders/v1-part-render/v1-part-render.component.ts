@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 // - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
@@ -15,6 +17,7 @@ import { IsolationService } from '@app/platform/isolation.service';
 
 @Component({
     selector: 'v1-part',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './v1-part-render.component.html',
     styleUrls: ['./v1-part-render.component.scss']
 })
@@ -26,7 +29,8 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
 
     constructor(
         protected isolationService: IsolationService,
-        protected backendService: BackendService) {
+        protected backendService: BackendService,
+        protected ref: ChangeDetectorRef) {
         super();
         this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
             .setTransformation((entrydata: any): Part => {
@@ -91,8 +95,9 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
             this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)
                 .subscribe((updatedPart: Part) => {
                     console.log('-[V1PartRenderComponent.saveEditing]> Updated Part: ' + JSON.stringify(updatedPart))
-                    this.node=updatedPart;
-                    this.closeEditing();
+                    this.node = updatedPart;
+                    this.toggleEdition();
+                    this.ref.detectChanges();
                 })
         );
     }

@@ -109,18 +109,27 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #         And the field "price" is editable and the content equals the stored value "PRECIO-STORE"
     # # And the field "active" is editable and the content equals the stored value "ACTIVA-STORE"
 
-    @D3D07 @D3D07.10
-    Scenario: [D3D07.10]-When the part is put in editable mode there is a check mark button to save the Part changes to the repository.
+    # @D3D07 @D3D07.10
+    # Scenario: [D3D07.10]-When the part is put in editable mode there is a check mark button to save the Part changes to the repository.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     When the right arrow is clicked
+    #     When the first v1-part is selected as the target
+    #     Then the target Part shows a Edit button a the right
+    #     When the target Part Edit button is clicked
+    #     Then the target Part shows a Save button a the right
+
+    @D3D07 @D3D07.11
+    Scenario: [D3D07.11]-If this check mark button is clicked then the new values are persisted at the repository, a notification is shown and the edit state is exited.
         Given there is a click on Feature "/INVENTARIO"
         When the V2InventoryPartListPage is activated
         When the right arrow is clicked
         When the first v1-part is selected as the target
-        Then the target Part shows a Edit button a the right
         When the target Part Edit button is clicked
-        Then the target Part shows a Save button a the right
-
-# @D3D07 @D3D07.11
-# Scenario: [D3D07.11]-If this check mark button is clicked then the new values are persisted at the repository, a notification is shown and the edit state is exited.
+        When the target Part Save button is clicked
+        Then there is a Notification panel
+        Then the new part contents are persisted to the backend
+        And the edit state is exited
 
 # @D3D07 @D3D07.12
 # Scenario: [D3D07.12]-The the Part values are edited and persisted the Part new values match the edited values.
