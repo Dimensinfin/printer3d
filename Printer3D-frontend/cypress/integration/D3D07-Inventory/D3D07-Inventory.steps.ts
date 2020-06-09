@@ -99,8 +99,6 @@ When('the first v1-part is selected as the target', function () {
 });
 
 Then('the field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
-    // Clean store before getting the data
-    // store = {};
     cy.get('@target-part')
         .find('.field').within(($panel) => {
             cy.get('[name="' + fieldName + '"]').then(($field) => {
@@ -165,4 +163,29 @@ Then('the edit state is exited', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
         .find('node-container')
         .find('v1-part').find('input').should('not.exist')
+});
+
+Then('the target Part field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
+    cy.get('@target-part')
+        .find('.field').within(($panel) => {
+            cy.get('[name="' + fieldName + '"]').then(($field) => {
+                cy.log('[the field {string} stores the current value into {string}]> Field text: ' + $field.text())
+                store[storeName] = $field.text().replace('€', '').trim()
+            })
+        });
+});
+
+Then('the target Part field {string} equals the stored value {string}', function (fieldName: string, storeName: string) {
+    cy.get('@target-part').within(($panel) => {
+        cy.log('[the field {string} is editable and the content equals the stored value {string}]> Store content: ' + store[storeName])
+        cy.get('[name="' + fieldName + '"]')
+            .should('have.value', store[storeName])
+    });
+});
+
+Then('the target Part field {string} is changed to {string}', function (fieldName: string, newValue: string) {
+    cy.get('@target-part')
+        .find('.field').within(($panel) => {
+            cy.get('[name="' + fieldName + '"]').clear().type(newValue)
+        });
 });

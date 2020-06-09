@@ -131,5 +131,23 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         Then the new part contents are persisted to the backend
         And the edit state is exited
 
-# @D3D07 @D3D07.12
-# Scenario: [D3D07.12]-The the Part values are edited and persisted the Part new values match the edited values.
+    @D3D07 @D3D07.12
+    Scenario: [D3D07.12]-The the Part values edited and persisted match the current Part values.
+        Given there is a click on Feature "/INVENTARIO"
+        When the V2InventoryPartListPage is activated
+        When the right arrow is clicked
+        When the first v1-part is selected as the target
+        When the target Part Edit button is clicked
+        Then the target Part field "stock" is changed to "8"
+        Then the target Part field "stockAvailable" is changed to "8"
+        Then the target Part field "cost" is changed to "8"
+        Then the target Part field "stock" stores the current value into "STOCK-STORE"
+        Then the target Part field "stockAvailable" stores the current value into "DISPONIBLE-STORE"
+        Then the target Part field "cost" stores the current value into "COSTE-STORE"
+        Then the target Part field "price" stores the current value into "PRECIO-STORE"
+        Then the target Part field "active" stores the current value into "ACTIVA-STORE"
+        When the target Part Save button is clicked
+        Then the target Part field "stock" equals the stored value "STOCK-STORE"
+        Then the target Part field "stockAvailable" equals the stored value "DISPONIBLE-STORE"
+        Then the target Part field "cost" equals the stored value "COSTE-STORE"
+        Then the target Part field "price" equals the stored value "PRECIO-STORE"
