@@ -18,21 +18,22 @@ Feature: Manage the Parts on the Inventory repository
       | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
-#  @ID01.H @ID01.02
-#  Scenario: [ID01.02] Validate the update of the Centro data and check the resulting records contents.
-#    Given a clean Centros repository
-#    And the following Centros in my service
-#      | id     | nombre                  | logotipo               | direccion           | localidad   |
-#      | 200001 | Centro Sanitorio Valles | Centro-Valles-Logo.gif | Calle Sin Nombre 17 | Guadalajara |
-#    And the next Centro request
-#      | id     | nombre                           | logotipo                        | direccion            | localidad |
-#      | 200001 | Centro Sanitorio Valle del Loira | Centro-Valle-del-Loira-Logo.gif | Calle Con Nombre 342 | Madrid    |
-#    When the Update Center request is processed
-#    Then there is a valid response with return code of "200 OK"
-#    And the response for new Centro has the next fields
-#      | jsonClass | id     | nombre                           | logotipo                        | direccion            | localidad |
-#      | Centro    | 200001 | Centro Sanitorio Valle del Loira | Centro-Valle-del-Loira-Logo.gif | Calle Con Nombre 342 | Madrid    |
-#
+  @P3D01.H @P3D01.02
+  Scenario: [P3D01.02] Validate the update of the Part data and check the resulting records contents.
+    Given a clean Inventory repository
+    And the following Parts in my service
+      | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE     | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+    And the next Update Part request
+      | id                                   | label                  | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key - UPDATED | PLA      | BLANCO    | 60        | 2.65 | 6.00  | 10         | 4              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+    When the Update Part request is processed
+    Then there is a valid response with return code of "200 OK"
+    And the response for Update Part has the next fields
+      | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 2.65 | 6.00  | 10         | 4              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+
   @P3D01.H @P3D01.03
   Scenario: [P3D01.03] Request the list of Parts available on Inventory repository.
     Given a clean Inventory repository

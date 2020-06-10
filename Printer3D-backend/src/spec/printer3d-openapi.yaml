@@ -84,7 +84,7 @@ servers:
   - url: https://printer3d-backend-stage.herokuapp.com
     description: OpenAPI 0.5.0 for 3D Printer Queue Management Backend Service. Stage environment
   - url: https://printer3d-backend.herokuapp.com
-    description: OpenAPI 0.4.4 for 3D Printer Queue Management Backend Service. Production
+    description: OpenAPI 0.5.0 for 3D Printer Queue Management Backend Service. Production
 
 tags:
   ### R E P O S I T O R I E S
@@ -109,6 +109,30 @@ paths:
       requestBody:
         description: >
           Contains the Part fields to be used to create a new Part record at the repository.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Part'
+      responses:
+        201:
+          description: >
+            The new Part as stored at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Part'
+    patch:
+      tags:
+        - Inventory
+      summary: Update a Part with some of the fields on the request.
+      description: >
+        The Printer3D user interface now has a feature tochange some of the Part fields. Thew are mostly related with the stock values and the cost
+        data. When the PATCH operation is sent to the backend all the fileds are populated but this endpoint will only get some of them and persist
+        their new values on the repository.
+      operationId: updatePart
+      requestBody:
+        description: >
+          Contains the Part fields to be used to update the Part record at the repository.
         content:
           application/json:
             schema:

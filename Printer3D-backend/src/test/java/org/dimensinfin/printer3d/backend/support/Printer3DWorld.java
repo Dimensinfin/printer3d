@@ -10,15 +10,16 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;
 	private ResponseEntity<Part> newPartResponseEntity;
+	private ResponseEntity<Part> updatePartResponseEntity;
 	private ResponseEntity<PartList> partListResponseEntity;
 	private Coil coil;
 	private ResponseEntity<Coil> newCoilResponseEntity;
@@ -26,16 +27,6 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 	private ResponseEntity<MachineList> machineListResponseEntity;
 	private ResponseEntity<MachineListV2> machineListv2ResponseEntity;
-
-	public ResponseEntity<MachineListV2> getMachineListv2ResponseEntity() {
-		return this.machineListv2ResponseEntity;
-	}
-
-	public Printer3DWorld setMachineListv2ResponseEntity( final ResponseEntity<MachineListV2> machineListv2ResponseEntity ) {
-		this.machineListv2ResponseEntity = machineListv2ResponseEntity;
-		return this;
-	}
-
 	private UUID partId;
 	private UUID machineId;
 	private ResponseEntity<Machine> startBuildResponseEntity;
@@ -96,6 +87,15 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public ResponseEntity<MachineListV2> getMachineListv2ResponseEntity() {
+		return this.machineListv2ResponseEntity;
+	}
+
+	public Printer3DWorld setMachineListv2ResponseEntity( final ResponseEntity<MachineListV2> machineListv2ResponseEntity ) {
+		this.machineListv2ResponseEntity = machineListv2ResponseEntity;
+		return this;
+	}
+
 	public ResponseEntity<Coil> getNewCoilResponseEntity() {
 		return this.newCoilResponseEntity;
 	}
@@ -147,6 +147,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setStartBuildResponseEntity( final ResponseEntity<Machine> startBuildResponseEntity ) {
 		this.startBuildResponseEntity = startBuildResponseEntity;
+		return this;
+	}
+
+	public ResponseEntity<Part> getUpdatePartResponseEntity() {
+		return this.updatePartResponseEntity;
+	}
+
+	public Printer3DWorld setUpdatePartResponseEntity( final ResponseEntity<Part> updatePartResponseEntity ) {
+		this.updatePartResponseEntity = updatePartResponseEntity;
 		return this;
 	}
 }

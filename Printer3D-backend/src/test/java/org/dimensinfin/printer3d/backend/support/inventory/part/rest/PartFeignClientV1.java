@@ -10,8 +10,8 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -58,6 +58,21 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.build()
 				.create( InventoryApiV1.class )
 				.newPart( authorizationToken, part )
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
+
+	public ResponseEntity<Part> updatePart( final String authorizationToken, final Part part ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the update of an existing Part.";
+		final Response<Part> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.updatePart( authorizationToken, part )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

@@ -93,6 +93,11 @@ jobs:
       - run:
           name: BACKEND - Unit Testing application
           working_directory: Printer3D-backend
+          environment:
+            PORT: 5130
+            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
           command: |
             ./gradlew test
       - store_test_results:

@@ -73,6 +73,11 @@ public class Part {
 		return this.cost;
 	}
 
+	public Part setCost( final Float cost ) {
+		this.cost = cost;
+		return this;
+	}
+
 	public String getDescription() {
 		return this.description;
 	}
@@ -101,16 +106,36 @@ public class Part {
 		return this.price;
 	}
 
+	public Part setPrice( final Float price ) {
+		this.price = price;
+		return this;
+	}
+
 	public int getStockAvailable() {
 		return this.stockAvailable;
+	}
+
+	public Part setStockAvailable( final int stockAvailable ) {
+		this.stockAvailable = stockAvailable;
+		return this;
 	}
 
 	public Integer getStockLevel() {
 		return this.stockLevel;
 	}
 
+	public Part setStockLevel( final Integer stockLevel ) {
+		this.stockLevel = stockLevel;
+		return this;
+	}
+
 	public boolean isActive() {
 		return this.active;
+	}
+
+	public Part setActive( final boolean active ) {
+		this.active = active;
+		return this;
 	}
 
 	@Override
@@ -261,7 +286,5 @@ public class Part {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
 			return this;
 		}
-
-
 	}
 }

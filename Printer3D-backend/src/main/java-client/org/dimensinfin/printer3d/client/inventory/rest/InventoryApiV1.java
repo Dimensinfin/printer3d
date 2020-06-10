@@ -5,10 +5,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
@@ -17,6 +17,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -126,4 +127,19 @@ public interface InventoryApiV1 {
 	Call<Machine> startBuild( @Header("Authorization") final @NotNull String authorizationToken,
 	                          @Path("machineId") final @NotNull UUID machineId,
 	                          @Path("partId") final @NotNull UUID partId );
+
+	/**
+	 * Update a Part with some of the fields on the request.
+	 * The Printer3D user interface now has a feature tochange some of the Part fields. Thew are mostly related with the stock values and the cost
+	 * data. When the PATCH operation is sent to the backend all the fileds are populated but this endpoint will only get some of them and persist
+	 * their new values on the repository.
+	 *
+	 * @param part Contains the Part fields to be used to update the Part record at the repository.
+	 *             (optional)
+	 * @return Call&lt;Part&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PATCH("api/v1/inventory/parts")
+	Call<Part> updatePart( @Header("Authorization") final @NotNull String authorizationToken,
+	                       @Body final @NotNull @Valid Part part );
 }

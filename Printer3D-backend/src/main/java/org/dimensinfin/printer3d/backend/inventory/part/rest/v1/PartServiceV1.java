@@ -11,8 +11,9 @@ import org.springframework.stereotype.Service;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartUpdater;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 @Service
@@ -21,11 +22,21 @@ public class PartServiceV1 {
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public PartServiceV1( @NotNull final PartRepository partRepository ) {
+	public PartServiceV1( final @NotNull PartRepository partRepository ) {
 		this.partRepository = partRepository;
 	}
 
-	public Part newPart( @NotNull final Part newPart ) {
+	public PartList getParts( final boolean activesOnly ) {
+		final List<Part> parts = this.partRepository.findAll()
+				.stream()
+				.filter( part -> (!activesOnly || part.isActive()) )
+				.collect( Collectors.toList() );
+		return new PartList.Builder()
+				.withPartList( parts )
+				.build();
+	}
+
+	public Part newPart( final @NotNull Part newPart ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
@@ -38,13 +49,16 @@ public class PartServiceV1 {
 		}
 	}
 
-	public PartList getParts( final boolean activesOnly ) {
-		final List<Part> parts = this.partRepository.findAll()
-				.stream()
-				.filter( part -> (!activesOnly || part.isActive()) )
-				.collect( Collectors.toList() );
-		return new PartList.Builder()
-				.withPartList( parts )
-				.build();
+	public Part updatePart( final @NotNull Part updatePart ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Part by id. If not found reject the request because this should be an update.
+			final Optional<Part> target = this.partRepository.findById( updatePart.getId() );
+			if (target.isEmpty())
+				throw new DimensinfinRuntimeException( ErrorInfo.PART_NOT_FOUND, updatePart.getId().toString() );
+			return this.partRepository.save( new PartUpdater( target.get() ).update( updatePart ) );
+		} finally {
+			LogWrapper.exit();
+		}
 	}
 }

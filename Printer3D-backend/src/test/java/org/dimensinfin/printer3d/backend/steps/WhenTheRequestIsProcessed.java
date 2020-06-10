@@ -74,6 +74,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_JOBS );
 	}
 
+	@When("the Get Machines V2 request is processed")
+	public void the_Get_Machines_V2_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_MACHINES_V2 );
+	}
+
 	@When("the Get Machines request is processed")
 	public void the_Get_Machines_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_MACHINES_V1 );
@@ -100,10 +105,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		this.processRequestByType( RequestType.START_BUILD );
 	}
-	@When("the Get Machines V2 request is processed")
-	public void the_Get_Machines_V2_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_MACHINES_V2 );
+
+	@When("the Update Part request is processed")
+	public void the_Update_Part_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.UPDATE_PART );
 	}
+
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
 		switch (requestType) {
 			case NEW_PART:
@@ -114,6 +121,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newPartResponseEntity );
 				this.printer3DWorld.setNewPartResponseEntity( newPartResponseEntity );
 				return newPartResponseEntity;
+			case UPDATE_PART:
+				Assertions.assertNotNull( this.printer3DWorld.getPart() );
+				final ResponseEntity<Part> updatePartResponseEntity = this.partFeignClientV1
+						.updatePart( this.printer3DWorld.getJwtAuthorizationToken(),
+								this.printer3DWorld.getPart() );
+				Assertions.assertNotNull( updatePartResponseEntity );
+				this.printer3DWorld.setUpdatePartResponseEntity( updatePartResponseEntity );
+				return updatePartResponseEntity;
 			case GET_PARTS:
 				final ResponseEntity<PartList> partListResponseEntity = this.partFeignClientV1
 						.getParts( this.printer3DWorld.getJwtAuthorizationToken() );
@@ -170,7 +185,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return cancelBuildResponseEntity;
 			case GET_JOBS:
 				final ResponseEntity<List<Job>> pendingJobsResponseEntity = this.jobFeignClientV1
-						.getPendingJobs(  );
+						.getPendingJobs();
 				Assertions.assertNotNull( pendingJobsResponseEntity );
 				this.printer3DWorld.setJobListResponseEntity( pendingJobsResponseEntity );
 				return pendingJobsResponseEntity;

@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.part.converter;
+package org.dimensinfin.printer3d.backend.support.inventory.part.converter;
 
 import java.util.Map;
 import java.util.UUID;

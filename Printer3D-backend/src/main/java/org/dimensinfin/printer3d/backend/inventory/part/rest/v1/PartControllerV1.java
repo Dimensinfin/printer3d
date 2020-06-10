@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,12 @@ public class PartControllerV1 {
 			produces = "application/json")
 	public ResponseEntity<Part> newPart( final @RequestBody @Valid @NotNull Part part ) {
 		return new ResponseEntity<>( this.partServiceV1.newPart( part ), HttpStatus.CREATED );
+	}
+	@PatchMapping(path = "/inventory/parts",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Part> updatePart( final @RequestBody @Valid @NotNull Part part ) {
+		return new ResponseEntity<>( this.partServiceV1.updatePart( part ), HttpStatus.OK );
 	}
 
 	@GetMapping(path = "/inventory/parts",
