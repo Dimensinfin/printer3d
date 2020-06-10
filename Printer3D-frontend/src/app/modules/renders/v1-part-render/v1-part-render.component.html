@@ -1,62 +1,45 @@
 <!-- P A R T - L I S T   V A R I A N T -->
 <div *ngIf="getVariant() === '-PART-LIST-'">
-    <div class="part-panel">
-        <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
-            <tr>
-                <td>
-                    <div class="edit-attributes" (click)="toggleEdition()">
-                        <img src="/assets/media/edit_attributes-white-36dp.svg">
-                    </div>
-                </td>
-                <td>
-                    <div class="save-modifications">
-                        <span>&nbsp;</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field material-width">
-                        <span class="label">MATERIAL</span><br>
-                        <span name="material" class="field-height part-material">{{getMaterial()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field color-width">
-                        <span class="label">COLOR</span><br>
-                        <span name="color" class="field-height part-color">{{getColor()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field stock-width">
-                        <span class="label">STOCK</span><br>
-                        <span name="stock" class="field-height part-stock">{{getStockRequired()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field stock-width">
-                        <span class="label">DISPONIBLE</span><br>
-                        <span name="stockAvailable" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field stock-width">
-                        <span class="label">COSTE</span><br>
-                        <span name="cost" class="field-height part-cost">{{getCost()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field stock-width">
-                        <span class="label">PRECIO</span><br>
-                        <span name="price" class="field-height part-price">{{getPrice()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field active-width">
-                        <span class="label">ACTIVA</span><br>
-                        <span name="active" class="field-height part-active">{{getActive()}}</span>
-                    </div>
-                </td>
-            </tr>
-        </table>
+    <div class="row part-panel">
+        <div class="edit-attributes" (click)="toggleEdition()">
+            <img src="/assets/media/edit_attributes-white-36dp.svg">
+        </div>
+        <div class="save-modifications">
+            <span>&nbsp;</span>
+        </div>
+        <div class="field material-width">
+            <span class="label">MATERIAL</span><br>
+            <span name="material" class="field-height part-material">{{getMaterial()}}</span>
+        </div>
+        <div class="field color-width">
+            <span class="label">COLOR</span><br>
+            <span name="color" class="field-height part-color">{{getColor()}}</span>
+        </div>
+        <div class="field stock-width">
+            <span class="label">STOCK</span><br>
+            <span name="stock" class="field-height part-stock">{{getStockRequired()}}</span>
+        </div>
+        <div class="field stock-width">
+            <span class="label">DISPONIBLE</span><br>
+            <span name="stockAvailable" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
+        </div>
+        <div class="field stock-width">
+            <span class="label">COSTE</span><br>
+            <span name="cost" class="field-height part-cost">{{getCost()}}</span>
+        </div>
+        <div class="field stock-width">
+            <span class="label">PRECIO</span><br>
+            <span name="price" class="field-height part-price">{{getPrice()}}</span>
+        </div>
+        <div class="field active-width">
+            <span class="label">ACTIVA</span><br>
+            <span name="active" class="field-height part-active">{{getActive()}}</span>
+        </div>
+        <div class="field corner-aligment">
+            <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
+                <path d="M100,100 L0,100 L100,0 L100,100" />
+            </svg>
+        </div>
     </div>
 </div>
 <div *ngIf="getVariant() === '-EDITABLE-PART-'">

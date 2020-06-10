@@ -1,27 +1,17 @@
 <!-- P A R T - L I S T   V A R I A N T -->
 <div *ngIf="getVariant() === '-PART-LIST-'">
-    <div class="part-panel">
-        <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
-            <tr>
-                <td>
-                    <div class="field label-width">
-                        <span class="label">ETIQUETA</span><br>
-                        <span name="color" class="partcontainer-label">{{getLabel()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field">
-                        <span class="label">DESCRIPCION</span><br>
-                        <span name="color" class="partcontainer-description">{{getDescription()}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="field buildTime-width">
-                        <span class="label">TIEMPO</span><br>
-                        <span name="color" class="partcontainer-buildTime">{{getBuildTime()}}</span>
-                    </div>
-                </td>
-            </tr>
-        </table>
+    <div class="row part-panel">
+        <div class="field label-width">
+            <span class="label">ETIQUETA</span><br>
+            <span name="color" class="partcontainer-label">{{getLabel()}}</span>
+        </div>
+        <div class="field">
+            <span class="label">DESCRIPCION</span><br>
+            <span name="color" class="partcontainer-description">{{getDescription()}}</span>
+        </div>
+        <div class="field buildTime-width">
+            <span class="label">TIEMPO</span><br>
+            <span name="color" class="partcontainer-buildTime">{{getBuildTime()}}</span>
+        </div>
     </div>
 </div>

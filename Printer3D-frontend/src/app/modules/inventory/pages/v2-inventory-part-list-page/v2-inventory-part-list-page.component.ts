@@ -75,8 +75,11 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
                     });
                     // Load the containers on the root for the MVC.
                     const containers = this.partContainers.values();
+                    const sortedContainers: PartContainer[] = []
                     this.dataModelRoot = []
                     for (const container of containers)
+                        sortedContainers.push(container)
+                    for (const container of this.sortPartContainersByLabel(sortedContainers))
                         this.dataModelRoot.push(container);
                     console.log('-[V2InventoryPartListPageComponent.refresh]> nodes processed: ' + this.dataModelRoot.length);
                     if (!environment.production)
@@ -89,9 +92,14 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
     private sortPartsByActive(parts: Part[]): Part[] {
         return parts.sort((part1, part2) => {
             if (part1.active == part2.active) return 0;
-            if (part1.active && !part2.active) return 1;
-            if (!part1.active && part2.active) return -1;
+            if (part1.active && !part2.active) return -1;
+            if (!part1.active && part2.active) return 1;
             return 0;
         })
+    }
+    private sortPartContainersByLabel(containers: PartContainer[]): PartContainer[] {
+        return containers.sort((container1, container2) =>
+            0 - (container2.label > container1.label ? 1 : -1)
+        )
     }
 }

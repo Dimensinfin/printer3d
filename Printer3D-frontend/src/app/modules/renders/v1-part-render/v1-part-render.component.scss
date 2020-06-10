@@ -1,6 +1,8 @@
 .part-panel {
     width: 100%;
     font-family: 'Electrolize', sans-serif;
+    border-top: 2px solid orange;
+    border-bottom: 1px solid #A09D9D80;
 }
 
 .part {
@@ -49,7 +51,7 @@
 }
 
 .color-width {
-    min-width: 80px;
+    min-width: 230px;
 }
 
 .stock-width {
@@ -58,4 +60,22 @@
 
 .active-width {
     min-width: 90px;
+}
+
+.corner-bottom {
+    position: absolute;
+    width: 13px;
+    bottom: -1px;
+    right: -8px;
+    fill: orangered;
+}
+
+.active {
+    fill: green;
+}
+
+.corner-aligment {
+    position: relative;
+    align-self: inherit;
+    margin-left: auto;
 }

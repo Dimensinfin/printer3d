@@ -6,8 +6,8 @@
     <div class="row node-panel body-box">
         <!-- BODY -->
         <div class="row body-box">
-            <v1-part-container *ngIf="node.getJsonClass() == 'PartContainer'" [container]="container" [node]="node" [variant]="variant"></v1-part-container>
-            <v1-part *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part>
+            <v1-part-container style="width: 100%;" *ngIf="node.getJsonClass() == 'PartContainer'" [container]="container" [node]="node" [variant]="variant"></v1-part-container>
+            <v1-part style="width: 100%;" *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part>
         </div>
 
         <!-- RIGHT ARROW -->
@@ -19,9 +19,9 @@
             &nbsp;
         </div>
     </div>
-    <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
+    <!-- <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
         <path d="M100,100 L0,100 L100,0 L100,100" />
-    </svg>
+    </svg> -->
     <svg class="corner-top" viewBox="0 0 100 100" *ngIf="false">
         <path d="M0,0 L0,100 L100,0 L0,0" fill="orangered"/>
     </svg>
