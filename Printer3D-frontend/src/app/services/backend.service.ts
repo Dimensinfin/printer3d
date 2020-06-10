@@ -30,9 +30,9 @@ export class BackendService {
     constructor(
         private isolationService: IsolationService,
         protected httpService: HttpClientWrapperService) {
-            this.APIV1 = environment.backendPath + environment.apiVersion1;
-            this.APIV2 = environment.backendPath + environment.apiVersion2;
-        }
+        this.APIV1 = environment.backendPath + environment.apiVersion1;
+        this.APIV2 = environment.backendPath + environment.apiVersion2;
+    }
     // - B A C K E N D - A P I
     // - I N V E N T O R Y
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
@@ -58,7 +58,7 @@ export class BackendService {
             }));
     }
     public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
-        const request = this.APIV1 + '/inventory/parts/'+updatingPart.id;
+        const request = this.APIV1 + '/inventory/parts/';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart), headers)
@@ -106,7 +106,7 @@ export class BackendService {
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName)
             .set('x-api-version', 'api v1');
-            return this.httpService.wrapHttpGETCall(request, headers)
+        return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as MachineListResponse;
@@ -116,8 +116,8 @@ export class BackendService {
     public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<MachineListResponse> {
         const request = this.APIV2 + '/inventory/machines';
         let headers = new HttpHeaders()
-        .set('xapp-name', environment.appName)
-        .set('x-api-version', 'api v2');
+            .set('xapp-name', environment.appName)
+            .set('x-api-version', 'api v2');
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);
