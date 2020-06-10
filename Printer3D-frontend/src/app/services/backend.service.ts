@@ -58,7 +58,7 @@ export class BackendService {
             }));
     }
     public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
-        const request = this.APIV1 + '/inventory/parts/';
+        const request = this.APIV1 + '/inventory/parts';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart), headers)
