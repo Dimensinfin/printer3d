@@ -37,13 +37,25 @@ describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
                 { provide: IsolationService, useClass: SupportIsolationService },
                 {
                     provide: HttpClient, useValue: {
-                        get: (request: string, headers: object) => {
+                        get: (request: string, headers?: object) => {
                             return Observable.create((observer) => {
                                 observer.next({});
                                 observer.complete();
                             });
                         },
-                        post: (request: string, bodu: string, headers: object) => {
+                        post: (request: string, body?: string, headers?: object) => {
+                            return Observable.create((observer) => {
+                                observer.next({});
+                                observer.complete();
+                            });
+                        },
+                        put: (request: string, headers?: object) => {
+                            return Observable.create((observer) => {
+                                observer.next({});
+                                observer.complete();
+                            });
+                        },
+                        patch: (request: string, body?: string, headers?: object) => {
                             return Observable.create((observer) => {
                                 observer.next({});
                                 observer.complete();
@@ -55,7 +67,6 @@ describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
         })
             .compileComponents();
         service = TestBed.get(HttpClientWrapperService);
-        // appStoreService = TestBed.get(AppStoreService);
     });
 
     // - C O N S T R U C T I O N   P H A S E
@@ -67,21 +78,33 @@ describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Http Wrappers]', async () => {
-        it('wrapHttpGETCall.success: make a GET request', () => {
+    describe('Code Coverage Phase [Http Wrappers]', () => {
+        it('wrapHttpGETCall.success: make a GET request', async () => {
             service.wrapHttpGETCall('request')
                 .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });
         });
-        it('wrapHttpRESOURCECall.success: make a GET request', async () => {
+        it('wrapHttpPUTCall.success: make a PUT request', async () => {
+            service.wrapHttpPUTCall('request')
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('wrapHttpPATCHCall.success: make a PATCH request', async () => {
+            await service.wrapHttpPATCHCall('request', '-DATA-')
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('wrapHttpRESOURCECall.success: make a RESOURCE request', async () => {
             service.wrapHttpRESOURCECall('request')
                 .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });
         });
         it('wrapHttpPOSTCall.success: make a POST request', () => {
-            service.wrapHttpPOSTCall('request', JSON.stringify(new Part()))
+            service.wrapHttpPOSTCall('request', '-DATA-')
                 .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });

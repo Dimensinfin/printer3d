@@ -1,5 +1,6 @@
 {
     "testFiles": "**/*.feature",
     "ignoreTestFiles": "*.js",
-    "projectId": "c6rdzc"
+    "projectId": "c6rdzc",
+    "video": false
 }

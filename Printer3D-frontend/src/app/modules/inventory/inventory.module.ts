@@ -16,6 +16,7 @@ import { NewCoilDialogComponent } from './dialogs/new-coil-dialog/new-coil-dialo
 import { V2InventoryPartListPageComponent } from './pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
 
 const routes: Routes = [
+    { path: 'partlist/v1', component: InventoryPartListPageComponent },
     { path: 'partlist', component: V2InventoryPartListPageComponent },
     { path: 'coillist', component: InventoryCoilListPageComponent }
 ];

@@ -132,3 +132,8 @@ Then('on target input form there is a field named {string} with name {string} an
             // expect(value.length).to.equal(maxLength)
         })
     });
+
+Given('the InventoryPartListPage at route {string}', function (route: string) {
+    cy.visit(route)
+});
+

@@ -19,8 +19,11 @@ Then('there are no Features active', function () {
 });
 
 Then('the target page is InventoryPartListPage', function () {
-    console.log('[THEN] the target page is InventoryPartListPage');
     cy.get('app-root').find('inventory-part-list-page').should('have.length', 1);
+});
+
+Then('the target page is V2InventoryPartListPage', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').should('have.length', 1);
 });
 
 Then('there are {int} Features', function (featureCount) {

@@ -10,7 +10,7 @@ Feature: [D3D02]-Test the activities within the dock.
         Given the DashboardPage is activated
         And one instance of Dock
         When there is a click on Feature "/INVENTARIO"
-        Then the target page is InventoryPartListPage
+        Then the target page is V2InventoryPartListPage
 
     @D3D02 @D3D02.02
     Scenario: [D3D02.02]-When a new page is selected the Dock visual configuration for the active Feature changes.

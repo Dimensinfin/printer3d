@@ -8,27 +8,24 @@ Feature: [D3D03]-Validate the Inventory features and page contents.
     Background: Start the application and move to the initial page
         Given the application Printer3DManager
 
-    @D3D03 @D3D03.01
-    Scenario: [D3D03.01]-Validate the structure of the Inventory Part List Page.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the InventoryPartListPage is activated
-        And one instance of GridAngular
-        And one or more instances of Row
+    # @D3D03 @D3D03.01
+    # Scenario: [D3D03.01]-Validate the structure of the Inventory Part List Page.
+    #     Given the InventoryPartListPage at route "/inventory/partlist/v1"
+    #     Then the InventoryPartListPage is activated
+    #     And one instance of GridAngular
+    #     And one or more instances of Row
 
-    @D3D03 @D3D03.02
-    Scenario: [D3D03.02]-Check that the Inventory Part List informs of the required fields.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the InventoryPartListPage is activated
-        And one instance of GridAngular
-        Then there is a column with "etiqueta" data
-        Then there is a column with "descripcion" data
-        Then there is a column with "material" data
-        Then there is a column with "color" data
-        Then there is a column with "coste" data
-        Then there is a column with "precio" data
-        # Then there is a column with "stockRequerido" data
-        # Then there is a column with "stockDisponible" data
-        # Then there is a column with "active" data
+    # @D3D03 @D3D03.02
+    # Scenario: [D3D03.02]-Check that the Inventory Part List informs of the required fields.
+    #     Given the InventoryPartListPage at route "/inventory/partlist/v1"
+    #     Then the InventoryPartListPage is activated
+    #     And one instance of GridAngular
+    #     Then there is a column with "etiqueta" data
+    #     Then there is a column with "descripcion" data
+    #     Then there is a column with "material" data
+    #     Then there is a column with "color" data
+    #     Then there is a column with "coste" data
+    #     Then there is a column with "precio" data
 
     @D3D03 @D3D03.03
     Scenario: [D3D03.03]-Validate the structure of the Inventory Coil List Page.
