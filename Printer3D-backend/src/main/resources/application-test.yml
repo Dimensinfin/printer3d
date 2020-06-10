@@ -29,7 +29,7 @@ spring:
     password: ${DB_PASSWORD}
   liquibase:
     liquibase-schema: public
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    change-log: classpath:/db/changelog/test/db.changelog-master.yaml
 
 logging.logstash:
   enabled: true

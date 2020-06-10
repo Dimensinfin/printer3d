@@ -66,4 +66,19 @@ public class PartControllerV1Test {
 		Assertions.assertEquals( 4, obtained.getBody().getCount() );
 		Assertions.assertEquals( 4, obtained.getBody().getParts().size() );
 	}
+
+	@Test
+	public void updatePart() {
+		// Given
+		final Part part = Mockito.mock( Part.class );
+		// When
+		Mockito.when( this.partServiceV1.updatePart( Mockito.any( Part.class ) ) ).thenReturn( part );
+		// Test
+		final PartControllerV1 controllerV1 = new PartControllerV1( this.partServiceV1 );
+		final ResponseEntity<Part> obtained = controllerV1.updatePart( part );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertNotNull( obtained.getBody() );
+		Assertions.assertTrue( obtained.getBody().equals( part ) );
+	}
 }

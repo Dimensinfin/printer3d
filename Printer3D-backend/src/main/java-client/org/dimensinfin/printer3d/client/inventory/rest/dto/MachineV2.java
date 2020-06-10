@@ -38,13 +38,11 @@ public class MachineV2 {
 	}
 
 	public int getRemainingTime() {
-		if (null != this.buildRecord) return this.buildRecord.getRemainingTime();
-		else return 0;
+		return this.buildRecord.getRemainingTime();
 	}
 
 	public boolean isRunning() {
-		if (null != this.buildRecord) return this.buildRecord.isRunning();
-		else return false;
+		return this.buildRecord.isRunning();
 	}
 
 	// - C O R E
