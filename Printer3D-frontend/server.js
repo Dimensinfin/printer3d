@@ -77,12 +77,12 @@ app.get('/*', function(req, res) {
 
 // - L I S T E N
 app.listen(process.env.PORT || app.locals.port || 3000, function() {
-    console.log("        ___     _  _      _____ \n" +
-        "__   __/ _ \\   | || |    |___ / \n" +
-        "\\ \\ / / | | |  | || |_     |_ \\ \n" +
-        " \\ V /| |_| |  |__   _|   ___) |\n" +
-        "  \\_/  \\___(_)    |_|(_) |____/ \n" +
-        "                                \n");
+    console.log("        ___     ____      ___  \n" +
+        "__   __/ _ \\   | ___|    / _ \\ \n" +
+        "\\ \\ / / | | |  |___ \\   | | | |\n" +
+        " \\ V /| |_| |   ___) |  | |_| |\n" +
+        "  \\_/  \\___(_) |____(_)  \\___/ \n" +
+        "                               \n");
     console.log("Node Express server for '" + app.locals.appname + "'");
     console.log("Backend listening on [" + app.locals.backendproxy + "]");
     console.log("Listening on port: " + app.locals.port);

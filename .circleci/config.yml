@@ -80,6 +80,7 @@ jobs:
             JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
             DB_USER: inno-user
             DB_PASSWORD: inno-password
+            SPRING_PROFILES_ACTIVE: acceptance
           command: |
             ./gradlew bootRun
           background: true

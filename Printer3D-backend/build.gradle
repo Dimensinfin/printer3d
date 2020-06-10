@@ -104,9 +104,8 @@ dependencies {
 }
 
 // - R U N N I N G
-def profiles = 'default'
 bootRun {
-    systemProperty "spring.profiles.active", "test"
+    systemProperty "spring.profiles.active", "acceptance"
 }
 
 // - S P R I N G B O O T
