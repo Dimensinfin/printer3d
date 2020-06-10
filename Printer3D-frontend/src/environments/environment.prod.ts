@@ -1,6 +1,5 @@
 export const environment = {
     production: true,
-    mockStatus: false,
     showexceptions: false,
     backendPath: "",
     copyright: '© 2020 Dimensinfin Industries',
