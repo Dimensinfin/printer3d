@@ -116,20 +116,30 @@ Then('the field {string} is editable and the content equals the stored value {st
     });
 });
 
-When('any Part shows a Save button a the right', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container')
-        .find('v1-part')
-        .find('.save-modifications').should('exist')
-});
-
-Then('the target Part shows a Edit button a the right', function () {
+Then('the target Part shows an Edit button at the right', function () {
     cy.get('@target-part').within(($part) => {
         cy.get('.edit-attributes').should('exist')
     });
-});
+  });
 
-Then('the target Part shows a Save button a the right', function () {
+// When('any Part shows a Save button a the right', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container')
+//         .find('v1-part')
+//         .find('.save-modifications').should('exist')
+// });
+
+// Then('the target Part shows a Edit button at the right', function () {
+// });
+// Then('any Part shows an Edit button at the right', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container')
+//         .find('v1-part').first().within(($part) => {
+//         cy.get('.edit-attributes').should('exist')
+//     });
+// });
+
+Then('the target Part shows a Save button at the right', function () {
     cy.get('@target-part').within(($part) => {
         cy.get('.save-modifications').should('exist')
     });

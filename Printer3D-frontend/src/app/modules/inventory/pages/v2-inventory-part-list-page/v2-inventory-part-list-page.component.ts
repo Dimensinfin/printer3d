@@ -15,6 +15,7 @@ import { Part } from '@domain/Part.domain';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { PartContainer } from '@domain/PartContainer.domain';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'v2-inventory-part-list-page',
@@ -78,9 +79,10 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
                     for (const container of containers)
                         this.dataModelRoot.push(container);
                     console.log('-[V2InventoryPartListPageComponent.refresh]> nodes processed: ' + this.dataModelRoot.length);
-                    setTimeout(() => {
-                        this.completeDowload();    // Notify the completion of the download.
-                    }, 2000);
+                    if (!environment.production)
+                        setTimeout(() => { // This is only for development
+                            this.completeDowload();    // Notify the completion of the download.
+                        }, 2000);
                 })
         )
     }
