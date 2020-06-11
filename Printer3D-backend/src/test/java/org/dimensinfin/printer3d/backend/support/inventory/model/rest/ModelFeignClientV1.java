@@ -53,4 +53,19 @@ public class ModelFeignClientV1 extends CommonFeignClient {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
+
+	public ResponseEntity<Model> removeModelPart( final String authorizationToken, final UUID modelId, final UUID partId ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the removal of a Part from a Model.";
+		final Response<Model> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.removeModelPart( authorizationToken, modelId, partId )
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
 }

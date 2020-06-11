@@ -49,4 +49,15 @@ public class ModelControllerV1 {
 	public ResponseEntity<Model> newModel( final @RequestBody @Valid @NotNull NewModelRequest modelRequest ) {
 		return new ResponseEntity<>( this.modelServiceV1.newModel( modelRequest ), HttpStatus.CREATED );
 	}
+
+	@PutMapping(path = "/inventory/models/{modelId}/removePart/{partId}",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Model> removeModelPart( final @PathVariable @NotNull UUID modelId,
+	                                              final @PathVariable @NotNull UUID partId ) {
+		return new ResponseEntity<>( this.modelServiceV1.removeModelPart( new UpdateModelCompositionRequest.Builder()
+				.withModelId( modelId )
+				.withPartId( partId )
+				.build() ), HttpStatus.OK );
+	}
 }

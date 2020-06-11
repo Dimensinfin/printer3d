@@ -127,7 +127,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.printer3DWorld.setPartId( UUID.fromString( partId ));
 		this.processRequestByType( RequestType.ADD_MODEL_PART );
 	}
-
+	@When("the Remove Model Part request with model {string} and part {string} is processed")
+	public void the_Remove_Model_Part_request_with_model_and_part_is_processed(final String modelId, final String partId) throws IOException {
+		this.printer3DWorld.setModelId( UUID.fromString( modelId ));
+		this.printer3DWorld.setPartId( UUID.fromString( partId ));
+		this.processRequestByType( RequestType.REMOVE_MODEL_PART );
+	}
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
 		switch (requestType) {
 			case NEW_PART:
@@ -224,6 +229,16 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( addModelPartResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( addModelPartResponseEntity );
 				return addModelPartResponseEntity;
+			case REMOVE_MODEL_PART:
+				Assertions.assertNotNull( this.printer3DWorld.getModelId() );
+				Assertions.assertNotNull( this.printer3DWorld.getPartId() );
+				final ResponseEntity<Model> removeModelPartResponseEntity = this.modelFeignClientV1.removeModelPart(
+						this.printer3DWorld.getJwtAuthorizationToken(),
+						this.printer3DWorld.getModelId(),
+						this.printer3DWorld.getPartId());
+				Assertions.assertNotNull( removeModelPartResponseEntity );
+				this.printer3DWorld.setModelResponseEntity( removeModelPartResponseEntity );
+				return removeModelPartResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
