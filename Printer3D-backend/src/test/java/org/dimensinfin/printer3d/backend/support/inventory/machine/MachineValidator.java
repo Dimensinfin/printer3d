@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.dimensinfin.acceptance.support.Validator;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 
-import static org.dimensinfin.printer3d.backend.support.inventory.machine.MachineMapConstants.MACHINE_CURRENT_JOB_PART;
-import static org.dimensinfin.printer3d.backend.support.inventory.machine.MachineMapConstants.MACHINE_CURRENT_PART_INSTANCES;
-import static org.dimensinfin.printer3d.backend.support.inventory.machine.MachineMapConstants.MACHINE_JOB_INSTALLMENT_DATE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MACHINE_CURRENT_JOB_PART;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MACHINE_CURRENT_PART_INSTANCES;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MACHINE_JOB_INSTALLMENT_DATE;
 
 public class MachineValidator implements Validator<Machine> {
 

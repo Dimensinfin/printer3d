@@ -11,5 +11,6 @@ public enum RequestType {
 	GET_MACHINES_V2,
 	START_BUILD,
 	CANCEL_BUILD,
-	GET_JOBS;
+	GET_JOBS,
+	NEW_MODEL;
 }

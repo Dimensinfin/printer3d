@@ -4,7 +4,6 @@
 3. Create on or more scenarios on the acceptance test feature file.
 4. Create one Trello card for each new scenario to iterate
 4. Compile the scenario. If there are steps not valid create the code for each them
-5. After the step creation commit the code using the step as the documentation.
 6. Check the new endpoint first starting the application in Debug mode
 6. Add the endpoint to the list of registered endpoints at Postman
 7. Save the Postman configuration

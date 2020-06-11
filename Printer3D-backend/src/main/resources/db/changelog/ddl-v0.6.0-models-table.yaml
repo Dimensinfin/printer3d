@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_6_0_001_printer3d_create_models_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createTable:
+            schemaName: printer3d
+            tableName: models
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: label
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: part_list
+                  type: jsonb
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: price
+                  type: float
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: stock_level
+                  type: int
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: stock_available
+                  type: int
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: image_path
+                  type: varchar(200)
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: active
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    updatable: true
+
+  - changeSet:
+      id: 0_6_0_002_printer3d_models_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: models
+            columnDataType: boolean
+            columnName: active
+            defaultValueBoolean: true
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: models
+            columnDataType: float
+            columnName: price
+            defaultValueNumeric: 0.0
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: models
+            columnDataType: float
+            columnName: stock_level
+            defaultValueNumeric: 1
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: models
+            columnDataType: float
+            columnName: stock_available
+            defaultValueNumeric: 0

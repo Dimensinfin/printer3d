@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
-import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_MACHINE_LABEL;

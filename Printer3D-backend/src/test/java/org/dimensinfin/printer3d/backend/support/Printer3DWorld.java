@@ -13,6 +13,8 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
@@ -31,6 +33,8 @@ public class Printer3DWorld extends CommonWorld {
 	private UUID machineId;
 	private ResponseEntity<Machine> startBuildResponseEntity;
 	private ResponseEntity<List<Job>> jobListResponseEntity;
+	private NewModelRequest newModelRequest;
+	private ResponseEntity<Model> modelResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public Coil getCoil() {
@@ -96,12 +100,30 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public NewModelRequest getNewModelRequest() {
+		return this.newModelRequest;
+	}
+
+	public Printer3DWorld setNewModelRequest( final NewModelRequest newModelRequest ) {
+		this.newModelRequest = newModelRequest;
+		return this;
+	}
+
 	public ResponseEntity<Coil> getNewCoilResponseEntity() {
 		return this.newCoilResponseEntity;
 	}
 
 	public Printer3DWorld setNewCoilResponseEntity( final ResponseEntity<Coil> newCoilResponseEntity ) {
 		this.newCoilResponseEntity = newCoilResponseEntity;
+		return this;
+	}
+
+	public ResponseEntity<Model> getModelResponseEntity() {
+		return this.modelResponseEntity;
+	}
+
+	public Printer3DWorld setModelResponseEntity( final ResponseEntity<Model> modelResponseEntity ) {
+		this.modelResponseEntity = modelResponseEntity;
 		return this;
 	}
 

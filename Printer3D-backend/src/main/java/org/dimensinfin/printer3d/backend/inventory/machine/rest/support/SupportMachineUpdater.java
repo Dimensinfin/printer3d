@@ -4,7 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
-import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 public class SupportMachineUpdater {
 	private final MachineEntity machine;

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiSupport;
-import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;

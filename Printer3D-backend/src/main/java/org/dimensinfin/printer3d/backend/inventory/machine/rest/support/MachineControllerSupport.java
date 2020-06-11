@@ -21,7 +21,7 @@ import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
-import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 @Profile({ "local", "acceptance", "test" })
 @RestController

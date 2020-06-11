@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Assertions;
 
-import org.dimensinfin.printer3d.backend.support.roll.rest.support.CoilFeignClientSupport;
+import org.dimensinfin.printer3d.backend.support.inventory.coil.rest.CoilFeignClientSupport;
 
 import io.cucumber.java.en.Given;
 

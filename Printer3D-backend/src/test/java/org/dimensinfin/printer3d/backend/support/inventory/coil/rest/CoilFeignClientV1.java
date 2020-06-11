@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.roll.rest.v1;
+package org.dimensinfin.printer3d.backend.support.inventory.coil.rest;
 
 import java.io.IOException;
 import javax.validation.constraints.NotNull;

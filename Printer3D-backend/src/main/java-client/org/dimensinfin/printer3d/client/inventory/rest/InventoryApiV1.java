@@ -10,6 +10,9 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import retrofit2.Call;
@@ -24,6 +27,21 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface InventoryApiV1 {
+	/**
+	 * Add a new Part reference *partId* to the list of Parts that compose this model.
+	 * The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts that
+	 * compose this model. If the Part is already at the model the part reference is added a second time.
+	 *
+	 * @param modelId The unique id (uuid) of the Model that store the Part link being received. (required)
+	 * @param partId  The unique id (uuid) of the Part that is being added to this Model composition. (required)
+	 * @return Call&lt;Model&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PUT("api/v1/inventory/models/{modelId}/addPart/{partId}")
+	Call<Model> addModelPart( @Header("Authorization") final @NotNull String authorizationToken,
+	                          @Path("modelId") UUID modelId,
+	                          @Path("partId") UUID partId );
+
 	/**
 	 * Signals the cancellation of the current build.
 	 * With this command the **Machine** will be recorded as ready. This cancellation command has not to be related toa real cancellation at the real
@@ -72,6 +90,16 @@ public interface InventoryApiV1 {
 	Call<MachineList> getMachines( @Header("Authorization") final @NotNull String authorizationToken );
 
 	/**
+	 * Get the list of Models persisted at the Inventory repository.
+	 * Get the complete list of **Models** persisted at the Inventory repository.
+	 *
+	 * @return Call&lt;ModelList&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@GET("api/v1/inventory/models")
+	Call<ModelList> getModels( @Header("Authorization") final @NotNull String authorizationToken );
+
+	/**
 	 * Get the list of Parts persisted at the Inventory repository.
 	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
 	 * active Parts.
@@ -100,6 +128,20 @@ public interface InventoryApiV1 {
 	                    @Body final @NotNull @Valid Coil newCoil );
 
 	/**
+	 * Creates a new **Model**.
+	 * The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other Model fields.
+	 *
+	 * @param newModelRequest Contains the **Model** fields requested to the user on the frontend UI.
+	 *                        (optional)
+	 * @return Call&lt;Model&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@POST("api/v1/inventory/models")
+	Call<Model> newModel( @Header("Authorization") final @NotNull String authorizationToken,
+	                      @Body NewModelRequest newModelRequest );
+
+
+	/**
 	 * Create a new Part from the data on the request.
 	 * The Printer3D user interface should have requested the Part contents to the user. This endpoint should validate all the fields against the
 	 * validation requirements and create a new record on the Inventory repository for the new Part.
@@ -112,6 +154,20 @@ public interface InventoryApiV1 {
 	@POST("api/v1/inventory/parts")
 	Call<Part> newPart( @Header("Authorization") final @NotNull String authorizationToken,
 	                    @Body final @NotNull @Valid Part newPart );
+
+	/**
+	 * Removes a Part reference *partId* from the list of Parts that compose this model.
+	 * This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error.
+	 *
+	 * @param modelId The unique id (uuid) of the Model that store the Part link being removed. (required)
+	 * @param partId  The unique id (uuid) of the Part that is being removed from this Model composition. (required)
+	 * @return Call&lt;Model&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PUT("api/v1/inventory/models/{modelId}/removePart/{partId}")
+	Call<Model> removeModelPart( @Header("Authorization") final @NotNull String authorizationToken,
+	                             @Path("modelId") UUID modelId,
+	                             @Path("partId") UUID partId );
 
 	/**
 	 * Signals the registration and start of a new build job.

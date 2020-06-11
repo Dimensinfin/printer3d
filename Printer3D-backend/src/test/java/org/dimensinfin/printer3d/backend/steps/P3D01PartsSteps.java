@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
-import org.dimensinfin.printer3d.backend.support.inventory.part.converter.CucumberTableToPartConverter;
-import org.dimensinfin.printer3d.backend.support.part.PartValidator;
+import org.dimensinfin.printer3d.backend.support.inventory.part.CucumberTableToPartConverter;
+import org.dimensinfin.printer3d.backend.support.inventory.part.PartValidator;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import io.cucumber.java.en.Given;

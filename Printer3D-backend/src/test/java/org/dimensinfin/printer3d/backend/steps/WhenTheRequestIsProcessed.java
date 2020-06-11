@@ -15,16 +15,18 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.core.LogWrapperLocal;
+import org.dimensinfin.printer3d.backend.support.inventory.coil.rest.CoilFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV2;
+import org.dimensinfin.printer3d.backend.support.inventory.model.rest.ModelFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
-import org.dimensinfin.printer3d.backend.support.roll.rest.v1.CoilFeignClientV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
@@ -37,6 +39,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final MachineFeignClientV1 machineFeignClientV1;
 	private final MachineFeignClientV2 machineFeignClientV2;
 	private final JobFeignClientV1 jobFeignClientV1;
+	private final ModelFeignClientV1 modelFeignClientV1;
 
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
@@ -44,13 +47,15 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  final @NotNull CoilFeignClientV1 coilFeignClientV1,
 	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1,
 	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
-	                                  final @NotNull JobFeignClientV1 jobFeignClientV1 ) {
+	                                  final @NotNull JobFeignClientV1 jobFeignClientV1,
+	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
 		this.machineFeignClientV1 = Objects.requireNonNull( machineFeignClientV1 );
 		this.machineFeignClientV2 = Objects.requireNonNull( machineFeignClientV2 );
 		this.jobFeignClientV1 = Objects.requireNonNull( jobFeignClientV1 );
+		this.modelFeignClientV1 = Objects.requireNonNull( modelFeignClientV1 );
 	}
 
 	@When("the Cancel Build for Machine {string} request is processed")
@@ -92,6 +97,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the New Coil request is processed")
 	public void the_New_Coil_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_COIL );
+	}
+
+	@When("the New Model request is processed")
+	public void the_New_Model_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.NEW_MODEL );
 	}
 
 	@When("the New Part request is processed")
@@ -189,6 +199,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( pendingJobsResponseEntity );
 				this.printer3DWorld.setJobListResponseEntity( pendingJobsResponseEntity );
 				return pendingJobsResponseEntity;
+			case NEW_MODEL:
+				Assertions.assertNotNull( this.printer3DWorld.getNewModelRequest() );
+				final ResponseEntity<Model> newModelResponseEntity = this.modelFeignClientV1.newModel(
+						this.printer3DWorld.getJwtAuthorizationToken(),
+						this.printer3DWorld.getNewModelRequest() );
+				Assertions.assertNotNull( newModelResponseEntity );
+				this.printer3DWorld.setModelResponseEntity( newModelResponseEntity );
+				return newModelResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

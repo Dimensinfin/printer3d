@@ -54,12 +54,12 @@ public class Printer3DApplication {
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final IOException ioe) {
 				LogWrapper.error( ioe );
-				return "        ___     ____     _ \n" +
-						"__   __/ _ \\   | ___|   / |\n" +
-						"\\ \\ / / | | |  |___ \\   | |\n" +
-						" \\ V /| |_| |   ___) |  | |\n" +
-						"  \\_/  \\___(_) |____(_) |_|\n" +
-						"                           \n";
+				return "        ___      __       ___  \n" +
+						"__   __/ _ \\    / /_     / _ \\ \n" +
+						"\\ \\ / / | | |  | '_ \\   | | | |\n" +
+						" \\ V /| |_| |  | (_) |  | |_| |\n" +
+						"  \\_/  \\___(_)  \\___(_)  \\___/ \n" +
+						"                               \n";
 			}
 		}
 	}

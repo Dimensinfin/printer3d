@@ -10,7 +10,7 @@ info:
     and there are provisioning for automatic code generation for this API clients.
 
     ##
-    The current API specification matches the Printer3D backend system published with version **0.5.1**.
+    The current API specification matches the Printer3D backend system published with version **0.6.0**.
 
     # System Description
 
@@ -52,6 +52,11 @@ info:
     define the time slot use of the 3D printer and have some cost and price attached. The Part will also store the stock information so for active
     parts this information is used to calculate the jobs pending to stabilize a stock level.
 
+    * **Model** - A model is a collection of Parts that are required to build a new item. There are simple items that can be sell only by building
+    a Part but also there are complex elements that are composed of more than one Part. Each of the Parts can have their own color and material.
+    The Model has then a list of the Part references that should be composed at the UI and than can be modified but only on the list of Part
+    composition.
+
     * **Coil** - To build a Part we require to use a plastic filament **Coil** on a 3D printer so we can print a thin plastic layer upon
     another layer until we have the model complete. The **Coils** are the storage for the plastic. It comes in long mono filament plastic lines of
     thousands of metres of length. Usually they are bought by weight.
@@ -79,15 +84,15 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.5.1
+  version: 0.6.0
 servers:
   - url: https://printer3d-backend-stage.herokuapp.com
-    description: OpenAPI 0.5.1 for 3D Printer Queue Management Backend Service. Stage environment
+    description: OpenAPI 0.6.0 for 3D Printer Queue Management Backend Service. Stage environment
   - url: https://printer3d-backend.herokuapp.com
-    description: OpenAPI 0.5.1 for 3D Printer Queue Management Backend Service. Production
+    description: OpenAPI 0.6.0 for 3D Printer Queue Management Backend Service. Production
 
 tags:
-  ### R E P O S I T O R I E S
+  # - R E P O S I T O R I E S
   - name: Inventory
     description: >
       The API information unit that manages physical Inventory contents.
@@ -96,7 +101,7 @@ tags:
       The API information unit that manages the Production requirements and needs from the adjacent units of **Inventory** and **Market**.
 
 paths:
-  ### P A R T S
+  # - P A R T S
   /api/v1/inventory/parts:
     post:
       tags:
@@ -172,56 +177,139 @@ paths:
               schema:
                 $ref: '#/components/schemas/PartList'
 
-  /api/v1/inventory/parts/{partId}:
-    patch:
+  # - M O D E L S
+  /api/v1/inventory/models:
+    post:
       tags:
-        - Parts
-      summary: Update an alrady existing Part. Only some of the fields are allowed for update. The rest of the fields are ignored.
+        - Inventory
+      summary: Creates a new Model.
       description: >
-        Process a request to update an existing Part on the repository by giving the new field contents. Only the allowed modifiable contents are
-        processed and the other fields are ignored.
-      operationId: updatePart
+        Creates a new Model. The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other
+        Model fields.
+      operationId: newModel
+      requestBody:
+        description: >
+          Contains the **Model** fields requested to the user on the frontend UI.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewModelRequest'
+      responses:
+        201:
+          description: >
+            The new Model data to be stored at the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+    get:
+      tags:
+        - Inventory
+      summary: Get the list of Models persisted at the Inventory repository.
+      description: >
+        Get the complete list of **Models** persisted at the Inventory repository.
+      operationId: getModels
+      responses:
+        200:
+          description: >
+            The list of Models persisted at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelList'
+  /api/v1/inventory/models/{modelId}/addPart/{partId}:
+    put:
+      tags:
+        - Inventory
+      summary: Add a new Part reference partId to the list of Parts that compose this model.
+      description: >
+        The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts
+        that compose this model. If the Part is already at the model the part reference is added a second time.
+      operationId: addModelPart
       parameters:
         - in: path
-          name: partId
+          name: modelId
           required: true
           style: simple
           explode: false
-          description: The unique id (uuid) for the Part to be edited.
+          description: The unique id (uuid) of the Model that store the Part link being received.
           schema:
             type: string
             format: uuid
           example:
             4e7001ee-6bf5-40b4-9c15-61802e4c59ea
-      requestBody:
-        description: >
-          The new contents for the Part record.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Part'
+        - in: path
+          name: partId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Part that is being added to this Model composition.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
       responses:
         200:
           description: >
-            The new list of Parts at the Inventory repository.
+            The new Model data contents stored at the repository.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Part'
+                $ref: '#/components/schemas/Model'
+  /api/v1/inventory/models/{modelId}/removePart/{partId}:
+    put:
+      tags:
+        - Inventory
+      summary: Removes a Part reference partId from the list of Parts that compose this model.
+      description: >
+        This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error.
+      operationId: removeModelPart
+      parameters:
+        - in: path
+          name: modelId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Model that store the Part link being removed.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+        - in: path
+          name: partId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Part that is being removed from this Model composition.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The new Model data contents stored at the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
 
-  ### R O L L S
+  # - C O I L S
   /api/v1/inventory/coils:
     post:
       tags:
         - Inventory
-      summary: Creates a new **Coil** instance on the persistence repository.
+      summary: Creates a new Coil instance on the persistence repository.
       description: >
         The 3D printers need and use plastic filament to build the models. The Coils have as main characteristics the type of plastic, the color
         and the quantity of the material.
       operationId: newCoil
       requestBody:
         description: >
-          Contains the *Coil** fields requested to the user on the frontend UI.
+          Contains the **Coil** fields requested to the user on the frontend UI.
         content:
           application/json:
             schema:
@@ -250,7 +338,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CoilList'
 
-  ### F I N I S H I N G S
+  # - F I N I S H I N G S
   /api/v1/inventory/finishings:
     get:
       tags:
@@ -269,12 +357,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/FinishingsResponse'
 
-  ### M A C H I N E S
+  # - M A C H I N E S
   /api/v2/inventory/machines:
     get:
       tags:
         - Inventory
-      summary: Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
+      summary: Gets the list of Machines defined on the system and persisted on the Inventory unit.
       description: >
         This version changes the contents so it is not compatible with previous versions. The build job information is collected into a new data
         structure and there are more fields added to the build record.
@@ -379,7 +467,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Machine'
 
-  ### J O B S
+  # - J O B S
   /api/v1/production/jobs/pending:
     get:
       tags:
@@ -400,6 +488,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobList'
 
+# - S C H E M A S
 components:
   schemas:
     Part:
@@ -713,6 +802,165 @@ components:
             job is completed. Detecting this event will clear the Machine state to IDLE and update the stocks.
           example:
             18
+
+    NewModelRequest:
+      type: object
+      required:
+        - id
+        - label
+        - price
+      properties:
+        id:
+          type: string
+          format: uuid
+          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          description: >
+            The unique identifier for a Model.
+          example:
+            009ab011-03ad-4e84-9a88-25708d1cfd64
+        label:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 50
+          description: >
+            It is a human readable label to identify the Model. Once set it cnnot be modified to disallow the reuse of model entities. Models can
+            be deactivated and then are not eligible for handling or production.
+          example:
+            Boquilla Ganesha
+        price:
+          type: number
+          format: float
+          minimum: 0
+          description: >
+            The requested catalog price for this Model. This price includes IVA so on bills real price should be recalculated. The final Model
+            price will not have the same as the sum of the individual parts that compose it.
+          example:
+            4.00
+        stockLevel:
+          type: number
+          format: int32
+          default: 1
+          minimum: 1
+          description: >
+            This is the value set as the stock level desired to have on the storage.
+          example:
+            3
+        stockAvailable:
+          type: number
+          format: int32
+          default: 0
+          minimum: 0
+          description: >
+            This is the current stock value of the number of pieces available to sell.
+          example:
+            4
+        imagePath:
+          type: string
+          format: url
+          maxLength: 200
+          description: >
+            The URL for an external image stored on a public repository or Google drive. This image will be used when showing the catalog.
+          example:
+            'https://ibb.co/3dGbsRh'
+    ModelList:
+      type: object
+      required:
+        - count
+        - models
+      properties:
+        count:
+          type: number
+          format: int32
+          description: >
+            The number of Models that follow on the response.
+          example:
+            8
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+    Model:
+      type: object
+      required:
+        - id
+        - label
+        - partList
+        - price
+        - stockLevel
+        - active
+      properties:
+        id:
+          type: string
+          format: uuid
+          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          description: >
+            The unique identifier for a Model.
+          example:
+            009ab011-03ad-4e84-9a88-25708d1cfd64
+        label:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 50
+          description: >
+            It is a human readable label to identify the Model. Once set it cnnot be modified to disallow the reuse of model entities. Models can
+            be deactivated and then are not eligible for handling or production.
+          example:
+            Boquilla Ganesha
+        partList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Part'
+          description: >
+            The list of the Parts that compose the Model. The stock quantity set to the model will be added to the list
+            of required parts to be on stock so the Part can be managed independently of the model.
+          example:
+            [ '009ab011-03ad-4e84-9a88-25708d1cfd64', '009ab011-03ad-4e84-9a88-25708d1cfd64' ]
+        price:
+          type: number
+          format: float
+          minimum: 0
+          description: >
+            The requested catalog price for this Model. This price includes IVA so on bills real price should be recalculated. The final Model
+            price will not have the same as the sum of the individual parts that compose it.
+          example:
+            4.00
+        stockLevel:
+          type: number
+          format: int32
+          default: 1
+          minimum: 1
+          description: >
+            This is the value set as the stock level desired to have on the storage.
+          example:
+            3
+        stockAvailable:
+          type: number
+          format: int32
+          default: 0
+          minimum: 0
+          description: >
+            This is the current stock value of the number of pieces available to sell.
+          example:
+            4
+        imagePath:
+          type: string
+          format: url
+          maxLength: 200
+          description: >
+            The URL for an external image stored on a public repository or Google drive. This image will be used when showing the catalog.
+          example:
+            'https://ibb.co/3dGbsRh'
+        active:
+          type: boolean
+          format: boolean
+          default: true
+          description: >
+            This flag is used to mark out disabled Models. Models that are obsolete and no longer should be build are not deleted but just disabled
+            with this flag. Disable status can be reverted editing the Model at the UI.
+          example:
+            true
 
     Coil:
       type: object

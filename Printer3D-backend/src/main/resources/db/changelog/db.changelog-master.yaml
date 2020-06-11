@@ -19,3 +19,5 @@ databaseChangeLog:
       file: db/changelog/dml-v0.4.0-machines-data.yaml
   - include:
       file: db/changelog/ddl-v0.4.0-alter-machines-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.6.0-models-table.yaml

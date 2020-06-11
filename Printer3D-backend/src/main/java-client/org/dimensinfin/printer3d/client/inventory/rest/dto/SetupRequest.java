@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.client.inventory.rest;
+package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;

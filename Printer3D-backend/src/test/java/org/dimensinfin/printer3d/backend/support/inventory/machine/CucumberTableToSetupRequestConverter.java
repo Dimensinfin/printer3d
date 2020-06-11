@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
-import org.dimensinfin.printer3d.client.inventory.rest.SetupRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 public class CucumberTableToSetupRequestConverter extends CucumberTableConverter<SetupRequest> {
 	private static final String SETUPREQUEST_PART_ID = "currentJobPart";

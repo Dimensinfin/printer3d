@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.inventory.part.converter;
+package org.dimensinfin.printer3d.backend.support.inventory.part;
 
 import java.util.Map;
 import java.util.UUID;
@@ -6,25 +6,25 @@ import java.util.UUID;
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.ACTIVE;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.BUILD_TIME;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.COLOR_CODE;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.COST;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.DESCRIPTION;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.PART_ID;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.IMAGE_PATH;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.LABEL;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.MATERIAL;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.MODEL_PATH;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.PRICE;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.STOCK_AVAILABLE;
-import static org.dimensinfin.printer3d.backend.support.part.PartMapConstants.STOCK_LEVEL;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ACTIVE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.BUILD_TIME;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COLOR_CODE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COST;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.DESCRIPTION;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.IMAGE_PATH;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MATERIAL;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MODEL_PATH;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PRICE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STOCK_AVAILABLE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STOCK_LEVEL;
 
 public class CucumberTableToPartConverter extends CucumberTableConverter<Part> {
 	@Override
 	public Part convert( final Map<String, String> cucumberRow ) {
 		Part.Builder builder = new Part.Builder();
-		if (null != cucumberRow.get( PART_ID )) builder = builder.withId( UUID.fromString( cucumberRow.get( PART_ID ) ) );
+		if (null != cucumberRow.get( ID )) builder = builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
 		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( DESCRIPTION )) builder = builder.withDescription( cucumberRow.get( DESCRIPTION ) );
 		if (null != cucumberRow.get( MATERIAL )) builder = builder.withMaterial(  cucumberRow.get( MATERIAL )  );
