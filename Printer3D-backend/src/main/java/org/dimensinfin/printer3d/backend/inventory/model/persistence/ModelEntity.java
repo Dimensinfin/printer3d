@@ -85,6 +85,11 @@ public class ModelEntity {
 		return this.active;
 	}
 
+	public ModelEntity addPart( final UUID partId ) {
+		this.partList.add( partId );
+		return this;
+	}
+
 	// - C O R E
 	@Override
 	public int hashCode() {
@@ -130,6 +135,11 @@ public class ModelEntity {
 				.append( "imagePath", this.imagePath )
 				.append( "active", this.active )
 				.toString();
+	}
+
+	public ModelEntity removePart( final UUID partId ) {
+		this.partList.remove( partId );
+		return this;
 	}
 
 	// - B U I L D E R

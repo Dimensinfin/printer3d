@@ -33,24 +33,25 @@ public class PartControllerV1 {
 		this.partServiceV1 = partServiceV1;
 	}
 
-	@PostMapping(path = "/inventory/parts",
-			consumes = "application/json",
-			produces = "application/json")
-	public ResponseEntity<Part> newPart( final @RequestBody @Valid @NotNull Part part ) {
-		return new ResponseEntity<>( this.partServiceV1.newPart( part ), HttpStatus.CREATED );
-	}
-	@PatchMapping(path = "/inventory/parts",
-			consumes = "application/json",
-			produces = "application/json")
-	public ResponseEntity<Part> updatePart( final @RequestBody @Valid @NotNull Part part ) {
-		return new ResponseEntity<>( this.partServiceV1.updatePart( part ), HttpStatus.OK );
-	}
-
 	@GetMapping(path = "/inventory/parts",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<PartList> getParts( final @RequestParam(name = "activesOnly") Optional<Boolean> activesOnly ) {
 		final boolean activeState = activesOnly.isPresent() && activesOnly.get();
 		return new ResponseEntity<>( this.partServiceV1.getParts( activeState ), HttpStatus.OK );
+	}
+
+	@PostMapping(path = "/inventory/parts",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Part> newPart( final @RequestBody @Valid @NotNull Part part ) {
+		return new ResponseEntity<>( this.partServiceV1.newPart( part ), HttpStatus.CREATED );
+	}
+
+	@PatchMapping(path = "/inventory/parts",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Part> updatePart( final @RequestBody @Valid @NotNull Part part ) {
+		return new ResponseEntity<>( this.partServiceV1.updatePart( part ), HttpStatus.OK );
 	}
 }

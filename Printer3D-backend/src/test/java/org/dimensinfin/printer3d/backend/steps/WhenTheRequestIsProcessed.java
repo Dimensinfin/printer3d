@@ -121,6 +121,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.UPDATE_PART );
 	}
 
+	@When("the Add Model Part request with model {string} and part {string} is processed")
+	public void the_Add_Model_Part_request_with_model_and_part_is_processed(final String modelId, final String partId) throws IOException {
+		this.printer3DWorld.setModelId( UUID.fromString( modelId ));
+		this.printer3DWorld.setPartId( UUID.fromString( partId ));
+		this.processRequestByType( RequestType.ADD_MODEL_PART );
+	}
+
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
 		switch (requestType) {
 			case NEW_PART:
@@ -207,6 +214,16 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newModelResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( newModelResponseEntity );
 				return newModelResponseEntity;
+			case ADD_MODEL_PART:
+				Assertions.assertNotNull( this.printer3DWorld.getModelId() );
+				Assertions.assertNotNull( this.printer3DWorld.getPartId() );
+				final ResponseEntity<Model> addModelPartResponseEntity = this.modelFeignClientV1.addModelPart(
+						this.printer3DWorld.getJwtAuthorizationToken(),
+						this.printer3DWorld.getModelId(),
+						this.printer3DWorld.getPartId());
+				Assertions.assertNotNull( addModelPartResponseEntity );
+				this.printer3DWorld.setModelResponseEntity( addModelPartResponseEntity );
+				return addModelPartResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

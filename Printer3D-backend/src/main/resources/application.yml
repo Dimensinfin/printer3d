@@ -1,10 +1,12 @@
 server:
   port: ${PORT}
-  version: 0.2.0
+
 info:
   tags:
-    environment: local
-    version: 0.2.0
+    application: ${build.artifact}
+    port: ${PORT}
+    profile: ${spring.profiles.active}
+    version: ${build.version}
 
 spring:
   jpa:

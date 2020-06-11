@@ -27,8 +27,8 @@ public class P3D07ModelsSteps extends StepSupport {
 		this.printer3DWorld.setNewModelRequest( modelRequest );
 	}
 
-	@Then("the response for New Model has the next fields")
-	public void the_response_for_New_Model_has_the_next_fields( final List<Map<String, String>> dataTable ) {
+	@Then("the response for Model requests has the next fields")
+	public void the_response_for_Model_requests_has_the_next_fields( final List<Map<String, String>> dataTable ) {
 		Assertions.assertNotNull( this.printer3DWorld.getModelResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getModelResponseEntity().getBody() );
 		Assertions.assertTrue(

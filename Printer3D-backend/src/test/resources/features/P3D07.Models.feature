@@ -14,9 +14,9 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
     When the New Model request is processed
     Then there is a valid response with return code of "201 CREATED"
-    And the response for New Model has the next fields
-      | id                                   | label            | partList | price | stockLevel | stockAvailable | imagePath              | active |
-      | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha |          | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
+    And the response for Model requests has the next fields
+      | id                                   | label            | partIdList | price | stockLevel | stockAvailable | imagePath              | active |
+      | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha |            | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
 
   @P3D07.H @P3D07.02
   Scenario: [P3D07.02] Add a new Part to the model part composition.
@@ -30,12 +30,12 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
       | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO     | 30        | 0.65 | 2.00  | 3          | 2              |
     Given a clean Model repository
     And the following Models in my service
-      | id                                   | label            | partList                             | price | stockLevel | stockAvailable | imagePath              | active |
+      | id                                   | label            | partIdList                           | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
     When the Add Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "8d2853ca-ebf6-443e-b705-89f7a5149d37" is processed
     Then there is a valid response with return code of "200 OK"
-    And the response for Model has the next fields
-      | id                                   | label            | partList                                                                   | price | stockLevel | stockAvailable | imagePath              | active |
+    And the response for Model requests has the next fields
+      | id                                   | label            | partIdList                                                                 | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
 
   @P3D07.H @P3D07.03
@@ -50,12 +50,12 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
       | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO     | 30        | 0.65 | 2.00  | 3          | 2              |
     Given a clean Model repository
     And the following Models in my service
-      | id                                   | label            | partList                             | price | stockLevel | stockAvailable | imagePath              | active |
+      | id                                   | label            | partIdList                           | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
     When the Add Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "eb80222b-efeb-4d90-9be7-1a0850338e5e" is processed
     Then there is a valid response with return code of "200 OK"
-    And the response for Model has the next fields
-      | id                                   | label            | partList                                                                   | price | stockLevel | stockAvailable | imagePath              | active |
+    And the response for Model requests has the next fields
+      | id                                   | label            | partIdList                                                                 | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
 
   @P3D07.H @P3D07.04
@@ -70,12 +70,12 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
       | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO     | 30        | 0.65 | 2.00  | 3          | 2              |
     Given a clean Model repository
     And the following Models in my service
-      | id                                   | label            | partList                                                                   | price | stockLevel | stockAvailable | imagePath              | active |
+      | id                                   | label            | partIdList                                                                 | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
     When the Remove Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "eb80222b-efeb-4d90-9be7-1a0850338e5e" is processed
     Then there is a valid response with return code of "200 OK"
-    And the response for Model has the next fields
-      | id                                   | label            | partList                             | price | stockLevel | stockAvailable | imagePath              | active |
+    And the response for Model requests has the next fields
+      | id                                   | label            | partIdList                           | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
 
   @P3D07.H @P3D07.05
@@ -90,12 +90,12 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
       | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO     | 30        | 0.65 | 2.00  | 3          | 2              |
     Given a clean Model repository
     And the following Models in my service
-      | id                                   | label            | partList                                                                   | price | stockLevel | stockAvailable | imagePath              | active |
+      | id                                   | label            | partIdList                                                                 | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
     When the Remove Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "eb80222b-efeb-4d90-9be7-1a0850338e5e" is processed
     Then there is a valid response with return code of "200 OK"
-    And the response for Model has the next fields
-      | id                                   | label            | partList                             | price | stockLevel | stockAvailable | imagePath              | active |
+    And the response for Model requests has the next fields
+      | id                                   | label            | partIdList                           | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
 
   @P3D07.H @P3D07.06
@@ -110,7 +110,7 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
       | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO     | 30        | 0.65 | 2.00  | 3          | 2              |
     Given a clean Model repository
     And the following Models in my service
-      | id                                   | label            | partList                                                                                                         | price | stockLevel | stockAvailable | imagePath              | active |
+      | id                                   | label            | partIdList                                                                                                       | price | stockLevel | stockAvailable | imagePath              | active |
       | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
       | 08a1c652-37f7-456d-9762-8dab873b40e3 | Boquilla Dragon  | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea,63fff2bc-a93f-4ee5-b753-185d83a13151                                        | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
     When the Get Models request is processed

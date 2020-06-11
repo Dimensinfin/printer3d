@@ -10,9 +10,9 @@ public class AcceptanceFieldMapConstants {
 	public static final String COST = "cost";
 	public static final String PRICE = "price";
 	public static final String STOCK_LEVEL = "stockLevel";
-	public static final String STOCK_AVAILABLE= "stockAvailable";
-	public static final String IMAGE_PATH= "imagePath";
-	public static final String MODEL_PATH= "modelPath";
+	public static final String STOCK_AVAILABLE = "stockAvailable";
+	public static final String IMAGE_PATH = "imagePath";
+	public static final String MODEL_PATH = "modelPath";
 	public static final String ACTIVE = "active";
 	public static final String COLOR = "color";
 	public static final String WEIGHT = "weight";
@@ -20,4 +20,5 @@ public class AcceptanceFieldMapConstants {
 	public static final String MACHINE_CURRENT_JOB_PART = "currentJobPartId";
 	public static final String MACHINE_JOB_INSTALLMENT_DATE = "jobInstallmentDate";
 	public static final String MACHINE_CURRENT_PART_INSTANCES = "currentPartInstances";
+	public static final String PART_ID_LIST = "partIdList";
 }

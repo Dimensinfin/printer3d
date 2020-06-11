@@ -1,13 +1,12 @@
 server:
   port: ${PORT}
-  version: ${version}
-info:
-  tags:
-    environment: acceptance
-    version: 0.4.2
 
 endpoints:
   health:
+    id: health
+    sensitive: false
+    enabled: true
+  info:
     id: health
     sensitive: false
     enabled: true

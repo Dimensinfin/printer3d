@@ -19,6 +19,7 @@ import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
+import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +33,18 @@ export class BackendService {
         protected httpService: HttpClientWrapperService) {
         this.APIV1 = environment.backendPath + environment.apiVersion1;
         this.APIV2 = environment.backendPath + environment.apiVersion2;
+    }
+    // - A C T U A T O R - A P I
+    public apiActuatorInfo(transformer: ResponseTransformer): Observable<BackendInfoResponse> {
+        const request = environment.backendPath + '/actuator/info';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiActuatorInfo]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as BackendInfoResponse;
+                return response;
+            }));
     }
     // - B A C K E N D - A P I
     // - I N V E N T O R Y

@@ -12,5 +12,6 @@ public enum RequestType {
 	START_BUILD,
 	CANCEL_BUILD,
 	GET_JOBS,
-	NEW_MODEL;
+	NEW_MODEL,
+	ADD_MODEL_PART;
 }

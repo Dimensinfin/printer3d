@@ -36,6 +36,17 @@ public class Printer3DWorld extends CommonWorld {
 	private NewModelRequest newModelRequest;
 	private ResponseEntity<Model> modelResponseEntity;
 
+	public UUID getModelId() {
+		return this.modelId;
+	}
+
+	public Printer3DWorld setModelId( final UUID modelId ) {
+		this.modelId = modelId;
+		return this;
+	}
+
+	private UUID modelId;
+
 	// - G E T T E R S   &   S E T T E R S
 	public Coil getCoil() {
 		return this.coil;

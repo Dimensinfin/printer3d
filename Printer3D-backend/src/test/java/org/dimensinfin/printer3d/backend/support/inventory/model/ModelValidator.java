@@ -11,6 +11,7 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PART_ID_LIST;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PRICE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STOCK_LEVEL;
@@ -26,6 +27,14 @@ public class ModelValidator implements Validator<Model> {
 			Assertions.assertEquals( Integer.parseInt( rowData.get( STOCK_AVAILABLE ) ), record.getStockAvailable() );
 		if (null != rowData.get( IMAGE_PATH )) Assertions.assertEquals( rowData.get( IMAGE_PATH ), record.getImagePath() );
 		if (null != rowData.get( ACTIVE )) Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.isActive() );
+
+		if ( null != rowData.get( PART_ID_LIST )){
+			final String[] partList = rowData.get( PART_ID_LIST ).split( ", " );
+			Assertions.assertEquals( partList.length, record.getPartIdentifierList().size() );
+			for (int i = 0; i < partList.length; i++) {
+				Assertions.assertTrue( partList[i].equalsIgnoreCase( record.getPartIdentifierList().get(i).toString()));
+			}
+		}
 		return true;
 	}
 }

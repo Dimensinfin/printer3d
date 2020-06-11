@@ -34,7 +34,10 @@ public enum ErrorInfo {
 			"The Machine with label [{0}] not found at the repository." ),
 	MODEL_ALREADY_EXISTS( HttpStatus.CONFLICT,
 			APPLICATION_ERROR_CODE_PREFIX + ".already.exists",
-			"The Model [{0}] already exists. Use the Update endpoint." );
+			"The Model [{0}] already exists. Use the Update endpoint." ),
+	MODEL_NOT_FOUND( HttpStatus.NOT_FOUND,
+			APPLICATION_ERROR_CODE_PREFIX + ".notfound",
+			"The Model [{0}] not found at the repository." );
 
 	public final HttpStatus status;
 	public final String errorCode;
