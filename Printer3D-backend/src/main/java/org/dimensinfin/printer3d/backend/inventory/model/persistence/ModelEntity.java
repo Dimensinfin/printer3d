@@ -15,6 +15,7 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -125,7 +126,7 @@ public class ModelEntity {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder( this )
+		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
 				.append( "id", this.id )
 				.append( "label", this.label )
 				.append( "partList", this.partList )

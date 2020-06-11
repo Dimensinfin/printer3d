@@ -36,15 +36,14 @@ public class GivenTheFollowingModelsInMyService extends StepSupport {
 			// Add the list of parts
 			this.addPartReferences( row.get( ID ), row.get( PART_ID_LIST ) );
 		}
-		//		Assertions.assertEquals( dataTable.size(), this.partFeignClientV1.countParts( this.printer3DWorld.getJwtAuthorizationToken() ).intValue() );
 	}
 
 	protected void addPartReferences( final String modelId, final String partRawList ) throws IOException {
-		final String[] partList = partRawList.split( ", " );
+		final String[] partList = partRawList.split( "," );
 		for (int i = 0; i < partList.length; i++) {
 			this.modelFeignClientV1.addModelPart( this.printer3DWorld.getJwtAuthorizationToken(),
-					UUID.fromString( modelId ),
-					UUID.fromString( partList[i] )
+					UUID.fromString( modelId.trim() ),
+					UUID.fromString( partList[i].trim() )
 			);
 		}
 	}

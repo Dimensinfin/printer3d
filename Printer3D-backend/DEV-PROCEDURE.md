@@ -11,8 +11,8 @@
 8. Record the Acceptance test to run.
 8. Run the **RunAcceptanceTests** configuration.
 9. Commit the code with the scenario title.
-10. Do steps 4 through 12 for each new scenario
-10. Push development brach to origin
+10. Do steps 4 through 12 for each new scenarios
+10. Push development branch to origin
 10. Change to the **test** branch to start doing tests
 10. Run all the tests with the **Printer3D-backend [unit test]** configuration.
 10. Fix all defects.

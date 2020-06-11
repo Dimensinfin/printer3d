@@ -43,7 +43,7 @@ public class ModelControllerSupport {
 		return new ResponseEntity<>( this.deleteAllModelsService(), HttpStatus.OK );
 	}
 
-	public CountResponse deleteAllModelsService() {
+	protected CountResponse deleteAllModelsService() {
 		try {
 			final long recordCount = this.modelRepository.count();
 			this.modelRepository.deleteAll();

@@ -35,6 +35,9 @@ public class MachineEntityTest {
 		Assertions.assertNull( machineEntity.getCurrentJobPartId() );
 		Assertions.assertNull( machineEntity.getJobInstallmentDate() );
 		Assertions.assertEquals( 1, machineEntity.getCurrentPartInstances() );
+		Assertions.assertNull( machineEntity.getCharacteristics() );
+		Assertions.assertNull( machineEntity.getId() );
+		Assertions.assertNull( machineEntity.getModel() );
 	}
 
 	@Test

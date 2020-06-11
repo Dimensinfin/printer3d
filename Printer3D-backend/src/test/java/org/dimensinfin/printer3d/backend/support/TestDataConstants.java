@@ -38,13 +38,15 @@ public class TestDataConstants {
 	public static class FinishingConstants {
 		public static final String TEST_FINISHING_MATERIAL = "-TEST_FINISHING_MATERIAL-";
 	}
+
 	public static class SetupRequest {
 		public static final String TEST_SETUPREQUEST_MACHINE_LABEL = "-TEST_MACHINE_LABEL-";
 		public static final UUID TEST_SETUPREQUEST_PART_ID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
 		public static final String TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE = "2020-06-06T21:54:00.226181+02:00";
 		public static final Integer TEST_SETUPREQUEST_PART_INSTANCES_COUNT = 2;
 	}
-	public static class MachineConstants{
+
+	public static class MachineConstants {
 		public static final UUID TEST_MACHINE_ID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
 		public static final String TEST_MACHINE_LABEL = "-TEST_MACHINE_LABEL-";
 		public static final String TEST_MACHINE_MODEL = "-TEST_MACHINE_MODEL-";
@@ -53,8 +55,19 @@ public class TestDataConstants {
 		public static final Integer TEST_MACHINE_CURRENTPARTINSTANCES = 8;
 		public static final OffsetDateTime TEST_MACHINE_JOBINSTALLMENTDATE = OffsetDateTime.now();
 	}
-	public static class BuildRecordConstants{
+
+	public static class BuildRecordConstants {
 		public static final OffsetDateTime TEST_BUILDRECORD_JOBINSTALLMENTDATE = OffsetDateTime.now();
 		public static final Integer TEST_BUILDRECORD_PARTCOPIES = 8;
+	}
+
+	public static class ModelConstants {
+		public static final UUID TEST_MODEL_ID = UUID.randomUUID();
+		public static final String TEST_MODEL_LABEL = "-TEST_MODEL_LABEL-";
+		public static final Float TEST_MODEL_PRICE = 6.0F;
+		public static final Integer TEST_MODEL_STOCK_LEVEL = 2;
+		public static final Integer TEST_MODEL_STOCK_AVAILABLE = 1;
+		public static final String TEST_MODEL_IMAGE_PATH = "-TEST_MODEL_IMAGE_PATH-";
+		public static final Boolean TEST_MODEL_ACTIVE = true;
 	}
 }

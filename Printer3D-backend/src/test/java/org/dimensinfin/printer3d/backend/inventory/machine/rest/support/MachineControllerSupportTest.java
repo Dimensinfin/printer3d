@@ -57,7 +57,7 @@ public class MachineControllerSupportTest {
 	}
 
 	@Test
-	public void setupMachineEmptyLit() {
+	public void setupMachineEmptyList() {
 		// Given
 		final List<MachineEntity> machines = new ArrayList<>();
 		final SetupRequest setupRequest = Mockito.mock( SetupRequest.class );
@@ -73,6 +73,20 @@ public class MachineControllerSupportTest {
 	@Test
 	public void setupMachineNotFound() {
 		// Given
+		final SetupRequest setupRequest = Mockito.mock( SetupRequest.class );
+		// When
+		Mockito.when( this.machineRepository.findByLabel( Mockito.anyString() ) ).thenReturn( null );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
+			final MachineControllerSupport machineControllerSupport = new MachineControllerSupport( this.machineRepository );
+			machineControllerSupport.setupMachine( setupRequest );
+		} );
+	}
+
+	@Test
+	public void setupMachineNullList() {
+		// Given
+		final List<MachineEntity> machines = new ArrayList<>();
 		final SetupRequest setupRequest = Mockito.mock( SetupRequest.class );
 		// When
 		Mockito.when( this.machineRepository.findByLabel( Mockito.anyString() ) ).thenReturn( null );
