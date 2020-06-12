@@ -23,11 +23,11 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
-import { V2InventoryPartListPageComponent } from './v2-inventory-part-list-page.component';
+import { V2PartListPageComponent } from './v2-inventory-part-list-page.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 
 describe('COMPONENT V2InventoryPartListPageComponent [Module: INVENTORY]', () => {
-    let component: V2InventoryPartListPageComponent;
+    let component: V2PartListPageComponent;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -36,7 +36,7 @@ describe('COMPONENT V2InventoryPartListPageComponent [Module: INVENTORY]', () =>
                 RouterTestingModule.withRoutes(routes)
             ],
             declarations: [
-                V2InventoryPartListPageComponent
+                V2PartListPageComponent
             ],
             providers: [
                 { provide: IsolationService, useClass: SupportIsolationService },
@@ -46,7 +46,7 @@ describe('COMPONENT V2InventoryPartListPageComponent [Module: INVENTORY]', () =>
             ]
         }).compileComponents();
 
-        const fixture = TestBed.createComponent(V2InventoryPartListPageComponent);
+        const fixture = TestBed.createComponent(V2PartListPageComponent);
         component = fixture.componentInstance;
     }));
 

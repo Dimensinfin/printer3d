@@ -1,0 +1,13 @@
+{
+    "tags": {
+        "port": "9500",
+        "profile": "acceptance"
+    },
+    "build": {
+        "artifact": "printer3d-backend",
+        "name": "printer3d-backend",
+        "time": "2020-06-11T19:19:06.050Z",
+        "version": "0.6.0",
+        "group": "org.dimensinfin.printer3d"
+    }
+}

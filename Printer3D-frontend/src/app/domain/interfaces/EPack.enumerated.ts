@@ -4,6 +4,7 @@
 export enum EVariant {
     DEFAULT = '-DEFAULT-',
     PART_LIST = '-PART-LIST-',
+    COIL_LIST = '-COIL-LIST-',
     EDITABLE_PART = '-EDITABLE-PART-'
 }
 export enum EInteraction {

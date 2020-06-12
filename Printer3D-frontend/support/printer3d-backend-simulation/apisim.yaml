@@ -204,3 +204,21 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.machines.v2.json"
+
+---
+
+simlet: actuator-info
+
+request:
+  - method: GET
+  - uriPathPattern: "/actuator/info"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/actuator.info.json"
+    

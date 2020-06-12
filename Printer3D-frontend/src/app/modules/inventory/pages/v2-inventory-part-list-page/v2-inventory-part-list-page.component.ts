@@ -22,15 +22,15 @@ import { environment } from '@env/environment';
     templateUrl: './v2-inventory-part-list-page.component.html',
     styleUrls: ['./v2-inventory-part-list-page.component.scss']
 })
-export class V2InventoryPartListPageComponent extends AppPanelComponent implements OnInit {
+export class V2PartListPageComponent extends AppPanelComponent implements OnInit {
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>();
     constructor(
         protected appStore: AppStoreService,
         protected backendService: BackendService) { super() }
 
-
     public ngOnInit(): void {
         console.log(">[V2InventoryPartListPageComponent.ngOnInit]");
+        this.startDownloading();
         this.setVariant(EVariant.PART_LIST);
         this.refresh();
         console.log("<[V2InventoryPartListPageComponent.ngOnInit]");
@@ -43,19 +43,7 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
             element.unsubscribe();
         });
     }
-    // - R E F R E S H A B L E
-    /**
-     * Restart component contents before a refresh.
-     */
-    public clean(): void {
-        this.partContainers = new Map<string, PartContainer>();
-    }
-    /**
-     * When the page gets the list of Parts it should scan it and generate a list of Part Containers with distinct labels. Inside that containers there will be the Parts, each one with their different configurations.
-     * Part containers will be ordered by their active status. Active parts will be listed before inactive groups.
-     */
-    public refresh(): void {
-        this.clean();
+    protected downloadParts():void{
         this.backendConnections.push(
             this.backendService.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
@@ -79,15 +67,30 @@ export class V2InventoryPartListPageComponent extends AppPanelComponent implemen
                     this.dataModelRoot = []
                     for (const container of containers)
                         sortedContainers.push(container)
-                    for (const container of this.sortPartContainersByLabel(sortedContainers))
-                        this.dataModelRoot.push(container);
+                    // for (const container of this.sortPartContainersByLabel(sortedContainers))
+                    //     this.dataModelRoot.push(container);
                     console.log('-[V2InventoryPartListPageComponent.refresh]> nodes processed: ' + this.dataModelRoot.length);
                     if (!environment.production)
                         setTimeout(() => { // This is only for development
-                            this.completeDowload();    // Notify the completion of the download.
+                            this.completeDowload(this.sortPartContainersByLabel(sortedContainers)); // Notify the completion of the download.
                         }, 2000);
                 })
         )
+    }
+    // - R E F R E S H A B L E
+    /**
+     * Restart component contents before a refresh.
+     */
+    public clean(): void {
+        this.partContainers = new Map<string, PartContainer>();
+    }
+    /**
+     * When the page gets the list of Parts it should scan it and generate a list of Part Containers with distinct labels. Inside that containers there will be the Parts, each one with their different configurations.
+     * Part containers will be ordered by their active status. Active parts will be listed before inactive groups.
+     */
+    public refresh(): void {
+        this.clean();
+        this.downloadParts();
     }
     private sortPartsByActive(parts: Part[]): Part[] {
         return parts.sort((part1, part2) => {

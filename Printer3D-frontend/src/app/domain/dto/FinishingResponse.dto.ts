@@ -1,4 +1,4 @@
-import { Node } from '../Node'
+import { Node } from '../Node.domain'
 
 export class FinishingResponse {
     public materials: any[] = [];

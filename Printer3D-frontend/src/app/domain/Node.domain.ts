@@ -25,6 +25,7 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, 
 
     // - I N O D E
     public getJsonClass(): string {
+        console.log('-[Node.getJsonClass]> JsonClas: ' + this.jsonClass)
         return this.jsonClass;
     }
     public isActive(): boolean {

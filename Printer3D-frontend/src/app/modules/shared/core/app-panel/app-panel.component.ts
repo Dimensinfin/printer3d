@@ -39,8 +39,11 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
     public setVariant(variant: EVariant): void {
         this.variant = variant;
     }
-
-    public completeDowload(): void {
+    public startDownloading(): void {
+        this.downloading = true;
+    }
+    public completeDowload(nodes: ICollaboration[]): void {
+        this.dataModelRoot = nodes;
         this.notifyDataChanged();
         this.downloading = false;
     }

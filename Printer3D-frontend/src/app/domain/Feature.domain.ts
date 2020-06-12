@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Node } from './Node';
+import { Node } from './Node.domain';
 import { EInteraction } from './interfaces/EPack.enumerated';
 import { FeatureConverter } from './Feature.converter';
 

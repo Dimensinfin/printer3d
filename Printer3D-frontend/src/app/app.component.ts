@@ -1,22 +1,56 @@
+// - CORE
 import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { Input } from '@angular/core';
+// - SERVICES
+import { AppStoreService } from '@app/services/app-store.service';
+import { BackendService } from '@app/services/backend.service';
+// - DOMAIN
+import { PartRecord } from '@domain/PartRecord.domain';
+import { GridColumn } from '@domain/GridColumn.domain';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
+import { PartListResponse } from '@domain/dto/PartListResponse.dto';
+import { Part } from '@domain/Part.domain';
+import { EVariant } from '@domain/interfaces/EPack.enumerated';
+import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
+import { PartContainer } from '@domain/PartContainer.domain';
 import { environment } from '@env/environment';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
+import { BackgroundEnabledComponent } from './modules/shared/core/background-enabled/background-enabled.component';
+import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     public appTitle: string = '3DPrinterManagement - UI';
     public appVersion: string = environment.appVersion;
     public backendVersion: string = environment.backendVersion;
     public self: AppComponent;
     private routedComponent: Refreshable;
 
-    constructor() {
+    constructor(protected backendService: BackendService) {
+        super();
         this.self = this;
     }
+    /**
+     * Access the backend to read the backend version
+     */
+    public ngOnInit(): void {
+        this.backendConnections.push(
+            this.backendService.apiActuatorInfo(new ResponseTransformer().setDescription('Transforms backend info data into json fields.')
+                .setTransformation((entrydata: any): BackendInfoResponse => {
+                    return new BackendInfoResponse(entrydata);
+                }))
+                .subscribe((backendInfo: BackendInfoResponse) => {
+                    this.backendVersion = backendInfo.getVersion();
+                })
+        )
+    }
+    
     public getAppTitle(): string {
         return this.appTitle;
     }

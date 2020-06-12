@@ -11,7 +11,7 @@ import {  RouterModule } from '@angular/router';
 // - APPLICATION MODULES
 import { InventoryCoilListPageComponent } from './modules/inventory/pages/inventory-coil-list-page/inventory-coil-list-page.component';
 import { ProductionJobListPageComponent } from './modules/production/pages/production-job-list-page/production-job-list-page.component';
-import { V2InventoryPartListPageComponent } from './modules/inventory/pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
+import { V2PartListPageComponent } from './modules/inventory/pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
 
 const routes: Routes = [
     {
@@ -20,8 +20,6 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     { path: 'inventory', loadChildren: () => import('./modules/inventory/inventory.module').then(m => m.InventoryModule) },
-    // { path: 'inventory/partlist', component: V2InventoryPartListPageComponent },
-    // { path: 'inventory/coillist', component: InventoryCoilListPageComponent },
     { path: 'production/pendingjobs', component: ProductionJobListPageComponent }
 ];
 

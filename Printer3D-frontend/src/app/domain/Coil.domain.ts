@@ -1,15 +1,20 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
+// - DOMAIN
+import { Node } from './Node.domain';
 
-export class Coil {
+export class Coil extends Node {
     public id: string;
     public material: string;
     public color: string;
     public weight: number;
 
     constructor(values: Object = {}) {
+        super();
         Object.assign(this, values);
+        this.jsonClass='Coil';
     }
+
     public createNewId(): string {
         this.id = uuidv4();
         return this.id;

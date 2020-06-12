@@ -8,33 +8,21 @@ Feature: [D3D01]-When the application starts show the dashboard page with the de
     @D3D01 @D3D01.01
     Scenario: [D3D01.01]-Check that the landing page after application start is the Dashboard.
         Given the application Printer3DManager
-        When the application starts the default route is "/DASHBOARD"
+        When the application starts the default route is "/"
 
     @D3D01 @D3D01.02
     Scenario: [D3D01.02]-The landing page Dashboard shows the title panel.
         Given the DashboardPage is activated
-        Then there is a "app-title" with the next fields
-            | app-title               |
-            | <environment.app-title> |
-        Then there is a "app-version" with the next fields
-            | app-version               |
-            | <environment.app-version> |
-        Then there is a "page-path" with the next fields
-            | page-name  |
-            | /DASHBOARD |
+        Then there is a "app-title" with the value "<environment.app-title>"
+        Then there is a "app-version" with the value "<environment.app-version>"
+        Then there is a "backend-version" with the value "<environment.backend-version>"
+        Then there is a "page-path" with the next value "/DASHBOARD"
 
     @D3D01 @D3D01.03
     Scenario: [D3D01.03]-On the dashboard page there is a docker with feature elements.
-        When the DashboardPage is activated
+        Given the DashboardPage is activated
         Given one instance of Dock
-        Given one or more instances of Feature
-        Then there is 0 v1-feature-render active
-        Then there is a "v1-feature-render" at index "0" with the next fields
-            | label       | active |
-            | /Inventario | false  |
-        Then there is a "v1-feature-render" at index "1" with the next fields
-            | label        | active |
-            | /Nueva Pieza | false  |
+        Then one or more instances of Feature
 
     @D3D01 @D3D01.04
     Scenario: [D3D01.04]-On the dashboard page the page display area in empty because there is no feature selected.

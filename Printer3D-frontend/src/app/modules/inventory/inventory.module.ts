@@ -8,17 +8,20 @@ import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 // - APPLICATION MODULES
 import { SharedModule } from '../shared/shared.module';
+import { RendersModule } from '../renders/renders.module';
 // - COMPONENTS
 import { InventoryPartListPageComponent } from './pages/inventory-part-list-page/inventory-part-list-page.component';
 import { InventoryCoilListPageComponent } from './pages/inventory-coil-list-page/inventory-coil-list-page.component';
 import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialog.component';
 import { NewCoilDialogComponent } from './dialogs/new-coil-dialog/new-coil-dialog.component';
-import { V2InventoryPartListPageComponent } from './pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
+import { V2PartListPageComponent } from './pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
+import { V2CoilListPageComponent } from './pages/v2-coil-list-page/v2-coil-list-page.component';
 
 const routes: Routes = [
     { path: 'partlist/v1', component: InventoryPartListPageComponent },
-    { path: 'partlist', component: V2InventoryPartListPageComponent },
-    { path: 'coillist', component: InventoryCoilListPageComponent }
+    { path: 'partlist', component: V2PartListPageComponent },
+    { path: 'coillist/v1', component: InventoryCoilListPageComponent },
+    { path: 'coillist', component: V2CoilListPageComponent }
 ];
 
 @NgModule({
@@ -27,19 +30,23 @@ const routes: Routes = [
         FormsModule,
         RouterModule.forChild(routes),
         AgGridModule.withComponents([]),
-        SharedModule
+        SharedModule,
+        RendersModule
     ],
     declarations: [
         InventoryPartListPageComponent,
         InventoryCoilListPageComponent,
         NewPartDialogComponent,
         NewCoilDialogComponent,
-        V2InventoryPartListPageComponent
+        V2PartListPageComponent,
+        V2CoilListPageComponent
     ],
     exports: [
         RouterModule,
         InventoryPartListPageComponent,
-        NewPartDialogComponent, InventoryCoilListPageComponent
+        NewPartDialogComponent, 
+        V2PartListPageComponent,
+        V2CoilListPageComponent
     ]
 })
 export class InventoryModule { }

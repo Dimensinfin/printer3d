@@ -20,17 +20,23 @@
         "route": "production/pendingjobs"
     },
     {
-        "label": "/Nueva Pieza",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "route": "NewPartDialog"
-    },
-    {
         "label": "/Nuevo Rollo",
         "enabled": true,
         "active": false,
         "interaction": "DIALOG",
         "route": "NewCoilDialog"
+    },
+    {
+        "label": "/Nueva Pieza",
+        "enabled": true,
+        "active": false,
+        "interaction": "DIALOG",
+        "route": "NewPartDialog"
+    }, {
+        "label": "/Rollos V1",
+        "enabled": true,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "inventory/coillist/v1"
     }
 ]
