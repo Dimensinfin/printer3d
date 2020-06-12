@@ -7,7 +7,7 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     The Part list should be changed to a master-detail concept. When  the list is displayed only is displayed the main part
     information. If the Part is clicked then the Part expands and the detailed stock data is shown.
 
-    Background: Start the application and move to the initial page
+    Background: Application landing page
         Given the application Printer3DManager
 
     @D3D07 @D3D07.01

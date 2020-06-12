@@ -7,7 +7,6 @@ import { IsolationService } from '../../support/IsolationService.support';
 import { NewPartForm } from '../../support/page-objects/NewPartForm.form';
 
 Then('the New Part dialog opens and blocks the display', function () {
-    console.log('[THEN] the New Part dialog opens and blocks the display');
     cy.get('app-root').get('mat-dialog-container').get('new-part-dialog').should('have.length', 1)
 });
 

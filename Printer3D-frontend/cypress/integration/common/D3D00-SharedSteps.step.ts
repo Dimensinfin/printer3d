@@ -32,7 +32,7 @@ When('the Feature with label {string} is clicked the destination is {string}', f
 When('there is a click on Feature {string}', function (featureLabel: string) {
     cy.get('v1-dock')
         .find('v2-feature-render')
-        .find('.feature-block')
+        // .find('.feature-block')
         .contains(featureLabel, { matchCase: false }).parent()
         .click('center');
 });
