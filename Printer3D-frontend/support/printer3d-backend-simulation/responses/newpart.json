@@ -2,6 +2,7 @@
     "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
     "label": "Covid-19 Key",
     "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+    "material": "PLA",
     "colorCode": "WHITE",
     "buildTime": 15,
     "cost": 0.85,

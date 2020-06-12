@@ -174,7 +174,7 @@ jobs:
             node -v
             sed -i '/bahmutov.add/d' package.json
             npm install
-            # npm run build:dev
+            npm run build:prod
       - run:
           name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend
@@ -185,6 +185,7 @@ jobs:
             rm -rf .gitignore
             git add *.*
             git add config
+            git add dist
             git add src
             # git add dist
             git commit -m "-[HEROKU] Commiting code for deployment"

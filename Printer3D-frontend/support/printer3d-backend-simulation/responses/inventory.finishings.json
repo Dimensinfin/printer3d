@@ -2,21 +2,31 @@
     "materials": [{
             "material": "PLA",
             "colors": [
+                "AMARILLO",
+                "BLANCO",
                 "GRIS",
-                "PLATA",
-                "ROJO"
-            ]
-        },
-        {
-            "material": "WER",
-            "colors": [
-                "ROJO"
+                "MORADO TRANSPARENTE",
+                "NARANJA SEDA",
+                "PLATEADO",
+                "ROJO",
+                "ROSA",
+                "VERDE",
+                "VERDE MENTA",
+                "VERDE TRANSPARENTE"
             ]
         },
         {
             "material": "TPU",
             "colors": [
-                "BLANCO"
+                "AZUL",
+                "BLANCO",
+                "ROJO"
+            ]
+        },
+        {
+            "material": "FLEX",
+            "colors": [
+                "NEGRO"
             ]
         }
     ]
