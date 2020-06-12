@@ -19,16 +19,26 @@ Given('the application Printer3DManager', function () {
 Given('one instance of Dock', function () {
     cy.get('app-root').find('v1-dock').should('have.length', 1)
 });
-When('the Feature with label {string} is clicked the destination is {string}', function (label: string, destination: string) {
+When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, destination: string) {
     cy.get('v1-dock')
         .find('v2-feature-render')
-        // .find('.feature-block')
         .contains(label, { matchCase: false }).parent()
-        // .closest('.feature-block')
         .click('center');
     cy.wait(4000)
     cy.get('app-root').find(destination).should('exist')
 });
+When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (label: string, destination: string) {
+    cy.get('v1-dock')
+        .find('v2-feature-render')
+        .contains(label, { matchCase: false }).parent()
+        .click('center');
+    // cy.wait(4000)
+    cy.get('app-root')
+    // .find('mat-dialog-container')
+    .get(destination).should('exist')
+});
+// When('the Feature with label {string} is clicked the destination is {string}', function (label: string, destination: string) {
+// });
 When('there is a click on Feature {string}', function (featureLabel: string) {
     cy.get('v1-dock')
         .find('v2-feature-render')
@@ -36,6 +46,7 @@ When('there is a click on Feature {string}', function (featureLabel: string) {
         .contains(featureLabel, { matchCase: false }).parent()
         .click('center');
 });
+
 
 // Given('the DashboardPage is activated', function () {
 //     console.log('[GIVEN] the DashboardPage is activated');

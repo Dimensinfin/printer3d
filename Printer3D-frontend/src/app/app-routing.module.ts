@@ -20,8 +20,8 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     { path: 'inventory', loadChildren: () => import('./modules/inventory/inventory.module').then(m => m.InventoryModule) },
-    { path: 'production/pendingjobs', component: ProductionJobListPageComponent }
-];
+    { path: 'production', loadChildren: () => import('./modules/production/production.module').then(m => m.ProductionModule) }
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

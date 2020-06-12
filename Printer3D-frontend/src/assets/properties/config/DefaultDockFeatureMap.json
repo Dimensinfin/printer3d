@@ -13,11 +13,11 @@
         "route": "/inventory/partlist"
     },
     {
-        "label": "/Modelos",
+        "label": "/Pedidos",
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
-        "route": "/inventory/modellist"
+        "route": "/production/requestlist"
     },
     {
         "label": "/Trabajos Pnd.",
@@ -41,10 +41,10 @@
         "route": "NewPartDialog"
     },
     {
-        "label": "/Nuevo Modelo",
+        "label": "/Nuevo Pedido",
         "enabled": true,
         "active": false,
         "interaction": "DIALOG",
-        "route": "NewModelDialog"
+        "route": "NewRequestDialog"
     }
 ]
