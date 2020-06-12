@@ -1,12 +1,6 @@
 <!-- C O I L - L I S T   V A R I A N T -->
 <div *ngIf="getVariant() === '-COIL-LIST-'">
     <div class="row part-panel">
-        <!-- <div class="edit-attributes" (click)="toggleEdition()">
-            <img src="/assets/media/edit_attributes-white-36dp.svg">
-        </div> -->
-        <!-- <div class="save-modifications">
-            <span>&nbsp;</span>
-        </div> -->
         <div class="field material-width">
             <span class="label">MATERIAL</span><br>
             <span name="material" class="field-height part-material">{{getMaterial()}}</span>
@@ -20,4 +14,13 @@
             <span name="color" class="field-height part-weight">{{getWeight()}}</span>
         </div>
     </div>
+    <svg class="corner-border" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+    </svg>
+    <svg class="corner-clear" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+    </svg>
+    <svg class="corner-mark" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="blue" />
+    </svg>
 </div>

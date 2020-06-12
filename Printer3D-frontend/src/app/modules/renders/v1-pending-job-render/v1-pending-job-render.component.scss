@@ -1,37 +1,26 @@
-.part {
-    font-family: 'Electrolize', sans-serif;
-    font-weight: bold;
-    font-size: 20px;
-    color: white;
-}
-
-.field {
-    display: inline-block;
+.part-panel {
+    border: 1px solid white;
     position: relative;
-    top: -12px;
-    margin-left: 4px;
-    margin-right: 8px;
-    ;
+    margin-bottom: 2px;
 }
 
-.label {
-    font-size: 10px;
+.corner-border {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 18px;
 }
 
-.current {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 36px;
-    color: green;
+.corner-clear {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 16px;
 }
 
-.previous {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 36px;
-    color: blue;
-}
-
-.part-image {
-    width: 48px;
-    height: 48px;
-    margin-top: 1px;
+.corner-mark {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 11px;
 }
