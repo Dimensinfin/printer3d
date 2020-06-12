@@ -12,21 +12,18 @@ import { GridRow } from '../../support/page-objects/GridRow.panel';
 
 const TITLE_VALIDATION = '3DPrinterManagement - UI';
 
-Given('the Default Dock Configuration', function () {
-    console.log('[GIVEN] the Default Dock Configuration');
-    cy.clearLocalStorage()
-});
-
 Given('the application Printer3DManager', function () {
-    console.log('[GIVEN] the application Printer3DManager');
     new IsolationService().doLandingPage(); // Load the landing page.
     cy.title().should('eq', TITLE_VALIDATION);
 });
-
-Given('the DashboardPage is activated', function () {
-    console.log('[GIVEN] the DashboardPage is activated');
-    new IsolationService().doLandingPage(); // Start the application to a known point.
+Given('one instance of Dock', function () {
+    cy.get('app-root').find('v1-dock').should('have.length', 1)
 });
+
+// Given('the DashboardPage is activated', function () {
+//     console.log('[GIVEN] the DashboardPage is activated');
+//     new IsolationService().doLandingPage(); // Start the application to a known point.
+// });
 
 Given('one instance of PagePath', function () {
     console.log('[GIVEN] one instance of PageTitle');
@@ -35,19 +32,19 @@ Given('one instance of PagePath', function () {
     cy.get('app-root').find('v1-page-path-panel').should('have.length', 1)
 });
 
-Given('one instance of Dock', function () {
-    console.log('[GIVEN] one instance of Dock');
-    const dock: V1Dock = new V1Dock();
-    expect(dock).to.not.be.null;
-    cy.get('app-root').find('v1-dock').should('have.length', 1)
-});
+// Given('one instance of Dock', function () {
+//     console.log('[GIVEN] one instance of Dock');
+//     const dock: V1Dock = new V1Dock();
+//     expect(dock).to.not.be.null;
+//     cy.get('app-root').find('v1-dock').should('have.length', 1)
+// });
 
-Given('one or more instances of Feature', function () {
-    console.log('[GIVEN] one or more instances of Feature');
-    const feature: V1Feature = new V1Feature();
-    expect(feature).to.not.be.null;
-    cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)
-});
+// Given('one or more instances of Feature', function () {
+//     console.log('[GIVEN] one or more instances of Feature');
+//     const feature: V1Feature = new V1Feature();
+//     expect(feature).to.not.be.null;
+//     cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)
+// });
 
 Then('there is a {string} with the next fields', (panelType, dataTable) => {
     cy.log('[THEN] there is a {string} with the next fields');
@@ -136,4 +133,3 @@ Then('on target input form there is a field named {string} with name {string} an
 Given('the InventoryPartListPage at route {string}', function (route: string) {
     cy.visit(route)
 });
-

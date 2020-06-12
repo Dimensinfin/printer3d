@@ -1,5 +1,5 @@
 // - CORE
-import { environment } from './environment';
+import { environment } from '../../src/environments/environment';
 
 export class IsolationService {
     public doLandingPage() {
@@ -54,6 +54,8 @@ export class IsolationService {
                 return environment.appTitle;
             case 'app-version':
                 return environment.appVersion;
+            case 'backend-version':
+                return environment.backendVersion;
             case 'copyright':
                 return environment.copyright;
         }
