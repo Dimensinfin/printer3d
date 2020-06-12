@@ -13,6 +13,13 @@
         "route": "/inventory/partlist"
     },
     {
+        "label": "/Modelos",
+        "enabled": true,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "/inventory/modellist"
+    },
+    {
         "label": "/Trabajos Pnd.",
         "enabled": true,
         "active": false,
@@ -32,9 +39,10 @@
         "active": false,
         "interaction": "DIALOG",
         "route": "NewPartDialog"
-    }, {
+    },
+    {
         "label": "/Nuevo Modelo",
-        "enabled": false,
+        "enabled": true,
         "active": false,
         "interaction": "DIALOG",
         "route": "NewModelDialog"

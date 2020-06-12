@@ -16,12 +16,15 @@ import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialo
 import { NewCoilDialogComponent } from './dialogs/new-coil-dialog/new-coil-dialog.component';
 import { V2PartListPageComponent } from './pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
 import { V2CoilListPageComponent } from './pages/v2-coil-list-page/v2-coil-list-page.component';
+import { NewModelDialogComponent } from './dialogs/new-model-dialog/new-model-dialog.component';
+import { V1ModelListPageComponent } from './pages/v1-model-list-page/v1-model-list-page.component';
 
 const routes: Routes = [
     { path: 'partlist/v1', component: InventoryPartListPageComponent },
     { path: 'partlist', component: V2PartListPageComponent },
     { path: 'coillist/v1', component: InventoryCoilListPageComponent },
-    { path: 'coillist', component: V2CoilListPageComponent }
+    { path: 'coillist', component: V2CoilListPageComponent },
+    { path: 'modellist', component: V1ModelListPageComponent }
 ];
 
 @NgModule({
@@ -39,14 +42,18 @@ const routes: Routes = [
         NewPartDialogComponent,
         NewCoilDialogComponent,
         V2PartListPageComponent,
-        V2CoilListPageComponent
+        V2CoilListPageComponent,
+        NewModelDialogComponent,
+        V1ModelListPageComponent
     ],
     exports: [
         RouterModule,
         InventoryPartListPageComponent,
         NewPartDialogComponent, 
         V2PartListPageComponent,
-        V2CoilListPageComponent
+        V2CoilListPageComponent,
+        NewModelDialogComponent,
+        V1ModelListPageComponent
     ]
 })
 export class InventoryModule { }

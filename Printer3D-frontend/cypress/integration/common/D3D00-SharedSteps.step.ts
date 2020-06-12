@@ -34,7 +34,6 @@ When('there is a click on Feature {string}', function (featureLabel: string) {
         .find('v2-feature-render')
         .find('.feature-block')
         .contains(featureLabel, { matchCase: false }).parent()
-        // .closest('.feature-block')
         .click('center');
 });
 

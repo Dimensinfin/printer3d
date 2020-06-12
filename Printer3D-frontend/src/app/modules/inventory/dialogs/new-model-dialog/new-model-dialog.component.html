@@ -1,0 +1,38 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventario/Nuevo Modelo</div>
+    </header>
+    <section id="modal-body">
+        <!-- N E W   P A R T   F O R M -->
+        <form #newModelForm="ngForm" class="dsf-form" autocomplete="off">
+            <table cellspacing="5px">
+                <tr>
+                    <td>
+                        <div class="row">
+                            <!-- L A B E L -->
+                            <div class="column">
+                                <label class="dsf-form-label" for="label">ETIQUETA<span style="color: red;">&nbsp;*</span></label>
+                                <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="model.label" name="label" minlength="3" maxlength="50">
+                            </div>
+                            <!-- D E S C R I P T I O N -->
+                            <!-- <div class="column">
+                                <label class="dsf-form-label" for="label">Descripción</label>
+                                <textarea id="part-description" cols="38" rows="5" class="dsf-form-control dsf-editable-form-item part-description" [(ngModel)]="part.description" name="description" minlength="5" maxlength="500"></textarea>
+                            </div> -->
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </section>
+    <footer id="modal-footer">
+        <div class="centered-container button-area">
+            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newModelForm.form.valid" (click)="saveModel()">
+                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Guardar Datos
+            </button>
+            <button id="cancel-button" type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
+                <i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Go Back/Cancel
+            </button>
+        </div>
+    </footer>
+</div>
