@@ -6,11 +6,11 @@ import { IsolationService } from '../../support/IsolationService.support';
 // - SERVICES
 
 Given('the application starts the default route is {string}', function (pageRoute: string) {
-    cy.get('app-root').find('.page-path').contains(pageRoute)
+    cy.get('app-root').find('.page-path').contains(pageRoute, { matchCase: false })
 });
 Then('there is an element {string} with the value {string}', function (elementClass: string, value: string) {
     const service = new IsolationService()
-    cy.get('app-root').find('.' + elementClass).contains(service.replaceValueTemplated(value))
+    cy.get('app-root').find('.' + elementClass).contains(service.replaceValueTemplated(value), { matchCase: false })
 });
 Then('one or more instances of Feature', function () {
     cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)

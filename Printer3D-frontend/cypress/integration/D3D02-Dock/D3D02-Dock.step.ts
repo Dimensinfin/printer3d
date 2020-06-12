@@ -7,6 +7,37 @@ import { IsolationService } from '../../support/IsolationService.support';
 
 const INVENTORY_PART_LIST_PAGE_NAME = '/Inventory/Part List';
 
+Then('there are {int} Features enabled', function (int) {
+    cy.get('v1-dock').find('v2-feature-render').within(($panel) => {
+        cy.get('.feature-clip').should('not.have.class', 'disabled')
+    });
+});
+Then('there is a Feature with label {string}', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render').find('.feature-label').contains(label, { matchCase: false })
+});
+Then('the Feature with label {string} opens a Dialog', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render')
+    .contains(label, { matchCase: false }).parent().parent().as('target-feature')
+    cy.get('@target-feature').find('.corner-top').should('exist')
+ 
+    // cy.get('@target-feature').find ('path').find('[fill="blue"]').should('exist')
+    // .find('.corner-top').within(($panel) => {
+    //     cy.get('path').its('fill').should('eq', 'blue')
+    // });
+});
+Then('the Feature with label {string} opens a Page', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render')
+    .contains(label, { matchCase: false }).parent().parent().as('target-feature')
+    cy.get('@target-feature').find('.corner-top').should('not.exist')
+});
+
+
+
+
+// Then('there are {int} Features active', function (int) {
+//     cy.get('v1-dock').find('v1-feature-render')
+// });
+
 Then('there are no Features active', function () {
     cy.get('v1-dock')
         .find('v1-feature-render')

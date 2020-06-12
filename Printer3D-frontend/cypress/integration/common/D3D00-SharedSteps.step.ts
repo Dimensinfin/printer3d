@@ -19,6 +19,24 @@ Given('the application Printer3DManager', function () {
 Given('one instance of Dock', function () {
     cy.get('app-root').find('v1-dock').should('have.length', 1)
 });
+When('the Feature with label {string} is clicked the destination is {string}', function (label: string, destination: string) {
+    cy.get('v1-dock')
+        .find('v2-feature-render')
+        // .find('.feature-block')
+        .contains(label, { matchCase: false }).parent()
+        // .closest('.feature-block')
+        .click('center');
+    cy.wait(4000)
+    cy.get('app-root').find(destination).should('exist')
+});
+When('there is a click on Feature {string}', function (featureLabel: string) {
+    cy.get('v1-dock')
+        .find('v2-feature-render')
+        .find('.feature-block')
+        .contains(featureLabel, { matchCase: false }).parent()
+        // .closest('.feature-block')
+        .click('center');
+});
 
 // Given('the DashboardPage is activated', function () {
 //     console.log('[GIVEN] the DashboardPage is activated');
@@ -88,15 +106,6 @@ Then('there is a {string} at index {string} with the next fields', function (pan
     }
 });
 
-When('there is a click on Feature {string}', function (featureLabel: string) {
-    console.log('[WHEN] there is a click on Feature {string}');
-    cy.get('v1-dock')
-        .find('v1-feature-render')
-        .find('.feature-block')
-        .contains(featureLabel, { matchCase: false })
-        .closest('.feature-block')
-        .click('top');
-});
 
 Then('there is a dialog title saying {string}', function (dialogLabel) {
     console.log('[THEN] there is a dialog title saying {string}');

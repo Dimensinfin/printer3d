@@ -33,10 +33,10 @@
         "interaction": "DIALOG",
         "route": "NewPartDialog"
     }, {
-        "label": "/Rollos V1",
-        "enabled": true,
+        "label": "/Nuevo Modelo",
+        "enabled": false,
         "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "inventory/coillist/v1"
+        "interaction": "DIALOG",
+        "route": "NewModelDialog"
     }
 ]
