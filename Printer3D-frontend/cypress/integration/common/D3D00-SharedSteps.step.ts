@@ -32,13 +32,9 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
         .find('v2-feature-render')
         .contains(label, { matchCase: false }).parent()
         .click('center');
-    // cy.wait(4000)
     cy.get('app-root')
-    // .find('mat-dialog-container')
-    .get(destination).should('exist')
+        .get(destination).should('exist')
 });
-// When('the Feature with label {string} is clicked the destination is {string}', function (label: string, destination: string) {
-// });
 When('there is a click on Feature {string}', function (featureLabel: string) {
     cy.get('v1-dock')
         .find('v2-feature-render')
@@ -46,13 +42,23 @@ When('there is a click on Feature {string}', function (featureLabel: string) {
         .contains(featureLabel, { matchCase: false }).parent()
         .click('center');
 });
+// - C O M M O N   T O   S O M E   F E A T U R E S
+Given('the target panel is the panel with variant {string}', function (variant: string) {
+    cy.get('@target-page').find('.row')
+        .find('[ng-reflect-variant="' + variant + '"]')
+        .as('target-panel')
+});
+Given('the target panel has one or more {string}', function (renderName: string) {
+    cy.get('@target-panel').find(renderName).should('have.length.greaterThan', 0)
+});
+
 
 
 // Given('the DashboardPage is activated', function () {
 //     console.log('[GIVEN] the DashboardPage is activated');
 //     new IsolationService().doLandingPage(); // Start the application to a known point.
 // });
-
+// - O B S O L E T E
 Given('one instance of PagePath', function () {
     console.log('[GIVEN] one instance of PageTitle');
     const pageTitle: V1PagePath = new V1PagePath();

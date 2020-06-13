@@ -52,14 +52,14 @@ export class DialogFactoryService {
                 //     // dialogConfig.width = "60vw";
                 //     this.modalDialog = this.matDialog.open(V1NewRequestDialogComponent, dialogConfig);
                 //     break;
-                case 'NewModelDialog':
-                    dialogConfig = new MatDialogConfig();
-                    // dialogConfig.disableClose = true;
-                    dialogConfig.id = "newmodel-component";
-                    dialogConfig.height = "86vh";
-                    // dialogConfig.width = "60vw";
-                    this.modalDialog = this.matDialog.open(NewModelDialogComponent, dialogConfig);
-                    break;
+                // case 'NewModelDialog':
+                //     dialogConfig = new MatDialogConfig();
+                //     // dialogConfig.disableClose = true;
+                //     dialogConfig.id = "newmodel-component";
+                //     dialogConfig.height = "86vh";
+                //     // dialogConfig.width = "60vw";
+                //     this.modalDialog = this.matDialog.open(NewModelDialogComponent, dialogConfig);
+                //     break;
             }
         return this.modalDialog;
     }

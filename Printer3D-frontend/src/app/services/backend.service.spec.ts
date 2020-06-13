@@ -33,6 +33,7 @@ import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
+import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -67,6 +68,18 @@ describe('SERVICE BackendService [Module: CORE]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [INVENTORY]', () => {
+        it('apiActuatorInfo.default: get the backend information', async () => {
+            service.apiActuatorInfo(new ResponseTransformer().setDescription('Transforms backedn data into a set of fields.')
+                .setTransformation((entrydata: any): BackendInfoResponse => {
+                    return new BackendInfoResponse(entrydata);
+                }))
+                .subscribe((response: BackendInfoResponse) => {
+                    expect(response).toBeDefined();
+                    expect(response.getVersion()).toBe("0.6.0");
+                });
+        });
+    });
+    describe('Code Coverage Phase [ACTUATOR API]', () => {
         it('apiInventoryParts_v1.default: get the list of Parts', async () => {
             service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
@@ -76,6 +89,18 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                     expect(response.count).toBe(7);
                     expect(response.parts.length).toBe(7);
+                });
+        });
+        it('apiInventoryUpdatePart_v1.default: update an existing Part', async () => {
+            const part: Part = new Part();
+            service.apiInventoryUpdatePart_v1(part, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+                .setTransformation((entrydata: any): Part => {
+                    return new Part(entrydata);
+                }))
+                .subscribe((response: Part) => {
+                    expect(response).toBeDefined();
+                    expect(response.id).toBe("4e7001ee-6bf5-40b4-9c15-61802e4c59ea");
+                    expect(response.label).toBe("Covid-19 Key");
                 });
         });
         it('apiNewPart_v1.default: get the persisted part', async () => {

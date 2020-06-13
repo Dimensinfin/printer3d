@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 // - SERVICES
 import { IsolationService } from '@app/platform/isolation.service';
+import { includes } from 'cypress/types/lodash';
 // - DOMAIN
 
 const REQUEST_PREFIX = 'http://neocom.infinity.local/api/v1/neocom';
@@ -65,17 +66,17 @@ export class SupportHttpClientWrapperService {
             observer.complete();
         });
     }
-    public wrapHttpPATHCall(_request: string, body: any, _requestHeaders?: HttpHeaders): Observable<any> {
-        console.log("><[SupportHttpClientWrapperService.wrapHttpPUTCall]> request: " + _request);
+    public wrapHttpPATCHCall(request: string, body: any, _requestHeaders?: HttpHeaders): Observable<any> {
+        console.log("><[SupportHttpClientWrapperService.wrapHttpPATCHCall]> request: " + request);
         return Observable.create((observer) => {
             try {
-                let data = this.decodeRequestPath(_request);
+                let data = this.decodeRequestPath('PATCH:' + request);
                 if (null == data)
                     observer.next('');
                 else
                     observer.next(data);
             } catch (error) {
-                console.log("><[SupportHttpClientWrapperService.wrapHttpPUTCall]> error: " + JSON.stringify(error));
+                console.log("><[SupportHttpClientWrapperService.wrapHttpPATCHCall]> error: " + JSON.stringify(error));
                 observer.next('');
             }
             observer.complete();
@@ -108,9 +109,16 @@ export class SupportHttpClientWrapperService {
     private decodeRequestPath(request: string): any {
         console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> request: " + request);
         let keyword = '-NOT-FOUND-';
+        if (request.includes('PATCH')) {
+            if (request.includes('/inventory/parts'))
+                return this.directAccessMockResource('newpart');
+        }
         if (request.includes('/inventory/parts'))
             return this.directAccessMockResource('inventory.parts');
-        if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
+        if (request.includes('/actuator/info'))
+            return this.directAccessMockResource('actuator.info');
+
+            if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
         if (request.includes('/api/v1/inventory/machines')) keyword = 'INVENTORY-MACHINES';
         if (request.includes('/api/v2/inventory/machines')) keyword = 'INVENTORY-MACHINESV2';
         if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
