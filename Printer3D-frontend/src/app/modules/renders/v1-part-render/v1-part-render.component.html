@@ -105,5 +105,33 @@
     </form>
 </div>
 <div *ngIf="getVariant() === '-REQUEST-PART-LIST-'">
-    PART - -REQUEST-PART-LIST-
+    <div class="row part-panel">
+        <div class="field label-width">
+            <span class="label">ETIQUETA</span><br>
+            <span name="label" class="field-height part-material">{{getLabel()}}</span>
+        </div>
+        <div class="field material-width">
+            <span class="label">MATERIAL</span><br>
+            <span name="material" class="field-height part-material">{{getMaterial()}}</span>
+        </div>
+        <div class="field color-width">
+            <span class="label">COLOR</span><br>
+            <span name="color" class="field-height part-color">{{getColor()}}</span>
+        </div>
+        <div class="field stock-width">
+            <span class="label">DISPONIBLE</span><br>
+            <span name="stockAvailable" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
+        </div>
+    </div>
+    <div>
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg class="corner-mark" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow" />
+        </svg>
+    </div>
 </div>

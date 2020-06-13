@@ -49,6 +49,10 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
         });
     }
 
+    public getLabel(): string {
+        const part = this.node as Part;
+        return part.label;
+    }
     public getMaterial(): string {
         const part = this.node as Part;
         return part.material;

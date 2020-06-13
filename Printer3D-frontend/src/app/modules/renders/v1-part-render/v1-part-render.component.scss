@@ -1,3 +1,7 @@
+.part-panel {
+    border: 1px solid white;
+}
+
 .part {
     font-family: 'Electrolize', sans-serif;
     font-weight: bold;
@@ -25,12 +29,16 @@
     height: 20px;
 }
 
+.label-width {
+    min-width: 350px;
+}
+
 .material-width {
     min-width: 60px;
 }
 
 .color-width {
-    min-width: 230px;
+    min-width: 200px;
 }
 
 .stock-width {
@@ -57,4 +65,25 @@
     position: relative;
     align-self: inherit;
     margin-left: auto;
+}
+
+.corner-border {
+    position: absolute;
+    bottom: 0px;
+    right: 29px;
+    width: 18px;
+}
+
+.corner-clear {
+    position: absolute;
+    bottom: 0px;
+    right: 29px;
+    width: 16px;
+}
+
+.corner-mark {
+    position: absolute;
+    bottom: 0px;
+    right: 29px;
+    width: 11px;
 }

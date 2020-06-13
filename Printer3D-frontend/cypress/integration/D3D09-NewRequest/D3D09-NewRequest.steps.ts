@@ -46,7 +46,37 @@ Then('the target panel has one or more {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType)
         .should('have.length.greaterThan', 0)
 });
-// Then('all the {string} have quantity greater than {string}', function (string, string2) {
+Given('the target Part is one labeled {string}', function (labelContent: string) {
+    cy.get('app-root').get('v1-available-parts-panel').find('v1-part').find('[name="label"]')
+        .contains(labelContent, { matchCase: false }).first().parent().parent()
+        .as('target-part')
+});
+Given('on the target Part there is a field named {string} with field name {string}', function (fieldLabel: string, fieldName: string) {
+    cy.get('@target-part').find('.label').contains(fieldLabel, { matchCase: false })
+        .parent()
+        .find('[name="' + fieldName + '"]').should('exist')
+});
+
+// ?And on the target Part there is a field named "MATERIAL" with class "part-material"
+// Undefined.Implement with the following snippet:
+
+// Given('on the target Part there is a field named {string} with class {string}', function (string, string2) {
+//     // Write code here that turns the phrase above into concrete actions
+//     return 'pending';
+// });
+
+// ?And on the target Part there is a field named "COLOR" with class "part-color"
+// Undefined.Implement with the following snippet:
+
+// Given('on the target Part there is a field named {string} with class {string}', function (string, string2) {
+//     // Write code here that turns the phrase above into concrete actions
+//     return 'pending';
+// });
+
+// ?And on the target Part there is a field named "DISPONIBLE" with class "part-stockAvailable"
+// Undefined.Implement with the following snippet:
+
+// Given('on the target Part there is a field named {string} with class {string}', function (string, string2) {
 //     // Write code here that turns the phrase above into concrete actions
 //     return 'pending';
 // });
