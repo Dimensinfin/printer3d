@@ -17,7 +17,7 @@ Then('the V1NewRequestPage has {int} panels', function (panelCount: number) {
         .children()
         .should('have.length', 2)
 });
-Then('the left panel on page V1NewRequestPage is a {string}', function (panelType:string) {
+Then('the left panel on page V1NewRequestPage is a {string}', function (panelType: string) {
     cy.get('app-root').find('v1-new-request-page').find('.row').children().eq(0)
         .find(panelType)
         .should('exist')
@@ -28,8 +28,25 @@ Then('the left panel on page V1NewRequestPage has variant {string}', function (v
         .should('exist')
 });
 
-Then('the right panel on page V1NewRequestPage is a {string}', function (panelType:string) {
+Then('the right panel on page V1NewRequestPage is a {string}', function (panelType: string) {
     cy.get('app-root').find('v1-new-request-page').find('.row').children().eq(1)
         .find(panelType)
         .should('exist')
 });
+Given('the target panel is the panel with variant {string}', function (variant: string) {
+    cy.get('app-root').find('v1-new-request-page').find('.row')
+        .find('[ng-reflect-variant="' + variant + '"]')
+        .as('target-panel')
+});
+Then('the target panel has a {string}', function (panelType: string) {
+    cy.get('@target-panel').find(panelType)
+        .should('exist')
+});
+Then('the target panel has one or more {string}', function (panelType: string) {
+    cy.get('@target-panel').find(panelType)
+        .should('have.length.greaterThan', 0)
+});
+// Then('all the {string} have quantity greater than {string}', function (string, string2) {
+//     // Write code here that turns the phrase above into concrete actions
+//     return 'pending';
+// });

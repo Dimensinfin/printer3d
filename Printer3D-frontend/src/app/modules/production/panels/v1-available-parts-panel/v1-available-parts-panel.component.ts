@@ -18,6 +18,9 @@ import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Job } from '@domain/Job.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
+import { PartListResponse } from '@domain/dto/PartListResponse.dto';
+import { environment } from '@env/environment';
+import { Part } from '@domain/Part.domain';
 
 @Component({
     selector: 'v1-available-parts-panel',
@@ -25,6 +28,10 @@ import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.
     styleUrls: ['./v1-available-parts-panel.component.scss']
 })
 export class V1AvailablePartsPanelComponent extends AppPanelComponent implements OnInit {
+    constructor(protected backendService: BackendService) {
+        super();
+    }
+
     public ngOnInit(): void {
         console.log(">[V2InventoryPartListPageComponent.ngOnInit]");
         this.startDownloading();
@@ -32,6 +39,21 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
         console.log("<[V2InventoryPartListPageComponent.ngOnInit]");
     }
 
+    protected generatePartListing(): void {
+        this.backendConnections.push(
+            this.backendService.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+                .setTransformation((entrydata: any): PartListResponse => {
+                    return new PartListResponse(entrydata);
+                }))
+                .subscribe((response: PartListResponse) => {
+                    // Show the list of Parts ordered by label/material/color
+                    if (!environment.production)
+                        setTimeout(() => { // This is only for development
+                            this.completeDowload(this.sortPartsByLabel(response.getParts())); // Notify the completion of the download.
+                        }, 1000);
+                })
+        )
+    }
     // - R E F R E S H A B L E
     /**
      * Restart component contents before a refresh.
@@ -45,7 +67,22 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
      */
     public refresh(): void {
         this.clean();
-        // this.downloadParts();
+        this.generatePartListing();
     }
-
+    private sortPartsByLabel(parts: Part[]): Part[] {
+        return parts.sort((part1, part2) => {
+            if (part2.label == part1.label)
+                return this.orderByMaterial(part1, part2);
+            return 0 - (part2.label > part1.label ? 1 : -1);
+        })
+    }
+    private orderByMaterial(part1: Part, part2: Part): number {
+        if (part1.material == part2.material)
+            return this.orderByColor(part1, part2);
+        else
+            return 0 - (part2.material > part1.material ? 1 : -1);
+    }
+    private orderByColor(part1: Part, part2: Part): number {
+        return 0 - (part2.colorCode > part1.colorCode ? 1 : -1);
+    }
 }
