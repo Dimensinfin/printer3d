@@ -56,27 +56,28 @@ Given('on the target Part there is a field named {string} with field name {strin
         .parent()
         .find('[name="' + fieldName + '"]').should('exist')
 });
-
-// ?And on the target Part there is a field named "MATERIAL" with class "part-material"
-// Undefined.Implement with the following snippet:
-
-// Given('on the target Part there is a field named {string} with class {string}', function (string, string2) {
-//     // Write code here that turns the phrase above into concrete actions
-//     return 'pending';
-// });
-
-// ?And on the target Part there is a field named "COLOR" with class "part-color"
-// Undefined.Implement with the following snippet:
-
-// Given('on the target Part there is a field named {string} with class {string}', function (string, string2) {
-//     // Write code here that turns the phrase above into concrete actions
-//     return 'pending';
-// });
-
-// ?And on the target Part there is a field named "DISPONIBLE" with class "part-stockAvailable"
-// Undefined.Implement with the following snippet:
-
-// Given('on the target Part there is a field named {string} with class {string}', function (string, string2) {
-//     // Write code here that turns the phrase above into concrete actions
-//     return 'pending';
-// });
+Given('the target panel is the panel of type {string}', function (panelType: string) {
+    cy.get('app-root').find('v1-new-request-page').find('.row')
+        .find(panelType)
+        .as('target-panel')
+});
+Then('the target panel has a title {string}', function (title: string) {
+    cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
+});
+Then('the target panel has a field labeled {string} named {string} and not empty', function (fieldLabel: string, fieldName: string) {
+    cy.get('@target-panel').find('.field').find('.label').contains(fieldLabel, { matchCase: false })
+        .parent().as('target-field')
+    cy.get('@target-field').find('[name="' + fieldName + '"]').should('exist').should('not.be.empty')
+});
+Then('the target panel has a field labeled {string} named {string} and empty', function (fieldLabel: string, fieldName: string) {
+    cy.get('@target-panel').find('.field').find('.label').contains(fieldLabel, { matchCase: false })
+        .parent().as('target-field')
+    cy.get('@target-field').find('[name="' + fieldName + '"]').should('exist').should('be.empty')
+});
+Then('the target panel has a panel labeled {string} named {string} and with {string} elements', function (
+    fieldLabel: string, fieldName: string, elementCount: number) {
+    cy.get('@target-panel').find('.field').find('.label').contains(fieldLabel, { matchCase: false })
+        .parent().as('target-field')
+    cy.get('@target-field').find('[name="' + fieldName + '"]').should('exist')
+        .find('v1-part').should('have.length', elementCount)
+});

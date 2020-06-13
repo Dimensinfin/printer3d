@@ -24,7 +24,7 @@ import { V1NewRequestPanelComponent } from './panels/v1-new-request-panel/v1-new
 const routes: Routes = [
     { path: 'requestlist', component: V1RequestListPageComponent },
     { path: 'newrequest', component: V1NewRequestPageComponent },
-    { path: 'pendingjobs', component: V1PendingJobsPanelComponent }
+    { path: 'pendingjobs', component: ProductionJobListPageComponent }
 ];
 
 @NgModule({

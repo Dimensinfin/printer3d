@@ -1,0 +1,50 @@
+.left-margin {
+    margin-left: 20px;
+}
+
+.title {
+    font-size: 22px;
+}
+
+.part-panel {
+    border: 1px solid white;
+    position: relative;
+}
+
+.corner-border {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 18px;
+}
+
+.corner-clear {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 18px;
+}
+
+.corner-mark {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 11px;
+}
+
+.request-part {
+    text-align: center;
+    color: #808080;
+    height: 100px;
+    margin-bottom: 20px;
+    border: 1px dashed;
+    line-height: 100px;
+}
+
+.drag-over {
+    background-color: greenyellow;
+}
+
+.drag-hint {
+    border: 2px solid green;
+}

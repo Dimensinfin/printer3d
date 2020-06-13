@@ -104,7 +104,7 @@
         </div>
     </form>
 </div>
-<div *ngIf="getVariant() === '-REQUEST-PART-LIST-'">
+<div *ngIf="getVariant() === '-REQUEST-PART-LIST-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
     <div class="row part-panel">
         <div class="field label-width">
             <span class="label">ETIQUETA</span><br>

@@ -27,7 +27,7 @@ import { Part } from '@domain/Part.domain';
     templateUrl: './v1-available-parts-panel.component.html',
     styleUrls: ['./v1-available-parts-panel.component.scss']
 })
-export class V1AvailablePartsPanelComponent extends AppPanelComponent implements OnInit {
+export class V1AvailablePartsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
     constructor(protected backendService: BackendService) {
         super();
     }

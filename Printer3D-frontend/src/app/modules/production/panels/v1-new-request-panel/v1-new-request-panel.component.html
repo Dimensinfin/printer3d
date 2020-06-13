@@ -1,1 +1,31 @@
-<p>v1-new-request-panel works!</p>
+<div class="part-panel">
+    <div class="column left-margin">
+        <div class="title">
+            <span>/NUEVO PEDIDO/DEFINICION</span>
+        </div>
+        <div class="field date-width">
+            <span class="label">FECHA PEDIDO</span><br>
+            <span name="requestDate" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
+        </div>
+        <div class="field label-width">
+            <span class="label">ETIQUETA</span><br>
+            <input type="text" class="dsf-form-control dsf-editable-form-item request-label" required [(ngModel)]="request.label" name="label" minlength="3" maxlength="50">
+        </div>
+        <div class="field date-width">
+            <span class="label">PIEZAS PEDIDO</span><br>
+            <div class="request-part" name="requestParts" droppable [dropScope]="'PART'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-part"> --- PIEZAS --- </span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg class="corner-mark" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
+        </svg>
+    </div>
+</div>

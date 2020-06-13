@@ -41,6 +41,16 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
         Given the target Part is one labeled "Boquilla Ganesha - Figura"
         And on the target Part there is a field named "ETIQUETA" with field name "label"
-    And on the target Part there is a field named "MATERIAL" with field name "material"
-    And on the target Part there is a field named "COLOR" with field name "color"
-And on the target Part there is a field named "DISPONIBLE" with field name "stockAvailable"
+        And on the target Part there is a field named "MATERIAL" with field name "material"
+        And on the target Part there is a field named "COLOR" with field name "color"
+        And on the target Part there is a field named "DISPONIBLE" with field name "stockAvailable"
+
+    @D3D09 @D3D09.06
+    Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the V1NewRequestPage is activated
+        Given the target panel is the panel of type "v1-new-request-panel"
+        Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
+        Then the target panel has a field labeled "FECHA PEDIDO" named "requestDate" and not empty
+        Then the target panel has a field labeled "ETIQUETA" named "label" and empty
+        Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "0" elements
