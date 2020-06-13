@@ -43,9 +43,11 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
         this.downloading = true;
     }
     public completeDowload(nodes: ICollaboration[]): void {
+        console.log('>[AppPanelComponent.completeDowload]')
         this.dataModelRoot = nodes;
         this.notifyDataChanged();
         this.downloading = false;
+        console.log('<[AppPanelComponent.completeDowload]> Nodes processed: ' + this.dataModelRoot.length)
     }
     // - I V I E W E R
     public enterSelected(node: ICollaboration): void {

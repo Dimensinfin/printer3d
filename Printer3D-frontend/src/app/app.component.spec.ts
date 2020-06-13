@@ -17,6 +17,10 @@ import { routes } from '@app/testing/RouteMockUp.component';
 // - DOMAIN
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { BackendService } from './services/backend.service';
+import { SupportBackendService } from './testing/SupportBackend.service';
+import { HttpClientWrapperService } from './services/httpclientwrapper.service';
+import { SupportHttpClientWrapperService } from './testing/SupportHttpClientWrapperService.service';
 
 describe('COMPONENT AppComponent [Module: CORE]', () => {
     let component: AppComponent;
@@ -29,6 +33,10 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
             declarations: [
                 AppComponent
             ],
+            providers: [
+                { provide: BackendService, useClass: SupportBackendService },
+                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
+            ]
         }).compileComponents();
 
         const fixture = TestBed.createComponent(AppComponent);
@@ -38,7 +46,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
-            const componentInstance = new AppComponent();
+            // const componentInstance = new AppComponent();
             expect(component).toBeTruthy('service has not been created.');
             expect(component.appTitle).toBeDefined('field "appTitle" not defined.');
             expect(component.appVersion).toBeDefined('field "appVersion" not defined.');
@@ -48,14 +56,14 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     // - G E T T E R   P H A S E
     describe('Getter Phase', () => {
         it('appTitle: check value declared for "appTitle"', () => {
-            const componentInstance = new AppComponent();
-            expect(componentInstance.getAppTitle()).toBeDefined('field "appTitle" not defined.');
-            expect(componentInstance.getAppTitle()).toBe('3DPrinterManagement - UI');
+            // const componentInstance = new AppComponent();
+            expect(component.getAppTitle()).toBeDefined('field "appTitle" not defined.');
+            expect(component.getAppTitle()).toBe('3DPrinterManagement - UI');
         });
         it('appVersion: check value declared for "appVersion"', () => {
-            const componentInstance = new AppComponent();
-            expect(componentInstance.getAppVersion()).toBeDefined('field "appVersion" not defined.');
-            expect(componentInstance.getAppVersion()).toBe(environment.appVersion);
+            // const componentInstance = new AppComponent();
+            expect(component.getAppVersion()).toBeDefined('field "appVersion" not defined.');
+            expect(component.getAppVersion()).toBe(environment.appVersion);
         });
     });
 

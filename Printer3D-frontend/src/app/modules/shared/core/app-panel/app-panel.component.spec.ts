@@ -84,8 +84,8 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
             const componentAsAny = component as any;
             expect(componentAsAny.renderNodeList).toBeDefined();
             expect(componentAsAny.renderNodeList.length).toBe(0);
-            componentAsAny.dataModelRoot.push(new Node())
-            component.completeDowload();
+            // componentAsAny.dataModelRoot.push(new Node())
+            component.completeDowload([new Node()]);
             expect(componentAsAny.renderNodeList.length).toBe(1);
         });
     });
@@ -99,8 +99,8 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
         it('notifyDataChanged.success: check that nodes get processed when the root load completes', () => {
             const expected = new Node();
             let componentAny = component as any;
-            componentAny.dataModelRoot.push(expected);
-            component.completeDowload();
+            // componentAny.dataModelRoot.push(expected);
+            component.completeDowload([expected]);
             let obtained = component.getNodes2Render();
             expect(obtained).toBeDefined();
             expect(obtained.length).toBe(1);

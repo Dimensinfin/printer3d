@@ -16,7 +16,7 @@ export class SupportBackendService {
     }
 
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
-        console.log('>[SupportBackendService.apiInventoryGetMachines_v2]')
+        console.log('>[SupportBackendService.apiInventoryParts_v1]')
         return Observable.create((observer) => {
             this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/parts')
                 .subscribe(data => {
@@ -77,30 +77,12 @@ export class SupportBackendService {
     }
     public apiInventoryCoils_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
         return Observable.create((observer) => {
-            observer.next(transformer.transform({
-                "count": 3,
-                "coils": [{
-                    "id": "5f01a53a-7ede-487d-ac3b-51388a7d8e93",
-                    "material": "PLA",
-                    "color": "ROJO",
-                    "weight": 1000
-                },
-                {
-                    "id": "2365aee7-9eba-4ad8-9aa0-b3091147158f",
-                    "material": "TPU",
-                    "color": "BLANCO",
-                    "weight": 250
-                },
-                {
-                    "id": "16cd8324-f569-41dd-b66f-0a2e188b7e92",
-                    "material": "WER",
-                    "color": "ROJO",
-                    "weight": 300
-                }
-                ]
-            }
-            ));
-            observer.complete();
+            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/coils')
+                .subscribe(data => {
+                    // console.log('-[apiInventoryCoils_v1]> Data: '+JSON.stringify(data))
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
         });
     }
     public apiInventoryGetMachines_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {

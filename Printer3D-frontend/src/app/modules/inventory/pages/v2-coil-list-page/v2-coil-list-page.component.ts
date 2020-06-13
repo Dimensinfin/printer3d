@@ -47,7 +47,7 @@ export class V2CoilListPageComponent extends AppPanelComponent implements OnInit
                 }))
                 .subscribe((response: CoilListResponse) => {
                     const coilList = this.sortCoildByMaterialColor(response.getCoils());
-                    console.log('-[V2CoilListPageComponent.downloadCoils]> nodes processed: ' + this.dataModelRoot.length);
+                    console.log('-[V2CoilListPageComponent.downloadCoils]> Nodes downloaded: ' + coilList.length);
                     if (!environment.production)
                         setTimeout(() => { // This is only for development
                             this.completeDowload(coilList); // Notify the completion of the download.
