@@ -67,8 +67,6 @@ export class V2PartListPageComponent extends AppPanelComponent implements OnInit
                     this.dataModelRoot = []
                     for (const container of containers)
                         sortedContainers.push(container)
-                    // for (const container of this.sortPartContainersByLabel(sortedContainers))
-                    //     this.dataModelRoot.push(container);
                     console.log('-[V2InventoryPartListPageComponent.refresh]> nodes processed: ' + this.dataModelRoot.length);
                     if (!environment.production)
                         setTimeout(() => { // This is only for development

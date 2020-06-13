@@ -57,7 +57,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         Then the New Part dialog opens and blocks the display
         And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
         And "PLA" is set on the New Part dialog dropdown field "material"
-        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "PLATEADO" is set on the New Part dialog dropdown field "colorCode"
         And "35" is set on the New Part dialog input field "buildTime"
         And "0.8" is set on the New Part dialog input field "cost"
         And "3" is set on the New Part dialog input field "price"
@@ -76,7 +76,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         Then the New Part dialog opens and blocks the display
         And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
         And "PLA" is set on the New Part dialog dropdown field "material"
-        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "PLATEADO" is set on the New Part dialog dropdown field "colorCode"
         And "35" is set on the New Part dialog input field "buildTime"
         And "0.8" is set on the New Part dialog input field "cost"
         And "3" is set on the New Part dialog input field "price"
@@ -92,7 +92,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         Then the New Part dialog opens and blocks the display
         And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
         And "PLA" is set on the New Part dialog dropdown field "material"
-        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "PLATEADO" is set on the New Part dialog dropdown field "colorCode"
         And "35" is set on the New Part dialog input field "buildTime"
         And "0.8" is set on the New Part dialog input field "cost"
         And "3" is set on the New Part dialog input field "price"
@@ -107,7 +107,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         Then the New Part dialog opens and blocks the display
         And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
         And "PLA" is set on the New Part dialog dropdown field "material"
-        And "PLATA" is set on the New Part dialog dropdown field "colorCode"
+        And "PLATEADO" is set on the New Part dialog dropdown field "colorCode"
         And "35" is set on the New Part dialog input field "buildTime"
         And "0.8" is set on the New Part dialog input field "cost"
         And "3" is set on the New Part dialog input field "price"
@@ -126,7 +126,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         And form fields have the next values
             | material |
             | PLA      |
-        And the Color dropdown has 4 values
+        And the Color dropdown has 12 values
 
     @D3D04 @D3D04.12
     Scenario: [D3D04.12]-The New Part dialog has an specific set of fields with length validation.

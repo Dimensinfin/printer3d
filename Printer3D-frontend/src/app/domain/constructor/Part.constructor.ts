@@ -8,7 +8,7 @@ export class PartConstructor implements Constructor<Part> {
         return new Part({
             id: input['id'],
             label: input['label'],
-            description: input['label'],
+            description: input['description'],
             material: input['material'],
             colorCode: input['colorCode'],
             cost: input['cost'],
