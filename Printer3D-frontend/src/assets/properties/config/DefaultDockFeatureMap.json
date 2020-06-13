@@ -27,6 +27,13 @@
         "route": "production/pendingjobs"
     },
     {
+        "label": "/Nuevo Pedido",
+        "enabled": true,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "/production/newrequest"
+    },
+    {
         "label": "/Nuevo Rollo",
         "enabled": true,
         "active": false,
@@ -39,12 +46,5 @@
         "active": false,
         "interaction": "DIALOG",
         "route": "NewPartDialog"
-    },
-    {
-        "label": "/Nuevo Pedido",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "route": "NewRequestDialog"
     }
 ]
