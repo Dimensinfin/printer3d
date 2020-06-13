@@ -17,20 +17,54 @@ Then('there is a Feature with label {string}', function (label: string) {
 });
 Then('the Feature with label {string} opens a Dialog', function (label: string) {
     cy.get('v1-dock').find('v2-feature-render')
-    .contains(label, { matchCase: false }).parent().parent().as('target-feature')
+        .contains(label, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').find('.corner-top').should('exist')
- 
-    // cy.get('@target-feature').find ('path').find('[fill="blue"]').should('exist')
-    // .find('.corner-top').within(($panel) => {
-    //     cy.get('path').its('fill').should('eq', 'blue')
-    // });
 });
 Then('the Feature with label {string} opens a Page', function (label: string) {
     cy.get('v1-dock').find('v2-feature-render')
-    .contains(label, { matchCase: false }).parent().parent().as('target-feature')
+        .contains(label, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').find('.corner-top').should('not.exist')
 });
-
+Then('there are no Features active', function () {
+    cy.get('v1-dock')
+        .find('v2-feature-render').within(($panel) => {
+            cy.get('.corner-mark').should('have.length', 0)
+        });
+});
+Then('the target Feature {string} changes to state {string}', function (featureLabel:string, state:string) {
+    if ( state=='active')
+    cy.get('@target-feature').within(($panel) => {
+        cy.get('.corner-mark').should('exist')
+    });
+    if ( state=='inactive')
+    cy.get('@target-feature').within(($panel) => {
+        cy.get('.corner-mark').should('not.exist')
+    });
+    // switch (state) {
+    //     case 'active':
+    //         cy.get('v1-dock')
+    //             .find('v1-feature-render')
+    //             .find('.feature-block')
+    //             .contains(featureLabel, { matchCase: false })
+    //             .closest('.feature-block')
+    //             .find('.clip')
+    //             .find('div')
+    //             .eq(0)
+    //             .should('have.class', 'container').and('have.class', 'active');
+    //         break;
+    //     case 'inactive':
+    //         cy.get('v1-dock')
+    //             .find('v1-feature-render')
+    //             .find('.feature-block')
+    //             .contains(featureLabel, { matchCase: false })
+    //             .closest('.feature-block')
+    //             .find('.clip')
+    //             .find('div')
+    //             .eq(0)
+    //             .should('have.class', 'container').and('not.have.class', 'active');
+    //         break;
+    // }
+});
 
 
 
@@ -38,16 +72,6 @@ Then('the Feature with label {string} opens a Page', function (label: string) {
 //     cy.get('v1-dock').find('v1-feature-render')
 // });
 
-Then('there are no Features active', function () {
-    cy.get('v1-dock')
-        .find('v1-feature-render')
-        .find('.feature-block').within(($panel) => {
-            cy.get('.clip')
-                .find('div')
-                .eq(0)
-                .should('have.class', 'container').and('not.have.class', 'active');
-        });
-});
 
 Then('the target page is InventoryPartListPage', function () {
     cy.get('app-root').find('inventory-part-list-page').should('have.length', 1);
@@ -59,7 +83,7 @@ Then('the target page is V2InventoryPartListPage', function () {
 
 Then('there are {int} Features', function (featureCount) {
     console.log('[THEN] there are {int} Features');
-    cy.get('app-root').find('v1-feature-render').should('have.length', featureCount)
+    cy.get('app-root').find('v2-feature-render').should('have.length', featureCount)
 });
 
 Then('there is a v1-feature-render with label {string}', function (label) {
@@ -67,7 +91,7 @@ Then('there is a v1-feature-render with label {string}', function (label) {
     cy.get('app-root').find('v1-dock').find('v1-feature-render').contains(label)
 });
 
-Then('the Feature {string} changes to state {string}', function (featureLabel, state) {
+Then('the target Feature {string} changes to state {string}', function (featureLabel, state) {
     switch (state) {
         case 'active':
             cy.get('v1-dock')

@@ -33,13 +33,12 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
         .contains(label, { matchCase: false }).parent()
         .click('center');
     cy.get('app-root')
-        .get(destination).should('exist')
+        .get(destination).should('exist').as('target-dialog')
 });
 When('there is a click on Feature {string}', function (featureLabel: string) {
     cy.get('v1-dock')
         .find('v2-feature-render')
-        // .find('.feature-block')
-        .contains(featureLabel, { matchCase: false }).parent()
+        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
         .click('center');
 });
 // - C O M M O N   T O   S O M E   F E A T U R E S
@@ -51,6 +50,11 @@ Given('the target panel is the panel with variant {string}', function (variant: 
 Given('the target panel has one or more {string}', function (renderName: string) {
     cy.get('@target-panel').find(renderName).should('have.length.greaterThan', 0)
 });
+When('there is a click on the {string} button of target dialog', function (buttonId: string) {
+    cy.get('@target-dialog').find('[id="' + buttonId + '"]').click('center')
+});
+
+
 
 
 
