@@ -21,6 +21,8 @@ import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { environment } from '@env/environment';
 import { Part } from '@domain/Part.domain';
+import { RequestForm } from '@domain/dto/RequestForm.dto';
+import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -28,26 +30,28 @@ import { Part } from '@domain/Part.domain';
     styleUrls: ['./v1-new-request-panel.component.scss']
 })
 export class V1NewRequestPanelComponent {
-    public request: any = { label: "Contenido de la etiqueta" };
+    public self: V1NewRequestPanelComponent;
+    public request: RequestForm = new RequestForm();
 
-    // constructor(protected backendService: BackendService) {
-    //     super();
-    // }
-
-    // public ngOnInit(): void {
-    //     console.log(">[V1NewRequestPanelComponent.ngOnInit]");
-    //     this.downloading = false;
-    //     // this.startDownloading();
-    //     // this.refresh();
-    //     console.log("<[V1NewRequestPanelComponent.ngOnInit]");
-    // }
+    constructor() {
+        this.self = this;
+    }
 
     public getRequestDate(): Date {
         return new Date();
     }
     public getLabel(): string {
-        // const part = this.node as Part;
-        return 'Nombre del pedido';
+        return this.request.label;
     }
-public onDrop(event:any){}
+    public getRequestParts(): Part[] {
+        return this.request.partsToServe;
+    }
+    public onDrop(drop: any) {
+        console.log('>[V1NewRequestPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop))
+        this.request.addPart(drop.dragData)
+        console.log('<>>[V1NewRequestPanelComponent.onDrop]')
+    }
+    public removePart ( part : Part):void{
+        this.request.removePart(part);
+    }
 }

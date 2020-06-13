@@ -35,11 +35,22 @@
             <span class="label">ACTIVA</span><br>
             <span name="active" class="field-height part-active">{{getActive()}}</span>
         </div>
-        <div class="field corner-aligment">
+        <!-- <div class="field corner-aligment">
             <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
                 <path d="M100,100 L0,100 L100,0 L100,100" />
             </svg>
-        </div>
+        </div> -->
+    </div>
+    <div>
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg class="corner-mark" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow" />
+        </svg>
     </div>
 </div>
 <div *ngIf="getVariant() === '-EDITABLE-PART-'">
@@ -132,6 +143,36 @@
         </svg>
         <svg class="corner-mark" viewBox="0 0 100 100">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow" />
+        </svg>
+    </div>
+</div>
+<div *ngIf="getVariant() === '-REQUEST-CONTAINED-PARTS-'">
+    <div class="row part-panel" style="margin-bottom: 4px;">
+        <div class="remove-part" (click)="removePart()">
+            <img src="/assets/media/delete-white-36dp.svg">
+        </div>
+        <div class="field label-width">
+            <span class="label">ETIQUETA</span><br>
+            <span name="label" class="field-height part-material">{{getLabel()}}</span>
+        </div>
+        <div class="field material-width">
+            <span class="label">MATERIAL</span><br>
+            <span name="material" class="field-height part-material">{{getMaterial()}}</span>
+        </div>
+        <div class="field color-width">
+            <span class="label">COLOR</span><br>
+            <span name="color" class="field-height part-color">{{getColor()}}</span>
+        </div>
+    </div>
+    <div>
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg class="corner-mark" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
         </svg>
     </div>
 </div>

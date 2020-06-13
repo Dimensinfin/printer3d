@@ -34,23 +34,36 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     #     Then the target panel has a "viewer-panel"
     #     And the target panel has one or more "v1-part"
 
-    @D3D09 @D3D09.05
-    Scenario: [D3D09.05]-The Parts visible on the New Request page have a defined list of fields.
+    # @D3D09 @D3D09.05
+    # Scenario: [D3D09.05]-The Parts visible on the New Request page have a defined list of fields.
+    #     Given there is a click on Feature "/NUEVO PEDIDO"
+    #     Then the V1NewRequestPage is activated
+    #     Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
+    #     Given the target Part is one labeled "Boquilla Ganesha - Figura"
+    #     And on the target Part there is a field named "ETIQUETA" with field name "label"
+    #     And on the target Part there is a field named "MATERIAL" with field name "material"
+    #     And on the target Part there is a field named "COLOR" with field name "color"
+    #     And on the target Part there is a field named "DISPONIBLE" with field name "stockAvailable"
+
+    # @D3D09 @D3D09.06
+    # Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
+    #     Given there is a click on Feature "/NUEVO PEDIDO"
+    #     Then the V1NewRequestPage is activated
+    #     Given the target panel is the panel of type "v1-new-request-panel"
+    #     Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
+    #     Then the target panel has a field labeled "FECHA PEDIDO" named "requestDate" and not empty
+    #     Then the target panel has a field labeled "ETIQUETA" named "label" and empty
+    #     Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "0" elements
+
+    @D3D09 @D3D09.07
+    Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the V1NewRequestPage is activated
         Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
         Given the target Part is one labeled "Boquilla Ganesha - Figura"
-        And on the target Part there is a field named "ETIQUETA" with field name "label"
-        And on the target Part there is a field named "MATERIAL" with field name "material"
-        And on the target Part there is a field named "COLOR" with field name "color"
-        And on the target Part there is a field named "DISPONIBLE" with field name "stockAvailable"
-
-    @D3D09 @D3D09.06
-    Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
-        Given there is a click on Feature "/NUEVO PEDIDO"
-        Then the V1NewRequestPage is activated
+        Then the target part is draggable with the contraint "PART"
         Given the target panel is the panel of type "v1-new-request-panel"
-        Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
-        Then the target panel has a field labeled "FECHA PEDIDO" named "requestDate" and not empty
-        Then the target panel has a field labeled "ETIQUETA" named "label" and empty
-        Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "0" elements
+        Then the target panel has a place for drop with the contraint "PART"
+
+    # @D3D09 @D3D09.08
+    # Scenario: [D3D09.08]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.

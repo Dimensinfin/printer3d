@@ -14,6 +14,7 @@ import { BackendService } from '@app/services/backend.service';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
+import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
 
 @Component({
     selector: 'v1-part',
@@ -104,6 +105,13 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
                     this.ref.detectChanges();
                 })
         );
+    }
+    public removePart(): void {
+        if ( null != this.container){
+            const requestAny = this.container as any;
+            const requestPanel = requestAny as V1NewRequestPanelComponent;
+            requestPanel.removePart(this.node as Part);
+        }
     }
     private activateEditing(): void {
         this.variant = EVariant.EDITABLE_PART;

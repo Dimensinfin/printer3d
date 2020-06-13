@@ -76,3 +76,13 @@ Then('the target panel has a panel labeled {string} named {string} and with {str
     cy.get('@target-field').find('[name="' + fieldName + '"]').should('exist')
         .find('v1-part').should('have.length', elementCount)
 });
+Then('the target part is draggable with the contraint {string}', function (scope: string) {
+    cy.get('@target-part').parent().parent().find('[draggable="true"]')
+        .should('exist')
+    cy.get('@target-part').parent().parent().find('[ng-reflect-drag-scope="' + scope + '"]')
+        .should('exist')
+});
+Then('the target panel has a place for drop with the contraint {string}', function (scope: string) {
+    cy.get('@target-panel').find('div').find('[droppable]').parent().find('[ng-reflect-drop-scope="PART"]')
+        .should('exist')
+});

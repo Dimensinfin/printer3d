@@ -27,7 +27,6 @@ export class V1MachineRenderComponent {
     public target: Job;
 
     public onDrop(drop: any) {
-        // const data: Job = drop.dragData;
         this.target=drop.dragData;
     }
 }
