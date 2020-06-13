@@ -23,11 +23,12 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         Given the target panel is the panel with variant "-COIL-LIST-"
         And the target panel has one or more "v1-coil"
 
-    # @D3D10 @D3D10.03
-    # Scenario: [D3D10.03]-Check that the Inventory Coil List informs of the required fields.
-    #     Given there is a click on Feature "/ROLLOS"
-    #     Given the target panel is the panel with variant "-COIL-LIST-"
-    #     Given the target Coil is one of color "MORADO TRANSPARENTE"
-    #     And on the target Coil there is a field named "MATERIAL" with field name "material" and the value "PLA"
-    #     And on the target Coil there is a field named "COLOR" with field name "color" and the value "MORADO TRANSPARENTE"
-    #     And on the target Coil there is a field named "PESO" with field name "weight" and the value "600 gr."
+    @D3D10 @D3D10.03
+    Scenario: [D3D10.03]-Check that the Inventory Coil List informs of the required fields.
+        Given there is a click on Feature "/ROLLOS"
+        Then the V2CoilListPage is activated
+        Given the target panel is the panel with variant "-COIL-LIST-"
+        Given the target Coil is one of color "MORADO TRANSPARENTE"
+        And on the target Coil there is a field labeled "MATERIAL" with field name "material" and the value "PLA"
+        And on the target Coil there is a field labeled "COLOR" with field name "color" and the value "MORADO TRANSPARENTE"
+        And on the target Coil there is a field labeled "PESO" with field name "weight" and the value "600 gr."
