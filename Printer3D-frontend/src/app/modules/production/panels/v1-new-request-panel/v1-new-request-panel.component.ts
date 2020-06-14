@@ -46,12 +46,20 @@ export class V1NewRequestPanelComponent {
     public getRequestParts(): Part[] {
         return this.request.partsToServe;
     }
+    public hasParts(): boolean {
+        if (this.request.partsToServe.length > 0) return true;
+        else return false
+    }
+    public isFormValid(formState: any): boolean {
+        console.log('-[]> Form state: ' + formState)
+        return (formState && this.hasParts())
+    }
     public onDrop(drop: any) {
         console.log('>[V1NewRequestPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop))
         this.request.addPart(drop.dragData)
         console.log('<>>[V1NewRequestPanelComponent.onDrop]')
     }
-    public removePart ( part : Part):void{
+    public removePart(part: Part): void {
         this.request.removePart(part);
     }
 }

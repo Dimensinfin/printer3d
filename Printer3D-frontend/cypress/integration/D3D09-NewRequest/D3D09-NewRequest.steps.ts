@@ -86,3 +86,23 @@ Then('the target panel has a place for drop with the contraint {string}', functi
     cy.get('@target-panel').find('div').find('[droppable]').parent().find('[ng-reflect-drop-scope="PART"]')
         .should('exist')
 });
+When('the target Part is dragged to the drop panel {string}', function (drop: string) {
+    cy.get('@target-part').trigger('dragstart')
+    cy.get('@target-panel').find('[name="' + drop + '"]').trigger('drop')
+});
+Then('the target panel has {string} buttons', function (buttonCount: string) {
+    cy.get('@target-panel').find('button').should('have.length', buttonCount)
+});
+Then('the target panel button with name {string} has a label {string} and is {string}', function (
+    buttonName: string, buttonLabel: string, buttonState: string) {
+    if (buttonState == 'disabled')
+        cy.get('@target-panel').get('[disabled]')
+            .find('.button-label').contains(buttonLabel, { matchCase: false })
+    cy.get('@target-panel').get('[name="' + buttonName + '"]').as('target-button')
+    cy.get('@target-button').find('.button-label').contains(buttonLabel, { matchCase: false })
+    // if (buttonState == 'disabled') cy.log('@target-panel').get('[name="' + buttonName + '"]').its('disabled')
+    // cy.get('@target-button').within(($button) => {
+    //     if (buttonState == 'enabled') cy.wrap($button).its('disabled').should('not.exist')
+    //     if (buttonState == 'disabled') cy.wrap($button).its('disabled').should('exist')
+    // });
+});

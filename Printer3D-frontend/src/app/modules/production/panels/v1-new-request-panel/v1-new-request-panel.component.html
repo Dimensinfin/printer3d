@@ -1,34 +1,84 @@
-<div class="part-panel">
-    <div class="column ">
-        <div class="title">
-            <span>/NUEVO PEDIDO/DEFINICION</span>
-        </div>
-        <div class="field left-margin date-width">
-            <span class="label">FECHA PEDIDO</span><br>
-            <span name="requestDate" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
-        </div>
-        <div class="field left-margin label-width">
-            <span class="label">ETIQUETA</span><br>
-            <input type="text" class="dsf-form-control dsf-editable-form-item request-label" required [(ngModel)]="request.label" name="label" minlength="3" maxlength="50">
-        </div>
-        <div class="field left-margin date-width">
-            <span class="label">PIEZAS PEDIDO</span><br>
-            <div *ngFor="let part of getRequestParts()" style="position: relative;">
-                <v1-part [node]="part" [variant]="'-REQUEST-CONTAINED-PARTS-'" [container]="self"></v1-part>
+<div class="new-request-panel" style="position: fixed;">
+    <form #newRequestForm="ngForm" class="dsf-form" autocomplete="off">
+        <div class="column" style="position: relative;">
+            <div class="row" style="background-color: black;">
+                <div class="title">
+                    <span>/NUEVO PEDIDO/DEFINICION</span>
+                </div>
+                <button name="SAVE" class="button save-button" [disabled]="!isFormValid(newRequestForm.form.valid)">
+                    <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Guardar</span>
+                    <svg class="button-right-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="button-right-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                    </svg>
+                    <svg class="button-left-border" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                    </svg>
+                    <svg class="button-left-clear" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                    </svg>
+                    <div *ngIf="isFormValid(newRequestForm.form.valid)">
+                        <svg class="button-right-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
+                        </svg>
+                        <svg class="button-left-mark" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" fill="green" />
+                        </svg>
+                    </div>
+                </button>
+                <button name="CANCEL" class="button cancel-button">
+                    <span><img class="button-icon" src="/assets/media/close-white-36dp.svg"></span><span class="button-label">Cancelar</span>
+                    <svg class="button-right-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="button-right-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                    </svg>
+                    <svg class="button-right-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
+                    </svg>
+                    <svg class="button-left-border" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                    </svg>
+                    <svg class="button-left-clear" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                    </svg>
+                    <svg class="button-left-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="orangered" />
+                    </svg>
+                </button>
             </div>
-            <div class="request-part " name="requestParts " droppable [dropScope]=" 'PART' " [dragOverClass]=" 'drag-over' " [dragHintClass]=" 'drag-hint' " (onDrop)="onDrop($event) "><span name="drop-part "> --- PIEZAS --- </span>
+            <div class="field left-margin date-width">
+                <span class="label">FECHA PEDIDO</span><br>
+                <span name="requestDate" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
+            </div>
+            <div class="field left-margin top-margin label-width">
+                <span class="label">ETIQUETA</span><br>
+                <input type="text" class="dsf-form-control dsf-editable-form-item request-label" required [(ngModel)]="request.label" name="label" minlength="5" maxlength="100">
+            </div>
+            <div class="field left-margin top-margin date-width">
+                <span class="label">PIEZAS PEDIDO</span><br>
+                <div name="requestParts">
+                    <div name="requestParts" *ngFor="let part of getRequestParts()" style="position: relative;">
+                        <v1-part [node]="part" [variant]="'-REQUEST-CONTAINED-PARTS-'" [container]="self"></v1-part>
+                    </div>
+                </div>
+                <div class="request-part" name="dropParts" droppable [dropScope]=" 'PART'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-part"> --- PIEZAS --- </span>
+                </div>
             </div>
         </div>
-    </div>
-    <div>
-        <svg class="corner-border " viewBox="0 0 100 100 ">
-            <path d="M100,100 L0,100 L100,0 L100,100 " fill="white " />
+        <div>
+            <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
         </svg>
-        <svg class="corner-clear " viewBox="0 0 100 100 ">
-            <path d="M100,100 L0,100 L100,0 L100,100 " fill="#180A16 " />
+            <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
         </svg>
-        <svg class="corner-mark " viewBox="0 0 100 100 ">
-            <path d="M100,100 L0,100 L100,0 L100,100 " fill="orangered " />
+            <svg class="corner-mark" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
         </svg>
-    </div>
+        </div>
+    </form>
 </div>

@@ -55,15 +55,32 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     #     Then the target panel has a field labeled "ETIQUETA" named "label" and empty
     #     Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "0" elements
 
-    @D3D09 @D3D09.07
-    Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
-        Given there is a click on Feature "/NUEVO PEDIDO"
-        Then the V1NewRequestPage is activated
-        Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
-        Given the target Part is one labeled "Boquilla Ganesha - Figura"
-        Then the target part is draggable with the contraint "PART"
-        Given the target panel is the panel of type "v1-new-request-panel"
-        Then the target panel has a place for drop with the contraint "PART"
+    # @D3D09 @D3D09.07
+    # Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
+    #     Given there is a click on Feature "/NUEVO PEDIDO"
+    #     Then the V1NewRequestPage is activated
+    #     Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
+    #     Given the target Part is one labeled "Boquilla Ganesha - Figura"
+    #     Then the target part is draggable with the contraint "PART"
+    #     Given the target panel is the panel of type "v1-new-request-panel"
+    #     Then the target panel has a place for drop with the contraint "PART"
 
     # @D3D09 @D3D09.08
-    # Scenario: [D3D09.08]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
+    # Scenario: [D3D09.08]-If we drag a Part to the right panel box the number of Parts associated to the Request increases.
+    #     Given there is a click on Feature "/NUEVO PEDIDO"
+    #     Then the V1NewRequestPage is activated
+    #     Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
+    #     Given the target Part is one labeled "Boquilla Ganesha - Figura"
+    #     Given the target panel is the panel of type "v1-new-request-panel"
+    #     Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "0" elements
+    #     When the target Part is dragged to the drop panel "requestParts"
+    #     Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "1" elements
+
+    @D3D09 @D3D09.09
+    Scenario: [D3D09.09]-The New request shows two buttons. The save button is only active when all the fields are filled and there is at least one part on the list.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the V1NewRequestPage is activated
+        Given the target panel is the panel of type "v1-new-request-panel"
+        Then the target panel has "2" buttons
+        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        And the target panel button with name "CANCEL" has a label "Cancelar" and is "enabled"

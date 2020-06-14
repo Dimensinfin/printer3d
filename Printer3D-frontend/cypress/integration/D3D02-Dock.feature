@@ -8,37 +8,37 @@ Feature: [D3D02]-Test the dock contents and configuration.
     Background: Application landing page
         Given the application Printer3DManager
 
-    # @D3D02 @D3D02.01
-    # Scenario: [D3D02.01]-Verify the list of features that should be present.
-    #     Given one instance of Dock
-    #     Then there are 7 Features enabled
-    #     Then there is a Feature with label "/ROLLOS"
-    #     Then there is a Feature with label "/INVENTARIO"
-    #     Then there is a Feature with label "/PEDIDOS"
-    #     Then there is a Feature with label "/TRABAJOS PND."
-    #     Then there is a Feature with label "/NUEVO ROLLO"
-    #     Then there is a Feature with label "/NUEVA PIEZA"
-    #     Then there is a Feature with label "/NUEVO PEDIDO"
+    @D3D02 @D3D02.01
+    Scenario: [D3D02.01]-Verify the list of features that should be present.
+        Given one instance of Dock
+        Then there are 7 Features enabled
+        Then there is a Feature with label "/ROLLOS"
+        Then there is a Feature with label "/INVENTARIO"
+        Then there is a Feature with label "/PEDIDOS"
+        Then there is a Feature with label "/TRABAJOS PND."
+        Then there is a Feature with label "/NUEVO ROLLO"
+        Then there is a Feature with label "/NUEVA PIEZA"
+        Then there is a Feature with label "/NUEVO PEDIDO"
 
-    # @D3D02 @D3D02.02
-    # Scenario: [D3D02.02]-Check that Features that open Dialogs have a corner in blue.
-    #     Given one instance of Dock
-    #     Then the Feature with label "/NUEVO ROLLO" opens a Dialog
-    #     Then the Feature with label "/NUEVA PIEZA" opens a Dialog
-    #     Then the Feature with label "/NUEVO PEDIDO" opens a Page
-    #     Then the Feature with label "/ROLLOS" opens a Page
-    #     Then the Feature with label "/INVENTARIO" opens a Page
-    #     Then the Feature with label "/PEDIDOS" opens a Page
-    #     Then the Feature with label "/TRABAJOS PND." opens a Page
+    @D3D02 @D3D02.02
+    Scenario: [D3D02.02]-Check that Features that open Dialogs have a corner in blue.
+        Given one instance of Dock
+        Then the Feature with label "/NUEVO ROLLO" opens a Dialog
+        Then the Feature with label "/NUEVA PIEZA" opens a Dialog
+        Then the Feature with label "/NUEVO PEDIDO" opens a Page
+        Then the Feature with label "/ROLLOS" opens a Page
+        Then the Feature with label "/INVENTARIO" opens a Page
+        Then the Feature with label "/PEDIDOS" opens a Page
+        Then the Feature with label "/TRABAJOS PND." opens a Page
 
-    # @D3D02 @D3D02.03
-    # Scenario: [D3D02.03]-Validate the elements open when there is a click on each of the Features.
-    #     Given one instance of Dock
-    #     When the Feature with label "/ROLLOS" is clicked the destination is the Page "v2-coil-list-page"
-    #     When the Feature with label "/INVENTARIO" is clicked the destination is the Page "v2-inventory-part-list-page"
-    #     When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-request-list-page"
-    #     When the Feature with label "/TRABAJOS PND." is clicked the destination is the Page "production-job-list-page"
-    #     When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "v1-new-request-page"
+    @D3D02 @D3D02.03
+    Scenario: [D3D02.03]-Validate the elements open when there is a click on each of the Features.
+        Given one instance of Dock
+        When the Feature with label "/ROLLOS" is clicked the destination is the Page "v2-coil-list-page"
+        When the Feature with label "/INVENTARIO" is clicked the destination is the Page "v2-inventory-part-list-page"
+        When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-request-list-page"
+        When the Feature with label "/TRABAJOS PND." is clicked the destination is the Page "production-job-list-page"
+        When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "v1-new-request-page"
 
     @D3D02 @D3D02.04
     Scenario: [D3D02.04]-When a new page is selected the Dock visual configuration for the active Feature changes.
@@ -64,4 +64,4 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And there is a click on the "cancel-button" button of target dialog
         When the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "new-part-dialog"
         When there is a click on the "cancel-button" button of target dialog
-        # When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Dialog "v1-new-request-dialog"
+# When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Dialog "v1-new-request-dialog"
