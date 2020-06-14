@@ -100,9 +100,11 @@ Then('the target panel button with name {string} has a label {string} and is {st
             .find('.button-label').contains(buttonLabel, { matchCase: false })
     cy.get('@target-panel').get('[name="' + buttonName + '"]').as('target-button')
     cy.get('@target-button').find('.button-label').contains(buttonLabel, { matchCase: false })
-    // if (buttonState == 'disabled') cy.log('@target-panel').get('[name="' + buttonName + '"]').its('disabled')
-    // cy.get('@target-button').within(($button) => {
-    //     if (buttonState == 'enabled') cy.wrap($button).its('disabled').should('not.exist')
-    //     if (buttonState == 'disabled') cy.wrap($button).its('disabled').should('exist')
-    // });
+});
+Given('the form {string} be the target form', function (formName: string) {
+    cy.get(formName).find('form').as('target-form')
+});
+
+When('{string} is set on the target form field {string}', function (value: string, fieldName: string) {
+    cy.get('@target-form').find('[name="' + fieldName + '"]').clear().type(value)
 });

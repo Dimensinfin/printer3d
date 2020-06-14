@@ -77,10 +77,25 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     #     Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "1" elements
 
     @D3D09 @D3D09.09
-    Scenario: [D3D09.09]-The New request shows two buttons. The save button is only active when all the fields are filled and there is at least one part on the list.
+    Scenario: [D3D09.09]-The New request shows two buttons.
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the V1NewRequestPage is activated
         Given the target panel is the panel of type "v1-new-request-panel"
         Then the target panel has "2" buttons
         And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
         And the target panel button with name "CANCEL" has a label "Cancelar" and is "enabled"
+
+    @D3D09 @D3D09.10
+    Scenario: [D3D09.10]-The New request shows two buttons. The save button is only active when all the fields are filled and there is at least one part on the list.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the V1NewRequestPage is activated
+        Given the target panel is the panel of type "v1-new-request-panel"
+        Then the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Given the form "v1-new-request-panel" be the target form
+        When "Pedido de Pruebas" is set on the target form field "label"
+        Then the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
+        Given the target Part is one labeled "Boquilla Ganesha - Figura"
+        Given the target panel is the panel of type "v1-new-request-panel"
+        When the target Part is dragged to the drop panel "dropParts"
+        Then the target panel button with name "SAVE" has a label "Guardar" and is "enabled"
