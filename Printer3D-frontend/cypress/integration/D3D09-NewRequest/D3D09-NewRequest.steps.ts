@@ -108,3 +108,13 @@ Given('the form {string} be the target form', function (formName: string) {
 When('{string} is set on the target form field {string}', function (value: string, fieldName: string) {
     cy.get('@target-form').find('[name="' + fieldName + '"]').clear().type(value)
 });
+When('the target panel button with name {string} is clicked', function (buttonName: string) {
+    cy.get('@target-panel').find('button').find('[name="' + buttonName + '"]')
+        .click('center')
+});
+Then('the Request is persisted at the backend', function () {
+    cy.log('The Request is being persisted at the backend.')
+});
+Then('the active page is set to Dasboard', function () {
+    cy.visit('/')
+});

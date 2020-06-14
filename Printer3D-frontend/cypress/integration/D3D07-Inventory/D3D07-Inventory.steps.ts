@@ -165,9 +165,6 @@ Then('the new part contents are persisted to the backend', function () {
         .find('v1-part').should('exist')
 });
 
-Then('there is a Notification panel', function () {
-    cy.get('#toast-container').should('exist')
-});
 
 Then('the edit state is exited', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')

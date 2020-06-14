@@ -222,3 +222,19 @@ response:
     type: text
     file: "${sim.path}/responses/actuator.info.json"
     
+---
+
+simlet: inventory-newrequest
+
+request:
+  - method: POST
+  - uriPathPattern: "/api/v1/production/requests"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/newrequest.json"

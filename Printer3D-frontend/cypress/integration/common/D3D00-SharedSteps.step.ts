@@ -53,6 +53,9 @@ Given('the target panel has one or more {string}', function (renderName: string)
 When('there is a click on the {string} button of target dialog', function (buttonId: string) {
     cy.get('@target-dialog').find('[id="' + buttonId + '"]').click('center')
 });
+Then('there is a Notification panel', function () {
+    cy.get('#toast-container').should('exist')
+});
 
 
 

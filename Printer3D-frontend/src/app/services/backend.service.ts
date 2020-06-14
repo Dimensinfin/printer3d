@@ -20,6 +20,7 @@ import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
+import { RequestForm } from '@domain/dto/RequestForm.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -47,18 +48,7 @@ export class BackendService {
             }));
     }
     // - B A C K E N D - A P I
-    // - I N V E N T O R Y
-    public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
-        const request = this.APIV1 + '/inventory/parts';
-        let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpGETCall(request, headers)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiInventoryParts_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as PartListResponse;
-                return response;
-            }));
-    }
+    // - N E W   E N T I T I E S
     public apiNewPart_v1(newPart: Part, transformer: ResponseTransformer): Observable<Part> {
         const request = this.APIV1 + '/inventory/parts';
         let headers = new HttpHeaders()
@@ -66,17 +56,6 @@ export class BackendService {
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newPart), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewPart_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Part;
-                return response;
-            }));
-    }
-    public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
-        const request = this.APIV1 + '/inventory/parts';
-        let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart), headers)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Part;
                 return response;
             }));
@@ -89,6 +68,40 @@ export class BackendService {
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewCoil_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Coil;
+                return response;
+            }));
+    }
+    public apiNewRequest_v1(newCoil: RequestForm, transformer: ResponseTransformer): Observable<RequestForm> {
+        const request = this.APIV1 + '/production/requests';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newCoil), headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiNewRequest_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as RequestForm;
+                return response;
+            }));
+    }
+    // - I N V E N T O R Y
+    public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
+        const request = this.APIV1 + '/inventory/parts';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryParts_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as PartListResponse;
+                return response;
+            }));
+    }
+    public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
+        const request = this.APIV1 + '/inventory/parts';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart), headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Part;
                 return response;
             }));
     }
