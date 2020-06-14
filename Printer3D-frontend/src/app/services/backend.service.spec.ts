@@ -69,13 +69,13 @@ describe('SERVICE BackendService [Module: CORE]', () => {
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [INVENTORY]', () => {
         it('apiActuatorInfo.default: get the backend information', async () => {
-            service.apiActuatorInfo(new ResponseTransformer().setDescription('Transforms backedn data into a set of fields.')
+            service.apiActuatorInfo(new ResponseTransformer().setDescription('Transforms backend data into a set of fields.')
                 .setTransformation((entrydata: any): BackendInfoResponse => {
                     return new BackendInfoResponse(entrydata);
                 }))
                 .subscribe((response: BackendInfoResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.getVersion()).toBe("0.6.0");
+                    expect(response.getVersion()).toBe('<' + "0.6.0" + ' backend');
                 });
         });
     });
@@ -87,8 +87,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: PartListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(7);
-                    expect(response.parts.length).toBe(7);
+                    expect(response.count).toBe(12);
+                    expect(response.parts.length).toBe(12);
                 });
         });
         it('apiInventoryUpdatePart_v1.default: update an existing Part', async () => {
@@ -139,8 +139,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: CoilListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(3, 'Number of Coils do not match.');
-                    expect(response.coils.length).toBe(3, 'Number of Coils do not match.');
+                    expect(response.count).toBe(15, 'Number of Coils do not match.');
+                    expect(response.coils.length).toBe(15, 'Number of Coils do not match.');
                 });
         });
         it('apiInventoryMachines_v1.default: get the list of Machines', async () => {
@@ -205,8 +205,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: Job[]) => {
                     expect(response).toBeDefined();
-                    // expect(response.count).toBe(9, 'Number of Jobs do not match');
-                    expect(response.length).toBe(6, 'Number of Jobs do not match');
+                    expect(response.length).toBe(16, 'Number of Jobs do not match');
                 });
         });
     });

@@ -55,7 +55,7 @@ describe('COMPONENT InventoryCoilListPageComponent [Module: INVENTORY]', () => {
             expect(component.pagePath).toBe('/Inventario/Lista Rollos');
             expect(component.columnDefs).toBeDefined();
             expect(component.columnDefs.length).toBe(3, 'The column definitions number does not match');
-            expect(component.rowData.length).toBe(3);
+            expect(component.rowData.length).toBe(15);
             const componetAsAny = component as any;
             expect(componetAsAny.recordContainer).toBeDefined();
             expect(componetAsAny.backendConnections.length).toBe(1);

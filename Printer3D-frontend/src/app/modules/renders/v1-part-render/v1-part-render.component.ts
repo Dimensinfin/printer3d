@@ -99,13 +99,16 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
         this.backendConnections.push(
             this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)
                 .subscribe((updatedPart: Part) => {
-                    console.log('-[V1PartRenderComponent.saveEditing]> Updated Part: ' + JSON.stringify(updatedPart))
+                    // console.log('-[V1PartRenderComponent.saveEditing]> Updated Part: ' + JSON.stringify(updatedPart))
                     this.node = updatedPart;
                     this.toggleEdition();
                     this.ref.detectChanges();
                 })
         );
     }
+    /**
+     * This an special callback endpoint to remove a Part from the list of parts associated to a Request.
+     */
     public removePart(): void {
         if ( null != this.container){
             const requestAny = this.container as any;

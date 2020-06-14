@@ -63,18 +63,23 @@ describe('COMPONENT V2InventoryPartListPageComponent [Module: INVENTORY]', () =>
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
         it('ngOnInit.none: validate initialization flow', async () => {
+            jasmine.clock().install();
+            console.log('>[Step 01]')
             const componentAsAny = component as any;
             expect(component.getVariant()).toBe(EVariant.DEFAULT);
             expect(componentAsAny.partContainers).toBeDefined('Check that the container list exists.');
             expect(componentAsAny.partContainers.size).toBe(0)
+            console.log('>[Step 02]')
             await component.ngOnInit()
-            setTimeout(() => {
-                expect(component.getVariant()).toBe(EVariant.PART_LIST);
-                expect(componentAsAny.partContainers).toBeDefined('Check that the container list exists.');
-                expect(componentAsAny.partContainers.size).toBe(5)
-                expect(componentAsAny.backendConnections.length).toBe(1)
-                expect(componentAsAny.dataModelRoot.length).toBe(5)
-            }, 3000);
+            jasmine.clock().tick(2100);
+            console.log('>[Step 03]')
+            expect(component.getVariant()).toBe(EVariant.PART_LIST);
+            expect(componentAsAny.partContainers).toBeDefined('Check that the container list exists.');
+            expect(componentAsAny.partContainers.size).toBe(6)
+            expect(componentAsAny.backendConnections.length).toBe(1)
+            expect(componentAsAny.dataModelRoot.length).toBe(6)
+            console.log('>[Step 04]')
+            jasmine.clock().uninstall()
         });
     });
 });

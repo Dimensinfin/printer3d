@@ -61,7 +61,7 @@ export class SupportBackendService {
     public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
         console.log('>[SupportBackendService.apiInventoryUpdatePart_v1]')
         return Observable.create((observer) => {
-            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/parts/update')
+            this.httpWrapper.mockHttpGETCall('/api/v2/inventory/parts/update')
                 .subscribe(data => {
                     observer.next(transformer.transform(data));
                     observer.complete();

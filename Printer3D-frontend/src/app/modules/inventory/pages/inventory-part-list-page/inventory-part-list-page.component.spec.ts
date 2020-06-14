@@ -73,7 +73,7 @@ describe('COMPONENT InventoryPartListPageComponent [Module: INVENTORY]', () => {
             expect(componentAsAny.backendConnections.length).toBe(0)
             await component.ngOnInit()
             expect(componentAsAny.rowData).toBeDefined('Check that the container list exists.');
-            expect(componentAsAny.rowData.length).toBe(7)
+            expect(componentAsAny.rowData.length).toBe(12)
             expect(componentAsAny.backendConnections.length).toBe(1)
         });
     });

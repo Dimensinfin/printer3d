@@ -34,6 +34,22 @@ export class SupportHttpClientWrapperService {
             observer.complete();
         });
     }
+    public mockHttpGETCall(request: string): Observable<any> {
+        console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> request: " + request);
+        return Observable.create((observer) => {
+            try {
+                let data = this.decodeRequestPath('GET:' + request);
+                if (null == data)
+                    observer.next('');
+                else
+                    observer.next(data);
+            } catch (error) {
+                console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> error: " + JSON.stringify(error));
+                observer.next('');
+            }
+            observer.complete();
+        });
+    }
 
     public wrapHttpRESOURCECall(request: string): Observable<any> {
         console.log("><[SupportHttpClientWrapperService.wrapHttpRESOURCECall]> request: " + request);
@@ -138,43 +154,49 @@ export class SupportHttpClientWrapperService {
             if (request.includes('/production/requests'))
                 return this.directAccessMockResource('newrequest');
         }
+        if (request.includes('GET')) {
+            if (request.includes('/api/v2/inventory/parts/update'))
+                return this.directAccessMockResource('newpart');
+        }
         if (request.includes('/inventory/parts'))
             return this.directAccessMockResource('inventory.parts');
         if (request.includes('/actuator/info'))
             return this.directAccessMockResource('actuator.info');
+        if (request.includes('/inventory/coils'))
+            return this.directAccessMockResource('inventory.coils');
+        if (request.includes('/production/jobs/pending'))
+            return this.directAccessMockResource('production.pendingjobs');
 
-        if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
         if (request.includes('/api/v1/inventory/machines')) keyword = 'INVENTORY-MACHINES';
         if (request.includes('/api/v2/inventory/machines')) keyword = 'INVENTORY-MACHINESV2';
-        if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
         if (request.includes('/inventory/machines/')) {
             if (request.includes('startbuild')) keyword = 'MACHINE-STARTBUILD';
             if (request.includes('cancelbuild')) keyword = 'MACHINE-CANCELBUILD';
         }
-        if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
+        // if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
         if (request.includes('/inventory/finishings')) keyword = 'INVENTORY-FINISHINGS';
-        if (request.includes('/api/v2/inventory/parts/update')) keyword = 'INVENTORY-UPDATEPART';
+        // if (request.includes('/api/v2/inventory/parts/update')) keyword = 'INVENTORY-UPDATEPART';
 
         console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
-            case 'INVENTORY-UPDATEPART':
-                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                const inventoryUpdatePartResponseJson = {
-                    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "colorCode": "WHITE",
-                    "buildTime": 15,
-                    "cost": 0.85,
-                    "price": 4,
-                    "stockLevel": 3,
-                    "stockAvailable": 4,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-                return inventoryUpdatePartResponseJson;
+            // case 'INVENTORY-UPDATEPART':
+            //     console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+            //     const inventoryUpdatePartResponseJson = {
+            //         "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+            //         "label": "Covid-19 Key",
+            //         "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+            //         "material": "PLA",
+            //         "colorCode": "WHITE",
+            //         "buildTime": 15,
+            //         "cost": 0.85,
+            //         "price": 4,
+            //         "stockLevel": 3,
+            //         "stockAvailable": 4,
+            //         "imagePath": "https://ibb.co/3dGbsRh",
+            //         "modelPath": "pieza3.sft",
+            //         "active": true
+            //     }
+            //     return inventoryUpdatePartResponseJson;
             case 'INVENTORY-FINISHINGS':
                 console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryFinishingsResponseJson = {
@@ -389,9 +411,9 @@ export class SupportHttpClientWrapperService {
                     "count": 2
                 }
                 return inventoryMachinesv2ResponseJson;
-            case 'PRODUCTION-JOBS':
-                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                return this.directAccessMockResource('production.pendingjobs');
+            // case 'PRODUCTION-JOBS':
+            //     console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
+            //     return this.directAccessMockResource('production.pendingjobs');
             case 'MACHINE-STARTBUILD':
                 console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const machineStartBuildResponseJson = {

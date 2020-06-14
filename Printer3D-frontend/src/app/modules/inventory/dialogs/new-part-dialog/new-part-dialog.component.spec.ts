@@ -63,7 +63,7 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
         const fixture = TestBed.createComponent(NewPartDialogComponent);
         component = fixture.componentInstance;
         isolationService = TestBed.get(IsolationService);
-        fixture.detectChanges();
+        // fixture.detectChanges();
     }));
 
     // - C O N S T R U C T I O N   P H A S E
@@ -78,7 +78,7 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
     // - O N I N I T I A T I Z A T I O N   P H A S E
     /**
      * OnInit runs when the component is created. So use a clean component for this tests.
-     * Because the OnInit is run two time I should clean the object to the initial stage before running the second.
+     * Because the OnInit is run two times I should clean the object to the initial stage before running the second.
      */
     describe('On Initialization Phase', async () => {
         it('ngOnInit.notPreviousPart: validate initialization flow', async () => {
@@ -124,10 +124,15 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
     // - O N D E S T R U C T I O N   P H A S E
     describe('On Destruction Phase', () => {
         it('ngOnDestroy: validate destruction flow', async () => {
-            const componentAsAny = component as any;
-            expect(componentAsAny.backendConnections.length).toBe(1, 'The initial subscription list should be 1.');
-            component.ngOnInit(); // Remember that components run the ngOnInit when nstantiated by the testbed.
-            expect(componentAsAny.backendConnections.length).toBe(2, 'After initialization should be 2.');
+            console.log('>[ngOnDestroy: validate destruction flow]')
+            const fixture = TestBed.createComponent(NewPartDialogComponent);
+            const componentLocal = fixture.componentInstance;
+            const componentAsAny = componentLocal as any;
+            expect(componentAsAny.backendConnections.length).toBe(0, 'The initial subscription list should be 1.');
+            console.log('>[ngOnDestroy: validate destruction flow]> Calling OnInit')
+            await componentLocal.ngOnInit(); // This component is not calling OnInit at creation
+            console.log('>[ngOnDestroy: validate destruction flow]> OnInit completed')
+            expect(componentAsAny.backendConnections.length).toBe(1, 'After initialization should be 2.');
         });
     });
 

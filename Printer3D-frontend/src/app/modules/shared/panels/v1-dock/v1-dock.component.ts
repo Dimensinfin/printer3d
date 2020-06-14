@@ -32,7 +32,8 @@ export class V1DockComponent implements OnInit {
     private activeFeature: Feature;
     private configuredFeatures: Feature[] = [];
 
-    constructor(private appStore: AppStoreService,
+    constructor(
+        private appStore: AppStoreService,
         protected router: Router) {
         this.self = this;
     }
@@ -60,7 +61,7 @@ export class V1DockComponent implements OnInit {
     public activateFeature(target: Feature): void {
         console.log('><[V1DockComponent.activateFeature]> Feature: ' + JSON.stringify(target));
         if (null == target) {
-            this.activeFeature = null;
+            this.activeFeature = undefined;
             this.pageChange('/');
         } else
             if (null != this.activeFeature) {
@@ -85,7 +86,7 @@ export class V1DockComponent implements OnInit {
         if (null != this.activeFeature) this.pageChange(this.activeFeature.getRoute());
     }
     public clean(): void {
-        this.activeFeature = null;
+        this.activeFeature = undefined;
         this.ngOnInit();
     }
     /**

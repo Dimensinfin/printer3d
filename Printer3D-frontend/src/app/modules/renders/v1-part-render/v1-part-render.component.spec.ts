@@ -105,6 +105,10 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [getters]', () => {
+        it('getLabel:success check the "label" field when defined', () => {
+            component.node = testPart;
+            expect(component.getLabel()).toBe("Boquilla Ganesha");
+        });
         it('getMaterial:success check the "material" field when defined', () => {
             component.node = testPart;
             expect(component.getMaterial()).toBe("PLA");
@@ -167,7 +171,10 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
             expect(component.getActive()).toBe('ACTIVA');
             component.editing = false;
             expect(component.editing).toBeFalse();
+            jasmine.clock().install();
             await component.saveEditing();
+            jasmine.clock().tick(1100);
+            jasmine.clock().uninstall()
             expect(component.editing).toBeTrue();
             expect(component.getMaterial()).toBe("PLA");
             expect(component.getColor()).toBe("WHITE");
@@ -176,6 +183,14 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
             expect(component.getStockRequired()).toBe(3);
             expect(component.getStockAvailable()).toBe(4);
             expect(component.getActive()).toBe('ACTIVA');
+            jasmine.clock().uninstall()
+        });
+        it('removePart: pass the remove Part to the parent panel', () => {
+            const componentAsAny = component as any;
+            componentAsAny.container = { removePart: () => { } }
+            spyOn(componentAsAny.container, 'removePart')
+            component.removePart()
+            expect(componentAsAny.container.removePart).toHaveBeenCalled()
         });
     });
 });

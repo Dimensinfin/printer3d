@@ -52,24 +52,23 @@ describe('COMPONENT V1AvailablePartsPanelComponent [Module: PRODUCTION]', () => 
     describe('On Initialization Phase', () => {
         it('ngOnInit.before: validate initialization flow', async () => {
             const componentAsAny = component as any;
-            // expect(componentAsAny.partContainers).toBeDefined()
-            // expect(componentAsAny.partContainers.size).toBe(0)
             expect(componentAsAny.backendConnections.length).toBe(0);
             expect(component.isDownloading()).toBeTrue();
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
         });
         it('ngOnInit.after: validate initialization flow', async () => {
-            console.log('>[Pre OnInit]')
+            console.log('>[V1AvailablePartsPanelComponent.Pre OnInit]')
+            jasmine.clock().install();
             await component.ngOnInit();
-            setTimeout(function () { // Wait for real code timeout code to complete.
-                console.log('>[Post OnInit]')
-                const componentAsAny = component as any;
-                expect(component.getVariant()).toBe(EVariant.REQUEST_PART_LIST)
-                expect(componentAsAny.backendConnections.length).toBe(1);
-                expect(componentAsAny.dataModelRoot.length).toBe(7);
-                expect(componentAsAny.renderNodeList.length).toBe(7);
-                expect(component.isDownloading()).toBeFalse();
-            }, 6000);
+            jasmine.clock().tick(1100);
+            console.log('>[V1AvailablePartsPanelComponent.Post OnInit]')
+            const componentAsAny = component as any;
+            expect(component.getVariant()).toBe(EVariant.DEFAULT)
+            expect(componentAsAny.backendConnections.length).toBe(1);
+            expect(componentAsAny.dataModelRoot.length).toBe(12);
+            expect(componentAsAny.renderNodeList.length).toBe(12);
+            expect(component.isDownloading()).toBeFalse();
+            jasmine.clock().uninstall()
         });
     });
     // - O N D E S T R U C T I O N   P H A S E

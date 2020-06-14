@@ -51,7 +51,7 @@ export class V2CoilListPageComponent extends AppPanelComponent implements OnInit
                     if (!environment.production)
                         setTimeout(() => { // This is only for development
                             this.completeDowload(coilList); // Notify the completion of the download.
-                        }, 2000);
+                        }, 1000);
                 })
         )
         console.log("<[V2CoilListPageComponent.downloadCoils]");

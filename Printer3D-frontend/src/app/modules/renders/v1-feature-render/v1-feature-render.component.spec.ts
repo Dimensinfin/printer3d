@@ -114,9 +114,13 @@ describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
                 "interaction": "DIALOG",
                 "dialog": "NewPartDialog"
             });
+            spyOn(component.node, 'activate')
+            spyOn(component.node, 'deactivate')
             spyOn(dialogFactoryService, 'processClick').and.returnValue(dialogRef)
             await component.onClick();
             expect(dialogFactoryService.processClick).toHaveBeenCalled();
+            expect(component.node.activate).toHaveBeenCalled();
+            expect(component.node.deactivate).toHaveBeenCalled();
         });
     });
 });

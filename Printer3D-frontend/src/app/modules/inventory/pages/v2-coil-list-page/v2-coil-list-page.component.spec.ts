@@ -59,18 +59,20 @@ describe('COMPONENT V2CoilListPageComponent [Module: INVENTORY]', () => {
             expect(component.isDownloading()).toBeTrue();
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
         });
-        it('ngOnInit.after: validate initialization flow', async () => {
-            console.log('>[Pre OnInit]')
-            await component.ngOnInit();
-            setTimeout(function () { // Wait for real code timeout code to complete.
-                console.log('>[Post OnInit]')
-                const componentAsAny = component as any;
-                expect(component.getVariant()).toBe(EVariant.COIL_LIST)
-                expect(componentAsAny.backendConnections.length).toBe(1);
-                expect(componentAsAny.dataModelRoot.length).toBe(15);
-                expect(componentAsAny.renderNodeList.length).toBe(15);
-                expect(component.isDownloading()).toBeFalse();
-            }, 6000);
+        it('ngOnInit.after: validate initialization flow', () => {
+            console.log('>[V2CoilListPageComponent.Pre OnInit]')
+            jasmine.clock().install();
+            component.ngOnInit();
+            jasmine.clock().tick(2100);
+            console.log('>[V2CoilListPageComponent.Post OnInit]')
+            const componentAsAny = component as any;
+            expect(component.getVariant()).toBe(EVariant.COIL_LIST)
+            expect(componentAsAny.backendConnections.length).toBe(1);
+            expect(componentAsAny.dataModelRoot.length).toBe(15);
+            expect(componentAsAny.renderNodeList.length).toBe(15);
+            expect(component.isDownloading()).toBeFalse();
+            console.log('>[V2CoilListPageComponent.End]')
+            jasmine.clock().uninstall()
         });
     });
     // - O N D E S T R U C T I O N   P H A S E

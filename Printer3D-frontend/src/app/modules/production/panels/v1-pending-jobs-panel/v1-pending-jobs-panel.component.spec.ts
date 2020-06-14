@@ -27,7 +27,7 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { V1PendingJobsPanelComponent } from './v1-pending-jobs-panel.component';
 
-describe('COMPONENT V1PendingJobsPanelComponent [Module: SHARED]', () => {
+xdescribe('COMPONENT V1PendingJobsPanelComponent [Module: SHARED]', () => {
     let component: V1PendingJobsPanelComponent;
 
     beforeEach(async(() => {

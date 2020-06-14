@@ -1,5 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from "@angular/common";
 // - TESTING
 import { async } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
@@ -17,8 +19,9 @@ import { AppComponent } from '@app/app.component';
 
 describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
     let component: V1DockComponent;
-    let isolationService: SupportIsolationService;
-    let routerDetector: AppComponent;
+    let routerDetector: any = { refresh: () => { } };
+    let location: Location;
+    let router: Router;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -38,8 +41,9 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
 
         const fixture = TestBed.createComponent(V1DockComponent);
         component = fixture.componentInstance;
-        routerDetector = TestBed.createComponent(AppComponent).componentInstance;
-        isolationService = TestBed.get(IsolationService);
+        location = TestBed.get(Location)
+        router = TestBed.get(Router)
+        router.initialNavigation()
     }));
 
     // - C O N S T R U C T I O N   P H A S E
@@ -86,11 +90,21 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
+        it('activateFeature.null: clear the list of active features', () => {
+            const componentAsAny = component as any;
+            componentAsAny.routerDetector = routerDetector;
+            expect(componentAsAny.activeFeature).toBeUndefined();
+            componentAsAny.activeFeature = new Feature()
+            expect(componentAsAny.activeFeature).toBeDefined()
+            component.activateFeature(null);
+            expect(componentAsAny.activeFeature).toBeUndefined();
+            expect(location.path()).toBe('/');
+        });
         it('activateFeature.firstTime: activate a new feature when there is none active', () => {
             const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
             const featureB = new Feature({ label: '/Nueva Pieza', active: false });
             const componentAsAny = component as any;
-            componentAsAny.routerDetector=routerDetector;
+            componentAsAny.routerDetector = routerDetector;
             componentAsAny.configuredFeatures.push(featureA);
             componentAsAny.configuredFeatures.push(featureB);
             expect(componentAsAny.activeFeature).toBeUndefined();
@@ -101,7 +115,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
             const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
             const featureB = new Feature({ label: '/Nueva Pieza', active: false });
             const componentAsAny = component as any;
-            componentAsAny.routerDetector=routerDetector;
+            componentAsAny.routerDetector = routerDetector;
             componentAsAny.configuredFeatures.push(featureA);
             componentAsAny.configuredFeatures.push(featureB);
             expect(componentAsAny.activeFeature).toBeUndefined();
