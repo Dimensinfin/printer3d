@@ -9,12 +9,23 @@ export class RequestForm {
     public requestDate: Date = new Date();
     public partsToServe: Part[] = [];
 
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
+
     public addPart(newPart: Part): void {
         this.partsToServe.push(newPart);
     }
-    public removePart(part: Part): Part {
-        // return this.partsToServe.reduce
-        // this.items = this.items.filter(item => item.item_id !== item.item_id);
-        return null;
+    /**
+     * Removed all the copies of a Part. It it was added 3 times the Part is removed 3 times
+     * @param part2Remove Part to be removed
+     */
+    public removePart(part2Remove: Part): void {
+        const newPartList: Part[] = []
+        for (let part of this.partsToServe) {
+            if (JSON.stringify(part) == JSON.stringify(part2Remove)) continue;
+            newPartList.push(part);
+        }
+        this.partsToServe = newPartList;
     }
 }

@@ -1,7 +1,7 @@
 // - DOMAIN
 import { PartListResponse } from './PartListResponse.dto';
 
-describe('CLASS PartListResponse [Module: DOMAIN]', () => {
+describe('CLASS PartListResponse [Module: DTO]', () => {
     const partsData = {
         "jsonClass": "PartList",
         "count": 2,

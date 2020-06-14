@@ -56,6 +56,12 @@ When('there is a click on the {string} button of target dialog', function (butto
 Then('there is a Notification panel', function () {
     cy.get('#toast-container').should('exist')
 });
+Then('there are no Features active', function () {
+    cy.get('v1-dock')
+        .find('v2-feature-render').within(($panel) => {
+            cy.get('.corner-mark').should('have.length', 0)
+        });
+});
 
 
 

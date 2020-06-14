@@ -64,4 +64,3 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And there is a click on the "cancel-button" button of target dialog
         When the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "new-part-dialog"
         When there is a click on the "cancel-button" button of target dialog
-# When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Dialog "v1-new-request-dialog"

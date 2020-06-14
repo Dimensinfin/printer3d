@@ -18,6 +18,23 @@ const REQUEST_PREFIX = 'http://neocom.infinity.local/api/v1/neocom';
     providedIn: 'root'
 })
 export class SupportHttpClientWrapperService {
+    public mockHttpPOSTCall(request: string): Observable<any> {
+        console.log("><[SupportHttpClientWrapperService.mockHttpPOSTCall]> request: " + request);
+        return Observable.create((observer) => {
+            try {
+                let data = this.decodeRequestPath('POST:' + request);
+                if (null == data)
+                    observer.next('');
+                else
+                    observer.next(data);
+            } catch (error) {
+                console.log("><[SupportHttpClientWrapperService.mockHttpPOSTCall]> error: " + JSON.stringify(error));
+                observer.next('');
+            }
+            observer.complete();
+        });
+    }
+
     public wrapHttpRESOURCECall(request: string): Observable<any> {
         console.log("><[SupportHttpClientWrapperService.wrapHttpRESOURCECall]> request: " + request);
         return Observable.create((observer) => {
@@ -113,12 +130,20 @@ export class SupportHttpClientWrapperService {
             if (request.includes('/inventory/parts'))
                 return this.directAccessMockResource('newpart');
         }
+        if (request.includes('POST')) {
+            if (request.includes('/production/parts'))
+                return this.directAccessMockResource('newpart');
+            if (request.includes('/production/coils'))
+                return this.directAccessMockResource('newcoil');
+            if (request.includes('/production/requests'))
+                return this.directAccessMockResource('newrequest');
+        }
         if (request.includes('/inventory/parts'))
             return this.directAccessMockResource('inventory.parts');
         if (request.includes('/actuator/info'))
             return this.directAccessMockResource('actuator.info');
 
-            if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
+        if (request.includes('/inventory/coils')) keyword = 'INVENTORY-COILS';
         if (request.includes('/api/v1/inventory/machines')) keyword = 'INVENTORY-MACHINES';
         if (request.includes('/api/v2/inventory/machines')) keyword = 'INVENTORY-MACHINESV2';
         if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';

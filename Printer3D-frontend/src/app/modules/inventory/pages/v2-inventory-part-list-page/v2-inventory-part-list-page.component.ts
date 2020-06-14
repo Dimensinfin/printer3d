@@ -24,6 +24,7 @@ import { environment } from '@env/environment';
 })
 export class V2PartListPageComponent extends AppPanelComponent implements OnInit {
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>();
+
     constructor(
         protected appStore: AppStoreService,
         protected backendService: BackendService) { super() }
@@ -34,14 +35,6 @@ export class V2PartListPageComponent extends AppPanelComponent implements OnInit
         this.setVariant(EVariant.PART_LIST);
         this.refresh();
         console.log("<[V2InventoryPartListPageComponent.ngOnInit]");
-    }
-    /**
-     * Unsubscribe from any open subscription made to the backend.
-     */
-    public ngOnDestroy(): void {
-        this.backendConnections.forEach(element => {
-            element.unsubscribe();
-        });
     }
     protected downloadParts():void{
         this.backendConnections.push(

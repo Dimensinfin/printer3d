@@ -59,7 +59,6 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         else return false
     }
     public isFormValid(formState: any): boolean {
-        console.log('-[]> Form state: ' + formState)
         return (formState && this.hasParts())
     }
     public onDrop(drop: any) {
@@ -83,5 +82,8 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
                     this.router.navigate(['/']);
                 })
         )
+    }
+    public cancelRequest(): void {
+        this.router.navigate(['/']);
     }
 }

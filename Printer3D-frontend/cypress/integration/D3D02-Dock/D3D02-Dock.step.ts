@@ -25,12 +25,6 @@ Then('the Feature with label {string} opens a Page', function (label: string) {
         .contains(label, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').find('.corner-top').should('not.exist')
 });
-Then('there are no Features active', function () {
-    cy.get('v1-dock')
-        .find('v2-feature-render').within(($panel) => {
-            cy.get('.corner-mark').should('have.length', 0)
-        });
-});
 Then('the target Feature {string} changes to state {string}', function (featureLabel:string, state:string) {
     if ( state=='active')
     cy.get('@target-feature').within(($panel) => {

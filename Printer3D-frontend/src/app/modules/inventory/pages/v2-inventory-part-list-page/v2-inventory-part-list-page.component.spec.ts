@@ -65,13 +65,16 @@ describe('COMPONENT V2InventoryPartListPageComponent [Module: INVENTORY]', () =>
         it('ngOnInit.none: validate initialization flow', async () => {
             const componentAsAny = component as any;
             expect(component.getVariant()).toBe(EVariant.DEFAULT);
+            expect(componentAsAny.partContainers).toBeDefined('Check that the container list exists.');
             expect(componentAsAny.partContainers.size).toBe(0)
             await component.ngOnInit()
-            expect(component.getVariant()).toBe(EVariant.PART_LIST);
-            expect(componentAsAny.partContainers).toBeDefined('Check that the container list exists.');
-            expect(componentAsAny.partContainers.size).toBe(5)
-            expect(componentAsAny.backendConnections.length).toBe(1)
-            expect(componentAsAny.dataModelRoot.length).toBe(5)
+            setTimeout(() => {
+                expect(component.getVariant()).toBe(EVariant.PART_LIST);
+                expect(componentAsAny.partContainers).toBeDefined('Check that the container list exists.');
+                expect(componentAsAny.partContainers.size).toBe(5)
+                expect(componentAsAny.backendConnections.length).toBe(1)
+                expect(componentAsAny.dataModelRoot.length).toBe(5)
+            }, 3000);
         });
     });
 });

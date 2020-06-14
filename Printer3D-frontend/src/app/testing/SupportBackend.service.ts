@@ -7,6 +7,7 @@ import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { SupportHttpClientWrapperService } from './SupportHttpClientWrapperService.service';
+import { RequestForm } from '@domain/dto/RequestForm.dto';
 
 export class SupportBackendService {
     private httpWrapper: SupportHttpClientWrapperService;
@@ -15,6 +16,38 @@ export class SupportBackendService {
         this.httpWrapper = new SupportHttpClientWrapperService();
     }
 
+    // - N E W   E N T I T I E S
+    public apiNewPart_v1(newPart: Part, transformer: ResponseTransformer): Observable<Part> {
+        console.log('[SupportBackendService.apiNewPart_v1]> Transformation: ' + transformer.description)
+        return Observable.create((observer) => {
+            this.httpWrapper.mockHttpPOSTCall('/production/parts')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
+        });
+    }
+    public apiNewCoil_v1(newCoil: Coil, transformer: ResponseTransformer): Observable<Coil> {
+        console.log('[SupportBackendService.apiNewCoil_v1]> Transformation: ' + transformer.description)
+        return Observable.create((observer) => {
+            this.httpWrapper.mockHttpPOSTCall('/production/coils')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
+        });
+    }
+    public apiNewRequest_v1(newRequest: RequestForm, transformer: ResponseTransformer): Observable<RequestForm> {
+        console.log('[SupportBackendService.apiNewRequest_v1]> Transformation: ' + transformer.description)
+        return Observable.create((observer) => {
+            this.httpWrapper.mockHttpPOSTCall('/production/requests')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
+        });
+    }
+    // - I N V E N T O R Y
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
         console.log('>[SupportBackendService.apiInventoryParts_v1]')
         return Observable.create((observer) => {
@@ -25,26 +58,6 @@ export class SupportBackendService {
                 })
         });
     }
-    public apiNewPart_v1(newPart: Part, transformer: ResponseTransformer): Observable<Part> {
-        console.log('[SupportBackendService.apiNewPart_v1]> Transformation: ' + transformer.description)
-        return Observable.create((observer) => {
-            observer.next(transformer.transform({
-                "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                "label": "Covid-19 Key",
-                "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                "material": "PLA",
-                "colorCode": "NARANJA-T",
-                "buildTime": 30,
-                "cost": 0.85,
-                "price": 3.0,
-                "stockLevel": 5,
-                "stockAvailable": 0,
-                "imagePath": "https://ibb.co/3dGbsRh",
-                "modelPath": "pieza3.sft",
-                "active": true
-            }));
-        });
-    }
     public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
         console.log('>[SupportBackendService.apiInventoryUpdatePart_v1]')
         return Observable.create((observer) => {
@@ -53,17 +66,6 @@ export class SupportBackendService {
                     observer.next(transformer.transform(data));
                     observer.complete();
                 })
-        });
-    }
-    public apiNewCoil_v1(newCoil: Coil, transformer: ResponseTransformer): Observable<Coil> {
-        console.log('[SupportBackendService.apiNewCoil_v1]> Transformation: ' + transformer.description)
-        return Observable.create((observer) => {
-            observer.next(transformer.transform({
-                "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                "material": "TPU",
-                "color": "BLANCO",
-                "weight": 1000
-            }));
         });
     }
     public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
