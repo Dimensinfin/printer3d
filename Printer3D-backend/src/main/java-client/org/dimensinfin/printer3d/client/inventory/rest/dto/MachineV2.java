@@ -2,13 +2,24 @@ package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class MachineV2 {
+	@NotNull(message = "Machine unique UUID 'id' is a mandatory field and cannot be null.")
+	@SerializedName("id")
 	protected UUID id;
+	@NotNull(message = "Machine 'label' is mandatory.")
+	@Size(max = 32)
+	@SerializedName("label")
 	protected String label;
+	@NotNull(message = "Machine 'model' is mandatory.")
+	@Size(max = 64)
+	@SerializedName("model")
 	protected String model;
 	protected String characteristics;
 	private BuildRecord buildRecord;

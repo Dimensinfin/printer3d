@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_6_0_001_printer3d_alter_requests_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - modifyDataType:
+            schemaName: printer3d
+            tableName: parts
+            columnName: label
+            newDataType: varchar(50)
+            remarks: Setting all labels to the same size and constraints.
+        - modifyDataType:
+            schemaName: printer3d
+            tableName: parts
+            columnName: color_code
+            newDataType: varchar(32)
+  - changeSet:
+      id: 0_6_0_002_printer3d_alter_requests_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameColumn:
+            schemaName: printer3d
+            tableName: parts
+            columnDataType: varchar(32)
+            oldColumnName: color_code
+            newColumnName: color
+            remarks: Setting the name to match the material name.

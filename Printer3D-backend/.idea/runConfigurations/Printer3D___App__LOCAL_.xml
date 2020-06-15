@@ -3,8 +3,8 @@
     <envs>
       <env name="PORT" value="5110" />
       <env name="JDBC_DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5432/postgres" />
-      <env name="DB_USER" value="inno-user" />
-      <env name="DB_PASSWORD" value="inno-password" />
+      <env name="DB_USER" value="adamantinoo" />
+      <env name="DB_PASSWORD" value="z.iliada.2020" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="org.dimensinfin.printer3d.backend.Printer3DApplication" />
     <module name="printer3d-backend.main" />
