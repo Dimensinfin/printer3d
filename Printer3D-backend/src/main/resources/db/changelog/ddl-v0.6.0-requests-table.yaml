@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_6_0_001_printer3d_create_requests_table_enums
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - sql:
+            sql: CREATE TYPE printer3d.request_state AS ENUM ('OPEN', 'CLOSE')
+  - changeSet:
+      id: 0_6_0_002_printer3d_create_requests_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createTable:
+            schemaName: printer3d
+            tableName: requests
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: label
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: request_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: state
+                  type: printer3d.request_state
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: part_list
+                  type: jsonb
+                  constraints:
+                    nullable: false
+                    updatable: true
+  - changeSet:
+      id: 0_6_0_003_printer3d_requests_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: requests
+            columnDataType: printer3d.request_state
+            columnName: state
+            defaultValue: 'OPEN'
