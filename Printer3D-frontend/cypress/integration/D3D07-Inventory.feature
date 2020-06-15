@@ -58,12 +58,13 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     Scenario: [D3D07.06]-Active Parts show a green corner while inactive show it orange.
         Given there is a click on Feature "/INVENTARIO"
         When the V2InventoryPartListPage is activated
+        Given the target panel is the panel of type "viewer-panel"
         Then on the v1-part-container component there is a right arrow
         And when the target Part Container is the second
-        When the right arrow of the target Part Continer is clicked
-        Then the container expands and there are one or more v1-part nodes
-        And active Parts show a green corner
-        And inactive Part show an orange corner
+        When the right arrow of the target Part Container is clicked
+        Then the target panel has one or more "v1-part"
+        And active Part shows a green corner
+        And inactive Part shows an orange corner
 
     @D3D07 @D3D07.07
     Scenario: [D3D07.07]-Active and inactive parts have a editor activation button at the left.

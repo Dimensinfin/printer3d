@@ -50,7 +50,6 @@ When('the right arrow is clicked', function () {
         .find('node-container').find('.arrow-box')
         .find('.right-arrow').first().click()
 });
-
 Then('the container expands and there are one or more v1-part nodes', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
         .find('node-container').find('v1-part').should('exist');
@@ -65,26 +64,6 @@ Then('on the v1-part component there is a field named {string} with class {strin
     cy.get('@target-part-field').find('.label').contains(fieldName)
     cy.get('@target-part-field').find(fieldClassIdentifier).should('exist')
 });
-
-Then('active Parts show a green corner', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').as('target-node-active')
-        .find('v1-part')
-        .find('.field')
-        .find('.part-active').contains('ACTIVA')
-    cy.get('@target-node-active').find('.corner-bottom').should('have.class', 'active')
-});
-
-Then('inactive Part show an orange corner', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').as('target-node-inactive')
-        .find('v1-part')
-        .find('.field')
-        .find('.part-active').contains('FUERA PROD.')
-        .parents('node-container').as('target-node-inactive')
-    cy.get('@target-node-inactive').find('.corner-bottom').should('not.have.class', 'active')
-});
-
 Then('the field {string} is editable', function (fieldName: string) {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
         .find('node-container').find('v1-part').find('.field').as('target-part-field')
@@ -120,7 +99,7 @@ Then('the target Part shows an Edit button at the right', function () {
     cy.get('@target-part').within(($part) => {
         cy.get('.edit-attributes').should('exist')
     });
-  });
+});
 
 // When('any Part shows a Save button a the right', function () {
 //     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
@@ -196,3 +175,50 @@ Then('the target Part field {string} is changed to {string}', function (fieldNam
             cy.get('[name="' + fieldName + '"]').clear().type(newValue)
         });
 });
+Then('when the target Part Container is the second', function () {
+    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+        .find('node-container')
+        .find('v1-part-container').eq(1).as('target-part')
+});
+When('the right arrow of the target Part Container is clicked', function () {
+    cy.get('@target-part').parent().parent().within(($panel) => {
+        cy.get('.arrow-box').click('center')
+    })
+});
+Then('active Part shows a green corner', function () {
+    cy.get('v1-part').find('.field').find('[name="active"]').contains('ACTIVA')
+        .parent().parent().parent().within(($panel) => {
+            cy.get('.corner-mark').find('[fill="greenyellow"]').should('exist')
+        })
+});
+Then('inactive Part shows an orange corner', function () {
+    cy.get('v1-part').find('.field').find('[name="active"]').contains('FUERA PROD.')
+        .parent().parent().parent().within(($panel) => {
+            cy.get('.corner-mark').find('[fill="orangered"]').should('exist')
+        })
+});
+Given('the target panel is the panel of type {string}', function (panelType: string) {
+    cy.get('app-root').find(panelType)
+        .as('target-panel')
+});
+
+
+
+// Then('active Parts show a green corner', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container').as('target-node-active')
+//         .find('v1-part')
+//         .find('.field')
+//         .find('.part-active').contains('ACTIVA')
+//     cy.get('@target-node-active').find('.corner-bottom').should('have.class', 'active')
+// });
+
+// Then('inactive Part show an orange corner', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container').as('target-node-inactive')
+//         .find('v1-part')
+//         .find('.field')
+//         .find('.part-active').contains('FUERA PROD.')
+//         .parents('node-container').as('target-node-inactive')
+//     cy.get('@target-node-inactive').find('.corner-bottom').should('not.have.class', 'active')
+// });

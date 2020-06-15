@@ -12,9 +12,6 @@ Then('there are {int} Features enabled', function (int) {
         cy.get('.feature-clip').should('not.have.class', 'disabled')
     });
 });
-Then('there is a Feature with label {string}', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render').find('.feature-label').contains(label, { matchCase: false })
-});
 Then('the Feature with label {string} opens a Dialog', function (label: string) {
     cy.get('v1-dock').find('v2-feature-render')
         .contains(label, { matchCase: false }).parent().parent().as('target-feature')

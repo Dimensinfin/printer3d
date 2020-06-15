@@ -13,7 +13,7 @@ Then('there is an element {string} with the value {string}', function (elementCl
     cy.get('app-root').find('.' + elementClass).contains(service.replaceValueTemplated(value), { matchCase: false })
 });
 Then('one or more instances of Feature', function () {
-    cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)
+    cy.get('app-root').find('v2-feature-render').should('have.length.gt', 0)
 });
 Then('the Page Display Area is empty', function () {
     cy.get('app-root').find('router-outlet').children().should('have.length', 0)

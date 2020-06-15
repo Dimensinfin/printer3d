@@ -86,6 +86,10 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
     public isEditing(): boolean {
         return this.editing;
     }
+    public isActive(): boolean {
+        const part = this.node as Part;
+        return part.active;
+    }
     public toggleEdition(): void {
         this.editing = !this.editing;
         if (this.isEditing())
@@ -110,7 +114,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
      * This an special callback endpoint to remove a Part from the list of parts associated to a Request.
      */
     public removePart(): void {
-        if ( null != this.container){
+        if (null != this.container) {
             const requestAny = this.container as any;
             const requestPanel = requestAny as V1NewRequestPanelComponent;
             requestPanel.removePart(this.node as Part);

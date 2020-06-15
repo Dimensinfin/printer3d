@@ -62,7 +62,13 @@ Then('there are no Features active', function () {
             cy.get('.corner-mark').should('have.length', 0)
         });
 });
-
+Then('there is a Feature with label {string}', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render').find('.feature-label').contains(label, { matchCase: false })
+});
+Then('the target panel has one or more {string}', function (panelType: string) {
+    cy.get('@target-panel').find(panelType)
+        .should('have.length.greaterThan', 0)
+});
 
 
 

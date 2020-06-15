@@ -13,7 +13,7 @@ Then('the V1NewRequestPage is activated', function () {
         .should('exist')
 });
 Then('the V1NewRequestPage has {int} panels', function (panelCount: number) {
-    cy.get('app-root').find('v1-new-request-page').find('.row')
+    cy.get('app-root').find('v1-new-request-page').find('.row').first()
         .children()
         .should('have.length', panelCount)
 });
@@ -36,10 +36,6 @@ Then('the right panel on page V1NewRequestPage is a {string}', function (panelTy
 Then('the target panel has a {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType)
         .should('exist')
-});
-Then('the target panel has one or more {string}', function (panelType: string) {
-    cy.get('@target-panel').find(panelType)
-        .should('have.length.greaterThan', 0)
 });
 Given('the target Part is one labeled {string}', function (labelContent: string) {
     cy.get('app-root').get('v1-available-parts-panel').find('v1-part').find('[name="label"]')

@@ -73,7 +73,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Given the target Part is one labeled "Boquilla Ganesha - Figura"
         Given the target panel is the panel of type "v1-new-request-panel"
         Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "0" elements
-        When the target Part is dragged to the drop panel "requestParts"
+        When the target Part is dragged to the drop panel "dropParts"
         Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "1" elements
 
     @D3D09 @D3D09.09

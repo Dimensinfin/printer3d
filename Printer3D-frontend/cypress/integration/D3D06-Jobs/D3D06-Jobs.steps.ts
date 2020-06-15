@@ -6,9 +6,9 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 import { V1PendingJob } from '../../support/page-objects/V1PendingJob.panel';
 import { MachinePanel } from '../../support/page-objects/MachinePanel.panel';
 
-Then('there are a Feature with label {string}', function (label: string) {
-    cy.get('app-root').find('v1-dock').find('v1-feature-render').contains(label, { matchCase: false })
-});
+// Then('there are a Feature with label {string}', function (label: string) {
+//     cy.get('app-root').find('v1-dock').find('v1-feature-render').contains(label, { matchCase: false })
+// });
 
 Then('the ProductionJobListPage is activated', function () {
     cy.get('app-root').find('production-job-list-page').should('have.length', 1);
