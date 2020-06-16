@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.client.rest.CountResponse;
-import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
 @Service
@@ -31,7 +31,7 @@ public class PartServiceSupport {
 					.withRecords( (int) recordCount )
 					.build();
 		} catch (final RuntimeException sqle) {
-			LogWrapper.error( sqle );
+			LogWrapperLocal.error( sqle );
 			throw new RepositoryException( ErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
 		}
 	}

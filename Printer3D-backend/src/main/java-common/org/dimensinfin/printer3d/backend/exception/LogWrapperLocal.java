@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.core;
+package org.dimensinfin.printer3d.backend.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,11 @@ public class LogWrapperLocal extends LogWrapper {
 				logger.error( ">E {}x {}", headerMessage, exception.getMessage() );
 			else
 				logger.error( ">E {}x {}", headerMessage, exception.toString() );
-		final String trace = defaultExceptionLogAction( exception );
-		logger.debug( trace );
+		try {
+			final String trace = defaultExceptionLogAction( exception );
+			logger.debug( trace );
+		} catch (final NullPointerException npe) {
+		}
 	}
 
 	private static String header() {

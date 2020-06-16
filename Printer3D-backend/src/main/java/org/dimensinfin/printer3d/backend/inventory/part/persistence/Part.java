@@ -32,7 +32,7 @@ public class Part {
 	@Column(name = "material", nullable = false)
 	private String material;
 	@NotNull(message = "Part 'colorCode' is mandatory.")
-	@Column(name = "color_code", nullable = false)
+	@Column(name = "color", nullable = false)
 	private String colorCode;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
 	@Column(name = "build_time", nullable = false)

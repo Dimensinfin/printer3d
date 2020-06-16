@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.client.production.rest.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 import com.google.gson.annotations.SerializedName;
@@ -34,7 +35,19 @@ public class PartRequest implements Serializable {
 		}
 
 		public PartRequest build() {
+			Objects.requireNonNull( this.onConstruction.partId );
+			Objects.requireNonNull( this.onConstruction.quantity );
 			return this.onConstruction;
+		}
+
+		public PartRequest.Builder withPartId( final UUID partId ) {
+			this.onConstruction.partId = Objects.requireNonNull( partId );
+			return this;
+		}
+
+		public PartRequest.Builder withQuantity( final Integer quantity ) {
+			this.onConstruction.quantity = Objects.requireNonNull( quantity );
+			return this;
 		}
 	}
 }

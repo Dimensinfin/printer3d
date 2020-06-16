@@ -32,7 +32,7 @@ public class RequestEntity {
 	@Size(min = 3, max = 50)
 	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
-	@Column(name = "request_date")
+	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private OffsetDateTime requestDate;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state", columnDefinition = "request_state", nullable = false)

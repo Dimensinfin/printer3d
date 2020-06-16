@@ -10,12 +10,14 @@ import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignCl
 
 import io.cucumber.java.en.Given;
 
-public class GivenACleanPartRepository extends StepSupport{
+public class GivenACleanPartsRepository extends StepSupport {
 	private PartFeignClientSupport partFeignClientSupport;
-	public GivenACleanPartRepository( @NotNull final Printer3DWorld printer3DWorld ,
-	                                  @NotNull final        PartFeignClientSupport partFeignClientSupport    ) {
+
+	// - C O N S T R U C T O R S
+	public GivenACleanPartsRepository( @NotNull final Printer3DWorld printer3DWorld,
+	                                   @NotNull final PartFeignClientSupport partFeignClientSupport ) {
 		super( printer3DWorld );
-		this.partFeignClientSupport = Objects.requireNonNull(partFeignClientSupport);
+		this.partFeignClientSupport = Objects.requireNonNull( partFeignClientSupport );
 	}
 
 	@Given("a clean Inventory repository")
@@ -23,7 +25,8 @@ public class GivenACleanPartRepository extends StepSupport{
 		final Integer records = this.partFeignClientSupport.deleteAllParts();
 		Assertions.assertNotNull( records );
 	}
-	@Given("a clean Part repository")
+
+	@Given("a clean Parts repository")
 	public void a_clean_Part_repository() {
 		final Integer records = this.partFeignClientSupport.deleteAllParts();
 		Assertions.assertNotNull( records );

@@ -10,17 +10,17 @@ import org.dimensinfin.printer3d.backend.support.inventory.model.rest.ModelFeign
 
 import io.cucumber.java.en.Given;
 
-public class GivenACleanModelRepository extends StepSupport {
+public class GivenACleanModelsRepository extends StepSupport {
 	private final ModelFeignClientSupport modelFeignClientSupport;
 
 	// - C O N S T R U C T O R S
-	public GivenACleanModelRepository( final @NotNull Printer3DWorld printer3DWorld,
-	                                   final @NotNull ModelFeignClientSupport modelFeignClientSupport ) {
+	public GivenACleanModelsRepository( final @NotNull Printer3DWorld printer3DWorld,
+	                                    final @NotNull ModelFeignClientSupport modelFeignClientSupport ) {
 		super( printer3DWorld );
 		this.modelFeignClientSupport = Objects.requireNonNull( modelFeignClientSupport );
 	}
 
-	@Given("a clean Model repository")
+	@Given("a clean Models repository")
 	public void a_clean_Model_repository() {
 		final Integer records = this.modelFeignClientSupport.deleteAllModels();
 		Assertions.assertNotNull( records );

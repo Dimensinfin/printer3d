@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_6_0_011_printer3d_alter_requests_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - modifyDataType:
+            schemaName: printer3d
+            tableName: requests
+            columnName: request_date
+            newDataType: timestamptz
+            remarks: Adding the time stamp with zone time

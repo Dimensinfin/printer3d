@@ -25,3 +25,5 @@ databaseChangeLog:
       file: db/changelog/ddl-v0.6.0-alter-parts-table.yaml
   - include:
       file: db/changelog/ddl-v0.6.0-requests-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.6.0-alter-requests-table.yaml

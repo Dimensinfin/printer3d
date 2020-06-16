@@ -21,4 +21,9 @@ public class AcceptanceFieldMapConstants {
 	public static final String MACHINE_JOB_INSTALLMENT_DATE = "jobInstallmentDate";
 	public static final String MACHINE_CURRENT_PART_INSTANCES = "currentPartInstances";
 	public static final String PART_ID_LIST = "partIdList";
+	public static final String PART_ID = "partId";
+	public static final String QUANTITY = "quantity";
+	public static final String REQUEST_DATE = "requestDate";
+	public static final String STATE = "state";
+	public static final String PART_REQUEST_LIST = "partRequestList";
 }

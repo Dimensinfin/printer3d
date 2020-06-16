@@ -1,18 +1,21 @@
 package org.dimensinfin.printer3d.backend.production.request.converter;
 
-public class RequestEntityToRequestConverter {
-	private RequestEntityToRequestConverter() {}
+import java.time.format.DateTimeFormatter;
 
-	// - B U I L D E R
-	public static class Builder {
-		private final RequestEntityToRequestConverter onConstruction;
+import org.dimensinfin.core.interfaces.Converter;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
+import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 
-		public Builder() {
-			this.onConstruction = new RequestEntityToRequestConverter();
-		}
+public class RequestEntityToRequestConverter implements Converter<RequestEntity, Request> {
 
-		public RequestEntityToRequestConverter build() {
-			return this.onConstruction;
-		}
+	@Override
+	public Request convert( final RequestEntity input ) {
+		return new Request.Builder()
+				.withId( input.getId() )
+				.withLabel( input.getLabel() )
+				.withRequestDate( input.getRequestDate().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME ) )
+				.withState( input.getState() )
+				.withPartList( input.getPartList() )
+				.build();
 	}
 }

@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.client.production.rest.dto;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +9,8 @@ import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
+
 public class Request {
 	@NotNull(message = "Request unique UUID 'id' is a mandatory field and cannot be null.")
 	@SerializedName("id")
@@ -18,13 +19,12 @@ public class Request {
 	@Size(min = 3, max = 50)
 	@SerializedName("label")
 	private String label;
-//	@NotNull(message = "Request 'date' is mandatory.")
 	/**
 	 * To avoid using dates on the frontend this date is set automatically when the record is persisted. This field is only used for output the
-	 * persisted request date that is present at the respository record.
+	 * persisted request date that is present at the repository record.
 	 */
 	@SerializedName("requestDate")
-	private OffsetDateTime requestDate;
+	private String requestDate;
 	@SerializedName("state")
 	private RequestState state = RequestState.OPEN;
 	@NotNull(message = "The list of Parts is required on the request.")
@@ -43,16 +43,16 @@ public class Request {
 		return this.label;
 	}
 
-	public OffsetDateTime getRequestDate() {
+	public List<PartRequest> getPartList() {
+		return this.partList;
+	}
+
+	public String getRequestDate() {
 		return this.requestDate;
 	}
 
 	public RequestState getState() {
 		return this.state;
-	}
-
-	public List<PartRequest> getPartList() {
-		return this.partList;
 	}
 
 	// - B U I L D E R
@@ -83,7 +83,8 @@ public class Request {
 			return this;
 		}
 
-		public Request.Builder withRequestDate( final OffsetDateTime requestDate ) {
+		public Request.Builder withRequestDate( final String requestDate ) {
+			LogWrapperLocal.info( "RequestDate: " + requestDate );
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}

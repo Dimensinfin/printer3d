@@ -1,18 +1,25 @@
 package org.dimensinfin.printer3d.backend.production.request.serializer;
 
-public class PartRequestSerializer {
-	private PartRequestSerializer() {}
+import java.io.IOException;
 
-	// - B U I L D E R
-	public static class Builder {
-		private final PartRequestSerializer onConstruction;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import org.springframework.boot.jackson.JsonComponent;
 
-		public Builder() {
-			this.onConstruction = new PartRequestSerializer();
-		}
+import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 
-		public PartRequestSerializer build() {
-			return this.onConstruction;
-		}
+@JsonComponent
+public class PartRequestSerializer extends JsonSerializer<PartRequest> {
+
+	@Override
+	public void serialize( final PartRequest value, final JsonGenerator jgen, final SerializerProvider serializers ) throws IOException {
+		jgen.writeStartObject();
+
+		if (null != value.getPartId()) jgen.writeStringField( "partId", value.getPartId().toString() );
+		if (null != value.getQuantity()) jgen.writeNumberField( "quantity", value.getQuantity() );
+
+		jgen.writeEndObject();
+
 	}
 }

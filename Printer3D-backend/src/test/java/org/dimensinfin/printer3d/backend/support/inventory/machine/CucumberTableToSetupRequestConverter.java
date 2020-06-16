@@ -1,8 +1,5 @@
 package org.dimensinfin.printer3d.backend.support.inventory.machine;
 
-import java.time.OffsetDateTime;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -31,13 +28,5 @@ public class CucumberTableToSetupRequestConverter extends CucumberTableConverter
 		if (null != cucumberRow.get( SETUPREQUEST_PART_INSTANCES_COUNT ))
 			builder = builder.withPartInstancesCount( Integer.parseInt( cucumberRow.get( SETUPREQUEST_PART_INSTANCES_COUNT ) ) );
 		return builder.build();
-	}
-
-	protected String dynamicDateConversion( final String reference ) {
-		if (reference.equalsIgnoreCase( "<today>" ))
-			return OffsetDateTime.now().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
-		if (reference.equalsIgnoreCase( "<yesterday>" ))
-			return OffsetDateTime.now().minus( Period.ofDays( 1 ) ).format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
-		return reference;
 	}
 }
