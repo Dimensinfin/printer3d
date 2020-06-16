@@ -10,11 +10,11 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.rest.CoilFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV2;
@@ -32,6 +32,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
 import io.cucumber.java.en.When;
 
@@ -67,6 +68,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_Cancel_Build_for_Machine_request_is_processed( final String machineId ) throws IOException {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		this.processRequestByType( RequestType.CANCEL_BUILD );
+	}
+	@When("the Get Requests request is processed")
+	public void the_Get_Requests_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_REQUESTS );
 	}
 
 	@When("the Get Coils request is processed")
@@ -254,6 +259,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newRequestResponseEntity );
 				this.printer3DWorld.setRequestResponseEntity( newRequestResponseEntity );
 				return newRequestResponseEntity;
+			case GET_REQUESTS:
+				final ResponseEntity<RequestList> getRequestsResponseEntity = this.requestFeignClientV1.getOpenRequests();
+				Assertions.assertNotNull( getRequestsResponseEntity );
+				this.printer3DWorld.setRequestListResponseEntity( getRequestsResponseEntity );
+				return getRequestsResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

@@ -528,7 +528,9 @@ paths:
         - Production
       summary: Get the list of Requests persisted at the repository.
       description: >
-        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state.
+        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state. During the processing each of
+        the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes
+        to COMPLETED during this request. The Part stocks are updated for each Request processed.
       operationId: getOpenRequests
       responses:
         200:

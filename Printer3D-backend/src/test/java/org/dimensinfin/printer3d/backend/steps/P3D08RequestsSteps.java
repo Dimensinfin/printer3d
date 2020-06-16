@@ -63,9 +63,20 @@ public class P3D08RequestsSteps extends StepSupport {
 	 * Reads the content of the Request repository without processing or any other data manipulation. The request of the list of open requests will do
 	 * some reprocessing with the part storage. This endpoint should not generate any of that effect.
 	 */
-	@Then("the repository list of Resources has the next contents")
-	public void the_repository_list_of_Resources_has_the_next_contents( final List<Map<String, String>> dataTable ) throws IOException {
+	@Then("the repository list of Requests has the next contents")
+	public void the_repository_list_of_Requests_has_the_next_contents( final List<Map<String, String>> dataTable ) throws IOException {
 		final ResponseEntity<RequestList> requests = this.requestFeignClientSupport.getRepositoryRequests();
+		Assertions.assertNotNull( requests );
+		Assertions.assertNotNull( requests.getBody() );
+		for (Map<String, String> row : dataTable) {
+			final Request record = this.searchRequest( row.get( ID ), requests.getBody() );
+			Assertions.assertTrue( new RequestValidator().validate( row, record ) );
+		}
+	}
+
+	@Then("the response to Get Requests has the next contents")
+	public void the_response_to_Get_Requests_has_the_next_contents( final List<Map<String, String>> dataTable ) throws IOException {
+		final ResponseEntity<RequestList> requests = this.requestFeignClientV1.getOpenRequests();
 		Assertions.assertNotNull( requests );
 		Assertions.assertNotNull( requests.getBody() );
 		for (Map<String, String> row : dataTable) {

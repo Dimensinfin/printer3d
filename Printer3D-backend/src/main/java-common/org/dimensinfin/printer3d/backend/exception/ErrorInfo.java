@@ -45,8 +45,11 @@ public enum ErrorInfo {
 	                APPLICATION_ERROR_CODE_PREFIX + ".notfound",
 			"The Request [{0}] not found at the repository." ),
 	REQUEST_STORE_REPOSITORY_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
-	                                    APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error",
-			"There is an SQL error on the Request repository. {0}. Cause: {1}" );
+			APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error",
+			"There is an SQL error on the Request repository. {0}. Cause: {1}" ),
+	REQUEST_PROCESSING_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
+	                                  APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
+			"The request [{0}] has assigned a Part with id [{1}] that does not exist on the Part repository." );
 
 	public final HttpStatus status;
 	public final String errorCode;

@@ -11,3 +11,4 @@ export const environment = {
     backendPath: '',
     apiVersion1: '/api/v1',
     apiVersion2: '/api/v2'
+}

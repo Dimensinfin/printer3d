@@ -19,6 +19,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;
@@ -41,6 +42,16 @@ public class Printer3DWorld extends CommonWorld {
 	private UUID modelId;
 	private Request newRequest;
 	private ResponseEntity<Request> requestResponseEntity;
+	private ResponseEntity<RequestList> requestListResponseEntity;
+
+	public ResponseEntity<RequestList> getRequestListResponseEntity() {
+		return this.requestListResponseEntity;
+	}
+
+	public Printer3DWorld setRequestListResponseEntity( final ResponseEntity<RequestList> requestListResponseEntity ) {
+		this.requestListResponseEntity = requestListResponseEntity;
+		return this;
+	}
 
 	// - G E T T E R S   &   S E T T E R S
 	public Coil getCoil() {

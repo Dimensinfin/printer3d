@@ -66,6 +66,14 @@ public class RequestEntity {
 		return this.state;
 	}
 
+	public boolean isOpen() {
+		return (this.state == RequestState.OPEN);
+	}
+
+	public void signalCompleted() {
+		this.state = RequestState.COMPLETED;
+	}
+
 	// - B U I L D E R
 	// - B U I L D E R
 	public static class Builder {
