@@ -37,24 +37,24 @@ public class PartListSerializerTest {
 		objectMapper.registerModule( module );
 	}
 
-		@Test
+	@Test
 	public void serialize() throws JsonProcessingException {
 		// Given
-			final Part part = new Part.Builder()
-					.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
-					.withLabel( TEST_PART_LABEL )
-					.withDescription( TEST_PART_DESCRIPTION )
-					.withMaterial( TEST_PART_MATERIAL )
-					.withColorCode( TEST_PART_COLOR_CODE )
-					.withBuildTime( TEST_PART_BUILD_TIME )
-					.withCost( TEST_PART_COST )
-					.withPrice( TEST_PART_PRICE )
-					.withStockLevel( TEST_PART_STOCK_LEVEL )
-					.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
-					.withImagePath( TEST_PART_IMAGE_PATH )
-					.withModelPath( TEST_PART_MODEL_PATH )
-					.withActive( false )
-					.build();
+		final Part part = new Part.Builder()
+				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColorCode( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
 		final List<Part> partList = new ArrayList<>();
 		partList.add( part );
 		final PartList partContainer = new PartList.Builder()

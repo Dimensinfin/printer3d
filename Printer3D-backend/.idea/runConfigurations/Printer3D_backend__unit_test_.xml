@@ -32,6 +32,16 @@
         <option name="ENABLED" value="true" />
         <option name="INCLUDE" value="false" />
       </pattern>
+      <pattern>
+        <option name="PATTERN" value="org.dimensinfin.printer3d.backend.core.security.SecurityPermitAllConfig" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="org.dimensinfin.printer3d.backend.exception.LogWrapperLocal" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
     </extension>
     <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
     <method v="2" />

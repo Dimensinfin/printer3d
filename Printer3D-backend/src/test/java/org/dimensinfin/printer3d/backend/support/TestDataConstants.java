@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
 public class TestDataConstants {
 	public static class PartListConstants {
@@ -69,5 +70,13 @@ public class TestDataConstants {
 		public static final Integer TEST_MODEL_STOCK_AVAILABLE = 1;
 		public static final String TEST_MODEL_IMAGE_PATH = "-TEST_MODEL_IMAGE_PATH-";
 		public static final Boolean TEST_MODEL_ACTIVE = true;
+	}
+
+	public static class RequestConstants {
+		public static final UUID TEST_REQUEST_ID = UUID.fromString( "98be9442-edbb-47fe-bc20-60b9e6f4a315" );
+		public static final String TEST_REQUEST_LABEL = "-TEST_REQUEST_LABEL-";
+		public static final OffsetDateTime TEST_REQUEST_DATE = OffsetDateTime.parse( "2020-06-16T16:38:30.562806+02:00" );
+		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806+02:00" ;
+		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
 	}
 }
