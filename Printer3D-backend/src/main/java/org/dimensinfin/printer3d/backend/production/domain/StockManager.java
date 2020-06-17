@@ -32,7 +32,7 @@ public class StockManager {
 	}
 
 	public int getStock( final UUID partId ) {
-		if (stocks.containsKey( partId ))
+		if (this.stocks.containsKey( partId ))
 			return this.stocks.get( partId ).getStock();
 		else throw new DimensinfinRuntimeException( ErrorInfo.STOCK_PROCESSING_FAILURE.getErrorMessage( partId ) );
 	}
