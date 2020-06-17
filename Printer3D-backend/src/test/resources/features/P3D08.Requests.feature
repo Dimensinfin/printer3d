@@ -69,9 +69,29 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 #  @P3D08.H @P3D08.04
 #  Scenario: [P3D08.04] Check that Requests are processed in the FirstIn/FirstOut order when returned to the client frontend.
 #
-#  @P3D08.H @P3D08.05
-#  Scenario: [P3D08.05] When a new request cannot be completed because there are not enough Parts at the Inventory the jobs generated to complete the
-#  Request have priority 1.
+  @P3D08.H @P3D08.05
+  Scenario: [P3D08.05] When a new request cannot be completed because there are not enough Parts at the Inventory the jobs generated to complete the
+  Request have priority 1.
+    Given a clean Parts repository
+    And the following Parts in my service
+      | id                                   | label        | material | colorCode | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO    | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE     | 60        | 0.65 | 2.00  | 3          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+    Given a clean Requests repository
+    And the next Part Request List
+      | partId                               | quantity |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 2        |
+    And the next New Request request with the current Part Request List
+      | id                                   | label                    | requestDate                 | state |
+      | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Tests Request to be Open | 2020-06-15T20:00:00.226181Z | OPEN  |
+    When the New Request request is processed
+    Then there is a valid response with return code of "201 CREATED"
+    When the Get Jobs request is processed
+    Then there is a valid response with return code of "200 OK"
+    And the list of jobs has "6" records
+    And there are "2" records of priority "1"
+    And there are "4" records of priority "2"
+
 #
 #  @P3D08.H @P3D08.06
 #  Scenario: [P3D08.06] When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.

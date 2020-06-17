@@ -3,11 +3,17 @@ package org.dimensinfin.printer3d.client.production.rest.dto;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
 public class Job {
+	@SerializedName("id")
 	private UUID id;
+	@SerializedName("part")
 	private Part part;
+	@SerializedName("priority")
+	private int priority = 3;
 
 	// - C O N S T R U C T O R S
 	private Job() {}
@@ -19,6 +25,10 @@ public class Job {
 
 	public Part getPart() {
 		return this.part;
+	}
+
+	public int getPriority() {
+		return this.priority;
 	}
 
 	// - B U I L D E R
@@ -38,6 +48,11 @@ public class Job {
 
 		public Job.Builder withPart( final Part part ) {
 			this.onConstruction.part = Objects.requireNonNull( part );
+			return this;
+		}
+
+		public Job.Builder withPriority( final Integer priority ) {
+			this.onConstruction.priority = Objects.requireNonNull( priority );
 			return this;
 		}
 	}

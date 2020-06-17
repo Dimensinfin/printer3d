@@ -39,17 +39,20 @@ public enum ErrorInfo {
 			APPLICATION_ERROR_CODE_PREFIX + ".notfound",
 			"The Model [{0}] not found at the repository." ),
 	REQUEST_ALREADY_EXISTS( HttpStatus.CONFLICT,
-	                     APPLICATION_ERROR_CODE_PREFIX + ".already.exists",
+			APPLICATION_ERROR_CODE_PREFIX + ".already.exists",
 			"The Request [{0}] already exists at the repository. This should not be possible and means a development defect." ),
 	REQUEST_NOT_FOUND( HttpStatus.NOT_FOUND,
-	                APPLICATION_ERROR_CODE_PREFIX + ".notfound",
+			APPLICATION_ERROR_CODE_PREFIX + ".notfound",
 			"The Request [{0}] not found at the repository." ),
 	REQUEST_STORE_REPOSITORY_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
 			APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error",
 			"There is an SQL error on the Request repository. {0}. Cause: {1}" ),
 	REQUEST_PROCESSING_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
-	                                  APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
-			"The request [{0}] has assigned a Part with id [{1}] that does not exist on the Part repository." );
+			APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
+			"The request [{0}] has assigned a Part with id [{1}] that does not exist on the Part repository." ),
+	STOCK_PROCESSING_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
+			APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
+			"The Part with id [{0}] is not found at the stock list." );
 
 	public final HttpStatus status;
 	public final String errorCode;

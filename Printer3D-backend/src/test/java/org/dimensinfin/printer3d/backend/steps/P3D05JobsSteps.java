@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.steps;
 
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Assertions;
@@ -19,5 +20,19 @@ public class P3D05JobsSteps extends StepSupport {
 		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity().getBody() );
 		Assertions.assertEquals( Integer.parseInt( jobCount ), this.printer3DWorld.getJobListResponseEntity().getBody().size() );
+	}
+
+	@Then("there are {string} records of priority {string}")
+	public void there_are_records_of_priority( final String recordCount, final String priority ) {
+		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity().getBody() );
+		Assertions.assertEquals(
+				Integer.parseInt( recordCount ),
+				this.printer3DWorld.getJobListResponseEntity().getBody()
+						.stream()
+						.filter( ( job ) -> job.getPriority() == Integer.parseInt( priority ) )
+						.collect( Collectors.toList() )
+						.size()
+		);
 	}
 }

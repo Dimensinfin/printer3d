@@ -92,6 +92,40 @@
 						"description": "Sets a predetermined job into the Machine. Used by the acceptance tests to fill the Machine fields that can change when submitting or cancelling build jobs."
 					},
 					"response": []
+				},
+				{
+					"name": "GetRepositoryRequest",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/repository",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests",
+								"repository"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Support calls only available on development environments and not in Production.",
@@ -106,12 +140,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}/actuator",
+							"raw": "{{backendServer}}{{backendPort}}/actuator/info",
 							"host": [
 								"{{backendServer}}{{backendPort}}"
 							],
 							"path": [
-								"actuator"
+								"actuator",
+								"info"
 							]
 						},
 						"description": "Shows the application build information."
@@ -151,6 +186,38 @@
 					]
 				},
 				"description": "Creates a new Part at the Inventory repository."
+			},
+			"response": []
+		},
+		{
+			"name": "NewPart-2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n  \"label\": \"Boquilla Ganesha\",\n  \"description\": \"Boquilla con forma de elefante para fumar en pipas.\",\n  \"material\": \"PLA\",\n  \"colorCode\": \"NARANJA-T\",\n  \"buildTime\": 30,\n  \"cost\": 0.85,\n  \"price\": 3,\n  \"stockLevel\": 5,\n  \"stockAvailable\": 2,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+					],
+					"path": [
+						"parts"
+					]
+				}
 			},
 			"response": []
 		},
@@ -203,14 +270,11 @@
 					}
 				],
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts",
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
 					"host": [
-						"{{backendServer}}{{backendPort}}"
+						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"inventory",
 						"parts"
 					]
 				},
@@ -503,9 +567,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{production}}/jobs/pending",
+					"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/jobs/pending",
 					"host": [
-						"{{backendServer}}{{backendPort}}{{production}}"
+						"{{backendServer}}{{backendPort}}{{productionv1}}"
 					],
 					"path": [
 						"jobs",
@@ -537,6 +601,61 @@
 					]
 				},
 				"description": "The list of materials and their color to be used to register new Parts."
+			},
+			"response": []
+		},
+		{
+			"name": "NewRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"45c52867-4888-4117-80e6-9aff5bacb551\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{productionv1}}"
+					],
+					"path": [
+						"requests"
+					]
+				},
+				"description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
+			},
+			"response": []
+		},
+		{
+			"name": "GetRequests",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{productionv1}}"
+					],
+					"path": [
+						"requests"
+					]
+				},
+				"description": "Get the complete list of **Requests** persisted at the Production repository and that are on an Open state. During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed."
 			},
 			"response": []
 		}
