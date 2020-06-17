@@ -10,8 +10,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
-
 @Immutable
 public class Machine {
 	private UUID id;

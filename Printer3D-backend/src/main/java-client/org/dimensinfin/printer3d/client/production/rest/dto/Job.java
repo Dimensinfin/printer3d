@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 public class Job {
 	@SerializedName("id")

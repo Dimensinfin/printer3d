@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
-
 public class Model {
 	private UUID id;
 	private String label;

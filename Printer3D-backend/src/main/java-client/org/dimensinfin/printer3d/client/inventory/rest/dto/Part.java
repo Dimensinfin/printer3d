@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.part.persistence;
+package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.Objects;
 import java.util.UUID;

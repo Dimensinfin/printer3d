@@ -2,7 +2,7 @@ package org.dimensinfin.printer3d.backend.inventory.machine.rest.converter;
 
 import org.dimensinfin.core.interfaces.Converter;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 
 public class MachineEntityToMachineConverter implements Converter<MachineEntity, Machine> {

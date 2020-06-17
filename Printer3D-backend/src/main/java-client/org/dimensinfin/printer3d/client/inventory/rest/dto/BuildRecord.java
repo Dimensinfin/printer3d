@@ -7,7 +7,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
 
 public class BuildRecord {
 	private BuildState state = BuildState.IDLE;

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 

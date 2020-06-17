@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.Part;
-
 public class PartList {
 	private List<Part> parts = new ArrayList<>();
 
