@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.FinishingContainer;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.job.FinishingByCountComparator;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 
@@ -81,7 +83,7 @@ public class JobServiceV1 {
 	}
 
 	private String generateFinishingKey( final Part target ) {
-		return target.getMaterial() + ":" + target.getColorCode();
+		return target.getMaterial() + ":" + target.getColor();
 	}
 
 	private List<FinishingContainer> generateFinishingList( final List<Job> inputJobs ) {
@@ -96,10 +98,12 @@ public class JobServiceV1 {
 
 	private List<Job> generateRequestJobs( final UUID partId, final int jobCount ) {
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-		final Optional<Part> partOpt = this.partRepository.findById( partId );
+		final Optional<PartEntity> partOpt = this.partRepository.findById( partId );
 		if (partOpt.isEmpty()) throw new DimensinfinRuntimeException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( partId ) );
 		for (int i = 0; i < jobCount; i++)
-			jobs.add( new Job.Builder().withPart( partOpt.get() ).withPriority( REQUEST_PRIORITY ).build() );
+			jobs.add( new Job.Builder().withPart( new PartEntityToPartConverter().convert(
+					partOpt.get()
+			) ).withPriority( REQUEST_PRIORITY ).build() );
 		return jobs;
 	}
 
@@ -107,7 +111,9 @@ public class JobServiceV1 {
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		this.partRepository.findAll().forEach( part -> {
 			for (int stock = part.getStockAvailable(); stock < part.getStockLevel(); stock++)
-				jobs.add( new Job.Builder().withPart( part ).withPriority( STOCK_LEVEL_PRIORITY ).build() );
+				jobs.add( new Job.Builder().withPart(
+						new PartEntityToPartConverter().convert( part )
+				).withPriority( STOCK_LEVEL_PRIORITY ).build() );
 		} );
 		return jobs;
 	}

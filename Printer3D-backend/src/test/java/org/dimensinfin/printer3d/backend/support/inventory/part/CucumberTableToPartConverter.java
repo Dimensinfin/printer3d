@@ -28,7 +28,7 @@ public class CucumberTableToPartConverter extends CucumberTableConverter<Part> {
 		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( DESCRIPTION )) builder = builder.withDescription( cucumberRow.get( DESCRIPTION ) );
 		if (null != cucumberRow.get( MATERIAL )) builder = builder.withMaterial(  cucumberRow.get( MATERIAL )  );
-		if (null != cucumberRow.get( COLOR_CODE )) builder = builder.withColorCode(  cucumberRow.get( COLOR_CODE )  );
+		if (null != cucumberRow.get( COLOR_CODE )) builder = builder.withColor(  cucumberRow.get( COLOR_CODE )  );
 		if (null != cucumberRow.get( BUILD_TIME )) builder = builder.withBuildTime( Integer.parseInt( cucumberRow.get( BUILD_TIME ) ) );
 		if (null != cucumberRow.get( COST )) builder = builder.withCost( Float.parseFloat( cucumberRow.get( COST ) ) );
 		if (null != cucumberRow.get( PRICE )) builder = builder.withPrice( Float.parseFloat( cucumberRow.get( PRICE ) ) );

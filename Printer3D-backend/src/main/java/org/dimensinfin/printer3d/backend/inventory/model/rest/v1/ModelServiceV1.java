@@ -15,6 +15,8 @@ import org.dimensinfin.printer3d.backend.inventory.model.converter.ModelEntityTo
 import org.dimensinfin.printer3d.backend.inventory.model.converter.NewModelRequestToModelEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
@@ -87,8 +89,10 @@ public class ModelServiceV1 {
 	private Model constructModel( final ModelEntity entity ) {
 		// Add the parts to the model to bw responded.
 		final Model model = new ModelEntityToModelConverter().convert( entity );
-		for (final UUID partId : model.getPartIdentifierList())
-			this.partRepository.findById( partId ).ifPresent( model::addPart );
+		for (final UUID partId : model.getPartIdentifierList()) {
+			final Optional<PartEntity> partEntityOpt = this.partRepository.findById( partId );
+			partEntityOpt.ifPresent( partEntity -> model.addPart( new PartEntityToPartConverter().convert( partEntity ) ) );
+		}
 		return model;
 	}
 }

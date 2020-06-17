@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
@@ -36,8 +36,8 @@ public class JobServiceV1Test {
 	@Test
 	public void getPendingJobs() {
 		// Given
-		final Part part = Mockito.mock( Part.class );
-		final List<Part> partList = new ArrayList<>();
+		final PartEntity part = Mockito.mock( PartEntity.class );
+		final List<PartEntity> partList = new ArrayList<>();
 		partList.add( part );
 		partList.add( part );
 		// When

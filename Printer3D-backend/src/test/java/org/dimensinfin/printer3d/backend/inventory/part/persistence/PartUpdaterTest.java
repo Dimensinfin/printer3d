@@ -24,7 +24,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 public class PartUpdaterTest {
 	@Test
 	public void constructorContract() {
-		final Part part = Mockito.mock( Part.class );
+		final PartEntity part = Mockito.mock( PartEntity.class );
 		final PartUpdater partUpdater = new PartUpdater( part );
 		Assertions.assertNotNull( partUpdater );
 	}
@@ -32,12 +32,12 @@ public class PartUpdaterTest {
 	@Test
 	public void update() {
 		// Given
-		final Part part = new Part.Builder()
+		final PartEntity part = new PartEntity.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColorCode( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -52,7 +52,7 @@ public class PartUpdaterTest {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColorCode( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST + 10 )
 				.withPrice( TEST_PART_PRICE + 10 )
@@ -64,13 +64,13 @@ public class PartUpdaterTest {
 				.build();
 		final UUID partId = UUID.randomUUID();
 		// Test
-		final Part obtained = new PartUpdater( part ).update( updatePart );
+		final PartEntity obtained = new PartUpdater( part ).update( updatePart );
 		// Assertions
 		Assertions.assertEquals( TEST_PART_COST + 10, obtained.getCost() );
 		Assertions.assertEquals( TEST_PART_PRICE + 10, obtained.getPrice() );
 		Assertions.assertEquals( TEST_PART_STOCK_LEVEL + 2, obtained.getStockLevel() );
 		Assertions.assertEquals( TEST_PART_STOCK_AVAILABLE + 3, obtained.getStockAvailable() );
 		Assertions.assertEquals( TEST_PART_MATERIAL, obtained.getMaterial() );
-		Assertions.assertEquals( TEST_PART_COLOR_CODE, obtained.getColorCode() );
+		Assertions.assertEquals( TEST_PART_COLOR_CODE, obtained.getColor() );
 	}
 }

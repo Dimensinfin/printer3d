@@ -1,7 +1,11 @@
-package org.dimensinfin.printer3d.client.inventory.rest.dto;
+package org.dimensinfin.printer3d.backend.inventory.part.persistence;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,35 +14,52 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Part {
+@Entity
+@Table(name = "parts", schema = "printer3d")
+public class PartEntity {
+	@Id
 	@NotNull(message = "Part unique UUID 'id' is a mandatory field and cannot be null.")
+	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
 	@NotNull(message = "Part 'label' is mandatory.")
 	@Size(min = 3, max = 50)
+	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
 	@Size(max = 500)
+	@Column(name = "description")
 	private String description;
 	@NotNull(message = "Part 'material' is mandatory.")
+	@Column(name = "material", nullable = false)
 	private String material;
 	@NotNull(message = "Part 'colorCode' is mandatory.")
+	@Column(name = "color", nullable = false)
 	private String color;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
+	@Column(name = "build_time", nullable = false)
 	private Integer buildTime;
 	@NotNull(message = "Part 'cost' value is mandatory.")
+	@Column(name = "cost", nullable = false)
 	private Float cost;
 	@NotNull(message = "Part 'price' value is mandatory.")
+	@Column(name = "price", nullable = false)
 	private Float price;
 	@NotNull(message = "Part 'stockLevel' value is mandatory.")
+	@Column(name = "stock_level", nullable = false)
 	private Integer stockLevel;
+	@NotNull(message = "Part 'stockAvailable' value is mandatory.")
+	@Column(name = "stock_available", nullable = false)
 	private int stockAvailable = 0;
 	@Size(max = 100)
+	@Column(name = "image_path")
 	private String imagePath;
 	@Size(max = 100)
+	@Column(name = "model_path")
 	private String modelPath;
+	@Column(name = "active", nullable = false)
 	private boolean active = true;
 
 	// - C O N S T R U C T O R S
-	private Part() {}
+	private PartEntity() {}
 
 	// - G E T T E R S   &   S E T T E R S
 	public Integer getBuildTime() {
@@ -53,7 +74,7 @@ public class Part {
 		return this.cost;
 	}
 
-	public Part setCost( final Float cost ) {
+	public PartEntity setCost( final Float cost ) {
 		this.cost = cost;
 		return this;
 	}
@@ -86,7 +107,7 @@ public class Part {
 		return this.price;
 	}
 
-	public Part setPrice( final Float price ) {
+	public PartEntity setPrice( final Float price ) {
 		this.price = price;
 		return this;
 	}
@@ -95,7 +116,7 @@ public class Part {
 		return this.stockAvailable;
 	}
 
-	public Part setStockAvailable( final int stockAvailable ) {
+	public PartEntity setStockAvailable( final int stockAvailable ) {
 		this.stockAvailable = stockAvailable;
 		return this;
 	}
@@ -104,7 +125,7 @@ public class Part {
 		return this.stockLevel;
 	}
 
-	public Part setStockLevel( final Integer stockLevel ) {
+	public PartEntity setStockLevel( final Integer stockLevel ) {
 		this.stockLevel = stockLevel;
 		return this;
 	}
@@ -113,7 +134,7 @@ public class Part {
 		return this.active;
 	}
 
-	public Part setActive( final boolean active ) {
+	public PartEntity setActive( final boolean active ) {
 		this.active = active;
 		return this;
 	}
@@ -139,8 +160,8 @@ public class Part {
 	@Override
 	public boolean equals( final Object o ) {
 		if (this == o) return true;
-		if (!(o instanceof Part)) return false;
-		final Part part = (Part) o;
+		if (!(o instanceof PartEntity)) return false;
+		final PartEntity part = (PartEntity) o;
 		return new EqualsBuilder()
 				.append( this.stockAvailable, part.stockAvailable )
 				.append( this.active, part.active )
@@ -176,21 +197,21 @@ public class Part {
 				.toString();
 	}
 
-	public Part incrementStock( final int increment ) {
+	public PartEntity incrementStock( final int increment ) {
 		this.stockAvailable += increment;
 		return this;
 	}
 
 	// - B U I L D E R
 	public static class Builder {
-		private final Part onConstruction;
+		private final PartEntity onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new Part();
+			this.onConstruction = new PartEntity();
 		}
 
-		public Part build() {
+		public PartEntity build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
 			Objects.requireNonNull( this.onConstruction.material );
@@ -202,67 +223,67 @@ public class Part {
 			return this.onConstruction;
 		}
 
-		public Part.Builder withActive( final Boolean active ) {
+		public PartEntity.Builder withActive( final Boolean active ) {
 			if (null != active) this.onConstruction.active = active;
 			return this;
 		}
 
-		public Part.Builder withBuildTime( final Integer buildTime ) {
+		public PartEntity.Builder withBuildTime( final Integer buildTime ) {
 			this.onConstruction.buildTime = Objects.requireNonNull( buildTime );
 			return this;
 		}
 
-		public Part.Builder withColor( final String colorCode ) {
-			this.onConstruction.color = Objects.requireNonNull( colorCode );
+		public PartEntity.Builder withColor( final String color ) {
+			this.onConstruction.color = Objects.requireNonNull( color );
 			return this;
 		}
 
-		public Part.Builder withCost( final Float cost ) {
+		public PartEntity.Builder withCost( final Float cost ) {
 			this.onConstruction.cost = Objects.requireNonNull( cost );
 			return this;
 		}
 
-		public Part.Builder withDescription( final String description ) {
+		public PartEntity.Builder withDescription( final String description ) {
 			if (null != description) this.onConstruction.description = description;
 			return this;
 		}
 
-		public Part.Builder withId( final UUID id ) {
+		public PartEntity.Builder withId( final UUID id ) {
 			this.onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
-		public Part.Builder withImagePath( final String imagePath ) {
+		public PartEntity.Builder withImagePath( final String imagePath ) {
 			if (null != imagePath) this.onConstruction.imagePath = imagePath;
 			return this;
 		}
 
-		public Part.Builder withLabel( final String label ) {
+		public PartEntity.Builder withLabel( final String label ) {
 			this.onConstruction.label = Objects.requireNonNull( label );
 			return this;
 		}
 
-		public Part.Builder withMaterial( final String material ) {
+		public PartEntity.Builder withMaterial( final String material ) {
 			this.onConstruction.material = Objects.requireNonNull( material );
 			return this;
 		}
 
-		public Part.Builder withModelPath( final String modelPath ) {
+		public PartEntity.Builder withModelPath( final String modelPath ) {
 			if (null != modelPath) this.onConstruction.modelPath = modelPath;
 			return this;
 		}
 
-		public Part.Builder withPrice( final Float price ) {
+		public PartEntity.Builder withPrice( final Float price ) {
 			this.onConstruction.price = Objects.requireNonNull( price );
 			return this;
 		}
 
-		public Part.Builder withStockAvailable( final Integer stockAvailable ) {
+		public PartEntity.Builder withStockAvailable( final Integer stockAvailable ) {
 			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
 			return this;
 		}
 
-		public Part.Builder withStockLevel( final Integer stockLevel ) {
+		public PartEntity.Builder withStockLevel( final Integer stockLevel ) {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
 			return this;
 		}

@@ -104,7 +104,7 @@ public class MachineTest {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColorCode( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )

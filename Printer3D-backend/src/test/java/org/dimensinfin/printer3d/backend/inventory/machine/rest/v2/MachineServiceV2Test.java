@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
@@ -55,12 +55,12 @@ public class MachineServiceV2Test {
 	@Test
 	public void getMachines() {
 		// Given
-		final Part part = new Part.Builder()
+		final PartEntity part = new PartEntity.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColorCode( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -130,12 +130,12 @@ public class MachineServiceV2Test {
 	@Test
 	public void getMachinesRunComplete() {
 		// Given
-		final Part part = new Part.Builder()
+		final PartEntity part = new PartEntity.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColorCode( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR_CODE )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )

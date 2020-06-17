@@ -16,11 +16,14 @@ import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineV2Converter;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
+import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
+import org.dimensinfin.printer3d.backend.inventory.part.converter.PartToPartEntityConverter;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 @Service
 @Transactional
@@ -53,8 +56,10 @@ public class MachineServiceV2 {
 						final int remainingTime = machineModel.getRemainingTime();
 						LogWrapper.info( "RemainingTime: " + remainingTime );
 						if (0 == remainingTime) { // Job completed
-							machineModel.getBuildRecord().getPart().incrementStock( machineEntity.getCurrentPartInstances() );
-							this.partRepository.save( machineModel.getBuildRecord().getPart() );
+							final PartEntity partEntity = new PartToPartEntityConverter().convert(
+									machineModel.getBuildRecord().getPart()
+							).incrementStock( machineEntity.getCurrentPartInstances() );
+							this.partRepository.save( partEntity );
 							machineEntity.clearJob();
 							buildRecord.clearJob(); // As side effect changes the content of the machine being processed
 							this.machineRepository.save( machineEntity );
@@ -70,10 +75,10 @@ public class MachineServiceV2 {
 	private Part getBuildPart( final MachineEntity machineEntity ) {
 		// Check for completed jobs.
 		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
-			final Optional<Part> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
+			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 			if (jobPartOpt.isEmpty())
 				throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
-			return jobPartOpt.get();
+			return new PartEntityToPartConverter().convert( jobPartOpt.get());
 		} else return null;
 	}
 }

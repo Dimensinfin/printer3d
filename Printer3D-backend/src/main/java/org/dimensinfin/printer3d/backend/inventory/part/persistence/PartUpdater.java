@@ -6,19 +6,19 @@ import javax.validation.constraints.NotNull;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 public class PartUpdater {
-	private final Part part;
+	private final PartEntity partEntity;
 
 	// - C O N S T R U C T O R S
-	public PartUpdater( final @NotNull Part part ) {
-		this.part = Objects.requireNonNull( part );
+	public PartUpdater( final @NotNull PartEntity partEntity ) {
+		this.partEntity = Objects.requireNonNull( partEntity );
 	}
 
-	public Part update( final @NotNull Part udpateData ) {
-		this.part.setStockLevel( udpateData.getStockLevel() );
-		this.part.setStockAvailable( udpateData.getStockAvailable() );
-		this.part.setCost( udpateData.getCost() );
-		this.part.setPrice( udpateData.getPrice() );
-		this.part.setActive( udpateData.isActive() );
-		return this.part;
+	public PartEntity update( final @NotNull Part udpateData ) {
+		this.partEntity.setStockLevel( udpateData.getStockLevel() );
+		this.partEntity.setStockAvailable( udpateData.getStockAvailable() );
+		this.partEntity.setCost( udpateData.getCost() );
+		this.partEntity.setPrice( udpateData.getPrice() );
+		this.partEntity.setActive( udpateData.isActive() );
+		return this.partEntity;
 	}
 }

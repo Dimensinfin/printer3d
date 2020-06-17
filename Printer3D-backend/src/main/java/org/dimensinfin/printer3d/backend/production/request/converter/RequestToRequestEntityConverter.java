@@ -3,11 +3,14 @@ package org.dimensinfin.printer3d.backend.production.request.converter;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Component;
+
 import org.dimensinfin.core.interfaces.Converter;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 
+@Component
 public class RequestToRequestEntityConverter implements Converter<Request, RequestEntity> {
 
 	@Override
