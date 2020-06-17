@@ -112,8 +112,8 @@ bootRun {
 springBoot {
     buildInfo()
 }
-//processResources {
-//    filesMatching('application*') {
-//        expand(project.properties)
-//    }
-//}
+processResources {
+    filesMatching('application*') {
+        expand(project.properties)
+    }
+}

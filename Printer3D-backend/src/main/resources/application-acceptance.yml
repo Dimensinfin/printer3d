@@ -1,5 +1,5 @@
 server:
-  port: ${PORT}
+  port: \${PORT}
 
 endpoints:
   health:
@@ -19,13 +19,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-#        format_sql: true
   datasource:
-    url: ${JDBC_DATABASE_URL}
+    url: \${JDBC_DATABASE_URL}
     driver-class-name: org.postgresql.Driver
     platform: postgres
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    username: \${DB_USER}
+    password: \${DB_PASSWORD}
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml

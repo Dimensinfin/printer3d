@@ -61,10 +61,18 @@ app.get('*.*', function(req, res) {
     console.log("Static: " + __dirname + app.locals.applicationhome + req.url)
     res.status(200).sendFile(path.join(__dirname + app.locals.applicationhome + req.url));
 });
+// - A C T U A T O R   M O U N T P O I N T
+app.use('/actuator', proxy(app.locals.backendproxy, {
+    proxyReqPathResolver: function(req) {
+        // console.log('Backend Host: ' + app.locals.backendproxy)
+        console.log('Backend: ' + app.locals.backendproxy + 'actuator' + req.url)
+        return app.locals.backendproxy + 'actuator' + req.url;
+    }
+}));
 // - A P I   M O U N T P O I N T
 app.use('/api', proxy(app.locals.backendproxy, {
     proxyReqPathResolver: function(req) {
-        console.log('Backend Host: ' + app.locals.backendproxy)
+        // console.log('Backend Host: ' + app.locals.backendproxy)
         console.log('Backend: ' + app.locals.backendproxy + 'api' + req.url)
         return app.locals.backendproxy + 'api' + req.url;
     }
@@ -75,8 +83,20 @@ app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname + app.locals.applicationhome + '/index.html'));
 });
 
-// - L I S T E N
+const START_YELLOW = "\x1b[33m\x1b[1m"
+const START_GREEN = "\x1b[32m\x1b[1m"
+const END_BOLD = "\x1b[0m"
+    // - L I S T E N
 app.listen(process.env.PORT || app.locals.port || 3000, function() {
+    console.log("Node Express server version: v12.16.3");
+    console.log("Listening on port: " + START_YELLOW + app.locals.port + END_BOLD);
+    console.log("Serving application: " + app.locals.appname);
+    console.log("Serving application version: " + START_YELLOW + app.locals.version + END_BOLD);
+    console.log("Application URL path: " + START_GREEN + "http://localhost:" + app.locals.port + END_BOLD);
+    console.log("Backend URL path: " + START_GREEN + app.locals.backendproxy + END_BOLD);
+    console.log("Proxy redirection for /actuator: " + 'Backend: ' + app.locals.backendproxy);
+    console.log("Proxy redirection for /api: " + 'Backend: ' + app.locals.backendproxy);
+    console.log("Proxy redirection for /: " + 'Local: ' + app.locals.applicationhome);
     console.log(
         "        ___      __       ___  \n" +
         "__   __/ _ \\    / /_     / _ \\ \n" +
@@ -85,7 +105,5 @@ app.listen(process.env.PORT || app.locals.port || 3000, function() {
         "  \\_/  \\___(_)  \\___(_)  \\___/ \n" +
         "                               \n"
     );
-    console.log("Node Express server for '" + app.locals.appname + "'");
-    console.log("Backend listening on [" + app.locals.backendproxy + "]");
-    console.log("Listening on port: " + app.locals.port);
+    console.log("Server Ready for Connections");
 });

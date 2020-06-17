@@ -3,20 +3,45 @@
 ### What is this repository for? ###
 
 * This repository contains the projects for an application to manage a set of 3D printer work queues. It will allow to define a set of Parts to be stocked for sell and when new requests from customers arrive the application should generate the worklist queue to fulfill them.
-* Current version is DEVELOPMENT-0.3.0
+* This repository holds the entire project. This is divided into different executables and services but all being together on the same storage.
+* There is a frontend with the user interface over a web platform developed in Angular.
+* Also there is s backend where the data is persisted and searched implemented with SpringBoot and using database relational repositories to store the data and relationships.
+* And a portal that unifies the frontend and the backend developed in Node that initializes the application and keeps track of the authentication and firewalls. This posrtal is still pending development once the authentication is put in place.
+* Current version is DEVELOPMENT-0.6.0
+
+# Application Port Mapping
+#### 5100 - Development frontend server<br>5110 - Development backend mock<br>5120 - Local backend application sringboot instance<br>5130 - Postgres database instance for acceptance tests<br>5140 - Backend application acceptance instance<br>5150 - Development portal server
+#### 5101 - Integration frontend server<br>5121 - Local backend application springboot instance<br>5131 - Postgres database docker container for the integration environment
+#### 5190 - Experimental GUI fontend server. Uses the same mock server.
+
+# Printer3DFrontend
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
+
+* This project is located on the port range 51xx. There are two environment on the local computer. One for development and another for integration tests.
+
+## Development server
+* Previous to start the development frontend server we should start the backedn mockup. This is a docker container with an ApiSimulator instance with HTTP pre recorded responses. The command for the mock is **`npm run docker:start`**. This opens the mock server on port **5101**.
+* The development frontend server is started with the script **`npm run start:dev`**. This opens the development frontend server on port **5100**.
+* Unit testing is run with the command **`npm run test:dev`**
+* Acceptance tests are developed under *Cypress*. To run tests interactively open the cypress console with **`cypress open`**. To run all the set of acceptance tests the command is **`cypress run`**. Acceptance tests require that the development frontend server is started.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+* There are a set of commands to build the distribution code for development, staging or production. Also there are scripts for production testing and the scrip coordination on CI platforms.
+* To build the distribution run the command **`npm run build:<environment>`** where there are three supported environments, **dev**, **stage** y **prod**.
+* For a complete test run the command **`npm run check:deploy`**
+
+## Unit Tests pending
+* NeoCom.domain
+* V1PartRender
+* ProductionJobListPage
+* V2MachinesPanel
 
 ## How do I get set up? ###
-
-### Summary of set up
-### Configuration
-#### Application Ports
-
-5100 - Angular frontend server
-5101 - ApiSimulator port for the backend mock
-5110 - SpringBoot backend development server
-5130 - SpringBoot backend acceptance server
-
-5190 - Experimental GUI Frontend end
 
 # PROCEDURES
 ## Development Procedures Frontend
@@ -36,17 +61,9 @@
 13. Fix all tests and complete the code coverage to a level green on all sections.
 14. Validate the application running the command '*npm run build:prod*'
 
-
 ### Database configuration
-### How to run tests
 ### Deployment instructions
 
-### Contribution guidelines ###
+## Who do I talk to?
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin (adamantinoo.git@gmail.com)
+* Repo owner and admin (adamantinoo.git@gmail.com)

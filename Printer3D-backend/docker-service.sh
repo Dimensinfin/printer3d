@@ -15,6 +15,7 @@ generateContainer() {
   cp ./build/libs/*.jar "$DOCKER_DIRECTORY"
   cd "$DOCKER_DIRECTORY" || exit 1;
   mv -v printer3d-backend-*.jar "printer3d-backend-acceptance.jar"
+  echo "${DOCKER_DIRECTORY}/Dockerfile"
   docker build -t dimensinfin/printer3d.backend .
 }
 # - S T A R T / S T O P

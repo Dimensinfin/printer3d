@@ -1,12 +1,11 @@
 server:
-  port: ${PORT}
+  port: \${PORT}
 
 info:
   tags:
-    application: ${build.artifact}
-    port: ${PORT}
-    profile: ${spring.profiles.active}
-    version: ${build.version}
+    application: ${archivesBaseName}
+    port: \${PORT}
+    version: ${version}
 
 spring:
   jpa:
@@ -15,31 +14,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-#  boot:
-#    admin:
-#      client:
-#        url: http://localhost:8000
-#        username: springmanager
-#        password: 01.One.2020
-#        instance:
-#          service-base-url: http://localhost:${PORT}
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
+    url: \${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
     platform: postgres
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: \${SPRING_DATASOURCE_USERNAME}
+    password: \${SPRING_DATASOURCE_PASSWORD}
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml
-
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
-
