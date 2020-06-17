@@ -78,85 +78,6 @@ public class MachineServiceV1Test {
 		Assertions.assertEquals( 1, obtained.getCurrentPartInstances() );
 	}
 
-//	@Test
-	public void startBuild() {
-		// Given
-		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
-		final StartBuildRequest startBuildRequest= new StartBuildRequest.Builder()
-				.withMachineId( TEST_MACHINE_ID )
-				.withPartId( TEST_PART_ID )
-				.build();
-		final PartEntity part = new PartEntity.Builder()
-				.withId( TEST_PART_ID )
-				.withLabel( TEST_PART_LABEL )
-				.withDescription( TEST_PART_DESCRIPTION )
-				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
-				.withBuildTime( TEST_PART_BUILD_TIME )
-				.withCost( TEST_PART_COST )
-				.withPrice( TEST_PART_PRICE )
-				.withStockLevel( TEST_PART_STOCK_LEVEL )
-				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
-				.withImagePath( TEST_PART_IMAGE_PATH )
-				.withModelPath( TEST_PART_MODEL_PATH )
-				.withActive( false )
-				.build();
-		// When
-		Mockito.when( this.machineRepository.findById( Mockito.any(UUID.class) ) ).thenReturn( Optional.of( machineEntity ) );
-		Mockito.when( this.machineRepository.save( Mockito.any( MachineEntity.class ) ) ).thenReturn( machineEntity );
-		Mockito.when( this.partRepository.findById ( Mockito.any(UUID.class) )).thenReturn( Optional.of(part) );
-		Mockito.when( machineEntity.getId() ).thenReturn( TEST_MACHINE_ID );
-		Mockito.when( machineEntity.getLabel() ).thenReturn( TEST_MACHINE_LABEL );
-		Mockito.when( machineEntity.getModel() ).thenReturn( TEST_MACHINE_MODEL );
-		Mockito.when( machineEntity.getCharacteristics() ).thenReturn( TEST_MACHINE_CHARACTERISTICS );
-		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( TEST_MACHINE_CURRENTJOBPARTID );
-		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( 1 );
-		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( TEST_MACHINE_JOBINSTALLMENTDATE );
-		Mockito.when( machineEntity.clearJob() ).thenReturn( machineEntity );
-		Mockito.when( part.getId() ).thenReturn( TEST_PART_ID );
-		// Test
-		final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
-		final Machine obtained = machineServiceV1.startBuild( startBuildRequest );
-		// Assertions
-		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( TEST_PART_ID.toString(), obtained.getCurrentJobPart().getId().toString() );
-		Assertions.assertEquals( TEST_MACHINE_JOBINSTALLMENTDATE, obtained.getJobInstallmentDate() );
-		Assertions.assertEquals( 1, obtained.getCurrentPartInstances() );
-	}
-
-	@Test
-	public void startBuildMachineNotFound() {
-		// Given
-		final StartBuildRequest startBuildRequest= new StartBuildRequest.Builder()
-				.withMachineId( TEST_MACHINE_ID )
-				.withPartId( TEST_PART_ID )
-				.build();
-		// When
-		Mockito.when( this.machineRepository.findById( Mockito.any(UUID.class) ) ).thenReturn( Optional.empty() );
-		// Exceptions
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
-			machineServiceV1.startBuild( startBuildRequest );
-		} );
-	}
-	@Test
-	public void startBuildPartNotFound() {
-		// Given
-		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
-		final StartBuildRequest startBuildRequest= new StartBuildRequest.Builder()
-				.withMachineId( TEST_MACHINE_ID )
-				.withPartId( TEST_PART_ID )
-				.build();
-		// When
-		Mockito.when( this.machineRepository.findById( Mockito.any(UUID.class) ) ).thenReturn( Optional.of(machineEntity) );
-		Mockito.when( this.partRepository.findById ( Mockito.any(UUID.class) )).thenReturn( Optional.empty() );
-		// Exceptions
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
-			machineServiceV1.startBuild( startBuildRequest );
-		} );
-	}
-
 	@Test
 	public void cancelBuildNotFound() {
 		// When
@@ -174,7 +95,7 @@ public class MachineServiceV1Test {
 		Assertions.assertNotNull( machineServiceV1 );
 	}
 
-//	@Test
+	//	@Test
 	public void getMachinesCompleted() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
@@ -266,7 +187,7 @@ public class MachineServiceV1Test {
 		Assertions.assertNull( obtained.getMachines().get( 0 ).getCurrentJobPart() );
 	}
 
-//	@Test
+	//	@Test
 	public void getMachinesRunning() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
@@ -309,5 +230,85 @@ public class MachineServiceV1Test {
 		Assertions.assertEquals( 2, obtained.getMachines().size() );
 		Assertions.assertNotNull( obtained.getMachines().get( 0 ).getCurrentJobPart() );
 		Assertions.assertEquals( TEST_PART_ID, obtained.getMachines().get( 0 ).getCurrentJobPart().getId() );
+	}
+
+	//	@Test
+	public void startBuild() {
+		// Given
+		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
+		final StartBuildRequest startBuildRequest = new StartBuildRequest.Builder()
+				.withMachineId( TEST_MACHINE_ID )
+				.withPartId( TEST_PART_ID )
+				.build();
+		final PartEntity part = new PartEntity.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( machineEntity ) );
+		Mockito.when( this.machineRepository.save( Mockito.any( MachineEntity.class ) ) ).thenReturn( machineEntity );
+		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
+		Mockito.when( machineEntity.getId() ).thenReturn( TEST_MACHINE_ID );
+		Mockito.when( machineEntity.getLabel() ).thenReturn( TEST_MACHINE_LABEL );
+		Mockito.when( machineEntity.getModel() ).thenReturn( TEST_MACHINE_MODEL );
+		Mockito.when( machineEntity.getCharacteristics() ).thenReturn( TEST_MACHINE_CHARACTERISTICS );
+		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( TEST_MACHINE_CURRENTJOBPARTID );
+		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( 1 );
+		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( TEST_MACHINE_JOBINSTALLMENTDATE );
+		Mockito.when( machineEntity.clearJob() ).thenReturn( machineEntity );
+		Mockito.when( part.getId() ).thenReturn( TEST_PART_ID );
+		// Test
+		final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+		final Machine obtained = machineServiceV1.startBuild( startBuildRequest );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( TEST_PART_ID.toString(), obtained.getCurrentJobPart().getId().toString() );
+		Assertions.assertEquals( TEST_MACHINE_JOBINSTALLMENTDATE, obtained.getJobInstallmentDate() );
+		Assertions.assertEquals( 1, obtained.getCurrentPartInstances() );
+	}
+
+	@Test
+	public void startBuildMachineNotFound() {
+		// Given
+		final StartBuildRequest startBuildRequest = new StartBuildRequest.Builder()
+				.withMachineId( TEST_MACHINE_ID )
+				.withPartId( TEST_PART_ID )
+				.build();
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
+			final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+			machineServiceV1.startBuild( startBuildRequest );
+		} );
+	}
+
+	@Test
+	public void startBuildPartNotFound() {
+		// Given
+		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
+		final StartBuildRequest startBuildRequest = new StartBuildRequest.Builder()
+				.withMachineId( TEST_MACHINE_ID )
+				.withPartId( TEST_PART_ID )
+				.build();
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( machineEntity ) );
+		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
+			final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository );
+			machineServiceV1.startBuild( startBuildRequest );
+		} );
 	}
 }

@@ -13,8 +13,8 @@ import org.mockito.Mockito;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
@@ -69,7 +69,7 @@ public class PartServiceV1Test {
 				.withActive( false )
 				.build();
 		this.partRepository = Mockito.mock( PartRepository.class );
-		this.partConverter = Mockito.mock(PartEntityToPartConverter.class);
+		this.partConverter = Mockito.mock( PartEntityToPartConverter.class );
 	}
 
 	@Test
@@ -81,8 +81,36 @@ public class PartServiceV1Test {
 	@Test
 	public void newPart() {
 		// Given
-		final Part part = Mockito.mock( Part.class );
-		final PartEntity partEntity = Mockito.mock( PartEntity.class );
+		final Part part = new Part.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		final PartEntity partEntity = new PartEntity.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenReturn( partEntity );
@@ -147,12 +175,40 @@ public class PartServiceV1Test {
 	@Test
 	public void updatePart() {
 		// Given
-		final Part part = Mockito.mock( Part.class );
-		final PartEntity partEntity = Mockito.mock( PartEntity.class );
+		final Part part = new Part.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		final PartEntity partEntity = new PartEntity.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenReturn( partEntity );
-		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
+		//		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
 		// Test
 		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, partConverter );
 		final Part obtained = serviceV1.updatePart( part );
