@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -13,6 +12,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import retrofit2.Call;
@@ -54,6 +54,19 @@ public interface InventoryApiV1 {
 	@PUT("api/v1/inventory/machines/{machineId}/cancelbuild")
 	Call<Machine> cancelBuild( @Header("Authorization") final @NotNull String authorizationToken,
 	                           @Path("machineId") final @NotNull UUID machineId );
+
+	/**
+	 * Signals the completion of the current build.
+	 * With this command the **Machine** will complete the current job. This will change the Part stock levels adding to the current Part stock the
+	 * number of Parts already built. Then the Machine will return to the IDLE state. The Job registered on the Machine is then persisted to a nee
+	 * backend repository to create an analysis record to be able to perform production statistics with the completed jobs.
+	 *
+	 * @param machineId The unique id (uuid) of the Machine we are requesting to complete the build job. (required)
+	 * @return Call&lt;Machine&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PUT("api/v1/inventory/machines/{machineId}/completebuild")
+	Call<Machine> completeBuild( @Path("machineId") final @NotNull UUID machineId );
 
 	/**
 	 * Get the list of Coils persisted at the Inventory repository.

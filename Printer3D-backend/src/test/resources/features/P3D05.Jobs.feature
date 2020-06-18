@@ -16,5 +16,5 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
         Then there is a valid response with return code of "200 OK"
         And the list of jobs has "2" records
 
-    @P3D05.H @P3D05.02
-    Scenario: [P3D05.02]
+#    @P3D05.H @P3D05.02
+#    Scenario: [P3D05.02]

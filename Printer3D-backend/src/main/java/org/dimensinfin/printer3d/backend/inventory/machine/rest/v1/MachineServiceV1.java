@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.JobEntity;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.JobRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdater;
@@ -32,16 +34,20 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 public class MachineServiceV1 {
 	protected final MachineRepository machineRepository;
 	protected final PartRepository partRepository;
+	private final JobRepository jobRepository;
 
 	// - C O N S T R U C T O R S
 	@Autowired
 	public MachineServiceV1( final MachineRepository machineRepository,
-	                         final PartRepository partRepository ) {
+	                         final PartRepository partRepository,
+	                         final JobRepository jobRepository ) {
 		this.machineRepository = Objects.requireNonNull( machineRepository );
 		this.partRepository = Objects.requireNonNull( partRepository );
+		this.jobRepository = Objects.requireNonNull( jobRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
+	@Deprecated
 	public MachineList getMachines() {
 		final List<Machine> machines = this.machineRepository.findAll()
 				.stream()
@@ -79,6 +85,24 @@ public class MachineServiceV1 {
 		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
 	}
 
+	/**
+	 * With this command the **Machine** will complete the current job. This will change the Part stock levels adding to the current Part stock
+	 * the number of Parts already built. Then the Machine will return to the IDLE state.
+	 * The Job registered on the Machine is then persisted to a nee backend repository to create an analysis record to be able to perform
+	 * production statistics with the completed jobs.
+	 *
+	 * @param machineId the machine identifier that has the job to complete.
+	 */
+	public Machine completeBuild( final UUID machineId ) {
+		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
+		if (machineOpt.isEmpty())
+			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
+		final MachineEntity machineEntity = machineOpt.get();
+		this.storeBuiltParts( machineEntity.getCurrentJobPartId(), machineEntity.getCurrentPartInstances() );
+		this.recordJob( machineEntity );
+		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
+	}
+
 	public Machine startBuild( final StartBuildRequest startBuildRequest ) {
 		// Find the machine nad update it.
 		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( startBuildRequest.getMachineId() );
@@ -92,5 +116,24 @@ public class MachineServiceV1 {
 						this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( startBuildRequest.getPartId() )
 						)
 				);
+	}
+
+	private void recordJob( final MachineEntity machineEntity ) {
+		final JobEntity job = new JobEntity.Builder()
+				.withPartId( machineEntity.getCurrentJobPartId() )
+				.withPartCopies( machineEntity.getCurrentPartInstances() )
+				.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
+				.withJobBuildDate( OffsetDateTime.now() )
+				.build();
+		this.jobRepository.save( job );
+	}
+
+	private void storeBuiltParts( final UUID currentJobPartId, final int currentPartInstances ) {
+		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( currentJobPartId );
+		if (jobPartOpt.isEmpty())
+			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( currentJobPartId ) );
+		final PartEntity targetPart = jobPartOpt.get();
+		targetPart.incrementStock( currentPartInstances );
+		this.partRepository.save( targetPart );
 	}
 }

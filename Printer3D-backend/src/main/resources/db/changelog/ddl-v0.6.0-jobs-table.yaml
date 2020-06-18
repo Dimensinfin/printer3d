@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_6_0_001_printer3d_create_jobs_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createTable:
+            schemaName: printer3d
+            tableName: jobs
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: job_part_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: part_copies
+                  type: int
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: job_installment_date
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: job_build_date
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+                    updatable: false
+  - changeSet:
+      id: 0_6_0_002_printer3d_jobs_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: jobs
+            columnDataType: int
+            columnName: part_copies
+            defaultValueNumeric: 1

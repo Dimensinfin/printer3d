@@ -445,6 +445,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Machine'
+  /api/v1/inventory/machines/{machineId}/completeBuild:
+    put:
+      tags:
+        - Inventory
+      summary: Signals the completion of the current build.
+      description: >
+        With this command the **Machine** will complete the current job. This will change the Part stock levels adding to the current Part stock
+        the number of Parts already built. Then the Machine will return to the IDLE state.
+        The Job registered on the Machine is then persisted to a nee backend repository to create an analysis record to be able to perform
+        production statistics with the completed jobs.
+      operationId: completeBuild
+      parameters:
+        - in: path
+          name: machineId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Machine we are requesting to complete the build job.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The registration of the build cancellation is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
   /api/v1/inventory/machines/{machineId}/cancelbuild:
     put:
       tags:

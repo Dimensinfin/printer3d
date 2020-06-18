@@ -7,12 +7,12 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
+import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
-import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -32,6 +32,20 @@ public class MachineFeignClientV1 extends CommonFeignClient {
 				.build()
 				.create( InventoryApiV1.class )
 				.cancelBuild( authorizationToken, machineId )
+				.execute();
+		if (response.isSuccessful()) {
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
+
+	public ResponseEntity<Machine> completeBuild( final UUID machineId ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request to complete a build job.";
+		final Response<Machine> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.completeBuild( machineId )
 				.execute();
 		if (response.isSuccessful()) {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );

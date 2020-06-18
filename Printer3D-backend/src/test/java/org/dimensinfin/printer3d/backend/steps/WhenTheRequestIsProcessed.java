@@ -77,15 +77,17 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.CANCEL_BUILD );
 	}
 
+	@When("the Complete Job request for Machine {string} is processed")
+	public void the_Complete_Job_request_for_Machine_is_processed( final String machineId ) throws IOException {
+		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
+		this.processRequestByType( RequestType.COMPLETE_BUILD );
+	}
+
 	@When("the Complete Request request for request {string} is processed")
 	public void the_Complete_Request_request_for_request_is_processed( final String requestId ) throws IOException {
 		Objects.requireNonNull( requestId );
 		this.printer3DWorld.setRequestId( UUID.fromString( requestId ) );
 		this.processRequestByType( RequestType.CLOSE_REQUEST );
-	}
-
-	@When("the Complete Request request is processed")
-	public void the_Complete_Request_request_is_processed() throws IOException {
 	}
 
 	@When("the Get Coils request is processed")
@@ -234,6 +236,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( cancelBuildResponseEntity );
 				this.printer3DWorld.setStartBuildResponseEntity( cancelBuildResponseEntity );
 				return cancelBuildResponseEntity;
+			case COMPLETE_BUILD:
+				final ResponseEntity<Machine> completeBuildResponseEntity = this.machineFeignClientV1
+						.completeBuild( this.printer3DWorld.getMachineId() );
+				Assertions.assertNotNull( completeBuildResponseEntity );
+				this.printer3DWorld.setStartBuildResponseEntity( completeBuildResponseEntity );
+				return completeBuildResponseEntity;
 			case GET_JOBS:
 				final ResponseEntity<List<Job>> pendingJobsResponseEntity = this.jobFeignClientV1
 						.getPendingJobs();

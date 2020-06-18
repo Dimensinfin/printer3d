@@ -8,9 +8,9 @@ import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 public class CucumberTableToSetupRequestConverter extends CucumberTableConverter<SetupRequest> {
-	private static final String SETUPREQUEST_PART_ID = "currentJobPart";
+	private static final String SETUPREQUEST_PART_ID = "currentJobPartId";
 	private static final String SETUPREQUEST_JOB_INSTALLMENT_DATE = "jobInstallmentDate";
-	private static final String SETUPREQUEST_PART_INSTANCES_COUNT = "partInstancesCount";
+	private static final String SETUPREQUEST_PART_INSTANCES_COUNT = "currentPartInstances";
 	private final String machineLabel;
 
 	// - C O N S T R U C T O R S

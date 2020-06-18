@@ -17,7 +17,6 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEn
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineV2Converter;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
-import org.dimensinfin.printer3d.backend.inventory.part.converter.PartToPartEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
@@ -52,19 +51,19 @@ public class MachineServiceV2 {
 							.build();
 					final MachineV2 machineModel = new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
 
-					if (machineModel.isRunning()) { // The Machine has a part but it can have finished the build time
-						final int remainingTime = machineModel.getRemainingTime();
-						LogWrapper.info( "RemainingTime: " + remainingTime );
-						if (0 == remainingTime) { // Job completed
-							final PartEntity partEntity = new PartToPartEntityConverter().convert(
-									machineModel.getBuildRecord().getPart()
-							).incrementStock( machineEntity.getCurrentPartInstances() );
-							this.partRepository.save( partEntity );
-							machineEntity.clearJob();
-							buildRecord.clearJob(); // As side effect changes the content of the machine being processed
-							this.machineRepository.save( machineEntity );
-						}
-					}
+//					if (machineModel.isRunning()) { // The Machine has a part but it can have finished the build time
+//						final int remainingTime = machineModel.getRemainingTime();
+//						LogWrapper.info( "RemainingTime: " + remainingTime );
+//						if (0 == remainingTime) { // Job completed
+//							final PartEntity partEntity = new PartToPartEntityConverter().convert(
+//									machineModel.getBuildRecord().getPart()
+//							).incrementStock( machineEntity.getCurrentPartInstances() );
+//							this.partRepository.save( partEntity );
+//							machineEntity.clearJob();
+//							buildRecord.clearJob(); // As side effect changes the content of the machine being processed
+//							this.machineRepository.save( machineEntity );
+//						}
+//					}
 					return machineModel;
 				} )
 				.collect( Collectors.toList() );

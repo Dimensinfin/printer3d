@@ -45,6 +45,13 @@ public class MachineControllerV1 {
 		return new ResponseEntity<>( this.machineServiceV1.cancelBuild( machineId ), HttpStatus.OK );
 	}
 
+	@PutMapping(path = "/inventory/machines/{machineId}/completebuild",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Machine> completeBuild( final @PathVariable @NotNull UUID machineId ) {
+		return new ResponseEntity<>( this.machineServiceV1.completeBuild( machineId ), HttpStatus.OK );
+	}
+
 	@PutMapping(path = "/inventory/machines/{machineId}/startbuild/{partId}",
 			consumes = "application/json",
 			produces = "application/json")
@@ -52,8 +59,8 @@ public class MachineControllerV1 {
 	                                           final @PathVariable @NotNull UUID partId ) {
 		return new ResponseEntity<>( this.machineServiceV1.startBuild(
 				new StartBuildRequest.Builder()
-				.withMachineId( machineId)
-				.withPartId( partId ).build()
+						.withMachineId( machineId )
+						.withPartId( partId ).build()
 		), HttpStatus.OK );
 	}
 }
