@@ -7,7 +7,7 @@ import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { SupportHttpClientWrapperService } from './SupportHttpClientWrapperService.service';
-import { RequestForm } from '@domain/dto/RequestForm.dto';
+import { RequestForm } from '@domain/RequestForm.domain';
 
 export class SupportBackendService {
     private httpWrapper: SupportHttpClientWrapperService;

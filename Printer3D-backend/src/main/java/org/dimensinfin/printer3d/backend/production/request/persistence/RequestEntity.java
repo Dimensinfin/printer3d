@@ -98,7 +98,8 @@ public class RequestEntity {
 			return this;
 		}
 
-		public RequestEntity.Builder withPartList( final List<PartRequest> partList ) {
+		public RequestEntity.Builder
+		withPartList( final List<PartRequest> partList ) {
 			this.onConstruction.partList = Objects.requireNonNull( partList );
 			return this;
 		}

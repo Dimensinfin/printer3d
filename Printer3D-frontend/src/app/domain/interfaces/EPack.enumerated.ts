@@ -35,3 +35,8 @@ export enum ESeparator {
     , EMPTY = 'EMPTY'
     , SPINNER = 'SPINNER'
 }
+export enum RequestState {
+    OPEN = 'OPEN',
+    COMPLETED = 'COMPLETED',
+    CLOSED = 'CLOSED'
+}

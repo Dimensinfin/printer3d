@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
@@ -57,29 +58,39 @@ public class JobServiceV1 {
 	 * @return the list of build jobs required to complete the requests and the stocks.
 	 */
 	public List<Job> getPendingJobs() {
-		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-		jobs.addAll( this.generateRequestJobList() );
-		jobs.addAll( this.sortByFinishingCount( this.generateStockLevelJobs() ) );
-		return jobs;
+		LogWrapperLocal.enter();
+		try {
+			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
+			jobs.addAll( this.generateRequestJobList() );
+			jobs.addAll( this.sortByFinishingCount( this.generateStockLevelJobs() ) );
+			return jobs;
+		} finally {
+			LogWrapperLocal.exit();
+		}
 	}
 
 	protected List<Job> generateRequestJobList() {
+		LogWrapperLocal.enter();
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-		this.stockManager.startStock(); // Initialize the stock with the current repository values.
-		this.requestsRepository.findAll() // Get the list of requests to process.
-				.stream()
-				.filter( ( requestEntity ) -> requestEntity.isOpen() )
-				.forEach( ( requestEntity ) -> {
-					for (PartRequest partList : requestEntity.getPartList()) {
-						this.stockManager.minus( partList.getPartId(), partList.getQuantity() ); // Subtract the request quantity from the stock.
-						if (this.stockManager.getStock( partList.getPartId() ) < 0) // There is stock shortage. Generate jobs.
-							jobs.addAll( this.generateRequestJobs(
-									partList.getPartId(),
-									Math.abs( this.stockManager.getStock( partList.getPartId() ) ) )
-							);
-					}
-				} );
-		return jobs;
+		try {
+			this.stockManager.startStock(); // Initialize the stock with the current repository values.
+			this.requestsRepository.findAll() // Get the list of requests to process.
+					.stream()
+					.filter( ( requestEntity ) -> requestEntity.isOpen() )
+					.forEach( ( requestEntity ) -> {
+						for (PartRequest partList : requestEntity.getPartList()) {
+							this.stockManager.minus( partList.getPartId(), partList.getQuantity() ); // Subtract the request quantity from the stock.
+							if (this.stockManager.getStock( partList.getPartId() ) < 0) // There is stock shortage. Generate jobs.
+								jobs.addAll( this.generateRequestJobs(
+										partList.getPartId(),
+										Math.abs( this.stockManager.getStock( partList.getPartId() ) ) )
+								);
+						}
+					} );
+			return jobs;
+		} finally {
+			LogWrapperLocal.exit( "RequestJobList count:", jobs.size() );
+		}
 	}
 
 	private String generateFinishingKey( final Part target ) {

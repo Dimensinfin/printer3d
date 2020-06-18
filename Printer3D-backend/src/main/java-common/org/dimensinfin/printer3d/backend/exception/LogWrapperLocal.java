@@ -22,6 +22,10 @@ public class LogWrapperLocal extends LogWrapper {
 		}
 	}
 
+	public static void exit( final String message, final Integer value ) {
+		exit( message + value + "" );
+	}
+
 	private static String header() {
 		return wrapper( generateCaller() );
 	}

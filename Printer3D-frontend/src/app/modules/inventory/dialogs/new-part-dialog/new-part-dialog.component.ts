@@ -55,7 +55,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
             console.log('-[NewPartDialogComponent.ngOnInit]> Initializing Part')
             this.part.id = uuidv4();
             this.part.material = 'PLA';
-            this.part.colorCode = 'INDEFINIDO';
+            this.part.color = 'INDEFINIDO';
         }
         else {
             console.log('-[NewPartDialogComponent.ngOnInit]> Setting Previous Part: ' + pendingPart)
@@ -74,9 +74,9 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
     // - I N T E R A C T I O N S
     public savePart(): void {
         // Get the form data.
-        const newPart: Part = new PartConstructor().construct(this.part);
+        // const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
-            this.backendService.apiNewPart_v1(newPart, this.dataToPartTransformer)
+            this.backendService.apiNewPart_v1(this.part, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
                     this.closeModal();
                 })
@@ -85,13 +85,13 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
     public savePartAndRepeat() {
         console.log('>[NewPartDialogComponent.savePartAndRepeat]')
         // Get the form data.
-        const newPart: Part = new PartConstructor().construct(this.part);
+        // const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
-            this.backendService.apiNewPart_v1(newPart, this.dataToPartTransformer)
+            this.backendService.apiNewPart_v1(this.part, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')
                     this.part.createNewId();
-                    this.part.colorCode = 'INDEFINIDO';
+                    this.part.color = 'INDEFINIDO';
                 })
         );
     }

@@ -20,7 +20,8 @@ import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
-import { RequestForm } from '@domain/dto/RequestForm.dto';
+import { RequestForm } from '@domain/RequestForm.domain';
+import { Request } from '@domain/dto/Request.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -71,14 +72,14 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiNewRequest_v1(newCoil: RequestForm, transformer: ResponseTransformer): Observable<RequestForm> {
+    public apiNewRequest_v1(newRequest: Request, transformer: ResponseTransformer): Observable<Request> {
         const request = this.APIV1 + '/production/requests';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newCoil), headers)
+        return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newRequest), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewRequest_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as RequestForm;
+                const response = transformer.transform(data) as Request;
                 return response;
             }));
     }

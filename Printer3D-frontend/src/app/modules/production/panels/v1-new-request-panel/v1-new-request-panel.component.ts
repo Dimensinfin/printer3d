@@ -20,10 +20,12 @@ import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Job } from '@domain/Job.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { Part } from '@domain/Part.domain';
-import { RequestForm } from '@domain/dto/RequestForm.dto';
+import { RequestForm } from '@domain/RequestForm.domain';
 import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
+import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
+import { Request } from '@domain/dto/Request.dto';
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -49,10 +51,10 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         return this.request.label;
     }
     public getRequestParts(): Part[] {
-        return this.request.partsToServe;
+        return this.request.partList;
     }
     public hasParts(): boolean {
-        if (this.request.partsToServe.length > 0) return true;
+        if (this.request.partList.length > 0) return true;
         else return false
     }
     public isFormValid(formState: any): boolean {
@@ -68,13 +70,14 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
     }
     public saveRequest(): void {
         this.backendConnections.push(
-            this.backendService.apiNewRequest_v1(this.request, new ResponseTransformer().setDescription('Do HTTP transformation to "NewRequest" response.')
-                .setTransformation((entrydata: any): RequestForm => {
-                    const persistedRequest: RequestForm = new RequestForm();
+            this.backendService.apiNewRequest_v1(new RequestFormToRequestConverter().convert(this.request), 
+                new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
+                .setTransformation((entrydata: any): Request => {
+                    // const persistedRequest: Request = new Request();
                     this.isolationService.successNotification('Pedido [' + this.request.label + '] registrado correctamente.', '/PRODUCCION/NUEVO PEDIDO/OK');
-                    return persistedRequest;
+                    return new Request(); // Discard the just persisted request and return an empty instance.
                 }))
-                .subscribe((persistedRequest: RequestForm) => {
+                .subscribe((persistedRequest: Request) => {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
                     this.router.navigate(['/']);
                 })
