@@ -15,6 +15,7 @@
     "extends": "../tsconfig.json",
     "include": [
         "**/*.ts",
+        "acceptance/*.feature",
         "integration/*.feature"
     ]
 }

@@ -21,7 +21,7 @@ import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { RequestForm } from '@domain/RequestForm.domain';
-import { Request } from '@domain/dto/Request.dto';
+import { Request } from '@domain/Request.domain';
 
 @Injectable({
     providedIn: 'root'
@@ -183,8 +183,19 @@ export class BackendService {
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionGetJobs_v1]> Transformation: " + transformer.description);
-                console.log(">[BackendService.apiProductionGetJobs_v1]> Data: " + data);
+                // console.log(">[BackendService.apiProductionGetJobs_v1]> Data: " + data);
                 const response = transformer.transform(data) as Job[];
+                return response;
+            }));
+    }
+    public apiProductionGetOpenRequests_v1(transformer: ResponseTransformer): Observable<Request[]> {
+        const request = this.APIV1 + '/production/requests';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiProductionGetOpenRequests_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Request[];
                 return response;
             }));
     }

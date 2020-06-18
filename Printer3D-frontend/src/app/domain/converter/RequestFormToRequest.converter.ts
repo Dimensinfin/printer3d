@@ -3,7 +3,7 @@ import { Converter } from '@domain/interfaces/Converter.interface';
 import { Coil } from '@domain/Coil.domain';
 import { CoilRecord } from '@domain/CoilRecord.domain';
 import { RequestForm } from '@domain/RequestForm.domain';
-import { Request } from '@domain/dto/Request.dto';
+import { Request } from '@domain/Request.domain';
 import { PartRequest } from '@domain/dto/PartRequest.dto';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
 

@@ -76,7 +76,7 @@ jobs:
           name: BACKEND - Start the application in local profile
           working_directory: Printer3D-backend
           environment:
-            PORT: 5130
+            PORT: 5140 # This is the port configured on the AcceptancetargetConfig
             JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
             DB_USER: inno-user
             DB_PASSWORD: inno-password
@@ -87,7 +87,7 @@ jobs:
       - run:
           name: BACKEND - Waiting for application start
           environment:
-            PORT: 5130
+            PORT: 5140
           working_directory: Printer3D-backend
           command: |
             dockerize -wait tcp://localhost:${PORT}/actuator/health -timeout 3m
@@ -95,7 +95,7 @@ jobs:
           name: BACKEND - Unit Testing application
           working_directory: Printer3D-backend
           environment:
-            PORT: 5130
+            PORT: 5140
             JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
             DB_USER: inno-user
             DB_PASSWORD: inno-password

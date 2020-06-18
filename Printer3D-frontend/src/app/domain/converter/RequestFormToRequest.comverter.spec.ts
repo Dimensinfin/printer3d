@@ -7,7 +7,7 @@ import { Coil } from '@domain/Coil.domain';
 import { CoilRecord } from '@domain/CoilRecord.domain';
 import { RequestFormToRequestConverter } from './RequestFormToRequest.converter';
 import { RequestForm } from '@domain/RequestForm.domain';
-import { Request } from '@domain/dto/Request.dto';
+import { Request } from '@domain/Request.domain';
 import { PartRequest } from '@domain/dto/PartRequest.dto';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
 
@@ -90,9 +90,9 @@ fdescribe('CLASS RequestFormToRequestConverter [Module: CONVERTER]', () => {
             expect(obtained).toBeDefined();
             expect(obtainedAsAny.id).toBe("da0bbeaf-2711-4e6f-9134-c9e15919ca57")
             expect(obtainedAsAny.partList).toBeDefined()
-            expect(obtainedAsAny.partList.length).toBe(3)
+            expect(obtainedAsAny.partList.length).toBe(2)
             expect(obtainedAsAny.partList[0] instanceof PartRequest).toBeTrue()
-            // expect(obatinedAsAny.partList[2].quantity).toBe(2)
+            expect(obtainedAsAny.partList[1].quantity).toBe(3)
         });
     });
 });

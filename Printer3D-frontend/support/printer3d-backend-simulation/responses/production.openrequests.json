@@ -1,0 +1,13 @@
+{
+    "requests": [{
+        "id": "8674832e-8377-4e30-ab01-d6468a312012",
+        "label": "Proveedor",
+        "requestDate": "2020-06-18T13:19:28.671Z",
+        "state": "OPEN",
+        "partList": [{
+            "partId": "aed33fcf-fb67-454b-9617-c8b6db3d7361",
+            "quantity": 2
+        }]
+    }],
+    "count": 1
+}

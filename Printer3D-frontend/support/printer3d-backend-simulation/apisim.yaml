@@ -238,3 +238,20 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/newrequest.json"
+
+---
+
+simlet: production-open-requests
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v1/production/requests"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.openrequests.json"

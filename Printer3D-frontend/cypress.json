@@ -2,5 +2,6 @@
     "testFiles": "**/*.feature",
     "ignoreTestFiles": "*.js",
     "projectId": "c6rdzc",
-    "video": false
+    "video": false,
+    "integrationFolder": "cypress"
 }

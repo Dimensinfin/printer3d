@@ -25,7 +25,7 @@ import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
-import { Request } from '@domain/dto/Request.dto';
+import { Request } from '@domain/Request.domain';
 
 @Component({
     selector: 'v1-new-request-panel',

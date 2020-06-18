@@ -24,7 +24,7 @@ When('the Feature with label {string} is clicked the destination is the Page {st
         .find('v2-feature-render')
         .contains(label, { matchCase: false }).parent()
         .click('center');
-    cy.wait(4000)
+    cy.wait(1200)
     cy.get('app-root').find(destination).should('exist')
 });
 When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (label: string, destination: string) {
@@ -140,7 +140,6 @@ Then('there is a {string} at index {string} with the next fields', function (pan
             break;
     }
 });
-
 
 Then('there is a dialog title saying {string}', function (dialogLabel) {
     console.log('[THEN] there is a dialog title saying {string}');

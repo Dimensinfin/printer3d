@@ -17,6 +17,7 @@ import { V1PartRenderComponent } from './v1-part-render/v1-part-render.component
 import { V1PartContainerRenderComponent } from './v1-part-container-render/v1-part-container-render.component';
 import { V1CoilRenderComponent } from './v1-coil-render/v1-coil-render.component';
 import { V2FeatureRenderComponent } from './v2-feature-render/v2-feature-render.component';
+import { V1RequestRenderComponent } from './v1-request-render/v1-request-render.component';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { V2FeatureRenderComponent } from './v2-feature-render/v2-feature-render.
         V1PartRenderComponent,
         V1PartContainerRenderComponent,
         V1CoilRenderComponent,
-        V2FeatureRenderComponent
+        V2FeatureRenderComponent,
+        V1RequestRenderComponent
     ],
     exports: [
         V1PendingJobRenderComponent,
@@ -46,7 +48,8 @@ import { V2FeatureRenderComponent } from './v2-feature-render/v2-feature-render.
         NodeContainerRenderComponent,
         V1PartRenderComponent,
         V1CoilRenderComponent,
-        V2FeatureRenderComponent
+        V2FeatureRenderComponent,
+        V1RequestRenderComponent
     ]
 })
 export class RendersModule { }

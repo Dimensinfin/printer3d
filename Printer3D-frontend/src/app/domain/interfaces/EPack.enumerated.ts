@@ -7,7 +7,8 @@ export enum EVariant {
     COIL_LIST = '-COIL-LIST-',
     REQUEST_PART_LIST = '-REQUEST-PART-LIST-',
     REQUEST_PARTS = '-REQUEST-CONTAINED-PARTS-',
-    EDITABLE_PART = '-EDITABLE-PART-'
+    EDITABLE_PART = '-EDITABLE-PART-',
+    OPEN_REQUESTS = '-OPEN-REQUESTS-'
 }
 export enum EInteraction {
     ACTION = 'ACTION',

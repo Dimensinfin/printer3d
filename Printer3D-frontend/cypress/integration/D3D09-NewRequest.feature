@@ -14,7 +14,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     @D3D09 @D3D09.01
     Scenario: [D3D09.01]-Check that the new Features point to the right page components.
         Given one instance of Dock
-        When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-request-list-page"
+        When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-open-requests-page"
         When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "v1-new-request-page"
 
     @D3D09 @D3D09.03

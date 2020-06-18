@@ -60,6 +60,7 @@ public class JobServiceV1 {
 	public List<Job> getPendingJobs() {
 		LogWrapperLocal.enter();
 		try {
+			this.stockManager.startStock(); // Initialize the stock with the current repository values.
 			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 			jobs.addAll( this.generateRequestJobList() );
 			jobs.addAll( this.sortByFinishingCount( this.generateStockLevelJobs() ) );
@@ -73,7 +74,6 @@ public class JobServiceV1 {
 		LogWrapperLocal.enter();
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		try {
-			this.stockManager.startStock(); // Initialize the stock with the current repository values.
 			this.requestsRepository.findAll() // Get the list of requests to process.
 					.stream()
 					.filter( ( requestEntity ) -> requestEntity.isOpen() )
@@ -118,6 +118,13 @@ public class JobServiceV1 {
 		return jobs;
 	}
 
+	/**
+	 * This processing step does not have into account the new stock levels that can be set after Request processing. The new data leveling uses
+	 * the current repository information that does not include the Requests demands. This is correct from the standpoint of the current timeline.
+	 * If the system wants to look ahead and be prepared for new demand while keeping the stocks levels then the process should have on account the
+	 * expected new values for the stock levels.
+	 * @return
+	 */
 	private List<Job> generateStockLevelJobs() {
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		this.partRepository.findAll().forEach( part -> {

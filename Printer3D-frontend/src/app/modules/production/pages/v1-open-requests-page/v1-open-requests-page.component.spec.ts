@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { V1RequestListPageComponent } from './v1-request-list-page.component';
+import { V1OpenRequestsPageComponent } from './v1-open-requests-page.component';
 
-describe('V1RequestListPageComponent', () => {
-  let component: V1RequestListPageComponent;
-  let fixture: ComponentFixture<V1RequestListPageComponent>;
+describe('V1OpenRequestsPageComponent', () => {
+  let component: V1OpenRequestsPageComponent;
+  let fixture: ComponentFixture<V1OpenRequestsPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ V1RequestListPageComponent ]
+      declarations: [ V1OpenRequestsPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(V1RequestListPageComponent);
+    fixture = TestBed.createComponent(V1OpenRequestsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

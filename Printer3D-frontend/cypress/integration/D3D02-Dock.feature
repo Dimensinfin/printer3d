@@ -36,7 +36,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given one instance of Dock
         When the Feature with label "/ROLLOS" is clicked the destination is the Page "v2-coil-list-page"
         When the Feature with label "/INVENTARIO" is clicked the destination is the Page "v2-inventory-part-list-page"
-        When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-request-list-page"
+        When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-open-requests-page"
         When the Feature with label "/TRABAJOS PND." is clicked the destination is the Page "production-job-list-page"
         When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "v1-new-request-page"
 
