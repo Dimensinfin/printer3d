@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
@@ -72,6 +73,31 @@ public class RequestServiceV1 {
 						requestList.addRequest( this.requestConverter.convert( request ) );
 					} );
 			return requestList;
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	/**
+	 * When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
+	 *
+	 * @param requestId the request identifier for the Request being closed.
+	 */
+	public Request closeRequest( final UUID requestId ) {
+		LogWrapper.enter();
+		try {
+			final Optional<RequestEntity> target = this.requestsRepository.findById( requestId );
+			if (target.isEmpty())
+				throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_NOT_FOUND, requestId.toString() );
+			// Update the parts stocks reducing the stock with the Request quantities.
+			for (PartRequest partRequest : target.get().getPartList()) {
+				final Optional<PartEntity> partOpt = this.partRepository.findById( partRequest.getPartId() );
+				partOpt.ifPresent( ( partEntity ) -> {
+					partEntity.decrementStock( partRequest.getQuantity() );
+					this.partRepository.save( partEntity );
+				} );
+			}
+			return new RequestEntityToRequestConverter().convert( this.requestsRepository.save( target.get().close() ) );
 		} finally {
 			LogWrapper.exit();
 		}

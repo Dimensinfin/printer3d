@@ -70,6 +70,11 @@ public class RequestEntity {
 		return (this.state == RequestState.OPEN);
 	}
 
+	public RequestEntity close() {
+		this.state = RequestState.CLOSE;
+		return this;
+	}
+
 	public void signalCompleted() {
 		this.state = RequestState.COMPLETED;
 	}

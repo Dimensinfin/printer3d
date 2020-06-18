@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.rest.CoilFeignClientV1;
@@ -28,6 +27,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
@@ -52,8 +52,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1,
 	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
 	                                  final @NotNull JobFeignClientV1 jobFeignClientV1,
-	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1 ,
-	                                  final @NotNull RequestFeignClientV1 requestFeignClientV1) {
+	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1,
+	                                  final @NotNull RequestFeignClientV1 requestFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
@@ -64,14 +64,28 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.requestFeignClientV1 = Objects.requireNonNull( requestFeignClientV1 );
 	}
 
+	@When("the Add Model Part request with model {string} and part {string} is processed")
+	public void the_Add_Model_Part_request_with_model_and_part_is_processed( final String modelId, final String partId ) throws IOException {
+		this.printer3DWorld.setModelId( UUID.fromString( modelId ) );
+		this.printer3DWorld.setPartId( UUID.fromString( partId ) );
+		this.processRequestByType( RequestType.ADD_MODEL_PART );
+	}
+
 	@When("the Cancel Build for Machine {string} request is processed")
 	public void the_Cancel_Build_for_Machine_request_is_processed( final String machineId ) throws IOException {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		this.processRequestByType( RequestType.CANCEL_BUILD );
 	}
-	@When("the Get Requests request is processed")
-	public void the_Get_Requests_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_REQUESTS );
+
+	@When("the Complete Request request for request {string} is processed")
+	public void the_Complete_Request_request_for_request_is_processed( final String requestId ) throws IOException {
+		Objects.requireNonNull( requestId );
+		this.printer3DWorld.setRequestId( UUID.fromString( requestId ) );
+		this.processRequestByType( RequestType.CLOSE_REQUEST );
+	}
+
+	@When("the Complete Request request is processed")
+	public void the_Complete_Request_request_is_processed() throws IOException {
 	}
 
 	@When("the Get Coils request is processed")
@@ -104,6 +118,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_PARTS );
 	}
 
+	@When("the Get Requests request is processed")
+	public void the_Get_Requests_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_REQUESTS );
+	}
+
 	@When("the New Coil request is processed")
 	public void the_New_Coil_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_COIL );
@@ -113,13 +132,22 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_New_Model_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_MODEL );
 	}
+
+	@When("the New Part request is processed")
+	public void the_New_Part_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.NEW_PART );
+	}
+
 	@When("the New Request request is processed")
 	public void the_New_Request_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_REQUEST );
 	}
-	@When("the New Part request is processed")
-	public void the_New_Part_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.NEW_PART );
+
+	@When("the Remove Model Part request with model {string} and part {string} is processed")
+	public void the_Remove_Model_Part_request_with_model_and_part_is_processed( final String modelId, final String partId ) throws IOException {
+		this.printer3DWorld.setModelId( UUID.fromString( modelId ) );
+		this.printer3DWorld.setPartId( UUID.fromString( partId ) );
+		this.processRequestByType( RequestType.REMOVE_MODEL_PART );
 	}
 
 	@When("the Start Build for Part {string} for Machine {string} request is processed")
@@ -134,18 +162,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.UPDATE_PART );
 	}
 
-	@When("the Add Model Part request with model {string} and part {string} is processed")
-	public void the_Add_Model_Part_request_with_model_and_part_is_processed(final String modelId, final String partId) throws IOException {
-		this.printer3DWorld.setModelId( UUID.fromString( modelId ));
-		this.printer3DWorld.setPartId( UUID.fromString( partId ));
-		this.processRequestByType( RequestType.ADD_MODEL_PART );
-	}
-	@When("the Remove Model Part request with model {string} and part {string} is processed")
-	public void the_Remove_Model_Part_request_with_model_and_part_is_processed(final String modelId, final String partId) throws IOException {
-		this.printer3DWorld.setModelId( UUID.fromString( modelId ));
-		this.printer3DWorld.setPartId( UUID.fromString( partId ));
-		this.processRequestByType( RequestType.REMOVE_MODEL_PART );
-	}
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
 		switch (requestType) {
 			case NEW_PART:
@@ -238,7 +254,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				final ResponseEntity<Model> addModelPartResponseEntity = this.modelFeignClientV1.addModelPart(
 						this.printer3DWorld.getJwtAuthorizationToken(),
 						this.printer3DWorld.getModelId(),
-						this.printer3DWorld.getPartId());
+						this.printer3DWorld.getPartId() );
 				Assertions.assertNotNull( addModelPartResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( addModelPartResponseEntity );
 				return addModelPartResponseEntity;
@@ -248,7 +264,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				final ResponseEntity<Model> removeModelPartResponseEntity = this.modelFeignClientV1.removeModelPart(
 						this.printer3DWorld.getJwtAuthorizationToken(),
 						this.printer3DWorld.getModelId(),
-						this.printer3DWorld.getPartId());
+						this.printer3DWorld.getPartId() );
 				Assertions.assertNotNull( removeModelPartResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( removeModelPartResponseEntity );
 				return removeModelPartResponseEntity;
@@ -264,6 +280,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( getRequestsResponseEntity );
 				this.printer3DWorld.setRequestListResponseEntity( getRequestsResponseEntity );
 				return getRequestsResponseEntity;
+			case CLOSE_REQUEST:
+				final ResponseEntity<Request> closeRequestResponseEntity = this.requestFeignClientV1.closeRequest(
+						this.printer3DWorld.getRequestId()
+				);
+				Assertions.assertNotNull( closeRequestResponseEntity );
+				this.printer3DWorld.setCloseRequestResponseEntity( closeRequestResponseEntity );
+				return closeRequestResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

@@ -3,10 +3,7 @@
     <ExternalSystemSettings>
       <option name="env">
         <map>
-          <entry key="DB_PASSWORD" value="inno-password" />
-          <entry key="DB_USER" value="inno-user" />
           <entry key="JDBC_DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5432/postgres" />
-          <entry key="PORT" value="5110" />
         </map>
       </option>
       <option name="executionName" />

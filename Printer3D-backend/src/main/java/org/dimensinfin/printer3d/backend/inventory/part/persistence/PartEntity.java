@@ -139,6 +139,11 @@ public class PartEntity {
 		return this;
 	}
 
+	public int decrementStock( final Integer quantity ) {
+		this.stockAvailable -= quantity;
+		return this.stockAvailable;
+	}
+
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )

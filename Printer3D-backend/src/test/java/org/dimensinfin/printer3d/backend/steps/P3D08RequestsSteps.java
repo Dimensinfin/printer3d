@@ -40,6 +40,14 @@ public class P3D08RequestsSteps extends StepSupport {
 		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
 	}
 
+	@Then("the list of Requests on the response is empty")
+	public void the_list_of_Requests_on_the_response_is_empty() throws IOException {
+		final ResponseEntity<RequestList> requests = this.requestFeignClientV1.getOpenRequests();
+		Assertions.assertNotNull( requests );
+		Assertions.assertNotNull( requests.getBody() );
+		Assertions.assertEquals( 0, requests.getBody().getRequests().size() );
+	}
+
 	@Given("the next New Request request with the current Part Request List")
 	public void the_next_New_Request_request_with_the_current_Part_Request_List( final List<Map<String, String>> dataTable ) {
 		final Request request = new CucumberTableToNewRequestConverter( this.printer3DWorld.getPartRequestList() ).convert( dataTable.get( 0 ) );

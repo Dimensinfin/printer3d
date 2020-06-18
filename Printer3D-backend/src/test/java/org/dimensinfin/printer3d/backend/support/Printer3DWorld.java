@@ -43,6 +43,26 @@ public class Printer3DWorld extends CommonWorld {
 	private Request newRequest;
 	private ResponseEntity<Request> requestResponseEntity;
 	private ResponseEntity<RequestList> requestListResponseEntity;
+	private UUID requestId;
+	private ResponseEntity<Request> closeRequestResponseEntity;
+
+	public ResponseEntity<Request> getCloseRequestResponseEntity() {
+		return this.closeRequestResponseEntity;
+	}
+
+	public Printer3DWorld setCloseRequestResponseEntity( final ResponseEntity<Request> closeRequestResponseEntity ) {
+		this.closeRequestResponseEntity = closeRequestResponseEntity;
+		return this;
+	}
+
+	public UUID getRequestId() {
+		return this.requestId;
+	}
+
+	public Printer3DWorld setRequestId( final UUID requestId ) {
+		this.requestId = requestId;
+		return this;
+	}
 
 	public ResponseEntity<RequestList> getRequestListResponseEntity() {
 		return this.requestListResponseEntity;
