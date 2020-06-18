@@ -6,27 +6,41 @@
     fill: red;
 }
 
+.cornered-panel {
+    margin-bottom: 4px;
+    position: relative;
+}
+
 .label-width {
     min-width: 400px;
 }
 
 .corner-border {
     position: absolute;
-    bottom: 4px;
+    bottom: 0px;
     right: 0px;
     width: 15px;
 }
 
 .corner-clear {
     position: absolute;
-    bottom: 3px;
-    right: -2px;
-    width: 16px;
+    bottom: -1px;
+    right: -1px;
+    width: 15px;
 }
 
 .corner-mark {
     position: absolute;
-    bottom: 4px;
+    bottom: 0px;
     right: 0px;
     width: 9px;
+}
+
+.date-width {
+    flex-grow: 6;
+    min-width: 20%;
+}
+
+.complete-width {
+    margin-top: 10px;
 }

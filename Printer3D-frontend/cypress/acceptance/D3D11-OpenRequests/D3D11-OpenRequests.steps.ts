@@ -40,3 +40,10 @@ Then('the target item has a field labeled {string} with value {string}', functio
 Then('the target item has a mark {string}', function (markname: string) {
     cy.get('@target-item').parent().find('[cy-field-mark="REQUEST"]').get('.' + markname).should('exist')
 });
+
+Given('a hover on the target item', function () {
+    cy.get('@target-item').trigger('mouseenter')
+});
+Then('on the target panel there is one {string}', function (panelType: string) {
+    cy.get('@target-panel').find(panelType).should('have.length', 1)
+});

@@ -57,7 +57,9 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         const request = this.node as Request
         return (request.getState() == RequestState.OPEN)
     }
-    public completeRequest(): void {
-
+    public selectRequest(): void {
+        console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
+        this.container.enterSelected(this.node)
     }
+    public completeRequest() : void {}
 }

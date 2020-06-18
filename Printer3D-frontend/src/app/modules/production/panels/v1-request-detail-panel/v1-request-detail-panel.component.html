@@ -1,0 +1,7 @@
+<div cy-name="panel-title" class="title">
+    <span>/PEDIDOS/DETALLE</span>
+</div>
+<hr>
+<div *ngIf="selectedRequest">
+    <v1-request style="width: 100%;" *ngIf="selectedRequest" [container]="container" [node]="selectedRequest" [variant]="'-DETAILED-REQUEST-'"></v1-request>
+</div>

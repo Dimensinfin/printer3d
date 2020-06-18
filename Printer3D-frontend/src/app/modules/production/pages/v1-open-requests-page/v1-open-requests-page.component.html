@@ -1,6 +1,4 @@
 <div class="row">
-    <v1-open-requests-panel cy-name="open-request-list" style="width: 50%; margin-right: 10px;"></v1-open-requests-panel>
-    <div cy-name="selected-request-contents" style="width: 50%">
-        <p>selected-request-contents!</p>
-    </div>
+    <v1-open-requests-panel cy-name="open-request-list" style="width: 50%; margin-right: 10px;" [page]="self"></v1-open-requests-panel>
+    <v1-request-detail-panel cy-name="request-details" style="width: 50%"></v1-request-detail-panel>
 </div>
