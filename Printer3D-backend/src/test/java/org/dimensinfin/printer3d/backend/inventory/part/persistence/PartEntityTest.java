@@ -372,7 +372,7 @@ public class PartEntityTest {
 				.withActive( false )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"colorCode\":\"VERDE-T\",\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}";
+		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}";
 		final String obtained = part.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
