@@ -83,6 +83,6 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
             return 0 - (part2.material > part1.material ? 1 : -1);
     }
     private orderByColor(part1: Part, part2: Part): number {
-        return 0 - (part2.colorCode > part1.colorCode ? 1 : -1);
+        return 0 - (part2.color > part1.color ? 1 : -1);
     }
 }

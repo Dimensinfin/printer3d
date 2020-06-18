@@ -26,7 +26,7 @@
                     "label": "Pieza de Plata",
                     "description": "Pieza de Plata",
                     "material": "PLA",
-                    "colorCode": "PLATA",
+                    "color": "PLATA",
                     "buildTime": 15,
                     "cost": 0.9,
                     "price": 2.0,

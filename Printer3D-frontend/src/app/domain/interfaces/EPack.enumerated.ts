@@ -14,16 +14,6 @@ export enum EInteraction {
     DIALOG = 'DIALOG',
     PAGEROUTE = 'PAGEROUTE'
 }
-export enum EColorCode {
-    UNDEFINED = 'UNDEFINED',
-    WHITE = 'WHITE',
-    GREEN = 'GREEN',
-    GREEN_TRANSP = 'GREEN-TRANSP',
-    RED = 'RED',
-    LIGHT_BLUE = 'LIGHT-BLUE',
-    PINK_TRANSP = 'PINK-TRANSP',
-    ORANGE_TRANSP = 'ORANGE-TRANSP'
-}
 export enum ESeparator {
     RED = 'RED'
     , ORANGE = 'ORANGE'

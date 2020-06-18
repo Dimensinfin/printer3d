@@ -12,7 +12,7 @@ describe('CLASS PartToPartRecordConverter [Module: DOMAIN]', () => {
                 "label": "Covid-19 Key",
                 "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
                 "material": "PLA",
-                "colorCode": "NARANJA-T",
+                "color": "NARANJA-T",
                 "buildTime": 30,
                 "cost": 0.85,
                 "price": 3.0,

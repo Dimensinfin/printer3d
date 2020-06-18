@@ -21,7 +21,7 @@ describe('CLASS Part [Module: DOMAIN]', () => {
             const instance = new Part();
             expect(instance).toBeDefined();
             expect(instance.material).toBe('PLA')
-            expect(instance.colorCode).toBe('INDEFINIDO')
+            expect(instance.color).toBe('INDEFINIDO')
             expect(instance.stockLevel).toBe(1);
             expect(instance.stockAvailable).toBe(0);
             expect(instance.active).toBeTrue();
@@ -47,19 +47,19 @@ describe('CLASS Part [Module: DOMAIN]', () => {
             expect(instance.id).toBe(obtained);
         });
         it('composePartIdentifier.color: generate the part identifier', () => {
-            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, colorCode: null });
+            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, color: null });
             expect(instance).toBeDefined();
-            instance.colorCode = null;
+            instance.color = null;
             expect(instance.composePartIdentifier()).toBe('-TEST-LABEL-' + ':' + 'INDEFINIDO');
-            instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', colorCode: 'WHITE' });
+            instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', color: 'WHITE' });
             expect(instance.composePartIdentifier()).toBe('-TEST-LABEL-' + ':' + 'WHITE');
         });
         it('isActive: get the part active field', () => {
-            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, colorCode: null });
+            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, color: null });
             expect(instance.isActive()).toBeFalse();
         });
         it('isExpandable: parts are not expandable', () => {
-            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, colorCode: null });
+            let instance = new Part({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, color: null });
             expect(instance.isExpandable()).toBeFalse();
         });
     });

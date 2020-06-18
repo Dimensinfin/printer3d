@@ -10,7 +10,7 @@ export class PartConstructor implements Constructor<Part> {
             label: input['label'],
             description: input['description'],
             material: input['material'],
-            colorCode: input['colorCode'],
+            color: input['color'],
             cost: input['cost'],
             price: input['price'],
             buildTime: input['buildTime'],

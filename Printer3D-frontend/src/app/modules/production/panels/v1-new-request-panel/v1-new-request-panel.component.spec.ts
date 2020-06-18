@@ -26,7 +26,7 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 // - DOMAIN
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { V1NewRequestPanelComponent } from './v1-new-request-panel.component';
-import { RequestForm } from '@domain/dto/RequestForm.dto';
+import { RequestForm } from '@domain/RequestForm.domain';
 import { Part } from '@domain/Part.domain';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 

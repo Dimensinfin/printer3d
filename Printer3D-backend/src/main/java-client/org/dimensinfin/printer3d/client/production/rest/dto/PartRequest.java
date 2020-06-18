@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.validation.constraints.NotNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class PartRequest implements Serializable {
 	private static final long serialVersionUID = 4781734125159009614L;
+	@NotNull(message = "Request part identifier 'partId' cannot be null.")
 	@SerializedName("partId")
 	private UUID partId;
 	@SerializedName("quantity")

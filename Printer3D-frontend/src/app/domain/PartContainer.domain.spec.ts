@@ -50,7 +50,7 @@ describe('CLASS PartContainer [Module: DOMAIN]', () => {
             expect(instance.isActive()).toBeTrue();
         });
         it('isExpandable: is ever expnadable', () => {
-            let instance = new PartContainer({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, colorCode: null });
+            let instance = new PartContainer({ id: '-ID-', label: '-TEST-LABEL-', stockLevel: 8, active: false, color: null });
             expect(instance.isExpandable()).toBeTrue();
         });
         it('addPart: check the code to add a new part', () => {

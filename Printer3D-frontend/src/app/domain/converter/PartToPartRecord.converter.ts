@@ -10,7 +10,7 @@ export class PartToPartRecordConverter implements Converter<Part, PartRecord>{
             etiqueta: input.label,
             descripcion: input.description,
             material: input.material,
-            color: input.colorCode,
+            color: input.color,
             coste: this.convertToMoney(input.cost),
             precio: this.convertToMoney(input.price),
             tiempo: this.convertToBuildTime(input.buildTime),

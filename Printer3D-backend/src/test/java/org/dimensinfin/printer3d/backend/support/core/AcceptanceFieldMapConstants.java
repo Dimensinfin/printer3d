@@ -5,7 +5,7 @@ public class AcceptanceFieldMapConstants {
 	public static final String LABEL = "label";
 	public static final String DESCRIPTION = "description";
 	public static final String MATERIAL = "material";
-	public static final String COLOR_CODE = "colorCode";
+	public static final String COLOR_CODE = "color";
 	public static final String BUILD_TIME = "buildTime";
 	public static final String COST = "cost";
 	public static final String PRICE = "price";

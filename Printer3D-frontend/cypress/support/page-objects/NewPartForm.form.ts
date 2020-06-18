@@ -78,10 +78,10 @@ export class NewPartForm extends IsolationService {
                         cy.log('[NewPartForm.validatePanel]> MATERIAL=' + value);
                         cy.get('new-part-dialog').get('form').find('.part-material').select(value)
                         break;
-                    case 'colorCode':
+                    case 'color':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
-                        cy.get('new-part-dialog').get('form').find('.part-colorcode').select(value)
+                        cy.get('new-part-dialog').get('form').find('.part-color').select(value)
                         break;
                     case 'buildTime':
                         value = this.decodeDataTableRow(row, key);
@@ -149,14 +149,14 @@ export class NewPartForm extends IsolationService {
                         value = this.decodeDataTableRow(row, key).toLowerCase();
                         cy.log('[NewPartForm.validatePanel]> MATERIAL=' + value);
                         cy.get('new-part-dialog').get('form').get('#material')
-                        .get('[ng-reflect-model="PLA"]')
-                        .should ( 'have.length', 1)
-                            // .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
+                            .get('[ng-reflect-model="PLA"]')
+                            .should('have.length', 1)
+                        // .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
                         break;
                     case 'color':
                         value = this.decodeDataTableRow(row, key);
                         cy.log('[NewPartForm.validatePanel]> COLOR_CODE=' + value);
-                        cy.get('new-part-dialog').get('form').get('#colorCode')
+                        cy.get('new-part-dialog').get('form').get('#color')
                             .should($el => expect($el.text().toLowerCase().trim()).to.equal(value));
                         break;
                 }

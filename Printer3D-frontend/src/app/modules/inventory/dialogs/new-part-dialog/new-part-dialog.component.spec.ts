@@ -91,7 +91,7 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             console.log('[ngOnInit.notPreviousPart: validate initialization flow]> part: ' + JSON.stringify(component.part));
             expect(component.part.id).toBeDefined('Empty Part should have id.');
             expect(component.part.material).toBe('PLA', 'The expected default material does not match.');
-            expect(component.part.colorCode).toBe('INDEFINIDO', 'The expected default color does not match.');
+            expect(component.part.color).toBe('INDEFINIDO', 'The expected default color does not match.');
         });
         it('ngOnInit.previousPart: validate initialization flow', async () => {
             component.part = new Part();

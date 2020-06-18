@@ -96,7 +96,7 @@ Then('form fields have the next values', function (dataTable) {
 
 Then('the Color dropdown has {int} values', function (options) {
     cy.get('new-part-dialog')
-        .find('select').get('#colorCode')
+        .find('select').get('#color')
         .find('option')
         .should('have.length', options);
 });

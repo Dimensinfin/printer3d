@@ -60,7 +60,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
     }
     public getColor(): string {
         const part = this.node as Part;
-        return part.colorCode;
+        return part.color;
     }
     public getCost(): string {
         const part = this.node as Part;

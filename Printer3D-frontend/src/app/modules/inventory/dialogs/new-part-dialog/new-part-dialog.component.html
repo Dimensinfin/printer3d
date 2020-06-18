@@ -36,7 +36,7 @@
                             <!-- C O L O R C O D E -->
                             <div class="column">
                                 <label class="dsf-form-label" for="label">Color<span style="color: red;">&nbsp;*</span></label>
-                                <select class="dsf-form-control part-colorcode" id="colorCode" [(ngModel)]="part.colorCode" required name="colorCode">
+                                <select class="dsf-form-control part-color" id="color" [(ngModel)]="part.color" required name="color">
                                     <option *ngFor="let color of colors"[value]="color">{{color}}</option>
                                 </select>
                             </div>

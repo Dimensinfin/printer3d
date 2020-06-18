@@ -40,7 +40,7 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
         "label": "Boquilla Ganesha",
         "description": "Boquilla Ganesha",
         "material": "PLA",
-        "colorCode": "GRIS",
+        "color": "GRIS",
         "buildTime": 90,
         "cost": 1.0,
         "price": 6.0,
@@ -113,7 +113,7 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
             component.node = testPart;
             expect(component.getMaterial()).toBe("PLA");
         });
-        it('getColor:success check the "colorCode" field when defined', () => {
+        it('getColor:success check the "color" field when defined', () => {
             component.node = testPart
             expect(component.getColor()).toBe("GRIS");
         });

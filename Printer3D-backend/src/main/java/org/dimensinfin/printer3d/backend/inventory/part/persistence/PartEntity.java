@@ -31,7 +31,7 @@ public class PartEntity {
 	@NotNull(message = "Part 'material' is mandatory.")
 	@Column(name = "material", nullable = false)
 	private String material;
-	@NotNull(message = "Part 'colorCode' is mandatory.")
+	@NotNull(message = "Part 'color' is mandatory.")
 	@Column(name = "color", nullable = false)
 	private String color;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
@@ -185,7 +185,7 @@ public class PartEntity {
 				.append( "label", this.label )
 				.append( "description", this.description )
 				.append( "material", this.material )
-				.append( "colorCode", this.color )
+				.append( "color", this.color )
 				.append( "buildTime", this.buildTime )
 				.append( "cost", this.cost )
 				.append( "price", this.price )

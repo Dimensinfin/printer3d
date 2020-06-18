@@ -20,7 +20,7 @@ public class Part {
 	private String description;
 	@NotNull(message = "Part 'material' is mandatory.")
 	private String material;
-	@NotNull(message = "Part 'colorCode' is mandatory.")
+	@NotNull(message = "Part 'color' is mandatory.")
 	private String color;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
 	private Integer buildTime;
@@ -164,7 +164,7 @@ public class Part {
 				.append( "label", this.label )
 				.append( "description", this.description )
 				.append( "material", this.material )
-				.append( "colorCode", this.color )
+				.append( "color", this.color )
 				.append( "buildTime", this.buildTime )
 				.append( "cost", this.cost )
 				.append( "price", this.price )
@@ -212,8 +212,8 @@ public class Part {
 			return this;
 		}
 
-		public Part.Builder withColor( final String colorCode ) {
-			this.onConstruction.color = Objects.requireNonNull( colorCode );
+		public Part.Builder withColor( final String color ) {
+			this.onConstruction.color = Objects.requireNonNull( color );
 			return this;
 		}
 

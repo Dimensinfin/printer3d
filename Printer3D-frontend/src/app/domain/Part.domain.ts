@@ -9,7 +9,7 @@ export class Part extends Node {
     public label: string;
     public description: string;
     public material: string = 'PLA'
-    public colorCode: string = 'INDEFINIDO';
+    public color: string = 'INDEFINIDO';
     public cost: number;
     public price: number;
     public buildTime: number;
@@ -24,14 +24,18 @@ export class Part extends Node {
         Object.assign(this, values);
         this.jsonClass = 'Part';
     }
-    
+
+    // - G E T T E R S   &   S E T T E R S
+    public getId(): string {
+        return this.id;
+    }
     public createNewId(): string {
         this.id = uuidv4();
         return this.id;
     }
     public composePartIdentifier(): string {
-        if (null != this.colorCode)
-            return this.label + ':' + this.colorCode;
+        if (null != this.color)
+            return this.label + ':' + this.color;
         else
             return this.label + ':' + 'INDEFINIDO';
     }

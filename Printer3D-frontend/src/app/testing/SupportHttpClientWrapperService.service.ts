@@ -179,24 +179,6 @@ export class SupportHttpClientWrapperService {
 
         console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
-            // case 'INVENTORY-UPDATEPART':
-            //     console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-            //     const inventoryUpdatePartResponseJson = {
-            //         "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
-            //         "label": "Covid-19 Key",
-            //         "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-            //         "material": "PLA",
-            //         "colorCode": "WHITE",
-            //         "buildTime": 15,
-            //         "cost": 0.85,
-            //         "price": 4,
-            //         "stockLevel": 3,
-            //         "stockAvailable": 4,
-            //         "imagePath": "https://ibb.co/3dGbsRh",
-            //         "modelPath": "pieza3.sft",
-            //         "active": true
-            //     }
-            //     return inventoryUpdatePartResponseJson;
             case 'INVENTORY-FINISHINGS':
                 console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 const inventoryFinishingsResponseJson = {
@@ -223,119 +205,6 @@ export class SupportHttpClientWrapperService {
                     ]
                 }
                 return inventoryFinishingsResponseJson;
-            // case 'INVENTORY-PARTS':
-            //     console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-            //     const inventoryPartsResponseJson = {
-            //         "jsonClass": "PartList",
-            //         "count": 7,
-            //         "parts": [{
-            //             "id": "24b470ce-82ba-4a6e-a673-fe0c34be9c5f",
-            //             "label": "Segunda pieza",
-            //             "description": "Segunda pieza",
-            //             "material": "PLA",
-            //             "colorCode": "ROSA-T",
-            //             "buildTime": 45,
-            //             "cost": 1.0,
-            //             "price": 2.0,
-            //             "stockLevel": 5,
-            //             "stockAvailable": 3,
-            //             "imagePath": null,
-            //             "modelPath": "Pieza2.STL",
-            //             "active": true
-            //         },
-            //         {
-            //             "id": "5749bf23-410d-4c94-aa81-ea3f2b4a408b",
-            //             "label": "Pieza de prueba",
-            //             "description": "Pieza de prueba",
-            //             "material": "PLA",
-            //             "colorCode": "INDEFINIDO",
-            //             "buildTime": 55,
-            //             "cost": 1.0,
-            //             "price": 2.0,
-            //             "stockLevel": 2,
-            //             "stockAvailable": 2,
-            //             "imagePath": null,
-            //             "modelPath": "Prueba.STL",
-            //             "active": true
-            //         },
-            //         {
-            //             "id": "a047ef17-fa0b-4df8-9f5e-c98de82dc4a2",
-            //             "label": "Pieza de Plata",
-            //             "description": "Pieza de Plata",
-            //             "material": "PLA",
-            //             "colorCode": "PLATA",
-            //             "buildTime": 15,
-            //             "cost": 0.9,
-            //             "price": 2.0,
-            //             "stockLevel": 10,
-            //             "stockAvailable": 8,
-            //             "imagePath": null,
-            //             "modelPath": null,
-            //             "active": true
-            //         },
-            //         {
-            //             "id": "5caaf805-f3dd-4dfe-9545-eaa3e6300da3",
-            //             "label": "Ganesha Boquilla - Principal",
-            //             "description": "Ganesha Boquilla - Principal",
-            //             "material": "PLA",
-            //             "colorCode": "GRIS",
-            //             "buildTime": 300,
-            //             "cost": 0.45,
-            //             "price": 3.0,
-            //             "stockLevel": 15,
-            //             "stockAvailable": 3,
-            //             "imagePath": null,
-            //             "modelPath": "",
-            //             "active": true
-            //         },
-            //         {
-            //             "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
-            //             "label": "Boquilla Ganesha",
-            //             "description": "Boquilla Ganesha",
-            //             "material": "PLA",
-            //             "colorCode": "GRIS",
-            //             "buildTime": 90,
-            //             "cost": 1.0,
-            //             "price": 6.0,
-            //             "stockLevel": 5,
-            //             "stockAvailable": 0,
-            //             "imagePath": null,
-            //             "modelPath": null,
-            //             "active": true
-            //         },
-            //         {
-            //             "id": "cb3f7075-e364-4c41-8d4b-a31a8f2039fe",
-            //             "label": "Boquilla Ganesha",
-            //             "description": "Boquilla Ganesha",
-            //             "material": "PLA",
-            //             "colorCode": "ROJO",
-            //             "buildTime": 90,
-            //             "cost": 1.0,
-            //             "price": 6.0,
-            //             "stockLevel": 5,
-            //             "stockAvailable": 0,
-            //             "imagePath": null,
-            //             "modelPath": null,
-            //             "active": true
-            //         },
-            //         {
-            //             "id": "ad3df8a8-d6a5-41b6-8c49-b0134aae7332",
-            //             "label": "Boquilla Ganesha",
-            //             "description": "Boquilla Ganesha",
-            //             "material": "PLA",
-            //             "colorCode": "PLATA",
-            //             "buildTime": 90,
-            //             "cost": 1.0,
-            //             "price": 6.0,
-            //             "stockLevel": 5,
-            //             "stockAvailable": 0,
-            //             "imagePath": null,
-            //             "modelPath": null,
-            //             "active": false
-            //         }
-            //         ]
-            //     }
-            //     return inventoryPartsResponseJson;
             case 'INVENTORY-COILS':
                 console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 return this.directAccessMockResource('inventory.coils');
@@ -359,7 +228,7 @@ export class SupportHttpClientWrapperService {
                             "label": "Covid-19 Key",
                             "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
                             "material": "PLA",
-                            "colorCode": "NARANJA-T",
+                            "color": "NARANJA-T",
                             "buildTime": 30,
                             "cost": 0.85,
                             "price": 3.0,
@@ -426,7 +295,7 @@ export class SupportHttpClientWrapperService {
                         "label": "Covid-19 Key",
                         "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
                         "material": "PLA",
-                        "colorCode": "NARANJA-T",
+                        "color": "NARANJA-T",
                         "buildTime": 30,
                         "cost": 0.85,
                         "price": 3.0,
