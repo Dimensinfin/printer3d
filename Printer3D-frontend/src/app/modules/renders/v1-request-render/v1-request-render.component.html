@@ -1,1 +1,34 @@
-<p>v1-request-render works!</p>
+<div #requestInstance *ngIf="getVariant() === '-OPEN-REQUESTS-'">
+    <div id="{{getUniqueId()}}" class="row cornered-panel" style="margin-bottom: 4px;">
+        <!-- <div cy-name="complete-request-button" class="complete-request" (click)="completeRequest()">
+            <img src="/assets/media/delete-white-36dp.svg">
+        </div> -->
+        <div class="field date-width">
+            <span cy-field-label="FECHA" class="label">FECHA</span><br>
+            <span cy-field-value="FECHA" cy-name="request-date" class="field-height request-date">{{getRequestDate() | date}}</span>
+        </div>
+        <div class="field label-width">
+            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
+            <span cy-field-value="ETIQUETA" cy-name="label" class="field-height request-label">{{getLabel()}}</span>
+        </div>
+        <div class="field part-count-width">
+            <span cy-field-label="PIEZAS" class="label">NRO. PIEZAS</span><br>
+            <span cy-field-value="PIEZAS" cy-name="part-count" class="field-height request-part-count">{{getPartCount()}}</span>
+        </div>
+        <div class="field amount-width">
+            <span cy-field-label="IMPORTE" class="label">IMPORTE</span><br>
+            <span cy-field-value="IMPORTE" cy-name="amount" class="field-height request-amount">{{getAmount()}}</span>
+        </div>
+    </div>
+    <div>
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg cy-field-mark="REQUEST" class="corner-mark completed-request" viewBox="0 0 100 100" [ngClass]="{'open-request': isOpen()}">
+            <path d="M100,100 L0,100 L100,0 L100,100" />
+        </svg>
+    </div>
+</div>

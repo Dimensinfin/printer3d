@@ -12,6 +12,12 @@ export class PartRequest {
         Object.assign(this, values);
     }
 
+    public getPartId(): string {
+        return this.partId;
+    }
+    public getQuantity(): number {
+        return this.quantity;
+    }
     public increaseCount(): number {
         this.quantity++;
         return this.quantity;

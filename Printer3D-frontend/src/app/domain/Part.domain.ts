@@ -29,6 +29,9 @@ export class Part extends Node {
     public getId(): string {
         return this.id;
     }
+    public getPrice(): number {
+        return this.price;
+    }
     public createNewId(): string {
         this.id = uuidv4();
         return this.id;

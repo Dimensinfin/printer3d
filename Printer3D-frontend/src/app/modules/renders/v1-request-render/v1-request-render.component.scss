@@ -1,0 +1,32 @@
+.completed-request {
+    fill: green;
+}
+
+.open-request {
+    fill: red;
+}
+
+.label-width {
+    min-width: 400px;
+}
+
+.corner-border {
+    position: absolute;
+    bottom: 4px;
+    right: 0px;
+    width: 15px;
+}
+
+.corner-clear {
+    position: absolute;
+    bottom: 3px;
+    right: -2px;
+    width: 16px;
+}
+
+.corner-mark {
+    position: absolute;
+    bottom: 4px;
+    right: 0px;
+    width: 9px;
+}
