@@ -17,15 +17,6 @@ Then('the V1OpenRequestsPage has {int} panels', function (panelCount: number) {
 // Then('the target panel has a title {string}', function (title: string) {
 //     cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
 // });
-Then('the target item has a field labeled {string} with value {string}', function (fieldLabel: string, fieldValue: string) {
-    cy.get('@target-item').within(($item) => {
-        cy.get('[cy-field-label="' + fieldLabel + '"]').contains(fieldLabel, { matchCase: false })
-    })
-    cy.get('@target-item').within(($item) => {
-        cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
-            .find('[cy-field-value="' + fieldLabel + '"]').contains(fieldValue, { matchCase: false })
-    })
-});
 Then('the target item has a mark {string}', function (markname: string) {
     cy.get('@target-item').parent().find('[cy-field-mark="REQUEST"]').get('.' + markname).should('exist')
 });

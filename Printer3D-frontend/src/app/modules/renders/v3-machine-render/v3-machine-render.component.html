@@ -12,11 +12,11 @@
             <span cy-field-value="MODEL" cy-name="machine-model" class="field-height">{{node.model}}</span>
         </div>
         <div class="field part-count-width">
-            <span cy-field-label="CHARACTERISTICS" class="label">CARACTERISTICAS</span><br>
-            <span cy-field-value="CHARACTERISTICS" cy-name="machine-characteristics" class="field-height">{{node.characteristics}}</span>
+            <span cy-field-label="CARACTERISTICAS" class="label">CARACTERISTICAS</span><br>
+            <span cy-field-value="CARACTERISTICAS" cy-name="machine-characteristics" class="field-height">{{node.characteristics}}</span>
         </div>
         <div class="field machine-part-width">
-            <span cy-field-label="CHARACTERISTICS" class="label">PIEZA EN PRODUCCION</span><br>
+            <span cy-field-label="PIEZA" class="label">PIEZA EN PRODUCCION</span><br>
             <div *ngIf="!target">
                 <div class="machine-job" droppable [dropScope]="'JOB'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-job">PIEZA</span>
                 </div>
