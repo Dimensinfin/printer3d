@@ -41,6 +41,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given the target machine the "v3-machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         When the target Job is dragged and dropped on the target Machine
         Then the target machine has one Job assigned with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        And the target Machine has "2" instances of "button"
         And the target item button with name "START-BUILD" has a label "Comenzar" and is "enabled"
         And the target item button with name "CLEAR" has a label "Clear" and is "enabled"
         And on the target panel there are one "v1-build-countdown-timer-panel"
@@ -73,3 +74,25 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Then the Job is started and sent to the background
         And there is a Notification panel
         And the v1-build-countdown-timer-panel item has started countdown
+        And the target Machine has "1" instances of "button"
+        And the target item button with name "CANCEL" has a label "Cancelar" and is "enabled"
+
+    @D3D13 @D3D13.06
+    Scenario: [D3D13.06]-If there is a Job running and the Cancel button is clicked the job is cancelled and the Machine returns to idle.
+        Given there is a click on Feature "/TRABAJOS PND."
+        Given the target panel is the panel named "jobs-list"
+        Given the target job the "v1-pending-job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        Given the target panel is the panel named "machines"
+        Given the target machine the "v3-machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        Given the target item the "v3-machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        When the target Job is dragged and dropped on the target Machine
+        When there is a click on the target item "START-BUILD" button
+        Then the Job is started and sent to the background
+        And there is a Notification panel
+        And the v1-build-countdown-timer-panel item has started countdown
+        And the target Machine has "1" instances of "button"
+        And the target item button with name "CANCEL" has a label "Cancelar" and is "enabled"
+        When there is a click on the target item "CANCEL" button
+        And there is a Notification panel
+        Then the target machine has no Job assigned
+        And the target Machine has no instances of "button"

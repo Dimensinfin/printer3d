@@ -62,6 +62,10 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public getPartLabel(): string {
         return this.target.getPart().label;
     }
+    public isRunning(): boolean {
+        if (this.state == 'RUNNING') return true;
+        else return false
+    }
 
     // -  E V E N T S
     /**

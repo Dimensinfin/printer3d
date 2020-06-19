@@ -39,3 +39,6 @@ Then('the v1-build-countdown-timer-panel item has started countdown', function (
     cy.wait(2000)
     cy.get('@target-item').find('v1-build-countdown-timer-panel').should('exist')
 });
+Then('the target Machine has {string} instances of {string}', function (elementCount: string, elementType: string) {
+    cy.get('@target-machine').find(elementType).should('have.length', elementCount)
+});
