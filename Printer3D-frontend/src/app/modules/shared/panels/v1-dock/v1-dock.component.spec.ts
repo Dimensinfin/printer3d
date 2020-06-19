@@ -59,7 +59,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
     });
 
     // - O N I N I A T I Z A T I O N   P H A S E
-    describe('On Initialization Phase', () => {
+    xdescribe('On Initialization Phase', () => {
         it('ngOnInit: validate initialization flow', async () => {
             await component.ngOnInit();
             const componentAsAny = component as any;
@@ -124,7 +124,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
             component.activateFeature(featureB);
             expect(componentAsAny.activeFeature).toBe(featureB);
         });
-        it('clean: clean the Dock configuration', () => {
+        xit('clean: clean the Dock configuration', () => {
             const componentAsAny = component as any;
             componentAsAny.configuredFeatures = []
             componentAsAny.configuredFeatures.push(new Feature());

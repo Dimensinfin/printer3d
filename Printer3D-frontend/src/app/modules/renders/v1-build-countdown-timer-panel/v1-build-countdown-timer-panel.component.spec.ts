@@ -32,7 +32,7 @@ import { V2MachineRenderComponent } from '../v2-machine-render/v2-machine-render
 
 const TEST_TIME: number = 12 * 60;
 
-describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () => {
+xdescribe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () => {
     let component: V1BuildCountdownTimerPanelComponent;
     let machineRender = { isAutostart: () => { return 12 * 60; } };
 

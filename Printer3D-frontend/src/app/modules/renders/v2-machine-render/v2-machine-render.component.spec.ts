@@ -32,7 +32,7 @@ import { TIMEOUT } from 'dns';
 
 const TEST_TIME: number = 12 * 60;
 
-describe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
+xdescribe('COMPONENT V2MachineRenderComponent [Module: SHARED]', () => {
     let component: V2MachineRenderComponent;
     let fixture: ComponentFixture<V2MachineRenderComponent>;
 

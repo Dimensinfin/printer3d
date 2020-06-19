@@ -47,10 +47,10 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
                 }))
                 .subscribe((response: PartListResponse) => {
                     // Show the list of Parts ordered by label/material/color
-                    if (!environment.production)
-                        setTimeout(() => { // This is only for development
+                    // if (!environment.production)
+                        // setTimeout(() => { // This is only for development
                             this.completeDowload(this.sortPartsByLabel(response.getParts())); // Notify the completion of the download.
-                        }, 1000);
+                        // }, 1000);
                 })
         )
     }

@@ -4,6 +4,7 @@ import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICE
 import { IsolationService } from '../../support/IsolationService.support';
+import { SupportService } from '../../support/SupportService.support';
 // - DOMAIN
 import { V1PagePath } from '../../support/page-objects/V1PagePath.panel';
 import { V1Dock } from '../../support/page-objects/V1Dock.panel';
@@ -11,14 +12,45 @@ import { V1Feature } from '../../support/page-objects/V1Feature.panel';
 import { GridRow } from '../../support/page-objects/GridRow.panel';
 
 const TITLE_VALIDATION = '3DPrinterManagement - UI';
+const supportService = new SupportService();
+
+// - N E W E S T   I M P L E M E N T A T I O N
+When('the page {string} is activated', function (name: string) {
+    const tag = supportService.translateTag(name) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('app-root').find(tag).as('target-page')
+        .should('exist')
+});
+Then('the page {string} has {int} panels', function (name: string, panelCount: number) {
+    const tag = supportService.translateTag(name) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('app-root').find(tag).find('.row').first()
+        .children()
+        .should('have.length', panelCount)
+});
+Given('the target panel has one or more {string}', function (renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('@target-panel').find(tag).should('have.length.greaterThan', 0)
+});
+Given('the target item the {string} with id {string}', function (renderName: string, recordId: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item')
+        .should('exist')
+});
+
+
+
+
+
+
+
+
 
 // - A C C E P T A N C E
 Given('the target panel is the panel named {string}', function (elementName: string) {
     cy.get('app-root').find('[cy-name="' + elementName + '"]').as('target-panel')
-        .should('exist')
-});
-Given('the target item the {string} with id {string}', function (itemType: string, recordId: string) {
-    cy.get('@target-panel').find(itemType).find('[id="' + recordId + '"]').as('target-item')
         .should('exist')
 });
 Then('on the target panel there is one {string}', function (panelType: string) {
@@ -64,6 +96,8 @@ Then('the target item button with name {string} has a label {string} and is {str
             .contains(buttonLabel, { matchCase: false })
 });
 
+
+
 // - R E V I E W
 Given('the application Printer3DManager', function () {
     new IsolationService().doLandingPage(); // Load the landing page.
@@ -99,9 +133,6 @@ Given('the target panel is the panel with variant {string}', function (variant: 
     cy.get('@target-page').find('.row')
         .find('[ng-reflect-variant="' + variant + '"]')
         .as('target-panel')
-});
-Given('the target panel has one or more {string}', function (renderName: string) {
-    cy.get('@target-panel').find(renderName).should('have.length.greaterThan', 0)
 });
 When('there is a click on the {string} button of target dialog', function (buttonId: string) {
     cy.get('@target-dialog').find('[id="' + buttonId + '"]').click('center')

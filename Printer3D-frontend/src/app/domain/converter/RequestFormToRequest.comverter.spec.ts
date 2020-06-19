@@ -11,7 +11,7 @@ import { Request } from '@domain/Request.domain';
 import { PartRequest } from '@domain/dto/PartRequest.dto';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
 
-fdescribe('CLASS RequestFormToRequestConverter [Module: CONVERTER]', () => {
+describe('CLASS RequestFormToRequestConverter [Module: CONVERTER]', () => {
     const testPartList: Part[] = [
         new Part({
             "id": "a047ef17-fa0b-4df8-9f5e-c98de82dc4a2",

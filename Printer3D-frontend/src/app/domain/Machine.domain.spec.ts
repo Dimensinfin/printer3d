@@ -46,7 +46,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
                 "jobInstallmentDate": "2020-06-01T22:05:00Z"
             });
             expect(instance).toBeDefined();
-            expect(instance.id).toBe("009ab011-03ad-4e84-9a88-25708d1cfd64");
+            expect(instance.getId()).toBe("009ab011-03ad-4e84-9a88-25708d1cfd64");
             expect(instance.label).toBe("Machine B");
             expect(instance.model).toBe("Creality 3D Ender 3 Pro");
             expect(instance.characteristics).toBe("Max size set to 200mm. Has adaptor for flexible plastic filament.");
@@ -70,7 +70,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
             }
         });
         expect(instance).toBeDefined();
-        expect(instance.id).toBe("e18aa442-19cd-4b08-8ed0-9f1917821fac");
+        expect(instance.getId()).toBe("e18aa442-19cd-4b08-8ed0-9f1917821fac");
         expect(instance.label).toBe("Ender 3 Pro - A");
         expect(instance.model).toBe("Creality 3D Ender 3 Pro");
         expect(instance.characteristics).toBe("Max size set to 200mm. Has adaptor for flexible plastic filament.\n");

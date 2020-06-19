@@ -64,9 +64,9 @@ export class V1PendingJobsPanelComponent extends AppPanelComponent implements On
                 }))
                 .subscribe((response: Job[]) => {
                     if (!environment.production)
-                        setTimeout(() => { // This is only for development
+                        // setTimeout(() => { // This is only for development
                             this.completeDowload(response); // Notify the completion of the download.
-                        }, 1000);
+                        // }, 1000);
                     // Process the response to extract the Machines to the render list
                     // this.jobs = response;
                 })

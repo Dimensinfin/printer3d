@@ -32,7 +32,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Then the V1NewRequestPage is activated
         Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
         Then the target panel has a "viewer-panel"
-        And the target panel has one or more "v1-part"
+        And the target panel has one or more "part"
 
     @D3D09 @D3D09.05
     Scenario: [D3D09.05]-The Parts visible on the New Request page have a defined list of fields.

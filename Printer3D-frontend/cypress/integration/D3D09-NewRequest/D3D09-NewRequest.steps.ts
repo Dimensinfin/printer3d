@@ -94,7 +94,7 @@ When('{string} is set on the target form field {string}', function (value: strin
     cy.get('@target-form').find('[name="' + fieldName + '"]').clear().type(value)
 });
 When('the target panel button with name {string} is clicked', function (buttonName: string) {
-    cy.get('@target-panel').find('[name="' + buttonName + '"]')
+    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
         .click('center')
 });
 Then('the Request is persisted at the backend', function () {

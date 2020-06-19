@@ -56,7 +56,7 @@ describe('SERVICE AppStoreService [Module: CORE]', () => {
     });
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Dock]', async () => {
+    xdescribe('Code Coverage Phase [Dock]', async () => {
         it('readDockConfiguration: get the observable to the Dock default configuration', () => {
             service.readDockConfiguration()
                 .subscribe((configuration) => {
