@@ -24,6 +24,12 @@ Given('the target item the {string} with id {string}', function (itemType: strin
 Then('on the target panel there is one {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType).should('have.length', 1)
 });
+Then('the target panel has a title {string}', function (title: string) {
+    cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
+});
+Then('on the target panel there are one or more {string}', function (panelType: string) {
+    cy.get('@target-panel').find(panelType).should('have.length.greaterThan', 0)
+});
 
 // - R E V I E W
 Given('the application Printer3DManager', function () {

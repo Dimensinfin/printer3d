@@ -52,9 +52,6 @@ Given('the target panel is the panel of type {string}', function (panelType: str
         .find(panelType)
         .as('target-panel')
 });
-Then('the target panel has a title {string}', function (title: string) {
-    cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
-});
 Then('the target panel has a field labeled {string} named {string} and not empty', function (fieldLabel: string, fieldName: string) {
     cy.get('@target-panel').find('.field').find('.label').contains(fieldLabel, { matchCase: false })
         .parent().as('target-field')

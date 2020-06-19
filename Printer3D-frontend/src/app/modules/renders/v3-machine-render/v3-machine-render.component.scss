@@ -1,0 +1,64 @@
+.cornered-panel {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.machine-image {
+    width: 170px;
+    height: 170px;
+    background-color: #343149;
+}
+
+.machine-label {
+    font-size: 24px;
+    font-weight: bold;
+    color: yellow;
+}
+
+.machine-job {
+    margin-top: 10px;
+    border: 2px dashed green;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    color: #808080;
+}
+
+.drag-over {
+    background-color: greenyellow;
+}
+
+.drag-hint {
+    border: 2px solid green;
+}
+
+.set-job {
+    border: 2px solid blue;
+    margin: 2px;
+}
+
+.machine-part-width {
+    margin-bottom: 10px;
+}
+
+.corner-border {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 15px;
+}
+
+.corner-clear {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 15px;
+}
+
+.corner-mark {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 9px;
+}

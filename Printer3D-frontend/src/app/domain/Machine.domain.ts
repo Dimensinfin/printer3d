@@ -2,7 +2,7 @@ import { Part } from './Part.domain';
 import { deprecate } from 'util';
 
 export class Machine {
-    public id: string;
+    private id: string;
     public label: string;
     public model: string;
     public characteristics: string;
@@ -16,6 +16,9 @@ export class Machine {
         Object.assign(this, values);
     }
     
+    public getId() : string{
+        return this.id;
+    }
     public isRunning(): boolean {
         if (null != this.buildRecord)
             if (this.buildRecord.state === 'RUNNING') return true;
