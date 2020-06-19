@@ -18,6 +18,7 @@ import { Machine } from '@domain/Machine.domain';
 import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 import { Job } from '@domain/Job.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
+import { Part } from '@domain/Part.domain';
 
 @Component({
     selector: 'v3-machine',
@@ -30,7 +31,6 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public self: V3MachineRenderComponent;
     public state: string = 'IDLE'
     public target: Job;
-    public buildTime: number = 0;
 
     constructor(
         protected isolationService: IsolationService,
@@ -57,7 +57,12 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
      */
     public getBuildTime(): number {
         console.log('>[V2MachineRenderComponent.getBuildTime]')
-        return this.buildTime;
+        if (null != this.target) {
+            if (this.target.getBuildSeconds() == 0)
+                this.state = 'COMPLETED'
+            return this.target.getBuildSeconds();
+        }
+        else return 0;
     }
     public getPartLabel(): string {
         return this.target.getPart().label;
@@ -79,18 +84,19 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     // - I N T E R A C T I O N S
     public onDrop(drop: any) {
         if (null != drop) {
-            const job: Job = drop.dragData as Job;
-            this.buildTime = job.getBuildSeconds()
+            const job: Job = new Job(drop.dragData);
             this.target = job;
         }
     }
     public startBuild(): void {
         console.log('>[V2MachineRenderComponent.startBuild]')
+        const part: Part = this.target.getPart()
+        const partId = part.getId()
         this.backendConnections.push(
-            this.backendService.apiMachinesStartBuild_v1(this.node.getId(), this.target.id,
+            this.backendService.apiMachinesStartBuild_v1(this.node.getId(), partId,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
-                        this.isolationService.infoNotification(
+                        this.isolationService.successNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] comenzada con éxito.',
                             '/COMENZAR CONSTRUCCCION'
                         )
@@ -106,7 +112,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         console.log('<[V2MachineRenderComponent.startBuild]')
     }
     public onClear(): void {
-        console.log('>[V3MachineRenderComponent.onClearClick]')
+        console.log('>[V3MachineRenderComponent.onClear]')
         this.backendConnections.push(
             this.backendService.apiMachinesCancelBuild_v1(this.node.getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
@@ -114,6 +120,26 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
                         this.isolationService.warningNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] cancelada.',
                             '/CANCELAR CONSTRUCCION'
+                        )
+                        return new Machine(entrydata);
+                    }))
+                .subscribe((resultMachine: Machine) => {
+                    this.sessionTimer.deactivate();
+                    this.node = resultMachine;
+                    this.target = null;
+                    this.state = 'IDLE'
+                })
+        );
+    }
+    public completeBuild(): void {
+        console.log('>[V3MachineRenderComponent.completeBuild]')
+        this.backendConnections.push(
+            this.backendService.apiMachinesCompleteBuild_v1(this.node.getId(),
+                new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
+                    .setTransformation((entrydata: any): Machine => {
+                        this.isolationService.warningNotification(
+                            'Construccion de pieza [' + this.getPartLabel() + '] completada con exito.',
+                            '/COMPLETAR/CONSTRUCCION'
                         )
                         return new Machine(entrydata);
                     }))
