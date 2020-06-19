@@ -42,3 +42,14 @@ Then('the v1-build-countdown-timer-panel item has started countdown', function (
 Then('the target Machine has {string} instances of {string}', function (elementCount: string, elementType: string) {
     cy.get('@target-machine').find(elementType).should('have.length', elementCount)
 });
+When('the build time is completed', function () {
+    cy.wait(6000)
+    // cy.clock(new Date().getMilliseconds())
+    // .tick((30 + 1) * 60 * 1000)
+    cy.tick((30 + 1) * 60 * 1000)
+    cy.wait(3000)
+});
+Given('a timed application Printer3DManager', function () {
+    cy.clock()
+    cy.visit('/')
+});

@@ -11,6 +11,7 @@ export class Job extends Node {
     constructor(values: Object = {}) {
         super();
         Object.assign(this, values);
+        this.transform();
         this.jsonClass = 'Job'
     }
 
@@ -22,5 +23,9 @@ export class Job extends Node {
     }
     public getBuildSeconds(): number {
         return this.getPart().buildTime * 60
+    }
+    private transform(): void {
+        if (null != this.part)
+            this.part = new Part(this.part)
     }
 }

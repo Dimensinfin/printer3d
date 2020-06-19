@@ -3,7 +3,7 @@
     "version": "v0.6.0",
     "backversion": "<0.6.0",
     "scripts": {
-        "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D13.03",
+        "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D13.07",
         "docker:start": "docker-compose -f ./support/docker/docker-compose.yml up & ",
         "docker:stop": "docker-compose -f ./support/docker/docker-compose.yml down ",
         "start:dev": "ng serve --progress --proxy-config proxy.conf.json --port 5100",

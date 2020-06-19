@@ -174,6 +174,17 @@ export class BackendService {
                 return response;
             }));
     }
+    public apiMachinesCompleteBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+        const request = this.APIV1 + '/inventory/machines/' + machineId + '/completebuild';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPUTCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiMachinesCancelBuild_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Machine;
+                return response;
+            }));
+    }
 
     // - P R O D U C T I O N
     public apiProductionGetJobs_v1(transformer: ResponseTransformer): Observable<Job[]> {
