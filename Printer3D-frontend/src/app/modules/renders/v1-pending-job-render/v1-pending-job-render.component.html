@@ -28,3 +28,33 @@
         <path d="M100,100 L0,100 L100,0 L100,100" fill="blue" />
     </svg>
 </div>
+<!-- B U I L D I N G   V A R I A N T -->
+<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getJob()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
+    <div class="row cornered-panel">
+        <div class="field label-width">
+            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
+            <span cy-field-value="ETIQUETA" cy-name="job-label" class="field-height job-label">{{getLabel()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>
+            <span cy-field-value="MATERIAL" class="part-material">{{getMaterial()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="COLOR" class="label">COLOR</span><br>
+            <span cy-field-value="COLOR" class="part-color">{{getColor()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="TIEMPO" class="label">TIEMPO CONSTRUC.</span><br>
+            <span cy-field-value="TIEMPO" name="buildtime" class="part-buildtime">{{getBuildTime()}}</span>
+        </div>
+    </div>
+    <svg class="corner-border" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+    </svg>
+    <svg class="corner-clear" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+    </svg>
+    <svg class="corner-mark" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="blue" />
+    </svg>
+</div>
