@@ -12,6 +12,20 @@ import { GridRow } from '../../support/page-objects/GridRow.panel';
 
 const TITLE_VALIDATION = '3DPrinterManagement - UI';
 
+// - A C C E P T A N C E
+Given('the target panel is the panel named {string}', function (elementName: string) {
+    cy.get('app-root').find('[cy-name="' + elementName + '"]').as('target-panel')
+        .should('exist')
+});
+Given('the target item the {string} with id {string}', function (itemType: string, recordId: string) {
+    cy.get('@target-panel').find(itemType).find('[id="' + recordId + '"]').as('target-item')
+        .should('exist')
+});
+Then('on the target panel there is one {string}', function (panelType: string) {
+    cy.get('@target-panel').find(panelType).should('have.length', 1)
+});
+
+// - R E V I E W
 Given('the application Printer3DManager', function () {
     new IsolationService().doLandingPage(); // Load the landing page.
     cy.title().should('eq', TITLE_VALIDATION);

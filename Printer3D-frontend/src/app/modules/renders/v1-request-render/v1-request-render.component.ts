@@ -24,13 +24,6 @@ import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-ne
     styleUrls: ['./v1-request-render.component.scss']
 })
 export class V1RequestRenderComponent extends NodeContainerRenderComponent {
-    // @ViewChild('requestInstance', { static: true }) requestInstance: ElementRef;
-
-    public identifier: string = 'kjqwhkjlfhkqwjhckjqjkchkqj'
-
-    // public ngOnInit() : void {
-    //     this.requestInstance.nativeElement.setAttribute('cy-id', this.identifier);
-    // }
     public getUniqueId(): string {
         // this.requestInstance.nativeElement.setAttribute('cy-id', this.identifier);
         const request = this.node as Request
@@ -61,5 +54,9 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
         this.container.enterSelected(this.node)
     }
-    public completeRequest() : void {}
+    public isCompleted(): boolean {
+        const request = this.node as Request
+        return (request.getState() == RequestState.COMPLETED)
+    }
+    public completeRequest(): void { }
 }
