@@ -97,7 +97,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Then the target machine has no Job assigned
         And the target Machine has no instances of "button"
 
-# WARNING. Steps that depen on time should be executed differently and all the steps have tim stop.
+# WARNING. Steps that depend on time should be executed differently and all the steps have tim stop.
     # @D3D13 @D3D13.07
     # Scenario: [D3D13.07]-If there is a Job running and the build time has completed and the job is completed the Machine is waiting job control. If the user clicks the Complete button the job is accounted.
     # Given a timed application Printer3DManager
@@ -120,3 +120,6 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
 
 # @D3D13 @D3D13.08
 # Scenario: [D3D13.08]-If there is a Job running and the build time has completed and the job is completed the Machine is waiting job control. If the user clicks the Cancel button is clicked the job is cancelled.
+
+# @D3D13 @D3D13.09
+# Scenario: [D3D13.09]-When the machine list is loaded and there was a running job with a build time greater than 0 then the machine should have only the Cancel button.

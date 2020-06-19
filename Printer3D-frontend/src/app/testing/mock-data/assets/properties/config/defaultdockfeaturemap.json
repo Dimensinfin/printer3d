@@ -1,17 +1,44 @@
-[{
-        "jsonClass": "Feature",
-        "label": "/Inventario",
-        "enabled": true,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "route": "/inventory"
-    },
-    {
-        "jsonClass": "Feature",
-        "label": "/Nueva Pieza",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "dialog": "NewPartDialog"
-    }
-]
+{
+    "count": 2,
+    "machines": [{
+            "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
+            "label": "Ender 3 Pro - B",
+            "model": "Creality 3D Ender 3 Pro",
+            "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+            "buildRecord": {
+                "state": "IDLE",
+                "partCopies": 1,
+                "part": null,
+                "jobInstallmentDate": null,
+                "remainingTime": 0
+            }
+        },
+        {
+            "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
+            "label": "Ender 3 Pro - A",
+            "model": "Creality 3D Ender 3 Pro",
+            "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+            "buildRecord": {
+                "state": "RUNNING",
+                "partCopies": 1,
+                "part": {
+                    "id": "f0d5b614-8938-470d-89bc-b37d267fef0f",
+                    "label": "Covid-19 Key v1.0",
+                    "description": "Llave para el confinamiento Covid. Evita tocar en botones y manillas.",
+                    "material": "PLA",
+                    "color": "AZUL TRANSPARENTE",
+                    "buildTime": 5,
+                    "cost": 0.65,
+                    "price": 1.0,
+                    "stockLevel": 3,
+                    "stockAvailable": 0,
+                    "imagePath": null,
+                    "modelPath": null,
+                    "active": true
+                },
+                "jobInstallmentDate": "2020-06-19T18:08:38.057369Z",
+                "remainingTime": 0
+            }
+        }
+    ]
+}

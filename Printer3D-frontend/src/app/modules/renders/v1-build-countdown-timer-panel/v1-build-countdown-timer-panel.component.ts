@@ -14,6 +14,7 @@ import { takeWhile } from 'rxjs/operators';
 import { startWith } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { V2MachineRenderComponent } from '../v2-machine-render/v2-machine-render.component';
+import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render.component';
 
 const K = 1000;
 const INTERVAL = K;
@@ -28,7 +29,7 @@ const toSeconds = (ms: number) =>
     styleUrls: ['./v1-build-countdown-timer-panel.component.scss']
 })
 export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
-    @Input() parent: V2MachineRenderComponent;
+    @Input() parent: V3MachineRenderComponent;
     @Input() time: number;
     public minutes: number;
     public seconds: number;
@@ -77,6 +78,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
     }
     private completeTimer(): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.completeTimer]> Timer completed');
+        this.parent.completeTime();
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
     private setTimer(durationInSeconds: number): void {

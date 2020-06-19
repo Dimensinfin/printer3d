@@ -5,6 +5,7 @@ import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 // - ROUTER
 import { Router } from '@angular/router';
 // - DOMAIN
@@ -31,6 +32,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public self: V3MachineRenderComponent;
     public state: string = 'IDLE'
     public target: Job;
+    private remainingTime: number = 0; // The time to run to complete the job in seconds.
 
     constructor(
         protected isolationService: IsolationService,
@@ -44,7 +46,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public ngOnInit(): void {
         console.log('>[V3MachineRenderComponent.ngOnInit]')
         this.self = this;
-        // if (null != this.node) this.loadBuildPart();
+        if (null != this.node) this.loadBuildPart();
         console.log('<[V3MachineRenderComponent.ngOnInit]')
     }
     public getUniqueId(): string {
@@ -57,12 +59,13 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
      */
     public getBuildTime(): number {
         console.log('>[V2MachineRenderComponent.getBuildTime]')
-        if (null != this.target) {
-            if (this.target.getBuildSeconds() == 0)
-                this.state = 'COMPLETED'
-            return this.target.getBuildSeconds();
-        }
-        else return 0;
+        return this.remainingTime;
+        // if (null != this.target)
+        //     return this.target.getRemainingSeconds();
+        // else return 0;
+    }
+    public completeTime(): void {
+        this.state = 'COMPLETED'
     }
     public getPartLabel(): string {
         return this.target.getPart().label;
@@ -70,6 +73,18 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public isRunning(): boolean {
         if (this.state == 'RUNNING') return true;
         else return false
+    }
+
+    private loadBuildPart(): void {
+        console.log('>[V2MachineRenderComponent.loadBuildPart]> Running: ' + this.node.isRunning())
+        if (this.node.isRunning()) {
+            this.target = new Job({
+                id: uuidv4(),
+                part: this.node.buildRecord.part
+            })
+            this.state = 'RUNNING'
+            this.remainingTime = this.node.buildRecord.remainingTime*60;
+        }
     }
 
     // -  E V E N T S
@@ -86,6 +101,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         if (null != drop) {
             const job: Job = new Job(drop.dragData);
             this.target = job;
+            this.remainingTime = job.getBuildSeconds();
         }
     }
     public startBuild(): void {
