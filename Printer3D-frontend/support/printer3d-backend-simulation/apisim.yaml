@@ -255,3 +255,21 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/production.openrequests.json"
+
+---
+
+simlet: production-request-close
+
+request:
+  - method: PUT
+  - where: uriPathPattern
+    matchesIgnoreCase: "/api/v1/production/requests/{requestId}/close"
+  
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.request.close.json"

@@ -4,26 +4,41 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { ElementRef } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
+// - ROUTER
+import { Router } from '@angular/router';
 // - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
 import { Request } from '@domain/Request.domain';
-import { EVariant, RequestState } from '@domain/interfaces/EPack.enumerated';
 import { BackendService } from '@app/services/backend.service';
-import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
-import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
+import { RequestState } from '@domain/interfaces/EPack.enumerated';
 
 @Component({
     selector: 'v1-request',
     templateUrl: './v1-request-render.component.html',
     styleUrls: ['./v1-request-render.component.scss']
 })
-export class V1RequestRenderComponent extends NodeContainerRenderComponent {
+export class V1RequestRenderComponent extends NodeContainerRenderComponent implements OnDestroy {
+    protected backendConnections: Subscription[] = [];
+
+    constructor(
+        protected router: Router,
+        protected isolationService: IsolationService,
+        protected backendService: BackendService) {
+        super();
+    }
+
+    /**
+     * Unsubscribe from any open subscription made to the backend.
+     */
+    public ngOnDestroy(): void {
+        this.backendConnections.forEach(element => {
+            element.unsubscribe();
+        });
+    }
+
     public getUniqueId(): string {
         // this.requestInstance.nativeElement.setAttribute('cy-id', this.identifier);
         const request = this.node as Request
@@ -58,5 +73,25 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         const request = this.node as Request
         return (request.getState() == RequestState.COMPLETED)
     }
-    public completeRequest(): void { }
+    /**
+     * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
+     */
+    public completeRequest(): void {
+        const request = this.node as Request
+        this.backendConnections.push(
+            this.backendService.apiRequestsClose_v1(request.getId(),
+                new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+                    .setTransformation((entrydata: any): Request => {
+                        const targetRequest: Request = new Request(entrydata);
+                        this.isolationService.successNotification(
+                            'Pedido [' + targetRequest.getLabel() + '] completado correctamente.',
+                            '/PRODUCCION/PEDIDO/OK');
+                        return targetRequest;
+                    })
+            )
+            .subscribe((request: Request)=>{
+                this.router.navigate(['/']);
+            })
+        )
+    }
 }

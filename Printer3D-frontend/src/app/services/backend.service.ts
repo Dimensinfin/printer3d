@@ -199,4 +199,15 @@ export class BackendService {
                 return response;
             }));
     }
+    public apiRequestsClose_v1(requestId: string,  transformer: ResponseTransformer): Observable<Request> {
+        const request = this.APIV1 + '/production/requests/' + requestId + '/close';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPUTCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiRequestsClose_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Request;
+                return response;
+            }));
+    }
 }
