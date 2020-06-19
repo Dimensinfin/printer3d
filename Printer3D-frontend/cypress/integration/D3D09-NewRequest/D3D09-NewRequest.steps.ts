@@ -103,11 +103,11 @@ Then('the Request is persisted at the backend', function () {
 Then('the active page is set to Dasboard', function () {
     cy.visit('/')
 });
-Then('the target panel button with name {string} has a label {string} and is {string}', function (
-    buttonName: string, buttonLabel: string, buttonState: string) {
-    if (buttonState == 'disabled')
-        cy.get('@target-panel').get('[disabled]')
-            .find('.button-label').contains(buttonLabel, { matchCase: false })
-    cy.get('@target-panel').get('[name="' + buttonName + '"]').as('target-button')
-    cy.get('@target-button').find('.button-label').contains(buttonLabel, { matchCase: false })
-});
+// Then('the target panel button with name {string} has a label {string} and is {string}', function (
+//     buttonName: string, buttonLabel: string, buttonState: string) {
+//     if (buttonState == 'disabled')
+//         cy.get('@target-panel').get('[disabled]')
+//             .find('.button-label').contains(buttonLabel, { matchCase: false })
+//     cy.get('@target-panel').get('[name="' + buttonName + '"]').as('target-button')
+//     cy.get('@target-button').find('.button-label').contains(buttonLabel, { matchCase: false })
+// });

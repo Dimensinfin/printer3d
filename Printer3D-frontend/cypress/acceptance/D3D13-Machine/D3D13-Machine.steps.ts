@@ -23,5 +23,19 @@ When('the target Job is dragged and dropped on the target Machine', function () 
 });
 Then('the target machine has one Job assigned with id {string}', function (recordId: string) {
     cy.get('@target-machine').find('v1-pending-job').get('[id="' + recordId + '"]')
-    .should('exist')
+        .should('exist')
+});
+When('there is a click on the target item {string} button', function (buttonName: string) {
+    cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
+        .click('center')
+});
+Then('the Job is started and sent to the background', function () {
+    cy.log('>[the Job is started and sent to the background]')
+});
+Then('the v1-build-countdown-timer-panel item has a value of {string}', function (timerValue: string) {
+    cy.get('@target-item').find('v1-build-countdown-timer-panel').contains(timerValue, { matchCase: false })
+});
+Then('the v1-build-countdown-timer-panel item has started countdown', function () {
+    cy.wait(2000)
+    cy.get('@target-item').find('v1-build-countdown-timer-panel').should('exist')
 });

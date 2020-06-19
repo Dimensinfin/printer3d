@@ -20,15 +20,6 @@ When('there is a click on the target panel {string} button', function (buttonNam
 Then('the Request is updated on the backend', function () {
     cy.log('>[the Request is updated on the backend]')
 });
-Then('the target panel button with name {string} has a label {string} and is {string}', function (
-    buttonName: string, buttonLabel: string, buttonState: string) {
-    if (buttonState == 'disabled')
-        cy.get('@target-panel').get('[disabled]')
-            .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
-    else
-        cy.get('@target-panel').get('[cy-name="' + buttonName + '"]')
-            .contains(buttonLabel, { matchCase: false })
-});
 Then('the active page is set to Dasboard', function () {
     cy.visit('/')
 });

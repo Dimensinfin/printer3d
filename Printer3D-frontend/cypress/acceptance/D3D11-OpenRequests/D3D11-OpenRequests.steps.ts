@@ -14,9 +14,6 @@ Then('the V1OpenRequestsPage has {int} panels', function (panelCount: number) {
         .children()
         .should('have.length', panelCount)
 });
-// Then('the target panel has a title {string}', function (title: string) {
-//     cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
-// });
 Then('the target item has a mark {string}', function (markname: string) {
     cy.get('@target-item').parent().find('[cy-field-mark="REQUEST"]').get('.' + markname).should('exist')
 });

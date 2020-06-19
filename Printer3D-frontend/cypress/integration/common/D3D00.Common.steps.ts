@@ -27,6 +27,9 @@ Then('on the target panel there is one {string}', function (panelType: string) {
 Then('the target panel has a title {string}', function (title: string) {
     cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
 });
+Then('on the target panel there are one {string}', function (panelType: string) {
+    cy.get('@target-panel').find(panelType).should('have.length', 1)
+});
 Then('on the target panel there are one or more {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType).should('have.length.greaterThan', 0)
 });
@@ -41,6 +44,24 @@ Then('the target item has a field labeled {string} with value {string}', functio
 });
 Then('the target Machine has no instances of {string}', function (panelName: string) {
     cy.get('@target-machine').find(panelName).should('not.exist')
+});
+Then('the target panel button with name {string} has a label {string} and is {string}', function (
+    buttonName: string, buttonLabel: string, buttonState: string) {
+    if (buttonState == 'disabled')
+        cy.get('@target-panel').get('[disabled]')
+            .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
+    else
+        cy.get('@target-panel').get('[cy-name="' + buttonName + '"]')
+            .contains(buttonLabel, { matchCase: false })
+});
+Then('the target item button with name {string} has a label {string} and is {string}', function (
+    buttonName: string, buttonLabel: string, buttonState: string) {
+    if (buttonState == 'disabled')
+        cy.get('@target-item').get('[disabled]')
+            .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
+    else
+        cy.get('@target-item').get('[cy-name="' + buttonName + '"]')
+            .contains(buttonLabel, { matchCase: false })
 });
 
 // - R E V I E W
