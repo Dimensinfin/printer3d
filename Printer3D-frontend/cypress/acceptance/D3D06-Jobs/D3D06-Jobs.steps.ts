@@ -185,9 +185,6 @@ Then('the target Machine has one instance of {string}', function (panelName: str
     cy.get('@target-machine').find(panelName).should('exist')
 });
 
-Then('the target Machine has no instances of {string}', function (panelName: string) {
-    cy.get('@target-machine').find(panelName).should('not.exist')
-});
 
 Then('the button {string} is not visible', function (buttonName: string) {
     let buttonReference: string='#start-button';

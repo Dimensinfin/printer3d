@@ -18,17 +18,17 @@
         <div class="field machine-part-width">
             <span cy-field-label="PIEZA" class="label">PIEZA EN PRODUCCION</span><br>
             <div *ngIf="!target">
-                <div class="machine-job" droppable [dropScope]="'JOB'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-job">PIEZA</span>
+                <div cy-name="drop-job" class="machine-job" droppable [dropScope]="'JOB'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-job">TRABAJO PENDIENTE</span>
                 </div>
             </div>
             <div *ngIf="target" class="set-job">
-                <v1-pending-job-render [node]="target"></v1-pending-job-render>
+                <v1-pending-job [node]="target"></v1-pending-job>
             </div>
         </div>
     </div>
-    <div class="column">
+    <div class="column" style="flex-grow: 1;" *ngIf="target">
         <v1-build-countdown-timer-panel [parent]="self" [time]="getBuildTime()"></v1-build-countdown-timer-panel>
-        <div cy-name="complete-request-button" class="float-top-right complete-width">
+        <div cy-name="start-button" class="start-width">
             <button cy-name="COMPLETAR" class="button save-button" (click)="completeRequest()">
                 <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Completar</span>
                 <svg class="button-right-border" viewBox="0 0 100 100">
@@ -53,9 +53,9 @@
                 </div>
             </button>
         </div>
-        <div cy-name="complete-request-button" class="float-top-right complete-width">
-            <button cy-name="COMPLETAR" class="button save-button" (click)="completeRequest()">
-                <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Completar</span>
+        <div cy-name="clear-button" class="start-width">
+            <button cy-name="CLEAR" class="button clear-button" (click)="completeRequest()">
+                <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Clear</span>
                 <svg class="button-right-border" viewBox="0 0 100 100">
                     <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                 </svg>
@@ -70,10 +70,10 @@
                 </svg>
                 <div >
                     <svg class="button-right-mark" viewBox="0 0 100 100">
-                        <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
                     </svg>
                     <svg class="button-left-mark" viewBox="0 0 100 100">
-                        <path d="M0,0 L0,100 L100,0 L0,0" fill="green" />
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="orangered" />
                     </svg>
                 </div>
             </button>

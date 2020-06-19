@@ -27,8 +27,8 @@ import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v
 })
 export class V1OpenRequestsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IPartProvider {
     @Input() page: V1OpenRequestsPageComponent;
-
     private parts: Part[] = []
+ 
     constructor(protected backendService: BackendService) {
         super();
     }

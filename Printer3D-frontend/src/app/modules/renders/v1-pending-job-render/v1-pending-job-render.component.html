@@ -1,22 +1,22 @@
 <!-- J O B - L I S T   V A R I A N T -->
-<!-- <div *ngIf="getVariant() === '-COIL-LIST-'"> -->
-<div class="row part-panel">
-    <!-- <img class="part-image" src="{{image}}"> -->
-    <div class="field">
-        <span class="label">LABEL</span><br>
-        <span name="label" class="part-label">{{node.label}}</span>
-    </div>
-    <div class="field">
-        <span class="label">MATERIAL</span><br>
-        <span name="material" class="part-material">{{node.material}}</span>
-    </div>
-    <div class="field">
-        <span class="label">COLOR</span><br>
-        <span name="color" class="part-color">{{node.color}}</span>
-    </div>
-    <div class="field">
-        <span class="label">BUILD TIME</span><br>
-        <span name="buildtime" class="part-buildtime">{{node.buildTime}}</span>
+<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getJob()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
+    <div class="row cornered-panel">
+        <div class="field label-width">
+            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
+            <span cy-field-value="ETIQUETA" cy-name="job-label" class="field-height job-label">{{getLabel()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>
+            <span cy-field-value="MATERIAL" class="part-material">{{getMaterial()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="COLOR" class="label">COLOR</span><br>
+            <span cy-field-value="COLOR" class="part-color">{{getColor()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="TIEMPO" class="label">TIEMPO CONSTRUC.</span><br>
+            <span cy-field-value="TIEMPO" name="buildtime" class="part-buildtime">{{getBuildTime()}}</span>
+        </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
@@ -28,4 +28,3 @@
         <path d="M100,100 L0,100 L100,0 L100,100" fill="blue" />
     </svg>
 </div>
-<!-- </div> -->

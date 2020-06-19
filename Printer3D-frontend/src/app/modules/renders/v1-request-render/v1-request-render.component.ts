@@ -40,7 +40,6 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
     }
 
     public getUniqueId(): string {
-        // this.requestInstance.nativeElement.setAttribute('cy-id', this.identifier);
         const request = this.node as Request
         return request.getId();
     }

@@ -73,7 +73,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
     public startBuild(): void {
         console.log('>[V2MachineRenderComponent.startBuild]')
         this.backendConnections.push(
-            this.backendService.apiMachinesStartBuild_v1(this.node.id, this.target.id,
+            this.backendService.apiMachinesStartBuild_v1(this.node.getId(), this.target.id,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.infoNotification(
@@ -94,7 +94,7 @@ export class V2MachineRenderComponent extends BackgroundEnabledComponent impleme
     public onClearClick(): void {
         console.log('>[V2MachineRenderComponent.onClearClick]')
         this.backendConnections.push(
-            this.backendService.apiMachinesCancelBuild_v1(this.node.id,
+            this.backendService.apiMachinesCancelBuild_v1(this.node.getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.warningNotification(

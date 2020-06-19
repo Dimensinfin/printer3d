@@ -39,6 +39,9 @@ Then('the target item has a field labeled {string} with value {string}', functio
             .find('[cy-field-value="' + fieldLabel + '"]').contains(fieldValue, { matchCase: false })
     })
 });
+Then('the target Machine has no instances of {string}', function (panelName: string) {
+    cy.get('@target-machine').find(panelName).should('not.exist')
+});
 
 // - R E V I E W
 Given('the application Printer3DManager', function () {
