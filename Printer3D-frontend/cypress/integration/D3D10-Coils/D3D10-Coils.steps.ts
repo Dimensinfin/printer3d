@@ -10,8 +10,8 @@ Then('the V2CoilListPage is activated', function () {
     cy.get('app-root').find('v2-coil-list-page').as('target-page')
         .should('exist')
 });
-Then('the V2CoilListPage has {int} panels', function (panelCount: number) {
-    cy.get('app-root').find('v2-coil-list-page').find('.row')
+Then('the V2CoilListPage has {string} panels', function (panelCount: number) {
+    cy.get('app-root').find('v2-coil-list-page')
         .children()
         .should('have.length', panelCount)
 });

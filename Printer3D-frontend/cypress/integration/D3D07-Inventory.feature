@@ -26,12 +26,12 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         And on the v1-part-container component there is a field named "DESCRIPCION" with class "partcontainer-description"
         And on the v1-part-container component there is a field named "TIEMPO" with class "partcontainer-buildTime"
 
-    @D3D07 @D3D07.03
-    Scenario: [D3D07.03]-When the user activates the Inventory Part List Page version 2 while the server download the data it shows a downloading panel.
-        Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        And one instance of ViewerPanel
-        Then there is a loading panel displaying "Descargando Lista de Piezas..."
+    # @D3D07 @D3D07.03
+    # Scenario: [D3D07.03]-When the user activates the Inventory Part List Page version 2 while the server download the data it shows a downloading panel.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     And one instance of ViewerPanel
+    #     Then there is a loading panel displaying "Descargando Lista de Piezas..."
 
     @D3D07 @D3D07.04
     Scenario: [D3D07.04]-The Part render is an expandable element so the node container shows a right arrow.

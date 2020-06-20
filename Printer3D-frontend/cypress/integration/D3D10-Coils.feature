@@ -18,7 +18,7 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
     Scenario: [D3D10.02]-The Coils page has a single panel that contains the list of Coils.
         Given there is a click on Feature "/ROLLOS"
         Then the V2CoilListPage is activated
-        And the V2CoilListPage has 1 panels
+        And the V2CoilListPage has "1" panels
         And the panel on page V2CoilListPage has variant "-COIL-LIST-"
         Given the target panel is the panel with variant "-COIL-LIST-"
         And the target panel has one or more "coil"

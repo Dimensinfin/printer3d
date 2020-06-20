@@ -44,7 +44,7 @@ Then('the {string} item has a value of {string}', function (renderName:string,ti
 // TODO - replace by a timed action so the new countdown value can be verified.
 Then('the build-countdown-timer item has started countdown', function () {
     cy.wait(2000)
-    cy.get('@target-item').find('v1-build-countdown-timer-panel').should('exist')
+    cy.get('@target-item').find('v1-build-countdown-timer').should('exist')
 });
 Then('the target Machine has {string} instances of {string}', function (elementCount: string, elementType: string) {
     cy.get('@target-machine').find(elementType).should('have.length', elementCount)

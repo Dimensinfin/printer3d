@@ -152,10 +152,10 @@ Then('the job is atached to the Machine persisted at the backend', function () {
     cy.log('need to verify that backed call is completed')
 });
 
-Then('one instance of v1-build-countdown-timer-panel', function () {
+Then('one instance of v1-build-countdown-timer', function () {
     cy.get('app-root').find('production-job-list-page')
         .find('v2-machines-panel')
-        .find('v1-build-countdown-timer-panel').should('exist')
+        .find('v1-build-countdown-timer').should('exist')
 });
 
 When('the target Machine has a Part on build', function () {
