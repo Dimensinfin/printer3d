@@ -28,7 +28,7 @@ import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     public appTitle: string = '3DPrinterManagement - UI';
     public appVersion: string = environment.appVersion;
-    public backendVersion: string = environment.backendVersion;
+    public backendVersion: string = 'backend';
     public self: AppComponent;
     private routedComponent: Refreshable;
 

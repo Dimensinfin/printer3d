@@ -55,8 +55,8 @@
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
-                                    "maximumError": "20kb"
+                                    "maximumWarning": "10kb",
+                                    "maximumError": "30kb"
                                 }
                             ]
                         },
@@ -65,21 +65,21 @@
                                 "replace": "src/environments/environment.ts",
                                 "with": "src/environments/environment.stage.ts"
                             }],
-                            "optimization": false,
+                            "optimization": true,
                             "outputHashing": "all",
-                            "sourceMap": true,
+                            "sourceMap": false,
                             "extractCss": true,
                             "namedChunks": true,
                             "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": false,
+                            "vendorChunk": true,
+                            "buildOptimizer": true,
                             "budgets": [{
                                     "type": "initial",
-                                    "maximumWarning": "2mb"
+                                    "maximumWarning": "3mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
+                                    "maximumWarning": "10kb",
                                     "maximumError": "100kb"
                                 }
                             ]

@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     showexceptions: true,
     copyright: '© 2020 Dimensinfin Industries',
     appTitle: '3DPrinterManagement - UI',
