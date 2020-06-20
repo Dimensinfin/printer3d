@@ -1,44 +1,41 @@
-package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
+package org.dimensinfin.printer3d.client.production.rest.dto;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "jobs", schema = "printer3d")
-public class JobEntity {
-	@Id
+import com.google.gson.annotations.SerializedName;
+
+public class JobHistoric {
 	@NotNull(message = "Machine unique UUID 'id' is a mandatory field and cannot be null.")
-	@Column(name = "id", updatable = false, nullable = false)
+	@SerializedName("id")
 	private UUID id;
 	@NotNull(message = "Job Part reference 'jobPartId' cannot be null.")
-	@Column(name = "job_part_id", nullable = false)
+	@SerializedName("jobPartId")
 	private UUID jobPartId;
 	@NotNull(message = "Job Part 'buildTime' is mandatory.")
-	@Column(name = "build_time", nullable = false)
+	@SerializedName("buildTime")
 	private Integer buildTime;
 	@NotNull(message = "Job Part 'cost' value is mandatory.")
-	@Column(name = "part_cost", nullable = false)
+	@SerializedName("cost")
 	private Float cost;
 	@NotNull(message = "Job Part 'price' value is mandatory.")
-	@Column(name = "part_price", nullable = false)
+	@SerializedName("price")
 	private Float price;
 	@Column(name = "part_copies", nullable = false)
+	@SerializedName("partCopies")
 	private Integer partCopies = 1;
 	@NotNull(message = "Job 'jobInstallmentDate' cannot be null.")
-	@Column(name = "job_installment_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+	@SerializedName("jobInstallmentDate")
 	private OffsetDateTime jobInstallmentDate;
 	@NotNull(message = "Job 'jobBuildDate' cannot be null.")
-	@Column(name = "job_build_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+	@SerializedName("jobBuildDate")
 	private OffsetDateTime jobBuildDate = OffsetDateTime.now();
 
 	// - C O N S T R U C T O R S
-	private JobEntity() {}
+	private JobHistoric() {}
 
 	// - G E T T E R S   &   S E T T E R S
 	public Integer getBuildTime() {
@@ -75,14 +72,14 @@ public class JobEntity {
 
 	// - B U I L D E R
 	public static class Builder {
-		private final JobEntity onConstruction;
+		private final JobHistoric onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new JobEntity();
+			this.onConstruction = new JobHistoric();
 		}
 
-		public JobEntity build() {
+		public JobHistoric build() {
 			this.onConstruction.id = UUID.randomUUID();
 			Objects.requireNonNull( this.onConstruction.jobPartId );
 			Objects.requireNonNull( this.onConstruction.buildTime );
@@ -94,37 +91,42 @@ public class JobEntity {
 			return this.onConstruction;
 		}
 
-		public JobEntity.Builder withBuildTime( final Integer buildTime ) {
+		public JobHistoric.Builder withBuildTime( final Integer buildTime ) {
 			this.onConstruction.buildTime = Objects.requireNonNull( buildTime );
 			return this;
 		}
 
-		public JobEntity.Builder withCost( final Float cost ) {
+		public JobHistoric.Builder withCost( final Float cost ) {
 			this.onConstruction.cost = Objects.requireNonNull( cost );
 			return this;
 		}
 
-		public JobEntity.Builder withJobBuildDate( final OffsetDateTime buildDate ) {
+		public JobHistoric.Builder withId( final UUID id ) {
+			this.onConstruction.id = Objects.requireNonNull( id );
+			return this;
+		}
+
+		public JobHistoric.Builder withJobBuildDate( final OffsetDateTime buildDate ) {
 			this.onConstruction.jobBuildDate = Objects.requireNonNull( buildDate );
 			return this;
 		}
 
-		public JobEntity.Builder withJobInstallmentDate( final OffsetDateTime installmentDate ) {
+		public JobHistoric.Builder withJobInstallmentDate( final OffsetDateTime installmentDate ) {
 			this.onConstruction.jobInstallmentDate = Objects.requireNonNull( installmentDate );
 			return this;
 		}
 
-		public JobEntity.Builder withPartCopies( final Integer copies ) {
+		public JobHistoric.Builder withPartCopies( final Integer copies ) {
 			if (null != copies) this.onConstruction.partCopies = copies;
 			return this;
 		}
 
-		public JobEntity.Builder withPartId( final UUID partId ) {
+		public JobHistoric.Builder withPartId( final UUID partId ) {
 			this.onConstruction.jobPartId = Objects.requireNonNull( partId );
 			return this;
 		}
 
-		public JobEntity.Builder withPrice( final Float price ) {
+		public JobHistoric.Builder withPrice( final Float price ) {
 			this.onConstruction.price = Objects.requireNonNull( price );
 			return this;
 		}

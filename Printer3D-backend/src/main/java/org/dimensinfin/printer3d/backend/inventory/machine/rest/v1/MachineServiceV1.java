@@ -113,14 +113,19 @@ public class MachineServiceV1 {
 			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineOpt.get().getCurrentJobPartId() ) );
 		return new MachineEntityToMachineConverter( new PartEntityToPartConverter().convert( jobPartOpt.get() ) )
 				.convert(
-						this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( startBuildRequest.getPartId() )
-						)
+						this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( startBuildRequest.getPartId() ) )
 				);
 	}
 
 	private void recordJob( final MachineEntity machineEntity ) {
+		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
+		if (jobPartOpt.isEmpty())
+			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
 		final JobEntity job = new JobEntity.Builder()
 				.withPartId( machineEntity.getCurrentJobPartId() )
+				.withBuildTime( jobPartOpt.get().getBuildTime() )
+				.withCost( jobPartOpt.get().getCost() )
+				.withPrice( jobPartOpt.get().getPrice() )
 				.withPartCopies( machineEntity.getCurrentPartInstances() )
 				.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
 				.withJobBuildDate( OffsetDateTime.now() )

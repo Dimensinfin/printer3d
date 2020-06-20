@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_6_1_001_printer3d_alter_jobs_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: jobs
+            columns:
+              - column:
+                  name: build_time
+                  type: int
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: part_cost
+                  type: float
+                  constraints:
+                    nullable: true
+                    updatable: true
+              - column:
+                  name: part_price
+                  type: float
+                  constraints:
+                    nullable: true
+                    updatable: true

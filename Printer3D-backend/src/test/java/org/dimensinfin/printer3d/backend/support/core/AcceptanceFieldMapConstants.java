@@ -26,4 +26,6 @@ public class AcceptanceFieldMapConstants {
 	public static final String REQUEST_DATE = "requestDate";
 	public static final String STATE = "state";
 	public static final String PART_REQUEST_LIST = "partRequestList";
+	public static final String PART_COPIES = "partCopies";
+	public static final String JOB_INSTALLMENT_DATE = "jobInstallmentDate";
 }

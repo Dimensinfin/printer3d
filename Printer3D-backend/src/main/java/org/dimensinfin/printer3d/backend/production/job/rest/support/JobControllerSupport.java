@@ -1,0 +1,80 @@
+package org.dimensinfin.printer3d.backend.production.job.rest.support;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
+import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.JobRepository;
+import org.dimensinfin.printer3d.backend.production.job.converter.JobEntityToJobConverter;
+import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
+
+@Profile({ "local", "acceptance", "test" })
+@RestController
+@CrossOrigin
+@Validated
+@RequestMapping("/api/v1")
+@Service
+public class JobControllerSupport {
+	private final JobRepository jobRepository;
+
+	// - C O N S T R U C T O R S
+	public JobControllerSupport( final JobRepository jobRepository ) {
+		this.jobRepository = Objects.requireNonNull( jobRepository );
+	}
+
+	// - G E T T E R S   &   S E T T E R S
+	@GetMapping(path = "/production/jobs/completed",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<List<JobHistoric>> getCompletedJobs() {
+		return new ResponseEntity<>( this.getCompletedJobsService(), HttpStatus.OK );
+	}
+
+	private List<JobHistoric> getCompletedJobsService() {
+		LogWrapperLocal.enter();
+		try {
+			return this.jobRepository.findAll()
+					.stream()
+					.map( ( jobEntity ) -> new JobEntityToJobConverter().convert( jobEntity ) )
+					.collect( Collectors.toList() );
+		} finally {
+			LogWrapperLocal.exit();
+		}
+	}
+
+	@GetMapping(path = "/production/jobs/delete/all",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<CountResponse> deleteAllJobs() {
+		return new ResponseEntity<>( this.deleteAllJobsService(), HttpStatus.OK );
+	}
+
+	protected CountResponse deleteAllJobsService() {
+		try {
+			final long recordCount = this.jobRepository.count();
+			this.jobRepository.deleteAll();
+			return new CountResponse.Builder()
+					.withRecords( (int) recordCount )
+					.build();
+		} catch (final RuntimeException sqle) {
+			LogWrapper.error( sqle );
+			throw new RepositoryException( ErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
+		}
+	}
+}

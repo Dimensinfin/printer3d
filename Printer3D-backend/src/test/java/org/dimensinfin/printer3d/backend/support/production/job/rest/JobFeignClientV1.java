@@ -36,5 +36,4 @@ public class JobFeignClientV1 extends CommonFeignClient {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
-
 }
