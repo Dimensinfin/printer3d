@@ -17,20 +17,24 @@
 .corner-border {
     position: absolute;
     bottom: 0px;
-    right: 29px;
-    width: 18px;
+    right: -2px;
+    width: 16px;
 }
 
 .corner-clear {
     position: absolute;
     bottom: 0px;
-    right: 29px;
-    width: 16px;
+    right: -2px;
+    width: 14px;
 }
 
 .corner-mark {
     position: absolute;
     bottom: 0px;
-    right: 29px;
-    width: 11px;
+    right: -2px;
+    width: 10px;
+}
+
+.corner-blue {
+    fill: blueviolet;
 }
