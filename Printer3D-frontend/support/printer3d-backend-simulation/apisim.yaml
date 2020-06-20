@@ -152,7 +152,25 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.machines.cancelbuild.json"
-    
+
+---
+
+simlet: inventory-machines-complete-build
+
+request:
+  - method: PUT
+  - where: uriPathPattern
+    matchesIgnoreCase: "/api/v1/inventory/machines/{machineId}/completebuild"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.machines.cancelbuild.json"
+
 ---
 
 simlet: inventory-machines-start-build

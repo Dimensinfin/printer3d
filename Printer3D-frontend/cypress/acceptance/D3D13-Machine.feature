@@ -96,30 +96,3 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And there is a Notification panel
         Then the target machine has no Job assigned
         And the target Machine has no instances of "button"
-
-# WARNING. Steps that depend on time should be executed differently and all the steps have tim stop.
-    # @D3D13 @D3D13.07
-    # Scenario: [D3D13.07]-If there is a Job running and the build time has completed and the job is completed the Machine is waiting job control. If the user clicks the Complete button the job is accounted.
-    # Given a timed application Printer3DManager
-    #     Given there is a click on Feature "/TRABAJOS PND."
-    #     Given the target panel is the panel named "jobs-list"
-    #     Given the target job the "v1-pending-job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-    #     Given the target panel is the panel named "machines"
-    #     Given the target machine the "v3-machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-    #     Given the target item the "v3-machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-    #     When the target Job is dragged and dropped on the target Machine
-    #     When there is a click on the target item "START-BUILD" button
-    #     Then the Job is started and sent to the background
-    #     And there is a Notification panel
-    #     When the build time is completed
-    #     Then the v1-build-countdown-timer-panel item has a value of "00:00"
-    #     And the target Machine has "2" instances of "button"
-    #     And the target item button with name "COMPLETE" has a label "Completar" and is "enabled"
-    #     And the target item button with name "CLEAR" has a label "Cancelar" and is "enabled"
-
-
-# @D3D13 @D3D13.08
-# Scenario: [D3D13.08]-If there is a Job running and the build time has completed and the job is completed the Machine is waiting job control. If the user clicks the Cancel button is clicked the job is cancelled.
-
-# @D3D13 @D3D13.09
-# Scenario: [D3D13.09]-When the machine list is loaded and there was a running job with a build time greater than 0 then the machine should have only the Cancel button.

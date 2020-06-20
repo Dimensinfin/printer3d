@@ -133,15 +133,15 @@ jobs:
   stage-to-heroku:
     docker:
       - image: circleci/node:12.16.3-browsers
-        environment:
-          HEROKU_FRONTEND_APP_NAME: printer3d-frontend-stage
-          HEROKU_FRONTEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
-      - image: circleci/openjdk:11-jdk
-        environment:
-          _JAVA_OPTIONS: "-Xmx3g"
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-          HEROKU_BACKEND_APP_NAME: printer3d-backend-stage
-          HEROKU_BACKEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
+        # environment:
+    #       HEROKU_FRONTEND_APP_NAME: printer3d-frontend-stage
+    #       HEROKU_FRONTEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
+    # #   - image: circleci/openjdk:11-jdk
+    # #     environment:
+    #     #   _JAVA_OPTIONS: "-Xmx3g"
+    #     #   GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+    #       HEROKU_BACKEND_APP_NAME: printer3d-backend-stage
+    #       HEROKU_BACKEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
     steps:
       - checkout
       - run:
@@ -161,20 +161,20 @@ jobs:
           name: BACKEND - Deploy Master to Heroku
           working_directory: Printer3D-backend
           environment:
-            _JAVA_OPTIONS: "-Xmx3g"
-            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+            # _JAVA_OPTIONS: "-Xmx3g"
+            # GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
             HEROKU_BACKEND_APP_NAME: printer3d-backend-stage
             HEROKU_BACKEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
           command: |
             git push https://heroku:$HEROKU_BACKEND_API_KEY@git.heroku.com/$HEROKU_BACKEND_APP_NAME.git master --force
-      - run:
-          name: FRONTEND - Generate deploy code for Stage
-          working_directory: Printer3D-frontend
-          command: |
-            node -v
-            sed -i '/bahmutov.add/d' package.json
-            npm install
-            npm run build:prod
+    #   - run:
+    #       name: FRONTEND - Generate deploy code for Stage
+    #       working_directory: Printer3D-frontend
+    #       command: |
+    #         node -v
+    #         sed -i '/bahmutov.add/d' package.json
+    #         npm install
+    #         npm run build:prod
       - run:
           name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend
@@ -185,12 +185,10 @@ jobs:
             rm -rf .gitignore
             git add *.*
             git add config
-            git add dist
             git add src
-            # git add dist
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
-          name: Deploy Master to Heroku
+          name: FRONTEND - Deploy Master to Heroku
           environment:
             HEROKU_FRONTEND_APP_NAME: printer3d-frontend-stage
             HEROKU_FRONTEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
