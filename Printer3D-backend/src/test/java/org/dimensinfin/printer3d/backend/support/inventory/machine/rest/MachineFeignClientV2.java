@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
+import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;

@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import com.google.gson.GsonBuilder;
 import org.springframework.stereotype.Component;
 
+import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
+
 import retrofit2.Converter;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,10 +23,10 @@ public class CommonFeignClient {
 							.registerTypeAdapter( LocalDateTime.class, new GSONLocalDateTimeDeserializer() )
 							.registerTypeAdapter( OffsetDateTime.class, new GSONOffsetDateTimeDeserializer() )
 							.create() );
-	protected final AcceptanceTargetConfig acceptanceTargetConfig;
+	protected final ITargetConfiguration acceptanceTargetConfig;
 
 	// - C O N S T R U C T O R S
-	public CommonFeignClient( @NotNull final AcceptanceTargetConfig acceptanceTargetConfig ) {
+	public CommonFeignClient( @NotNull final ITargetConfiguration acceptanceTargetConfig ) {
 		this.acceptanceTargetConfig = Objects.requireNonNull( acceptanceTargetConfig );
 	}
 }

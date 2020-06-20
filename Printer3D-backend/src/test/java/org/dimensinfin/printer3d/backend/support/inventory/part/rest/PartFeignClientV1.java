@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
-import org.dimensinfin.printer3d.backend.support.core.AcceptanceTargetConfig;
+import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import retrofit2.Response;
@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
 
 public class PartFeignClientV1 extends CommonFeignClient {
 	// - C O N S T R U C T O R S
-	public PartFeignClientV1( final @NotNull AcceptanceTargetConfig acceptanceTargetConfig ) {
+	public PartFeignClientV1( final @NotNull ITargetConfiguration acceptanceTargetConfig ) {
 		super( acceptanceTargetConfig );
 	}
 
