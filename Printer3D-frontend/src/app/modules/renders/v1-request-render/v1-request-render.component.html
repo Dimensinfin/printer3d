@@ -74,6 +74,12 @@
             <span cy-field-label="IMPORTE" class="label">IMPORTE</span><br>
             <span cy-field-value="IMPORTE" cy-name="amount" class="field-height request-amount">{{getAmount()}}</span>
         </div>
+        <div class="field amount-width">
+            <span cy-field-label="IMPORTE" class="label">PIEZAS SOLICITADAS</span>
+            <div *ngFor="let part of getRequestParts()">
+                <v1-part [node]="part" [variant]="'-DETAIL4REQUEST-'"></v1-part>
+            </div>
+        </div>
         <svg class="corner-border" viewBox="0 0 100 100">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
         </svg>

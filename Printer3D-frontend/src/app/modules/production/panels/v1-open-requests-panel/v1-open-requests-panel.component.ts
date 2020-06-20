@@ -16,6 +16,7 @@ import { Part } from '@domain/Part.domain';
 import { Request } from '@domain/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
+import { DetailedRequest } from '@domain/DetailedRequest.domain';
 /**
  * To display some of the Request details we should have access to the list of Parts because the Request List from the backend will not have the Part details but only the Part identifier.
  * The Process should lookup on the Parts list for the Part instance.
@@ -28,7 +29,7 @@ import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v
 export class V1OpenRequestsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IPartProvider {
     @Input() page: V1OpenRequestsPageComponent;
     private parts: Part[] = []
- 
+
     constructor(protected backendService: BackendService) {
         super();
     }
@@ -93,11 +94,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
                     return requestList;
                 }))
                 .subscribe((requestList: Request[]) => {
-                    // Show the list of Parts ordered by label/material/color
-                    if (!environment.production)
-                        setTimeout(() => { // This is only for development
-                            this.completeDowload(requestList); // Notify the completion of the download.
-                        }, 1000);
+                    this.completeDowload(requestList); // Notify the completion of the download.
                 })
         )
     }

@@ -14,6 +14,8 @@ import { BackendService } from '@app/services/backend.service';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
+import { Part } from '@domain/Part.domain';
+import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 
 @Component({
     selector: 'v1-request',
@@ -29,7 +31,6 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
         protected backendService: BackendService) {
         super();
     }
-
     /**
      * Unsubscribe from any open subscription made to the backend.
      */
@@ -72,6 +73,12 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
         const request = this.node as Request
         return (request.getState() == RequestState.COMPLETED)
     }
+
+    // - I N T E R A C T I O N S
+    public getRequestParts(): Part[] {
+        const request = this.node as Request
+        return request.getParts()
+    }
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
      */
@@ -88,9 +95,9 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
                         return targetRequest;
                     })
             )
-            .subscribe((request: Request)=>{
-                this.router.navigate(['/']);
-            })
+                .subscribe((request: Request) => {
+                    this.router.navigate(['/']);
+                })
         )
     }
 }

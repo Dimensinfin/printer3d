@@ -179,3 +179,21 @@
         </svg>
     </div>
 </div>
+<div *ngIf="getVariant() === '-DETAIL4REQUEST-'" class="row">
+    <div class="field label-width">
+        <span class="label">NRO. PIEZAS</span><br>
+        <span name="label" class="field-height part-material">{{getCount()}}</span>
+    </div>
+    <div class="field label-width">
+        <span class="label">ETIQUETA</span><br>
+        <span name="label" class="field-height part-material">{{getLabel()}}</span>
+    </div>
+    <div class="field material-width">
+        <span class="label">MATERIAL</span><br>
+        <span name="material" class="field-height part-material">{{getMaterial()}}</span>
+    </div>
+    <div class="field color-width">
+        <span class="label">COLOR</span><br>
+        <span name="color" class="field-height part-color">{{getColor()}}</span>
+    </div>
+</div>

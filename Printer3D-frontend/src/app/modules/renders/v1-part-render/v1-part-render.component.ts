@@ -50,6 +50,10 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
         });
     }
 
+    public getCount(): number {
+        const part = this.node as any;
+        return part.count;
+    }
     public getLabel(): string {
         const part = this.node as Part;
         return part.label;

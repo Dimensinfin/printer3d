@@ -11,7 +11,7 @@ import { Request } from '@domain/Request.domain';
 })
 export class V1RequestDetailPanelComponent {
     public selectedRequest: Request;
-    public container : any;
+    public container : V1RequestDetailPanelComponent;
 
     public cleanSelectedRequest(): void {
         this.selectedRequest = undefined;
