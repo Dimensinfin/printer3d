@@ -21,9 +21,15 @@
     flex-grow: 3;
 }
 
-.part-panel {
-    border: 1px solid white;
+// .part-panel {
+//     border: 1px solid white;
+//     position: relative;
+// }
+.button-container {
     position: relative;
+    width: 150px;
+    height: 50px;
+    margin-left: 15px;
 }
 
 .corner-border {
