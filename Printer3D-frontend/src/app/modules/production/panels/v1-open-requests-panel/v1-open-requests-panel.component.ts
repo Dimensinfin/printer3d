@@ -16,7 +16,6 @@ import { Part } from '@domain/Part.domain';
 import { Request } from '@domain/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
-import { DetailedRequest } from '@domain/DetailedRequest.domain';
 /**
  * To display some of the Request details we should have access to the list of Parts because the Request List from the backend will not have the Part details but only the Part identifier.
  * The Process should lookup on the Parts list for the Part instance.
