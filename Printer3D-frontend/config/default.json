@@ -1,7 +1,7 @@
 {
     "settings": {
         "appname": "3DPrinterManagement - UI",
-        "version": "v0.6.0",
+        "version": "v0.6.1",
         "port": 5150,
         "applicationhome": "/dist/Printer3D-frontend",
         "backendproxy": "https://printer3d-backend-stage.herokuapp.com/",

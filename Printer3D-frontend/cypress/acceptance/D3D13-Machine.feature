@@ -45,7 +45,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And the target item button with name "START-BUILD" has a label "Comenzar" and is "enabled"
         And the target item button with name "CLEAR" has a label "Clear" and is "enabled"
         And on the target panel there are one or more "v1-build-countdown-timer-panel"
-        Then the v1-build-countdown-timer-panel item has a value of "30:00"
+        Then the "build-countdown-timer" item has a value of "30:00"
 
     @D3D13 @D3D13.04
     Scenario: [D3D13.04]-Once Part is dropped and the buttons are visible, if the user clicks the Clear button the job is cancelled and the Part is removed from the slot.
@@ -73,7 +73,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         When there is a click on the target item "START-BUILD" button
         Then the Job is started and sent to the background
         And there is a Notification panel
-        And the v1-build-countdown-timer-panel item has started countdown
+        And the build-countdown-timer item has started countdown
         And the target Machine has "1" instances of "button"
         And the target item button with name "CANCEL" has a label "Cancelar" and is "enabled"
 

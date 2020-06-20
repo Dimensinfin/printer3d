@@ -1,6 +1,6 @@
 {
     "name": "printer3d-frontend",
-    "version": "v0.6.0",
+    "version": "v0.6.1",
     "backversion": "<0.6.0",
     "scripts": {
         "cucumber": "bash rm ./cypress/scree* && $(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D09.12",

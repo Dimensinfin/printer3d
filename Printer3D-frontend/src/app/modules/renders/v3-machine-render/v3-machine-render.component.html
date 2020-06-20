@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="column" style="flex-grow: 1;" *ngIf="target">
-        <v1-build-countdown-timer-panel [parent]="self" [time]="getBuildTime()"></v1-build-countdown-timer-panel>
+        <v1-build-countdown-timer [parent]="self" [time]="getBuildTime()"></v1-build-countdown-timer>
         <div cy-name="start-button" class="start-width" *ngIf="state=='IDLE'">
             <div style="position: relative;">
                 <button cy-name="START-BUILD" class="button ok-button" (click)="startBuild()">

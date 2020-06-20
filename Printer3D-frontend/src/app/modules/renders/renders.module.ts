@@ -9,7 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 // - COMPONENTS
 import { V1PendingJobRenderComponent } from './v1-pending-job-render/v1-pending-job-render.component';
 // import { V1MachineRenderComponent } from './v1-machine-render/v1-machine-render.component';
-import { V2MachineRenderComponent } from './v2-machine-render/v2-machine-render.component';
+// import { V2MachineRenderComponent } from './v2-machine-render/v2-machine-render.component';
 import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 import { V1FeatureRenderComponent } from './v1-feature-render/v1-feature-render.component';
 import { NodeContainerRenderComponent } from './node-container-render/node-container-render.component';
@@ -30,7 +30,7 @@ import { V3MachineRenderComponent } from './v3-machine-render/v3-machine-render.
     declarations: [
         V1PendingJobRenderComponent,
         // V1MachineRenderComponent,
-        V2MachineRenderComponent,
+        // V2MachineRenderComponent,
         V1BuildCountdownTimerPanelComponent,
         V1FeatureRenderComponent,
         NodeContainerRenderComponent,
@@ -44,7 +44,7 @@ import { V3MachineRenderComponent } from './v3-machine-render/v3-machine-render.
     exports: [
         V1PendingJobRenderComponent,
         // V1MachineRenderComponent,
-        V2MachineRenderComponent,
+        // V2MachineRenderComponent,
         V1BuildCountdownTimerPanelComponent,
         V1FeatureRenderComponent,
         NodeContainerRenderComponent,

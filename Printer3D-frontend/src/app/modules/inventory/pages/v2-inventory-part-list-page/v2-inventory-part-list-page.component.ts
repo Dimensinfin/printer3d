@@ -61,10 +61,10 @@ export class V2PartListPageComponent extends AppPanelComponent implements OnInit
                     for (const container of containers)
                         sortedContainers.push(container)
                     console.log('-[V2InventoryPartListPageComponent.refresh]> nodes processed: ' + this.dataModelRoot.length);
-                    if (!environment.production)
-                        setTimeout(() => { // This is only for development
+                    // if (!environment.production)
+                    //     setTimeout(() => { // This is only for development
                             this.completeDowload(this.sortPartContainersByLabel(sortedContainers)); // Notify the completion of the download.
-                        }, 2000);
+                        // }, 2000);
                 })
         )
     }

@@ -100,7 +100,7 @@ Then('the target item button with name {string} has a label {string} and is {str
 
 // - R E V I E W
 Given('the application Printer3DManager', function () {
-    cy.viewport(1000, 900)
+    cy.viewport(1000, 1000)
     new IsolationService().doLandingPage(); // Load the landing page.
     cy.title().should('eq', TITLE_VALIDATION);
 });

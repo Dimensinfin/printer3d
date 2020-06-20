@@ -31,7 +31,7 @@ export class BackendService {
     private APIV2: string;
 
     constructor(
-        private isolationService: IsolationService,
+        // private isolationService: IsolationService,
         protected httpService: HttpClientWrapperService) {
         this.APIV1 = environment.backendPath + environment.apiVersion1;
         this.APIV2 = environment.backendPath + environment.apiVersion2;

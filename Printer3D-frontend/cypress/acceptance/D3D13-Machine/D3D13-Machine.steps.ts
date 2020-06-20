@@ -37,20 +37,15 @@ When('there is a click on the target item {string} button', function (buttonName
 Then('the Job is started and sent to the background', function () {
     cy.log('>[the Job is started and sent to the background]')
 });
-Then('the v1-build-countdown-timer-panel item has a value of {string}', function (timerValue: string) {
-    cy.get('@target-item').find('v1-build-countdown-timer-panel').contains(timerValue, { matchCase: false })
+Then('the {string} item has a value of {string}', function (renderName:string,timerValue: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.get('@target-item').find(tag).first().contains(timerValue, { matchCase: false })
 });
-Then('the v1-build-countdown-timer-panel item has started countdown', function () {
+// TODO - replace by a timed action so the new countdown value can be verified.
+Then('the build-countdown-timer item has started countdown', function () {
     cy.wait(2000)
     cy.get('@target-item').find('v1-build-countdown-timer-panel').should('exist')
 });
 Then('the target Machine has {string} instances of {string}', function (elementCount: string, elementType: string) {
     cy.get('@target-machine').find(elementType).should('have.length', elementCount)
-});
-When('the build time is completed', function () {
-    cy.wait(6000)
-    // cy.clock(new Date().getMilliseconds())
-    // .tick((30 + 1) * 60 * 1000)
-    cy.tick((30 + 1) * 60 * 1000)
-    cy.wait(3000)
 });

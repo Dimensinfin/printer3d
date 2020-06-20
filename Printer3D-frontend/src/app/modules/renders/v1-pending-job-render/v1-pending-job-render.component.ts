@@ -35,19 +35,15 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
         return job;
     }
     public getLabel(): string {
-        const job = this.node as Job
-        return job.getPart().label;
+        return this.getJob().getPart().label;
     }
     public getMaterial(): string {
-        const job = this.node as Job
-        return job.getPart().material;
+        return this.getJob().getPart().material;
     }
     public getColor(): string {
-        const job = this.node as Job
-        return job.getPart().color;
+        return this.getJob().getPart().color;
     }
     public getBuildTime(): number {
-        const job = this.node as Job
-        return job.getPart().buildTime;
+        return this.getJob().getPart().buildTime;
     }
 }

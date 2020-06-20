@@ -13,7 +13,7 @@ import { tap } from 'rxjs/operators';
 import { takeWhile } from 'rxjs/operators';
 import { startWith } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
-import { V2MachineRenderComponent } from '../v2-machine-render/v2-machine-render.component';
+// - DOMAIN
 import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render.component';
 
 const K = 1000;
@@ -24,7 +24,7 @@ const toSeconds = (ms: number) =>
     Math.floor(ms / K) % 60;
 
 @Component({
-    selector: 'v1-build-countdown-timer-panel',
+    selector: 'v1-build-countdown-timer',
     templateUrl: './v1-build-countdown-timer-panel.component.html',
     styleUrls: ['./v1-build-countdown-timer-panel.component.scss']
 })
@@ -51,7 +51,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
      * @param durationInSeconds the duration of the timing.
      */
     public activate(durationInSeconds?: number): void {
-        console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Timer duration:' + durationInSeconds);
+        console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Timer duration: ' + durationInSeconds);
         if (null != durationInSeconds) {
             this.duration = durationInSeconds;
             const timer$ = timer(1000, 1000);
@@ -81,6 +81,10 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
         this.parent.completeTime();
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
+    /**
+     * Set the time to the number of seconds specified. The input os expected to be in seconds.
+     * @param durationInSeconds the value of the countdown timer in seconds
+     */
     private setTimer(durationInSeconds: number): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Duration: ' + durationInSeconds);
         this.duration = durationInSeconds;

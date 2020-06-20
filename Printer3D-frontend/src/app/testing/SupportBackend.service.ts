@@ -148,15 +148,42 @@ export class SupportBackendService {
                 })
         });
     }
-    public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesCompleteBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
-            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines/cancelbuild')
+            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines/startbuild')
                 .subscribe(data => {
                     observer.next(transformer.transform(data));
                     observer.complete();
                 })
         });
     }
+    public apiMachinesCancelBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
+        return Observable.create((observer) => {
+            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines/startbuild')
+                .subscribe(data => {
+                    observer.next(transformer.transform(data));
+                    observer.complete();
+                })
+        });
+    }
+    public apiMachinesCancelBuild_v2(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('inventory.machines.cancelbuild')
+            console.log('>[SupportBackendService.apiMachinesCancelBuild_v1]> Data: ' + data)
+            observer.next(transformer.transform(data));
+            observer.complete();
+            //   this.httpWrapper.mockHttpGETCall('/api/v2/inventory/machines/cancelbuild')
+            //                 .subscribe(data => {
+            //                     console.log('>[SupportBackendService.apiMachinesCancelBuild_v1.subscribe]')
+            //                     // console.log('>[SupportBackendService.apiMachinesCancelBuild_v1.subscribe]> Data: '+JSON.stringify(data))
+            //                     console.log('>[SupportBackendService.apiMachinesCancelBuild_v1.subscribe]> Transformer: ' + transformer.description)
+            //                     observer.next(transformer.transform(data));
+            //                     observer.complete();
+            //                 })
+        });
+    }
+
+    // - P R O D U C T I O N
     public apiProductionGetJobs_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
         return Observable.create((observer) => {
             observer.next(transformer.transform([{
@@ -270,5 +297,20 @@ export class SupportBackendService {
             ]));
             observer.complete();
         });
+    }
+    public apiProductionGetOpenRequests_v1( transformer: ResponseTransformer): Observable<Machine> {
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('production.openrequests')
+            // console.log('>[SupportBackendService.apiProductionGetOpenRequests_v1]> Data: ' + data)
+            observer.next(transformer.transform(data));
+            observer.complete();
+        });
+    }
+    private directAccessMockResource(dataIdentifier: string): any {
+        // console.log(">[SupportBackendService.directAccessMockResource]> dataIdentifier: " + dataIdentifier);
+        let rawdata = require('../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');
+        console.log(">[SupportBackendService.directAccessMockResource]> path: " +
+            '../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');
+        return rawdata
     }
 }

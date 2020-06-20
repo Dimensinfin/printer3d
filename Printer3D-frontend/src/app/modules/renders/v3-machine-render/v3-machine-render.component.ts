@@ -30,8 +30,8 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     @ViewChild(V1BuildCountdownTimerPanelComponent) private sessionTimer: V1BuildCountdownTimerPanelComponent;
     @Input() node: Machine;
     public self: V3MachineRenderComponent;
-    public state: string = 'IDLE'
     public target: Job;
+    public state: string = 'IDLE'
     private remainingTime: number = 0; // The time to run to complete the job in seconds.
 
     constructor(
@@ -60,9 +60,6 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public getBuildTime(): number {
         console.log('>[V2MachineRenderComponent.getBuildTime]')
         return this.remainingTime;
-        // if (null != this.target)
-        //     return this.target.getRemainingSeconds();
-        // else return 0;
     }
     public completeTime(): void {
         this.state = 'COMPLETED'
@@ -131,18 +128,21 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         console.log('>[V3MachineRenderComponent.onClear]')
         this.backendConnections.push(
             this.backendService.apiMachinesCancelBuild_v1(this.node.getId(),
-                new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
+                new ResponseTransformer().setDescription('Do HTTP transformation to "Machine" on onClear.')
                     .setTransformation((entrydata: any): Machine => {
+                        console.log('>[V2MachineRenderComponent.onClear.setTransformation]> Part Label: ' + this.getPartLabel())
                         this.isolationService.warningNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] cancelada.',
                             '/CANCELAR CONSTRUCCION'
                         )
+                        console.log('-[V3MachineRenderComponent.onClear.setTransformation] 2')
                         return new Machine(entrydata);
                     }))
                 .subscribe((resultMachine: Machine) => {
+                    console.log('-[V3MachineRenderComponent.onClear]')
                     this.sessionTimer.deactivate();
                     this.node = resultMachine;
-                    this.target = null;
+                    this.target = undefined;
                     this.state = 'IDLE'
                 })
         );
@@ -162,7 +162,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
                 .subscribe((resultMachine: Machine) => {
                     this.sessionTimer.deactivate();
                     this.node = resultMachine;
-                    this.target = null;
+                    this.target = undefined;
                     this.state = 'IDLE'
                 })
         );

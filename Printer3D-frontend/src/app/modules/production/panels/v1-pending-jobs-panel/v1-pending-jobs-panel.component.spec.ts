@@ -26,8 +26,9 @@ import { HttpClientWrapperService } from '@app/services/httpclientwrapper.servic
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { V1PendingJobsPanelComponent } from './v1-pending-jobs-panel.component';
+import { EVariant } from '@domain/interfaces/EPack.enumerated';
 
-xdescribe('COMPONENT V1PendingJobsPanelComponent [Module: SHARED]', () => {
+describe('COMPONENT V1PendingJobsPanelComponent [Module: PRODUCTION]', () => {
     let component: V1PendingJobsPanelComponent;
 
     beforeEach(async(() => {
@@ -62,11 +63,18 @@ xdescribe('COMPONENT V1PendingJobsPanelComponent [Module: SHARED]', () => {
     });
 
     // - O N I N I A T I Z A T I O N   P H A S E
-    describe('On Initialization Phase', () => {
+    describe('On Initialization Phase', async () => {
         it('ngOnInit.empty: validate initialization flow', async () => {
+            jasmine.clock().install();
             await component.ngOnInit();
-            expect(component.jobs).toBeDefined();
-            expect(component.jobs.length).toBe(6);
+            jasmine.clock().tick(1100);
+            const componentAsAny = component as any;
+            expect(component.getVariant()).toBe(EVariant.DEFAULT)
+            expect(componentAsAny.backendConnections.length).toBe(1);
+            expect(componentAsAny.dataModelRoot.length).toBe(6);
+            expect(componentAsAny.renderNodeList.length).toBe(6);
+            expect(component.isDownloading()).toBeFalse();
+            jasmine.clock().uninstall()
         });
     });
 });

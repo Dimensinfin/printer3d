@@ -157,6 +157,8 @@ export class SupportHttpClientWrapperService {
         if (request.includes('GET')) {
             if (request.includes('/api/v2/inventory/parts/update'))
                 return this.directAccessMockResource('newpart');
+            if (request.includes('/api/v2/inventory/machines/cancelbuild'))
+                return this.directAccessMockResource('inventory.machines.cancelbuild');
         }
         if (request.includes('/inventory/parts'))
             return this.directAccessMockResource('inventory.parts');
