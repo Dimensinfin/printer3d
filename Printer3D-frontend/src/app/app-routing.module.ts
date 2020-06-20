@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes } from '@angular/router';
 import {  RouterModule } from '@angular/router';
 // - APPLICATION MODULES
-import { InventoryCoilListPageComponent } from './modules/inventory/pages/inventory-coil-list-page/inventory-coil-list-page.component';
+// import { InventoryCoilListPageComponent } from './modules/inventory/pages/inventory-coil-list-page/inventory-coil-list-page.component';
 import { ProductionJobListPageComponent } from './modules/production/pages/production-job-list-page/production-job-list-page.component';
 import { V2PartListPageComponent } from './modules/inventory/pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
 
