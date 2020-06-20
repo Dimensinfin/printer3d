@@ -119,11 +119,12 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         And the active page is set to Dasboard
         And there are no Features active
 
-    # @D3D09 @D3D09.12
-    # Scenario: [D3D09.12]-If the CANCEL button is clicked then the page clears.
-    #     Given there is a click on Feature "/NUEVO PEDIDO"
-    #     Then the V1NewRequestPage is activated
-    #     Given the target panel is the panel of type "v1-new-request-panel"
-    #     When the target panel button with name "CANCEL" is clicked
-    #     And the active page is set to Dasboard
-    #     And there are no Features active
+    @D3D09 @D3D09.12
+    Scenario: [D3D09.12]-If the CANCEL button is clicked then the page clears.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        And an amplified viewport
+        Then the V1NewRequestPage is activated
+        Given the target panel is the panel of type "v1-new-request-panel"
+        When the target panel button with name "CANCEL" is clicked
+        And the active page is set to Dasboard
+        And there are no Features active

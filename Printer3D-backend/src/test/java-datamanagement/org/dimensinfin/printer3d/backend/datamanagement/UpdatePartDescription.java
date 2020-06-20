@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.dimensinfin.printer3d.backend.datamanagement.support.rest.PartFeignClientData;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
 import org.dimensinfin.printer3d.backend.support.conf.IntegrationTargetConfig;
+import org.dimensinfin.printer3d.backend.support.conf.ProductionTargetConfig;
 
 public class UpdatePartDescription {
-	private static final String NEW_DESCRIPTION = "Prueba de cambio de Descripcion";
+	private static final String NEW_DESCRIPTION = "Llavero ornamental.";
+	private static final String TARGET_LABEL="COVID KEY 1.0";
 	private ITargetConfiguration targetConfiguration;
 	private Printer3DWorld printer3DWorld;
 	private PartFeignClientData partFeignClientData;
@@ -48,10 +51,10 @@ public class UpdatePartDescription {
 				} );
 	}
 
-	//	@Test
+		@Test
 	public void updatePartDescriptionProduction() throws IOException {
 		// Setup the target configuration to the desired environment.
-		this.targetConfiguration = new IntegrationTargetConfig();
+		this.targetConfiguration = new ProductionTargetConfig();
 		this.partFeignClientData = new PartFeignClientData( Objects.requireNonNull( this.targetConfiguration ) );
 		this.printer3DWorld.setJwtAuthorizationToken( "-NOT-REQUIRED-TOKEN-" );
 
@@ -60,7 +63,7 @@ public class UpdatePartDescription {
 				.stream()
 				.filter( ( part ) -> {
 					LogWrapperLocal.info( "label: " + part.getLabel() );
-					return part.getLabel().equalsIgnoreCase( "Covid-19 Key v1.0" );
+					return part.getLabel().equalsIgnoreCase( TARGET_LABEL);
 				} )
 				.forEach( ( part ) -> {
 					part.setDescription( NEW_DESCRIPTION );

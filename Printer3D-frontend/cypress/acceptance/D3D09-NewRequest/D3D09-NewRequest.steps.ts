@@ -95,7 +95,7 @@ When('{string} is set on the target form field {string}', function (value: strin
 });
 When('the target panel button with name {string} is clicked', function (buttonName: string) {
     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
-        .click('center')
+        .scrollIntoView().click('left')
 });
 Then('the Request is persisted at the backend', function () {
     cy.log('The Request is being persisted at the backend.')
@@ -103,11 +103,6 @@ Then('the Request is persisted at the backend', function () {
 Then('the active page is set to Dasboard', function () {
     cy.visit('/')
 });
-// Then('the target panel button with name {string} has a label {string} and is {string}', function (
-//     buttonName: string, buttonLabel: string, buttonState: string) {
-//     if (buttonState == 'disabled')
-//         cy.get('@target-panel').get('[disabled]')
-//             .find('.button-label').contains(buttonLabel, { matchCase: false })
-//     cy.get('@target-panel').get('[name="' + buttonName + '"]').as('target-button')
-//     cy.get('@target-button').find('.button-label').contains(buttonLabel, { matchCase: false })
-// });
+Given('an amplified viewport', function () {
+    cy.viewport(1000, 800)
+});
