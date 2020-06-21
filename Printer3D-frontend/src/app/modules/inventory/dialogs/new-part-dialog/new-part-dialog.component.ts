@@ -55,7 +55,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
             console.log('-[NewPartDialogComponent.ngOnInit]> Initializing Part')
             this.part.id = uuidv4();
             this.part.material = 'PLA';
-            this.part.color = 'INDEFINIDO';
+            this.part.color =undefined;
         }
         else {
             console.log('-[NewPartDialogComponent.ngOnInit]> Setting Previous Part: ' + pendingPart)
@@ -73,8 +73,6 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
     }
     // - I N T E R A C T I O N S
     public savePart(): void {
-        // Get the form data.
-        // const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
             this.backendService.apiNewPart_v1(this.part, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
@@ -84,8 +82,6 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
     }
     public savePartAndRepeat() {
         console.log('>[NewPartDialogComponent.savePartAndRepeat]')
-        // Get the form data.
-        // const newPart: Part = new PartConstructor().construct(this.part);
         this.backendConnections.push(
             this.backendService.apiNewPart_v1(this.part, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {

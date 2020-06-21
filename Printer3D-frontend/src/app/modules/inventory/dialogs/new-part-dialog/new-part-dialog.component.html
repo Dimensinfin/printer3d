@@ -28,15 +28,20 @@
                             <!-- M A T E R I A L -->
                             <div class="column"><label class="dsf-form-label" for="label">Material<span style="color: red;">&nbsp;*</span></label>
                                 <div style="margin-bottom: 5px;">
+                                    <!-- <ng-select [(ngModel)]="part.material" [clearable]="false">
+                                        <ng-option [value]="null">-Seleccione Color-</ng-option>
+                                        <ng-option *ngFor="let material of materials" [value]="material">{{material}}</ng-option>
+                                    </ng-select> -->
                                     <select class="dsf-form-control part-material" id="material" [(ngModel)]="part.material" required name="material" (change)="materialSelectorChanged($event.target.value)">
                                     <option *ngFor="let material of materials"[value]="material">{{material}}</option>
-                                </select>
+                                    </select>
                                 </div>
                             </div>
                             <!-- C O L O R C O D E -->
                             <div class="column">
                                 <label class="dsf-form-label" for="label">Color<span style="color: red;">&nbsp;*</span></label>
                                 <select class="dsf-form-control part-color" id="color" [(ngModel)]="part.color" required name="color">
+                                    <option [ngValue]="null" selected>-Selecciona Color-</option>
                                     <option *ngFor="let color of colors"[value]="color">{{color}}</option>
                                 </select>
                             </div>
