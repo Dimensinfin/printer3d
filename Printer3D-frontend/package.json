@@ -18,7 +18,8 @@
         "acceptance:simulator": "bash ./support/simulator-backend.sh start &",
         "acceptance:cypress": "npm run start:dev & wait-on http://localhost:5100 && npm run cypress:run ",
         "heroku-postbuild": "ng build --configuration=${NODE_ENV}",
-        "start:integration": "export NODE_ENV=integration && export PORT=5150 && npm run build:stage && npm start"
+        "start:integration": "export NODE_ENV=integration && export PORT=5150 && npm run build:stage && npm start",
+        "analyzer": "webpack-bundle-analyzer ./dist/Printer3D-frontend/stats-es2015.json"
     },
     "private": true,
     "engines": {

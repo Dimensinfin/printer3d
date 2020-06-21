@@ -35,6 +35,7 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     constructor(protected backendService: BackendService) {
         super();
         this.self = this;
+        this.appVersion = environment.appVersion + ' ' + process.env.NODE_ENV
     }
     /**
      * Access the backend to read the backend version
@@ -50,7 +51,7 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
                 })
         )
     }
-    
+
     public getAppTitle(): string {
         return this.appTitle;
     }
