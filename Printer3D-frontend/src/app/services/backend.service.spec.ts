@@ -34,6 +34,7 @@ import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
+import { Request } from '@domain/Request.domain';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -123,6 +124,16 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
+        it('apiNewRequest_v1.default: get the persisted part', async () => {
+            const request = new Request();
+            service.apiNewRequest_v1(request, new ResponseTransformer().setDescription('Transforms data into Part.')
+                .setTransformation((entrydata: any): Request => {
+                    return new Request(entrydata);
+                }))
+                .subscribe((response: Request) => {
+                    expect(response).toBeDefined();
+                });
+        });
         it('apiGetFinishings_v1.default: get the list of finishings available', async () => {
             service.apiInventoryGetFinishings_v1(new ResponseTransformer().setDescription('Transforms data into FinishingResponse.')
                 .setTransformation((entrydata: any): FinishingResponse => {
@@ -192,6 +203,18 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.jobInstallmentDate).toBeNull()
                 });
         });
+        it('apiMachinesCompleteBuild_v1.default: complete the build job on a Machine', async () => {
+            const machineId: string = "-MACHINE-ID-"
+            await service.apiMachinesCompleteBuild_v1(machineId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
+                .setTransformation((entrydata: any): Machine => {
+                    return new Machine(entrydata);
+                }))
+                .subscribe((response: Machine) => {
+                    expect(response).toBeDefined();
+                    expect(response.currentJobPart).toBeUndefined()
+                    expect(response.jobInstallmentDate).toBeUndefined()
+                });
+        });
     });
     describe('Code Coverage Phase [PRODUCTION]', () => {
         it('apiProductionGetJobs_v1.default: get the list jobs required to level the stocks', async () => {
@@ -206,6 +229,30 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 .subscribe((response: Job[]) => {
                     expect(response).toBeDefined();
                     expect(response.length).toBe(16, 'Number of Jobs do not match');
+                });
+        });
+        it('apiProductionGetOpenRequests_v1.default: get the list jobs required to level the stocks', async () => {
+            service.apiProductionGetOpenRequests_v1(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
+                .setTransformation((entrydata: any): Request[] => {
+                    const requests: Request[] = []
+                    entrydata.forEach(element => {
+                        requests.push(new Request(element));
+                    });
+                    return requests;
+                }))
+                .subscribe((response: Request[]) => {
+                    expect(response).toBeDefined();
+                    expect(response.length).toBe(2, 'Number of Requests do not match');
+                });
+        });
+        it('apiRequestsClose_v1.default: get the list jobs required to level the stocks', async () => {
+            const requestId: string = "-REQUEST-ID-"
+            service.apiRequestsClose_v1(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
+                .setTransformation((entrydata: any): Request => {
+                    return new Request(entrydata);
+                }))
+                .subscribe((response: Request) => {
+                    expect(response).toBeDefined();
                 });
         });
     });

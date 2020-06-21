@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AcceptanceTargetConfig implements ITargetConfiguration {
-	private static final String DEFAULT_BACKEND_SERVER = "http://0.0.0.0:";
+	private static final String DEFAULT_BACKEND_SERVER = "http://localhost:";
 	private static final Integer DEFAULT_BACKEND_PORT = 5140;
 	private static final String DEFAULT_INNODENTAL_BACKEND_ACCEPTED_CONTENT_TYPE = "application/json";
 

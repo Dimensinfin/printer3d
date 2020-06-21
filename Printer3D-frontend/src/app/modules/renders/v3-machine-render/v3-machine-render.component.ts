@@ -49,6 +49,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         if (null != this.node) this.loadBuildPart();
         console.log('<[V3MachineRenderComponent.ngOnInit]')
     }
+    
     public getUniqueId(): string {
         const machine = this.node as Machine
         return machine.getId();

@@ -148,38 +148,20 @@ export class SupportBackendService {
                 })
         });
     }
-    public apiMachinesCompleteBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
-        return Observable.create((observer) => {
-            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines/startbuild')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
-        });
-    }
-    public apiMachinesCancelBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
-        return Observable.create((observer) => {
-            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines/startbuild')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
-        });
-    }
-    public apiMachinesCancelBuild_v2(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.machines.cancelbuild')
-            console.log('>[SupportBackendService.apiMachinesCancelBuild_v1]> Data: ' + data)
+            // console.log('>[SupportBackendService.apiMachinesCancelBuild_v1]> Data: ' + data)
             observer.next(transformer.transform(data));
             observer.complete();
-            //   this.httpWrapper.mockHttpGETCall('/api/v2/inventory/machines/cancelbuild')
-            //                 .subscribe(data => {
-            //                     console.log('>[SupportBackendService.apiMachinesCancelBuild_v1.subscribe]')
-            //                     // console.log('>[SupportBackendService.apiMachinesCancelBuild_v1.subscribe]> Data: '+JSON.stringify(data))
-            //                     console.log('>[SupportBackendService.apiMachinesCancelBuild_v1.subscribe]> Transformer: ' + transformer.description)
-            //                     observer.next(transformer.transform(data));
-            //                     observer.complete();
-            //                 })
+        });
+    }
+    public apiMachinesCompleteBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('inventory.machines.cancelbuild')
+            // console.log('>[SupportBackendService.apiMachinesCompleteBuild_v1]> Data: ' + data)
+            observer.next(transformer.transform(data));
+            observer.complete();
         });
     }
 

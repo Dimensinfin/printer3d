@@ -15,6 +15,9 @@
             "requestDate": "2020-06-18T13:19:28.671Z",
             "state": "OPEN",
             "partList": [{
+                "partId": "a047ef17-fa0b-4df8-9f5e-c98de82dc4a2",
+                "quantity": 2
+            }, {
                 "partId": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
                 "quantity": 4
             }]

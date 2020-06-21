@@ -95,7 +95,7 @@ When('{string} is set on the target form field {string}', function (value: strin
 });
 When('the target panel button with name {string} is clicked', function (buttonName: string) {
     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
-        .scrollIntoView().click('left')
+        .scrollIntoView().click('left', { force: true })
 });
 Then('the Request is persisted at the backend', function () {
     cy.log('The Request is being persisted at the backend.')

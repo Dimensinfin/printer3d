@@ -51,7 +51,7 @@ public class UpdatePartDescription {
 				} );
 	}
 
-		@Test
+	//	@Test
 	public void updatePartDescriptionProduction() throws IOException {
 		// Setup the target configuration to the desired environment.
 		this.targetConfiguration = new ProductionTargetConfig();

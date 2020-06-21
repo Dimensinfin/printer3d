@@ -1,11 +1,9 @@
 // - CORE
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 // - SERVICES
-import { IsolationService } from '@app/platform/isolation.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { ResponseTransformer } from './support/ResponseTransformer';
 // - ENVIRONMENT
@@ -16,11 +14,9 @@ import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
-import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
-import { RequestForm } from '@domain/RequestForm.domain';
 import { Request } from '@domain/Request.domain';
 
 @Injectable({
