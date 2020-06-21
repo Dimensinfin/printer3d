@@ -4,6 +4,9 @@ import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { IsolationService } from '../../support/IsolationService.support';
+import { SupportService } from '../../support/SupportService.support';
+
+const supportService = new SupportService();
 
 Then('the New Request dialog opens and blocks the display', function () {
     cy.get('app-root').get('mat-dialog-container').get('v1-new-request-dialog').should('exist')
@@ -46,11 +49,6 @@ Given('on the target Part there is a field named {string} with field name {strin
     cy.get('@target-part').find('.label').contains(fieldLabel, { matchCase: false })
         .parent()
         .find('[name="' + fieldName + '"]').should('exist')
-});
-Given('the target panel is the panel of type {string}', function (panelType: string) {
-    cy.get('app-root').find('v1-new-request-page').find('.row')
-        .find(panelType)
-        .as('target-panel')
 });
 Then('the target panel has a field labeled {string} named {string} and not empty', function (fieldLabel: string, fieldName: string) {
     cy.get('@target-panel').find('.field').find('.label').contains(fieldLabel, { matchCase: false })
@@ -105,4 +103,26 @@ Then('the active page is set to Dasboard', function () {
 });
 Given('an amplified viewport', function () {
     cy.viewport(1000, 800)
+});
+
+// - B E S T   P R A C T I C E   I M P L E M E N T A T I O N
+Then('the target page has one panel of type {string} with variant {string}', function (renderName: string, variant: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.get('@target-page').find(tag).get('[ng-reflect-variant="' + variant + '"]').first().should('exist')
+});
+
+Then('the target page has one panel of type {string}', function (renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.get('@target-page').find(tag).should('exist')
+});
+Given('the target panel is the panel of type {string}', function (panelType: string) {
+    const tag = supportService.translateTag(panelType) // Do name replacement
+    cy.log('>[tag replacement]> ' + panelType + ' -> ' + tag)
+    cy.get('@target-page').find(tag)
+        .as('target-panel')
+});
+Then('the target panel has one or more {string}', function (panelType: string) {
+    const tag = supportService.translateTag(panelType) // Do name replacement
+    cy.get('@target-panel').find(tag)
+        .should('have.length.greaterThan', 0)
 });

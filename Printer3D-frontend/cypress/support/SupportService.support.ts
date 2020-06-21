@@ -6,6 +6,7 @@ export class SupportService {
 
     constructor() {
         this.translationTable['ProductionJobListPage'] = 'production-job-list-page'
+        this.translationTable['NewRequestPage'] = 'v1-new-request-page'
         this.translationTable['job'] = 'v1-pending-job'
         this.translationTable['machine'] = 'v3-machine'
         this.translationTable['part'] = 'v1-part'
@@ -13,6 +14,8 @@ export class SupportService {
         this.translationTable['coil'] = 'v1-coil'
         this.translationTable['build-countdown-timer'] = 'v1-build-countdown-timer'
         this.translationTable['part4-request'] = 'v1-part4-request'
+        this.translationTable['available-parts'] ='v1-available-parts-panel'
+        this.translationTable['new-request'] ='v1-new-request-panel'
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.
