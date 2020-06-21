@@ -156,7 +156,42 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Then the target panel has 1 "part4-request"
         Given the target item the "part4-request" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         Then the target item has a field named "REQUERIDAS" with value "2"
+      
+        Given the target panel is the panel of type "available-parts"
+        Given the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
+        Given the target panel is the panel of type "new-request"
+        When the drag source is dragged to the drop destination "dropParts"
+        Then the target panel has 2 "part4-request"
 
+    @D3D09 @D3D09.15
+    Scenario: [D3D09.15]-If the user clicks on the Remove button of a Part assigned to a Request then the number of that type of Parts reduces in 1. The the count reaches 0 then the part is removed from the Report.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the page "NewRequestPage" is activated
+        Given the target panel is the panel of type "available-parts"
+        And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Given the target panel is the panel of type "new-request"
+        When the drag source is dragged to the drop destination "dropParts"
+        Then the target panel has 1 "part4-request"
+        Given the target item the "part4-request" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Then the target item has a field named "REQUERIDAS" with value "1"
+        When the drag source is dragged to the drop destination "dropParts"
+        Then the target panel has 1 "part4-request"
+        Given the target item the "part4-request" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Then the target item has a field named "REQUERIDAS" with value "2"
 
-    # @D3D09 @D3D09.14
-    # Scenario: [D3D09.14]-If the user clicks on the Remove button of a Part assigned to a Request then the number of that type of Parts reduces in 1. The the count reaches 0 then the part is removed from the Report.
+        Given the target panel is the panel of type "available-parts"
+        Given the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
+        Given the target panel is the panel of type "new-request"
+        When the drag source is dragged to the drop destination "dropParts"
+        Then the target panel has 2 "part4-request"
+
+        Given the target item the "part4-request" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Then the target item has a field named "REQUERIDAS" with value "2"
+        When the target item Remove button is clicked
+        Then the target item has a field named "REQUERIDAS" with value "1"
+        Then the target panel has 2 "part4-request"
+        When the target item Remove button is clicked
+        Then the target panel has 1 "part4-request"
+        Given the target item the "part4-request" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
+        When the target item Remove button is clicked
+        Then the target panel has no "part4-request"
