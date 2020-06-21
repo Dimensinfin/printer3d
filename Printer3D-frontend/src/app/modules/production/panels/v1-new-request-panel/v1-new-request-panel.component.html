@@ -64,12 +64,12 @@
             </div>
             <div class="field left-margin top-margin date-width">
                 <span class="label">PIEZAS PEDIDO</span><br>
+                <div class="request-part" cy-name="dropParts" droppable [dropScope]=" 'PART'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
+                </div>
                 <div name="requestParts">
                     <div name="requestParts" *ngFor="let part of getRequestParts()" style="position: relative;">
                         <v1-part [node]="part" [variant]="'-REQUEST-CONTAINED-PARTS-'" [container]="self"></v1-part>
                     </div>
-                </div>
-                <div class="request-part" name="dropParts" droppable [dropScope]=" 'PART'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-part"> --- PIEZAS --- </span>
                 </div>
             </div>
         </div>
