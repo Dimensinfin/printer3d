@@ -14,6 +14,12 @@ import { NodeContainerRenderComponent } from '../node-container-render/node-cont
     styleUrls: ['./v1-part-container-render.component.scss']
 })
 export class V1PartContainerRenderComponent extends NodeContainerRenderComponent {
+    public getPartContainer(): PartContainer{
+        return this.node as PartContainer
+    }
+    public getId(): string{
+        return this.getPartContainer().getId();
+    }
     public getLabel(): string {
         const part = this.node as PartContainer;
         return part.label;

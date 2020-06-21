@@ -62,7 +62,7 @@
             "active": true
         },
         {
-            "id": "5caaf805-f3dd-4dfe-9545-eaa3e6300da3",
+            "id": "0078cd61-63bb-4a35-9d66-c4c630b017c3",
             "label": "Boquilla Ganesha - Embocadura",
             "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
             "material": "TPU",
@@ -77,7 +77,7 @@
             "active": false
         },
         {
-            "id": "5caaf805-f3dd-4dfe-9545-eaa3e6300da3",
+            "id": "754e6cc5-1a8a-435b-8c17-956b2a8391a7",
             "label": "Boquilla Ganesha - Adaptador",
             "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
             "material": "FLEX",
@@ -122,7 +122,7 @@
             "active": true
         },
         {
-            "id": "cb3f7075-e364-4c41-8d4b-a31a8f2039fe",
+            "id": "6939c6cc-297f-48ca-8f17-25fa18c3dbc7",
             "label": "Boquilla Ganesha - Figura",
             "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
             "material": "PLA",
@@ -137,7 +137,7 @@
             "active": true
         },
         {
-            "id": "ad3df8a8-d6a5-41b6-8c49-b0134aae7332",
+            "id": "3097cf15-494e-43b7-b637-b91eb4f42630",
             "label": "Boquilla Ganesha - Figura",
             "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
             "material": "PLA",
@@ -152,7 +152,7 @@
             "active": false
         },
         {
-            "id": "ad3df8a8-d6a5-41b6-8c49-b0134aae7332",
+            "id": "4cf23190-d140-4681-93e5-2b2d02dfba39",
             "label": "Boquilla Ganesha - Figura",
             "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
             "material": "PLA",
@@ -167,7 +167,7 @@
             "active": false
         },
         {
-            "id": "ad3df8a8-d6a5-41b6-8c49-b0134aae7332",
+            "id": "ed36cdfb-e5ae-4275-a163-63b4be4d952c",
             "label": "Boquilla Ganesha - Figura",
             "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
             "material": "PLA",

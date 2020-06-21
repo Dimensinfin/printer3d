@@ -16,7 +16,7 @@
 
         <!-- RIGHT ARROW -->
         <div *ngIf="node.isExpandable()" class="arrow-box">
-            <img class="right-arrow" [ngClass]="{'neocom-arrow-expanded': isExpanded()}" src="/assets/res-ui/drawable/arrowright.png">
+            <img cy-name="expand-button" class="right-arrow" [ngClass]="{'neocom-arrow-expanded': isExpanded()}" src="/assets/res-ui/drawable/arrowright.png">
         </div>
         <!-- SEPARATOR WHEN NO RIGHT ARROW -->
         <!-- <div *ngIf="!node.isExpandable()" class="arrow-box">

@@ -1,5 +1,5 @@
 <!-- P A R T - L I S T   V A R I A N T -->
-<div *ngIf="getVariant() === '-PART-LIST-'">
+<div id="{{getId()}}" *ngIf="getVariant() === '-PART-LIST-'">
     <div class="row part-panel">
         <div class="edit-attributes" (click)="toggleEdition()">
             <img src="/assets/media/edit_attributes-white-36dp.svg">
@@ -35,11 +35,9 @@
             <span class="label">ACTIVA</span><br>
             <span name="active" class="field-height part-active">{{getActive()}}</span>
         </div>
-        <!-- <div class="field corner-aligment">
-            <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
-                <path d="M100,100 L0,100 L100,0 L100,100" />
-            </svg>
-        </div> -->
+        <div cy-name="duplicate-button" class="field duplicate-width" (click)="duplicatePart()">
+            <svg class="duplicate-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+        </div>
     </div>
     <div>
         <svg class="corner-border" viewBox="0 0 100 100">

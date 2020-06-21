@@ -122,6 +122,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
             requestPanel.removePart(this.node as Part);
         }
     }
+    public duplicatePart(): void { }
     private activateEditing(): void {
         this.variant = EVariant.EDITABLE_PART;
         this.editPart = new Part(this.node);

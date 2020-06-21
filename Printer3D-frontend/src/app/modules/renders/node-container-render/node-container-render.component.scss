@@ -42,20 +42,20 @@
 
 .neocom-arrow {
     transform: rotate(0deg);
-    transition: transform 0.4s linear;
+    transition: transform 0.3s linear;
 }
 
 .neocom-arrow.open {
     transform: rotate(0deg);
-    transition: transform 0.4s linear;
+    transition: transform 0.3s linear;
 }
 
 .neocom-arrow-expanded {
     transform: rotate(90deg);
-    transition: transform 0.4s linear;
+    transition: transform 0.3s linear;
 }
 
 .neocom-arrow-expanded.open {
     transform: rotate(90deg);
-    transition: transform 0.4s linear;
+    transition: transform 0.3s linear;
 }
