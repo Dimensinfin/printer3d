@@ -15,7 +15,7 @@ export class PartToPartRecordConverter implements Converter<Part, PartRecord>{
             precio: this.convertToMoney(input.price),
             tiempo: this.convertToBuildTime(input.buildTime),
             stockRequerido: input.stockLevel,
-            stockDisponible: input.stockAvailable,
+            stockDisponible: input.getAvailable(),
             active: this.convertToActive(input.active)
         })
         console.log('[PartToPartRecordConverter.convert]> Record: ' + JSON.stringify(record))

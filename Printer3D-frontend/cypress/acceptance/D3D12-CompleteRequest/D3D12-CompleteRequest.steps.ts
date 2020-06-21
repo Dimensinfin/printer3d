@@ -30,3 +30,8 @@ Then('on the target panel there is one {string}', function (renderName: string) 
     const tag = supportService.translateTag(renderName) // Do name replacement
     cy.get('@target-panel').find(tag).should('have.length', 1)
 });
+Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
+    cy.get('@target-panel').within(($item) => {
+        cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+    })
+});

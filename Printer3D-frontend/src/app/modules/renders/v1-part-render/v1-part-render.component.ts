@@ -50,9 +50,8 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
         });
     }
 
-    public getCount(): number {
-        const part = this.node as any;
-        return part.count;
+    public getPart(): Part {
+        return this.node as Part
     }
     public getLabel(): string {
         const part = this.node as Part;
@@ -79,8 +78,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
         return part.stockLevel;
     }
     public getStockAvailable(): number {
-        const part = this.node as Part;
-        return part.stockAvailable;
+        return this.getPart().getAvailable();
     }
     public getActive(): string {
         const part = this.node as Part;

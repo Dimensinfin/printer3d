@@ -76,8 +76,25 @@
         </div>
         <div class="field amount-width">
             <span cy-field-label="IMPORTE" class="label">PIEZAS SOLICITADAS</span>
+            <div class="row">
+                <div class="field column-missing-width">
+                    <span class="label">FALTAN</span><br>
+                </div>
+                <div class="field column-required-width">
+                    <span class="label">PEDIDAS</span><br>
+                </div>
+                <div class="field column-label-width">
+                    <span class="label">ETIQUETA</span><br>
+                </div>
+                <div class="field column-material-width">
+                    <span class="label">MATERIAL</span><br>
+                </div>
+                <div class="field column-color-width">
+                    <span class="label">COLOR</span><br>
+                </div>
+            </div>
             <div *ngFor="let part of getRequestParts()">
-                <v1-part [node]="part" [variant]="'-DETAIL4REQUEST-'"></v1-part>
+                <v1-part4-request [node]="part" [variant]="'-DETAIL4REQUEST-'"></v1-part4-request>
             </div>
         </div>
         <svg class="corner-border" viewBox="0 0 100 100">

@@ -1,0 +1,17 @@
+<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-DETAIL4REQUEST-'" class="row">
+    <div class="field column-missing-width ">
+        <span cy-name="FALTAN" class="field-height part-missed-count">{{getMissing()}}</span>
+    </div>
+    <div class="field column-required-width ">
+        <span cy-name="PEDIDAS" class="field-height part-required">{{getRequired()}}</span>
+    </div>
+    <div class="field column-label-width ">
+        <span cy-name="ETIQUETA" class="field-height part-label">{{getLabel()}}</span>
+    </div>
+    <div class="field column-material-width ">
+        <span cy-name="MATERIAL" class="field-height part-material">{{getMaterial()}}</span>
+    </div>
+    <div class="field column-color-width ">
+        <span cy-name="COLOR" class="field-height part-color">{{getColor()}}</span>
+    </div>
+</div>

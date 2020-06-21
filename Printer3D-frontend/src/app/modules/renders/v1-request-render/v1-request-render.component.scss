@@ -46,3 +46,27 @@
     top: 20px;
     right: 20px;
 }
+
+.label-column-width {
+    min-width: 50%;
+}
+
+.column-missing-width {
+    min-width: 40px;
+}
+
+.column-required-width {
+    min-width: 40px;
+}
+
+.column-label-width {
+    min-width: 50%;
+}
+
+.column-material-width {
+    min-width: 50px;
+}
+
+.column-color-width {
+    min-width: 150px;
+}

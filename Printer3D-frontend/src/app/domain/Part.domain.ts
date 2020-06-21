@@ -36,6 +36,9 @@ export class Part extends Node {
         this.id = uuidv4();
         return this.id;
     }
+    public getAvailable(): number {
+        return this.stockAvailable
+    }
     public composePartIdentifier(): string {
         if (null != this.color)
             return this.label + ':' + this.color;

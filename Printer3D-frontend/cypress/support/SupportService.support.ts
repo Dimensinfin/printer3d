@@ -12,6 +12,7 @@ export class SupportService {
         this.translationTable['request'] = 'v1-request'
         this.translationTable['coil'] = 'v1-coil'
         this.translationTable['build-countdown-timer'] = 'v1-build-countdown-timer'
+        this.translationTable['part4-request'] = 'v1-part4-request'
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.

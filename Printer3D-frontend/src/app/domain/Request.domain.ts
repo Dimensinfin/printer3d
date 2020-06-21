@@ -4,6 +4,7 @@ import { RequestState } from '@domain/interfaces/EPack.enumerated';
 import { PartRequest } from './dto/PartRequest.dto';
 import { IPartProvider } from './interfaces/IPartProvider.interface';
 import { Part } from './Part.domain';
+import { Part4Request } from './Part4Request.domain';
 
 export class Request extends Node {
     private id: string;
@@ -57,12 +58,14 @@ export class Request extends Node {
         this.partProvider = newPartProvider;
         return this;
     }
-    public getParts(): Part[] {
-        const parts: Part[] = []
+    public getParts(): Part4Request[] {
+        const parts: Part4Request[] = []
         for (let partPointer of this.partList) {
             const part = this.partProvider.findById(partPointer.getPartId())
-            part['count'] = partPointer.getQuantity()
-            parts.push(part)
+            const part4r = new Part4Request(part)
+            part4r.setRequired(partPointer.getQuantity())
+            // part4r.setMissing(Math.min(0, part.getAvailable() - partPointer.getQuantity() * -1))
+            parts.push(part4r)
         }
         return parts;
     }

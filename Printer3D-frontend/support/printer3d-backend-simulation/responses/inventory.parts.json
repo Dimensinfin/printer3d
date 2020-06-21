@@ -40,8 +40,8 @@
             "buildTime": 15,
             "cost": 0.9,
             "price": 2.0,
-            "stockLevel": 10,
-            "stockAvailable": 8,
+            "stockLevel": 2,
+            "stockAvailable": 0,
             "imagePath": null,
             "modelPath": null,
             "active": true
@@ -101,7 +101,7 @@
             "cost": 1.0,
             "price": 6.0,
             "stockLevel": 5,
-            "stockAvailable": 0,
+            "stockAvailable": 3,
             "imagePath": null,
             "modelPath": null,
             "active": true
