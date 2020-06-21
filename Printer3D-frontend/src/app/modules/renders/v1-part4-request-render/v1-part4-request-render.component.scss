@@ -21,3 +21,24 @@
 .column-color-width {
     min-width: 150px;
 }
+
+.remove-width {
+    margin-left: auto;
+}
+
+.remove-icon {
+    // margin-top: 6px;
+    height: 60%;
+}
+
+.remove-icon:hover {
+    fill: orange;
+}
+
+.count-width {
+    min-width: 10px;
+}
+
+.label-width {
+    min-width: 50%
+}

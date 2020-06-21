@@ -26,6 +26,7 @@ import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
 import { Request } from '@domain/Request.domain';
+import { Part4Request } from '@domain/Part4Request.domain';
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -50,8 +51,8 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
     public getLabel(): string {
         return this.request.label;
     }
-    public getRequestParts(): Part[] {
-        return this.request.partList;
+    public getRequestParts(): Part4Request[] {
+        return this.request.getRequestParts();
     }
     public hasParts(): boolean {
         if (this.request.partList.length > 0) return true;
@@ -65,7 +66,7 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         this.request.addPart(drop.dragData)
         console.log('<>>[V1NewRequestPanelComponent.onDrop]')
     }
-    public removePart(part: Part): void {
+    public removePart(part: Part4Request): void {
         this.request.removePart(part);
     }
     public saveRequest(): void {

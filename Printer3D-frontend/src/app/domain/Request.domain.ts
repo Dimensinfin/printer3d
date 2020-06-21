@@ -64,7 +64,6 @@ export class Request extends Node {
             const part = this.partProvider.findById(partPointer.getPartId())
             const part4r = new Part4Request(part)
             part4r.setRequired(partPointer.getQuantity())
-            // part4r.setMissing(Math.min(0, part.getAvailable() - partPointer.getQuantity() * -1))
             parts.push(part4r)
         }
         return parts;

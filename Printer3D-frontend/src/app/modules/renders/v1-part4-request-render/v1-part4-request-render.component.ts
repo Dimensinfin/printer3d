@@ -23,17 +23,17 @@ import { Part4Request } from '@domain/Part4Request.domain';
     styleUrls: ['./v1-part4-request-render.component.scss']
 })
 export class V1Part4RequestRenderComponent extends NodeContainerRenderComponent {
-    public getPart(): Part4Request {
+    public getNode(): Part4Request {
         return this.node as Part4Request
     }
     public getUniqueId(): string {
-        return this.getPart().getId()
+        return this.getNode().getId()
     }
     public getMissing(): number {
-        return this.getPart().getMissed();
+        return this.getNode().getMissed();
     }
     public getRequired(): number {
-        return this.getPart().getRequired()
+        return this.getNode().getRequired()
     }
     public getLabel(): string {
         const part = this.node as Part;
@@ -46,5 +46,10 @@ export class V1Part4RequestRenderComponent extends NodeContainerRenderComponent 
     public getColor(): string {
         const part = this.node as Part;
         return part.color;
+    }
+    public removePart(): void {
+        const newRequestPanelAsAny = this.container as any;
+        const newRequestPanel = newRequestPanelAsAny as V1NewRequestPanelComponent
+        newRequestPanel.removePart(this.getNode())
     }
 }

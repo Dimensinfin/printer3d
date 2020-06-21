@@ -6,8 +6,7 @@ import { Node } from './Node.domain';
 import { Part } from './Part.domain';
 
 export class Part4Request extends Part {
-    private required: number;
-    // private missing: number = 0;
+    private required: number = 0;
 
     constructor(values: Object = {}) {
         super(values);
@@ -25,8 +24,12 @@ export class Part4Request extends Part {
         this.required = requiredCount
         return this
     }
-    // public setMissing(missingParts: number): Part4Request {
-    //     this.missing = missingParts
-    //     return this
-    // }
+    public decrementCount(): number {
+        this.required--
+        return this.required
+    }
+    public incrementCount(): number {
+        this.required++
+        return this.required
+    }
 }
