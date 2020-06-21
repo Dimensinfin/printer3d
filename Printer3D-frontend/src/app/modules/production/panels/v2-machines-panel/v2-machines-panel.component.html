@@ -1,7 +1,11 @@
-<div cy-name="panel-title" class="title">
-    <span>/MAQUINAS</span>
-</div>
-<hr>
-<div *ngFor="let machine of machines">
-    <v3-machine [node]="machine"></v3-machine>
+<div>
+    <div cy-name="panel-title" class="title">
+        <span>/MAQUINAS</span>
+    </div>
+    <hr>
+    <div style="position: fixed;">
+        <div *ngFor="let machine of machines">
+            <v3-machine [node]="machine"></v3-machine>
+        </div>
+    </div>
 </div>
