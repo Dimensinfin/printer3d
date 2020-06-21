@@ -16,6 +16,8 @@ export class SupportService {
         this.translationTable['part4-request'] = 'v1-part4-request'
         this.translationTable['available-parts'] ='v1-available-parts-panel'
         this.translationTable['new-request'] ='v1-new-request-panel'
+        this.translationTable['part-container'] = 'v1-part-container'
+        this.translationTable['part-list'] = 'v2-inventory-part-list-page'
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.

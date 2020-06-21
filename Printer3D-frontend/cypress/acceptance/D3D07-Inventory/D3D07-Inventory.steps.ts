@@ -4,7 +4,9 @@ import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { IsolationService } from '../../support/IsolationService.support';
+import { SupportService } from '../../support/SupportService.support';
 
+const supportService = new SupportService();
 let store: any = {};
 
 Then('the V2InventoryPartListPage is activated', function () {
@@ -222,3 +224,40 @@ Given('the target panel is the panel of type {string}', function (panelType: str
 //         .parents('node-container').as('target-node-inactive')
 //     cy.get('@target-node-inactive').find('.corner-bottom').should('not.have.class', 'active')
 // });
+
+// Given('the target panel is the panel named {string}', function (renderName: string) {
+//     const tag = supportService.translateTag(renderName) // Do name replacement
+//     cy.get('app-root').find('[cy-name="' + tag + '"]').as('target-panel')
+//         .should('exist')
+// });
+
+Then('the target item is expandable', function () {
+    cy.get('@target-item').parent().parent().parent().parent().parent()
+        .find('[cy-name="expand-button"]')
+        .should('exist')
+});
+When('the target item expand-collapse button is clicked', function () {
+    cy.get('@target-item').parent().parent().parent().parent().parent()
+        .find('[cy-name="expand-button"]')
+        .click()
+});
+Then('the target item has {string} childs of type {string}', function (childCount: string, renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.get('@target-item').children().find(tag).should('have.length', childCount)
+});
+Then('on the target panel there are none {string}', function (renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.get('@target-panel').find(tag).should('not.exist')
+});
+Then('on the target panel there are one or more {string}', function (renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.get('@target-panel').find(tag).should('have.length.greaterThan', 0)
+});
+Then('on the target panel there are {string} {string}', function (itemCount: number, renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.get('@target-panel').find(tag).should('have.length', itemCount)
+});
+When('the target Part Duplicate button is clicked', function () {
+    cy.get('@target-item').find('[cy-name="duplicate-button"]')
+    .click()
+  });
