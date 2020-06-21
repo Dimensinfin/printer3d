@@ -12,9 +12,9 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details 
 
     # - H A P P Y   P A T H
     @D3D12 @D3D12.01
-    # Scenario: [D3D12.01]-Select a Request from the list of requests in the Open state and verify that there is no Close button.
-    #     Given there is a click on Feature "/PEDIDOS"
-    #     Given the target panel is the panel named "open-request-list"
+    Scenario: [D3D12.01]-Select a Request from the list of requests in the Open state and verify that there is no Close button.
+        Given there is a click on Feature "/PEDIDOS"
+        Given the target panel is the panel named "open-request-list"
     #     Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
     #     Given a hover on the target item
     #     Then the target panel is the panel named "request-details"
