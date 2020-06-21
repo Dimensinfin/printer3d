@@ -48,19 +48,19 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details 
     #     And the active page is set to Dasboard
     #     And there are no Features active
 
-    @D3D12 @D3D12.04
-    Scenario: [D3D12.04]-When the Detailed Request panel shows requests that are open because there are missing Parts then the Missed part should be highlighted and there should be a number with the number of missing parts.
-        Given there is a click on Feature "/PEDIDOS"
-        Given the target panel is the panel named "open-request-list"
-        Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
-        Given a hover on the target item
-        Then the target panel is the panel named "request-details"
-        Then on the target panel there is one "request"
-        Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
-        And in the target item there is no "COMPLETAR" button
-        Given the target item the "part4-request" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        Then the target item has a field named "FALTAN" with value "4"
-        Then the target item has a field named "PEDIDAS" with value "4"
-        Then the target item has a field named "ETIQUETA" with value "Boquilla Ganesha - Figura"
-        Then the target item has a field named "MATERIAL" with value "PLA"
-        Then the target item has a field named "COLOR" with value "GRIS"
+    # @D3D12 @D3D12.04
+    # Scenario: [D3D12.04]-When the Detailed Request panel shows requests that are open because there are missing Parts then the Missed part should be highlighted and there should be a number with the number of missing parts.
+    #     Given there is a click on Feature "/PEDIDOS"
+    #     Given the target panel is the panel named "open-request-list"
+    #     Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
+    #     Given a hover on the target item
+    #     Then the target panel is the panel named "request-details"
+    #     Then on the target panel there is one "request"
+    #     Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
+    #     And in the target item there is no "COMPLETAR" button
+    #     Given the target item the "part4-request" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     Then the target item has a field named "FALTAN" with value "4"
+    #     Then the target item has a field named "PEDIDAS" with value "4"
+    #     Then the target item has a field named "ETIQUETA" with value "Boquilla Ganesha - Figura"
+    #     Then the target item has a field named "MATERIAL" with value "PLA"
+    #     Then the target item has a field named "COLOR" with value "GRIS"

@@ -29,14 +29,14 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         And the New Part dialog input field "imagePath" should be empty
         And the New Part dialog input field "modelPath" should be empty
 
-    @D3D04 @D3D04.05
-    Scenario: [D3D04.05]-A new part dialog should have some fields with default values
-        Given there is a click on Feature "/NUEVA PIEZA"
-        Then the New Part dialog opens and blocks the display
-        And the New Part dialog input field "material" should not be empty
-        And the New Part dialog input field "color" should be "INDEFINIDO"
-        And the New Part dialog input field "stockLevel" should be "1"
-        And the New Part dialog input field "stockAvailable" should be "0"
+    # @D3D04 @D3D04.05
+    # Scenario: [D3D04.05]-A new part dialog should have some fields with default values
+    #     Given there is a click on Feature "/NUEVA PIEZA"
+    #     Then the New Part dialog opens and blocks the display
+    #     And the New Part dialog input field "material" should not be empty
+    #     And the New Part dialog input field "color" should be "INDEFINIDO"
+    #     And the New Part dialog input field "stockLevel" should be "1"
+    #     And the New Part dialog input field "stockAvailable" should be "0"
 
     @D3D04 @D3D04.06
     Scenario: [D3D04.06]-A New Part dialog should have two buttons. One to save the new part and another to cancel the operation.
@@ -116,17 +116,17 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         Then the part is persisted at the backend
         And the New Part dialog input field "color" should be "INDEFINIDO"
 
-    @D3D04 @D3D04.11
-    Scenario: [D3D04.11] The dialog Material field should be populated with the list of material types from the backend list.
-        Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
-        Then the New Part dialog opens and blocks the display
-        And there is a call to the backend to get the Finishings
-        And the Material dropdown has 3 elements
-        And form fields have the next values
-            | material |
-            | PLA      |
-        And the Color dropdown has 12 values
+    # @D3D04 @D3D04.11
+    # Scenario: [D3D04.11] The dialog Material field should be populated with the list of material types from the backend list.
+    #     Given one instance of Dock
+    #     When there is a click on Feature "/NUEVA PIEZA"
+    #     Then the New Part dialog opens and blocks the display
+    #     And there is a call to the backend to get the Finishings
+    #     And the Material dropdown has 3 elements
+    #     And form fields have the next values
+    #         | material |
+    #         | PLA      |
+    #     And the Color dropdown has 12 values
 
     @D3D04 @D3D04.12
     Scenario: [D3D04.12]-The New Part dialog has an specific set of fields with length validation.
