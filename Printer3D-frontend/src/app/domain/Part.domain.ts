@@ -9,7 +9,7 @@ export class Part extends Node {
     public label: string;
     public description: string;
     public material: string = 'PLA'
-    public color: string = 'INDEFINIDO';
+    public color: string;
     public cost: number;
     public price: number;
     public buildTime: number;

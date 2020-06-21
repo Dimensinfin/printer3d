@@ -20,6 +20,9 @@ export class PartContainer extends Node {
         this.jsonClass = 'PartContainer';
     }
 
+    public getId(): string {
+        return this.id;
+    }
     public isExpandable(): boolean {
         return true;
     }
