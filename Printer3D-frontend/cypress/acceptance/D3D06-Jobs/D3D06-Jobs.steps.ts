@@ -229,3 +229,11 @@ Then('the button {string} is visible', function (buttonName: string) {
         .find('v3-machine-render')
         .find('button').get(buttonReference).should('exist')
 });
+
+
+// - B E S T   P R A C T I C E S
+Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
+    cy.get('@target-panel').within(($item) => {
+        cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+    })
+});

@@ -1,6 +1,7 @@
 <!-- J O B - L I S T   V A R I A N T -->
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getJob()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
+<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'" [ngClass]="{'job-priority-high': getPriority()==1}">
     <div class="row cornered-panel">
+        <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
         <div class="field label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
             <span cy-field-value="ETIQUETA" cy-name="job-label" class="field-height job-label">{{getLabel()}}</span>
@@ -29,7 +30,7 @@
     </svg>
 </div>
 <!-- B U I L D I N G   V A R I A N T -->
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getJob()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
+<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
     <div class="row cornered-panel">
         <div class="field label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>

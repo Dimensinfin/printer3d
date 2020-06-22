@@ -56,3 +56,13 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given the target panel is the panel named "machines"
         Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Then the target item is droppable and with the contraint "JOB"
+
+    @D3D06 @D3D06.08
+    Scenario: [D3D06.08]-Jobs can have different priorities. Higher priority jobs have a different backgorund tint.
+       Given there is a click on Feature "/TRABAJOS PND."
+        When the page "ProductionJobListPage" is activated
+        Given the target panel is the panel named "jobs-list"
+        Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        Then the target item has a field named "PRIORIDAD" with value "1"
+        Given the target item the "job" with id "1121ca6c-4035-4170-a9ac-3eebd113dcbf"
+        Then the target item has a field named "PRIORIDAD" with value "2"

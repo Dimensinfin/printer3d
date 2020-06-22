@@ -17,7 +17,7 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-open-requests-page"
 
     @D3D11 @D3D11.02
-    Scenario: [D3D11.02]-When the open requests page is activate there thare two panels. The left one if for the list of Requests. The right one is empty.
+    Scenario: [D3D11.02]-When the open requests page is activate there are two panels. The left one if for the list of Requests. The right one is empty.
         Given there is a click on Feature "/PEDIDOS"
         Then the V1OpenRequestsPage is activated
         And the V1OpenRequestsPage has 2 panels

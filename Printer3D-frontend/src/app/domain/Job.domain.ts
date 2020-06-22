@@ -7,6 +7,7 @@ import { Part } from './Part.domain';
 export class Job extends Node {
     public id: string;
     public part: Part;
+    private priority:number=3
 
     constructor(values: Object = {}) {
         super();
@@ -23,6 +24,9 @@ export class Job extends Node {
     }
     public getBuildSeconds(): number {
         return this.getPart().buildTime * 60
+    }
+    public getPriority() : number {
+        return this.priority
     }
     private transform(): void {
         if (null != this.part)

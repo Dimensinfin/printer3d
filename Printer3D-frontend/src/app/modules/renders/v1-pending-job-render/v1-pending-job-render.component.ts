@@ -3,19 +3,8 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
-// - SERVICES
-import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { IsolationService } from '@app/platform/isolation.service';
-import { platformconstants } from '@app/platform/platform-constants';
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
-import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
-import { Part } from '@domain/Part.domain';
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
 
 @Component({
@@ -26,24 +15,25 @@ import { NodeContainerRenderComponent } from '../node-container-render/node-cont
 export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     public image = '/assets/media/default-part-image.png'
 
-    public getUniqueId(): string {
-        const job = this.node as Job
-        return job.getId();
+    public getNode(): Job {
+        return this.node as Job
     }
-    public getJob(): Job {
-        const job = this.node as Job
-        return job;
+    public getUniqueId(): string {
+        return this.getNode().getId();
+    }
+    public getPriority(): number {
+        return this.getNode().getPriority()
     }
     public getLabel(): string {
-        return this.getJob().getPart().label;
+        return this.getNode().getPart().label;
     }
     public getMaterial(): string {
-        return this.getJob().getPart().material;
+        return this.getNode().getPart().material;
     }
     public getColor(): string {
-        return this.getJob().getPart().color;
+        return this.getNode().getPart().color;
     }
     public getBuildTime(): number {
-        return this.getJob().getPart().buildTime;
+        return this.getNode().getPart().buildTime;
     }
 }

@@ -85,8 +85,8 @@ describe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
         });
         it('getJob.success: access the node instance of this component', () => {
             component.node = testJob;
-            expect(component.getJob()).toBeDefined()
-            expect(component.getJob().getId()).toBe("9903926b-e786-4fb2-8e8e-68960ebebb7a")
+            expect(component.getNode()).toBeDefined()
+            expect(component.getNode().getId()).toBe("9903926b-e786-4fb2-8e8e-68960ebebb7a")
         });
         it('getLabel.success: get contained Part "label" field', () => {
             component.node = testJob;
