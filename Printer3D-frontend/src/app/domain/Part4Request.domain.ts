@@ -15,7 +15,7 @@ export class Part4Request extends Part {
     }
 
     public getMissed(): number {
-        return Math.min(0, this.getAvailable() - this.getRequired()) * -1
+        return Math.abs(Math.min(0, this.getAvailable() - this.getRequired()))
     }
     public getRequired(): number {
         return this.required
