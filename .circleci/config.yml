@@ -34,17 +34,17 @@ jobs:
           command: |
             node -v
             npm install
-      - run:
-          name: CHECK - Start the simulator
-          working_directory: Printer3D-frontend
-          command: |
-            npm run acceptance:simulator
-          background: true
-      - run:
-          name: CHECK - Run acceptance tests - batch A
-          working_directory: Printer3D-frontend
-          command: |
-            npm run acceptance:cypress-batch0
+    #   - run:
+    #       name: CHECK - Start the simulator
+    #       working_directory: Printer3D-frontend
+    #       command: |
+    #         npm run acceptance:simulator
+    #       background: true
+    #   - run:
+    #       name: CHECK - Run acceptance tests - batch A
+    #       working_directory: Printer3D-frontend
+    #       command: |
+    #         npm run acceptance:cypress-batch0
 
   compile-frontend-job:
     docker:
