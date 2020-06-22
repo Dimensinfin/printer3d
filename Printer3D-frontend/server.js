@@ -5,6 +5,7 @@ const compression = require('compression');
 const request = require('request');
 const config = require('config');
 const proxy = require('express-http-proxy');
+const fs = require('fs')
 
 // - S E R V E R   O P T I O N S
 const app = express();
@@ -97,13 +98,10 @@ app.listen(process.env.PORT || app.locals.port || 3000, function() {
     console.log("Proxy redirection for /actuator: " + 'Backend: ' + app.locals.backendproxy);
     console.log("Proxy redirection for /api: " + 'Backend: ' + app.locals.backendproxy);
     console.log("Proxy redirection for /: " + 'Local: ' + app.locals.applicationhome);
-    console.log(
-        "        ___      __       ___  \n" +
-        "__   __/ _ \\    / /_     / _ \\ \n" +
-        "\\ \\ / / | | |  | '_ \\   | | | |\n" +
-        " \\ V /| |_| |  | (_) |  | |_| |\n" +
-        "  \\_/  \\___(_)  \\___(_)  \\___/ \n" +
-        "                               \n"
-    );
-    console.log("Server Ready for Connections");
+    const filename = 'app-banner.txt'
+    fs.readFile(filename, 'utf8', function(err, data) {
+        if (err) throw err;
+        console.log(data)
+        console.log("Server Ready for Connections");
+    });
 });
