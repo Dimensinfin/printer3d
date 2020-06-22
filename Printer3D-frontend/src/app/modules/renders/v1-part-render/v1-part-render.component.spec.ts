@@ -33,7 +33,7 @@ import { Part } from '@domain/Part.domain';
 import { V1PartRenderComponent } from './v1-part-render.component';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 
-describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
+xdescribe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
     let component: V1PartRenderComponent;
     let testPart: Part = new Part({
         "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
