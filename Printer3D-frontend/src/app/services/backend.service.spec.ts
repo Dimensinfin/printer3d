@@ -221,9 +221,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
             service.apiProductionGetJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
                 .setTransformation((entrydata: any): Job[] => {
                     const jobs: Job[] = []
-                    entrydata.forEach(element => {
-                        jobs.push(new Job(element));
-                    });
+                    for (let job of entrydata)
+                        jobs.push(new Job(job));
                     return jobs;
                 }))
                 .subscribe((response: Job[]) => {
@@ -235,9 +234,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
             service.apiProductionGetOpenRequests_v1(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
                 .setTransformation((entrydata: any): Request[] => {
                     const requests: Request[] = []
-                    entrydata.forEach(element => {
-                        requests.push(new Request(element));
-                    });
+                    for (let request of entrydata)
+                        requests.push(new Request(request));
                     return requests;
                 }))
                 .subscribe((response: Request[]) => {

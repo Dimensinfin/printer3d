@@ -85,7 +85,7 @@ describe('CLASS Part4Request [Module: DOMAIN]', () => {
             expect(instance.getMissed()).toBe(1);
             instance.decrementCount()
             instance.decrementCount()
-            expect(instance.getRequired()).toBe(2);
+            expect(instance.getRequired()).toBe(3);
             expect(instance.getMissed()).toBe(0);
         });
     });

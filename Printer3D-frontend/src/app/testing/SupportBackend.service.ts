@@ -155,7 +155,6 @@ export class SupportBackendService {
     public apiMachinesCompleteBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.machines.cancelbuild')
-            // console.log('>[SupportBackendService.apiMachinesCompleteBuild_v1]> Data: ' + data)
             observer.next(transformer.transform(data));
             observer.complete();
         });
@@ -164,115 +163,8 @@ export class SupportBackendService {
     // - P R O D U C T I O N
     public apiProductionGetJobs_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
         return Observable.create((observer) => {
-            observer.next(transformer.transform([{
-                "id": "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56",
-                "part": {
-                    "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "color": "NARANJA-T",
-                    "buildTime": 30,
-                    "cost": 0.85,
-                    "price": 3.0,
-                    "stockLevel": 5,
-                    "stockAvailable": 0,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-            },
-            {
-                "id": "4ff06fbb-8c0e-41fe-970d-48c225546689",
-                "part": {
-                    "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "color": "NARANJA-T",
-                    "buildTime": 30,
-                    "cost": 0.85,
-                    "price": 3.0,
-                    "stockLevel": 5,
-                    "stockAvailable": 0,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-            },
-            {
-                "id": "94cba495-870a-4adb-8e3b-043e80d3d6a4",
-                "part": {
-                    "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "color": "NARANJA-T",
-                    "buildTime": 30,
-                    "cost": 0.85,
-                    "price": 3.0,
-                    "stockLevel": 5,
-                    "stockAvailable": 0,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-            },
-            {
-                "id": "1121ca6c-4035-4170-a9ac-3eebd113dcbf",
-                "part": {
-                    "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "color": "NARANJA-T",
-                    "buildTime": 30,
-                    "cost": 0.85,
-                    "price": 3.0,
-                    "stockLevel": 5,
-                    "stockAvailable": 0,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-            },
-            {
-                "id": "5a1aa8f3-1ea5-4ea8-ba36-5a0bb7085c06",
-                "part": {
-                    "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "color": "NARANJA-T",
-                    "buildTime": 30,
-                    "cost": 0.85,
-                    "price": 3.0,
-                    "stockLevel": 5,
-                    "stockAvailable": 0,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-            },
-            {
-                "id": "1682544c-364b-4e30-b097-fd181bcc50a5",
-                "part": {
-                    "id": "55236c12-1322-4e32-8285-dac2a45a65fe",
-                    "label": "Covid-19 Key",
-                    "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                    "material": "PLA",
-                    "color": "ROJO",
-                    "buildTime": 30,
-                    "cost": 0.85,
-                    "price": 4.0,
-                    "stockLevel": 3,
-                    "stockAvailable": 2,
-                    "imagePath": "https://ibb.co/3dGbsRh",
-                    "modelPath": "pieza3.sft",
-                    "active": true
-                }
-            }
-            ]));
+            const data = this.directAccessMockResource('production.pendingjobs')
+            observer.next(transformer.transform(data));
             observer.complete();
         });
     }

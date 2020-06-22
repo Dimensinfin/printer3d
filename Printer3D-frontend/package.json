@@ -17,7 +17,9 @@
         "cypress:record": "cypress run --record --key 9eebb605-a163-4da0-bb36-6af73faddf1b",
         "acceptance:simulator": "bash ./support/simulator-backend.sh start &",
         "acceptance:cypress": "npm run start:dev & wait-on http://localhost:5100 && npm run cypress:run ",
-        "acceptance:cypress-batch0": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/acceptance/D3D0*.feature\"",
+        "acceptance:cypress:batchA": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/acceptance/D3D0*.feature\"",
+        "acceptance:cypress:batchB": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/acceptance/D3D1*.feature\"",
+        "integration:cypress:batchA": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/integration/D3D*.feature\"",
         "heroku-postbuild": "ng build --configuration=${NODE_ENV}",
         "start:integration": "export NODE_ENV=integration && export PORT=5150 && npm run build:stage && npm start",
         "analyzer": "ng build --aot --configuration=stage --stats-json && webpack-bundle-analyzer ./dist/Printer3D-frontend/stats-es2015.json"

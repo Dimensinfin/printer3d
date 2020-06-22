@@ -190,7 +190,6 @@ export class BackendService {
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionGetJobs_v1]> Transformation: " + transformer.description);
-                // console.log(">[BackendService.apiProductionGetJobs_v1]> Data: " + data);
                 const response = transformer.transform(data) as Job[];
                 return response;
             }));
