@@ -4,11 +4,11 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
-public class MachineUpdater {
+public class MachineUpdaterV1 {
 	private final MachineEntity machine;
 
 	// - C O N S T R U C T O R S
-	public MachineUpdater( final @NotNull MachineEntity machine ) {
+	public MachineUpdaterV1( final @NotNull MachineEntity machine ) {
 		this.machine = machine;
 	}
 

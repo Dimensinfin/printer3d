@@ -152,6 +152,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.REMOVE_MODEL_PART );
 	}
 
+	@When("the Start Build V2 for for Machine {string} request is processed")
+	public void the_Start_Build_V2_for_for_Machine_request_is_processed( final String machineId ) throws IOException {
+		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
+		Assertions.assertNotNull( this.printer3DWorld.getJobRequest() );
+		this.processRequestByType( RequestType.START_BUILDV2 );
+	}
+
 	@When("the Start Build for Part {string} for Machine {string} request is processed")
 	public void the_Start_Build_for_Part_for_Machine_request_is_processed( final String partId, final String machineId ) throws IOException {
 		this.printer3DWorld.setPartId( UUID.fromString( partId ) );
@@ -295,6 +302,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( closeRequestResponseEntity );
 				this.printer3DWorld.setCloseRequestResponseEntity( closeRequestResponseEntity );
 				return closeRequestResponseEntity;
+			case START_BUILDV2:
+				final ResponseEntity<Machine> startBuildV2ResponseEntity = this.machineFeignClientV2
+						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
+								this.printer3DWorld.getMachineId(),
+								this.printer3DWorld.getJobRequest() );
+				Assertions.assertNotNull( startBuildV2ResponseEntity );
+				this.printer3DWorld.setStartBuildResponseEntity( startBuildV2ResponseEntity );
+				return startBuildV2ResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

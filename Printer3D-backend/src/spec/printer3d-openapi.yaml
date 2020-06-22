@@ -384,6 +384,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MachineListV2'
+  /api/v2/inventory/machines/{machineId}/startbuild:
+    post:
+      tags:
+        - Inventory
+      summary: Signals the registration and start of a new build job.
+      description: >
+        With this command the **Machine** will be active and building one new instance of the referenced Part model. The front end will not allow
+        setting new jobs until this ends or it is cancelled.
+      operationId: startBuild
+      requestBody:
+        description: >
+          The endpoint receives a new Job Request that has some of the key job identifiers. The new implementation allows to set the number of
+          identical copies of the Part so the inventory can be updated precisely with each job completed.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      parameters:
+        - in: path
+          name: machineId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Machine that will execute the build job.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The registration of the build start is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
 
   /api/v1/inventory/machines:
     get:
@@ -1223,6 +1260,7 @@ components:
       required:
         - id
         - part_id
+        - copies
       properties:
         id:
           type: string
@@ -1241,6 +1279,15 @@ components:
             The unique identifier of the **Part** referenced by this jobs. This links this job with all the Part data.
           example:
             009ab011-03ad-4e84-9a88-25708d1cfd64
+        copies:
+          type: number
+          format: int32
+          default: 1
+          description: >
+            The number of copies of the same part that are going to be built in this job. This value also changes the job run time. If a single
+            Part takes 30 minutes to be built then 4 parts will take four times longer.
+          example:
+            3
     JobList:
       type: object
       required:

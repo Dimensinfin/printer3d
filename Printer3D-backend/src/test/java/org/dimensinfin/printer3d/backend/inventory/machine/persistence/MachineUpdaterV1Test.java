@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class MachineUpdaterTest {
+public class MachineUpdaterV1Test {
 	@Test
 	public void constructorContract() {
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
-		final MachineUpdater machineUpdater = new MachineUpdater( machineEntity );
-		Assertions.assertNotNull( machineUpdater );
+		final MachineUpdaterV1 machineUpdaterV1 = new MachineUpdaterV1( machineEntity );
+		Assertions.assertNotNull( machineUpdaterV1 );
 	}
 
 	@Test
@@ -20,7 +20,7 @@ public class MachineUpdaterTest {
 		final MachineEntity machineEntity = new MachineEntity();
 		final UUID partId = UUID.randomUUID();
 		// Test
-		final MachineEntity obtained = new MachineUpdater( machineEntity ).update( partId );
+		final MachineEntity obtained = new MachineUpdaterV1( machineEntity ).update( partId );
 		// Assertions
 		Assertions.assertEquals( partId.toString(), obtained.getCurrentJobPartId().toString() );
 		Assertions.assertEquals( 1, obtained.getCurrentPartInstances() );

@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.support.inventory.machine.rest;
 
 import java.io.IOException;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -34,4 +37,19 @@ public class MachineFeignClientV2 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
+	public ResponseEntity<Machine> startBuild( final String authorizationToken,
+	                                           final UUID machineId,
+	                                           final JobRequest jobRequest ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request to start a new build job.";
+		final Response<Machine> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV2.class )
+				.startBuild( authorizationToken, machineId, jobRequest )
+				.execute();
+		if (response.isSuccessful()) {
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
 }

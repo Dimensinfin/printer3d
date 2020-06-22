@@ -9,18 +9,22 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.BuildRecordValidator;
+import org.dimensinfin.printer3d.backend.support.inventory.machine.CucumberTableToJobRequestConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
-public class P3D06MachinesV2Steps extends StepSupport{
+public class P3D06MachinesV2Steps extends StepSupport {
+	// - C O N S T R U C T O R S
 	public P3D06MachinesV2Steps( final @NotNull Printer3DWorld printer3DWorld ) {
 		super( printer3DWorld );
 	}
 
 	@Then("the machine {string} has the next build information")
-	public void the_machine_has_the_next_build_information(final String machineLabel, final List<Map<String, String>> dataTable) {
+	public void the_machine_has_the_next_build_information( final String machineLabel, final List<Map<String, String>> dataTable ) {
 		final ResponseEntity<MachineListV2> machinesResponse = this.printer3DWorld.getMachineListv2ResponseEntity();
 		Assertions.assertNotNull( machinesResponse );
 		Assertions.assertNotNull( machinesResponse.getBody() );
@@ -29,5 +33,12 @@ public class P3D06MachinesV2Steps extends StepSupport{
 				Assertions.assertTrue( new BuildRecordValidator().validate( dataTable.get( 0 ), machine.getBuildRecord() ) );
 			}
 		}
+	}
+
+	@Given("the next Job Request request")
+	public void the_next_Job_Request_request( final List<Map<String, String>> dataTable ) {
+		final JobRequest jobRequest = new CucumberTableToJobRequestConverter().convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( jobRequest );
+		this.printer3DWorld.setJobRequest( jobRequest );
 	}
 }

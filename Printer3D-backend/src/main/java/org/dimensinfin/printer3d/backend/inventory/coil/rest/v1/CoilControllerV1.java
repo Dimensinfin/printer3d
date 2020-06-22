@@ -32,7 +32,7 @@ class CoilControllerV1 {
 		this.coilServiceV1 = Objects.requireNonNull( coilServiceV1 );
 	}
 
-// - G E T T E R S   &   S E T T E R S
+	// - G E T T E R S   &   S E T T E R S
 	@GetMapping(path = "/inventory/coils",
 			consumes = "application/json",
 			produces = "application/json")

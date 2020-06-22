@@ -11,7 +11,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupR
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_PART_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_PART_INSTANCES_COUNT;
 
-public class SupportMachineUpdaterTest {
+public class SupportMachineUpdaterV1Test {
 
 	@Test
 	public void update() {

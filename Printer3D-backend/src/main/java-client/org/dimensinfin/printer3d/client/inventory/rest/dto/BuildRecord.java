@@ -34,7 +34,8 @@ public class BuildRecord {
 		LogWrapper.info( this.toString() );
 		if (null == this.jobInstallmentDate) return 0;
 		else {
-			final long remainingTime = this.part.getBuildTime() - this.getJobInstallmentDate().until( OffsetDateTime.now(), ChronoUnit.MINUTES );
+			final long remainingTime = (60 * this.partCopies * this.part.getBuildTime()) - this.getJobInstallmentDate().until( OffsetDateTime.now(),
+					ChronoUnit.SECONDS );
 			return (remainingTime < 0) ? 0 : (int) remainingTime;
 		}
 	}
@@ -57,7 +58,7 @@ public class BuildRecord {
 	// - C O R E
 	@Override
 	public String toString() {
-		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
+		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "state", this.state )
 				.append( "part", this.part )
 				.append( "partCopies", this.partCopies )

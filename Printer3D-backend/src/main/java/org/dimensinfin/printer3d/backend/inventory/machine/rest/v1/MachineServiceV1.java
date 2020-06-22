@@ -20,7 +20,7 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.JobEntity
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.JobRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
-import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdater;
+import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdaterV1;
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
@@ -104,7 +104,7 @@ public class MachineServiceV1 {
 	}
 
 	public Machine startBuild( final StartBuildRequest startBuildRequest ) {
-		// Find the machine nad update it.
+		// Find the machine and update it.
 		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( startBuildRequest.getMachineId() );
 		if (machineOpt.isEmpty())
 			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( startBuildRequest.getMachineId() ) );
@@ -113,7 +113,7 @@ public class MachineServiceV1 {
 			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineOpt.get().getCurrentJobPartId() ) );
 		return new MachineEntityToMachineConverter( new PartEntityToPartConverter().convert( jobPartOpt.get() ) )
 				.convert(
-						this.machineRepository.save( new MachineUpdater( machineOpt.get() ).update( startBuildRequest.getPartId() ) )
+						this.machineRepository.save( new MachineUpdaterV1( machineOpt.get() ).update( startBuildRequest.getPartId() ) )
 				);
 	}
 
@@ -123,7 +123,7 @@ public class MachineServiceV1 {
 			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
 		final JobEntity job = new JobEntity.Builder()
 				.withPartId( machineEntity.getCurrentJobPartId() )
-				.withBuildTime( jobPartOpt.get().getBuildTime() )
+				.withBuildTime( jobPartOpt.get().getBuildTime() * machineEntity.getCurrentPartInstances() ) // Multiple copies take longer to build.
 				.withCost( jobPartOpt.get().getCost() )
 				.withPrice( jobPartOpt.get().getPrice() )
 				.withPartCopies( machineEntity.getCurrentPartInstances() )

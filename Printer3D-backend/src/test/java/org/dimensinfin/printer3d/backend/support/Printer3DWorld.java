@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -15,8 +14,10 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
+import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
@@ -45,6 +46,16 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<RequestList> requestListResponseEntity;
 	private UUID requestId;
 	private ResponseEntity<Request> closeRequestResponseEntity;
+private  JobRequest jobRequest;
+
+	public JobRequest getJobRequest() {
+		return this.jobRequest;
+	}
+
+	public Printer3DWorld setJobRequest( final JobRequest jobRequest ) {
+		this.jobRequest = jobRequest;
+		return this;
+	}
 
 	public ResponseEntity<Request> getCloseRequestResponseEntity() {
 		return this.closeRequestResponseEntity;
