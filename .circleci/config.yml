@@ -25,13 +25,29 @@ version: 2.1
 jobs:
   start-job:
     docker:
-      - image: apimastery/apisimulator
+      - image: circleci/node:12.16.3-browsers
     steps:
+      - checkout
       - run:
-          name: PROJECT - Check node version
+          name: CHECK - Install the framework
           working_directory: Printer3D-frontend
           command: |
-            java -version
+            node -v
+            npm install
+            npm run acceptance:simulator
+          background: true
+      - run:
+          name: CHECK - Waiting for server to start
+          environment:
+            PORT: 5110
+          working_directory: Printer3D-frontend
+          command: |
+            dockerize -wait tcp://localhost:${PORT} -timeout 3m
+      - run:
+          name: CHECK - Run acceptance tests - batch A
+          working_directory: Printer3D-frontend
+          command: |
+            cypress run --spec "./cypress/acceptance/D3D0*.feature"
 
   compile-frontend-job:
     docker:
