@@ -5,6 +5,9 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { V1PendingJob } from '../../support/page-objects/V1PendingJob.panel';
 import { MachinePanel } from '../../support/page-objects/MachinePanel.panel';
+import { SupportService } from '../../support/SupportService.support';
+
+const supportService = new SupportService();
 
 Then('the target item is draggable and with the contraint {string}', function (constraintName: string) {
     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
@@ -236,4 +239,9 @@ Then('the target item has a field named {string} with value {string}', function 
     cy.get('@target-panel').within(($item) => {
         cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
     })
+});
+Then('the target panel has {int} {string}', function (count: number, renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.log('>[translation]> ' + renderName + ' -> ' + tag)
+    cy.get('@target-panel').find(tag).should('have.length', count)
 });

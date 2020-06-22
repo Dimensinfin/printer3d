@@ -35,7 +35,9 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
         Given the target panel is the panel named "jobs-list"
+        Then the target panel has 4 "job"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        Then the target item has a field labeled "CUANTAS" with value "x 2"
         Then the target item has a field labeled "ETIQUETA" with value "Covid-19 Key"
         Then the target item has a field labeled "MATERIAL" with value "PLA"
         Then the target item has a field labeled "COLOR" with value "NARANJA-T"
@@ -59,10 +61,10 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
 
     @D3D06 @D3D06.08
     Scenario: [D3D06.08]-Jobs can have different priorities. Higher priority jobs have a different backgorund tint.
-       Given there is a click on Feature "/TRABAJOS PND."
+        Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
         Given the target panel is the panel named "jobs-list"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         Then the target item has a field named "PRIORIDAD" with value "1"
-        Given the target item the "job" with id "1121ca6c-4035-4170-a9ac-3eebd113dcbf"
+        Given the target item the "job" with id "1682544c-364b-4e30-b097-fd181bcc50a5"
         Then the target item has a field named "PRIORIDAD" with value "2"

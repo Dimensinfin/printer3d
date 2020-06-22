@@ -24,6 +24,9 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     public getPriority(): number {
         return this.getNode().getPriority()
     }
+    public getNumber(): string {
+        return 'x ' + this.getNode().getNumber()
+    }
     public getLabel(): string {
         return this.getNode().getPart().label;
     }

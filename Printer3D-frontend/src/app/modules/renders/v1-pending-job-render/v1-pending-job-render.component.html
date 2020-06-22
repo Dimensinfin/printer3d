@@ -2,9 +2,13 @@
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'" [ngClass]="{'job-priority-high': getPriority()==1}">
     <div class="row cornered-panel">
         <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
-        <div class="field label-width">
+        <div class="field number-width">
+            <span cy-field-label="CUANTAS" class="label">CUANTAS</span><br>
+            <span cy-field-value="CUANTAS" class="field-height job-number">{{getNumber()}}</span>
+        </div>
+        <div cy-name="job-label" class="field label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" cy-name="job-label" class="field-height job-label">{{getLabel()}}</span>
+            <span cy-field-value="ETIQUETA" class="field-height job-label">{{getLabel()}}</span>
         </div>
         <div class="field">
             <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>

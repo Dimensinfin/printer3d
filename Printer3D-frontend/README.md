@@ -1,29 +1,13 @@
 # Printer3DFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-To run the acceptance tests on the development server we should start the local application with the command '`npm run start:dev`'. The we can open the cypress environment with thr command '`npm run cypress:open`'.
-With the cypress console open we can select and run any of the test scenarios.
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-
-## Running end-to-end tests
-
-
 ## Unit Tests pending
-* NeoCom.domain
-* V1PartRender
-* ProductionJobListPage
-* V2MachinesPanel
+* Part
+* RequestForm
+* Request
+* Job
+* new-part-dialog
+* v1-new-request-panel
+* v1-part-render
+* v1-pending-jobs-panel
+* v1-pending-job-render
+* JobAggregator

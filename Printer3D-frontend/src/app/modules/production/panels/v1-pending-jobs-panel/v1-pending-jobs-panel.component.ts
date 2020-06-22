@@ -19,6 +19,7 @@ import { Job } from '@domain/Job.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { environment } from '@env/environment';
+import { JobAggregator } from '@domain/transformer/JobAggregator.transformer';
 
 @Component({
     selector: 'v1-pending-jobs-panel',
@@ -63,7 +64,10 @@ export class V1PendingJobsPanelComponent extends AppPanelComponent implements On
                     return jobs;
                 }))
                 .subscribe((response: Job[]) => {
-                    this.completeDowload(response); // Notify the completion of the download.
+                    const aggregator = new JobAggregator()
+                    for (let job of response) // Aggregate equal jobs into a single display element
+                        aggregator.addJob(job)
+                    this.completeDowload(aggregator.getAggreagtedJobs()); // Notify the completion of the download.
                 })
         );
     }
