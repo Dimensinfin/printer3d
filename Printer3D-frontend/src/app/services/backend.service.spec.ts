@@ -76,7 +76,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: BackendInfoResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.getVersion()).toBe('<' + "0.6.0" + ' backend');
+                    expect(response.getVersion()).toBe('<' + "0.0.0" + ' backend');
                 });
         });
     });

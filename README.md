@@ -7,7 +7,7 @@
 * There is a frontend with the user interface over a web platform developed in Angular.
 * Also there is s backend where the data is persisted and searched implemented with SpringBoot and using database relational repositories to store the data and relationships.
 * And a portal that unifies the frontend and the backend developed in Node that initializes the application and keeps track of the authentication and firewalls. This posrtal is still pending development once the authentication is put in place.
-* Current version is DEVELOPMENT-0.6.0
+* Current version is DEVELOPMENT-0.7.0
 
 # Application Port Mapping
 #### 5100 - Development frontend server<br>5110 - Development backend mock<br>5120 - Local backend application sringboot instance<br>5130 - Postgres database instance for acceptance tests<br>5140 - Backend application acceptance instance<br>5150 - Development portal server
