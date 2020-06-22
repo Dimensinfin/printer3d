@@ -44,8 +44,7 @@ jobs:
           name: CHECK - Run acceptance tests - batch A
           working_directory: Printer3D-frontend
           command: |
-            whereis cypress
-            bash cypress run --spec "./cypress/acceptance/D3D0*.feature"
+            npm run acceptance:cypress-batch0
 
   compile-frontend-job:
     docker:
