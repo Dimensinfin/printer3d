@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.core.io.ClassPathResource;
 
 import org.dimensinfin.logging.LogWrapper;
 
@@ -50,16 +49,16 @@ public class Printer3DApplication {
 
 		private String readAllBytes( final String resourceName ) {
 			try {
-				File resource = new ClassPathResource( resourceName ).getFile();
+				File resource = new File ("build/resources/main/app-banner.txt");
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final IOException ioe) {
 				LogWrapper.error( ioe );
-				return "        ___      __       ___  \n" +
-						"__   __/ _ \\    / /_     / _ \\ \n" +
-						"\\ \\ / / | | |  | '_ \\   | | | |\n" +
-						" \\ V /| |_| |  | (_) |  | |_| |\n" +
-						"  \\_/  \\___(_)  \\___(_)  \\___/ \n" +
-						"                               \n";
+				return "        ___     _____   _ \n" +
+						"__   __/ _ \\   |___  | / |\n" +
+						"\\ \\ / / | | |     / /  | |\n" +
+						" \\ V /| |_| |    / /_  | |\n" +
+						"  \\_/  \\___(_)  /_/(_) |_|\n" +
+						"                          \n";
 			}
 		}
 	}

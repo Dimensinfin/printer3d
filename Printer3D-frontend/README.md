@@ -8,3 +8,7 @@
 * JobAggregator
 * Part4Request
 * v1-dock
+* Job
+* v1-part-render
+* new-part-dialog
+* v1-pending-jobs-panel
