@@ -38,10 +38,10 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Then the page "NewRequestPage" is activated
         Given the target panel is the panel of type "available-parts"
         Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        And on the target Part there is a field named "ETIQUETA" with field name "label"
-        And on the target Part there is a field named "MATERIAL" with field name "material"
-        And on the target Part there is a field named "COLOR" with field name "color"
-        And on the target Part there is a field named "DISPONIBLE" with field name "stockAvailable"
+        And the target item has a field labeled "ETIQUETA" with value "Boquilla Ganesha - Embocadura"
+        And the target item has a field labeled "MATERIAL" with value "TPU"
+        And the target item has a field labeled "COLOR" with value "AZUL"
+        And the target item has a field labeled "DISPONIBLE" with value "10"
 
     # @D3D09 @D3D09.06
     # Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
@@ -156,7 +156,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Then the target panel has 1 "part4-request"
         Given the target item the "part4-request" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         Then the target item has a field named "REQUERIDAS" with value "2"
-      
+
         Given the target panel is the panel of type "available-parts"
         Given the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
         Given the target panel is the panel of type "new-request"
