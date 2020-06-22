@@ -110,20 +110,86 @@
     </section>
     <footer id="modal-footer">
         <div class="centered-container button-area">
-            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newPartForm.form.valid" (click)="savePart()">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                &nbsp;&nbsp;Guardar Datos
-            </button>
-            <button id="cancel-button" type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
+            <div class="button-container">
+                <button id="submit-button" type="submit" class="button ok-button" [disabled]="!newPartForm.form.valid" (click)="savePart()">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Guardar Datos
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                </svg>
+                <div *ngIf="newPartForm.form.valid">
+                    <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
+            <div class="button-container">
+                <button id="cancel-button" type="button" class="button cancel-button" (click)="closeModal()">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 &nbsp;&nbsp;Go Back/Cancel
-            </button>
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                </svg>
+                <div>
+                    <svg class="button-right-mark orange-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark orange-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
         </div>
         <div class="centered-container button-area">
-            <button id="repeat-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newPartForm.form.valid" (click)="savePartAndRepeat()">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                &nbsp;&nbsp;Guardar y Repetir
-            </button>
+            <div class="button-container" style="width: 315px;">
+                <button style="width: 315px;" id="repeat-button" type="submit" class="button ok-button" [disabled]="!newPartForm.form.valid" (click)="savePartAndRepeat()">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Guardar y Repetir
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                </svg>
+                <div *ngIf="newPartForm.form.valid">
+                    <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
         </div>
     </footer>
 </div>

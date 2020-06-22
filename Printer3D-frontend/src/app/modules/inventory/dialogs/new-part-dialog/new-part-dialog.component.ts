@@ -66,6 +66,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent  implemen
             console.log('-[NewPartDialogComponent.ngOnInit]> Setting Previous Part: ' + pendingPart)
             this.part = new Part(JSON.parse(pendingPart))
             this.part.createNewId() // Create a new id for any new part under creation
+            this.part.color = undefined;
         }
         this.readFinishings();
     }
@@ -74,6 +75,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent  implemen
         this.backendConnections.push(
             this.backendService.apiNewPart_v1(this.part, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
+                    this.isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY) // Clear the part copy
                     this.closeModal();
                 })
         );
