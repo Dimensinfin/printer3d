@@ -46,7 +46,6 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
-            // const componentInstance = new AppComponent();
             expect(component).toBeTruthy('service has not been created.');
             expect(component.appTitle).toBeDefined('field "appTitle" not defined.');
             expect(component.appVersion).toBeDefined('field "appVersion" not defined.');
@@ -56,14 +55,12 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     // - G E T T E R   P H A S E
     describe('Getter Phase', () => {
         it('appTitle: check value declared for "appTitle"', () => {
-            // const componentInstance = new AppComponent();
             expect(component.getAppTitle()).toBeDefined('field "appTitle" not defined.');
             expect(component.getAppTitle()).toBe('3DPrinterManagement - UI');
         });
         it('appVersion: check value declared for "appVersion"', () => {
-            // const componentInstance = new AppComponent();
             expect(component.getAppVersion()).toBeDefined('field "appVersion" not defined.');
-            expect(component.getAppVersion()).toBe(environment.appVersion);
+            expect(component.getAppVersion()).toBe(environment.appVersion + ' ' + process.env.NODE_ENV);
         });
     });
 
@@ -75,7 +72,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
         });
         it('appVersion: check value declared for "appVersion"', () => {
             expect(component.appVersion).toBeDefined('field "appVersion" not defined.');
-            expect(component.appVersion).toBe(environment.appVersion);
+            expect(component.appVersion).toBe(environment.appVersion + ' ' + process.env.NODE_ENV);
         });
     });
 });

@@ -185,12 +185,5 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
             expect(component.getActive()).toBe('ACTIVA');
             jasmine.clock().uninstall()
         });
-        xit('removePart: pass the remove Part to the parent panel', () => {
-            const componentAsAny = component as any;
-            componentAsAny.container = { removePart: () => { } }
-            spyOn(componentAsAny.container, 'removePart')
-            // component.removePart()
-            expect(componentAsAny.container.removePart).toHaveBeenCalled()
-        });
     });
 });

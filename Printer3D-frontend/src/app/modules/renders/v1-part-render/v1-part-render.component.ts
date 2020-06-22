@@ -53,7 +53,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
     public getPart(): Part {
         return this.node as Part
     }
-    public getUniqueId () : string {
+    public getUniqueId(): string {
         return this.getPart().getId()
     }
     public getLabel(): string {
@@ -115,16 +115,6 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
                 })
         );
     }
-    /**
-     * This an special callback endpoint to remove a Part from the list of parts associated to a Request.
-     */
-    // public removePart(): void {
-    //     if (null != this.container) {
-    //         const requestAny = this.container as any;
-    //         const requestPanel = requestAny as V1NewRequestPanelComponent;
-    //         requestPanel.removePart(this.node as Part);
-    //     }
-    // }
     public duplicatePart(): void { }
     private activateEditing(): void {
         this.variant = EVariant.EDITABLE_PART;

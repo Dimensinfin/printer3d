@@ -20,11 +20,9 @@ export class SupportBackendService {
     public apiNewPart_v1(newPart: Part, transformer: ResponseTransformer): Observable<Part> {
         console.log('[SupportBackendService.apiNewPart_v1]> Transformation: ' + transformer.description)
         return Observable.create((observer) => {
-            this.httpWrapper.mockHttpPOSTCall('/production/parts')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
+            const data = this.directAccessMockResource('newpart')
+            observer.next(transformer.transform(data));
+            observer.complete();
         });
     }
     public apiNewCoil_v1(newCoil: Coil, transformer: ResponseTransformer): Observable<Coil> {
@@ -70,11 +68,9 @@ export class SupportBackendService {
     }
     public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
         return Observable.create((observer) => {
-            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/finishings')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
+            const data = this.directAccessMockResource('inventory.finishings')
+            observer.next(transformer.transform(data));
+            observer.complete();
         });
     }
     public apiInventoryCoils_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {

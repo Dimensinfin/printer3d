@@ -19,18 +19,18 @@ import { Part } from '@domain/Part.domain';
 import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
+import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 
 @Component({
     selector: 'new-part-dialog',
     templateUrl: './new-part-dialog.component.html',
     styleUrls: ['./new-part-dialog.component.scss']
 })
-export class NewPartDialogComponent implements OnInit, OnDestroy {
+export class NewPartDialogComponent extends BackgroundEnabledComponent  implements OnInit, OnDestroy {
     public part: Part = new Part();
     public finishings: Map<string, string[]> = new Map<string, string[]>();
     public materials: string[] = [];
     public colors: string[] = [];
-    private backendConnections: Subscription[] = [];
     private dataToPartTransformer: ResponseTransformer;
 
     constructor(
@@ -38,6 +38,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
         private isolationService: IsolationService,
         private backendService: BackendService
     ) {
+        super()
         this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
             .setTransformation((entrydata: any): Part => {
                 const targetPart: Part = new Part(entrydata);
@@ -46,6 +47,10 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
             });
     }
 
+    /**
+     * To duplicate Parts we are going to use the prepared storage for partially created parts when the backend fails.
+     * To duplicate a part we create a new one from the selected one as a template and store on the lcoal storage. When the dialog is open ot will detect the part and edit it instead creating a new one.
+     */
     public ngOnInit(): void {
         console.log('>[NewPartDialogComponent.ngOnInit]')
         // If there is no previous pending part then initialize a new one with default values but new ID.
@@ -55,21 +60,14 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
             console.log('-[NewPartDialogComponent.ngOnInit]> Initializing Part')
             this.part.id = uuidv4();
             this.part.material = 'PLA';
-            this.part.color =undefined;
+            this.part.color = undefined;
         }
         else {
             console.log('-[NewPartDialogComponent.ngOnInit]> Setting Previous Part: ' + pendingPart)
-            this.part = JSON.parse(pendingPart);
+            this.part = new Part(JSON.parse(pendingPart))
+            this.part.createNewId() // Create a new id for any new part under creation
         }
         this.readFinishings();
-    }
-    /**
-     * Unsubscribe from any open subscription made to the backend.
-     */
-    public ngOnDestroy(): void {
-        this.backendConnections.forEach(element => {
-            element.unsubscribe();
-        });
     }
     // - I N T E R A C T I O N S
     public savePart(): void {

@@ -1,5 +1,4 @@
 // - DOMAIN
-import { PartRecord } from './PartRecord.domain';
 import { Coil } from './Coil.domain';
 
 describe('CLASS Coil [Module: DOMAIN]', () => {
