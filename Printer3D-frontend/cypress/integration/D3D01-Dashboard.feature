@@ -10,14 +10,14 @@ Feature: [D3D01]-When the application starts show the dashboard page with the de
         Given the application Printer3DManager
         When the application starts the default route is "/DASHBOARD"
 
-    @D3D01 @D3D01.02
-    Scenario: [D3D01.02]-The landing page Dashboard shows the title panel.
-        Given the application Printer3DManager
-        And the application starts the default route is "/DASHBOARD"
-        Then there is an element "app-title" with the value "<environment.app-title>"
-        Then there is an element "app-version" with the value "<environment.app-version>"
-        Then there is an element "backend-version" with the value "<environment.backend-version>"
-        Then there is an element "page-path" with the value "/DASHBOARD"
+    # @D3D01 @D3D01.02
+    # Scenario: [D3D01.02]-The landing page Dashboard shows the title panel.
+    #     Given the application Printer3DManager
+    #     And the application starts the default route is "/DASHBOARD"
+    #     Then there is an element "app-title" with the value "<environment.app-title>"
+    #     Then there is an element "app-version" with the value "<environment.app-version>"
+    #     Then there is an element "backend-version" with the value "<environment.backend-version>"
+    #     Then there is an element "page-path" with the value "/DASHBOARD"
 
     @D3D01 @D3D01.03
     Scenario: [D3D01.03]-On the dashboard page there is a docker with feature elements.
