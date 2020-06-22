@@ -36,13 +36,13 @@ jobs:
             npm install
             npm run acceptance:simulator
           background: true
-      - run:
-          name: CHECK - Waiting for server to start
-          environment:
-            PORT: 5110
-          working_directory: Printer3D-frontend
-          command: |
-            dockerize -wait tcp://localhost:${PORT} -timeout 3m
+    #   - run:
+    #       name: CHECK - Waiting for server to start
+    #       environment:
+    #         PORT: 5110
+    #       working_directory: Printer3D-frontend
+    #       command: |
+    #         dockerize -wait tcp://localhost:${PORT} -timeout 3m
       - run:
           name: CHECK - Run acceptance tests - batch A
           working_directory: Printer3D-frontend
