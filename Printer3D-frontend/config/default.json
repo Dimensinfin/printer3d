@@ -4,7 +4,7 @@
         "version": "v0.7.0 dev",
         "port": 5150,
         "applicationhome": "/dist/Printer3D-frontend",
-        "backendproxy": "https://printer3d-backend-stage.herokuapp.com/",
+        "backendproxy": "http://localhost:5110/",
         "apppath": "/app",
         "apipath": "/api"
     },

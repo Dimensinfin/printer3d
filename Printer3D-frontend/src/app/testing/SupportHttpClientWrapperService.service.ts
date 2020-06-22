@@ -168,6 +168,8 @@ export class SupportHttpClientWrapperService {
             return this.directAccessMockResource('inventory.coils');
         if (request.includes('/production/jobs/pending'))
             return this.directAccessMockResource('production.pendingjobs');
+        if (request.includes('/production/requests'))
+            return this.directAccessMockResource('production.openrequests');
 
         if (request.includes('/api/v1/inventory/machines')) keyword = 'INVENTORY-MACHINES';
         if (request.includes('/api/v2/inventory/machines')) keyword = 'INVENTORY-MACHINESV2';
