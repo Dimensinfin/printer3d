@@ -30,10 +30,9 @@ export class DialogFactoryService {
             switch (target.route) {
                 case 'NewPartDialog':
                     dialogConfig = new MatDialogConfig();
-                    dialogConfig.disableClose = true;
+                    dialogConfig.disableClose = false;
                     dialogConfig.id = "newpart-component";
                     dialogConfig.height = "86vh";
-                    // dialogConfig.width = "70vw";
                     this.modalDialog = this.matDialog.open(NewPartDialogComponent, dialogConfig);
                     break;
                 case 'NewCoilDialog':
@@ -41,7 +40,6 @@ export class DialogFactoryService {
                     dialogConfig.disableClose = true;
                     dialogConfig.id = "newcoil-component";
                     dialogConfig.height = "86vh";
-                    // dialogConfig.width = "60vw";
                     this.modalDialog = this.matDialog.open(NewCoilDialogComponent, dialogConfig);
                     break;
                 // case 'NewRequestDialog':

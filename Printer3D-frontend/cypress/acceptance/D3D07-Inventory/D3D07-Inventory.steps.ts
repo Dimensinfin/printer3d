@@ -259,5 +259,27 @@ Then('on the target panel there are {string} {string}', function (itemCount: num
 });
 When('the target Part Duplicate button is clicked', function () {
     cy.get('@target-item').find('[cy-name="duplicate-button"]')
-    .click()
-  });
+        .click()
+});
+Then('the {string} dialog opens and blocks the display', function (pageName: string) {
+    const tag = supportService.translateTag(pageName) // Do name replacement
+    cy.get('app-root').get('mat-dialog-container').get(tag).should('exist')
+});
+Given('the target panel is the panel named {string}', function (elementName: string) {
+    cy.get('[cy-name="' + elementName + '"]').as('target-panel')
+        .should('exist')
+});
+Then('the target panel has a input field named {string} with label {string} and value {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').find('[name="' + fieldName + '"]').parent().find('label')
+            .contains(fieldLabel)
+        cy.get('@target-panel').find('[name="' + fieldName + '"]')
+            .should('have.value', fieldValue)
+    });
+Then('the target panel has a select field named {string} with label {string} and value {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').find('[name="' + fieldName + '"]').parent().find('label')
+            .contains(fieldLabel)
+        cy.get('@target-panel').find('[name="' + fieldName + '"]')
+            .should('have.value', fieldValue)
+    });

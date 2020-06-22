@@ -15,6 +15,9 @@ import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
+import { platformconstants } from '@app/platform/platform-constants';
+import { DialogFactoryService } from '@app/services/dialog-factory.service';
+import { Feature } from '@domain/Feature.domain';
 
 @Component({
     selector: 'v1-part',
@@ -31,7 +34,8 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
     constructor(
         protected isolationService: IsolationService,
         protected backendService: BackendService,
-        protected ref: ChangeDetectorRef) {
+        protected ref: ChangeDetectorRef,
+        protected dialogFactory: DialogFactoryService) {
         super();
         this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
             .setTransformation((entrydata: any): Part => {
@@ -115,7 +119,27 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
                 })
         );
     }
-    public duplicatePart(): void { }
+    /**
+     * Save this part on the storage and open the dialog so the fields can be edited.
+     */
+    public duplicatePart(): void { 
+        this.isolationService.setToStorageObject(platformconstants.PARTIAL_PART_KEY, this.getNode())
+        const targetFeature = new Feature({
+            "label": "/Nueva Pieza",
+            "enabled": true,
+            "active": false,
+            "interaction": "DIALOG",
+            "route": "NewPartDialog"
+        })
+        console.log('><[V1PartRenderComponent.duplicatePart]> DIALOG')
+        targetFeature.activate();
+        const dialogRef = this.dialogFactory.processClick(targetFeature);
+        dialogRef.afterClosed()
+            .subscribe(result => {
+                console.log('[V1FeatureRenderComponent.onClick]> Close detected');
+                targetFeature.deactivate();
+            });
+}
     private activateEditing(): void {
         this.variant = EVariant.EDITABLE_PART;
         this.editPart = new Part(this.node);

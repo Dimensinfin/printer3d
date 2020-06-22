@@ -5,7 +5,9 @@ export class SupportService {
     private translationTable: any = {}
 
     constructor() {
+        this.translationTable['New Part'] = 'new-part-dialog'
         this.translationTable['ProductionJobListPage'] = 'production-job-list-page'
+        this.translationTable['PartInventory'] = 'v2-inventory-part-list-page'
         this.translationTable['NewRequestPage'] = 'v1-new-request-page'
         this.translationTable['available-parts'] ='v1-available-parts-panel'
         this.translationTable['new-request'] ='v1-new-request-panel'

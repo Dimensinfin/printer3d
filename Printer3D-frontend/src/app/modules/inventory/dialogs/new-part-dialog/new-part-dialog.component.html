@@ -1,4 +1,4 @@
-<div id="modal-content-wrapper">
+<div cy-name="new-part-dialog" id="modal-content-wrapper">
     <header id="modal-header">
         <div class="page-path" style="margin-top: 0px; margin-bottom: 15px;">/Inventario/Nueva Pieza</div>
     </header>
@@ -26,20 +26,15 @@
                     <td>
                         <div class="row">
                             <!-- M A T E R I A L -->
-                            <div class="column"><label class="dsf-form-label" for="label">Material<span style="color: red;">&nbsp;*</span></label>
-                                <div style="margin-bottom: 5px;">
-                                    <!-- <ng-select [(ngModel)]="part.material" [clearable]="false">
-                                        <ng-option [value]="null">-Seleccione Color-</ng-option>
-                                        <ng-option *ngFor="let material of materials" [value]="material">{{material}}</ng-option>
-                                    </ng-select> -->
-                                    <select class="dsf-form-control part-material" id="material" [(ngModel)]="part.material" required name="material" (change)="materialSelectorChanged($event.target.value)">
+                            <div class="column">
+                                <label class="dsf-form-label" for="label">MATERIAL<span style="color: red;">&nbsp;*</span></label>
+                                <select class="dsf-form-control part-material" id="material" [(ngModel)]="part.material" required name="material" (change)="materialSelectorChanged($event.target.value)">
                                     <option *ngFor="let material of materials"[value]="material">{{material}}</option>
-                                    </select>
-                                </div>
+                                </select>
                             </div>
                             <!-- C O L O R C O D E -->
                             <div class="column">
-                                <label class="dsf-form-label" for="label">Color<span style="color: red;">&nbsp;*</span></label>
+                                <label class="dsf-form-label" for="label">COLOR<span style="color: red;">&nbsp;*</span></label>
                                 <select class="dsf-form-control part-color" id="color" [(ngModel)]="part.color" required name="color">
                                     <option [ngValue]="null" selected>-Selecciona Color-</option>
                                     <option *ngFor="let color of colors"[value]="color">{{color}}</option>
@@ -53,12 +48,12 @@
                         <div class="row">
                             <!-- C O S T -->
                             <div class="column">
-                                <label class="dsf-form-label" for="cost">Coste Fab.<span style="color: red;">&nbsp;*</span></label>
+                                <label class="dsf-form-label" for="cost">COSTE FAB.<span style="color: red;">&nbsp;*</span></label>
                                 <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-cost" required [(ngModel)]="part.cost" name="cost" min="0">
                             </div>
                             <!-- P R I C E -->
                             <div class="column">
-                                <label class="dsf-form-label" for="price">Precio<span style="color: red;">&nbsp;*</span></label>
+                                <label class="dsf-form-label" for="price">PRECIO<span style="color: red;">&nbsp;*</span></label>
                                 <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-price" required [(ngModel)]="part.price" name="price" min="0">
                             </div>
                         </div>
@@ -69,7 +64,7 @@
                         <div class="row">
                             <!-- B U I L D   T I M E -->
                             <div class="column">
-                                <label class="dsf-form-label" for="stockLevel">Build Time<span style="color: red;">&nbsp;*</span></label>
+                                <label class="dsf-form-label" for="stockLevel">TIEMPO<span style="color: red;">&nbsp;*</span></label>
                                 <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-build-time" required [(ngModel)]="part.buildTime" name="buildTime" min="10">
                             </div>
                             <div class="column">
@@ -83,12 +78,12 @@
                         <div class="row">
                             <!-- S T O C K   L E V E L -->
                             <div class="column">
-                                <label class="dsf-form-label" for="stockLevel">Stock Deseado<span style="color: red;">&nbsp;*</span></label>
+                                <label class="dsf-form-label" for="stockLevel">STOCK DESEADO<span style="color: red;">&nbsp;*</span></label>
                                 <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-stock-level" required [(ngModel)]="part.stockLevel" name="stockLevel" min="0">
                             </div>
                             <!-- A C T U A L   S T O C K -->
                             <div class="column">
-                                <label class="dsf-form-label" for="stockAvailable">Stock Actual</label>
+                                <label class="dsf-form-label" for="stockAvailable">STOCK ACTUAL</label>
                                 <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-stock-available" [(ngModel)]="part.stockAvailable" name="stockAvailable" min="0">
                             </div>
                         </div>
@@ -99,12 +94,12 @@
                         <div class="row">
                             <!-- I M A G E   P A T H -->
                             <div class="column">
-                                <label class="dsf-form-label" for="imagePath">Imagen</label>
+                                <label class="dsf-form-label" for="imagePath">IMAGEN</label>
                                 <input type="text" class="dsf-form-control dsf-editable-form-item part-image-path" [(ngModel)]="part.imagePath" name="imagePath" maxlength="100">
                             </div>
                             <!-- M O D E L   P A T H -->
                             <div class="column">
-                                <label class="dsf-form-label" for="modelPath">Fichero Modelo</label>
+                                <label class="dsf-form-label" for="modelPath">FICHERO MODELO</label>
                                 <input type="text" class="dsf-form-control dsf-editable-form-item part-model-path" [(ngModel)]="part.modelPath" name="modelPath" maxlength="100">
                             </div>
                         </div>
