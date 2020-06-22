@@ -87,7 +87,7 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
                 .subscribe((persistedPart: Part) => {
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')
                     this.part.createNewId();
-                    this.part.color = 'INDEFINIDO';
+                    this.part.color = undefined;
                 })
         );
     }
@@ -112,7 +112,6 @@ export class NewPartDialogComponent implements OnInit, OnDestroy {
                     for (let index = 0; index < data.length; index++) {
                         const element = data[index];
                         const colors = element['colors'];
-                        colors.push('INDEFINIDO')
                         console.log('-[NewPartDialogComponent.readFinishings]> Adding Finishing: ' + element['material'] + ':' + element['colors'])
                         this.finishings.set(element['material'], colors);
                         this.materials.push(element['material']);

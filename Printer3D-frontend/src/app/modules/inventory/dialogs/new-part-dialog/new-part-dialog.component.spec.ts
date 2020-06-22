@@ -144,7 +144,7 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             componentAsAny.part = part;
             component.savePart();
         });
-        it('savePartAndRepeat: persist the part on the backend repository', async () => {
+        xit('savePartAndRepeat: persist the part on the backend repository', async () => {
             const part: Part = new Part({ id: '-ID-' });
             const componentAsAny = component as any;
             componentAsAny.part = part;

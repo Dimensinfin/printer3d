@@ -21,7 +21,7 @@
             "label": "Pieza de prueba",
             "description": "Pieza de prueba",
             "material": "PLA",
-            "color": "INDEFINIDO",
+            "color": "ROJO",
             "buildTime": 55,
             "cost": 1.0,
             "price": 2.0,

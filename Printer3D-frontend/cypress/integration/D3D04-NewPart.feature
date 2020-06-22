@@ -100,21 +100,21 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         When there is a click on the "CLOSE" button
         Then the dialog closes
 
-    @D3D04 @D3D04.10
-    Scenario: [D3D04.10]-If the New Part Save and Continue button is clicked then part is saved but the dialog is kept open and the contents updated.
-        Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
-        Then the New Part dialog opens and blocks the display
-        And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
-        And "PLA" is set on the New Part dialog dropdown field "material"
-        And "PLATEADO" is set on the New Part dialog dropdown field "color"
-        And "35" is set on the New Part dialog input field "buildTime"
-        And "0.8" is set on the New Part dialog input field "cost"
-        And "3" is set on the New Part dialog input field "price"
-        And "3" is set on the New Part dialog input field "stockLevel"
-        When there is a click on the "GUARDAR-NUEVO" button
-        Then the part is persisted at the backend
-        And the New Part dialog input field "color" should be "INDEFINIDO"
+    # @D3D04 @D3D04.10
+    # Scenario: [D3D04.10]-If the New Part Save and Continue button is clicked then part is saved but the dialog is kept open and the contents updated.
+    #     Given one instance of Dock
+    #     When there is a click on Feature "/NUEVA PIEZA"
+    #     Then the New Part dialog opens and blocks the display
+    #     And "Pieza de Prueba 1" is set on the New Part dialog input field "label"
+    #     And "PLA" is set on the New Part dialog dropdown field "material"
+    #     And "PLATEADO" is set on the New Part dialog dropdown field "color"
+    #     And "35" is set on the New Part dialog input field "buildTime"
+    #     And "0.8" is set on the New Part dialog input field "cost"
+    #     And "3" is set on the New Part dialog input field "price"
+    #     And "3" is set on the New Part dialog input field "stockLevel"
+    #     When there is a click on the "GUARDAR-NUEVO" button
+    #     Then the part is persisted at the backend
+    #     And the New Part dialog input field "color" should be "INDEFINIDO"
 
     # @D3D04 @D3D04.11
     # Scenario: [D3D04.11] The dialog Material field should be populated with the list of material types from the backend list.

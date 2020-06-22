@@ -40,10 +40,7 @@ export class Part extends Node {
         return this.stockAvailable
     }
     public composePartIdentifier(): string {
-        if (null != this.color)
-            return this.label + ':' + this.color;
-        else
-            return this.label + ':' + 'INDEFINIDO';
+        return this.label + ':' + this.color;
     }
     public isExpandable(): boolean {
         return false;
