@@ -127,28 +127,23 @@ jobs:
           command: |
             npm run test:prod
       - run:
-          name: FRONTEND - Start the simulator
-          working_directory: Printer3D-frontend
-          command: |
-            npm run acceptance:simulator
-          background: true
-      - run:
           name: FRONTEND - Start backend simulator & run acceptance tests batch A
           working_directory: Printer3D-frontend
           command: |
+            npm run acceptance:simulator
             npm run build:prod
             npm run acceptance:cypress:batchA
       - run:
           name: FRONTEND - Run acceptance tests batch B
           working_directory: Printer3D-frontend
           command: |
-            npm run build:prod
+            npm run acceptance:simulator
             npm run acceptance:cypress:batchB
       - run:
           name: FRONTEND - Run integration tests batch A
           working_directory: Printer3D-frontend
           command: |
-            npm run build:prod
+            npm run acceptance:simulator
             npm run integration:cypress:batchA
       - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
