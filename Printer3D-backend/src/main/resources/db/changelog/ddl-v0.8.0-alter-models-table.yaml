@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_8_0_001_printer3d_alter_models_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropColumn:
+            schemaName: printer3d
+            tableName: models
+            columnName: stock_available

@@ -122,7 +122,12 @@ jobs:
             node -v
             npm install
       - run:
-          name: FRONTEND - Start run unit tests
+          name: FRONTEND - Build optimized Production dist
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:prod
+      - run:
+          name: FRONTEND - Run unit tests
           working_directory: Printer3D-frontend
           command: |
             npm run test:prod
@@ -131,7 +136,6 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm run acceptance:simulator
-            npm run build:prod
             npm run acceptance:cypress:batchA
       - run:
           name: FRONTEND - Run acceptance tests batch B
@@ -180,7 +184,7 @@ jobs:
           command: |
             node -v
             sed -i '/bahmutov.add/d' package.json
-            npm install
+            # npm install
       - run:
           name: FRONTEND - Clone Heroku repository
           working_directory: Printer3D-frontend

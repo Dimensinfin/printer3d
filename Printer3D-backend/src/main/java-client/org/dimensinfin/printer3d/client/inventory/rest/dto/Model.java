@@ -9,10 +9,10 @@ public class Model {
 	private UUID id;
 	private String label;
 	private List<UUID> partIdentifierList = new ArrayList<>();
-	private List<Part> partList = new ArrayList<>();
+	private transient List<Part> partList = new ArrayList<>();
 	private Float price;
 	private int stockLevel = 1;
-	private int stockAvailable = 0;
+//	private int stockAvailable = 0;
 	private String imagePath;
 	private boolean active = true;
 
@@ -44,9 +44,9 @@ public class Model {
 		return this.price;
 	}
 
-	public int getStockAvailable() {
-		return this.stockAvailable;
-	}
+//	public int getStockAvailable() {
+//		return this.stockAvailable;
+//	}
 
 	public int getStockLevel() {
 		return this.stockLevel;
@@ -109,10 +109,10 @@ public class Model {
 			return this;
 		}
 
-		public Model.Builder withStockAvailable( final Integer stockAvailable ) {
-			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
-			return this;
-		}
+//		public Model.Builder withStockAvailable( final Integer stockAvailable ) {
+//			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
+//			return this;
+//		}
 
 		public Model.Builder withStockLevel( final Integer stockLevel ) {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );

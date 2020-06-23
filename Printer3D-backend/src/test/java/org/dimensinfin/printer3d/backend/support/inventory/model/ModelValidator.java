@@ -1,6 +1,10 @@
 package org.dimensinfin.printer3d.backend.support.inventory.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 
@@ -13,7 +17,6 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PART_ID_LIST;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PRICE;
-import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STOCK_LEVEL;
 
 public class ModelValidator implements Validator<Model> {
@@ -23,18 +26,24 @@ public class ModelValidator implements Validator<Model> {
 		if (null != rowData.get( LABEL )) Assertions.assertEquals( rowData.get( LABEL ), record.getLabel() );
 		if (null != rowData.get( PRICE )) Assertions.assertEquals( Float.parseFloat( rowData.get( PRICE ) ), record.getPrice() );
 		if (null != rowData.get( STOCK_LEVEL )) Assertions.assertEquals( Integer.parseInt( rowData.get( STOCK_LEVEL ) ), record.getStockLevel() );
-		if (null != rowData.get( STOCK_AVAILABLE ))
-			Assertions.assertEquals( Integer.parseInt( rowData.get( STOCK_AVAILABLE ) ), record.getStockAvailable() );
 		if (null != rowData.get( IMAGE_PATH )) Assertions.assertEquals( rowData.get( IMAGE_PATH ), record.getImagePath() );
 		if (null != rowData.get( ACTIVE )) Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.isActive() );
 
 		if ( null != rowData.get( PART_ID_LIST )){
-			final String[] partList = rowData.get( PART_ID_LIST ).split( ", " );
-			Assertions.assertEquals( partList.length, record.getPartIdentifierList().size() );
-			for (int i = 0; i < partList.length; i++) {
-				Assertions.assertTrue( partList[i].equalsIgnoreCase( record.getPartIdentifierList().get(i).toString()));
-			}
+			final List<UUID> uuidList = this.decodeCucumberUUIDList( rowData.get( PART_ID_LIST ) );
+			final List<UUID> partIdList =record.getPartIdentifierList();
+			Collections.sort(uuidList);
+			Collections.sort(partIdList);
+			boolean isEqual = uuidList.equals(partIdList);
+			Assertions.assertTrue( isEqual );
 		}
 		return true;
+	}
+	private List<UUID> decodeCucumberUUIDList( final String uuidList ) {
+		final List<UUID> results = new ArrayList<>();
+		final String[] uuids = uuidList.split( "," );
+		for (int i = 0; i < uuids.length; i++)
+			results.add( UUID.fromString( uuids[i].trim() ) );
+		return results;
 	}
 }

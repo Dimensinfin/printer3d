@@ -11,7 +11,6 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelC
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_PRICE;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_STOCK_LEVEL;
 
 public class ModelEntityTest {
@@ -23,19 +22,19 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
 		// Assertions
-		Assertions.assertNotNull( modelEntity.getPartList() );
-		Assertions.assertEquals( 0, modelEntity.getPartList().size() );
+		Assertions.assertNotNull( modelEntity.getPartIdList() );
+		Assertions.assertEquals( 0, modelEntity.getPartIdList().size() );
 		// Test
 		modelEntity.addPart( UUID.randomUUID() );
 		modelEntity.addPart( UUID.randomUUID() );
 		// Assertions
-		Assertions.assertNotNull( modelEntity.getPartList() );
-		Assertions.assertEquals( 2, modelEntity.getPartList().size() );
+		Assertions.assertNotNull( modelEntity.getPartIdList() );
+		Assertions.assertEquals( 2, modelEntity.getPartIdList().size() );
 	}
 
 	@Test
@@ -45,7 +44,7 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
@@ -59,7 +58,7 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -69,7 +68,7 @@ public class ModelEntityTest {
 					.withId( TEST_MODEL_ID )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -80,7 +79,7 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( null )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -95,7 +94,7 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -106,7 +105,7 @@ public class ModelEntityTest {
 					.withLabel( null )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -117,7 +116,7 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( null )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -128,7 +127,7 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( null )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -139,7 +138,7 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( null )
 					.build();
@@ -160,7 +159,7 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
@@ -170,7 +169,7 @@ public class ModelEntityTest {
 		Assertions.assertEquals( TEST_MODEL_IMAGE_PATH, modelEntity.getImagePath() );
 		Assertions.assertEquals( TEST_MODEL_PRICE, modelEntity.getPrice(), 0.1 );
 		Assertions.assertEquals( TEST_MODEL_STOCK_LEVEL, modelEntity.getStockLevel() );
-		Assertions.assertEquals( TEST_MODEL_STOCK_AVAILABLE, modelEntity.getStockAvailable() );
+//		Assertions.assertEquals( TEST_MODEL_STOCK_AVAILABLE, modelEntity.getStockAvailable() );
 		Assertions.assertEquals( TEST_MODEL_ACTIVE, modelEntity.isActive() );
 	}
 
@@ -182,20 +181,20 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
 		// Assertions
-		Assertions.assertNotNull( modelEntity.getPartList() );
-		Assertions.assertEquals( 0, modelEntity.getPartList().size() );
+		Assertions.assertNotNull( modelEntity.getPartIdList() );
+		Assertions.assertEquals( 0, modelEntity.getPartIdList().size() );
 		// Test
 		modelEntity.addPart( UUID.fromString( "dda12806-2a1e-4a13-89c8-3bf0f23e5ffc" ) );
 		modelEntity.addPart( UUID.fromString( "2d2a38f0-fc13-4113-a386-4a72aa661686" ) );
 		modelEntity.removePart( UUID.fromString( "dda12806-2a1e-4a13-89c8-3bf0f23e5ffc" ) );
 		// Assertions
-		Assertions.assertNotNull( modelEntity.getPartList() );
-		Assertions.assertEquals( 1, modelEntity.getPartList().size() );
+		Assertions.assertNotNull( modelEntity.getPartIdList() );
+		Assertions.assertEquals( 1, modelEntity.getPartIdList().size() );
 	}
 
 	@Test
@@ -206,7 +205,7 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();

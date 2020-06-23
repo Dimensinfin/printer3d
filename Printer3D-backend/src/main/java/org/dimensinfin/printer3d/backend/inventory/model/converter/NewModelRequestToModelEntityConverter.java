@@ -11,13 +11,13 @@ public class NewModelRequestToModelEntityConverter implements Converter<NewModel
 	@Override
 	public ModelEntity convert( final NewModelRequest input ) {
 		return new ModelEntity.Builder()
-				.withId ( input.getId())
-				.withLabel(input.getLabel())
-				.withPrice(input.getPrice())
-				.withStockLevel(input.getStockLevel())
-				.withStockAvailable(input.getStockAvailable())
-				.withImagePath(input.getImagePath())
-				.withActive(true)
+				.withId( input.getId() )
+				.withLabel( input.getLabel() )
+				.withPrice( input.getPrice() )
+				.withStockLevel( input.getStockLevel() )
+				.withPartIdList( input.getPartIdList() )
+				.withImagePath( input.getImagePath() )
+				.withActive( true )
 				.build();
 	}
 }

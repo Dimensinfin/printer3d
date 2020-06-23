@@ -10,7 +10,6 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelC
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_PRICE;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_STOCK_LEVEL;
 
 public class NewModelRequestToModelEntityConverterTest {
@@ -23,7 +22,7 @@ public class NewModelRequestToModelEntityConverterTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.build();
 		final NewModelRequestToModelEntityConverter newModelRequestToModelEntityConverter = new NewModelRequestToModelEntityConverter();
@@ -35,7 +34,7 @@ public class NewModelRequestToModelEntityConverterTest {
 		Assertions.assertEquals( TEST_MODEL_IMAGE_PATH, obtained.getImagePath() );
 		Assertions.assertEquals( TEST_MODEL_PRICE, obtained.getPrice(), 0.1 );
 		Assertions.assertEquals( TEST_MODEL_STOCK_LEVEL, obtained.getStockLevel() );
-		Assertions.assertEquals( TEST_MODEL_STOCK_AVAILABLE, obtained.getStockAvailable() );
+//		Assertions.assertEquals( TEST_MODEL_STOCK_AVAILABLE, obtained.getStockAvailable() );
 //		Assertions.assertEquals( TEST_MODEL_ACTIVE, obtained.isActive() );
 	}
 }

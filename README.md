@@ -61,6 +61,24 @@ Run `ng generate component component-name` to generate a new component. You can 
 13. Fix all tests and complete the code coverage to a level green on all sections.
 14. Validate the application running the command '*npm run build:prod*'
 
+# DATABASE
+## PSQL Commands
+
+* **CHANGE SCHEMA** - *SET search_path TO printer3d;*
+* **LIST TABLES** - \dt
+* **EXIT PSQL** - \q
+
+## SQL Scripts
+* **SELECT ROWS** 
+```sql
+SELECT id FROM parts WHERE color='INDEFINIDO';
+```
+* **DELETE BAD COLORS**
+```sql
+DELETE FROM parts WHERE color='INDEFINIDO';
+```
+
+
 ### Database configuration
 ### Deployment instructions
 

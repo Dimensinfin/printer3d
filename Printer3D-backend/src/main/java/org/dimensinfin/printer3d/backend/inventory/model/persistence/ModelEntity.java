@@ -34,15 +34,13 @@ public class ModelEntity {
 	private String label;
 	@Type(type = "jsonb")
 	@Column(name = "part_list", columnDefinition = "jsonb")
-	private List<UUID> partList = new ArrayList<>();
+	private List<UUID> partIdList = new ArrayList<>();
 	@NotNull(message = "Part 'price' value is mandatory.")
 	@Column(name = "price", nullable = false)
 	private Float price;
 	@NotNull(message = "Part 'stockLevel' value is mandatory.")
 	@Column(name = "stock_level", nullable = false)
 	private int stockLevel = 1;
-	@Column(name = "stock_available", nullable = false)
-	private int stockAvailable = 0;
 	@Size(max = 200)
 	@Column(name = "image_path")
 	private String imagePath;
@@ -66,17 +64,17 @@ public class ModelEntity {
 		return this.label;
 	}
 
-	public List<UUID> getPartList() {
-		return this.partList;
+	public List<UUID> getPartIdList() {
+		return this.partIdList;
 	}
 
 	public Float getPrice() {
 		return this.price;
 	}
 
-	public int getStockAvailable() {
-		return this.stockAvailable;
-	}
+	//	public int getStockAvailable() {
+	//		return this.stockAvailable;
+	//	}
 
 	public int getStockLevel() {
 		return this.stockLevel;
@@ -87,7 +85,7 @@ public class ModelEntity {
 	}
 
 	public ModelEntity addPart( final UUID partId ) {
-		this.partList.add( partId );
+		this.partIdList.add( partId );
 		return this;
 	}
 
@@ -96,10 +94,9 @@ public class ModelEntity {
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.label )
-				.append( this.partList )
+				.append( this.partIdList )
 				.append( this.price )
 				.append( this.stockLevel )
-				.append( this.stockAvailable )
 				.append( this.imagePath )
 				.append( this.active )
 				.toHashCode();
@@ -115,10 +112,9 @@ public class ModelEntity {
 
 		return new EqualsBuilder()
 				.append( this.stockLevel, that.stockLevel )
-				.append( this.stockAvailable, that.stockAvailable )
 				.append( this.active, that.active )
 				.append( this.label, that.label )
-				.append( this.partList, that.partList )
+				.append( this.partIdList, that.partIdList )
 				.append( this.price, that.price )
 				.append( this.imagePath, that.imagePath )
 				.isEquals();
@@ -126,20 +122,19 @@ public class ModelEntity {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
+		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "id", this.id )
 				.append( "label", this.label )
-				.append( "partList", this.partList )
+				.append( "partList", this.partIdList )
 				.append( "price", this.price )
 				.append( "stockLevel", this.stockLevel )
-				.append( "stockAvailable", this.stockAvailable )
 				.append( "imagePath", this.imagePath )
 				.append( "active", this.active )
 				.toString();
 	}
 
 	public ModelEntity removePart( final UUID partId ) {
-		this.partList.remove( partId );
+		this.partIdList.remove( partId );
 		return this;
 	}
 
@@ -181,13 +176,13 @@ public class ModelEntity {
 			return this;
 		}
 
-		public ModelEntity.Builder withPrice( final Float price ) {
-			this.onConstruction.price = Objects.requireNonNull( price );
+		public ModelEntity.Builder withPartIdList( final List<UUID> partIdList ) {
+			if (null != partIdList) this.onConstruction.partIdList = partIdList;
 			return this;
 		}
 
-		public ModelEntity.Builder withStockAvailable( final Integer stockAvailable ) {
-			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
+		public ModelEntity.Builder withPrice( final Float price ) {
+			this.onConstruction.price = Objects.requireNonNull( price );
 			return this;
 		}
 

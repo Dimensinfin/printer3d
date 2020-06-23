@@ -11,6 +11,7 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.ModelEntityToModelConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.NewModelRequestToModelEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
@@ -62,6 +63,7 @@ public class ModelServiceV1 {
 			final Optional<ModelEntity> target = this.modelRepository.findById( newModelRequest.getId() );
 			if (target.isPresent())
 				throw new DimensinfinRuntimeException( ErrorInfo.MODEL_ALREADY_EXISTS, newModelRequest.getId().toString() );
+			LogWrapperLocal.info( "ModelEntity: " + target.toString() );
 			// Save the entity to the repository.
 			final ModelEntity modelEntity = this.modelRepository.save(
 					new NewModelRequestToModelEntityConverter().convert( newModelRequest )

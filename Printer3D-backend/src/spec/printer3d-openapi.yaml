@@ -1129,15 +1129,6 @@ components:
             This is the value set as the stock level desired to have on the storage.
           example:
             3
-        stockAvailable:
-          type: number
-          format: int32
-          default: 0
-          minimum: 0
-          description: >
-            This is the current stock value of the number of pieces available to sell.
-          example:
-            4
         imagePath:
           type: string
           format: url
