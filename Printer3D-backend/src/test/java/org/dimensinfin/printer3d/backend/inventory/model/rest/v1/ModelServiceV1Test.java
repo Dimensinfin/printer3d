@@ -53,8 +53,8 @@ public class ModelServiceV1Test {
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( TEST_MODEL_ID.toString(), obtained.getId().toString() );
-		Assertions.assertEquals( 1, obtained.getPartIdentifierList().size() );
-		Assertions.assertTrue( obtained.getPartIdentifierList().contains( TEST_PART_ID ) );
+		Assertions.assertEquals( 1, obtained.getPartIdList().size() );
+		Assertions.assertTrue( obtained.getPartIdList().contains( TEST_PART_ID ) );
 	}
 
 	@Test
@@ -115,7 +115,7 @@ public class ModelServiceV1Test {
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( TEST_MODEL_ID.toString(), obtained.getId().toString() );
-		Assertions.assertEquals( 0, obtained.getPartIdentifierList().size() );
+		Assertions.assertEquals( 0, obtained.getPartIdList().size() );
 		// Test
 		modelServiceV1.addModelPart( modelCompositionRequest );
 		modelServiceV1.removeModelPart( new UpdateModelCompositionRequest.Builder()
@@ -126,8 +126,8 @@ public class ModelServiceV1Test {
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( TEST_MODEL_ID.toString(), obtained.getId().toString() );
-		Assertions.assertEquals( 1, obtained.getPartIdentifierList().size() );
-		Assertions.assertTrue( obtained.getPartIdentifierList().contains( TEST_PART_ID ) );
+		Assertions.assertEquals( 1, obtained.getPartIdList().size() );
+		Assertions.assertTrue( obtained.getPartIdList().contains( TEST_PART_ID ) );
 	}
 
 	@Test

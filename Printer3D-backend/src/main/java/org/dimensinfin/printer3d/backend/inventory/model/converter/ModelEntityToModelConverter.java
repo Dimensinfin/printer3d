@@ -13,10 +13,9 @@ public class ModelEntityToModelConverter implements Converter<ModelEntity, Model
 		return new Model.Builder()
 				.withId( input.getId() )
 				.withLabel( input.getLabel() )
-				.withPartIdentifierList( input.getPartIdList())
+				.withPartIdList( input.getPartIdList())
 				.withPrice( input.getPrice() )
 				.withStockLevel( input.getStockLevel() )
-//				.withStockAvailable( input.getStockAvailable() )
 				.withImagePath( input.getImagePath() )
 				.withActive( true )
 				.build();

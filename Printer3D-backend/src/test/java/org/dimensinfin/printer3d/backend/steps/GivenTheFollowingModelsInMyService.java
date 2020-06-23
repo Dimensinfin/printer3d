@@ -13,8 +13,6 @@ import org.dimensinfin.printer3d.backend.support.inventory.model.rest.ModelFeign
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 
 import io.cucumber.java.en.Given;
-import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
-import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PART_ID_LIST;
 
 public class GivenTheFollowingModelsInMyService extends StepSupport {
 	private final ModelFeignClientV1 modelFeignClientV1;
@@ -34,7 +32,7 @@ public class GivenTheFollowingModelsInMyService extends StepSupport {
 			// Create the model.
 			this.modelFeignClientV1.newModel( this.printer3DWorld.getJwtAuthorizationToken(), newModelRequest );
 			// Add the list of parts
-			this.addPartReferences( row.get( ID ), row.get( PART_ID_LIST ) );
+//			this.addPartReferences( row.get( ID ), row.get( PART_ID_LIST ) );
 		}
 	}
 

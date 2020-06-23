@@ -11,3 +11,5 @@
 * JobRequest
 * MachineServiceV1
 * JobControllerSupport
+* ModelControllerV1
+* ModelServiceV1

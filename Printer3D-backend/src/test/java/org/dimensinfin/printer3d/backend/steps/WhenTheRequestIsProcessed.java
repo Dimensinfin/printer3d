@@ -27,6 +27,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
@@ -164,6 +165,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.printer3DWorld.setPartId( UUID.fromString( partId ) );
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		this.processRequestByType( RequestType.START_BUILD );
+	}
+	@When("the Get Models request is processed")
+	public void the_Get_Models_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_MODELS );
 	}
 
 	@When("the Update Part request is processed")
@@ -310,6 +315,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( startBuildV2ResponseEntity );
 				this.printer3DWorld.setStartBuildResponseEntity( startBuildV2ResponseEntity );
 				return startBuildV2ResponseEntity;
+			case GET_MODELS:
+				final ResponseEntity<ModelList> modelListResponseEntity = this.modelFeignClientV1
+						.getModels(  );
+				Assertions.assertNotNull( modelListResponseEntity );
+				this.printer3DWorld.setModelListResponseEntity( modelListResponseEntity );
+				return modelListResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

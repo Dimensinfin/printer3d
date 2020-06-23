@@ -27,6 +27,18 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface InventoryApiV1 {
+	// - G E T T E R S   &   S E T T E R S
+
+	/**
+	 * Get the list of Models persisted at the Inventory repository.
+	 * Get the complete list of **Models** persisted at the Inventory repository.
+	 *
+	 * @return Call&lt;ModelList&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@GET("api/v1/inventory/models")
+	Call<ModelList> getModels();
+
 	/**
 	 * Add a new Part reference *partId* to the list of Parts that compose this model.
 	 * The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts that
@@ -153,7 +165,6 @@ public interface InventoryApiV1 {
 	Call<Model> newModel( @Header("Authorization") final @NotNull String authorizationToken,
 	                      @Body NewModelRequest newModelRequest );
 
-
 	/**
 	 * Create a new Part from the data on the request.
 	 * The Printer3D user interface should have requested the Part contents to the user. This endpoint should validate all the fields against the
@@ -199,8 +210,8 @@ public interface InventoryApiV1 {
 
 	/**
 	 * Update a Part with some of the fields on the request.
-	 * The Printer3D user interface now has a feature tochange some of the Part fields. Thew are mostly related with the stock values and the cost
-	 * data. When the PATCH operation is sent to the backend all the fileds are populated but this endpoint will only get some of them and persist
+	 * The Printer3D user interface now has a feature to change some of the Part fields. Thew are mostly related with the stock values and the cost
+	 * data. When the PATCH operation is sent to the backend all the fields are populated but this endpoint will only get some of them and persist
 	 * their new values on the repository.
 	 *
 	 * @param part Contains the Part fields to be used to update the Part record at the repository.

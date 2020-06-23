@@ -1,8 +1,10 @@
 package org.dimensinfin.printer3d.backend.inventory.model.rest.v1;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPa
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateModelCompositionRequest;
 
@@ -33,6 +36,17 @@ public class ModelServiceV1 {
 	                       final @NotNull PartRepository partRepository ) {
 		this.modelRepository = Objects.requireNonNull( modelRepository );
 		this.partRepository = Objects.requireNonNull( partRepository );
+	}
+
+	// - G E T T E R S   &   S E T T E R S
+	public ModelList getModels() {
+		final List<Model> models = this.modelRepository.findAll()
+				.stream()
+				.map( ( modelEntity ) -> new ModelEntityToModelConverter().convert( modelEntity ) )
+				.collect( Collectors.toList() );
+		return new ModelList.Builder()
+				.withPartList( models )
+				.build();
 	}
 
 	public Model addModelPart( final UpdateModelCompositionRequest modelCompositionRequest ) {
@@ -91,7 +105,7 @@ public class ModelServiceV1 {
 	private Model constructModel( final ModelEntity entity ) {
 		// Add the parts to the model to bw responded.
 		final Model model = new ModelEntityToModelConverter().convert( entity );
-		for (final UUID partId : model.getPartIdentifierList()) {
+		for (final UUID partId : model.getPartIdList()) {
 			final Optional<PartEntity> partEntityOpt = this.partRepository.findById( partId );
 			partEntityOpt.ifPresent( partEntity -> model.addPart( new PartEntityToPartConverter().convert( partEntity ) ) );
 		}

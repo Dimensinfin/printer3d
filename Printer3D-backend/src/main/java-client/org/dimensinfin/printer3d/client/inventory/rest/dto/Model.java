@@ -4,17 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Model {
+	@NotNull(message = "Model unique UUID 'id' is a mandatory field and cannot be null.")
+	@SerializedName("id")
 	private UUID id;
+	@NotNull(message = "Model 'label' is a mandatory.")
+	@SerializedName("label")
 	private String label;
-	private List<UUID> partIdentifierList = new ArrayList<>();
-	private transient List<Part> partList = new ArrayList<>();
+	@SerializedName("partIdList")
+	private List<UUID> partIdList = new ArrayList<>();
+	@NotNull(message = "Model 'price' is a mandatory.")
+	@SerializedName("price")
 	private Float price;
+	@NotNull(message = "Model 'stockLevel' is a mandatory.")
+	@SerializedName("stockLevel")
 	private int stockLevel = 1;
-//	private int stockAvailable = 0;
+	@SerializedName("imagePath")
 	private String imagePath;
 	private boolean active = true;
+	private transient List<Part> partList = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
 	private Model() {}
@@ -32,8 +44,8 @@ public class Model {
 		return this.label;
 	}
 
-	public List<UUID> getPartIdentifierList() {
-		return this.partIdentifierList;
+	public List<UUID> getPartIdList() {
+		return this.partIdList;
 	}
 
 	public List<Part> getPartList() {
@@ -44,9 +56,9 @@ public class Model {
 		return this.price;
 	}
 
-//	public int getStockAvailable() {
-//		return this.stockAvailable;
-//	}
+	//	public int getStockAvailable() {
+	//		return this.stockAvailable;
+	//	}
 
 	public int getStockLevel() {
 		return this.stockLevel;
@@ -99,8 +111,8 @@ public class Model {
 			return this;
 		}
 
-		public Model.Builder withPartIdentifierList( final List<UUID> partIdentifierList ) {
-			this.onConstruction.partIdentifierList = Objects.requireNonNull( partIdentifierList );
+		public Model.Builder withPartIdList( final List<UUID> partIdentifierList ) {
+			this.onConstruction.partIdList = Objects.requireNonNull( partIdentifierList );
 			return this;
 		}
 
@@ -109,10 +121,10 @@ public class Model {
 			return this;
 		}
 
-//		public Model.Builder withStockAvailable( final Integer stockAvailable ) {
-//			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
-//			return this;
-//		}
+		//		public Model.Builder withStockAvailable( final Integer stockAvailable ) {
+		//			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
+		//			return this;
+		//		}
 
 		public Model.Builder withStockLevel( final Integer stockLevel ) {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );

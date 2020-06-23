@@ -31,7 +31,7 @@ public class ModelValidator implements Validator<Model> {
 
 		if ( null != rowData.get( PART_ID_LIST )){
 			final List<UUID> uuidList = this.decodeCucumberUUIDList( rowData.get( PART_ID_LIST ) );
-			final List<UUID> partIdList =record.getPartIdentifierList();
+			final List<UUID> partIdList =record.getPartIdList();
 			Collections.sort(uuidList);
 			Collections.sort(partIdList);
 			boolean isEqual = uuidList.equals(partIdList);

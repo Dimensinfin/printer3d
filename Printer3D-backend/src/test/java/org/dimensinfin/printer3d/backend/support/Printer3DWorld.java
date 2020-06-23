@@ -13,6 +13,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
@@ -46,17 +47,10 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<RequestList> requestListResponseEntity;
 	private UUID requestId;
 	private ResponseEntity<Request> closeRequestResponseEntity;
-private  JobRequest jobRequest;
+	private JobRequest jobRequest;
+	private ResponseEntity<ModelList> modelListResponseEntity;
 
-	public JobRequest getJobRequest() {
-		return this.jobRequest;
-	}
-
-	public Printer3DWorld setJobRequest( final JobRequest jobRequest ) {
-		this.jobRequest = jobRequest;
-		return this;
-	}
-
+	// - G E T T E R S   &   S E T T E R S
 	public ResponseEntity<Request> getCloseRequestResponseEntity() {
 		return this.closeRequestResponseEntity;
 	}
@@ -66,25 +60,6 @@ private  JobRequest jobRequest;
 		return this;
 	}
 
-	public UUID getRequestId() {
-		return this.requestId;
-	}
-
-	public Printer3DWorld setRequestId( final UUID requestId ) {
-		this.requestId = requestId;
-		return this;
-	}
-
-	public ResponseEntity<RequestList> getRequestListResponseEntity() {
-		return this.requestListResponseEntity;
-	}
-
-	public Printer3DWorld setRequestListResponseEntity( final ResponseEntity<RequestList> requestListResponseEntity ) {
-		this.requestListResponseEntity = requestListResponseEntity;
-		return this;
-	}
-
-	// - G E T T E R S   &   S E T T E R S
 	public Coil getCoil() {
 		return this.coil;
 	}
@@ -121,6 +96,15 @@ private  JobRequest jobRequest;
 		return this;
 	}
 
+	public JobRequest getJobRequest() {
+		return this.jobRequest;
+	}
+
+	public Printer3DWorld setJobRequest( final JobRequest jobRequest ) {
+		this.jobRequest = jobRequest;
+		return this;
+	}
+
 	public UUID getMachineId() {
 		return this.machineId;
 	}
@@ -154,6 +138,15 @@ private  JobRequest jobRequest;
 
 	public Printer3DWorld setModelId( final UUID modelId ) {
 		this.modelId = modelId;
+		return this;
+	}
+
+	public ResponseEntity<ModelList> getModelListResponseEntity() {
+		return this.modelListResponseEntity;
+	}
+
+	public Printer3DWorld setModelListResponseEntity( final ResponseEntity<ModelList> modelListResponseEntity ) {
+		this.modelListResponseEntity = modelListResponseEntity;
 		return this;
 	}
 
@@ -235,6 +228,24 @@ private  JobRequest jobRequest;
 
 	public Printer3DWorld setPartRequestList( final List<PartRequest> partRequestList ) {
 		this.partRequestList = partRequestList;
+		return this;
+	}
+
+	public UUID getRequestId() {
+		return this.requestId;
+	}
+
+	public Printer3DWorld setRequestId( final UUID requestId ) {
+		this.requestId = requestId;
+		return this;
+	}
+
+	public ResponseEntity<RequestList> getRequestListResponseEntity() {
+		return this.requestListResponseEntity;
+	}
+
+	public Printer3DWorld setRequestListResponseEntity( final ResponseEntity<RequestList> requestListResponseEntity ) {
+		this.requestListResponseEntity = requestListResponseEntity;
 		return this;
 	}
 
