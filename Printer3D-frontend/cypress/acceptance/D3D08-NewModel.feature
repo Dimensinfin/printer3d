@@ -25,3 +25,15 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         And the page "NewModelPage" has 2 panels
         And the target page has one panel of type "available-parts" with variant "-NEW-MODEL-"
         And the target page has one panel of type "new-model"
+
+    @D3D08 @D3D08.03
+    Scenario: [D3D08.03]-The Parts panel has a simplified, one level list of Parts. The listing contains Parts with any number of copies on stock but that are active.
+        Given there is a click on Feature "/NUEVO MODELO"
+        Then the page "NewModelPage" is activated
+        Given the target panel is the panel of type "available-parts"
+        And the target panel has 12 "part"
+        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Then the target item has a field named "ETIQUETA" with label "ETIQUETA" and value "Boquilla Ganesha - Figura"
+        Then the target item has a field named "MATERIAL" with label "MATERIAL" and value "PLA"
+        Then the target item has a field named "COLOR" with label "COLOR" and value "ROSA"
+        Then the target item has a field named "DISPONIBLE" with label "DISPONIBLE" and value "0"

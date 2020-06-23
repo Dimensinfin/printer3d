@@ -35,3 +35,27 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
     cy.get('app-root')
         .get(tag).should('exist').as('target-dialog')
 });
+Then('the target panel has {int} {string}', function (count: number, renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.log('>[translation]> ' + renderName + ' -> ' + tag)
+    cy.get('@target-panel').find(tag).should('have.length', count)
+});
+Then('the target item has a field named {string} with label {string} and value {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-item').within(($item) => {
+            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
+        })
+        cy.get('@target-item').within(($item) => {
+            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
+                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+        })
+    });
+Given('the target panel is the panel of type {string}', function (renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
+    cy.get('@target-page').find(tag)
+        .as('target-panel')
+});
+
+
+// - ON CONSTRUCTION
