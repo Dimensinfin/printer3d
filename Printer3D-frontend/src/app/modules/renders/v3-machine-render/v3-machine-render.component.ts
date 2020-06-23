@@ -20,6 +20,7 @@ import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer
 import { Job } from '@domain/Job.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { Part } from '@domain/Part.domain';
+import { JobRequest } from '@domain/dto/JobRequest.dto';
 
 @Component({
     selector: 'v3-machine',
@@ -38,6 +39,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         protected isolationService: IsolationService,
         protected backendService: BackendService) {
         super();
+        this.self = this
     }
 
     /**
@@ -49,7 +51,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         if (null != this.node) this.loadBuildPart();
         console.log('<[V3MachineRenderComponent.ngOnInit]')
     }
-    
+
     public getUniqueId(): string {
         const machine = this.node as Machine
         return machine.getId();
@@ -81,7 +83,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
                 part: this.node.buildRecord.part
             })
             this.state = 'RUNNING'
-            this.remainingTime = this.node.buildRecord.remainingTime*60;
+            this.remainingTime = this.node.buildRecord.remainingTime * 60;
         }
     }
 
@@ -99,15 +101,21 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         if (null != drop) {
             const job: Job = new Job(drop.dragData);
             this.target = job;
+            job.count = 1 // Reset the counter that is the value that comes from the aggregated list
             this.remainingTime = job.getBuildSeconds();
         }
+    }
+    public changePartCount(newCount: number): void {
+        this.remainingTime = this.target.getBuildSeconds() * this.target.count;
+        this.sessionTimer.setTime(this.remainingTime)
     }
     public startBuild(): void {
         console.log('>[V2MachineRenderComponent.startBuild]')
         const part: Part = this.target.getPart()
-        const partId = part.getId()
+        // const partId = part.getId()
+        const jobRequest:JobRequest= new JobRequest(this.target)
         this.backendConnections.push(
-            this.backendService.apiMachinesStartBuild_v1(this.node.getId(), partId,
+            this.backendService.apiMachinesStartBuild_v1(this.node.getId(), jobRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.successNotification(
@@ -119,7 +127,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
                     }))
                 .subscribe((resultMachine: Machine) => {
                     console.log('>[V2MachineRenderComponent.startBuild.subscription]')
-                    this.sessionTimer.activate(this.target.getBuildSeconds());
+                    this.sessionTimer.activate(this.getBuildTime());
                     this.state = 'RUNNING'
                 })
         );

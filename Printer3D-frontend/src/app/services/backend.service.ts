@@ -18,6 +18,7 @@ import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { Request } from '@domain/Request.domain';
+import { JobRequest } from '@domain/dto/JobRequest.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -148,11 +149,11 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiMachinesStartBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
-        const request = this.APIV1 + '/inventory/machines/' + machineId + '/startbuild/' + partId;
+    public apiMachinesStartBuild_v1(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {
+        const request = this.APIV2 + '/inventory/machines/' + machineId + '/startbuild';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpPUTCall(request, headers)
+        return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(jobRequest), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiMachinesStartBuild_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Machine;
@@ -205,7 +206,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiRequestsClose_v1(requestId: string,  transformer: ResponseTransformer): Observable<Request> {
+    public apiRequestsClose_v1(requestId: string, transformer: ResponseTransformer): Observable<Request> {
         const request = this.APIV1 + '/production/requests/' + requestId + '/close';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);

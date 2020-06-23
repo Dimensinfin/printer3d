@@ -29,7 +29,7 @@ import { V1PendingJobRenderComponent } from './v1-pending-job-render.component';
 import { Job } from '@domain/Job.domain';
 import { Part } from '@domain/Part.domain';
 
-describe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
+xdescribe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
     let component: V1PendingJobRenderComponent;
     let testPart: Part = new Part({
         "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",

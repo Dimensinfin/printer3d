@@ -11,7 +11,7 @@ export class JobAggregator {
         for (let target of this.reducedJobs) {
             if (target.getPriority() == newJob.getPriority())
                 if (target.getPart().getId() == newJob.getPart().getId()) {
-                    target.incrementCount()
+                    target.aggregate()
                     return
                 }
         }

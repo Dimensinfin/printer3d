@@ -76,6 +76,9 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
         console.log('>[V1BuildCountdownTimerPanelComponent.deactivate]> Timer deactivated');
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
+    public setTime(newTime: number): void {
+        this.setTimer(newTime)
+    }
     private completeTimer(): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.completeTimer]> Timer completed');
         this.parent.completeTime();

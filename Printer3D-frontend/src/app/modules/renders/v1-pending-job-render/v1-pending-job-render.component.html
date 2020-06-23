@@ -4,7 +4,7 @@
         <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
         <div class="field number-width">
             <span cy-field-label="CUANTAS" class="label">CUANTAS</span><br>
-            <span cy-field-value="CUANTAS" class="field-height job-number">{{getNumber()}}</span>
+            <span cy-field-value="CUANTAS" class="field-height job-number">{{getAggregatedNumber()}}</span>
         </div>
         <div cy-name="job-label" class="field label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
@@ -36,7 +36,11 @@
 <!-- B U I L D I N G   V A R I A N T -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
     <div class="row cornered-panel">
-        <div class="field label-width">
+        <div class="field part-count-width" *ngIf="!isRunning()">
+            <span cy-field-label="PIEZAS" class="label">CUANTAS</span><br>
+            <input type="number" class="job-part-count" required [(ngModel)]="node['count']" name="jobPartCount" (mouseleave)="onMouseLeave()">
+        </div>
+        <div class="field building-label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
             <span cy-field-value="ETIQUETA" cy-name="job-label" class="field-height job-label">{{getLabel()}}</span>
         </div>

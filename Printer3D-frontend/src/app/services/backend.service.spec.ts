@@ -217,7 +217,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         });
     });
     describe('Code Coverage Phase [PRODUCTION]', () => {
-        it('apiProductionGetJobs_v1.default: get the list jobs required to level the stocks', async () => {
+        xit('apiProductionGetJobs_v1.default: get the list jobs required to level the stocks', async () => {
             service.apiProductionGetJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
                 .setTransformation((entrydata: any): Job[] => {
                     const jobs: Job[] = []

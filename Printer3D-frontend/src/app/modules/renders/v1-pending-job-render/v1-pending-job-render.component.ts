@@ -6,6 +6,7 @@ import { Input } from '@angular/core';
 // - DOMAIN
 import { Job } from '@domain/Job.domain';
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
+import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render.component';
 
 @Component({
     selector: 'v1-pending-job',
@@ -13,6 +14,7 @@ import { NodeContainerRenderComponent } from '../node-container-render/node-cont
     styleUrls: ['./v1-pending-job-render.component.scss']
 })
 export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
+    @Input() machine: V3MachineRenderComponent
     public image = '/assets/media/default-part-image.png'
 
     public getNode(): Job {
@@ -24,8 +26,8 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     public getPriority(): number {
         return this.getNode().getPriority()
     }
-    public getNumber(): string {
-        return 'x ' + this.getNode().getNumber()
+    public getAggregatedNumber(): string {
+        return 'x ' + this.getNode().getAggregated()
     }
     public getLabel(): string {
         return this.getNode().getPart().label;
@@ -38,5 +40,12 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     }
     public getBuildTime(): number {
         return this.getNode().getPart().buildTime;
+    }
+    public isRunning(): boolean {
+        return this.machine.isRunning()
+    }
+    public onMouseLeave(): void {
+        console.log('>[V1PendingJobRenderComponent.onLostFocus]')
+        this.machine.changePartCount(this.getNode().count)
     }
 }

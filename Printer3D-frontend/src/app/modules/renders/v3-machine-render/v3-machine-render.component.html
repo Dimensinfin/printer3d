@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div *ngIf="target" class="set-job">
-                <v1-pending-job [node]="target" [variant]="'-BUILDING-JOB-'"></v1-pending-job>
+                <v1-pending-job [node]="target" [machine]="self" [variant]="'-BUILDING-JOB-'"></v1-pending-job>
             </div>
         </div>
     </div>

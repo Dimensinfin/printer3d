@@ -72,7 +72,7 @@ describe('CLASS Job [Module: DOMAIN]', () => {
             expect(instance.getBuildSeconds()).toBe(90 * 60)
             expect(instance.getPriority()).toBe(2)
             expect(instance.getNumber()).toBe(1)
-            instance.incrementCount()
+            instance.aggregate()
             expect(instance.getNumber()).toBe(2)
         });
     });
