@@ -4,7 +4,7 @@
     </header>
     <section id="modal-body">
         <!-- N E W   P A R T   F O R M -->
-        <form #newModelForm="ngForm" class="dsf-form" autocomplete="off">
+        <form class="dsf-form" autocomplete="off">
             <table cellspacing="5px">
                 <tr>
                     <td>
@@ -12,7 +12,7 @@
                             <!-- L A B E L -->
                             <div class="column">
                                 <label class="dsf-form-label" for="label">ETIQUETA<span style="color: red;">&nbsp;*</span></label>
-                                <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="model.label" name="label" minlength="3" maxlength="50">
+                                <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required name="label" minlength="3" maxlength="50">
                             </div>
                             <!-- D E S C R I P T I O N -->
                             <!-- <div class="column">
@@ -27,7 +27,7 @@
     </section>
     <footer id="modal-footer">
         <div class="centered-container button-area">
-            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newModelForm.form.valid" (click)="saveModel()">
+            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" (click)="saveModel()">
                 <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Guardar Datos
             </button>
             <button id="cancel-button" type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">

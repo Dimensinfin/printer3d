@@ -205,12 +205,11 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"dda12806-2a1e-4a13-89c8-3bf0f23e5ffc\",\"label\":\"-TEST_MODEL_LABEL-\",\"partList\":[],\"price\":6.0,\"stockLevel\":2,\"stockAvailable\":1,\"imagePath\":\"-TEST_MODEL_IMAGE_PATH-\",\"active\":true}";
+		final String expected = "{\"id\":\"dda12806-2a1e-4a13-89c8-3bf0f23e5ffc\",\"label\":\"-TEST_MODEL_LABEL-\",\"partList\":[],\"price\":6.0,\"stockLevel\":2,\"imagePath\":\"-TEST_MODEL_IMAGE_PATH-\",\"active\":true}";
 		final String obtained = modelEntity.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

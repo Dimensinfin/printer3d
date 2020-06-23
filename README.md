@@ -77,6 +77,11 @@ SELECT id FROM parts WHERE color='INDEFINIDO';
 ```sql
 DELETE FROM parts WHERE color='INDEFINIDO';
 ```
+# UTILITIES
+
+# GOURCE
+gource --fullscreen --start-date "2020-00-15 21:00:00" --output-ppm-stream /dev/null --output-framerate 25 --title "3DPrinterManagement" --hide filenames
+
 
 
 ### Database configuration

@@ -5,14 +5,19 @@ export class SupportService {
     private translationTable: any = {}
 
     constructor() {
+        // - PAGES
         this.translationTable['New Part'] = 'new-part-dialog'
         this.translationTable['ProductionJobListPage'] = 'production-job-list-page'
         this.translationTable['PartInventory'] = 'v2-inventory-part-list-page'
         this.translationTable['NewRequestPage'] = 'v1-new-request-page'
-        this.translationTable['available-parts'] ='v1-available-parts-panel'
-        this.translationTable['new-request'] ='v1-new-request-panel'
+        this.translationTable['OpenRequestsPage'] = 'v1-open-requests-page'
+        this.translationTable['NewModelPage'] = 'v1-new-model-page'
         this.translationTable['part-list'] = 'v2-inventory-part-list-page'
-
+        // - PANELS
+        this.translationTable['available-parts'] = 'v1-available-parts-panel'
+        this.translationTable['new-request'] = 'v1-new-request-panel'
+        this.translationTable['new-model'] = 'v1-new-model-panel'
+        // - RENDERS
         this.translationTable['job'] = 'v1-pending-job'
         this.translationTable['machine'] = 'v3-machine'
         this.translationTable['part'] = 'v1-part'

@@ -155,3 +155,23 @@ Then('the target panel has no {string}', function (renderName: string) {
     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
     cy.get('@target-panel').find(tag).should('not.exist')
 });
+
+// - This should be moved to Common
+When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, tagName: string) {
+    const tag = supportService.translateTag(tagName) // Do name replacement
+    cy.get('v1-dock')
+        .find('v2-feature-render')
+        .contains(label, { matchCase: false }).parent()
+        .click('center');
+    cy.wait(1200)
+    cy.get('app-root').find(tag).should('exist')
+});
+When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (label: string, tagName: string) {
+    const tag = supportService.translateTag(tagName) // Do name replacement
+    cy.get('v1-dock')
+        .find('v2-feature-render')
+        .contains(label, { matchCase: false }).parent()
+        .click('center');
+    cy.get('app-root')
+        .get(tag).should('exist').as('target-dialog')
+});

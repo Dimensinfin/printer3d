@@ -15,26 +15,26 @@ const TITLE_VALIDATION = '3DPrinterManagement - UI';
 const supportService = new SupportService();
 
 // - N E W E S T   I M P L E M E N T A T I O N
-When('the page {string} is activated', function (name: string) {
-    const tag = supportService.translateTag(name) // Do name replacement
+When('the page {string} is activated', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('app-root').find(tag).as('target-page')
         .should('exist')
 });
-Then('the page {string} has {int} panels', function (name: string, panelCount: number) {
-    const tag = supportService.translateTag(name) // Do name replacement
+Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('app-root').find(tag).find('.row').first()
         .children()
         .should('have.length', panelCount)
 });
-Given('the target panel has one or more {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
+Given('the target panel has one or more {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('@target-panel').find(tag).should('have.length.greaterThan', 0)
 });
-Given('the target item the {string} with id {string}', function (renderName: string, recordId: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
+Given('the target item the {string} with id {string}', function (symbolicName: string, recordId: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item')
         .should('exist')
