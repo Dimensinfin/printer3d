@@ -21,7 +21,7 @@
         "acceptance:cypress:batchB": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/acceptance/D3D1*.feature\"",
         "integration:cypress:batchA": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/integration/D3D*.feature\"",
         "heroku-postbuild": "ng build --configuration=${NODE_ENV}",
-        "start:integration": "export NODE_ENV=integration && export PORT=5150 && npm run build:stage && npm start",
+        "start:integration": "export NODE_ENV=integration && export PORT=5150 && npm run build:dev && npm start",
         "analyzer": "ng build --aot --configuration=stage --stats-json && webpack-bundle-analyzer ./dist/Printer3D-frontend/stats-es2015.json"
     },
     "private": true,

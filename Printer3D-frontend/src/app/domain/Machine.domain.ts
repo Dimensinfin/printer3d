@@ -8,9 +8,9 @@ export class Machine {
     public characteristics: string;
     public buildRecord: any;
     // Deprecated. Machine version 1
-    public currentJobPart: Part;
-    public currentPartInstances: number = 1;
-    public jobInstallmentDate: string;
+    // public currentJobPart: Part;
+    // public currentPartInstances: number = 1;
+    // public jobInstallmentDate: string;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

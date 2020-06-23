@@ -40,9 +40,11 @@
             <span cy-field-label="PIEZAS" class="label">CUANTAS</span><br>
             <input type="number" class="job-part-count" required [(ngModel)]="node['partCount']" name="jobPartCount" (mouseleave)="onMouseLeave()">
         </div>
-        <ng-template #partCounter class="field part-count-width">
-            <span cy-field-label="PIEZAS" class="label">CUANTAS</span><br>
-            <span cy-field-value="PIEZAS" cy-name="job-parts" class="field-height job-label">{{getCopies()}}</span>
+        <ng-template #partCounter>
+            <div class="field part-count-width">
+                <span cy-field-label="PIEZAS" class="label">CUANTAS</span><br>
+                <span cy-field-value="PIEZAS" cy-name="job-parts" class="field-height job-label">{{getCopies()}}</span>
+            </div>
         </ng-template>
         <div class="field building-label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>

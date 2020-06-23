@@ -54,7 +54,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
         console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Timer duration: ' + durationInSeconds);
         if (null != durationInSeconds) {
             this.duration = durationInSeconds;
-            const timer$ = timer(1000, 1000);
+            const timer$ = timer(200, 1000);
             this.timerSubscription = timer$.subscribe(elapsed => {
                 // Calculate the number of secods left.
                 let left = this.duration - elapsed;

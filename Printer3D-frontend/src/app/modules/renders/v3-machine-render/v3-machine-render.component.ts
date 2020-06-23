@@ -80,7 +80,9 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         if (this.node.isRunning()) {
             this.target = new Job({
                 id: uuidv4(),
-                part: this.node.buildRecord.part
+                part: this.node.buildRecord.part,
+                priority: 3,
+                partCount: this.node.buildRecord.partCopies
             })
             this.state = 'RUNNING'
             this.remainingTime = this.node.buildRecord.remainingTime;
@@ -113,7 +115,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         console.log('>[V2MachineRenderComponent.startBuild]')
         const part: Part = this.target.getPart()
         // const partId = part.getId()
-        const jobRequest:JobRequest= new JobRequest(this.target)
+        const jobRequest: JobRequest = new JobRequest(this.target)
         this.backendConnections.push(
             this.backendService.apiMachinesStartBuild_v1(this.node.getId(), jobRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
