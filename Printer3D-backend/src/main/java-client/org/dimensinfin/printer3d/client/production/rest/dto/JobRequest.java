@@ -2,29 +2,31 @@ package org.dimensinfin.printer3d.client.production.rest.dto;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 
 public class JobRequest {
-//	@NotNull(message = "Job unique UUID 'id' is a mandatory field and cannot be null.")
+	//	@NotNull(message = "Job unique UUID 'id' is a mandatory field and cannot be null.")
 	@SerializedName("id")
 	private UUID id;
-//	@NotNull(message = "Job Part reference 'partId' cannot be null.")
+	//	@NotNull(message = "Job Part reference 'partId' cannot be null.")
 	@SerializedName("partId")
 	private UUID partId;
-	@SerializedName("copies")
-	private int copies = 1;
+	@NotNull(message = "The number of copies cannot be null.")
+	@SerializedName("partCount")
+	private int partCount;
 
 	// - C O N S T R U C T O R S
 	private JobRequest() {}
 
 	// - G E T T E R S   &   S E T T E R S
-	public int getCopies() {
-		return this.copies;
-	}
-
 	public UUID getId() {
 		return this.id;
+	}
+
+	public int getPartCount() {
+		return this.partCount;
 	}
 
 	public UUID getPartId() {
@@ -50,7 +52,7 @@ public class JobRequest {
 		}
 
 		public JobRequest.Builder withPartCopies( final Integer copies ) {
-			if (null != copies) this.onConstruction.copies = copies;
+			if (null != copies) this.onConstruction.partCount = copies;
 			return this;
 		}
 

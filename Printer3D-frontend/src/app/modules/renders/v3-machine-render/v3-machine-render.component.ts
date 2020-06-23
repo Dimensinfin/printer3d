@@ -83,7 +83,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
                 part: this.node.buildRecord.part
             })
             this.state = 'RUNNING'
-            this.remainingTime = this.node.buildRecord.remainingTime * 60;
+            this.remainingTime = this.node.buildRecord.remainingTime;
         }
     }
 
@@ -101,12 +101,12 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         if (null != drop) {
             const job: Job = new Job(drop.dragData);
             this.target = job;
-            job.count = 1 // Reset the counter that is the value that comes from the aggregated list
+            // job.partCount = 1 // Reset the counter that is the value that comes from the aggregated list
             this.remainingTime = job.getBuildSeconds();
         }
     }
     public changePartCount(newCount: number): void {
-        this.remainingTime = this.target.getBuildSeconds() * this.target.count;
+        this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
         this.sessionTimer.setTime(this.remainingTime)
     }
     public startBuild(): void {

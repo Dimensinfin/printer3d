@@ -36,10 +36,14 @@
 <!-- B U I L D I N G   V A R I A N T -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
     <div class="row cornered-panel">
-        <div class="field part-count-width" *ngIf="!isRunning()">
+        <div class="field part-count-edit-width" *ngIf="!isRunning(); else partCounter">
             <span cy-field-label="PIEZAS" class="label">CUANTAS</span><br>
-            <input type="number" class="job-part-count" required [(ngModel)]="node['count']" name="jobPartCount" (mouseleave)="onMouseLeave()">
+            <input type="number" class="job-part-count" required [(ngModel)]="node['partCount']" name="jobPartCount" (mouseleave)="onMouseLeave()">
         </div>
+        <ng-template #partCounter class="field part-count-width">
+            <span cy-field-label="PIEZAS" class="label">CUANTAS</span><br>
+            <span cy-field-value="PIEZAS" cy-name="job-parts" class="field-height job-label">{{getCopies()}}</span>
+        </ng-template>
         <div class="field building-label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
             <span cy-field-value="ETIQUETA" cy-name="job-label" class="field-height job-label">{{getLabel()}}</span>

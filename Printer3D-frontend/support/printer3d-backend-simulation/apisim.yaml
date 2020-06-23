@@ -191,6 +191,24 @@ response:
 
 ---
 
+simlet: inventory-machines-start-build-v2
+
+request:
+  - method: POST
+  - where: uriPathPattern
+    matchesIgnoreCase: "/api/v2/inventory/machines/{machineId}/startbuild"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.machines.startbuild.json"
+
+---
+
 simlet: inventory-machines-v1
 
 request:

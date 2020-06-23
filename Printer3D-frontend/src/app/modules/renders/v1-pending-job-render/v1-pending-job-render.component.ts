@@ -20,6 +20,9 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     public getNode(): Job {
         return this.node as Job
     }
+    public getCopies(): string {
+        return 'x ' + this.getNode().getCopies()
+    }
     public getUniqueId(): string {
         return this.getNode().getId();
     }
@@ -46,6 +49,6 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     }
     public onMouseLeave(): void {
         console.log('>[V1PendingJobRenderComponent.onLostFocus]')
-        this.machine.changePartCount(this.getNode().count)
+        this.machine.changePartCount(this.getNode().getCopies())
     }
 }

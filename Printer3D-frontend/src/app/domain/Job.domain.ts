@@ -8,7 +8,7 @@ export class Job extends Node {
     public id: string;
     public part: Part;
     private priority: number = 3
-    public count: number = 1 // Stores the number of copies to build on a run.
+    private partCount: number = 1 // Stores the number of copies to build on a run.
     private aggregatedCount: number = 1 // Stores the number of jobs of the same Part so the list is reduced
 
     constructor(values: Object = {}) {
@@ -29,6 +29,9 @@ export class Job extends Node {
     }
     public getPriority(): number {
         return this.priority
+    }
+    public getCopies() : number {
+        return this.partCount
     }
     public getAggregated(): number {
         return this.aggregatedCount
