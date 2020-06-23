@@ -14,7 +14,8 @@ describe('CLASS Job [Module: DOMAIN]', () => {
             expect(instance.id).toBeUndefined();
             expect(instance.part).toBeUndefined();
             expect(instanceAsAny.priority).toBe(3)
-            expect(instanceAsAny.count).toBe(1)
+            expect(instanceAsAny.partCount).toBe(1)
+            expect(instanceAsAny.aggregatedCount).toBe(1)
         });
         it('constructor.object: validate initial state with object data', () => {
             const instance = new Job({
@@ -41,7 +42,8 @@ describe('CLASS Job [Module: DOMAIN]', () => {
             expect(instance.id).toBe("1682544c-364b-4e30-b097-fd181bcc50a5");
             expect(instance.part).toBeDefined();
             expect(instanceAsAny.priority).toBe(2)
-            expect(instanceAsAny.count).toBe(1)
+            expect(instanceAsAny.partCount).toBe(1)
+            expect(instanceAsAny.aggregatedCount).toBe(1)
         });
     });
 
@@ -71,9 +73,10 @@ describe('CLASS Job [Module: DOMAIN]', () => {
             expect(instance.getPart()).toBeDefined()
             expect(instance.getBuildSeconds()).toBe(90 * 60)
             expect(instance.getPriority()).toBe(2)
-            expect(instance.getNumber()).toBe(1)
+            expect(instance.getCopies()).toBe(1)
+            expect(instance.getAggregated()).toBe(1)
             instance.aggregate()
-            expect(instance.getNumber()).toBe(2)
+            expect(instance.getAggregated()).toBe(2)
         });
     });
 });

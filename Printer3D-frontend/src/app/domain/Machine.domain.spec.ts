@@ -19,7 +19,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const instance = new Machine();
             expect(instance).toBeDefined();
-            expect(instance.currentPartInstances).toBe(1)
+            // expect(instance.currentPartInstances).toBe(1)
         });
         it('constructor.objectv1: validate initial state with object data', () => {
             const instance = new Machine({
@@ -50,9 +50,9 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
             expect(instance.label).toBe("Machine B");
             expect(instance.model).toBe("Creality 3D Ender 3 Pro");
             expect(instance.characteristics).toBe("Max size set to 200mm. Has adaptor for flexible plastic filament.");
-            expect(instance.currentJobPart).toBeDefined()
-            expect(instance.currentPartInstances).toBe(2)
-            expect(instance.jobInstallmentDate).toBeDefined()
+            // expect(instance.currentJobPart).toBeDefined()
+            // expect(instance.currentPartInstances).toBe(2)
+            // expect(instance.jobInstallmentDate).toBeDefined()
         });
     });
     it('constructor.objectv2: validate initial state with object data', () => {

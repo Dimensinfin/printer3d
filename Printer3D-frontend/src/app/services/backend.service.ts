@@ -149,7 +149,18 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiMachinesStartBuild_v1(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesStartBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
+        const request = this.APIV2 + '/inventory/machines/' + machineId + '/startbuild/' + partId;
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPUTCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiMachinesStartBuild_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Machine;
+                return response;
+            }));
+    }
+    public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {
         const request = this.APIV2 + '/inventory/machines/' + machineId + '/startbuild';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);

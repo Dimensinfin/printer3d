@@ -61,9 +61,10 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             const componentAsAny = component as any;
             expect(componentAsAny.sessionTimer).toBeUndefined();
             expect(componentAsAny.node).toBeUndefined();
-            expect(component.self).toBeUndefined();
-            expect(componentAsAny.state).toBe('IDLE');
+            expect(component.self).toBeDefined()
             expect(componentAsAny.target).toBeUndefined();
+            expect(componentAsAny.state).toBe('IDLE');
+            expect(componentAsAny.remainingTime).toBe(0);
         });
     });
 
@@ -90,7 +91,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                 jobInstallmentDate: Date.now().toString,
                 buildRecord: {
                     part: new Part(),
-                    remainingTime: 10
+                    remainingTime: 587
                 },
                 isRunning: () => { return true }
             });
@@ -101,7 +102,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             expect(componentAsAny.node.currentJobPartId).toBeDefined();
             expect(component.target).toBeDefined();
             expect(component.isRunning()).toBeTrue();
-            expect(component.getBuildTime()).toBe(10 * 60);
+            expect(component.getBuildTime()).toBe(587);
             jasmine.clock().uninstall()
         });
     });
@@ -125,34 +126,36 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                 jobInstallmentDate: Date.now().toString,
                 buildRecord: {
                     part: new Part(),
-                    remainingTime: 10
+                    remainingTime: 876
                 },
                 isRunning: () => { return true }
             });
             await component.ngOnInit()
-            expect(component.getBuildTime()).toBe(10 * 60);
+            expect(component.getBuildTime()).toBe(876);
         });
         it('onDrop.empty: drop an empty element', () => {
             component.onDrop(null);
             expect(component.target).toBeUndefined();
         });
-        it('onDrop.part: drop an empty element', () => {
+        it('onDrop.job: drop an empty element', () => {
+            expect(component.target).toBeUndefined()
+            expect(component.getBuildTime()).toBe(0);
             component.onDrop({
                 dragData: {
                     part: new Part({
-                        buildTime: 30
+                        buildTime: 97
                     })
                 }
             });
             expect(component.target).toBeDefined();
-            expect(component.getBuildTime()).toBe(30 * 60);
+            expect(component.getBuildTime()).toBe(97 * 60);
         });
         it('getUniqueId: get the machine unique identifier for html identification', () => {
             const componentAsAny = component as any;
             componentAsAny.node = new Machine({
                 id: "9903926b-e786-4fb2-8e8e-68960ebebb7a"
             });
-           expect (component.getUniqueId()).toBe("9903926b-e786-4fb2-8e8e-68960ebebb7a")
+            expect(component.getUniqueId()).toBe("9903926b-e786-4fb2-8e8e-68960ebebb7a")
         });
         it('completeTime: singnal from the timer that the time has completed', () => {
             const componentAsAny = component as any;
@@ -168,19 +171,13 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                     expect(seconds).toBe(30 * 60)
                 }
             }
+            spyOn(componentAsAny.sessionTimer, 'activate')
             const testPart: Part = new Part({
                 id: "9cc43545-3221-4a24-bd0c-04b429d11df4",
                 buildTime: 30
             })
             componentAsAny.node = new Machine({
                 id: "9903926b-e786-4fb2-8e8e-68960ebebb7a",
-                currentJobPartId: new Part(),
-                buildTime: TEST_TIME,
-                jobInstallmentDate: Date.now().toString,
-                buildRecord: {
-                    part: testPart,
-                    remainingTime: 30
-                },
                 isRunning: () => { return false }
             });
             componentAsAny.target = new Job({
@@ -191,6 +188,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             await component.startBuild();
             jasmine.clock().tick(500);
             expect(componentAsAny.backendConnections.length).toBe(1);
+            expect(componentAsAny.sessionTimer.activate).toHaveBeenCalled()
             expect(component.isRunning()).toBeTrue();
             jasmine.clock().uninstall()
         });
@@ -257,7 +255,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
             componentAsAny.sessionTimer = {
-                deactivate: () => {  }
+                deactivate: () => { }
             }
             spyOn(componentAsAny.sessionTimer, 'deactivate')
             const testPart: Part = new Part({
@@ -288,5 +286,5 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             expect(componentAsAny.backendConnections.length).toBe(1);
             jasmine.clock().uninstall()
         });
-   });
+    });
 });

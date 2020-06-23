@@ -103,7 +103,6 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         if (null != drop) {
             const job: Job = new Job(drop.dragData);
             this.target = job;
-            // job.partCount = 1 // Reset the counter that is the value that comes from the aggregated list
             this.remainingTime = job.getBuildSeconds();
         }
     }
@@ -113,11 +112,9 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     }
     public startBuild(): void {
         console.log('>[V2MachineRenderComponent.startBuild]')
-        const part: Part = this.target.getPart()
-        // const partId = part.getId()
         const jobRequest: JobRequest = new JobRequest(this.target)
         this.backendConnections.push(
-            this.backendService.apiMachinesStartBuild_v1(this.node.getId(), jobRequest,
+            this.backendService.apiMachinesStartBuild_v2(this.node.getId(), jobRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.successNotification(

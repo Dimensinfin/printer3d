@@ -8,6 +8,7 @@ import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { SupportHttpClientWrapperService } from './SupportHttpClientWrapperService.service';
 import { RequestForm } from '@domain/RequestForm.domain';
+import { JobRequest } from '@domain/dto/JobRequest.dto';
 
 export class SupportBackendService {
     private httpWrapper: SupportHttpClientWrapperService;
@@ -137,17 +138,21 @@ export class SupportBackendService {
 
     public apiMachinesStartBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
-            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines/startbuild')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
+            const data = this.directAccessMockResource('inventory.machines.cancelbuild')
+             observer.next(transformer.transform(data));
+            observer.complete();
+        });
+    }
+    public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('inventory.machines.cancelbuild')
+             observer.next(transformer.transform(data));
+            observer.complete();
         });
     }
     public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.machines.cancelbuild')
-            // console.log('>[SupportBackendService.apiMachinesCancelBuild_v1]> Data: ' + data)
             observer.next(transformer.transform(data));
             observer.complete();
         });

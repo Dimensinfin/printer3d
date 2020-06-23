@@ -187,8 +187,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: Machine) => {
                     expect(response).toBeDefined();
-                    expect(response.currentJobPart).toBeDefined();
-                    expect(response.jobInstallmentDate).toBeDefined();
                 });
         });
         it('apiMachinesCancelBuild_v1.default: cancel the build job on a Machine', async () => {
@@ -199,8 +197,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: Machine) => {
                     expect(response).toBeDefined();
-                    expect(response.currentJobPart).toBeNull()
-                    expect(response.jobInstallmentDate).toBeNull()
                 });
         });
         it('apiMachinesCompleteBuild_v1.default: complete the build job on a Machine', async () => {
@@ -211,13 +207,11 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: Machine) => {
                     expect(response).toBeDefined();
-                    expect(response.currentJobPart).toBeUndefined()
-                    expect(response.jobInstallmentDate).toBeUndefined()
                 });
         });
     });
     describe('Code Coverage Phase [PRODUCTION]', () => {
-        xit('apiProductionGetJobs_v1.default: get the list jobs required to level the stocks', async () => {
+        it('apiProductionGetJobs_v1.default: get the list jobs required to level the stocks', async () => {
             service.apiProductionGetJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
                 .setTransformation((entrydata: any): Job[] => {
                     const jobs: Job[] = []
@@ -233,10 +227,14 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         it('apiProductionGetOpenRequests_v1.default: get the list jobs required to level the stocks', async () => {
             service.apiProductionGetOpenRequests_v1(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
                 .setTransformation((entrydata: any): Request[] => {
-                    const requests: Request[] = []
-                    for (let request of entrydata)
-                        requests.push(new Request(request));
-                    return requests;
+                    // Extract requests from the response.
+                    const requestList: Request[] = []
+                    for (let entry of entrydata.requests) {
+                        const request: Request = new Request(entry)
+                        request.setPartProvider(entrydata)
+                        requestList.push(request);
+                    }
+                    return requestList;
                 }))
                 .subscribe((response: Request[]) => {
                     expect(response).toBeDefined();
