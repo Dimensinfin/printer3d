@@ -32,4 +32,4 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
         Then there is a valid response with return code of "200 OK"
         And on the Jobs repository there is a record for Part "4e7001ee-6bf5-40b4-9c15-61802e4c59ea" with the next data
             | buildTime | cost | price | partCopies | jobInstallmentDate          |
-            | 60        | 0.65 | 2.00  | 2          | 2020-06-18T10:00:00.226181Z |
+            | 120       | 0.65 | 2.00  | 2          | 2020-06-18T10:00:00.226181Z |

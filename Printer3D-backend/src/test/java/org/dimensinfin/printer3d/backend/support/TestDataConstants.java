@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.support;
 
+import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,18 @@ public class TestDataConstants {
 		public static final UUID TEST_REQUEST_ID = UUID.fromString( "98be9442-edbb-47fe-bc20-60b9e6f4a315" );
 		public static final String TEST_REQUEST_LABEL = "-TEST_REQUEST_LABEL-";
 		public static final OffsetDateTime TEST_REQUEST_DATE = OffsetDateTime.parse( "2020-06-16T16:38:30.562806+02:00" );
-		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806+02:00" ;
+		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806+02:00";
 		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
+	}
+
+	public static class JobConstants {
+		public static final UUID TEST_JOB_ID = UUID.fromString( "98be9442-edbb-47fe-bc20-60b9e6f4a315" );
+		public static final UUID TEST_JOB_PART_ID = UUID.fromString( "bdf5eced-83fb-46d7-bdf9-dbfdd7e8b90f" );
+		public static final Integer TEST_JOB_BUILD_TIME = 45;
+		public static final Float TEST_JOB_COST = 0.80F;
+		public static final Float TEST_JOB_PRICE = 3.00F;
+		public static final Integer TEST_JOB_PART_COPIES = 3;
+		public static final OffsetDateTime TEST_JOB_JOBINSTALLMENTDATE = OffsetDateTime.now();
+		public static final OffsetDateTime TEST_JOB_JOBCOMPLETIONDATE = OffsetDateTime.now().plus( Duration.ofMinutes( 90 ) );
 	}
 }

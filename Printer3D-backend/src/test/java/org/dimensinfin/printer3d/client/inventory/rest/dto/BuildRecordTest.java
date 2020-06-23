@@ -99,7 +99,8 @@ public class BuildRecordTest {
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertNotNull( buildRecord.getPart() );
 		Assertions.assertEquals( TEST_BUILDRECORD_PARTCOPIES, buildRecord.getPartCopies() );
-		Assertions.assertEquals( 15 - 3, buildRecord.getRemainingTime() );
+		final int newBuildTime = (15 * 60 * TEST_BUILDRECORD_PARTCOPIES) - 3 * 60;
+		Assertions.assertEquals( newBuildTime, buildRecord.getRemainingTime() );
 	}
 
 	@Test

@@ -102,7 +102,8 @@ public class MachineServiceV2Test {
 		target = obtained.getMachines().get( 1 );
 		Assertions.assertTrue( target.isRunning() );
 		Assertions.assertEquals( TEST_PART_ID.toString(), target.getBuildRecord().getPart().getId().toString() );
-		Assertions.assertEquals( TEST_PART_BUILD_TIME - 4, target.getRemainingTime() );
+		final int newBuildTime = (TEST_PART_BUILD_TIME * 60 * 3) - 4 * 60;
+		Assertions.assertEquals( newBuildTime, target.getRemainingTime() );
 	}
 
 	@Test
@@ -127,7 +128,7 @@ public class MachineServiceV2Test {
 		} );
 	}
 
-//	@Test
+	//	@Test
 	public void getMachinesRunComplete() {
 		// Given
 		final PartEntity part = new PartEntity.Builder()

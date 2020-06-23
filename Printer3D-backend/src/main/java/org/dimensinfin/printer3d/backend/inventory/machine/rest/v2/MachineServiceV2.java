@@ -56,7 +56,6 @@ public class MachineServiceV2 {
 					return new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
 				} )
 				.collect( Collectors.toList() );
-		//		LogWrapper.info( machines.toString() );
 		return new MachineListV2.Builder().withMachines( machines ).build();
 	}
 

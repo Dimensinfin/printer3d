@@ -80,7 +80,7 @@ public class JobHistoric {
 		}
 
 		public JobHistoric build() {
-			this.onConstruction.id = UUID.randomUUID();
+			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.jobPartId );
 			Objects.requireNonNull( this.onConstruction.buildTime );
 			Objects.requireNonNull( this.onConstruction.cost );

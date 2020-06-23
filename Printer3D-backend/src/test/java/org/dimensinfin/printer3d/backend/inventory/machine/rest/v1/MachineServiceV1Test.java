@@ -53,7 +53,7 @@ public class MachineServiceV1Test {
 	public void beforeEach() {
 		this.machineRepository = Mockito.mock( MachineRepository.class );
 		this.partRepository = Mockito.mock( PartRepository.class );
-		this.jobRepository = Mockito.mock(JobRepository.class);
+		this.jobRepository = Mockito.mock( JobRepository.class );
 	}
 
 	@Test
@@ -92,6 +92,21 @@ public class MachineServiceV1Test {
 		} );
 	}
 
+//	@Test
+	public void completeBuild() {
+		// Given
+		final UUID machineId = UUID.randomUUID();
+		final MachineEntity machineEntity = new MachineEntity();
+		// When
+		Mockito.when( this.machineRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( machineEntity ) );
+		Mockito.when( this.machineRepository.save( Mockito.any( MachineEntity.class ) ) ).thenReturn( machineEntity.clearJob() );
+		// Test
+		final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository, this.jobRepository );
+		final Machine obtained = machineServiceV1.completeBuild( machineId );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+	}
+
 	@Test
 	public void constructorContract() {
 		final MachineServiceV1 machineServiceV1 = new MachineServiceV1( this.machineRepository, this.partRepository, this.jobRepository );
@@ -99,6 +114,7 @@ public class MachineServiceV1Test {
 	}
 
 	//	@Test
+	@Deprecated
 	public void getMachinesCompleted() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
@@ -147,7 +163,8 @@ public class MachineServiceV1Test {
 		Mockito.verify( this.partRepository, Mockito.times( 2 ) ).save( Mockito.any( PartEntity.class ) );
 	}
 
-	@Test
+	//	@Test
+	@Deprecated
 	public void getMachinesException() {
 		// Given
 		final MachineEntity machine = Mockito.mock( MachineEntity.class );
@@ -165,7 +182,8 @@ public class MachineServiceV1Test {
 		} );
 	}
 
-	@Test
+	//	@Test
+	@Deprecated
 	public void getMachinesIdle() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
@@ -191,6 +209,7 @@ public class MachineServiceV1Test {
 	}
 
 	//	@Test
+	@Deprecated
 	public void getMachinesRunning() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
@@ -235,7 +254,7 @@ public class MachineServiceV1Test {
 		Assertions.assertEquals( TEST_PART_ID, obtained.getMachines().get( 0 ).getCurrentJobPart().getId() );
 	}
 
-	//	@Test
+//	@Test
 	public void startBuild() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );

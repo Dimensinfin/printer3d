@@ -37,7 +37,7 @@ class CoilControllerV1 {
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<CoilList> getCoils() {
-		return new ResponseEntity<>( this.coilServiceV1.getRolls(), HttpStatus.OK );
+		return new ResponseEntity<>( this.coilServiceV1.getCoils(), HttpStatus.OK );
 	}
 
 	@PostMapping(path = "/inventory/coils",

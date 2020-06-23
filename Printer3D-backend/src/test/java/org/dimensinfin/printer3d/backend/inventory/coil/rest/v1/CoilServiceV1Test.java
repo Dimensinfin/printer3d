@@ -42,7 +42,7 @@ public class CoilServiceV1Test {
 		Mockito.when( this.coilRepository.findAll() ).thenReturn( coils );
 		// Test
 		final CoilServiceV1 coilServiceV1 = new CoilServiceV1( this.coilRepository );
-		final CoilList obtained = coilServiceV1.getRolls();
+		final CoilList obtained = coilServiceV1.getCoils();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 3, obtained.getCount() );

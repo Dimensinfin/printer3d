@@ -70,7 +70,7 @@ public class JobServiceV1 {
 		}
 	}
 
-	protected List<Job> generateRequestJobList() {
+	private List<Job> generateRequestJobList() {
 		LogWrapperLocal.enter();
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		try {

@@ -138,7 +138,8 @@ public class MachineV2Test {
 		// Test
 		final int obtained = machineV2.getRemainingTime();
 		// Assertions
-		Assertions.assertEquals( 10 - 6, obtained );
+		final int newBuildTime = (10 * 60 * TEST_BUILDRECORD_PARTCOPIES) - 6 * 60;
+		Assertions.assertEquals( newBuildTime, obtained );
 	}
 
 	@Test

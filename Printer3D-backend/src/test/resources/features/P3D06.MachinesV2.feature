@@ -53,7 +53,7 @@ Feature: Manage the information about the production 3D printer Machines.
         Then there is a valid response with return code of "200 OK"
         And the machine "Ender 3 Pro - A" has the next build information
             | state   | partId                               | partLabel    | partCopies | remainingTime |
-            | RUNNING | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | 1          | 60            |
+            | RUNNING | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | 1          | 3600          |
         And the machine "Ender 3 Pro - B" has the next build information
             | state | partId | partLabel | partCopies | jobInstallmentDate | remainingTime |
             | IDLE  |        |           | 1          |                    | 0             |

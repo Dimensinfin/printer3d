@@ -25,7 +25,7 @@ public class CoilServiceV1 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public CoilList getRolls() {
+	public CoilList getCoils() {
 		final List<Coil> coils = new ArrayList<>( this.coilRepository.findAll() );
 		return new CoilList.Builder()
 				.withCoilList( coils )

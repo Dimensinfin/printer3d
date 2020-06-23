@@ -1,7 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v1;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,6 +12,7 @@ import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
@@ -27,12 +26,15 @@ public class RequestServiceV1 {
 	private static final RequestEntityToRequestConverter requestConverter = new RequestEntityToRequestConverter();
 	private final RequestsRepository requestsRepository;
 	private final PartRepository partRepository;
+	private final StockManager stockManager;
 
 	// - C O N S T R U C T O R S
 	public RequestServiceV1( final @NotNull RequestsRepository requestsRepository,
-	                         final @NotNull PartRepository partRepository ) {
+	                         final @NotNull PartRepository partRepository,
+	                         final @NotNull StockManager stockManager ) {
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.partRepository = Objects.requireNonNull( partRepository );
+		this.stockManager = Objects.requireNonNull( stockManager );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -47,11 +49,7 @@ public class RequestServiceV1 {
 	public RequestList getOpenRequests() {
 		LogWrapper.enter();
 		try {
-			// Fill the Parts stocks from the repository records.
-			Map<UUID, Integer> stocks = new HashMap<>();
-			this.partRepository.findAll().forEach( ( part ) ->
-					stocks.put( part.getId(), part.getStockAvailable() )
-			);
+			this.stockManager.startStock(); // Initialize the stock with the current Part stock data
 			// Get the list of OPEN Requests for processing.
 			final RequestList requestList = new RequestList.Builder().build();
 			this.requestsRepository.findAll()
@@ -61,13 +59,9 @@ public class RequestServiceV1 {
 						// Extract the Parts from the stock. Check if stock goes negative.
 						boolean underStocked = false;
 						for (PartRequest partRequest : request.getPartList()) {
-							if (stocks.containsKey( partRequest.getPartId() )) {
-								stocks.computeIfPresent( partRequest.getPartId(), ( UUID key, Integer value ) -> value - partRequest.getQuantity() );
-								if (stocks.get( partRequest.getPartId() ) < 0)
-									underStocked = true;
-							} else throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_PROCESSING_FAILURE.getErrorMessage(
-									request.getId(), partRequest.getPartId()
-							) );
+							this.stockManager.minus( partRequest.getPartId(), partRequest.getQuantity() ); // Subtract the request quantity from the stock.
+							if (this.stockManager.getStock( partRequest.getPartId() ) < 0) // There is stock shortage. Generate jobs.
+								underStocked = true;
 						}
 						if (!underStocked) request.signalCompleted();
 						requestList.addRequest( this.requestConverter.convert( request ) );
