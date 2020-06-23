@@ -9,6 +9,7 @@ import { SupportService } from '../../support/SupportService.support';
 const supportService = new SupportService();
 
 Given('a timed application Printer3DManager', function () {
+    cy.viewport(1400, 900)
     cy.clock()
     cy.visit('/')
 });
