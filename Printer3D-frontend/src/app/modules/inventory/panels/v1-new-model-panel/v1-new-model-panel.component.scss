@@ -20,6 +20,11 @@
     margin-right: 15px;
 }
 
+.field-margins {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
 .dsf-input {
     margin: 0px;
     padding: 0px;
@@ -72,4 +77,28 @@
 
 .ng-invalid {
     fill: #180A16;
+}
+
+.left-margin {
+    margin-left: 20px;
+}
+
+.top-margin {
+    margin-top: 10px;
+}
+
+.request-part {
+    text-align: center;
+    color: #808080;
+    margin-bottom: 20px;
+    border: 1px dashed;
+    line-height: 50px;
+}
+
+.drag-over {
+    background-color: greenyellow;
+}
+
+.drag-hint {
+    border: 2px solid green;
 }
