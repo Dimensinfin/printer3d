@@ -17,6 +17,7 @@ export class SupportService {
         this.translationTable['available-parts'] = 'v1-available-parts-panel'
         this.translationTable['new-request'] = 'v1-new-request-panel'
         this.translationTable['new-model'] = 'v1-new-model-panel'
+        this.translationTable['drop-part-location'] = 'v1-drop-part-panel'
         // - RENDERS
         this.translationTable['job'] = 'v1-pending-job'
         this.translationTable['machine'] = 'v3-machine'

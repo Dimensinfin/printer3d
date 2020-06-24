@@ -5,11 +5,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './v1-new-model-page.component.html',
   styleUrls: ['./v1-new-model-page.component.scss']
 })
-export class V1NewModelPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class V1NewModelPageComponent {
 }

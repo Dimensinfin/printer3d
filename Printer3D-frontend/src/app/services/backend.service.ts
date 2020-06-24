@@ -19,6 +19,7 @@ import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { Request } from '@domain/Request.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
+import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -77,6 +78,17 @@ export class BackendService {
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewRequest_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Request;
+                return response;
+            }));
+    }
+    public apiNewModel_v1(newModel: ModelRequest, transformer: ResponseTransformer): Observable<any> {
+        const request = this.APIV1 + '/production/requests';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newModel), headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiNewRequest_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as any;
                 return response;
             }));
     }

@@ -35,9 +35,9 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
     cy.get('app-root')
         .get(tag).should('exist').as('target-dialog')
 });
-Then('the target panel has {int} {string}', function (count: number, renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[translation]> ' + renderName + ' -> ' + tag)
+Then('the target panel has {int} {string}', function (count: number, symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target-panel').find(tag).should('have.length', count)
 });
 Then('the target item has a field named {string} with label {string} and value {string}',
@@ -56,6 +56,25 @@ Given('the target panel is the panel of type {string}', function (renderName: st
     cy.get('@target-page').find(tag)
         .as('target-panel')
 });
+Then('the target panel has an input field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input')
+            .should('have.text', fieldValue)
+    });
+Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
+    if (state == 'invalid') cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        .find('input').parent().within(($field) => {
+            cy.get('.ng-invalid').should('exist')
+        })
+});
+Then('the target panel has a drop place named {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target-panel').find(tag).should('exist')
+});
+
 
 
 // - ON CONSTRUCTION

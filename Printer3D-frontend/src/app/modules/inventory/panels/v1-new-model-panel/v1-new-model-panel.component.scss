@@ -1,0 +1,75 @@
+.header {
+    background-color: black;
+}
+
+.title {
+    margin: auto;
+    margin-left: 10px;
+}
+
+.new-model-panel {
+    position: fixed;
+    border: 1px solid white;
+    width: 49%;
+}
+
+.button-container {
+    position: relative;
+    width: 150px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.dsf-input {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    width: calc(100% - 2px);
+    font-family: 'Mina';
+}
+
+.dsf-input-number {
+    text-align: right;
+}
+
+.dsf-input-container {
+    padding-left: 8px;
+    padding-top: 2px;
+    position: relative;
+    font-size: 16px;
+    line-height: 26px;
+    margin-right: 15px;
+}
+
+.label {
+    margin-left: 10px;
+}
+
+.label-width {
+    width: 40%;
+}
+
+.price-width {
+    width: 100px;
+}
+
+.corner-mark .ng-valid {
+    fill: green
+}
+
+.corner-mark .ng-invalid {
+    fill: #180A16;
+}
+
+.ng-valid {
+    fill: green
+}
+
+.ng-invalid {
+    fill: #180A16;
+}
