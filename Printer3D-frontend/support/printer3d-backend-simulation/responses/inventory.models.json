@@ -1,0 +1,37 @@
+{
+    "models": [{
+            "id": "0f789845-cdc6-48ce-a0ce-cbaf63cffab5",
+            "label": "PLATAFORMA SLOT 1/32 - Verde",
+            "partIdList": [
+                "8128a07b-b270-4097-99f6-7a6960122f6c",
+                "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39",
+                "2f780382-e539-4945-87ea-354bdd7879ce",
+                "2f780382-e539-4945-87ea-354bdd7879ce",
+                "2f780382-e539-4945-87ea-354bdd7879ce",
+                "2f780382-e539-4945-87ea-354bdd7879ce"
+            ],
+            "price": 15.0,
+            "stockLevel": 3,
+            "imagePath": null,
+            "active": true,
+            "partList": []
+        },
+        {
+            "id": "197a3982-ad89-4987-b41e-392da1d376d9",
+            "label": "PLATAFORMA SLOT 1/32 - Morado",
+            "partIdList": [
+                "52372bd9-76a3-4f65-926e-a50a896961c0",
+                "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39",
+                "2f780382-e539-4945-87ea-354bdd7879ce",
+                "2f780382-e539-4945-87ea-354bdd7879ce",
+                "2f780382-e539-4945-87ea-354bdd7879ce"
+            ],
+            "price": 15.0,
+            "stockLevel": 2,
+            "imagePath": null,
+            "active": true,
+            "partList": []
+        }
+    ],
+    "count": 3
+}
