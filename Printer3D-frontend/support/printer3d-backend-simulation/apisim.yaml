@@ -309,3 +309,20 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/production.request.close.json"
+
+---
+
+simlet: inventory-newmodel
+
+request:
+  - method: POST
+  - uriPathPattern: "/api/v1/inventory/models"
+
+response:
+  from: template
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/newmodel.json"

@@ -54,15 +54,15 @@
                     </svg>
                 </div>
             </div>
-            <div class="field left-margin date-width">
-                <span class="label">FECHA PEDIDO</span><br>
-                <span name="requestDate" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
+            <div cy-name="requestDate" class="field left-margin date-width">
+                <span cy-field-label="FECHA PEDIDO" class="label">FECHA PEDIDO</span><br>
+                <span class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
             </div>
-            <div class="field left-margin top-margin label-width">
-                <span class="label">ETIQUETA</span><br>
+            <div cy-name="label" class="field left-margin top-margin label-width">
+                <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
                 <input type="text" class="dsf-form-control dsf-editable-form-item request-label" required [(ngModel)]="request.label" name="label" minlength="5" maxlength="100">
             </div>
-            <div class="field left-margin top-margin date-width">
+            <div cy-name="requestDate" class="field left-margin top-margin date-width">
                 <span class="label">PIEZAS PEDIDO</span><br>
                 <div class="request-part" cy-name="dropParts" droppable [dropScope]=" 'PART'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
                 </div>

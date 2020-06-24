@@ -9,14 +9,6 @@ import { SupportService } from '../../support/SupportService.support';
 const supportService = new SupportService();
 
 // - This should be moved to Common
-Then('the target page has one panel of type {string} with variant {string}', function (symbolicName: string, variant: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.get('@target-page').find(tag).get('[ng-reflect-variant="' + variant + '"]').first().should('exist')
-});
-Then('the target page has one panel of type {string}', function (symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.get('@target-page').find(tag).should('exist')
-});
 When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('v1-dock')
@@ -35,40 +27,11 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
     cy.get('app-root')
         .get(tag).should('exist').as('target-dialog')
 });
-Then('the target panel has {int} {string}', function (count: number, symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-    cy.get('@target-panel').find(tag).should('have.length', count)
-});
 Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
     cy.get('@target-panel').within(($item) => {
         cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
     })
 });
-Then('the target item has a field named {string} with label {string} and value {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-item').within(($item) => {
-            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
-        })
-        cy.get('@target-item').within(($item) => {
-            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
-                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-        })
-    });
-Given('the target panel is the panel of type {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-page').find(tag)
-        .as('target-panel')
-});
-Then('the target panel has an input field named {string} with label {string} and contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('input')
-            .should('have.text', fieldValue)
-    });
 Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
     if (state == 'invalid') cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         .find('input').parent().within(($field) => {
@@ -109,5 +72,13 @@ Then('the target panel has no {string}', function (renderName: string) {
     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
     cy.get('@target-panel').find(tag).should('not.exist')
 });
-
-// - ON CONSTRUCTION
+When('the target panel button with name {string} is clicked', function (buttonName: string) {
+    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
+        .scrollIntoView().click('left', { force: true })
+});
+Then('the Model is persisted at the backend', function () {
+    cy.log('The Model is being persisted at the backend.')
+});
+Then('the active page is set to Dashboard', function () {
+    cy.visit('/')
+});

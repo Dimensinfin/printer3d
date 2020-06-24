@@ -1,0 +1,17 @@
+{
+    "models": [{
+        "id": "d954205d-00d4-4337-8a99-92b47b077b2a",
+        "label": "khadkh",
+        "partIdList": [
+            "f012eb37-e373-4243-9021-9aa20cb2b143",
+            "f012eb37-e373-4243-9021-9aa20cb2b143",
+            "f012eb37-e373-4243-9021-9aa20cb2b143"
+        ],
+        "price": 5.0,
+        "stockLevel": 5,
+        "imagePath": null,
+        "active": true,
+        "partList": []
+    }],
+    "count": 1
+}

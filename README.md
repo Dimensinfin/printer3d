@@ -43,6 +43,41 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## How do I get set up? ###
 
+## CYPRESS Models Common
+* **Given there is a click on Feature ">FEATURE LABEL<"**
+```Javascript
+
+```
+* **Then the page ">SymbolicName<" is activated**
+ ```Javascript
+
+```
+* **Then the target panel has a title "/NUEVO MODELO/DEFINICION"
+* **Given the target panel is the panel of type "new-model"**
+```Javascript
+Given('the target panel is the panel of type {string}', function (renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
+    cy.get('@target-page').find(tag)
+        .as('target-panel')
+});
+```
+
+
+```Javascript
+Then('the target page has one panel of type {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target-page').find(tag).should('exist')
+});
+Then('the target page has one panel of type {string} with variant {string}', function (symbolicName: string, variant: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target-page').find(tag).get('[ng-reflect-variant="' + variant + '"]').first().should('exist')
+});
+```
+
+        Then the target panel has an input field named "label" with label "ETIQUETA" and empty
+
+
 # PROCEDURES
 ## Development Procedures Frontend
 1. Start writing the STORY card to describe what is expected from the user.
