@@ -82,7 +82,7 @@ export class BackendService {
             }));
     }
     public apiNewModel_v1(newModel: ModelRequest, transformer: ResponseTransformer): Observable<any> {
-        const request = this.APIV1 + '/production/requests';
+        const request = this.APIV1 + '/inventory/models';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newModel), headers)

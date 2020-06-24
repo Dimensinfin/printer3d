@@ -14,13 +14,12 @@ export class ModelFormToModelRequestConverter implements Converter<ModelForm, Mo
         this.idPartList = ids
     }
     convert(input: ModelForm): ModelRequest {
-        const idPartList: any = []
         return new ModelRequest({
             id: uuidv4(),
             label: input.label,
             price: input.price,
             stockLevel: input.stock,
-            partIdList: idPartList
+            partIdList: this.idPartList
         })
     }
 
