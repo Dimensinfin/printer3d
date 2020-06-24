@@ -18,6 +18,7 @@ import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRe
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { ModelFormToModelRequestConverter } from '@domain/converter/ModelFormToModelRequest.converter';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
+import { DropEnabledPanel } from './DropEnabledPanel.helper';
 
 @Component({
     selector: 'v1-new-model-panel',
@@ -36,7 +37,9 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
     }
 
     public isFormValid(formState: boolean): boolean {
-        return formState
+        if (null != this.partContainer)
+            return formState && (this.partContainer.getDroppedParts().length > 0)
+        else return false
     }
     public saveModel(): void {
         const model: ModelRequest = new ModelFormToModelRequestConverter(this.partContainer.getPartIdList()).convert(this.model)

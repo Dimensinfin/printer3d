@@ -33,7 +33,7 @@
         </div>
     </header>
     <section>
-        <div cy-name="label" class="field">
+        <div cy-name="label" class="field field-margins">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
             <div class="dsf-input-container label-width">
                 <input id="modelLabel" name="modelLabel" type="text" class="dsf-input" required [(ngModel)]="model.label" minlength="3" maxlength="50" #modelLabel="ngModel">
@@ -43,7 +43,7 @@
                 <svg class="corner-clear" viewBox="0 0 100 100">
                     <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                 </svg>
-                <div [ngClass]="{'ng-valid': modelLabel.invalid}">
+                <div [ngClass]="{'ng-valid': !modelLabel.invalid}">
                     <svg class="corner-mark" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" />
                     </svg>
@@ -51,37 +51,42 @@
             </div>
         </div>
         <div class="row">
-            <div cy-name="price" class="field">
+            <div cy-name="price" class="field field-margins">
                 <span cy-field-label="PRECIO" class="label">PRECIO</span><br>
                 <div class="dsf-input-container price-width">
-                    <input name="modelPrice" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.price">
+                    <input name="modelPrice" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.price" #modelPrice="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <svg class="corner-mark" viewBox="0 0 100 100">
-                        <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
-                    </svg>
+                    <div [ngClass]="{'ng-valid': !modelPrice.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
                 </div>
             </div>
-            <div cy-name="stock" class="field">
+            <div cy-name="stock" class="field field-margins">
                 <span cy-field-label="NIVEL STOCK DESEADO" class="label">NIVEL STOCK DESEADO</span><br>
                 <div class="dsf-input-container price-width">
-                    <input name="modelStock" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.stock">
+                    <input name="modelStock" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.stock" #modelStock="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <svg class="corner-mark" viewBox="0 0 100 100">
-                        <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
-                    </svg>
+                    <div [ngClass]="{'ng-valid': !modelStock.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- D R O P   P A N E L  -->
         <v1-drop-part-panel></v1-drop-part-panel>
     </section>
     <footer>
