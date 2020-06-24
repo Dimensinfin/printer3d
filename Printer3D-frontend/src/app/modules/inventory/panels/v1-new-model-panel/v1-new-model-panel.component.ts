@@ -25,7 +25,7 @@ import { DropEnabledPanel } from './DropEnabledPanel.helper';
     templateUrl: './v1-new-model-panel.component.html',
     styleUrls: ['./v1-new-model-panel.component.scss']
 })
-export class V1NewModelPanelComponent extends DropEnabledPanel {
+export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
     @ViewChild(V1DropPartPanelComponent) public partContainer: V1DropPartPanelComponent;
     public model: ModelForm = new ModelForm();
 
