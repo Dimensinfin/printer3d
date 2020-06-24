@@ -43,25 +43,27 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         And the target item has a field labeled "COLOR" with value "AZUL"
         And the target item has a field labeled "DISPONIBLE" with value "10"
 
-    # @D3D09 @D3D09.06
-    # Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
-    #     Given there is a click on Feature "/NUEVO PEDIDO"
-    #     Then the page "NewRequestPage" is activated
-    #     Given the target panel is the panel of type "v1-new-request-panel"
-    #     Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
-    #     Then the target panel has a field labeled "FECHA PEDIDO" named "requestDate" and not empty
-    #     Then the target panel has a field labeled "ETIQUETA" named "label" and empty
-    #     Then the target panel has a panel labeled "PIEZAS PEDIDO" named "requestParts" and with "0" elements
+    @D3D09 @D3D09.06
+    Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the page "NewRequestPage" is activated
+        And the target page has one panel of type "new-request"
+        Given the target panel is the panel of type "new-request"
+        Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
+        Then the target panel has a field named "requestDate" with label "FECHA PEDIDO" and not empty
+        And the target panel has an input field named "label" with label "ETIQUETA" and empty
+        And the target panel input field named "label" is "invalid"
+        And the target panel has a drop place named "dropParts"
 
-    # @D3D09 @D3D09.07
-    # Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
-    #     Given there is a click on Feature "/NUEVO PEDIDO"
-    #     Then the page "NewRequestPage" is activated
-    #     Given the target panel is the panel with variant "-REQUEST-PART-LIST-"
-    #     Given the target Part is one labeled "Boquilla Ganesha - Figura"
-    #     Then the target part is draggable with the contraint "PART"
-    #     Given the target panel is the panel of type "v1-new-request-panel"
-    #     Then the target panel has a place for drop with the constraint "JOB"
+    @D3D09 @D3D09.07
+    Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the page "NewRequestPage" is activated
+        Given the target panel is the panel of type "available-parts"
+        And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
+        Given the target panel is the panel of type "new-request"
+        And the target panel has a drop place named "dropParts"
+        When the drag source is dragged to the drop destination "dropParts"
 
     # @D3D09 @D3D09.08
     # Scenario: [D3D09.08]-If we drag a Part to the right panel box the number of Parts associated to the Request increases.
@@ -125,7 +127,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     #     When the target panel button with name "CANCEL" is clicked
     #     And the active page is set to Dasboard
     #     And there are no Features active
-
+    # point
     @D3D09 @D3D09.13
     Scenario: [D3D09.13]-If the user moves a Part from the Part list to the drop area then a new Part is added to the Request.
         Given there is a click on Feature "/NUEVO PEDIDO"

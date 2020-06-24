@@ -199,10 +199,10 @@ Then('inactive Part shows an orange corner', function () {
             cy.get('.corner-mark').find('[fill="orangered"]').should('exist')
         })
 });
-Given('the target panel is the panel of type {string}', function (panelType: string) {
-    cy.get('app-root').find(panelType)
-        .as('target-panel')
-});
+// Given('the target panel is the panel of type {string}', function (panelType: string) {
+//     cy.get('app-root').find(panelType)
+//         .as('target-panel')
+// });
 
 
 

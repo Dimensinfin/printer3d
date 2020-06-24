@@ -15,12 +15,6 @@ const TITLE_VALIDATION = '3DPrinterManagement - UI';
 const supportService = new SupportService();
 
 // - N E W E S T   I M P L E M E N T A T I O N
-When('the page {string} is activated', function (symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('app-root').find(tag).as('target-page')
-        .should('exist')
-});
 Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
@@ -55,9 +49,6 @@ Given('the target panel is the panel named {string}', function (elementName: str
 });
 Then('on the target panel there is one {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType).should('have.length', 1)
-});
-Then('the target panel has a title {string}', function (title: string) {
-    cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
 });
 Then('on the target panel there are one {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType).should('have.length', 1)
@@ -122,12 +113,6 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
         .click('center');
     cy.get('app-root')
         .get(destination).should('exist').as('target-dialog')
-});
-When('there is a click on Feature {string}', function (featureLabel: string) {
-    cy.get('v1-dock')
-        .find('v2-feature-render')
-        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
-        .click('center');
 });
 // - C O M M O N   T O   S O M E   F E A T U R E S
 Given('the target panel is the panel with variant {string}', function (variant: string) {

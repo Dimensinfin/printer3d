@@ -240,8 +240,8 @@ Then('the target item has a field named {string} with value {string}', function 
         cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
     })
 });
-Then('the target panel has {int} {string}', function (count: number, renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[translation]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-panel').find(tag).should('have.length', count)
-});
+// Then('the target panel has {int} {string}', function (count: number, renderName: string) {
+//     const tag = supportService.translateTag(renderName) // Do name replacement
+//     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
+//     cy.get('@target-panel').find(tag).should('have.length', count)
+// });

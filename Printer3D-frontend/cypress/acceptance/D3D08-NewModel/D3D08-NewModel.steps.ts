@@ -32,12 +32,6 @@ Then('the target item has a field named {string} with value {string}', function 
         cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
     })
 });
-Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
-    if (state == 'invalid') cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        .find('input').parent().within(($field) => {
-            cy.get('.ng-invalid').should('exist')
-        })
-});
 Then('the target panel has a drop place named {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target-panel').find(tag).should('exist')
