@@ -30,8 +30,8 @@ const routes: Routes = [
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
         RouterModule.forChild(routes),
+        FormsModule,
         NgDragDropModule.forRoot(),
         SharedModule,
         RendersModule

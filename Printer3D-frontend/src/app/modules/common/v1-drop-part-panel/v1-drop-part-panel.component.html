@@ -3,9 +3,9 @@
     <span class="label">PIEZAS PEDIDO</span><br>
     <div class="request-part" cy-name="dropParts" droppable [dropScope]=" 'PART'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
     </div>
-    <div name="requestParts">
-        <div name="requestParts" *ngFor="let part4Request of getRequestParts()" style="position: relative;">
-            <!-- <v1-part4-request [node]="part4Request" [variant]="'-REQUEST-CONTAINED-PARTS-'" [container]="self"></v1-part4-request> -->
+    <div cy-name="droppedParts">
+        <div *ngFor="let dropPart of getDroppedParts()" style="position: relative;">
+            <v1-part-stack [node]="dropPart" [variant]="'-DEFAULT-'" [container]="self"></v1-part-stack>
         </div>
     </div>
 </div>

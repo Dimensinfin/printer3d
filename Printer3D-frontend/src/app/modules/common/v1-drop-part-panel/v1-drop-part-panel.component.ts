@@ -16,11 +16,8 @@ import { PartStack } from '@domain/PartStack.domain';
     styleUrls: ['./v1-drop-part-panel.component.scss']
 })
 export class V1DropPartPanelComponent {
+    public self: V1DropPartPanelComponent
     public droppedParts: PartStack[] = [];
-
-    // constructor(values: Object = {}) {
-    //     Object.assign(this, values);
-    // }
 
     public addPart(newPart: Part): void {
         for (let part of this.droppedParts) {
@@ -45,9 +42,13 @@ export class V1DropPartPanelComponent {
         }
         this.droppedParts = newPartList;
     }
-    public onDrop($event: any): void { }
-    public getRequestParts(): any[] {
-        return []
+    public onDrop(drop: any): void {
+        console.log('>[V1DropPartPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop))
+        this.addPart(drop.dragData as Part)
+        console.log('<[V1DropPartPanelComponent.onDrop]')
+    }
+    public getDroppedParts(): PartStack[] {
+        return this.droppedParts
     }
     /**
      * Constructs a list of the contained Part ids. If a Part is 5 times then that id is inserted 5 times.

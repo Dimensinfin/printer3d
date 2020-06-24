@@ -2,10 +2,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgDragDropModule } from 'ng-drag-drop';
 // - ROUTING
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 // - APPLICATION MODULES
+import { AppCommonModule } from '../common/common.module';
 import { SharedModule } from '../shared/shared.module';
 import { RendersModule } from '../renders/renders.module';
 // - COMPONENTS
@@ -18,6 +20,7 @@ import { V1ModelListPageComponent } from './pages/v1-model-list-page/v1-model-li
 import { V1NewModelPageComponent } from './pages/v1-new-model-page/v1-new-model-page.component';
 import { V1NewModelPanelComponent } from './panels/v1-new-model-panel/v1-new-model-panel.component';
 import { V1AvailablePartsPanelComponent } from './panels/v1-available-parts-panel/v1-available-parts-panel.component';
+// import { V1DropPartPanelComponent } from './panels/v1-drop-part-panel/v1-drop-part-panel.component';
 
 const routes: Routes = [
     { path: 'partlist', component: V2PartListPageComponent },
@@ -29,8 +32,10 @@ const routes: Routes = [
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule,
         RouterModule.forChild(routes),
+        FormsModule,
+        NgDragDropModule.forRoot(),
+        AppCommonModule,
         SharedModule,
         RendersModule
     ],
@@ -43,7 +48,8 @@ const routes: Routes = [
         V1ModelListPageComponent,
         V1NewModelPageComponent,
         V1NewModelPanelComponent,
-        V1AvailablePartsPanelComponent
+        V1AvailablePartsPanelComponent,
+        // V1DropPartPanelComponent
     ],
     exports: [
         RouterModule,

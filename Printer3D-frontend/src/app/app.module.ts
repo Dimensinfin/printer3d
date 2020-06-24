@@ -65,7 +65,7 @@ registerLocaleData(localeEs);
     ],
     declarations: [
         AppComponent,
-        // V1PendingJobsPanelComponent
+        // V1DropPartPanelComponent,
     ],
     providers: [
         // - SERVICES
@@ -81,7 +81,9 @@ registerLocaleData(localeEs);
         // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
         // { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
     ],
-    // exports:[V1PendingJobsPanelComponent],
-    bootstrap: [AppComponent]
+    // exports: [
+    //     V1DropPartPanelComponent
+    // ],
+    bootstrap: [AppComponent],
 })
 export class AppModule { }

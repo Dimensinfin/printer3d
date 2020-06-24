@@ -7,6 +7,7 @@ export class PartStack extends Part {
     constructor(values: Object = {}) {
         super()
         Object.assign(this, values)
+        this.jsonClass='PartStack'
     }
 
     public getCount(): number {
