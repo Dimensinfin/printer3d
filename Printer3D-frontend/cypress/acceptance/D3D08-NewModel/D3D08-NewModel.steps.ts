@@ -40,6 +40,11 @@ Then('the target panel has {int} {string}', function (count: number, symbolicNam
     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target-panel').find(tag).should('have.length', count)
 });
+Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
+    cy.get('@target-panel').within(($item) => {
+        cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+    })
+});
 Then('the target item has a field named {string} with label {string} and value {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-item').within(($item) => {
@@ -91,6 +96,9 @@ Given('the drag source the {string} with id {string}', function (renderName: str
 When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
     cy.get('@drag-source').trigger('dragstart')
     cy.get('@target-panel').find('[cy-name="' + dropDestination + '"]').trigger('drop')
+});
+Then('the target item has a actionable image named {string}', function (buttonName: string) {
+    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
 });
 
 

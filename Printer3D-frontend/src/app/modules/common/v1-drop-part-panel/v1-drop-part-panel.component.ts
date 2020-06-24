@@ -15,10 +15,14 @@ import { PartStack } from '@domain/PartStack.domain';
     templateUrl: './v1-drop-part-panel.component.html',
     styleUrls: ['./v1-drop-part-panel.component.scss']
 })
-export class V1DropPartPanelComponent {
+export class V1DropPartPanelComponent implements OnInit {
     public self: V1DropPartPanelComponent
-    public droppedParts: PartStack[] = [];
+    public droppedParts: PartStack[] = []
 
+    public ngOnInit(): void {
+        this.self = this
+    }
+    
     public addPart(newPart: Part): void {
         for (let part of this.droppedParts) {
             if (newPart.getId() == part.getId()) { // If the part is on the list increment the stack

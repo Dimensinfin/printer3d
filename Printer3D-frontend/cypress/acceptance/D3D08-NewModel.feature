@@ -75,6 +75,45 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         When the drag source is dragged to the drop destination "dropParts"
         Then the target panel button with name "SAVE" has a label "Guardar" and is "enabled"
 
+    @D3D08 @D3D08.06
+    Scenario: [D3D08.06]-When on eor more Parts are dropped on the Model the dropped Part information has some required fields.
+        Given there is a click on Feature "/NUEVO MODELO"
+        Then the page "NewModelPage" is activated
+        Given the target panel is the panel of type "new-model"
+        When "Modelo de prueba 1" is set on the target panel input field named "label"
+        And "2" is set on the target panel input field named "price"
+        And "8" is set on the target panel input field named "stock"
+
+        Given the target panel is the panel of type "available-parts"
+        And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
+        Given the target panel is the panel of type "new-model"
+        When the drag source is dragged to the drop destination "dropParts"
+
+        Given the target panel is the panel of type "available-parts"
+        And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Given the target panel is the panel of type "new-model"
+        When the drag source is dragged to the drop destination "dropParts"
+        Given the target panel is the panel of type "available-parts"
+        And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Given the target panel is the panel of type "new-model"
+        When the drag source is dragged to the drop destination "dropParts"
+        Given the target panel is the panel of type "available-parts"
+        And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Given the target panel is the panel of type "new-model"
+        When the drag source is dragged to the drop destination "dropParts"
+
+        Given the target panel is the panel of type "available-parts"
+        And the drag source the "part" with id "cb3f7075-e364-4c41-8d4b-a31a8f2039fe"
+        Given the target panel is the panel of type "new-model"
+        When the drag source is dragged to the drop destination "dropParts"
+
+        Given the target item the "part-stack" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Then the target item has a field named "REQUERIDAS" with value "3"
+        Then the target item has a field named "ETIQUETA" with value "Boquilla Ganesha - Embocadura"
+        Then the target item has a field named "MATERIAL" with value "TPU"
+        Then the target item has a field named "COLOR" with value "AZUL"
+        Then the target item has a actionable image named "remove-button"
+
 
 
 # <div _ngcontent-qwq-c89="" draggable="true" id="754e6cc5-1a8a-435b-8c17-956b2a8391a7" ng-reflect-drag-data="[object Object]" ng-reflect-drag-scope="PART" ng-reflect-drag-class="part-selected" class="drag-handle"><div _ngcontent-qwq-c89="" class="row part-panel"><div _ngcontent-qwq-c89="" class="field label-width"><span _ngcontent-qwq-c89="" cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br _ngcontent-qwq-c89=""><span _ngcontent-qwq-c89="" cy-field-value="ETIQUETA" class="field-height part-material">Boquilla Ganesha - Adaptador</span></div><div _ngcontent-qwq-c89="" class="field material-width"><span _ngcontent-qwq-c89="" cy-field-label="MATERIAL" class="label">MATERIAL</span><br _ngcontent-qwq-c89=""><span _ngcontent-qwq-c89="" cy-field-value="MATERIAL" class="field-height part-material">FLEX</span></div><div _ngcontent-qwq-c89="" class="field color-width"><span _ngcontent-qwq-c89="" cy-field-label="COLOR" class="label">COLOR</span><br _ngcontent-qwq-c89=""><span _ngcontent-qwq-c89="" cy-field-value="COLOR" class="field-height part-color">NEGRO</span></div><div _ngcontent-qwq-c89="" class="field stock-width"><span _ngcontent-qwq-c89="" cy-field-label="DISPONIBLE" class="label">DISPONIBLE</span><br _ngcontent-qwq-c89=""><span _ngcontent-qwq-c89="" cy-field-value="DISPONIBLE" class="field-height part-stockAvailable">10</span></div></div><div _ngcontent-qwq-c89=""><svg _ngcontent-qwq-c89="" viewBox="0 0 100 100" class="corner-border"><path _ngcontent-qwq-c89="" d="M100,100 L0,100 L100,0 L100,100" fill="white"></path></svg><svg _ngcontent-qwq-c89="" viewBox="0 0 100 100" class="corner-clear"><path _ngcontent-qwq-c89="" d="M100,100 L0,100 L100,0 L100,100" fill="#180A16"></path></svg><svg _ngcontent-qwq-c89="" viewBox="0 0 100 100" class="corner-mark"><path _ngcontent-qwq-c89="" d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow"></path></svg></div></div>

@@ -1,1 +1,19 @@
-<p>v1-part-stack-render works!</p>
+<div id="{{getUniqueId()}}">
+    <div class="row part-panel" style="margin-bottom: 4px;">
+        <div class="field count-width">
+            <span cy-name="REQUERIDAS" class="field-height part-material">{{getRequired()}}</span>
+        </div>
+        <div class="field label-width">
+            <span cy-name="ETIQUETA" class="field-height part-material">{{getLabel()}}</span>
+        </div>
+        <div class="field material-width">
+            <span cy-name="MATERIAL" class="field-height part-material">{{getMaterial()}}</span>
+        </div>
+        <div class="field color-width">
+            <span cy-name="COLOR" class="field-height part-color">{{getColor()}}</span>
+        </div>
+        <div cy-name="remove-button" class="field remove-width" (click)="removePart()">
+            <svg class="remove-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        </div>
+    </div>
+</div>

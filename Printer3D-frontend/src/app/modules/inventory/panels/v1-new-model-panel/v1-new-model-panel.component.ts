@@ -18,7 +18,7 @@ import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRe
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { ModelFormToModelRequestConverter } from '@domain/converter/ModelFormToModelRequest.converter';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
-import { DropEnabledPanel } from './DropEnabledPanel.helper';
+// import { DropEnabledPanel } from './DropEnabledPanel.helper';
 
 @Component({
     selector: 'v1-new-model-panel',
