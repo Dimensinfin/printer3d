@@ -74,6 +74,14 @@ Then('the target panel has a drop place named {string}', function (symbolicName:
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target-panel').find(tag).should('exist')
 });
+Then('{string}" is set on the target panel input field named {string}', function (stringValue: string, fieldName: string) {
+    cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(stringValue)
+});
+When('{string} is set on the target panel input field named {string}', function (stringValue: string, fieldName: string) {
+    cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(stringValue)
+  });
 
 
 

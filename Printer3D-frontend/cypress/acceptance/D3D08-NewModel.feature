@@ -51,9 +51,24 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         And the target panel input field named "price" is "invalid"
         And the target panel input field named "stock" is "invalid"
         And the target panel has a drop place named "drop-part-location"
+        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
 
-    # @D3D08 @D3D08.05
-    # Scenario: [D3D08.05]-The New Model panel has buttons to save the Model. The Save button is only active when all the constraints are validated.
+    @D3D08 @D3D08.05
+    Scenario: [D3D08.05]-The New Model panel has buttons to save the Model. The Save button is only active when all the constraints are validated.
+        Given there is a click on Feature "/NUEVO MODELO"
+        Then the page "NewModelPage" is activated
+        Given the target panel is the panel of type "new-model"
+        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        When "Modelo de prueba 1" is set on the target panel input field named "label"
+        Then the target panel input field named "label" is "valid"
+        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        And "2" is set on the target panel input field named "price"
+        Then the target panel input field named "price" is "valid"
+        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        And "8" is set on the target panel input field named "stock"
+        Then the target panel input field named "stock" is "valid"
+        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
 
-    # @D3D08 @D3D08.06
-    # Scenario: [D3D08.06]-If the Save button is active and it is clicked then the Model is persisted at the repository, there is a notification panel and the page is closed returning to the Dashboard.
+
+# @D3D08 @D3D08.06
+# Scenario: [D3D08.06]-If the Save button is active and it is clicked then the Model is persisted at the repository, there is a notification panel and the page is closed returning to the Dashboard.
