@@ -47,8 +47,7 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
             this.backendService.apiNewModel_v1(model,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
                     .setTransformation((entrydata: any): any => {
-                        // const persistedRequest: Request = new Request();
-                        this.isolationService.successNotification('Modelo [' + this.model.label + '] registrado correctamente.', '/PRODUCCION/NUEVO MODELO/OK');
+                         this.isolationService.successNotification('Modelo [' + this.model.label + '] registrado correctamente.', '/PRODUCCION/NUEVO MODELO/OK');
                         return new ModelForm(); // Discard the just persisted request and return an empty instance.
                     }))
                 .subscribe((newModel: ModelForm) => {
