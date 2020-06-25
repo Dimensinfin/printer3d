@@ -18,6 +18,11 @@ export class IsolationService {
         private notifier: ToastrService
     ) { }
 
+    // - E X C E P T I O N S
+    public exceptionMessageMap(exception: any): string {
+        const messageMapped: boolean = false
+        return 'Excepcion de tipo [' + exception.errorInfo + '] durante la ultima operacion.'
+    }
     // - S T O R A G E
     public getFromStorage(key: string): string {
         return this.storage.get(key);

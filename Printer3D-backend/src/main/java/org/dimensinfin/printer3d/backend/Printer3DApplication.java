@@ -49,7 +49,7 @@ public class Printer3DApplication {
 
 		private String readAllBytes( final String resourceName ) {
 			try {
-				File resource = new File ("build/resources/main/app-banner.txt");
+				File resource = new File ("./app-banner.txt");
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final IOException ioe) {
 				LogWrapper.error( ioe );

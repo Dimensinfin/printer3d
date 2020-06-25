@@ -12,5 +12,5 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 		snippets= CAMELCASE,
 		glue = { "org.dimensinfin.printer3d.backend.steps" },
 		plugin = { "pretty", "json:target/cucumber_report.json" },
-		tags = { "not @skip_scenario", "not @front", "not @duplication" })
+		tags = { "not @skip_scenario", "not @front", "not @duplication", "@P3D01", "@P3D02", "@P3D03", "@P3D04"})
 public class RunAcceptanceTestsAcceptance {}

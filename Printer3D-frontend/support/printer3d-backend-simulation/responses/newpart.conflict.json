@@ -1,0 +1,9 @@
+{
+    "timestamp": "2020-06-25T15:34:17.500873Z",
+    "httpStatusName": "CONFLICT",
+    "errorCode": "dimensinfin.printer3d.constraintviolation",
+    "errorInfo": "PART_REPOSITORY_CONFLICT",
+    "httpStatus": "409 CONFLICT",
+    "httpStatusCode": 409,
+    "message": "The Part [could not execute statement; SQL [n/a]; constraint [unique_part_label]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement] is rejected because constraint violation. could not execute statement; SQL [n/a]; constraint [unique_part_label]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement"
+}

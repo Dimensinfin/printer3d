@@ -13,6 +13,7 @@ generateContainer() {
   rm -v "${DOCKER_DIRECTORY}"/*.jar
   ./gradlew clean bootJar
   cp ./build/libs/*.jar "$DOCKER_DIRECTORY"
+  cp ./build/resources/main/app-banner.txt "$DOCKER_DIRECTORY"
   cd "$DOCKER_DIRECTORY" || exit 1;
   mv -v printer3d-backend-*.jar "printer3d-backend-acceptance.jar"
   echo "${DOCKER_DIRECTORY}/Dockerfile"

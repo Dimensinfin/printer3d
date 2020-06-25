@@ -8,6 +8,7 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+		strict = true,
 		features = { "src/test/resources/features" },
 		snippets= CAMELCASE,
 		glue = { "org.dimensinfin.printer3d.backend.steps" },

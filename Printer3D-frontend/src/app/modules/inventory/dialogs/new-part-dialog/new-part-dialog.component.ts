@@ -20,13 +20,15 @@ import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
+import { environment } from '@env/environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'new-part-dialog',
     templateUrl: './new-part-dialog.component.html',
     styleUrls: ['./new-part-dialog.component.scss']
 })
-export class NewPartDialogComponent extends BackgroundEnabledComponent  implements OnInit, OnDestroy {
+export class NewPartDialogComponent extends BackgroundEnabledComponent implements OnInit, OnDestroy {
     public part: Part = new Part();
     public finishings: Map<string, string[]> = new Map<string, string[]>();
     public materials: string[] = [];
@@ -77,6 +79,22 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent  implemen
                 .subscribe((persistedPart: Part) => {
                     this.isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY) // Clear the part copy
                     this.closeModal();
+                }, (error) => {
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse) {
+                            const errorInfo: string = error.error.errorInfo
+                            const httpStatus: string = error.error.httpStatus
+                            const message: string = this.isolationService.exceptionMessageMap(error.error)
+                            this.isolationService.errorNotification(message, errorInfo)
+                        }
+                    // this.downloading = false;
+                    // The single error that can be processed at this point is a missing center. All others must be reported and end at the login page or the connections failure page.
+                    // if (error.status == 404) {
+                    //   this.appStoreService.errorNotification("El centro solicitado en la credencial no existe. Pongase en contacto con el servicio técnico", "¡Atención!");
+                    //   // this.router.navigate(['login']);
+                    // } else {
+                    //   this.appStoreService.processBackendError(error);
+                    // }
                 })
         );
     }

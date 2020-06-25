@@ -7,10 +7,11 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
+import org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants;
 import org.dimensinfin.printer3d.backend.support.inventory.part.CucumberTableToPartConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.part.PartValidator;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import io.cucumber.java.en.Given;
@@ -77,4 +78,18 @@ public class P3D01PartsSteps extends StepSupport {
 		);
 	}
 
+	@Then("we have the next list of Parts at the repository")
+	public void we_have_the_next_list_of_Parts_at_the_repository( final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getPartListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getPartListResponseEntity().getBody().getParts() );
+		for (Map<String, String> row : dataTable) {
+			final String rowId = row.get( AcceptanceFieldMapConstants.ID );
+			for (Part part : this.printer3DWorld.getPartListResponseEntity().getBody().getParts()) {
+				if (part.getId().toString().equalsIgnoreCase( rowId ))
+					Assertions.assertTrue(
+							new PartValidator().validate( row, part )
+					);
+			}
+		}
+	}
 }

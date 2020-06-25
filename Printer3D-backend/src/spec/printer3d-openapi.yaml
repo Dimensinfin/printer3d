@@ -140,6 +140,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Part'
+        409:
+          description: >
+            There is a conflict on the repository related to this Part. There can be some causes.
+            * PART_ALREADY_EXISTS - The new Part identifier is already used by a repository Part. The record cannot be created.
+            * PART_REPOSITORY_CONFLICT - There is a constraint error detected. Probably that the key fields of the Part atch the contents of an
+            already existing part at the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Part'
     patch:
       tags:
         - Inventory

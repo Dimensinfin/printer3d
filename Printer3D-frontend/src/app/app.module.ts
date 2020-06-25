@@ -1,4 +1,5 @@
 // - CORE MODULES
+import { ErrorHandler } from '@angular/core';
 import { NgModule } from '@angular/core';
 // - BROWSER & ANIMATIONS
 import { FormsModule } from '@angular/forms';
@@ -31,6 +32,7 @@ import { ProductionModule } from './modules/production/production.module';
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { AppErrorHandler } from './AppErrorHandler';
 // import { V1PendingJobsPanelComponent } from './panels/v1-pending-jobs-panel/v1-pending-jobs-panel.component';
 registerLocaleData(localeEs);
 
@@ -75,7 +77,7 @@ registerLocaleData(localeEs);
         { provide: DialogFactoryService, useClass: DialogFactoryService },
         // { provide: AuthenticationService, useClass: AuthenticationService },
         // - ERROR INTERCEPTION
-        // { provide: ErrorHandler, useClass: RollbarErrorHandler },
+        { provide: ErrorHandler, useClass: AppErrorHandler },
         // { provide: RollbarService, useFactory: rollbarFactory },
         // - HTTP INTERCEPTION
         // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
