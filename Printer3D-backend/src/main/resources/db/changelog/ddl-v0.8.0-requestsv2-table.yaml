@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_8_0_101_printer3d_create_requestsv2_table_enums
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createTable:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: label
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: request_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: state
+                  type: printer3d.request_state
+                  constraints:
+                    nullable: false
+                    updatable: true
+              - column:
+                  name: contents
+                  type: jsonb
+                  constraints:
+                    nullable: false
+                    updatable: true
+            remarks: since 0.8.0. Requires conversion of data from the requests (v1) table.
+  - changeSet:
+      id: 0_8_0_102_printer3d_create_requestsv2_table_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnDataType: printer3d.request_state
+            columnName: state
+            defaultValue: 'OPEN'

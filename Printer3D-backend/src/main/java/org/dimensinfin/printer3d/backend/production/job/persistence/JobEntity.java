@@ -9,6 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * The information required to report the 3D machine owner the necessity to build a particular **Part**. It should indicate the
+ *     correct model and **Finishing**. There is a job for every single Part. If the machine is able to build more than one identical part at the same
+ *     time this should be controlled on the frontend user interface.
+ *     @author Adam Antinoo (adamantinoo.git@gmail.com)
+ * @since 0.12.0
+ */
 @Entity
 @Table(name = "jobs", schema = "printer3d")
 public class JobEntity {
