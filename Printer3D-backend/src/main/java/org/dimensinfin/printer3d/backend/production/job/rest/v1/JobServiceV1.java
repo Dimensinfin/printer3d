@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;

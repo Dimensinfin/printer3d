@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;

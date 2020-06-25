@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;

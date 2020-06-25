@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;

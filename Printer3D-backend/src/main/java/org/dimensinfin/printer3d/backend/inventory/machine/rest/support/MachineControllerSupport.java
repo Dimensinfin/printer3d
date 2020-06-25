@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
