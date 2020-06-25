@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_8_0_201_printer3d_parts_table_constraints
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addUniqueConstraint:
+            schemaName: printer3d
+            tableName: parts
+            columnNames: label, material, color
+            constraintName: unique_part_label

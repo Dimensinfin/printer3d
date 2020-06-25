@@ -10,6 +10,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
@@ -330,7 +331,9 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		try {
 			final ResponseEntity response = this.processRequest( requestType );
 			this.printer3DWorld.setHttpStatus( response.getStatusCode() );
-		} catch (final RuntimeException runtime) {
+		} catch (final DimensinfinRuntimeException runtime) {
+			this.printer3DWorld.setHttpStatus( runtime.getHttpStatus() );
+			this.printer3DWorld.setApplicationException( runtime );
 			LogWrapperLocal.error( runtime );
 		}
 	}

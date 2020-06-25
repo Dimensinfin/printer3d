@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 0_8_0_101_printer3d_create_requestsv2_table_enums
+      id: 0_8_0_301_printer3d_create_requestsv2_table_enums
       author: Adam Antinoo (adamantinoo.git@gmail.com)
       changes:
         - createTable:
@@ -40,7 +40,7 @@ databaseChangeLog:
                     updatable: true
             remarks: since 0.8.0. Requires conversion of data from the requests (v1) table.
   - changeSet:
-      id: 0_8_0_102_printer3d_create_requestsv2_table_defaults
+      id: 0_8_0_302_printer3d_create_requestsv2_table_defaults
       author: Adam Antinoo (adamantinoo.git@gmail.com)
       changes:
         - addDefaultValue:

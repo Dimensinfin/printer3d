@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Assertions;
 
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.model.CucumberTableToNewModelRequestConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.model.ModelValidator;

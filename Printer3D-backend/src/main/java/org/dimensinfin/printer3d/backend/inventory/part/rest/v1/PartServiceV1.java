@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartToPartEntityConverter;
@@ -43,15 +45,26 @@ public class PartServiceV1 {
 				.build();
 	}
 
+	/**
+	 * The Printer3D user interface should have requested the Part contents to the user. This endpoint should validate all the fields against the
+	 * validation requirements and create a new record on the Inventory repository for the new Part.
+	 *
+	 * @param newPart the new part fields filled at the frontend user interface.
+	 * @return the Part persisted.
+	 */
 	public Part newPart( final @NotNull Part newPart ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<PartEntity> target = this.partRepository.findById( newPart.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( ErrorInfo.PART_ALREADY_EXISTS, newPart.getId().toString() );
+				throw new RepositoryConflictException( ErrorInfo.PART_ALREADY_EXISTS, newPart.getId().toString() );
 			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
-			this.partRepository.save( partEntity );
+			try {
+				this.partRepository.save( partEntity );
+			} catch (final DataIntegrityViolationException die) {
+				throw new RepositoryConflictException( ErrorInfo.PART_REPOSITORY_CONFLICT , die);
+			}
 			return newPart;
 		} finally {
 			LogWrapper.exit();

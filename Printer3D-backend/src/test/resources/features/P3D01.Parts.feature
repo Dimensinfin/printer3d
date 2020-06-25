@@ -1,9 +1,9 @@
 @P3D01 @Parts
-Feature: Manage the Parts on the Inventory repository
+Feature: [STORY] Manage the Parts on the Inventory repository
 
-    As the backend service
-    The service should be able to persist new Part instances, to retrieve the list of already defined Parts including filtering and to expire and
-    deactivate unused parts. Also updates should be supported and the complete control for duplicates.
+    The Parts inventory service should allow to create new parts. Some of the part fields can be edited and there should be an endpoint for that.
+    Parts can not be deleted so there is no provisioning for that endpoint on production.
+    There is duplicate detection where the system should reject Parts that have some key fields identical to an already stored Part.
 
     # - H A P P Y   P A T H
     @P3D01.H @P3D01.01
@@ -17,6 +17,7 @@ Feature: Manage the Parts on the Inventory repository
         And the response for new Part has the next fields
             | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+
 
     @P3D01.H @P3D01.02
     Scenario: [P3D01.02] Validate the update of the Part data and check the resulting records contents.
@@ -47,8 +48,27 @@ Feature: Manage the Parts on the Inventory repository
         And the item "4e7001ee-6bf5-40b4-9c15-61802e4c59ea" of the list of Parts has the next fields
             | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-#
-#  # - E X C E P T I O N S
+        And we have the next list of Parts at the repository
+            | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+
+
+    # - E X C E P T I O N S
+    @P3D01.E @P3D01.E.01
+    Scenario: [P3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion
+    with a clear message.
+        Given a clean Inventory repository
+        And the following Parts in my service
+            | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        And the next NewPart request
+            | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | c926da84-258c-47d2-8cc8-859058c6266e | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        When the New Part request is processed
+        Then there is a exception response with return code of "409 CONFLICT"
+        And the exception response contains the message "is rejected because constraint violation"
+
 #  @ID01.E @ID01.04
 #  Scenario: [ID01.04] Get an exception if the Center creation endpoint does not get the right Center data.
 #    Given and invalid Centro creation request

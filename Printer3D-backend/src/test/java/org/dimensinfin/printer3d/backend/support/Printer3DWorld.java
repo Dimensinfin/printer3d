@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
@@ -49,6 +50,16 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<Request> closeRequestResponseEntity;
 	private JobRequest jobRequest;
 	private ResponseEntity<ModelList> modelListResponseEntity;
+	private DimensinfinRuntimeException applicationException ;
+
+	public DimensinfinRuntimeException getApplicationException() {
+		return this.applicationException;
+	}
+
+	public Printer3DWorld setApplicationException( final DimensinfinRuntimeException applicationException ) {
+		this.applicationException = applicationException;
+		return this;
+	}
 
 	// - G E T T E R S   &   S E T T E R S
 	public ResponseEntity<Request> getCloseRequestResponseEntity() {
