@@ -20,6 +20,7 @@ import { V1NewRequestPanelComponent } from './panels/v1-new-request-panel/v1-new
 import { V1OpenRequestsPageComponent } from './pages/v1-open-requests-page/v1-open-requests-page.component';
 import { V1OpenRequestsPanelComponent } from './panels/v1-open-requests-panel/v1-open-requests-panel.component';
 import { V1RequestDetailPanelComponent } from './panels/v1-request-detail-panel/v1-request-detail-panel.component';
+import { V1RequestableElementsPanelComponent } from './panels/v1-requestable-elements-panel/v1-requestable-elements-panel.component';
 
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
@@ -46,7 +47,8 @@ const routes: Routes = [
         V1NewRequestPanelComponent,
         V1OpenRequestsPageComponent,
         V1OpenRequestsPanelComponent,
-        V1RequestDetailPanelComponent
+        V1RequestDetailPanelComponent,
+        V1RequestableElementsPanelComponent
     ],
     exports: [
         ProductionJobListPageComponent,

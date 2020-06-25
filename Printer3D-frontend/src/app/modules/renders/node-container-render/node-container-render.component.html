@@ -6,11 +6,14 @@
     <div class="row node-panel body-box">
         <!-- BODY -->
         <div class="row body-box">
-            <v1-part-container style="width: 100%;" *ngIf="node.getJsonClass() == 'PartContainer'" [container]="container" [node]="node" [variant]="variant"></v1-part-container>
-            <v1-part style="width: 100%;" *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part>
-            <v1-part-stack style="width: 100%;" *ngIf="node.getJsonClass() == 'PartStack'" [container]="container" [node]="node" [variant]="variant"></v1-part-stack>
+            <!-- {{node.getJsonClass()}} -->
             <v1-coil style="width: 100%;" *ngIf="node.getJsonClass() == 'Coil'" [container]="container" [node]="node" [variant]="variant"></v1-coil>
+            <v1-part style="width: 100%;" *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part>
+            <v1-model style="width: 100%;" *ngIf="node.getJsonClass() == 'Model'" [container]="container" [node]="node" [variant]="variant"></v1-model>
             <v1-request style="width: 100%;" *ngIf="node.getJsonClass() == 'Request'" [container]="container" [node]="node" [variant]="variant"></v1-request>
+
+            <v1-part-container style="width: 100%;" *ngIf="node.getJsonClass() == 'PartContainer'" [container]="container" [node]="node" [variant]="variant"></v1-part-container>
+            <v1-part-stack style="width: 100%;" *ngIf="node.getJsonClass() == 'PartStack'" [container]="container" [node]="node" [variant]="variant"></v1-part-stack>
             <v1-pending-job style="width: 100%;" *ngIf="node.getJsonClass() == 'Job'" [container]="container" [node]="node" [variant]="variant">
             </v1-pending-job>
         </div>
@@ -27,7 +30,7 @@
     <!-- <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg> -->
-    <svg class="corner-top" viewBox="0 0 100 100" *ngIf="false">
+    <!-- <svg class="corner-top" viewBox="0 0 100 100" *ngIf="false">
         <path d="M0,0 L0,100 L100,0 L0,0" fill="orangered"/>
-    </svg>
+    </svg> -->
 </div>

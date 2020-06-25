@@ -1,0 +1,32 @@
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'ITEM'" [dragClass]="'model-selected'">
+    <div class="row">
+        <div class="field label-width">
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" class="field-height part-material">{{getLabel()}}</span>
+        </div>
+        <div class="field price-width">
+            <span cy-field-label="price" class="label">PRECIO</span><br>
+            <span cy-field-value="price" class="field-height part-material">{{getPrice()}}</span>
+        </div>
+        <!-- <div class="field color-width">
+            <span cy-field-label="COLOR" class="label">COLOR</span><br>
+            <span cy-field-value="COLOR" class="field-height part-color">{{getPrice()}}</span>
+        </div>
+        <div class="field stock-width">
+            <span cy-field-label="DISPONIBLE" class="label">DISPONIBLE</span><br>
+            <span cy-field-value="DISPONIBLE" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
+        </div> -->
+        <!-- </div>
+<!-- <div> -->
+    </div>
+    <svg class="corner-border" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+    </svg>
+    <svg class="corner-clear" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+    </svg>
+    <svg class="corner-mark corner-blue" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" />
+    </svg>
+    <!-- </div> -->
+</div>

@@ -18,6 +18,7 @@ export class SupportService {
         this.translationTable['new-request'] = 'v1-new-request-panel'
         this.translationTable['new-model'] = 'v1-new-model-panel'
         this.translationTable['drop-part-location'] = 'v1-drop-part-panel'
+        this.translationTable['available-request-elements'] = 'v1-requestable-elements-panel'
         // - RENDERS
         this.translationTable['job'] = 'v1-pending-job'
         this.translationTable['machine'] = 'v3-machine'
@@ -28,6 +29,7 @@ export class SupportService {
         this.translationTable['part4-request'] = 'v1-part4-request'
         this.translationTable['part-container'] = 'v1-part-container'
         this.translationTable['part-stack'] = 'v1-part-stack'
+        this.translationTable['model'] = 'v1-model'
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.

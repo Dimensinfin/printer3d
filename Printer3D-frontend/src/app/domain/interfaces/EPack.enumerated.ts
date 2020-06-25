@@ -13,7 +13,8 @@ export enum EVariant {
     DETAILED_REQUEST = '-DETAILED-REQUEST-',
     BUILDING_JOB = '-BUILDING-JOB-',
     DETAIL4REQUEST = '-DETAIL4REQUEST-',
-    NEW_MODEL = '-NEW-MODEL-'
+    NEW_MODEL = '-NEW-MODEL-',
+    SELLABLE_ITEMS = '-SELLABLE-ITEMS-'
 }
 export enum EInteraction {
     ACTION = 'ACTION',

@@ -205,6 +205,18 @@ export class BackendService {
                 return response;
             }));
     }
+    public apiInventoryGetModels_v1(transformer: ResponseTransformer): Observable<any> {
+        const request = this.APIV1 + '/inventory/models';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName)
+            .set('x-api-version', 'api v1');
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryGetModels_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as MachineListResponse;
+                return response;
+            }));
+    }
 
     // - P R O D U C T I O N
     public apiProductionGetJobs_v1(transformer: ResponseTransformer): Observable<Job[]> {
