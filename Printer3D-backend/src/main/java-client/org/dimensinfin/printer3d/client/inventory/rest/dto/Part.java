@@ -10,6 +10,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * This is the definition of an item that can be sold independently. The Part is the view side from the 3D printer stand view.
+ * Parts entities have some aspects. The principal aspect is the point where it collects the information required by the Machine to build an
+ * element. Parts then define the materials required for the construction and the model to use to give the material the appearance required. Parts
+ * define the time slot use of the 3D printer and have some cost and price attached. The Part will also store the stock information so for active
+ * parts this information is used to calculate the jobs pending to stabilize a stock level.
+ *
+ * @author Adam Antinoo (adamantinoo.git@gmail.com)
+ * @since 0.1.0
+ */
 public class Part {
 	@NotNull(message = "Part unique UUID 'id' is a mandatory field and cannot be null.")
 	private UUID id;

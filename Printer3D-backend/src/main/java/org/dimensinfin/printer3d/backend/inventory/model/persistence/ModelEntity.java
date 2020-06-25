@@ -19,7 +19,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-
+/**
+ * A model is a collection of Parts that are required to build a new item. There are simple items that can be sell only by building
+ * a Part but also there are complex elements that are composed of more than one Part. Each of the Parts can have their own color and material.
+ * The Model has then a list of the Part references that should be composed at the UI and than can be modified but only on the list of Part
+ * composition.
+ *
+ * @author Adam Antinoo (adamantinoo.git@gmail.com)
+ * @since 0.5.1
+ */
 @Entity
 @Table(name = "models", schema = "printer3d")
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)

@@ -14,6 +14,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * This is the entity that describes a 3D printer model and its configuration. The information about Machines is hardcoded at
+ * initialization time and the machine records can only update the current build **Part** job. Each Machine has a slot to record the current
+ * build action this machine is running. This data will keep track of the remaining time to complete the job and then update the stock records.
+ *
+ * @author Adam Antinoo (adamantinoo.git@gmail.com)
+ * @since 0.4.0
+ */
 @Entity
 @Table(name = "machines", schema = "printer3d")
 public class MachineEntity {
@@ -48,8 +56,18 @@ public class MachineEntity {
 		return this.currentJobPartId;
 	}
 
+	public MachineEntity setCurrentJobPartId( final UUID currentJobPartId ) {
+		this.currentJobPartId = currentJobPartId;
+		return this;
+	}
+
 	public int getCurrentPartInstances() {
 		return this.currentPartInstances;
+	}
+
+	public MachineEntity setCurrentPartInstances( final int currentPartInstances ) {
+		this.currentPartInstances = currentPartInstances;
+		return this;
 	}
 
 	public UUID getId() {
@@ -60,27 +78,17 @@ public class MachineEntity {
 		return this.jobInstallmentDate;
 	}
 
+	public MachineEntity setJobInstallmentDate( final OffsetDateTime jobInstallmentDate ) {
+		this.jobInstallmentDate = jobInstallmentDate;
+		return this;
+	}
+
 	public String getLabel() {
 		return this.label;
 	}
 
 	public String getModel() {
 		return this.model;
-	}
-
-	public MachineEntity setCurrentJobPartId( final UUID currentJobPartId ) {
-		this.currentJobPartId = currentJobPartId;
-		return this;
-	}
-
-	public MachineEntity setCurrentPartInstances( final int currentPartInstances ) {
-		this.currentPartInstances = currentPartInstances;
-		return this;
-	}
-
-	public MachineEntity setJobInstallmentDate( final OffsetDateTime jobInstallmentDate ) {
-		this.jobInstallmentDate = jobInstallmentDate;
-		return this;
 	}
 
 	public MachineEntity clearJob() {

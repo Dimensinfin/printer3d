@@ -3,6 +3,8 @@ package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
+
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_COST;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_JOBCOMPLETIONDATE;

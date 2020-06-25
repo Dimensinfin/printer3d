@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
+package org.dimensinfin.printer3d.backend.production.job.persistence;
 
 import java.util.UUID;
 

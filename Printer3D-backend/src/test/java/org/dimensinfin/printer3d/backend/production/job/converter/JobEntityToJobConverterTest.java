@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.backend.production.job.converter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import org.dimensinfin.printer3d.backend.inventory.machine.persistence.JobEntity;
+import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_BUILD_TIME;

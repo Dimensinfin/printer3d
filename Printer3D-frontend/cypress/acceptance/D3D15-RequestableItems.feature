@@ -15,6 +15,7 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
         Given the target panel is the panel of type "available-request-elements"
+        Then the target panel has a title "/STOCKS DISPONIBLES"
         Then the target panel has 2 "model"
         Then the target panel has 16 "part"
 

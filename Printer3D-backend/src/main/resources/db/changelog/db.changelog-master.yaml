@@ -31,5 +31,7 @@ databaseChangeLog:
       file: db/changelog/ddl-v0.6.0-jobs-table.yaml
   - include:
       file: db/changelog/ddl-v0.6.1-alter-jobs-table.yaml
-#  - include:
-#      file: db/changelog/ddl-v0.8.0-alter-models-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.8.0-alter-models-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.8.0-requestsv2-table.yaml

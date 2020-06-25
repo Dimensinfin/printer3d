@@ -14,6 +14,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * To build a Part we require to use a plastic filament **Coil** on a 3D printer so we can print a thin plastic layer upon
+ * another layer until we have the model complete. The **Coils** are the storage for the plastic. It comes in long mono filament plastic lines of
+ * thousands of metres of length. Usually they are bought by weight.
+ *
+ * @author Adam Antinoo (adamantinoo.git@gmail.com)
+ * @since 0.1.0
+ */
 @Entity
 @Table(name = "coils", schema = "printer3d")
 public class Coil {

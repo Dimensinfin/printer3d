@@ -8,6 +8,15 @@ import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * A model is a collection of Parts that are required to build a new item. There are simple items that can be sell only by building
+ * a Part but also there are complex elements that are composed of more than one Part. Each of the Parts can have their own color and material.
+ * The Model has then a list of the Part references that should be composed at the UI and than can be modified but only on the list of Part
+ * composition.
+ *
+ * @author Adam Antinoo (adamantinoo.git@gmail.com)
+ * @since 0.5.1
+ */
 public class Model {
 	@NotNull(message = "Model unique UUID 'id' is a mandatory field and cannot be null.")
 	@SerializedName("id")
