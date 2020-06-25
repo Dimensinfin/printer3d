@@ -1,6 +1,6 @@
 package org.dimensinfin.acceptance.support.exception;
 
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 
 public class InvalidRequestException extends DimensinfinRuntimeException {

@@ -1,9 +1,11 @@
-package org.dimensinfin.printer3d.backend.exception;
+package org.dimensinfin.common.exception;
 
 import java.text.MessageFormat;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
+
+import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 
 public class DimensinfinRuntimeException extends RuntimeException {
 	// - INITIALIZATION PROCESSORS
@@ -15,6 +17,7 @@ public class DimensinfinRuntimeException extends RuntimeException {
 	}
 
 	protected ErrorInfo errorInfo = ErrorInfo.RUNTIME_INTERNAL_ERROR;
+	protected String cause ;
 
 	// - C O N S T R U C T O R S
 	public DimensinfinRuntimeException() {
@@ -51,5 +54,8 @@ public class DimensinfinRuntimeException extends RuntimeException {
 
 	public HttpStatus getHttpStatus() {
 		return this.errorInfo.status;
+	}
+
+	protected void setCause( final Throwable rootCause ) {
 	}
 }

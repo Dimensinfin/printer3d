@@ -2,7 +2,7 @@ package org.dimensinfin.printer3d.backend.core.exception;
 
 import java.sql.SQLException;
 
-import org.dimensinfin.printer3d.backend.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 
 /**

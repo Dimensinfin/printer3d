@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+
 public class DimensinfinRuntimeExceptionTest {
 	private static final String TEST_ERROR_MESSAGE = "-TEST_ERROR_MESSAGE-";
 
