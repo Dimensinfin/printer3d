@@ -1,5 +1,11 @@
 .node-panel {
     margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.node-panel:hover {
+    opacity: 1.0;
+    background-color: #240F21
 }
 
 .body-box {

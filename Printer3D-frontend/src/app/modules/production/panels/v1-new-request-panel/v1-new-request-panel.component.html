@@ -64,7 +64,7 @@
             </div>
             <div cy-name="requestDate" class="field left-margin top-margin date-width">
                 <span class="label">PIEZAS PEDIDO</span><br>
-                <div class="request-part" cy-name="dropParts" droppable [dropScope]=" 'PART'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
+                <div class="request-part" cy-name="dropParts" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
                 </div>
                 <div cy-name="requestParts">
                     <div name="requestParts" *ngFor="let part4Request of getRequestParts()" style="position: relative;">
