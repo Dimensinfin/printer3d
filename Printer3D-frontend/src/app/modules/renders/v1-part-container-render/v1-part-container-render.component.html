@@ -15,3 +15,20 @@
         </div>
     </div>
 </div>
+<!-- C A T A L O G   V A R I A N T -->
+<div *ngIf="getVariant() === '-CATALOG-'">
+    <div id="{{getId()}}" class="row part-panel">
+        <div class="field label-width">
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="description" class="label">DESCRIPCION</span><br>
+            <span cy-field-value="description" class="partcontainer-description ">{{getDescription()}}</span>
+        </div>
+        <div class="field buildTime-width ">
+            <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
+            <span cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</span>
+        </div>
+    </div>
+</div>

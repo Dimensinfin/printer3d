@@ -13,6 +13,7 @@ export class SupportService {
         this.translationTable['OpenRequestsPage'] = 'v1-open-requests-page'
         this.translationTable['NewModelPage'] = 'v1-new-model-page'
         this.translationTable['part-list'] = 'v2-inventory-part-list-page'
+        this.translationTable['InventoryPage'] = 'v3-inventory-page'
         // - PANELS
         this.translationTable['available-parts'] = 'v1-available-parts-panel'
         this.translationTable['new-request'] = 'v1-new-request-panel'

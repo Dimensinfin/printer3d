@@ -30,3 +30,34 @@
     </svg>
     <!-- </div> -->
 </div>
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-CATALOG-'">
+    <div class="row" (mouseenter)="mouseEnter(node)" (mouseleave)="mouseLeave(node)">
+        <div class="field label-width">
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" class="field-height part-material">{{getLabel()}}</span>
+        </div>
+        <div class="field price-width">
+            <span cy-field-label="partCount" class="label">NUMERO PIEZAS</span><br>
+            <span cy-field-value="partCount" class="field-height part-material">{{getPrice()}}</span>
+        </div>
+        <div class="field price-width">
+            <span cy-field-label="price" class="label">PRECIO</span><br>
+            <span cy-field-value="price" class="field-height part-material">{{getPrice()}}</span>
+        </div>
+    </div>
+    <div *ngIf="inside" cy-name="part-composition" class="field inside-panel">
+        <span cy-field-label="price" class="label">COMPOSICION</span><br>
+        <div *ngFor="let stack of getComposingParts()">
+            <v1-part-stack [node]="stack" [variant]="'-MODEL-COMPOSITION-'"></v1-part-stack>
+        </div>
+    </div>
+    <svg class="corner-border" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+    </svg>
+    <svg class="corner-clear" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+    </svg>
+    <svg class="corner-mark corner-blue" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" />
+    </svg>
+</div>

@@ -20,12 +20,13 @@ import { V1ModelListPageComponent } from './pages/v1-model-list-page/v1-model-li
 import { V1NewModelPageComponent } from './pages/v1-new-model-page/v1-new-model-page.component';
 import { V1NewModelPanelComponent } from './panels/v1-new-model-panel/v1-new-model-panel.component';
 import { V1AvailablePartsPanelComponent } from './panels/v1-available-parts-panel/v1-available-parts-panel.component';
+import { V3InventoryPageComponent } from './pages/v3-inventory-page/v3-inventory-page.component';
 // import { V1DropPartPanelComponent } from './panels/v1-drop-part-panel/v1-drop-part-panel.component';
 
 const routes: Routes = [
-    { path: 'partlist', component: V2PartListPageComponent },
+    { path: 'partlist', component: V3InventoryPageComponent },
     { path: 'coillist', component: V2CoilListPageComponent },
-    { path: 'modellist', component: V1ModelListPageComponent },
+    // { path: 'modellist', component: V1ModelListPageComponent },
     { path: 'newmodel', component: V1NewModelPageComponent }
 ];
 
@@ -49,6 +50,7 @@ const routes: Routes = [
         V1NewModelPageComponent,
         V1NewModelPanelComponent,
         V1AvailablePartsPanelComponent,
+        V3InventoryPageComponent,
         // V1DropPartPanelComponent
     ],
     exports: [
