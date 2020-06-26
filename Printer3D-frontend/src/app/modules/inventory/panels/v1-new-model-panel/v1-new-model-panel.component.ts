@@ -26,9 +26,10 @@ import { Model } from '@domain/inventory/Model.domain';
     styleUrls: ['./v1-new-model-panel.component.scss']
 })
 export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
-    @Input() editModel: Model
+    @Input() visible: boolean
     @ViewChild(V1DropPartPanelComponent) public partContainer: V1DropPartPanelComponent;
     public model: ModelForm = new ModelForm();
+    public editing: boolean = false
 
     constructor(
         protected router: Router,
@@ -40,6 +41,8 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
     public startEditing(model2Edit: Model): void {
         console.log('>[V1NewModelPanelComponent.startEditing]')
         this.model = new ModelForm(model2Edit)
+        this.visible = true
+        this.editing = true
         if (null != this.partContainer) this.partContainer.startEditing(model2Edit.getParts())
     }
     public isFormValid(formState: boolean): boolean {
@@ -49,17 +52,34 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
     }
     public saveModel(): void {
         const model: ModelRequest = new ModelFormToModelRequestConverter(this.partContainer.getPartIdList()).convert(this.model)
-        this.backendConnections.push(
-            this.backendService.apiNewModel_v1(model,
-                new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
-                    .setTransformation((entrydata: any): any => {
-                        this.isolationService.successNotification('Modelo [' + this.model.label + '] registrado correctamente.', '/PRODUCCION/NUEVO MODELO/OK');
-                        return new ModelForm(); // Discard the just persisted request and return an empty instance.
-                    }))
-                .subscribe((newModel: ModelForm) => {
-                    console.log('>[V1NewModelPanelComponent.saveModel]> Clear the page')
-                    this.router.navigate(['/']);
-                })
-        )
+        if (this.editing)
+            this.backendConnections.push(
+                this.backendService.apiInventoryUpdateModel_v1(model,
+                    new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
+                        .setTransformation((entrydata: any): any => {
+                            this.isolationService.successNotification('Modelo [' + this.model.label + '] registrado correctamente.', '/PRODUCCION/NUEVO MODELO/OK');
+                            return new ModelForm(); // Discard the just persisted request and return an empty instance.
+                        }))
+                    .subscribe((newModel: ModelForm) => {
+                        this.stopEditing()
+                    })
+            )
+        else
+            this.backendConnections.push(
+                this.backendService.apiNewModel_v1(model,
+                    new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
+                        .setTransformation((entrydata: any): any => {
+                            this.isolationService.successNotification('Modelo [' + this.model.label + '] registrado correctamente.', '/PRODUCCION/NUEVO MODELO/OK');
+                            return new ModelForm(); // Discard the just persisted request and return an empty instance.
+                        }))
+                    .subscribe((newModel: ModelForm) => {
+                        console.log('>[V1NewModelPanelComponent.saveModel]> Clear the page')
+                        this.router.navigate(['/']);
+                    })
+            )
+    }
+    protected stopEditing(): void {
+        this.editing = false
+        this.visible = false
     }
 }

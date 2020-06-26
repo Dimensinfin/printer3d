@@ -318,6 +318,23 @@ response:
 
 ---
 
+simlet: inventory-newmodel
+
+request:
+  - method: PATCH
+  - uriPathPattern: "/api/v1/inventory/models"
+
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/newmodel.json"
+
+---
+
 simlet: inventory-getmodels
 
 request:
