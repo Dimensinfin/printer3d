@@ -42,68 +42,48 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     And the target item has a column named "MATERIAL" with value "PLA"
     #     And the target item has a column named "COLOR" with value "BLANCO"
 
-    @D3D07 @D3D07.03
-    Scenario: [D3D07.03]-Validate the contents of a Part Container. If the Part container is clicked then it expands and shows the Parts with same label.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        Then the target item has a field named "label" with label "ETIQUETA" and value "Boquilla Ganesha - Figura"
-        And the target item has a field named "description" with label "DESCRIPCION" and value "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
-        And the target item has a field named "buildTime" with label "TIEMPO" and value "90 min."
-        Given the target item is expandable
-        When the target item is expanded
-        Then the target panel has 6 "part"
+    # @D3D07 @D3D07.03
+    # Scenario: [D3D07.03]-Validate the contents of a Part Container. If the Part container is clicked then it expands and shows the Parts with same label.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     Given the target panel is the panel of type "catalog"
+    #     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     Then the target item has a field named "label" with label "ETIQUETA" and value "Boquilla Ganesha - Figura"
+    #     And the target item has a field named "description" with label "DESCRIPCION" and value "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
+    #     And the target item has a field named "buildTime" with label "TIEMPO" and value "90 min."
+    #     Given the target item is expandable
+    #     When the target item is expanded
+    #     Then the target panel has 6 "part"
 
-    @D3D07 @D3D07.04
-    Scenario: [D3D07.04]-Validate the contents of a Part.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        When the target item is expanded
+    # @D3D07 @D3D07.04
+    # Scenario: [D3D07.04]-Validate the contents of a Part.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     Given the target panel is the panel of type "catalog"
+    #     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     When the target item is expanded
       
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then the target item has a field named "material" with label "MATERIAL" and value "PLA"
-        And the target item has a field named "color" with label "COLOR" and value "ROSA"
-        And the target item has a field named "stock" with label "STOCK" and value "5"
-        And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "0"
-        And the target item has a field named "cost" with label "COSTE" and value "1 €"
-        And the target item has a field named "price" with label "PRECIO" and value "6 €"
-        And the target item has a field named "active" with label "ACTIVA" and value "ACTIVA"
-
-    # @D3D07 @D3D07.05
-    # Scenario: [D3D07.04]-The Part render is an expandable element so the node container shows a right arrow.
-    #     Given there is a click on Feature "/INVENTARIO"
-    #     When the V2InventoryPartListPage is activated
-    #     Then on the v1-part-container component there is a right arrow
-
-    # @D3D07 @D3D07.05
-    # Scenario: [D3D07.05]-If the arrow is clicked then the Part Container expands and shows the parts that match this same label.
-    #     Given there is a click on Feature "/INVENTARIO"
-    #     When the V2InventoryPartListPage is activated
-    #     Then on the v1-part-container component there is a right arrow
-    #     When the right arrow is clicked
-    #     Then the container expands and there are one or more v1-part nodes
-    #     And on the v1-part component there is a field named "MATERIAL" with class "part-material"
-    #     And on the v1-part component there is a field named "COLOR" with class "part-color"
-    #     And on the v1-part component there is a field named "STOCK" with class "part-stock"
-    #     And on the v1-part component there is a field named "DISPONIBLE" with class "part-stockAvailable"
-    #     And on the v1-part component there is a field named "COSTE" with class "part-cost"
-    #     And on the v1-part component there is a field named "PRECIO" with class "part-price"
-    #     And on the v1-part component there is a field named "ACTIVA" with class "part-active"
+    #     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+    #     Then the target item has a field named "material" with label "MATERIAL" and value "PLA"
+    #     And the target item has a field named "color" with label "COLOR" and value "ROSA"
+    #     And the target item has a field named "stock" with label "STOCK" and value "5"
+    #     And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "0"
+    #     And the target item has a field named "cost" with label "COSTE" and value "1 €"
+    #     And the target item has a field named "price" with label "PRECIO" and value "6 €"
+    #     And the target item has a field named "active" with label "ACTIVA" and value "ACTIVA"
 
     @D3D07 @D3D07.06
     Scenario: [D3D07.06]-Active Parts show a green corner while inactive show it orange.
         Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        Given the target panel is the panel of type "viewer-panel"
-        Then on the v1-part-container component there is a right arrow
-        And when the target Part Container is the second
-        When the right arrow of the target Part Container is clicked
-        Then the target panel has one or more "part"
-        And active Part shows a green corner
-        And inactive Part shows an orange corner
+        Then the page "InventoryPage" is activated
+        Given the target panel is the panel of type "catalog"
+        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target item is expandable
+        When the target item is expanded
+        Then the target panel has 6 "part"
+
+        And active "part" shows a green corner
+        And inactive "part" shows an orange corner
 
     @D3D07 @D3D07.07
     Scenario: [D3D07.07]-Active and inactive parts have a editor activation button at the left.

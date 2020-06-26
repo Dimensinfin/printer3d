@@ -32,6 +32,24 @@ When('the target item is expanded', function () {
     cy.get('@target-item').parents().closest('node-container').first()
         .find('.arrow-box').find('.arrow-expanded').should('exist')
 });
+Then('active {string} shows a green corner', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    const fieldName = 'active'
+    const fieldValue = 'ACTIVA'
+    cy.get('@target-panel').find(tag).find('[cy-field-value="' + fieldName + '"]')
+        .contains(fieldValue, { matchCase: false }).first().as('target-item').parent().parent().parent().within(($item) => {
+            cy.get('.corner-mark').find('[fill="greenyellow"]').should('exist')
+        })
+});
+Then('inactive {string} shows an orange corner', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    const fieldName = 'active'
+    const fieldValue = 'FUERA PROD.'
+    cy.get('@target-panel').find(tag).find('[cy-field-value="' + fieldName + '"]')
+        .contains(fieldValue, { matchCase: false }).first().as('target-item').parent().parent().parent().within(($item) => {
+            cy.get('.corner-mark').find('[fill="greenyellow"]').should('exist')
+        })
+});
 
 
 
@@ -42,13 +60,13 @@ When('the target item is expanded', function () {
 //         .should('exist');
 // });
 
-Then('one instance of ViewerPanel', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').should('exist');
-});
+// Then('one instance of ViewerPanel', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').should('exist');
+// });
 
-Then('one or more instances of NodeContainer', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').find('node-container').should('exist');
-});
+// Then('one or more instances of NodeContainer', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').find('node-container').should('exist');
+// });
 
 Then('the first NodeContainer contains a Part Container Render', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
@@ -76,15 +94,15 @@ Then('there is a loading panel displaying {string}', function (downloadMessage: 
 //         .find('.right-arrow').should('exist')
 // });
 
-When('the right arrow is clicked', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').find('.arrow-box')
-        .find('.right-arrow').first().click()
-});
-Then('the container expands and there are one or more v1-part nodes', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').find('v1-part').should('exist');
-});
+// When('the right arrow is clicked', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container').find('.arrow-box')
+//         .find('.right-arrow').first().click()
+// });
+// Then('the container expands and there are one or more v1-part nodes', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container').find('v1-part').should('exist');
+// });
 
 Then('on the v1-part component there is a field named {string} with class {string}', function (fieldName: string, fieldClass: string) {
     const fieldClassIdentifier = '.' + fieldClass
@@ -215,18 +233,6 @@ When('the right arrow of the target Part Container is clicked', function () {
     cy.get('@target-part').parent().parent().within(($panel) => {
         cy.get('.arrow-box').click('center')
     })
-});
-Then('active Part shows a green corner', function () {
-    cy.get('v1-part').find('.field').find('[name="active"]').contains('ACTIVA')
-        .parent().parent().parent().within(($panel) => {
-            cy.get('.corner-mark').find('[fill="greenyellow"]').should('exist')
-        })
-});
-Then('inactive Part shows an orange corner', function () {
-    cy.get('v1-part').find('.field').find('[name="active"]').contains('FUERA PROD.')
-        .parent().parent().parent().within(($panel) => {
-            cy.get('.corner-mark').find('[fill="orangered"]').should('exist')
-        })
 });
 // Given('the target panel is the panel of type {string}', function (panelType: string) {
 //     cy.get('app-root').find(panelType)
