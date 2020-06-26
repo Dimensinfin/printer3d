@@ -58,9 +58,26 @@
                 <span cy-field-label="FECHA PEDIDO" class="label">FECHA PEDIDO</span><br>
                 <span class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
             </div>
-            <div cy-name="label" class="field left-margin top-margin label-width">
+            <!-- <div cy-name="label" class="field left-margin top-margin label-width">
                 <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
                 <input type="text" class="dsf-form-control dsf-editable-form-item request-label" required [(ngModel)]="request.label" name="label" minlength="5" maxlength="100">
+            </div> -->
+            <div cy-name="label" class="field field-margins">
+                <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
+                <div class="dsf-input-container label-width">
+                    <input id="modelLabel" name="modelLabel" type="text" class="dsf-input" required [(ngModel)]="request.label" minlength="3" maxlength="50" #modelLabel="ngModel">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <div [ngClass]="{'ng-valid': !modelLabel.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
+                </div>
             </div>
             <div cy-name="requestDate" class="field left-margin top-margin date-width">
                 <span class="label">PIEZAS PEDIDO</span><br>

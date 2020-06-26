@@ -37,7 +37,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given the target panel is the panel named "jobs-list"
         Then the target panel has 4 "job"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Then the target item has a field labeled "CUANTAS" with value "x 2"
+        Then the target item has a field labeled "CANTIDAD" with value "x 2"
         Then the target item has a field labeled "ETIQUETA" with value "Covid-19 Key"
         Then the target item has a field labeled "MATERIAL" with value "PLA"
         Then the target item has a field labeled "COLOR" with value "NARANJA-T"

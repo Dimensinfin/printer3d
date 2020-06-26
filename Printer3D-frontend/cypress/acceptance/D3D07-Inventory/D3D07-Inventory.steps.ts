@@ -10,7 +10,8 @@ const supportService = new SupportService();
 let store: any = {};
 
 Then('the V2InventoryPartListPage is activated', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').should('exist');
+    cy.get('app-root').find('v2-inventory-part-list-page').as('target-page')
+        .should('exist');
 });
 
 Then('one instance of ViewerPanel', function () {

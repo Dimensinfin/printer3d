@@ -17,32 +17,6 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         When the Feature with label "/PEDIDOS" is clicked the destination is the Page "OpenRequestsPage"
         When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "NewRequestPage"
 
-    @D3D09 @D3D09.03
-    Scenario: [D3D09.03]-The New Request page has two panels. The left Panel has a simple list of Parts that have at least one item. The right panel is the New Request.
-        Given there is a click on Feature "/NUEVO PEDIDO"
-        Then the page "NewRequestPage" is activated
-        And the page "NewRequestPage" has 2 panels
-        And the target page has one panel of type "available-parts" with variant "-REQUEST-PART-LIST-"
-        And the target page has one panel of type "new-request"
-
-    @D3D09 @D3D09.04
-    Scenario: [D3D09.04]-The left panel has a simplified, one level list of Parts. The listing contains Parts with any number of copies on stock.
-        Given there is a click on Feature "/NUEVO PEDIDO"
-        Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-parts"
-        And the target panel has one or more "part"
-
-    @D3D09 @D3D09.05
-    Scenario: [D3D09.05]-The Parts visible on the New Request page have a defined list of fields.
-        Given there is a click on Feature "/NUEVO PEDIDO"
-        Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-parts"
-        Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        And the target item has a field labeled "ETIQUETA" with value "Boquilla Ganesha - Embocadura"
-        And the target item has a field labeled "MATERIAL" with value "TPU"
-        And the target item has a field labeled "COLOR" with value "AZUL"
-        And the target item has a field labeled "DISPONIBLE" with value "10"
-
     @D3D09 @D3D09.06
     Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
         Given there is a click on Feature "/NUEVO PEDIDO"
@@ -55,15 +29,15 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         And the target panel input field named "label" is "invalid"
         And the target panel has a drop place named "dropParts"
 
-    @D3D09 @D3D09.07
-    Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
-        Given there is a click on Feature "/NUEVO PEDIDO"
-        Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-parts"
-        And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
-        Given the target panel is the panel of type "new-request"
-        And the target panel has a drop place named "dropParts"
-        When the drag source is dragged to the drop destination "dropParts"
+    # @D3D09 @D3D09.07
+    # Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
+    #     Given there is a click on Feature "/NUEVO PEDIDO"
+    #     Then the page "NewRequestPage" is activated
+    #     Given the target panel is the panel of type "available-parts"
+    #     And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
+    #     Given the target panel is the panel of type "new-request"
+    #     And the target panel has a drop place named "dropParts"
+    #     When the drag source is dragged to the drop destination "dropParts"
 
     # @D3D09 @D3D09.08
     # Scenario: [D3D09.08]-If we drag a Part to the right panel box the number of Parts associated to the Request increases.
@@ -132,7 +106,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     Scenario: [D3D09.13]-If the user moves a Part from the Part list to the drop area then a new Part is added to the Request.
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-parts"
+        Given the target panel is the panel of type "available-request-elements"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         Given the target panel is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropParts"
@@ -147,7 +121,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     Scenario: [D3D09.14]-If the user adds more than one instances of a Part model then if the Part is already on the list the required counter increments in 1.
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-parts"
+        Given the target panel is the panel of type "available-request-elements"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         Given the target panel is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropParts"
@@ -159,7 +133,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Given the target item the "part4-request" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         Then the target item has a field named "REQUERIDAS" with value "2"
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target panel is the panel of type "available-request-elements"
         Given the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
         Given the target panel is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropParts"
@@ -169,7 +143,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
     Scenario: [D3D09.15]-If the user clicks on the Remove button of a Part assigned to a Request then the number of that type of Parts reduces in 1. The the count reaches 0 then the part is removed from the Report.
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-parts"
+        Given the target panel is the panel of type "available-request-elements"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         Given the target panel is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropParts"
@@ -181,7 +155,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Given the target item the "part4-request" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         Then the target item has a field named "REQUERIDAS" with value "2"
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target panel is the panel of type "available-request-elements"
         Given the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
         Given the target panel is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropParts"

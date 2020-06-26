@@ -52,7 +52,7 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
     #     And the target item has a column named "COLOR" with value "BLANCO"
 
     @D3D15.04
-    Scenario: [D3D15.04]-The Model and the Part should be draggable items with containt REQUEST-CONTENT.
+    Scenario: [D3D15.04]-The Model and the Part should be draggable items with constraint REQUEST-CONTENT.
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
         Given the target panel is the panel of type "available-request-elements"
