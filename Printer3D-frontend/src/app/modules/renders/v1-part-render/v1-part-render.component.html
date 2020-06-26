@@ -54,68 +54,6 @@
         </svg>
     </div>
 </div>
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-EDITABLE-PART-'">
-    <form class="dsf-form" autocomplete="off">
-        <div class="part-panel">
-            <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
-                <tr>
-                    <td>
-                        <div class="edit-attributes" (click)="toggleEdition()">
-                            <img src="/assets/media/edit_attributes-white-36dp.svg">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="save-modifications" (click)="saveEditing()">
-                            <img src="/assets/media/check_circle-white-36dp.svg">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field material-width">
-                            <span class="label">MATERIAL</span><br>
-                            <span name="material" class="field-height part-material">{{getMaterial()}}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field color-width">
-                            <span class="label">COLOR</span><br>
-                            <span name="color" class="field-height part-color">{{getColor()}}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span class="label">STOCK</span><br>
-                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.stockLevel" name="stock">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span class="label">DISPONIBLE</span><br>
-                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.stockAvailable" name="stockAvailable">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span class="label">COSTE</span><br>
-                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.cost" required name="cost">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span class="label">PRECIO</span><br>
-                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.price" name="price">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field active-width">
-                            <span class="label">ACTIVA</span><br>
-                            <input type="checkbox" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.active" name="active">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </form>
-</div>
 <!-- R E Q U E S T   P A R T - L I S T   V A R I A N T -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-REQUEST-PART-LIST-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
     <div class="row part-panel">
@@ -215,7 +153,7 @@
 <!-- C A T A L O G   V A R I A N T -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-CATALOG-'">
     <div class="row cornered-panel">
-        <div class="edit-attributes" (click)="toggleEdition()">
+        <div cy-name="edit-button" class="edit-attributes" (click)="toggleEdition()">
             <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
         </div>
         <div class="save-modifications">
@@ -267,4 +205,66 @@
             <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
         </svg>
     </div>
+</div>
+<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-EDITABLE-PART-'">
+    <form class="dsf-form" autocomplete="off">
+        <div class="part-panel">
+            <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
+                <tr>
+                    <td>
+                        <div class="edit-attributes" (click)="toggleEdition()">
+                            <img src="/assets/media/edit_attributes-white-36dp.svg">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="save-modifications" (click)="saveEditing()">
+                            <img src="/assets/media/check_circle-white-36dp.svg">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="field material-width">
+                            <span cy-field-label="material" class="label">MATERIAL</span><br>
+                            <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="field color-width">
+                            <span cy-field-label="color" class="label">COLOR</span><br>
+                            <span cy-field-value="color" class="field-height part-color">{{getColor()}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="field stock-width">
+                            <span cy-field-label="stock" class="label">STOCK</span><br>
+                            <input cy-field-value="stock" type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.stockLevel" name="stock">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="field stock-width">
+                            <span class="label">DISPONIBLE</span><br>
+                            <input cy-field-value="color" type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.stockAvailable" name="stockAvailable">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="field stock-width">
+                            <span class="label">COSTE</span><br>
+                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.cost" required name="cost">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="field stock-width">
+                            <span class="label">PRECIO</span><br>
+                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.price" name="price">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="field active-width">
+                            <span class="label">ACTIVA</span><br>
+                            <input type="checkbox" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.active" name="active">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
 </div>

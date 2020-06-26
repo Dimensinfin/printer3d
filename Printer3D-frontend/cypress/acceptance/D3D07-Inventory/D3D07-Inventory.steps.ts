@@ -47,9 +47,31 @@ Then('inactive {string} shows an orange corner', function (symbolicName: string)
     const fieldValue = 'FUERA PROD.'
     cy.get('@target-panel').find(tag).find('[cy-field-value="' + fieldName + '"]')
         .contains(fieldValue, { matchCase: false }).first().as('target-item').parent().parent().parent().within(($item) => {
-            cy.get('.corner-mark').find('[fill="greenyellow"]').should('exist')
+            cy.get('.corner-mark').find('[fill="orangered"]').should('exist')
         })
 });
+Then('the target item has a named {string} button', function (buttonName: string) {
+    cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
+        .should('exist')
+});
+Given('the target item named button {string} is clicked', function (buttonName:string) {
+    cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
+        .click()
+});
+Given('the target item field named {string} is editable', function (fieldName:string) {
+    cy.get('@target-item').find('[cy-name="' + fieldName + '"]')
+    .find('input').should('exist')
+
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+// .find('node-container').find('v1-part').find('.field').as('target-part-field')
+// .find('.label').contains(fieldName)
+// cy.get('@target-part-field').find('input').should('exist')
+
+
+  });
+
+
+
 
 
 
@@ -113,12 +135,12 @@ Then('on the v1-part component there is a field named {string} with class {strin
     cy.get('@target-part-field').find('.label').contains(fieldName)
     cy.get('@target-part-field').find(fieldClassIdentifier).should('exist')
 });
-Then('the field {string} is editable', function (fieldName: string) {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').find('v1-part').find('.field').as('target-part-field')
-        .find('.label').contains(fieldName)
-    cy.get('@target-part-field').find('input').should('exist')
-});
+// Then('the field {string} is editable', function (fieldName: string) {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container').find('v1-part').find('.field').as('target-part-field')
+//         .find('.label').contains(fieldName)
+//     cy.get('@target-part-field').find('input').should('exist')
+// });
 
 When('the first v1-part is selected as the target', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')

@@ -88,37 +88,41 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     @D3D07 @D3D07.07
     Scenario: [D3D07.07]-Active and inactive parts have a editor activation button at the left.
         Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        Then on the v1-part-container component there is a right arrow
-        When the right arrow is clicked
-        Then the container expands and there are one or more v1-part nodes
-        When the first v1-part is selected as the target
-        Then the target Part shows an Edit button at the right
+        Then the page "InventoryPage" is activated
+        Given the target panel is the panel of type "catalog"
+        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        When the target item is expanded
+        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Then the target item has a named "edit-button" button
+# PENDING RECONSTRUCTION OF EDITABLES
+    # @D3D07 @D3D07.08
+    # Scenario: [D3D07.08]-When the Edit Attributes button is clicked the Part display changes and some fields are now editable.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     Given the target panel is the panel of type "catalog"
+    #     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     When the target item is expanded
+    #     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+    #     Then the target item has a named "edit-button" button
 
-    @D3D07 @D3D07.08
-    Scenario: [D3D07.08]-When the Edit Attributes button is clicked the Part display changes and some fields are now editable.
-        Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        Then on the v1-part-container component there is a right arrow
-        When the right arrow is clicked
-        Then the container expands and there are one or more v1-part nodes
-        When the first v1-part is selected as the target
-        Then the target Part shows an Edit button at the right
-        When the target Part Edit button is clicked
-        Then the field "STOCK" is editable
-        And the field "DISPONIBLE" is editable
-        And the field "COSTE" is editable
-        And the field "PRECIO" is editable
-        And the field "ACTIVA" is editable
+    #     Given the target item named button "edit-button" is clicked
+    #     And the target item field named "stock" is editable
+
+    #     # When the target Part Edit button is clicked
+    #     Then the field "STOCK" is editable
+    #     And the field "DISPONIBLE" is editable
+    #     And the field "COSTE" is editable
+    #     And the field "PRECIO" is editable
+    #     And the field "ACTIVA" is editable
 
     @D3D07 @D3D07.09
     Scenario: [D3D07.09]-When the part is put in editable mode the editable field contents are the same of the original part.
         Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        Then on the v1-part-container component there is a right arrow
-        When the right arrow is clicked
-        Then the container expands and there are one or more v1-part nodes
-        When the first v1-part is selected as the target
+        Then the page "InventoryPage" is activated
+        Given the target panel is the panel of type "catalog"
+        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        When the target item is expanded
+        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then the field "stock" stores the current value into "STOCK-STORE"
         Then the field "stockAvailable" stores the current value into "DISPONIBLE-STORE"
         Then the field "cost" stores the current value into "COSTE-STORE"
@@ -132,48 +136,48 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         And the field "cost" is editable and the content equals the stored value "COSTE-STORE"
         And the field "price" is editable and the content equals the stored value "PRECIO-STORE"
 
-    @D3D07 @D3D07.10
-    Scenario: [D3D07.10]-When the part is put in editable mode there is a check mark button to save the Part changes to the repository.
-        Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        When the right arrow is clicked
-        When the first v1-part is selected as the target
-        Then the target Part shows an Edit button at the right
-        When the target Part Edit button is clicked
-        Then the target Part shows a Save button at the right
+    # @D3D07 @D3D07.10
+    # Scenario: [D3D07.10]-When the part is put in editable mode there is a check mark button to save the Part changes to the repository.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     When the right arrow is clicked
+    #     When the first v1-part is selected as the target
+    #     Then the target Part shows an Edit button at the right
+    #     When the target Part Edit button is clicked
+    #     Then the target Part shows a Save button at the right
 
-    @D3D07 @D3D07.11
-    Scenario: [D3D07.11]-If this check mark button is clicked then the new values are persisted at the repository, a notification is shown and the edit state is exited.
-        Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        When the right arrow is clicked
-        When the first v1-part is selected as the target
-        When the target Part Edit button is clicked
-        When the target Part Save button is clicked
-        Then there is a Notification panel
-        Then the new part contents are persisted to the backend
-        And the edit state is exited
+    # @D3D07 @D3D07.11
+    # Scenario: [D3D07.11]-If this check mark button is clicked then the new values are persisted at the repository, a notification is shown and the edit state is exited.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     When the right arrow is clicked
+    #     When the first v1-part is selected as the target
+    #     When the target Part Edit button is clicked
+    #     When the target Part Save button is clicked
+    #     Then there is a Notification panel
+    #     Then the new part contents are persisted to the backend
+    #     And the edit state is exited
 
-    @D3D07 @D3D07.12
-    Scenario: [D3D07.12]-The the Part values edited and persisted match the current Part values.
-        Given there is a click on Feature "/INVENTARIO"
-        When the V2InventoryPartListPage is activated
-        When the right arrow is clicked
-        When the first v1-part is selected as the target
-        When the target Part Edit button is clicked
-        Then the target Part field "stock" is changed to "8"
-        Then the target Part field "stockAvailable" is changed to "8"
-        Then the target Part field "cost" is changed to "8"
-        Then the target Part field "stock" stores the current value into "STOCK-STORE"
-        Then the target Part field "stockAvailable" stores the current value into "DISPONIBLE-STORE"
-        Then the target Part field "cost" stores the current value into "COSTE-STORE"
-        Then the target Part field "price" stores the current value into "PRECIO-STORE"
-        Then the target Part field "active" stores the current value into "ACTIVA-STORE"
-        When the target Part Save button is clicked
-        Then the target Part field "stock" equals the stored value "STOCK-STORE"
-        Then the target Part field "stockAvailable" equals the stored value "DISPONIBLE-STORE"
-        Then the target Part field "cost" equals the stored value "COSTE-STORE"
-        Then the target Part field "price" equals the stored value "PRECIO-STORE"
+    # @D3D07 @D3D07.12
+    # Scenario: [D3D07.12]-The the Part values edited and persisted match the current Part values.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     When the V2InventoryPartListPage is activated
+    #     When the right arrow is clicked
+    #     When the first v1-part is selected as the target
+    #     When the target Part Edit button is clicked
+    #     Then the target Part field "stock" is changed to "8"
+    #     Then the target Part field "stockAvailable" is changed to "8"
+    #     Then the target Part field "cost" is changed to "8"
+    #     Then the target Part field "stock" stores the current value into "STOCK-STORE"
+    #     Then the target Part field "stockAvailable" stores the current value into "DISPONIBLE-STORE"
+    #     Then the target Part field "cost" stores the current value into "COSTE-STORE"
+    #     Then the target Part field "price" stores the current value into "PRECIO-STORE"
+    #     Then the target Part field "active" stores the current value into "ACTIVA-STORE"
+    #     When the target Part Save button is clicked
+    #     Then the target Part field "stock" equals the stored value "STOCK-STORE"
+    #     Then the target Part field "stockAvailable" equals the stored value "DISPONIBLE-STORE"
+    #     Then the target Part field "cost" equals the stored value "COSTE-STORE"
+    #     Then the target Part field "price" equals the stored value "PRECIO-STORE"
 
     @D3D07 @D3D07.13
     Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
