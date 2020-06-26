@@ -119,7 +119,10 @@ Then('the target item has a column named {string} with value {string}', function
         cy.get('[cy-name="' + columnName + '"]').contains(fieldValue, { matchCase: false })
     })
 });
-// - DRAG
+// - DRAG & DROP
+When('the mouse enter the target item', function () {
+    cy.get('@target-item').trigger('mouseenter')
+});
 Given('the drag source the {string} with id {string}', function (renderName: string, recordId: string) {
     const tag = supportService.translateTag(renderName) // Do name replacement
     cy.log('>[translation]> ' + renderName + ' -> ' + tag)

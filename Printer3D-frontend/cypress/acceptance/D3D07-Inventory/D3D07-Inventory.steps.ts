@@ -9,10 +9,28 @@ import { SupportService } from '../../support/SupportService.support';
 const supportService = new SupportService();
 let store: any = {};
 
-Then('the V2InventoryPartListPage is activated', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').as('target-page')
-        .should('exist');
+// - N E W   B E S T   P R A C T I C E S
+Then('the loading panels shows {string}', function (loadingMessage: string) {
+    cy.get('@target-page').find('.index-loading')
+        .contains(loadingMessage)
 });
+When('the loading panel completes', function () {
+    cy.wait(1000)
+});
+Then('the target item has a list named {string} with {int} {string}', function (panelName: string, itemCount: number, symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target-item').find('[cy-name="' + panelName + '"]').as('target-list')
+        .find(tag).should('have.length', itemCount)
+});
+
+
+
+
+// ---------------------------------------------------
+// Then('the V2InventoryPartListPage is activated', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').as('target-page')
+//         .should('exist');
+// });
 
 Then('one instance of ViewerPanel', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').should('exist');

@@ -13,6 +13,3 @@ Then('the target item has a list named {string} with {int} {string}', function (
     cy.get('@target-item').find('[cy-name="' + panelName + '"]').as('target-list')
         .find(tag).should('have.length', itemCount)
 });
-When('the mouse enter the target item', function () {
-    cy.get('@target-item').trigger('mouseenter')
-});

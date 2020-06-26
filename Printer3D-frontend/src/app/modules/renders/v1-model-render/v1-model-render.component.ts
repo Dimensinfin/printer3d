@@ -10,7 +10,7 @@ import { PartStack } from '@domain/PartStack.domain';
     styleUrls: ['./v1-model-render.component.scss']
 })
 export class V1ModelRenderComponent extends NodeContainerRenderComponent {
-    public inside:boolean=false
+    public inside: boolean = false
 
     public getNode(): Model {
         return this.node as Model
@@ -24,13 +24,13 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     public getPrice(): string {
         return this.getNode().getPrice() + ' €'
     }
-    public getComposingParts () : PartStack[]{
+    public getComposingParts(): PartStack[] {
         return this.getNode().getParts()
     }
-    public mouseEnter (node:any): void {
-        this.inside=true;
+    public mouseEnter(node: any): void {
+        this.inside = true;
     }
-    public mouseLeave (node:any): void {
-        this.inside=false;
+    public mouseLeave(node: any): void {
+        this.inside = false;
     }
 }
