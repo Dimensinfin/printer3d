@@ -3,24 +3,24 @@
     <div class="row cornered-panel">
         <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
         <div class="field number-width">
-            <span cy-field-label="CUANTAS" class="label">CANTIDAD</span><br>
-            <span cy-field-value="CUANTAS" class="field-height job-number">{{getAggregatedNumber()}}</span>
+            <span cy-field-label="quantity" class="label">CANTIDAD</span><br>
+            <span cy-field-value="quantity" class="field-height job-number">{{getAggregatedNumber()}}</span>
         </div>
         <div cy-name="job-label" class="field label-width">
-            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" class="field-height job-label">{{getLabel()}}</span>
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" class="field-height job-label">{{getLabel()}}</span>
         </div>
         <div class="field">
-            <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>
-            <span cy-field-value="MATERIAL" class="part-material">{{getMaterial()}}</span>
+            <span cy-field-label="material" class="label">MATERIAL</span><br>
+            <span cy-field-value="material" class="part-material">{{getMaterial()}}</span>
         </div>
         <div class="field">
-            <span cy-field-label="COLOR" class="label">COLOR</span><br>
-            <span cy-field-value="COLOR" class="part-color">{{getColor()}}</span>
+            <span cy-field-label="color" class="label">COLOR</span><br>
+            <span cy-field-value="color" class="part-color">{{getColor()}}</span>
         </div>
         <div class="field">
-            <span cy-field-label="TIEMPO" class="label">TIEMPO CONSTRUC.</span><br>
-            <span cy-field-value="TIEMPO" name="buildtime" class="part-buildtime">{{getBuildTime()}}</span>
+            <span cy-field-label="buildTime" class="label">TIEMPO CONSTRUC.</span><br>
+            <span cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}}</span>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
@@ -29,8 +29,8 @@
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
     </svg>
-    <svg class="corner-mark" viewBox="0 0 100 100">
-        <path d="M100,100 L0,100 L100,0 L100,100" fill="blue" />
+    <svg class="corner-mark blue-mark" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>
 <!-- B U I L D I N G   V A R I A N T -->

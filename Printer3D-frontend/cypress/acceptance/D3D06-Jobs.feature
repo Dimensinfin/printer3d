@@ -37,11 +37,11 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given the target panel is the panel named "jobs-list"
         Then the target panel has 4 "job"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Then the target item has a field labeled "CANTIDAD" with value "x 2"
-        Then the target item has a field labeled "ETIQUETA" with value "Covid-19 Key"
-        Then the target item has a field labeled "MATERIAL" with value "PLA"
-        Then the target item has a field labeled "COLOR" with value "NARANJA-T"
-        Then the target item has a field labeled "TIEMPO" with value "30"
+        Then the target item has a field named "quantity" with label "CANTIDAD" and value "x 2"
+        And the target item has a field named "label" with label "ETIQUETA" and value "Covid-19 Key"
+        And the target item has a field named "material" with label "MATERIAL" and value "PLA"
+        And the target item has a field named "color" with label "COLOR" and value "NARANJA-T"
+        And the target item has a field named "buildTime" with label "TIEMPO" and value "30"
 
     @D3D06 @D3D06.06
     Scenario: [D3D06.06]-The pending job elements can be dragged to another place with the constraint 'JOB'.

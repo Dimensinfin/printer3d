@@ -102,5 +102,4 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
                 })
         )
     }
-
 }
