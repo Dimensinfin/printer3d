@@ -29,6 +29,9 @@ export class Model extends Node {
     public getPrice(): number {
         return this.price
     }
+    public getParts(): PartStack[] {
+        return this.partList
+    }
     public addPart(newPart: Part): void {
         for (let part of this.partList) {
             if (newPart.getId() == part.getId()) { // If the part is on the list increment the stack

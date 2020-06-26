@@ -27,13 +27,26 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
 
         Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Verde"
-        # Then the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "5"
+        Then the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "5"
         Then the target item has a field named "price" with label "PRECIO" and value "15 €"
 
         Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then the target item has a field named "ETIQUETA" with label "ETIQUETA" and value "Boquilla Ganesha - Figura"
-        Then the target item has a field named "MATERIAL" with label "MATERIAL" and value "PLA"
-        Then the target item has a field named "COLOR" with label "COLOR" and value "ROSA"
-        Then the target item has a field named "DISPONIBLE" with label "DISPONIBLE" and value "0"
+        And the target item has a field named "MATERIAL" with label "MATERIAL" and value "PLA"
+        And the target item has a field named "COLOR" with label "COLOR" and value "ROSA"
+        And the target item has a field named "DISPONIBLE" with label "DISPONIBLE" and value "0"
 
-# <div _ngcontent-qvc-c97="" draggable="true" class="cornered-panel drag-handle" id="0f789845-cdc6-48ce-a0ce-cbaf63cffab5" ng-reflect-drag-data="[object Object]" ng-reflect-drag-scope="ITEM" ng-reflect-drag-class="model-selected"><div _ngcontent-qvc-c97="" class="row"><div _ngcontent-qvc-c97="" class="field label-width"><span _ngcontent-qvc-c97="" cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br _ngcontent-qvc-c97=""><span _ngcontent-qvc-c97="" cy-field-value="ETIQUETA" class="field-height part-material">PLATAFORMA SLOT 1/32 - Verde</span></div><div _ngcontent-qvc-c97="" class="field price-width"><span _ngcontent-qvc-c97="" cy-field-label="price" class="label">PRECIO</span><br _ngcontent-qvc-c97=""><span _ngcontent-qvc-c97="" cy-field-value="price" class="field-height part-material">15 €</span></div></div><svg _ngcontent-qvc-c97="" viewBox="0 0 100 100" class="corner-border"><path _ngcontent-qvc-c97="" d="M100,100 L0,100 L100,0 L100,100" fill="white"></path></svg><svg _ngcontent-qvc-c97="" viewBox="0 0 100 100" class="corner-clear"><path _ngcontent-qvc-c97="" d="M100,100 L0,100 L100,0 L100,100" fill="#180A16"></path></svg><svg _ngcontent-qvc-c97="" viewBox="0 0 100 100" class="corner-mark corner-blue"><path _ngcontent-qvc-c97="" d="M100,100 L0,100 L100,0 L100,100"></path></svg></div>
+    @D3D15.03
+    Scenario: [D3D15.03]-When the cursor enter any of the models it expands to show the contents.
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the page "NewRequestPage" is activated
+        Given the target panel is the panel of type "available-request-elements"
+
+        Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        When the mouse enter the target item
+        Then the target item has a list named "part-composition" with 3 "part-stack"
+        Given the target item the "part-stack" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
+        Then the target item has a column named "REQUERIDAS" with value "x 1"
+        And the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
+        And the target item has a column named "MATERIAL" with value "PLA"
+        And the target item has a column named "COLOR" with value "BLANCO"

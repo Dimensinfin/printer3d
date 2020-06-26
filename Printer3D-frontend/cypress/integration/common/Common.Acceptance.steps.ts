@@ -103,12 +103,7 @@ Then('the target panel input field named {string} is {string}', function (fieldN
             cy.get('.ng-invalid').should('exist')
         })
 });
-
-
-
-
-
-
+// - ITEMS
 Then('the target item has a field named {string} with label {string} and value {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-item').within(($item) => {
@@ -119,3 +114,8 @@ Then('the target item has a field named {string} with label {string} and value {
                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
     });
+Then('the target item has a column named {string} with value {string}', function (columnName: string, fieldValue: string) {
+    cy.get('@target-item').within(($item) => {
+        cy.get('[cy-name="' + columnName + '"]').contains(fieldValue, { matchCase: false })
+    })
+});

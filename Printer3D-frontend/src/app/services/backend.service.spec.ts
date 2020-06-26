@@ -88,8 +88,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: PartListResponse) => {
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(12);
-                    expect(response.parts.length).toBe(12);
+                    expect(response.count).toBe(16);
+                    expect(response.parts.length).toBe(16);
                 });
         });
         it('apiInventoryUpdatePart_v1.default: update an existing Part', async () => {
