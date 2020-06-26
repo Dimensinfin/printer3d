@@ -22,6 +22,16 @@ Then('the target item has a list named {string} with {int} {string}', function (
     cy.get('@target-item').find('[cy-name="' + panelName + '"]').as('target-list')
         .find(tag).should('have.length', itemCount)
 });
+Given('the target item is expandable', function () {
+    cy.get('@target-item').parents().closest('node-container').first()
+        .find('[cy-name="expand-button"]')
+        .should('exist')
+});
+When('the target item is expanded', function () {
+    cy.get('@target-item').click()
+    cy.get('@target-item').parents().closest('node-container').first()
+        .find('.arrow-box').find('.arrow-expanded').should('exist')
+});
 
 
 
@@ -60,11 +70,11 @@ Then('there is a loading panel displaying {string}', function (downloadMessage: 
         .find('.index-loading').contains(downloadMessage)
 });
 
-Then('on the v1-part-container component there is a right arrow', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').find('.arrow-box')
-        .find('.right-arrow').should('exist')
-});
+// Then('on the v1-part-container component there is a right arrow', function () {
+//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+//         .find('node-container').find('.arrow-box')
+//         .find('.right-arrow').should('exist')
+// });
 
 When('the right arrow is clicked', function () {
     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')

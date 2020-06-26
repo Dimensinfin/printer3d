@@ -46,22 +46,22 @@
 
 /* Transformation to change the arrow when expansion is active. */
 
-.neocom-arrow {
+.arrow {
     transform: rotate(0deg);
     transition: transform 0.3s linear;
 }
 
-.neocom-arrow.open {
+.arrow.open {
     transform: rotate(0deg);
     transition: transform 0.3s linear;
 }
 
-.neocom-arrow-expanded {
+.arrow-expanded {
     transform: rotate(90deg);
     transition: transform 0.3s linear;
 }
 
-.neocom-arrow-expanded.open {
+.arrow-expanded.open {
     transform: rotate(90deg);
     transition: transform 0.3s linear;
 }
