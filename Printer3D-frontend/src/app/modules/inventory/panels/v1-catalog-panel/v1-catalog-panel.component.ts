@@ -61,6 +61,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         if (null != this.page)
             if (this.target instanceof Model)
                 this.page.setSelected(this.target as Model)
+                else this.page.closeEditor()
     }
     // - R E F R E S H A B L E
     public clean(): void {

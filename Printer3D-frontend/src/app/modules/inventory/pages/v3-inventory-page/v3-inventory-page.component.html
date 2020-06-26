@@ -1,3 +1,8 @@
-<div style="width: 70%">
-    <v1-catalog-panel></v1-catalog-panel>
+<div class="row">
+    <div style=" width: 68%; margin-right: 10px;">
+        <v1-catalog-panel [page]="self"></v1-catalog-panel>
+    </div>
+    <div style="width: 42%;">
+        <v1-new-model-panel [visible]="false"></v1-new-model-panel>
+    </div>
 </div>

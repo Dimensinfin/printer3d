@@ -122,15 +122,15 @@ jobs:
             node -v
             npm install
       - run:
-          name: FRONTEND - Build optimized Production dist
-          working_directory: Printer3D-frontend
-          command: |
-            npm run build:prod
-      - run:
           name: FRONTEND - Run unit tests
           working_directory: Printer3D-frontend
           command: |
             npm run test:prod
+      - run:
+          name: FRONTEND - Build optimized Production dist
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:prod
       - run:
           name: FRONTEND - Start backend simulator & Run acceptance D04 & D06 & D07 & D08
           working_directory: Printer3D-frontend

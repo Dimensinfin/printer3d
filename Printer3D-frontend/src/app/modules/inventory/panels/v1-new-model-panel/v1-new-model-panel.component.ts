@@ -41,9 +41,12 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
     public startEditing(model2Edit: Model): void {
         console.log('>[V1NewModelPanelComponent.startEditing]')
         this.model = new ModelForm(model2Edit)
-        this.visible = true
+        this.visible = true // This needs a event cycle to display the element
         this.editing = true
-        if (null != this.partContainer) this.partContainer.startEditing(model2Edit.getParts())
+        setTimeout(() => {
+            if (null != this.partContainer)
+                this.partContainer.startEditing(model2Edit.getParts())
+        }, 100)
     }
     public isFormValid(formState: boolean): boolean {
         if (null != this.partContainer)
@@ -78,7 +81,7 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
                     })
             )
     }
-    protected stopEditing(): void {
+    public stopEditing(): void {
         this.editing = false
         this.visible = false
     }

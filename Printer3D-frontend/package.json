@@ -16,7 +16,7 @@
         "cypress:run": "cypress run ",
         "cypress:record": "cypress run --record --key 9eebb605-a163-4da0-bb36-6af73faddf1b",
         "acceptance:simulator": "bash ./support/simulator-backend.sh start &",
-        "acceptance:ready": "npm run start:dev & wait-on http://localhost:5100 ",
+        "acceptance:ready": "export NODE_ENV=integration && export PORT=5100 && npm start ",
         "acceptance:cypress:D04": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D04-NewPart.feature",
         "acceptance:cypress:D06": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D06-Jobs.feature",
         "acceptance:cypress:D07": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D07-Inventory.feature",

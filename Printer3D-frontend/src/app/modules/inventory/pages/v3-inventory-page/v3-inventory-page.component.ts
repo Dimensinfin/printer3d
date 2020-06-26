@@ -28,6 +28,9 @@ export class V3InventoryPageComponent implements OnInit, Refreshable {
         this.selected = newSelection
         if (null != this.modelEditingPanel) this.modelEditingPanel.startEditing(newSelection)
     }
+    public closeEditor(): void {
+        if (null != this.modelEditingPanel) this.modelEditingPanel.stopEditing()
+    }
     // - R E F R E S H A B L E
     public clean(): void {
     }

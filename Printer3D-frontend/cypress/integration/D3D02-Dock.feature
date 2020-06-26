@@ -31,14 +31,14 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then the Feature with label "/PEDIDOS" opens a Page
         Then the Feature with label "/TRABAJOS PND." opens a Page
 
-    @D3D02 @D3D02.03
-    Scenario: [D3D02.03]-Validate the elements open when there is a click on each of the Features.
-        Given one instance of Dock
-        When the Feature with label "/ROLLOS" is clicked the destination is the Page "v2-coil-list-page"
-        When the Feature with label "/INVENTARIO" is clicked the destination is the Page "v2-inventory-part-list-page"
-        When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-open-requests-page"
-        When the Feature with label "/TRABAJOS PND." is clicked the destination is the Page "production-job-list-page"
-        When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "v1-new-request-page"
+    # @D3D02 @D3D02.03
+    # Scenario: [D3D02.03]-Validate the elements open when there is a click on each of the Features.
+    #     Given one instance of Dock
+    #     When the Feature with label "/ROLLOS" is clicked the destination is the Page "v2-coil-list-page"
+    #     When the Feature with label "/INVENTARIO" is clicked the destination is the Page "v2-inventory-part-list-page"
+    #     When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-open-requests-page"
+    #     When the Feature with label "/TRABAJOS PND." is clicked the destination is the Page "production-job-list-page"
+    #     When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "v1-new-request-page"
 
     @D3D02 @D3D02.04
     Scenario: [D3D02.04]-When a new page is selected the Dock visual configuration for the active Feature changes.
