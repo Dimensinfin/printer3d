@@ -26,33 +26,33 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         And the target page has one panel of type "available-parts" with variant "-NEW-MODEL-"
         And the target page has one panel of type "new-model"
 
-    @D3D08 @D3D08.03
-    Scenario: [D3D08.03]-The Parts panel has a simplified, one level list of Parts. The listing contains Parts with any number of copies on stock but that are active.
-        Given there is a click on Feature "/NUEVO MODELO"
-        Then the page "NewModelPage" is activated
-        Given the target panel is the panel of type "available-parts"
-        Then the target panel has a title "/PIEZAS/DISPONIBLES"
-        And the target panel has 12 "part"
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then the target item has a field named "ETIQUETA" with label "ETIQUETA" and value "Boquilla Ganesha - Figura"
-        Then the target item has a field named "MATERIAL" with label "MATERIAL" and value "PLA"
-        Then the target item has a field named "COLOR" with label "COLOR" and value "ROSA"
-        Then the target item has a field named "DISPONIBLE" with label "DISPONIBLE" and value "0"
+    # @D3D08 @D3D08.03
+    # Scenario: [D3D08.03]-The Parts panel has a simplified, one level list of Parts. The listing contains Parts with any number of copies on stock but that are active.
+    #     Given there is a click on Feature "/NUEVO MODELO"
+    #     Then the page "NewModelPage" is activated
+    #     Given the target panel is the panel of type "available-parts"
+    #     Then the target panel has a title "/PIEZAS/DISPONIBLES"
+    #     And the target panel has 12 "part"
+    #     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+    #     Then the target item has a field named "ETIQUETA" with label "ETIQUETA" and value "Boquilla Ganesha - Figura"
+    #     Then the target item has a field named "MATERIAL" with label "MATERIAL" and value "PLA"
+    #     Then the target item has a field named "COLOR" with label "COLOR" and value "ROSA"
+    #     Then the target item has a field named "DISPONIBLE" with label "DISPONIBLE" and value "0"
 
-    @D3D08 @D3D08.04
-    Scenario: [D3D08.04]-The New Model panel has some input fields and a place to drop the Parts that are to be used on the Model.
-        Given there is a click on Feature "/NUEVO MODELO"
-        Then the page "NewModelPage" is activated
-        Then the target panel has a title "/NUEVO MODELO/DEFINICION"
-        Given the target panel is the panel of type "new-model"
-        Then the target panel has an input field named "label" with label "ETIQUETA" and empty
-        Then the target panel has an input field named "price" with label "PRECIO" and empty
-        Then the target panel has an input field named "stock" with label "NIVEL STOCK DESEADO" and empty
-        And the target panel input field named "label" is "invalid"
-        And the target panel input field named "price" is "invalid"
-        And the target panel input field named "stock" is "invalid"
-        And the target panel has a drop place named "drop-part-location"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+    # @D3D08 @D3D08.04
+    # Scenario: [D3D08.04]-The New Model panel has some input fields and a place to drop the Parts that are to be used on the Model.
+    #     Given there is a click on Feature "/NUEVO MODELO"
+    #     Then the page "NewModelPage" is activated
+    #     Then the target panel has a title "/NUEVO MODELO/DEFINICION"
+    #     Given the target panel is the panel of type "new-model"
+    #     Then the target panel has an input field named "label" with label "ETIQUETA" and empty
+    #     Then the target panel has an input field named "price" with label "PRECIO" and empty
+    #     Then the target panel has an input field named "stock" with label "NIVEL STOCK DESEADO" and empty
+    #     And the target panel input field named "label" is "invalid"
+    #     And the target panel input field named "price" is "invalid"
+    #     And the target panel input field named "stock" is "invalid"
+    #     And the target panel has a drop place named "drop-part-location"
+    #     And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
 
     @D3D08 @D3D08.05
     Scenario: [D3D08.05]-The New Model panel has buttons to save the Model. The Save button is only active when all the constraints are validated.
