@@ -37,15 +37,10 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
         super();
     }
 
-    // public ngOnInit(): void {
-    //     console.log('>[V1NewModelPanelComponent.ngOnInit]')
-    //     if (null != this.editModel)
-    //         this.model = new ModelForm(JSON.stringify(this.editModel))
-    // }
-
     public startEditing(model2Edit: Model): void {
         console.log('>[V1NewModelPanelComponent.startEditing]')
         this.model = new ModelForm(model2Edit)
+        if (null != this.partContainer) this.partContainer.startEditing(model2Edit.getParts())
     }
     public isFormValid(formState: boolean): boolean {
         if (null != this.partContainer)

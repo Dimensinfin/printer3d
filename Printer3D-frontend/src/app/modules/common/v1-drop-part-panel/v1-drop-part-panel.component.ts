@@ -9,6 +9,8 @@ import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { Part } from '@domain/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
+import { Model } from '@domain/inventory/Model.domain';
+import { ModelForm } from '@domain/ModelForm.domain';
 
 @Component({
     selector: 'v1-drop-part-panel',
@@ -16,13 +18,21 @@ import { PartStack } from '@domain/PartStack.domain';
     styleUrls: ['./v1-drop-part-panel.component.scss']
 })
 export class V1DropPartPanelComponent implements OnInit {
+    // @Input() model: Model
     public self: V1DropPartPanelComponent
     public droppedParts: PartStack[] = []
 
     public ngOnInit(): void {
         this.self = this
+        // if (null != this.model) { // In this case we are editing a Model. Load the parts.
+        //     for (const part of this.model.getParts())
+        //         this.addPart(part)
+        // }
     }
-    
+
+    public startEditing(initialPartList: PartStack[]): void {
+        this.droppedParts = initialPartList
+    }
     public addPart(newPart: Part): void {
         for (let part of this.droppedParts) {
             if (newPart.getId() == part.getId()) { // If the part is on the list increment the stack
