@@ -20,6 +20,7 @@ import { Model } from '@domain/inventory/Model.domain';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
 import { forIn } from 'cypress/types/lodash';
 import { PartContainer } from '@domain/PartContainer.domain';
+import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component';
 
 @Component({
     selector: 'v1-catalog-panel',
@@ -27,9 +28,11 @@ import { PartContainer } from '@domain/PartContainer.domain';
     styleUrls: ['./v1-catalog-panel.component.scss']
 })
 export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IPartProvider {
+    @Input() page: V3InventoryPageComponent  // Pointer to the page that contains this panel. Uset as a way to connect to siblings
+    // public selected: Model
     private parts: Part[] = []
     private models: Model[] = []
-    private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>();
+    private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
     private items: ICollaboration[] = []
 
     constructor(protected backendService: BackendService) {
@@ -50,8 +53,22 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         return undefined;
     }
 
+    // - I V I E W E R
+    /**
+     * This method is called whenever the selection changes. Used to spread the event or perform other actions.
+     */
+    public fireSelectionChanged(): void {
+        if (null != this.page)
+            if (this.target instanceof Model)
+                this.page.setSelected(this.target as Model)
+    }
     // - R E F R E S H A B L E
     public clean(): void {
+        this.target = undefined // Clear the selection
+        this.parts = []
+        this.models = []
+        this.partContainers = new Map<string, PartContainer>()
+        this.items = []
     }
     public refresh(): void {
         this.clean()

@@ -18,7 +18,7 @@ import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRe
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { ModelFormToModelRequestConverter } from '@domain/converter/ModelFormToModelRequest.converter';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
-// import { DropEnabledPanel } from './DropEnabledPanel.helper';
+import { Model } from '@domain/inventory/Model.domain';
 
 @Component({
     selector: 'v1-new-model-panel',
@@ -26,6 +26,7 @@ import { ModelRequest } from '@domain/dto/ModelRequest.dto';
     styleUrls: ['./v1-new-model-panel.component.scss']
 })
 export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
+    @Input() editModel: Model
     @ViewChild(V1DropPartPanelComponent) public partContainer: V1DropPartPanelComponent;
     public model: ModelForm = new ModelForm();
 
@@ -36,6 +37,16 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
         super();
     }
 
+    // public ngOnInit(): void {
+    //     console.log('>[V1NewModelPanelComponent.ngOnInit]')
+    //     if (null != this.editModel)
+    //         this.model = new ModelForm(JSON.stringify(this.editModel))
+    // }
+
+    public startEditing(model2Edit: Model): void {
+        console.log('>[V1NewModelPanelComponent.startEditing]')
+        this.model = new ModelForm(model2Edit)
+    }
     public isFormValid(formState: boolean): boolean {
         if (null != this.partContainer)
             return formState && (this.partContainer.getDroppedParts().length > 0)
@@ -47,7 +58,7 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
             this.backendService.apiNewModel_v1(model,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
                     .setTransformation((entrydata: any): any => {
-                         this.isolationService.successNotification('Modelo [' + this.model.label + '] registrado correctamente.', '/PRODUCCION/NUEVO MODELO/OK');
+                        this.isolationService.successNotification('Modelo [' + this.model.label + '] registrado correctamente.', '/PRODUCCION/NUEVO MODELO/OK');
                         return new ModelForm(); // Discard the just persisted request and return an empty instance.
                     }))
                 .subscribe((newModel: ModelForm) => {

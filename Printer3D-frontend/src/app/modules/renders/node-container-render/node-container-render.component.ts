@@ -31,7 +31,8 @@ export class NodeContainerRenderComponent {
      * @param target target node that is being entered by the cursor.
      */
     public mouseEnter(target: ICollaboration) {
-        this.container.enterSelected(target);
+        // TODO - Disabled temporarily. This behavior should be configurable for automatic selection. Default to not.
+        // this.container.enterSelected(target);
     }
     public toggleExpanded(): void {
         if (null != this.node) {

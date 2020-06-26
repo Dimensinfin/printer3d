@@ -41,7 +41,7 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, 
         return false;
     }
     public isExpanded(): boolean {
-        console.log('>[Node.isExpanded]> Expanded: ' + this.expanded)
+        // console.log('>[Node.isExpanded]> Expanded: ' + this.expanded)
         return this.expanded;
     }
     public collapse(): boolean {
