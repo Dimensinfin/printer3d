@@ -12,8 +12,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Feature } from '@domain/Feature.domain';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { NewCoilDialogComponent } from '@app/modules/inventory/dialogs/new-coil-dialog/new-coil-dialog.component';
-import { NewModelDialogComponent } from '@app/modules/inventory/dialogs/new-model-dialog/new-model-dialog.component';
-// import { V1NewRequestDialogComponent } from '@app/modules/production/dialogs/v1-new-request-dialog/v1-new-request-dialog.component';
 
 @Injectable({
     providedIn: 'root'
@@ -42,22 +40,6 @@ export class DialogFactoryService {
                     dialogConfig.height = "86vh";
                     this.modalDialog = this.matDialog.open(NewCoilDialogComponent, dialogConfig);
                     break;
-                // case 'NewRequestDialog':
-                //     dialogConfig = new MatDialogConfig();
-                //     dialogConfig.disableClose = false;
-                //     dialogConfig.id = "newrequest-component";
-                //     dialogConfig.height = "86vh";
-                //     // dialogConfig.width = "60vw";
-                //     this.modalDialog = this.matDialog.open(V1NewRequestDialogComponent, dialogConfig);
-                //     break;
-                // case 'NewModelDialog':
-                //     dialogConfig = new MatDialogConfig();
-                //     // dialogConfig.disableClose = true;
-                //     dialogConfig.id = "newmodel-component";
-                //     dialogConfig.height = "86vh";
-                //     // dialogConfig.width = "60vw";
-                //     this.modalDialog = this.matDialog.open(NewModelDialogComponent, dialogConfig);
-                //     break;
             }
         return this.modalDialog;
     }

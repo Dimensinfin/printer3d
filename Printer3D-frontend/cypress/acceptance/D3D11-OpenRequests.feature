@@ -13,8 +13,11 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
     @D3D11 @D3D11.01
     Scenario: [D3D11.01]-Check that the Feature open the right page and shows the required components.
         Given one instance of Dock
-        Then there is a Feature with label "/PEDIDOS"
-        When the Feature with label "/PEDIDOS" is clicked the destination is the Page "v1-open-requests-page"
+        Given there is a click on Feature "/PEDIDOS"
+        Then the page "OpenRequestsPage" is activated
+        And the page "OpenRequestsPage" has 2 panels
+        Given the target panel is the panel of type "open-requests"
+        Given the target panel is the panel of type "request-detail"
 
     @D3D11 @D3D11.02
     Scenario: [D3D11.02]-When the open requests page is activate there are two panels. The left one if for the list of Requests. The right one is empty.
@@ -28,7 +31,7 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         Given a hover on the target item
         Given the target panel is the panel named "request-details"
         Then the target panel has a title "/PEDIDOS/DETALLE"
-        Then on the target panel there is one "request"
+        Then the target panel has 1 "request"
 
     @D3D11 @D3D11.03
     Scenario: [D3D11.03]-There are two types of Requests. The COMPLETED and the OPEN.
@@ -45,9 +48,9 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         Given the target panel is the panel named "open-request-list"
         Given the target item the "request" with id "8674832e-8377-4e30-ab01-d6468a312012"
         Then the target item has a field labeled "FECHA" with value "Jun 18, 2020"
-        Then the target item has a field labeled "ETIQUETA" with value "Proveedor de llaves"
+        Then the target item has a field labeled "ETIQUETA" with value "Proveedor de boquillas"
         Then the target item has a field labeled "PIEZAS" with value "2"
-        Then the target item has a field labeled "IMPORTE" with value "4 €"
+        Then the target item has a field labeled "IMPORTE" with value "12 €"
 
     @D3D11 @D3D11.05
     Scenario: [D3D11.05]-If the user selects a Request by hovering on it then the detailed Request information is shown on the right panel.
@@ -56,9 +59,9 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         Given the target item the "request" with id "8674832e-8377-4e30-ab01-d6468a312012"
         Given a hover on the target item
         Then the target panel is the panel named "request-details"
-        Then on the target panel there is one "request"
+        Then the target panel has 1 "request"
         Given the target item the "request" with id "8674832e-8377-4e30-ab01-d6468a312012"
         Then the target item has a field labeled "FECHA" with value "Jun 18, 2020"
-        Then the target item has a field labeled "ETIQUETA" with value "Proveedor de llaves"
+        Then the target item has a field labeled "ETIQUETA" with value "Proveedor de boquillas"
         Then the target item has a field labeled "PIEZAS" with value "2"
-        Then the target item has a field labeled "IMPORTE" with value "4 €"
+        Then the target item has a field labeled "IMPORTE" with value "12 €"
