@@ -12,7 +12,7 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { V1DropPartPanelComponent } from '@app/modules/common/v1-drop-part-panel/v1-drop-part-panel.component';
-import { ModelForm } from '@domain/ModelForm.domain';
+import { ModelForm } from '@domain/inventory/ModelForm.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
@@ -28,7 +28,7 @@ import { Model } from '@domain/inventory/Model.domain';
 export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
     @Input() visible: boolean
     @ViewChild(V1DropPartPanelComponent) public partContainer: V1DropPartPanelComponent;
-    public model: ModelForm = new ModelForm();
+    public model: ModelForm = new ModelForm().generateNewId();
     public editing: boolean = false
 
     constructor(

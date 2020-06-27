@@ -16,3 +16,9 @@ spring:
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: off

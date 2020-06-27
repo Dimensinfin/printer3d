@@ -30,7 +30,7 @@ import { Part } from '@domain/Part.domain';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { V1NewModelPanelComponent } from './v1-new-model-panel.component';
 import { Model } from '@domain/inventory/Model.domain';
-import { ModelForm } from '@domain/ModelForm.domain';
+import { ModelForm } from '@domain/inventory/ModelForm.domain';
 
 describe('COMPONENT V1NewModelPanelComponent [Module: PRODUCTION]', () => {
     let component: V1NewModelPanelComponent;

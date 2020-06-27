@@ -20,7 +20,7 @@ import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { Request } from '@domain/Request.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
-import { ModelForm } from '@domain/ModelForm.domain';
+import { ModelForm } from '@domain/inventory/ModelForm.domain';
 
 @Injectable({
     providedIn: 'root'

@@ -10,7 +10,7 @@ import { BackendService } from '@app/services/backend.service';
 import { Part } from '@domain/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
 import { Model } from '@domain/inventory/Model.domain';
-import { ModelForm } from '@domain/ModelForm.domain';
+import { ModelForm } from '@domain/inventory/ModelForm.domain';
 
 @Component({
     selector: 'v1-drop-part-panel',

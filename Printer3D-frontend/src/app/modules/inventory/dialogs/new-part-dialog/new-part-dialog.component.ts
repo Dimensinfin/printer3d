@@ -80,6 +80,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
                     this.isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY) // Clear the part copy
                     this.closeModal();
                 }, (error) => {
+                    console.log('-[NewPartDialogComponent.savePart.exception]> Error message: ' + JSON.stringify(error.error))
                     if (environment.showexceptions)
                         if (error instanceof HttpErrorResponse) {
                             const errorInfo: string = error.error.errorInfo
@@ -87,14 +88,6 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
                             const message: string = this.isolationService.exceptionMessageMap(error.error)
                             this.isolationService.errorNotification(message, errorInfo)
                         }
-                    // this.downloading = false;
-                    // The single error that can be processed at this point is a missing center. All others must be reported and end at the login page or the connections failure page.
-                    // if (error.status == 404) {
-                    //   this.appStoreService.errorNotification("El centro solicitado en la credencial no existe. Pongase en contacto con el servicio técnico", "¡Atención!");
-                    //   // this.router.navigate(['login']);
-                    // } else {
-                    //   this.appStoreService.processBackendError(error);
-                    // }
                 })
         );
     }
