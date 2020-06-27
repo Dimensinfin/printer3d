@@ -13,13 +13,13 @@ public class PartUpdater {
 		this.partEntity = Objects.requireNonNull( partEntity );
 	}
 
-	public PartEntity update( final @NotNull Part udpateData ) {
-		this.partEntity.setDescription( udpateData.getDescription() );
-		this.partEntity.setStockLevel( udpateData.getStockLevel() );
-		this.partEntity.setStockAvailable( udpateData.getStockAvailable() );
-		this.partEntity.setCost( udpateData.getCost() );
-		this.partEntity.setPrice( udpateData.getPrice() );
-		this.partEntity.setActive( udpateData.isActive() );
+	public PartEntity update( final @NotNull Part updateData ) {
+		this.partEntity.setDescription( updateData.getDescription() );
+		this.partEntity.setStockLevel( updateData.getStockLevel() );
+		this.partEntity.setStockAvailable( updateData.getStockAvailable() );
+		this.partEntity.setCost( updateData.getCost() );
+		this.partEntity.setPrice( updateData.getPrice() );
+		this.partEntity.setActive( updateData.isActive() );
 		return this.partEntity;
 	}
 }

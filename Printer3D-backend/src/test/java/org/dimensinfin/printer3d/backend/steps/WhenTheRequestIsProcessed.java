@@ -136,6 +136,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_New_Model_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_MODEL );
 	}
+	@When("the Update Model request is processed")
+	public void the_Update_Model_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.UPDATE_MODEL );
+	}
 
 	@When("the New Part request is processed")
 	public void the_New_Part_request_is_processed() throws IOException {
@@ -269,6 +273,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newModelResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( newModelResponseEntity );
 				return newModelResponseEntity;
+			case UPDATE_MODEL:
+				Assertions.assertNotNull( this.printer3DWorld.getNewModelRequest() );
+				final ResponseEntity<Model> updateModelResponseEntity = this.modelFeignClientV1.updateModel(
+						this.printer3DWorld.getJwtAuthorizationToken(),
+						this.printer3DWorld.getNewModelRequest() );
+				Assertions.assertNotNull( updateModelResponseEntity );
+				this.printer3DWorld.setModelResponseEntity( updateModelResponseEntity );
+				return updateModelResponseEntity;
 			case ADD_MODEL_PART:
 				Assertions.assertNotNull( this.printer3DWorld.getModelId() );
 				Assertions.assertNotNull( this.printer3DWorld.getPartId() );

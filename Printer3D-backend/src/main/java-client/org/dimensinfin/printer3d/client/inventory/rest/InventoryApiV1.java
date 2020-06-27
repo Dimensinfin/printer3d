@@ -209,6 +209,18 @@ public interface InventoryApiV1 {
 	                          @Path("partId") final @NotNull UUID partId );
 
 	/**
+	 * Updates an existing Model.
+	 * Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents.
+	 *
+	 * @param modelRequest Contains the **Model** fields requested to the user on the frontend UI.
+	 *                     (optional)
+	 * @return Call&lt;Model&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PATCH("api/v1/inventory/models")
+	Call<Model> updateModel( @Body final @NotNull NewModelRequest modelRequest );
+
+	/**
 	 * Update a Part with some of the fields on the request.
 	 * The Printer3D user interface now has a feature to change some of the Part fields. Thew are mostly related with the stock values and the cost
 	 * data. When the PATCH operation is sent to the backend all the fields are populated but this endpoint will only get some of them and persist

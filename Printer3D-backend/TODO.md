@@ -3,6 +3,9 @@
 * PartEntity
 * MachineServiceV2
 * JobHistoric
+* ModelControllerV1
+* ModelServiceV1
+* ModelUpdater
 
 * DimensinfinRuntimeException
 * InvalidRequestException
@@ -11,5 +14,3 @@
 * JobRequest
 * MachineServiceV1
 * JobControllerSupport
-* ModelControllerV1
-* ModelServiceV1

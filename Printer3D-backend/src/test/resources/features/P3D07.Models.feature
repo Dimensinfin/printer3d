@@ -30,7 +30,7 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea,eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
 
     @P3D07.H @P3D07.02
-    Scenario: [P3D07.02] Add a new Part to the model part composition.
+    Scenario: [P3D07.02] Update an existing Model with data from the frontend. All data is editable so the flow is like the Model creation.
         Given a clean Models repository
         Given a clean Parts repository
         And the following Parts in my service
@@ -42,77 +42,22 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
             | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO  | 30        | 0.65 | 2.00  | 3          | 2              |
         Given a clean Models repository
         And the following Models in my service
-            | id                                   | label            | partIdList                           | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
-        When the Add Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "8d2853ca-ebf6-443e-b705-89f7a5149d37" is processed
+            | id                                   | label            | partIdList                                                                                                       | price | stockLevel | stockAvailable | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
+        And the next Update Model request
+            | id                                   | label        | partIdList                                                                                                     | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Slot CR 1/32 | c8505631-938d-4648-a466-7dad581641fe,eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 5.00  | 5          | https://ibb.co/3dGbsRh | true   |
+        When the Update Model request is processed
         Then there is a valid response with return code of "200 OK"
         And the response for Model requests has the next fields
-            | id                                   | label            | partIdList                                                                 | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
-
-    @P3D07.H @P3D07.03
-    Scenario: [P3D07.03] Add a new Part to the model part composition being the part equal to one of the parts already composing the model.
-        Given a clean Parts repository
-        And the following Parts in my service
-            | id                                   | label                         | material | color  | buildTime | cost | price | stockLevel | stockAvailable |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                  | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                  | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              |
-            | 8d2853ca-ebf6-443e-b705-89f7a5149d37 | Boquilla Ganesha - Embocadura | PLA      | BLANCO | 30        | 0.65 | 2.00  | 3          | 2              |
-            | eb80222b-efeb-4d90-9be7-1a0850338e5e | Boquilla Ganesha - Figura     | PLA      | GRIS   | 30        | 0.65 | 2.00  | 3          | 2              |
-            | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO  | 30        | 0.65 | 2.00  | 3          | 2              |
-        Given a clean Models repository
-        And the following Models in my service
-            | id                                   | label            | partIdList                           | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
-        When the Add Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "eb80222b-efeb-4d90-9be7-1a0850338e5e" is processed
+            | id                                   | label        | partIdList                                                                                                     | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Slot CR 1/32 | c8505631-938d-4648-a466-7dad581641fe,eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 5.00  | 5          | https://ibb.co/3dGbsRh | true   |
+        When the Get Models request is processed
         Then there is a valid response with return code of "200 OK"
-        And the response for Model requests has the next fields
-            | id                                   | label            | partIdList                                                                | price | stockLevel | stockAvailable | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
-        When the Add Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "8d2853ca-ebf6-443e-b705-89f7a5149d37" is processed
-        And the response for Model requests has the next fields
-            | id                                   | label            | partIdList                                                                                                     | price | stockLevel | stockAvailable | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e,8d2853ca-ebf6-443e-b705-89f7a5149d37,eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
-
-    @P3D07.H @P3D07.04
-    Scenario: [P3D07.04] Remove a Part from the model part composition.
-        Given a clean Parts repository
-        And the following Parts in my service
-            | id                                   | label                         | material | color  | buildTime | cost | price | stockLevel | stockAvailable |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                  | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                  | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              |
-            | 8d2853ca-ebf6-443e-b705-89f7a5149d37 | Boquilla Ganesha - Embocadura | PLA      | BLANCO | 30        | 0.65 | 2.00  | 3          | 2              |
-            | eb80222b-efeb-4d90-9be7-1a0850338e5e | Boquilla Ganesha - Figura     | PLA      | GRIS   | 30        | 0.65 | 2.00  | 3          | 2              |
-            | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO  | 30        | 0.65 | 2.00  | 3          | 2              |
-        Given a clean Models repository
-        And the following Models in my service
-            | id                                   | label            | partIdList                                                                | price | stockLevel | stockAvailable | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
-        When the Remove Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "eb80222b-efeb-4d90-9be7-1a0850338e5e" is processed
-        Then there is a valid response with return code of "200 OK"
-        And the response for Model requests has the next fields
-            | id                                   | label            | partIdList                           | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
-
-    @P3D07.H @P3D07.05
-    Scenario: [P3D07.05] Remove a Part from the model part composition but being a part that does not exist on the list.
-        Given a clean Parts repository
-        And the following Parts in my service
-            | id                                   | label                         | material | color  | buildTime | cost | price | stockLevel | stockAvailable |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                  | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                  | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              |
-            | 8d2853ca-ebf6-443e-b705-89f7a5149d37 | Boquilla Ganesha - Embocadura | PLA      | BLANCO | 30        | 0.65 | 2.00  | 3          | 2              |
-            | eb80222b-efeb-4d90-9be7-1a0850338e5e | Boquilla Ganesha - Figura     | PLA      | GRIS   | 30        | 0.65 | 2.00  | 3          | 2              |
-            | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO  | 30        | 0.65 | 2.00  | 3          | 2              |
-        Given a clean Models repository
-        And the following Models in my service
-            | id                                   | label            | partIdList                                                                 | price | stockLevel | stockAvailable | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
-        When the Remove Model Part request with model "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" and part "b545ef01-50f4-482b-930b-43582b728b4e" is processed
-        Then there is a valid response with return code of "200 OK"
-        And the response for Model requests has the next fields
-            | id                                   | label            | partIdList                                                                 | price | stockLevel | stockAvailable | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
+        And the number of Models is "1"
+        And the model with id "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" has the next fields
+            | id                                   | label            | partIdList                                                                                                     | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | c8505631-938d-4648-a466-7dad581641fe,eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 5.00  | 5          | https://ibb.co/3dGbsRh | true   |
 
     @P3D07.H @P3D07.06
     Scenario: [P3D07.06] Retrieve the list of Models and their composition parts from the repository.
@@ -126,15 +71,15 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
             | c8505631-938d-4648-a466-7dad581641fe | Boquilla Ganesha - Base       | FLEX     | NEGRO  | 30        | 0.65 | 2.00  | 3          | 2              |
         Given a clean Models repository
         And the following Models in my service
-            | id                                   | label            | partIdList                                                                                                       | price | stockLevel | stockAvailable | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
-            | 08a1c652-37f7-456d-9762-8dab873b40e3 | Boquilla Dragon  | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea, 63fff2bc-a93f-4ee5-b753-185d83a13151                                       | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
+            | id                                   | label            | partIdList                                                                                                       | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
+            | 08a1c652-37f7-456d-9762-8dab873b40e3 | Boquilla Dragon  | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea, 63fff2bc-a93f-4ee5-b753-185d83a13151                                       | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         When the Get Models request is processed
         Then there is a valid response with return code of "200 OK"
         And the number of Models is "2"
         And the model with id "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" has the next fields
-            | id                                   | label            | partIdList                                                                                                       | price | stockLevel | stockAvailable | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
+            | id                                   | label            | partIdList                                                                                                       | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | eb80222b-efeb-4d90-9be7-1a0850338e5e, 8d2853ca-ebf6-443e-b705-89f7a5149d37, 8d2853ca-ebf6-443e-b705-89f7a5149d37 | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the model with id "08a1c652-37f7-456d-9762-8dab873b40e3" has the next fields
-            | id                                   | label           | partIdList                                                                 | price | stockLevel | stockAvailable | imagePath              | active |
-            | 08a1c652-37f7-456d-9762-8dab873b40e3 | Boquilla Dragon | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea, 63fff2bc-a93f-4ee5-b753-185d83a13151 | 4.00  | 3          | 1              | https://ibb.co/3dGbsRh | true   |
+            | id                                   | label           | partIdList                                                                 | price | stockLevel | imagePath              | active |
+            | 08a1c652-37f7-456d-9762-8dab873b40e3 | Boquilla Dragon | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea, 63fff2bc-a93f-4ee5-b753-185d83a13151 | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |

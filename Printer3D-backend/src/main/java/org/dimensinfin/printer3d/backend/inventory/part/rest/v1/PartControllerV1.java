@@ -54,10 +54,4 @@ public class PartControllerV1 {
 	public ResponseEntity<Part> updatePart( final @RequestBody @Valid @NotNull Part part ) {
 		return new ResponseEntity<>( this.partServiceV1.updatePart( part ), HttpStatus.OK );
 	}
-
-//	@ExceptionHandler(RepositoryConflictException.class)
-//	protected ResponseEntity<ApiError> handleRepositoryException( final RepositoryConflictException repositoryConflictException ) {
-//		return new ResponseEntity<>( new ApiError(repositoryConflictException), repositoryConflictException.getHttpStatus() );
-//	}
-
 }

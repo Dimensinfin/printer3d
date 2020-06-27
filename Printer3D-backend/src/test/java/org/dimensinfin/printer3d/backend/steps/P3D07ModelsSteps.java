@@ -41,6 +41,13 @@ public class P3D07ModelsSteps extends StepSupport {
 		this.printer3DWorld.setNewModelRequest( modelRequest );
 	}
 
+	@Given("the next Update Model request")
+	public void the_next_Update_Model_request( final List<Map<String, String>> dataTable) {
+		final NewModelRequest modelRequest = new CucumberTableToNewModelRequestConverter().convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( modelRequest );
+		this.printer3DWorld.setNewModelRequest( modelRequest );
+	}
+
 	@Then("the number of Models is {string}")
 	public void the_number_of_Models_is( final String modelCount ) {
 		Assertions.assertNotNull( this.printer3DWorld.getModelListResponseEntity() );
@@ -58,5 +65,4 @@ public class P3D07ModelsSteps extends StepSupport {
 						this.printer3DWorld.getModelResponseEntity().getBody() )
 		);
 	}
-
 }

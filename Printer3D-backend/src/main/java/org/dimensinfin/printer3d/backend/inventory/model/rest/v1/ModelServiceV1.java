@@ -9,15 +9,16 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
 
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.ModelEntityToModelConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.NewModelRequestToModelEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
+import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelUpdater;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
@@ -97,6 +98,28 @@ public class ModelServiceV1 {
 				throw new InvalidRequestException( ErrorInfo.MODEL_NOT_FOUND.getErrorMessage( modelCompositionRequest.getModelId() ) );
 			final ModelEntity modelEntity = this.modelRepository.save( modelOptional.get().removePart( modelCompositionRequest.getPartId() ) );
 			return this.constructModel( modelEntity );
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	/**
+	 * Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents.
+	 *
+	 * @param modelRequest new data to be the Model contents
+	 * @return the new Model contents
+	 * @since 0.8.0
+	 */
+	public Model updateModel( final @NotNull NewModelRequest modelRequest ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Model by id. If not found reject the request because this should be an update.
+			final Optional<ModelEntity> target = this.modelRepository.findById( modelRequest.getId() );
+			if (target.isEmpty())
+				throw new DimensinfinRuntimeException( ErrorInfo.MODEL_NOT_FOUND, modelRequest.getId().toString() );
+			return new ModelEntityToModelConverter().convert(
+					this.modelRepository.save( new ModelUpdater( target.get() ).update( modelRequest ) )
+			);
 		} finally {
 			LogWrapper.exit();
 		}

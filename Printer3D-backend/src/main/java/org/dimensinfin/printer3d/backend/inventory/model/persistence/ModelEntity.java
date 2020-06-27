@@ -79,11 +79,6 @@ public class ModelEntity {
 	public Float getPrice() {
 		return this.price;
 	}
-
-	//	public int getStockAvailable() {
-	//		return this.stockAvailable;
-	//	}
-
 	public int getStockLevel() {
 		return this.stockLevel;
 	}

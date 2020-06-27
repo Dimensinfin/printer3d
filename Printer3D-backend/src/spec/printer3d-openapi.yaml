@@ -217,7 +217,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewModelRequest'
+              $ref: '#/components/schemas/ModelRequest'
+      responses:
+        201:
+          description: >
+            The new Model data to be stored at the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+    patch:
+      tags:
+        - Inventory
+      summary: Updates an existing Model.
+      description: >
+        Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents.
+      operationId: updateModel
+      requestBody:
+        description: >
+          Contains the **Model** fields requested to the user on the frontend UI.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelRequest'
       responses:
         201:
           description: >
@@ -246,6 +268,7 @@ paths:
       tags:
         - Inventory
       summary: Add a new Part reference partId to the list of Parts that compose this model.
+      deprecated: true
       description: >
         The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts
         that compose this model. If the Part is already at the model the part reference is added a second time.
@@ -285,6 +308,7 @@ paths:
     put:
       tags:
         - Inventory
+      deprecated: true
       summary: Removes a Part reference partId from the list of Parts that compose this model.
       description: >
         This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error.
@@ -1072,7 +1096,7 @@ components:
           example:
             18
 
-    NewModelRequest:
+    ModelRequest:
       type: object
       required:
         - id
