@@ -37,6 +37,7 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             expect(component.variant).toBe(EVariant.DEFAULT);
             expect(component.colorScheme).toBe('panel-white')
             expect(component.index).toBe(1)
+            expect(component.autoselect).toBeFalse()
         });
     });
 
@@ -64,19 +65,49 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [actions]', () => {
-        // TODO: Disabled until the auto select feature is made configurable.
-        xit('mouseEnter: pass the hovered node to the parent view container', () => {
+        it('mouseEnter.notauto: pass the hovered node to the parent view container', () => {
             const componentAsAny = component as any;
-            componentAsAny.container = { enterSelected: () => { } }
+            componentAsAny.container = {
+                enterSelected: () => { }
+            }
+            spyOn(componentAsAny.container, 'enterSelected')
+            component.mouseEnter(new Node())
+            expect(componentAsAny.container.enterSelected).not.toHaveBeenCalled()
+        });
+        it('mouseEnter.auto: pass the hovered node to the parent view container', () => {
+            const componentAsAny = component as any;
+            componentAsAny.container = {
+                enterSelected: () => { }
+            }
+            component.autoselect = true
             spyOn(componentAsAny.container, 'enterSelected')
             component.mouseEnter(new Node())
             expect(componentAsAny.container.enterSelected).toHaveBeenCalled()
         });
-        it('toggleExpanded.success: toggle the expand property for the node', () => {
+        it('toggleExpanded.notExpandable: toggle the expand property for the node', () => {
             const componentAsAny = component as any;
             component.node = new Node({ expanded: true });
             expect(component.getNode().isExpanded()).toBeTrue();
-            componentAsAny.container = { notifyDataChanged: () => { } }
+            componentAsAny.container = {
+                notifyDataChanged: () => { }
+            }
+            spyOn(componentAsAny.container, 'notifyDataChanged')
+            component.toggleExpanded()
+            expect(component.getNode().isExpanded()).toBeTrue();
+            expect(componentAsAny.container.notifyDataChanged).not.toHaveBeenCalled()
+        });
+        it('toggleExpanded.success: toggle the expand property for the node', () => {
+            const componentAsAny = component as any;
+            component.node = new Node({
+                expanded: true,
+                isExpandable: () => {
+                    return true
+                }
+            });
+            expect(component.getNode().isExpanded()).toBeTrue();
+            componentAsAny.container = {
+                notifyDataChanged: () => { }
+            }
             spyOn(componentAsAny.container, 'notifyDataChanged')
             component.toggleExpanded()
             expect(component.getNode().isExpanded()).toBeFalse();
@@ -88,24 +119,44 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             component.toggleExpanded();
             expect(component.getNode()).toBeUndefined();
         });
+        it('isExpanded.notexpandable: get the node expand state', () => {
+            const componentAsAny = component as any;
+            componentAsAny.container = {
+                notifyDataChanged: () => { }
+            }
+            component.node = new Node({
+                isExpandable: () => { return false }
+            })
+            expect(component.isExpanded()).toBeFalsy();
+            component.toggleExpanded();
+            expect(component.isExpanded()).toBeFalsy();
+        });
         it('isExpanded.success: get the node expand state', () => {
             const componentAsAny = component as any;
-            componentAsAny.container = { notifyDataChanged: () => { } }
-            component.node = new Node()
+            componentAsAny.container = {
+                notifyDataChanged: () => { }
+            }
+            component.node = new Node({
+                isExpandable: () => { return true }
+            })
             expect(component.isExpanded()).toBeFalsy();
             component.toggleExpanded();
             expect(component.isExpanded()).toBeTrue();
         });
         it('isExpanded.failure: get the node expand state', () => {
             const componentAsAny = component as any;
-            componentAsAny.container = { notifyDataChanged: () => { } }
+            componentAsAny.container = {
+                notifyDataChanged: () => { }
+            }
             expect(component.isExpanded()).toBeFalsy();
             component.toggleExpanded();
             expect(component.isExpanded()).toBeFalsy();
         });
         it('isActive.success: get the node expand state', () => {
             const componentAsAny = component as any;
-            componentAsAny.container = { notifyDataChanged: () => { } }
+            componentAsAny.container = {
+                notifyDataChanged: () => { }
+            }
             component.node = new Node()
             expect(component.isActive()).toBeTrue();
             component.node = new Node({ active: false })

@@ -29,7 +29,6 @@ import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inven
 })
 export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IPartProvider {
     @Input() page: V3InventoryPageComponent  // Pointer to the page that contains this panel. Uset as a way to connect to siblings
-    // public selected: Model
     private parts: Part[] = []
     private models: Model[] = []
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
@@ -61,7 +60,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         if (null != this.page)
             if (this.target instanceof Model)
                 this.page.setSelected(this.target as Model)
-                else this.page.closeEditor()
+            else this.page.closeEditor()
     }
     // - R E F R E S H A B L E
     public clean(): void {

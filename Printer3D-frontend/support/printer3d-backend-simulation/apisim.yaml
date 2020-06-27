@@ -3,7 +3,7 @@ simlet: inventory-partlist
 delay:
   is: fixedDelay
   timeUnit: milliseconds
-  initial: 500
+  initial: 400
   subsequent: 200
 
   request:

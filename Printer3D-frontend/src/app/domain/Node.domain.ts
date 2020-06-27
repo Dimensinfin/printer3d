@@ -25,7 +25,6 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, 
 
     // - I N O D E
     public getJsonClass(): string {
-        // console.log('-[Node.getJsonClass]> JsonClas: ' + this.jsonClass)
         return this.jsonClass;
     }
     public isActive(): boolean {
@@ -41,7 +40,6 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, 
         return false;
     }
     public isExpanded(): boolean {
-        // console.log('>[Node.isExpanded]> Expanded: ' + this.expanded)
         return this.expanded;
     }
     public collapse(): boolean {
@@ -54,6 +52,7 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, 
     }
     public toggleExpanded() {
         this.expanded = !this.expanded;
+        console.log('toggleExpanded: ' + this.expanded)
     }
 
     // - I S E L E C T A B L E

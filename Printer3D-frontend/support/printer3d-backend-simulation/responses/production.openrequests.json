@@ -1,11 +1,11 @@
 {
     "requests": [{
             "id": "8674832e-8377-4e30-ab01-d6468a312012",
-            "label": "Proveedor de llaves",
+            "label": "Proveedor de boquillas",
             "requestDate": "2020-06-18T13:19:28.671Z",
             "state": "COMPLETED",
             "partList": [{
-                "partId": "a047ef17-fa0b-4df8-9f5e-c98de82dc4a2",
+                "partId": "ed36cdfb-e5ae-4275-a163-63b4be4d952c",
                 "quantity": 2
             }]
         },
@@ -15,10 +15,13 @@
             "requestDate": "2020-06-18T13:19:28.671Z",
             "state": "OPEN",
             "partList": [{
-                "partId": "a047ef17-fa0b-4df8-9f5e-c98de82dc4a2",
-                "quantity": 2
+                "partId": "52372bd9-76a3-4f65-926e-a50a896961c0",
+                "quantity": 1
             }, {
-                "partId": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
+                "partId": "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39",
+                "quantity": 1
+            }, {
+                "partId": "2f780382-e539-4945-87ea-354bdd7879ce",
                 "quantity": 4
             }]
         }

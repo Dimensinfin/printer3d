@@ -1,6 +1,10 @@
 # Printer3DFrontend
 
 ## Unit Tests pending
+* v1-part-render
+* v1-drop-part-panel
+* node-container-render
+
 * RequestForm
 * Request
 * v1-new-request-panel

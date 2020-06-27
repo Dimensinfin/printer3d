@@ -132,20 +132,21 @@ jobs:
           command: |
             npm run build:prod
       - run:
-          name: FRONTEND - Start backend simulator & Run acceptance D04 & D06 & D07 & D08
+          name: FRONTEND - Start backend simulator & Run acceptance D04
           working_directory: Printer3D-frontend
           command: |
             npm run acceptance:simulator
             npm run acceptance:cypress:D04
+      - run:
+          name: FRONTEND - Start backend simulator & Run acceptance D06 & D07 & D08 & D09 & 10
+          working_directory: Printer3D-frontend
+          command: |
+            npm run acceptance:simulator
             npm run acceptance:cypress:D06
             npm run acceptance:cypress:D07
             npm run acceptance:cypress:D08
-    #   - run:
-    #       name: FRONTEND - Run acceptance tests batch B
-    #       working_directory: Printer3D-frontend
-    #       command: |
-    #         npm run acceptance:simulator
-    #         npm run acceptance:cypress:batchB
+            npm run acceptance:cypress:D09
+            npm run acceptance:cypress:D10
       - run:
           name: FRONTEND - Run integration tests batch A
           working_directory: Printer3D-frontend

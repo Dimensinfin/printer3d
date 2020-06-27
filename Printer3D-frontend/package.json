@@ -3,7 +3,7 @@
     "version": "v0.8.0",
     "backversion": "<0.6.0",
     "scripts": {
-        "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D07.08",
+        "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D11.02",
         "docker:start": "docker-compose -f ./support/docker/docker-compose.yml up & ",
         "docker:stop": "docker-compose -f ./support/docker/docker-compose.yml down ",
         "start:dev": "ng serve --progress --proxy-config proxy.conf.json --port 5100",
@@ -21,6 +21,9 @@
         "acceptance:cypress:D06": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D06-Jobs.feature",
         "acceptance:cypress:D07": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D07-Inventory.feature",
         "acceptance:cypress:D08": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D08-NewModel.feature",
+        "acceptance:cypress:D09": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D09-NewRequest.feature",
+        "acceptance:cypress:D10": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D10-Coils.feature",
+        "acceptance:cypress:D11": "npm run acceptance:ready && cypress run --spec ./cypress/acceptance/D3D11-OpenRequests.feature",
         "acceptance:cypress": "npm run start:dev & wait-on http://localhost:5100 && npm run cypress:run ",
         "acceptance:cypress:batchA": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/acceptance/D3D0*.feature\"",
         "acceptance:cypress:batchB": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/acceptance/D3D1*.feature\"",
