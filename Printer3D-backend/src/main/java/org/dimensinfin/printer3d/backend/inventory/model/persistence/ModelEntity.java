@@ -38,7 +38,7 @@ public class ModelEntity {
 	private UUID id;
 	@NotNull(message = "Part 'label' is mandatory.")
 	@Size(min = 3, max = 50)
-	@Column(name = "label", updatable = false, nullable = false)
+	@Column(name = "label", nullable = false)
 	private String label;
 	@Type(type = "jsonb")
 	@Column(name = "part_list", columnDefinition = "jsonb")

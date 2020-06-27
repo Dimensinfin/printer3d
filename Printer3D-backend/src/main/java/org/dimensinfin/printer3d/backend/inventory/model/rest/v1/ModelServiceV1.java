@@ -117,9 +117,9 @@ public class ModelServiceV1 {
 			final Optional<ModelEntity> target = this.modelRepository.findById( modelRequest.getId() );
 			if (target.isEmpty())
 				throw new DimensinfinRuntimeException( ErrorInfo.MODEL_NOT_FOUND, modelRequest.getId().toString() );
-			return new ModelEntityToModelConverter().convert(
-					this.modelRepository.save( new ModelUpdater( target.get() ).update( modelRequest ) )
-			);
+			ModelEntity updatedEntity = new ModelUpdater( target.get() ).update( modelRequest );
+			updatedEntity = this.modelRepository.save( updatedEntity );
+			return new ModelEntityToModelConverter().convert( updatedEntity );
 		} finally {
 			LogWrapper.exit();
 		}

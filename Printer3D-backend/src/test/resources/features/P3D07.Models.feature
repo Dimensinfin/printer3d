@@ -56,8 +56,8 @@ Feature: [STORY] There is a new backend entity to store Models that have a list 
         Then there is a valid response with return code of "200 OK"
         And the number of Models is "1"
         And the model with id "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" has the next fields
-            | id                                   | label            | partIdList                                                                                                     | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Boquilla Ganesha | c8505631-938d-4648-a466-7dad581641fe,eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 5.00  | 5          | https://ibb.co/3dGbsRh | true   |
+            | id                                   | label        | partIdList                                                                                                     | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | Slot CR 1/32 | c8505631-938d-4648-a466-7dad581641fe,eb80222b-efeb-4d90-9be7-1a0850338e5e,eb80222b-efeb-4d90-9be7-1a0850338e5e | 5.00  | 5          | https://ibb.co/3dGbsRh | true   |
 
     @P3D07.H @P3D07.06
     Scenario: [P3D07.06] Retrieve the list of Models and their composition parts from the repository.
