@@ -19,6 +19,7 @@ export class NodeContainerRenderComponent {
     @Input() variant: EVariant = EVariant.DEFAULT;
     @Input() colorScheme: string = 'panel-white';  // The name of the panel style to be rendered.
     @Input() index: number = 1;
+    @Input() autoselect: boolean = false
 
     public getNode(): Node {
         return this.node;
@@ -31,13 +32,14 @@ export class NodeContainerRenderComponent {
      * @param target target node that is being entered by the cursor.
      */
     public mouseEnter(target: ICollaboration) {
-        // TODO - Disabled temporarily. This behavior should be configurable for automatic selection. Default to not.
-        // this.container.enterSelected(target);
+        if (this.autoselect) this.container.enterSelected(target);
     }
     public toggleExpanded(): void {
         if (null != this.node) {
-            console.log('><[Node.toggleExpanded]> expand: ' + this.node.toggleExpanded());
-            this.container.notifyDataChanged();
+            if (this.node.isExpandable()) {
+                this.node.toggleExpanded()
+                this.container.notifyDataChanged();
+            }
         }
     }
     public isExpanded(): boolean {

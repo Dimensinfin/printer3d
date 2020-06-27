@@ -1,8 +1,4 @@
-<div *ngIf="node.getJsonClass() == 'Separator'">
-    <!-- <separator-render *ngIf="node.jsonClass == 'Separator'" [container]="container" [node]="node" [variant]="variant"></separator-render> -->
-    <hr>
-</div>
-<div *ngIf="node.getJsonClass() != 'Separator'" (mouseenter)="mouseEnter(node)" (click)="toggleExpanded()" style="position: relative;">
+<div (mouseenter)="mouseEnter(node)" (click)="toggleExpanded()" style="position: relative;">
     <div class="row node-panel body-box">
         <!-- BODY -->
         <div class="row body-box">
@@ -22,15 +18,5 @@
         <div *ngIf="node.isExpandable()" class="arrow-box">
             <img cy-name="expand-button" class="right-arrow" [ngClass]="{'arrow-expanded': isExpanded()}" src="/assets/res-ui/drawable/arrowright.png">
         </div>
-        <!-- SEPARATOR WHEN NO RIGHT ARROW -->
-        <!-- <div *ngIf="!node.isExpandable()" class="arrow-box">
-            &nbsp;
-        </div> -->
     </div>
-    <!-- <svg class="corner-bottom" viewBox="0 0 100 100" [ngClass]="{'active': isActive()}">
-        <path d="M100,100 L0,100 L100,0 L100,100" />
-    </svg> -->
-    <!-- <svg class="corner-top" viewBox="0 0 100 100" *ngIf="false">
-        <path d="M0,0 L0,100 L100,0 L0,0" fill="orangered"/>
-    </svg> -->
 </div>
