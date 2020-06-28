@@ -57,6 +57,8 @@ sourceSets {
 
 // - D E P E N D E N C I E S
 apply from: './dependencies.gradle'
+// - C O V E R A G E
+apply from: './jacoco.gradle'
 
 // - T A S K S
 task cleanResources(type: Delete, dependsOn: clean) {
