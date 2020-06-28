@@ -268,10 +268,10 @@ paths:
       tags:
         - Inventory
       summary: Add a new Part reference partId to the list of Parts that compose this model.
-      deprecated: true
       description: >
         The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts
         that compose this model. If the Part is already at the model the part reference is added a second time.
+      deprecated: true
       operationId: addModelPart
       parameters:
         - in: path
@@ -308,10 +308,10 @@ paths:
     put:
       tags:
         - Inventory
-      deprecated: true
       summary: Removes a Part reference partId from the list of Parts that compose this model.
       description: >
         This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error.
+      deprecated: true
       operationId: removeModelPart
       parameters:
         - in: path
@@ -473,6 +473,7 @@ paths:
         When the list of Machine records is collected from the repository the fields for job installation time are checked. If the elapsed time
         from this recorded time is less than the current time, then the job is expected to have finished. At this moment the machine is cleared and
         the part count for the target **Part** job is increased in the number of instances built.
+      deprecated: true
       operationId: getMachines
       responses:
         200:
@@ -639,6 +640,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Request'
+    get:
+      tags:
+        - Production
+      summary: Get the list of Requests persisted at the repository.
+      description: >
+        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state.
+        This method is compatible with the implementation of Requests V1 until the repository V1 is deprecated and defiled.
+        The process now extends to support Models that are packs of Parts. The new extension expands the list from the Model BOM to check agains
+        the current stock of Parts to check for run out of instances. Complete requests continue to be marked COMPLETED.
+        During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in
+        the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.
+      operationId: getOpenRequests
+      responses:
+        200:
+          description: >
+            The list of Requests in the Open state as transformed from the repository stored copy.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RequestV2'
 
   /api/v1/production/requests:
     post:
@@ -648,8 +671,8 @@ paths:
       description: >
         Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the
         Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open.
-      operationId: newRequest
       deprecated: true
+      operationId: newRequest
       requestBody:
         description: >
           Contains the **Request** field values filled at the UI.
@@ -672,8 +695,8 @@ paths:
       description: >
         An open Request can be edited at the UI. The user can decide to reduce the number of Parts initially requested or he can add or remove
         Parts from the Request. Once the Request is completed and closed it is not editable..
-      operationId: updateRequest
       deprecated: true
+      operationId: updateRequest
       requestBody:
         description: >
           Contains the **Request** field values filled at the UI.
@@ -697,8 +720,8 @@ paths:
         Get the complete list of **Requests** persisted at the Production repository and that are on an Open state. During the processing each of
         the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes
         to COMPLETED during this request. The Part stocks are updated for each Request processed.
-      operationId: getOpenRequests
       deprecated: true
+      operationId: getOpenRequests
       responses:
         200:
           description: >
@@ -1401,9 +1424,11 @@ components:
       description: >
         This is the data structure that is received/sent over the HTTP interface. When the user creates or changes the Request the service will
         receive a copy of this structure and then return an updated and persisted copy.
-        Version 2 requests are able to contain any type of element and not only Parts. The contents definitions then change to allow this different
+        Version 2 requests are able to contain any type of element and not only Parts. The contents definitions then changes to allow this different
         way to store the request contents information. Persisted records of version 2 are not compatible with persisted records of version 1 so
-        there is a tool to transform them to the new version at deploy time.
+        records of version 1 are expected to be closed and not to be returned on the request.
+        If anyway the system still has V1 records they are converted to the V2 format (part identifiers are wrapped again) and then processed and
+        reported to the frontend.
       required:
         - id
         - requestDate

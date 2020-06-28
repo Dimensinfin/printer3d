@@ -61,6 +61,10 @@ public class RequestEntityV2 {
 	private RequestEntityV2() {}
 
 	// - G E T T E R S   &   S E T T E R S
+	public List<RequestItem> getContents() {
+		return this.contents;
+	}
+
 	public UUID getId() {
 		return this.id;
 	}
@@ -101,6 +105,11 @@ public class RequestEntityV2 {
 
 		public RequestEntityV2 build() {
 			return this.onConstruction;
+		}
+
+		public RequestEntityV2.Builder withContents( final List<RequestItem> contents ) {
+			this.onConstruction.contents = Objects.requireNonNull( contents );
+			return this;
 		}
 
 		public RequestEntityV2.Builder withId( final UUID id ) {

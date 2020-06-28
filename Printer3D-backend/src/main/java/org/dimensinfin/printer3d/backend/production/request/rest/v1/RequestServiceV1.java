@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
@@ -23,10 +23,10 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
 @Service
 public class RequestServiceV1 {
-	private static final RequestEntityToRequestConverter requestConverter = new RequestEntityToRequestConverter();
-	private final RequestsRepository requestsRepository;
-	private final PartRepository partRepository;
-	private final StockManager stockManager;
+	protected static final RequestEntityToRequestConverter requestConverter = new RequestEntityToRequestConverter();
+	protected final RequestsRepository requestsRepository;
+	protected final PartRepository partRepository;
+	protected final StockManager stockManager;
 
 	// - C O N S T R U C T O R S
 	public RequestServiceV1( final @NotNull RequestsRepository requestsRepository,

@@ -10,9 +10,11 @@ import org.springframework.boot.jackson.JsonComponent;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 
 @JsonComponent
+@Deprecated
 public class PartRequestSerializer extends JsonSerializer<PartRequest> {
 
 	@Override
+	@Deprecated
 	public void serialize( final PartRequest value, final JsonGenerator jgen, final SerializerProvider serializers ) throws IOException {
 		jgen.writeStartObject();
 

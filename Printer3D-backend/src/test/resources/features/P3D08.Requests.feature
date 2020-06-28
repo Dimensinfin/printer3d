@@ -125,3 +125,17 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And the item "63fff2bc-a93f-4ee5-b753-185d83a13151" of the list of Parts has the next fields
             | id                                   | label        | material | color | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE | 60        | 0.65 | 2.00  | 3          | 1              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+
+#    @P3D08.H @P3D08.07
+#    Scenario: [P3D08.07] Get the Open Requests with a mix of request V1 and Request V2 along with Models on the content list.
+#        Given a clean Parts repository
+#        And the following Parts in my service
+#            | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+#            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+#            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 3              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+#        Given a clean Models repository
+#        Given a clean Requests repository
+#        Given a clean RequestsV2 repository
+#        When the Get Requests V2 request is processed
+#        Then there is a valid response with return code of "200 OK"
+#        And the resulting list of Requests has the next values

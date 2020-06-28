@@ -1,6 +1,8 @@
 # Classes to create Unit Test
 * MachineServiceV1 - requires long development
+* JobControllerSupport
 * PartEntity
+
 * MachineServiceV2
 * JobHistoric
 * ModelControllerV1
@@ -13,4 +15,3 @@
 * MachineServiceV2
 * JobRequest
 * MachineServiceV1
-* JobControllerSupport
