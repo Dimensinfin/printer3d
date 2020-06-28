@@ -5,12 +5,15 @@ import { PartRequest } from './dto/PartRequest.dto';
 import { IPartProvider } from './interfaces/IPartProvider.interface';
 import { Part } from './Part.domain';
 import { Part4Request } from './Part4Request.domain';
+import { RequestItem } from './RequestItem.domain';
 
 export class Request extends Node {
     private id: string;
     private label: string;
     private requestDate: string;
     private state: RequestState = RequestState.OPEN;
+    // V2 comapibility fields
+    protected contents : RequestItem[]=[]
     private partList: PartRequest[] = [];
 
     private partProvider: IPartProvider

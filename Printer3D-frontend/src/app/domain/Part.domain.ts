@@ -3,8 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { ICollaboration } from './interfaces/core/ICollaboration.interface';
 import { Node } from './Node.domain';
+import { IContent } from './interfaces/IContent.interface';
 
-export class Part extends Node {
+export class Part extends Node implements IContent {
     public id: string;
     public label: string;
     public description: string;
@@ -47,5 +48,13 @@ export class Part extends Node {
     }
     public isActive(): boolean {
         return this.active;
+    }
+
+    // - I C O N T E N T
+    /**
+     * Return the number of instances that were found on the stock record.
+     */
+    public getStock(): number {
+        return this.stockAvailable
     }
 }

@@ -39,3 +39,8 @@ export enum RequestState {
     COMPLETED = 'COMPLETED',
     CLOSED = 'CLOSED'
 }
+export enum RequestContentType {
+    EXCEPTION = 'EXCEPTION',
+    PART = 'PART',
+    MODEL = 'MODEL'
+}
