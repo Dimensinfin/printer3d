@@ -75,4 +75,7 @@ export class RequestItem implements IContent {
     public getPrice(): number {
         return this.content.getPrice()
     }
+    public getStock(): number {
+        return this.content.getStock()
+    }
 }

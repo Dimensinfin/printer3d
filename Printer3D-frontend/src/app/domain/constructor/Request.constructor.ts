@@ -6,6 +6,7 @@ import { Request } from '@domain/Request.domain';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { IContent } from '@domain/interfaces/IContent.interface';
 import { RequestItem } from '@domain/RequestItem.domain';
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 
 export class RequestConstructor implements Constructor<Request> {
     private contentProvider: IContentProvider
@@ -25,8 +26,11 @@ export class RequestConstructor implements Constructor<Request> {
             const content: IContent = this.contentProvider.findById(item.getId(), item.getType())
             if (null != content) {
                 item.setContent(content) // Fill the stub with the real instance
-                item.setMissing(item.getQuantity() - content.getStock())
+                if (item.getType() == RequestContentType.PART) // Check the existence of parts to complete the quatity required.
+                    item.setMissing(item.getQuantity() - content.getStock())
+                // item.setMissing(item.getQuantity() - content.getStock()) // This data should be calculated at the backend
             }
         }
+        return onConstruction
     }
 }
