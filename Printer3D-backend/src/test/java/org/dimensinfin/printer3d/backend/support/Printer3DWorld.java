@@ -22,7 +22,9 @@ import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 public class Printer3DWorld extends CommonWorld {
 	private Part part;
@@ -50,8 +52,12 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<Request> closeRequestResponseEntity;
 	private JobRequest jobRequest;
 	private ResponseEntity<ModelList> modelListResponseEntity;
-	private DimensinfinRuntimeException applicationException ;
+	private DimensinfinRuntimeException applicationException;
+	private List<RequestItem> requestContents;
+	private RequestV2 requestV2;
+	private ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity;
 
+	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
 		return this.applicationException;
 	}
@@ -61,7 +67,6 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	// - G E T T E R S   &   S E T T E R S
 	public ResponseEntity<Request> getCloseRequestResponseEntity() {
 		return this.closeRequestResponseEntity;
 	}
@@ -113,6 +118,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setJobRequest( final JobRequest jobRequest ) {
 		this.jobRequest = jobRequest;
+		return this;
+	}
+
+	public ResponseEntity<List<RequestV2>> getListRequestV2ResponseEntity() {
+		return this.listRequestV2ResponseEntity;
+	}
+
+	public Printer3DWorld setListRequestV2ResponseEntity( final ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity ) {
+		this.listRequestV2ResponseEntity = listRequestV2ResponseEntity;
 		return this;
 	}
 
@@ -242,6 +256,15 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public List<RequestItem> getRequestContents() {
+		return this.requestContents;
+	}
+
+	public Printer3DWorld setRequestContents( final List<RequestItem> requestContents ) {
+		this.requestContents = requestContents;
+		return this;
+	}
+
 	public UUID getRequestId() {
 		return this.requestId;
 	}
@@ -266,6 +289,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setRequestResponseEntity( final ResponseEntity<Request> requestResponseEntity ) {
 		this.requestResponseEntity = requestResponseEntity;
+		return this;
+	}
+
+	public RequestV2 getRequestV2() {
+		return this.requestV2;
+	}
+
+	public Printer3DWorld setRequestV2( final RequestV2 requestV2 ) {
+		this.requestV2 = requestV2;
 		return this;
 	}
 

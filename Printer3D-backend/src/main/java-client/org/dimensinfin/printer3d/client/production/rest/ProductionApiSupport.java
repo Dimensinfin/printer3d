@@ -27,4 +27,8 @@ public interface ProductionApiSupport {
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/production/requests/delete/all")
 	Call<CountResponse> deleteAllRequests();
+
+	@Headers({ "Content-Type:application/json" })
+	@GET("/api/v1/production/requests/v2/delete/all")
+	Call<CountResponse> deleteAllRequestsV2();
 }

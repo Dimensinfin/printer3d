@@ -20,6 +20,7 @@ import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
 @Profile({ "local", "acceptance", "test" })
@@ -31,10 +32,13 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 public class RequestControllerSupport {
 	private static final RequestEntityToRequestConverter requestEntityToRequestConverter = new RequestEntityToRequestConverter();
 	private final RequestsRepository requestsRepository;
+	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
-	public RequestControllerSupport( final @NotNull RequestsRepository requestsRepository ) {
+	public RequestControllerSupport( final @NotNull RequestsRepository requestsRepository,
+	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
+		this.requestsRepositoryV2 = requestsRepositoryV2;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -57,10 +61,30 @@ public class RequestControllerSupport {
 		return new ResponseEntity<>( this.deleteAllRequestsService(), HttpStatus.OK );
 	}
 
+	@GetMapping(path = "/production/requests/v2/delete/all",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<CountResponse> deleteAllRequestsV2() {
+		return new ResponseEntity<>( this.deleteAllRequestsServiceV2(), HttpStatus.OK );
+	}
+
 	protected CountResponse deleteAllRequestsService() {
 		try {
 			final long recordCount = this.requestsRepository.count();
 			this.requestsRepository.deleteAll();
+			return new CountResponse.Builder()
+					.withRecords( (int) recordCount )
+					.build();
+		} catch (final RuntimeException sqle) {
+			LogWrapper.error( sqle );
+			throw new RepositoryException( ErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
+		}
+	}
+
+	protected CountResponse deleteAllRequestsServiceV2() {
+		try {
+			final long recordCount = this.requestsRepositoryV2.count();
+			this.requestsRepositoryV2.deleteAll();
 			return new CountResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build();

@@ -22,6 +22,7 @@ import org.dimensinfin.printer3d.backend.support.inventory.model.rest.ModelFeign
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -35,6 +36,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import io.cucumber.java.en.When;
 
@@ -46,6 +48,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final JobFeignClientV1 jobFeignClientV1;
 	private final ModelFeignClientV1 modelFeignClientV1;
 	private final RequestFeignClientV1 requestFeignClientV1;
+	private final RequestFeignClientV2 requestFeignClientV2;
 
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
@@ -55,7 +58,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
 	                                  final @NotNull JobFeignClientV1 jobFeignClientV1,
 	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1,
-	                                  final @NotNull RequestFeignClientV1 requestFeignClientV1 ) {
+	                                  final @NotNull RequestFeignClientV1 requestFeignClientV1,
+	                                  final @NotNull RequestFeignClientV2 requestFeignClientV2 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
@@ -64,6 +68,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.jobFeignClientV1 = Objects.requireNonNull( jobFeignClientV1 );
 		this.modelFeignClientV1 = Objects.requireNonNull( modelFeignClientV1 );
 		this.requestFeignClientV1 = Objects.requireNonNull( requestFeignClientV1 );
+		this.requestFeignClientV2 = requestFeignClientV2;
 	}
 
 	@When("the Add Model Part request with model {string} and part {string} is processed")
@@ -117,9 +122,19 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_MACHINES_V1 );
 	}
 
+	@When("the Get Models request is processed")
+	public void the_Get_Models_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_MODELS );
+	}
+
 	@When("the Get Parts request is processed")
 	public void the_Get_Parts_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_PARTS );
+	}
+
+	@When("the Get Requests V2 request is processed")
+	public void the_Get_Requests_V2_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_REQUESTSV2 );
 	}
 
 	@When("the Get Requests request is processed")
@@ -135,10 +150,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the New Model request is processed")
 	public void the_New_Model_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_MODEL );
-	}
-	@When("the Update Model request is processed")
-	public void the_Update_Model_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.UPDATE_MODEL );
 	}
 
 	@When("the New Part request is processed")
@@ -171,9 +182,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		this.processRequestByType( RequestType.START_BUILD );
 	}
-	@When("the Get Models request is processed")
-	public void the_Get_Models_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_MODELS );
+
+	@When("the Update Model request is processed")
+	public void the_Update_Model_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.UPDATE_MODEL );
 	}
 
 	@When("the Update Part request is processed")
@@ -313,6 +325,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( getRequestsResponseEntity );
 				this.printer3DWorld.setRequestListResponseEntity( getRequestsResponseEntity );
 				return getRequestsResponseEntity;
+			case GET_REQUESTSV2:
+				final ResponseEntity<List<RequestV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
+				Assertions.assertNotNull( getRequestsV2ResponseEntity );
+				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
+				return getRequestsV2ResponseEntity;
 			case CLOSE_REQUEST:
 				final ResponseEntity<Request> closeRequestResponseEntity = this.requestFeignClientV1.closeRequest(
 						this.printer3DWorld.getRequestId()
@@ -330,7 +347,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return startBuildV2ResponseEntity;
 			case GET_MODELS:
 				final ResponseEntity<ModelList> modelListResponseEntity = this.modelFeignClientV1
-						.getModels(  );
+						.getModels();
 				Assertions.assertNotNull( modelListResponseEntity );
 				this.printer3DWorld.setModelListResponseEntity( modelListResponseEntity );
 				return modelListResponseEntity;

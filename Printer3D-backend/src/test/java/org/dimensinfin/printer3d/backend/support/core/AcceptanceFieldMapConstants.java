@@ -14,6 +14,10 @@ public class AcceptanceFieldMapConstants {
 	public static final String IMAGE_PATH = "imagePath";
 	public static final String MODEL_PATH = "modelPath";
 	public static final String ACTIVE = "active";
+
+	public static final String ITEM_ID = "itemId";
+	public static final String TYPE = "type";
+
 	public static final String COLOR = "color";
 	public static final String WEIGHT = "weight";
 	public static final String MACHINE_LABEL = "machine";

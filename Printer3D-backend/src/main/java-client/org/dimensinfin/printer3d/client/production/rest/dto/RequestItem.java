@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.client.production.rest.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
@@ -17,15 +18,16 @@ import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.8.0
  */
-public class RequestItem {
+public class RequestItem implements Serializable {
+	private static final long serialVersionUID = -4342163404948952440L;
 	@NotNull(message = "Request content unique id 'itemId' is a mandatory field and cannot be null.")
 	@SerializedName("itemId")
 	private UUID itemId;
-	@NotNull(message = "Request content 'type' should not be null not UNIDENTIFIED.")
+//	@NotNull(message = "Request content 'type' should not be null not UNIDENTIFIED.")
 	@SerializedName("type")
 	private RequestContentType type = RequestContentType.UNIDENTIFIED;
 	@NotNull(message = "Request content 'quantity' should not be undefined. Default will be 1.")
-	@SerializedName("type")
+	@SerializedName("quantity")
 	private int quantity;
 
 	// - C O N S T R U C T O R S

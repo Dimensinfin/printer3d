@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,12 +11,15 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
 
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestV2ToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
@@ -96,6 +100,23 @@ public class RequestServiceV2 {
 						return requestConverterV2.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	public RequestV2 newRequest( final RequestV2 newRequest ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Part by id. If found reject the request because this should be a new creation.
+			final Optional<RequestEntityV2> target = this.requestsRepositoryV2.findById( newRequest.getId() );
+			if (target.isPresent())
+				throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_ALREADY_EXISTS, newRequest.getId().toString() );
+			return new RequestEntityV2ToRequestV2Converter().convert(
+					this.requestsRepositoryV2.save(
+							new RequestV2ToRequestEntityV2Converter().convert( newRequest )
+					)
+			);
 		} finally {
 			LogWrapper.exit();
 		}

@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 
 import java.util.List;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,10 +27,19 @@ public class RequestControllerV2 {
 	public RequestControllerV2( final @NotNull RequestServiceV2 requestServiceV2 ) {
 		this.requestServiceV2 = requestServiceV2;
 	}
+
+	// - G E T T E R S   &   S E T T E R S
 	@GetMapping(path = "/production/requests",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<List<RequestV2>> getOpenRequests() {
 		return new ResponseEntity<>( this.requestServiceV2.getOpenRequests(), HttpStatus.OK );
+	}
+
+	@PostMapping(path = "/production/requests",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<RequestV2> newRequest( final @RequestBody @Valid @NotNull RequestV2 request ) {
+		return new ResponseEntity<>( this.requestServiceV2.newRequest( request ), HttpStatus.CREATED );
 	}
 }

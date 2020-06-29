@@ -42,10 +42,10 @@ public class RequestV2 {
 	/**
 	 * This field has changed from version 1 to be flexible on the type of elements it contains. Version 1 records can be transformed to version
 	 * 2 on the flow so the client will be able to reuse old records until they are closed. Anyway there are two Request repositories that need
-	 * independent management until one is decomised.
+	 * independent management until one is removed.
 	 */
 	@NotNull(message = "The list of Contents is required on the request.")
-	@SerializedName("partList")
+	@SerializedName("contents")
 	private List<RequestItem> contents = new ArrayList<>();
 
 	// - C O N S T R U C T O R S

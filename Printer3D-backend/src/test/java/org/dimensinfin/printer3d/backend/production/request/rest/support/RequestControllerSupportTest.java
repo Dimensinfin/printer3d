@@ -9,19 +9,22 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 
 public class RequestControllerSupportTest {
 
 	private RequestsRepository requestsRepository;
+	private RequestsRepositoryV2 requestsRepositoryV2;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.requestsRepository = Mockito.mock( RequestsRepository.class );
+		this.requestsRepositoryV2 = Mockito.mock(RequestsRepositoryV2.class);
 	}
 
 	@Test
 	public void constructorContract() {
-		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository );
+		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository, this.requestsRepositoryV2 );
 		Assertions.assertNotNull( requestControllerSupport );
 	}
 
@@ -30,7 +33,7 @@ public class RequestControllerSupportTest {
 		// When
 		Mockito.when( this.requestsRepository.count() ).thenReturn( 2L );
 		// Test
-		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository );
+		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository, this.requestsRepositoryV2 );
 		final ResponseEntity<CountResponse> obtained = requestControllerSupport.deleteAllRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -45,7 +48,7 @@ public class RequestControllerSupportTest {
 		Mockito.doThrow( RuntimeException.class ).when( this.requestsRepository ).deleteAll();
 		// Exceptions
 		Assertions.assertThrows( RepositoryException.class, () -> {
-			final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository );
+			final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository, this.requestsRepositoryV2 );
 			requestControllerSupport.deleteAllRequests();
 		} );
 	}

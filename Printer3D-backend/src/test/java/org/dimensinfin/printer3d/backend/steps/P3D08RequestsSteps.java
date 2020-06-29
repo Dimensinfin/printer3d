@@ -15,29 +15,68 @@ import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToNewRequestConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToPartRequestConverter;
+import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestItemConverter;
+import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestV2Converter;
+import org.dimensinfin.printer3d.backend.support.production.request.RequestContentValidator;
+import org.dimensinfin.printer3d.backend.support.production.request.RequestV2Validator;
 import org.dimensinfin.printer3d.backend.support.production.request.RequestValidator;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientSupport;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ITEM_ID;
 
 public class P3D08RequestsSteps extends StepSupport {
 	private static final CucumberTableToPartRequestConverter cucumberTableToPartRequestConverter = new CucumberTableToPartRequestConverter();
 	private final RequestFeignClientV1 requestFeignClientV1;
+	private final RequestFeignClientV2 requestFeignClientV2;
 	private final RequestFeignClientSupport requestFeignClientSupport;
 
 	// - C O N S T R U C T O R S
 	public P3D08RequestsSteps( final @NotNull Printer3DWorld printer3DWorld,
 	                           final @NotNull RequestFeignClientV1 requestFeignClientV1,
+	                           final @NotNull RequestFeignClientV2 requestFeignClientV2,
 	                           final @NotNull RequestFeignClientSupport requestFeignClientSupport ) {
 		super( printer3DWorld );
 		this.requestFeignClientV1 = Objects.requireNonNull( requestFeignClientV1 );
+		this.requestFeignClientV2 = Objects.requireNonNull( requestFeignClientV2 );
 		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
+	}
+
+	@Given("creating the next Request V1 with previous Contents on repository")
+	public void creating_the_next_Request_V1_with_previous_Contents_on_repository( final List<Map<String, String>> dataTable ) throws IOException {
+		final RequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( request );
+		this.printer3DWorld.setRequestV2( request );
+		// Creating the request at the repository using the endpoint
+		final ResponseEntity<RequestV2> requestResponse = this.requestFeignClientV2.newRequest( request );
+		Assertions.assertNotNull( requestResponse );
+	}
+
+	@Then("the Request V2 with id {string} the next list of contents")
+	public void the_Request_V2_with_id_the_next_list_of_contents( final String requestId,
+	                                                              final List<Map<String, String>> dataTable ) {
+		final ResponseEntity<List<RequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
+		Assertions.assertNotNull( requests );
+		Assertions.assertNotNull( requests.getBody() );
+		for (RequestV2 request : requests.getBody()) {
+			if (request.getId().toString().equalsIgnoreCase( requestId )) {
+				for (Map<String, String> row : dataTable) {
+					for (RequestItem content : request.getContents()) {
+						if (content.getItemId().toString() == row.get( ITEM_ID ))
+							Assertions.assertTrue( new RequestContentValidator().validate( row, content ) );
+					}
+				}
+			}
+		}
 	}
 
 	@Then("the list of Requests on the response is empty")
@@ -67,6 +106,15 @@ public class P3D08RequestsSteps extends StepSupport {
 		this.printer3DWorld.setPartRequestList( partRequests );
 	}
 
+	@Given("the next Request Contents List")
+	public void the_next_Request_Contents_List( final List<Map<String, String>> dataTable ) {
+		final CucumberTableToRequestItemConverter converter = new CucumberTableToRequestItemConverter();
+		final List<RequestItem> requestContents = new ArrayList<>();
+		for (Map<String, String> row : dataTable)
+			requestContents.add( converter.convert( row ) );
+		this.printer3DWorld.setRequestContents( requestContents );
+	}
+
 	/**
 	 * Reads the content of the Request repository without processing or any other data manipulation. The request of the list of open requests will do
 	 * some reprocessing with the part storage. This endpoint should not generate any of that effect.
@@ -90,6 +138,19 @@ public class P3D08RequestsSteps extends StepSupport {
 		for (Map<String, String> row : dataTable) {
 			final Request record = this.searchRequest( row.get( ID ), requests.getBody() );
 			Assertions.assertTrue( new RequestValidator().validate( row, record ) );
+		}
+	}
+
+	@Then("the resulting list of Requests has a request with id {string} with the next data")
+	public void the_resulting_list_of_Requests_has_a_request_with_id_with_the_next_data( final String requestId,
+	                                                                                     final List<Map<String, String>> dataTable ) {
+		final ResponseEntity<List<RequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
+		Assertions.assertNotNull( requests );
+		Assertions.assertNotNull( requests.getBody() );
+		for (RequestV2 request : requests.getBody()) {
+			if (request.getId().toString().equalsIgnoreCase( requestId )) {
+				Assertions.assertTrue( new RequestV2Validator().validate( dataTable.get( 0 ), request ) );
+			}
 		}
 	}
 

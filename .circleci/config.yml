@@ -67,7 +67,7 @@ jobs:
         environment:
           _JAVA_OPTIONS: "-Xmx3g"
           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-      - image: circleci/postgres:11.1
+      - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: inno-user
           POSTGRES_DB: inno-password
