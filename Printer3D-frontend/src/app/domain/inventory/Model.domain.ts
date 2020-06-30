@@ -4,8 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { Node } from '../Node.domain';
 import { Part } from '@domain/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
+import { IContent } from '@domain/interfaces/IContent.interface';
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 
-export class Model extends Node {
+export class Model extends Node implements IContent {
     private id: string
     private label: string
     private price: number
@@ -20,15 +22,6 @@ export class Model extends Node {
         this.jsonClass = 'Model';
     }
 
-    public getId(): string {
-        return this.id
-    }
-    public getLabel(): string {
-        return this.label
-    }
-    public getPrice(): number {
-        return this.price
-    }
     public getParts(): PartStack[] {
         return this.partList
     }
@@ -40,5 +33,22 @@ export class Model extends Node {
             }
         }
         this.partList.push(new PartStack(newPart)) // Add the new part to the list
+    }
+
+    // - I C O N T E N T
+    public getId(): string {
+        return this.id
+    }
+    public getLabel(): string {
+        return this.label
+    }
+    public getType(): RequestContentType {
+        return RequestContentType.MODEL
+    }
+    public getPrice(): number {
+        return this.price
+    }
+    public getStock(): number {
+        return this.stockLevel
     }
 }

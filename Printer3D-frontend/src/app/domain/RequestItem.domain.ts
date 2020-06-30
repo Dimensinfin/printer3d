@@ -1,8 +1,7 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { Part } from '@domain/inventory/Part.domain';
-import { Part4Request } from './Part4Request.domain';
+import { Node } from './Node.domain';
 import { RequestContentType } from './interfaces/EPack.enumerated';
 import { IContent } from './interfaces/IContent.interface';
 
@@ -11,7 +10,7 @@ import { IContent } from './interfaces/IContent.interface';
  * Iems can be created from requests stubs that come from the backend or from full fledged items on the loca services. This is something like Optionals that are evaluated and obtained at a later time by accessing the source.
  * @since 0.8.0
  */
-export class RequestItem implements IContent {
+export class RequestItem extends Node implements IContent {
     // STUB Fields
     private itemId: string
     private type: RequestContentType
@@ -22,12 +21,11 @@ export class RequestItem implements IContent {
     private content: IContent // Instance of the stub. can be empty until the Request content provider gets the instance
 
     constructor(values: Object = {}) {
+        super()
         Object.assign(this, values);
+        this.jsonClass='RequestItem'
     }
 
-    public getId(): string {
-        return this.itemId
-    }
     public getQuantity(): number {
         return this.quantity
     }
@@ -42,6 +40,9 @@ export class RequestItem implements IContent {
         this.content = content
         this.quantity++
         return this
+    }
+    public getContent(): IContent {
+        return this.content
     }
     public setContent(content: IContent): RequestItem {
         this.content = content
@@ -59,16 +60,14 @@ export class RequestItem implements IContent {
         this.quantity--
         return this.quantity
     }
-    // public isPresent(): boolean {
-    //     if (null != this.content) return true
-    //     else return false
-    // }
-    // public isEmpty(): boolean {
-    //     if (null != this.content) return false
-    //     else return true
-    // }
 
     // - I C O N T E N T
+    public getId(): string {
+        return this.itemId
+    }
+    public getLabel() : string {
+        return this.content.getLabel()
+    }
     public getType(): RequestContentType {
         return this.type
     }

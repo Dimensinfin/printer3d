@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ICollaboration } from './interfaces/core/ICollaboration.interface';
 import { Node } from './Node.domain';
 import { IContent } from './interfaces/IContent.interface';
+import { RequestContentType } from './interfaces/EPack.enumerated';
 
 export class Part extends Node implements IContent {
     public id: string;
@@ -27,15 +28,15 @@ export class Part extends Node implements IContent {
     }
 
     // - G E T T E R S   &   S E T T E R S
-    public getId(): string {
-        return this.id;
-    }
-    public getPrice(): number {
-        return this.price;
-    }
     public createNewId(): string {
         this.id = uuidv4();
         return this.id;
+    }
+    public getMaterial(): string {
+        return this.material
+    }
+    public getColor(): string {
+        return this.color
     }
     public getAvailable(): number {
         return this.stockAvailable
@@ -51,6 +52,18 @@ export class Part extends Node implements IContent {
     }
 
     // - I C O N T E N T
+    public getId(): string {
+        return this.id;
+    }
+    public getLabel(): string {
+        return this.label
+    }
+    public getType(): RequestContentType {
+        return RequestContentType.PART
+    }
+    public getPrice(): number {
+        return this.price;
+    }
     /**
      * Return the number of instances that were found on the stock record.
      */

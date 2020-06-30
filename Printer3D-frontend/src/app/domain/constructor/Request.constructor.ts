@@ -23,13 +23,14 @@ export class RequestConstructor implements Constructor<Request> {
         const onConstruction: Request = new Request(input)
         const onConstructionAsAny = onConstruction as any
         for (const item of onConstructionAsAny.contents) {
-            const content: IContent = this.contentProvider.findById(item.getId(), item.getType())
+            const contents: RequestItem[] = []
+            const itemContent = new RequestItem(item)
+            const content: IContent = this.contentProvider.findById(itemContent.getId(), itemContent.getType())
             if (null != content) {
-                item.setContent(content) // Fill the stub with the real instance
-                if (item.getType() == RequestContentType.PART) // Check the existence of parts to complete the quatity required.
-                    item.setMissing(item.getQuantity() - content.getStock())
-                // item.setMissing(item.getQuantity() - content.getStock()) // This data should be calculated at the backend
+                itemContent.setContent(content) // Fill the stub with the real instance
+                contents.push(itemContent)
             }
+            onConstructionAsAny.contents = contents
         }
         return onConstruction
     }
