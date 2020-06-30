@@ -11,6 +11,11 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE_STRING;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
+
 public class RequestControllerV2Test {
 
 	private RequestServiceV2 requestServiceV2;
@@ -42,5 +47,26 @@ public class RequestControllerV2Test {
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
 		Assertions.assertEquals( 1, obtained.getBody().size() );
+	}
+
+	@Test
+	public void newRequest() {
+		// Given
+		final RequestV2 request = new RequestV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withRequestDate( TEST_REQUEST_DATE_STRING )
+				.withState( TEST_REQUEST_STATE )
+				.withContents( new ArrayList<>() )
+				.build();
+		// When
+		Mockito.when( this.requestServiceV2.newRequest( Mockito.any( RequestV2.class ) ) ).thenReturn( request );
+		// Test
+		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
+		final ResponseEntity<RequestV2> obtained = requestControllerV2.newRequest( request );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertNotNull( obtained.getBody() );
+		Assertions.assertEquals( TEST_REQUEST_LABEL, obtained.getBody().getLabel() );
 	}
 }

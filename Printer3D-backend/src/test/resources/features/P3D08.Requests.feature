@@ -136,20 +136,41 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 3              |                        |            | true   | Union para las piezas de laplataforma slot                                                  |
         Given a clean Models repository
         Given a clean Requests repository
+        And the next Part Request List
+            | partId                               | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | 3        |
+        And the next New Request request with the current Part Request List
+            | id                                   | label                    | requestDate                 | state |
+            | a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9 | Complete Slot Car Platform P01  | 2020-06-15T20:00:00.226181Z | OPEN  |
+        When the New Request request is processed
+        Then there is a valid response with return code of "201 CREATED"
         Given a clean RequestsV2 repository
-        And the next Request Contents List
-            | itemId                               | type | quantity |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 1        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PART | 1        |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | PART | 4        |
-        And creating the next Request V1 with previous Contents on repository
-            | id                                   | label                          | requestDate                 | state |
-            | a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9 | Complete Slot Car Platform P01 | 2020-06-29T20:00:00.226181Z | OPEN  |
         When the Get Requests V2 request is processed
         Then there is a valid response with return code of "200 OK"
         And the resulting list of Requests has a request with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9" with the next data
             | id                                   | label                          | requestDate                 | state |
-            | a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9 | Complete Slot Car Platform P01 | 2020-06-29T20:00:00.226181Z | OPEN  |
+            | a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9 | Complete Slot Car Platform P01 | 2020-06-15T20:00:00.226181Z | OPEN  |
+        And the Request V2 with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9" the next list of contents
+            | itemId                               | type | quantity | missing |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 2        | 2       |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | PART | 3        | 0       |
+
+    @P3D08.H @P3D08.08
+    Scenario: [P3D08.08] Get the Open Requests of version V2 that will have Models linked.
+        And the next Request Contents List
+            | itemId                               | type | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc3837  | PART | 1        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PART | 1        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | PART | 4        |
+        And creating the next Request V1 with previous Contents on repository
+            | id                                   | label                          | requestDate                 | state |
+            | a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9 | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
+        When the Get Requests V2 request is processed
+        Then there is a valid response with return code of "200 OK"
+        And the resulting list of Requests has a request with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9" with the next data
+            | id                                   | label                          | requestDate                 | state |
+            | a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9 | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
         And the Request V2 with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9" the next list of contents
             | itemId                               | type | quantity | missing |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 1        | 1       |

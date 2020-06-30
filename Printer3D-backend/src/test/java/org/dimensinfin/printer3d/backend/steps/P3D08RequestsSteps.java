@@ -71,7 +71,7 @@ public class P3D08RequestsSteps extends StepSupport {
 			if (request.getId().toString().equalsIgnoreCase( requestId )) {
 				for (Map<String, String> row : dataTable) {
 					for (RequestItem content : request.getContents()) {
-						if (content.getItemId().toString() == row.get( ITEM_ID ))
+						if (content.getItemId().toString().equalsIgnoreCase( row.get( ITEM_ID ) ))
 							Assertions.assertTrue( new RequestContentValidator().validate( row, content ) );
 					}
 				}

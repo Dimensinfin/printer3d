@@ -17,6 +17,7 @@ public class AcceptanceFieldMapConstants {
 
 	public static final String ITEM_ID = "itemId";
 	public static final String TYPE = "type";
+	public static final String MISSING = "missing";
 
 	public static final String COLOR = "color";
 	public static final String WEIGHT = "weight";

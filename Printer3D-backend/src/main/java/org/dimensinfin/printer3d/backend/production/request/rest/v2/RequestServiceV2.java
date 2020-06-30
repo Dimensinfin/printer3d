@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
@@ -84,22 +85,32 @@ public class RequestServiceV2 {
 						// Extract the Ids from the stock. Check if stock goes negative. For Models this expands to the BOM.
 						boolean underStocked = false;
 						for (RequestItem content : requestEntityV2.getContents()) {
-							if (content.getType() == RequestContentType.PART)
-								if (this.stockManager.minus(
-										content.getItemId(),
-										content.getQuantity() ) < 0) // Subtract the request quantity from the stock.
+							if (content.getType() == RequestContentType.PART) {
+								int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() );
+								if (missing < 0) { // Subtract the request quantity from the stock.
 									underStocked = true;
+									content.setMissing( Math.abs( missing ) );
+								}
+							}
 							if (content.getType() == RequestContentType.MODEL)
-								for (RequestItem modelContent : this.modelBOM( content.getItemId() ))
-									if (this.stockManager.minus(
-											modelContent.getItemId(),
-											modelContent.getQuantity() ) < 0) // Subtract the request quantity from the stock.
+								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
+									int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() );
+									if (missing < 0) {// Subtract the request quantity from the stock.
 										underStocked = true;
+										content.setMissing(
+												Math.max( content.getQuantity(),
+														Math.max( modelContent.getMissing(), Math.abs( missing ) / modelContent.getQuantity() ) )
+										);
+									}
+								}
 						}
 						if (!underStocked) requestEntityV2.signalCompleted();
 						return requestConverterV2.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
+		} catch (final RuntimeException rte) {
+			LogWrapperLocal.error( rte );
+			return null;
 		} finally {
 			LogWrapper.exit();
 		}
@@ -122,13 +133,13 @@ public class RequestServiceV2 {
 		}
 	}
 
-	private List<RequestItem> modelBOM( final UUID modelId ) {
+	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {
 		final List<RequestItem> contents = new ArrayList<>();
 		final ModelEntity model = this.modelRepository.findById( modelId ).orElseThrow();
 		for (UUID contentId : model.getPartIdList())
 			contents.add( new RequestItem.Builder()
 					.withItemId( contentId )
-					.withQuantity( 1 )
+					.withQuantity( 1 * modelQuantity )
 					.withType( RequestContentType.PART ).build() );
 		return contents;
 	}

@@ -23,12 +23,14 @@ public class RequestItem implements Serializable {
 	@NotNull(message = "Request content unique id 'itemId' is a mandatory field and cannot be null.")
 	@SerializedName("itemId")
 	private UUID itemId;
-//	@NotNull(message = "Request content 'type' should not be null not UNIDENTIFIED.")
+	//	@NotNull(message = "Request content 'type' should not be null not UNIDENTIFIED.")
 	@SerializedName("type")
 	private RequestContentType type = RequestContentType.UNIDENTIFIED;
 	@NotNull(message = "Request content 'quantity' should not be undefined. Default will be 1.")
 	@SerializedName("quantity")
 	private int quantity;
+	@SerializedName("missing")
+	private int missing;
 
 	// - C O N S T R U C T O R S
 	private RequestItem() {}
@@ -36,6 +38,15 @@ public class RequestItem implements Serializable {
 	// - G E T T E R S   &   S E T T E R S
 	public UUID getItemId() {
 		return this.itemId;
+	}
+
+	public int getMissing() {
+		return this.missing;
+	}
+
+	public RequestItem setMissing( final int missing ) {
+		this.missing = missing;
+		return this;
 	}
 
 	public int getQuantity() {
