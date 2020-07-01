@@ -150,7 +150,7 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm run acceptance:simulator
-            npm run acceptance:cypress:D06
+            # npm run acceptance:cypress:D06
             npm run acceptance:cypress:D07
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
