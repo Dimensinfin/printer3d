@@ -85,37 +85,13 @@ public class RequestServiceV2 {
 							.stream()
 							.filter( RequestEntityV2::isOpen ) )
 					.map( requestEntityV2 -> {
-						// Extract the Ids from the stock. Check if stock goes negative. For Models this expands to the BOM.
-						boolean underStocked = false;
-						for (RequestItem content : requestEntityV2.getContents()) {
-							if (content.getType() == RequestContentType.PART) {
-								int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() );
-								if (missing < 0) { // Subtract the request quantity from the stock.
-									underStocked = true;
-									content.setMissing( Math.abs( missing ) );
-								}
-							}
-							if (content.getType() == RequestContentType.MODEL)
-								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
-									int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() );
-									if (missing < 0) {// Subtract the request quantity from the stock.
-										underStocked = true;
-										content.setMissing(
-												Math.min( content.getQuantity(),
-														Math.max( modelContent.getMissing(),
-																(int) Math
-																		.ceil( (float) Math.abs( missing ) / (float) modelContent.getQuantity() ) ) )
-										);
-									}
-								}
-						}
-						if (!underStocked) requestEntityV2.signalCompleted();
+						if (!this.collectItemsFromStock(requestEntityV2)) requestEntityV2.signalCompleted();
 						return requestConverterV2.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
 		} catch (final RuntimeException rte) {
 			LogWrapperLocal.error( rte );
-			return null;
+			return new ArrayList<>();
 		} finally {
 			LogWrapper.exit();
 		}
@@ -136,6 +112,41 @@ public class RequestServiceV2 {
 		} finally {
 			LogWrapper.exit();
 		}
+	}
+
+	/**
+	 * 	For each of the requests found get the contents and subtract the required number of items from the stock values. If any of the subtractions
+	 * 	results in a negative value then the Request should be kept open and this is signaled by the returned boolean.
+	 * 	Extract the Ids
+	 * 	from the stock. Check if stock goes negative. For Models this expands to the BOM.
+	 * @param requestEntityV2 the request entity that should be processed
+	 * @return true if there are missing items. This means the Request should be kept open. If false the Request can be COMPLETED.
+	 */
+	private boolean collectItemsFromStock( final RequestEntityV2 requestEntityV2 ) {
+		boolean underStocked = false;
+		for (RequestItem content : requestEntityV2.getContents()) {
+			if (content.getType() == RequestContentType.PART) {
+				int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() );
+				if (missing < 0) { // Subtract the request quantity from the stock.
+					underStocked = true;
+					content.setMissing( Math.abs( missing ) );
+				}
+			}
+			if (content.getType() == RequestContentType.MODEL)
+				for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
+					int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() );
+					if (missing < 0) {// Subtract the request quantity from the stock.
+						underStocked = true;
+						content.setMissing(
+								Math.min( content.getQuantity(),
+										Math.max( modelContent.getMissing(),
+												(int) Math
+														.ceil( (float) Math.abs( missing ) / (float) modelContent.getQuantity() ) ) )
+						);
+					}
+				}
+		}
+		return underStocked;
 	}
 
 	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {

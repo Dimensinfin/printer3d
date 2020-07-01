@@ -26,6 +26,7 @@ import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.job.FinishingByCountComparator;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
@@ -72,15 +73,48 @@ public class JobServiceV1 {
 	 * @return the list of build jobs required to complete the requests and the stocks.
 	 */
 	public List<Job> getPendingJobs() {
-		LogWrapperLocal.enter();
+		LogWrapper.enter();
 		try {
 			this.stockManager.startStock(); // Initialize the stock with the current repository values.
-			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-			jobs.addAll( this.generateRequestJobList() );
+			this.collectRequestPartsFromRepository();
+			// Initialize the result list
+			final List<Job> jobs = new ArrayList<>( this.generateMissingRequestJobs() );
+			this.stockManager.clean().startStock(); // Initialize the stock with the current repository values.
 			jobs.addAll( this.sortByFinishingCount( this.generateStockLevelJobs() ) );
 			return jobs;
 		} finally {
-			LogWrapperLocal.exit();
+			LogWrapper.exit();
+		}
+	}
+
+	private void collectRequestPartsFromRepository() {
+		LogWrapper.enter();
+		try {
+			Stream.concat(
+					this.requestsRepository.findAll()
+							.stream()
+							.filter( RequestEntity::isOpen )
+							.map( requestV1ToV2Converter::convert ),
+					this.requestsRepositoryV2.findAll().stream() )
+					.filter( RequestEntityV2::isOpen )
+					.forEach( ( requestEntityV2 ) -> {
+						// Subtract the Parts from the inventory
+						for (RequestItem content : requestEntityV2.getContents()) {
+							LogWrapper.info( "Processing Request: " + requestEntityV2.getId().toString() );
+							if (content.getType() == RequestContentType.PART) {
+								this.stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
+							}
+							if (content.getType() == RequestContentType.MODEL) {
+								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
+									this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
+								}
+							}
+						}
+					} );
+		} catch (final RuntimeException rte) {
+			LogWrapperLocal.error( rte );
+		} finally {
+			LogWrapper.exit();
 		}
 	}
 
@@ -98,32 +132,10 @@ public class JobServiceV1 {
 		return new ArrayList<>( finishings.values() );
 	}
 
-	private List<Job> generateRequestJobList() {
+	private List<Job> generateMissingRequestJobs() {
 		LogWrapper.enter();
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		try {
-			Stream.concat(
-					this.requestsRepository.findAll()
-							.stream()
-							.filter( RequestEntity::isOpen )
-							.map( requestV1ToV2Converter::convert ),
-					this.requestsRepositoryV2.findAll().stream() )
-					.filter( ( requestEntityV2 ) -> requestEntityV2.isOpen() )
-					.forEach( ( requestEntityV2 ) -> {
-						// Subtract the Parts from the inventory
-						for (RequestItem content : requestEntityV2.getContents()) {
-							LogWrapper.info( "Processing Request: " + content.getItemId().toString() );
-							if (content.getType() == RequestContentType.PART) {
-								final int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
-							}
-							if (content.getType() == RequestContentType.MODEL) {
-								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
-									final int missing = this.stockManager
-											.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
-								}
-							}
-						}
-					} );
 			// Generate the jobs after processing all Requests
 			for (UUID stockId : this.stockManager.getStockIterator()) {
 				if (this.stockManager.getStock( stockId ) < 0) {
@@ -132,9 +144,6 @@ public class JobServiceV1 {
 				}
 			}
 			return jobs;
-		} catch (final RuntimeException rte) {
-			LogWrapperLocal.error( rte );
-			return null;
 		} finally {
 			LogWrapper.exit( "RequestJobList count:" + jobs.size() + "" );
 		}

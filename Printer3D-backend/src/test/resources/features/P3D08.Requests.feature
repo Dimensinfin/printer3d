@@ -16,6 +16,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
         Given a clean Requests repository
+        Given a clean RequestsV2 repository
         And the next Part Request List
             | partId                               | quantity |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 2        |
@@ -37,6 +38,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
         Given a clean Requests repository
+        Given a clean RequestsV2 repository
         And the next Part Request List
             | partId                               | quantity |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 2        |
@@ -78,6 +80,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
         Given a clean Requests repository
+        Given a clean RequestsV2 repository
         And the next Part Request List
             | partId                               | quantity |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 2        |
@@ -101,6 +104,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 3              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
         Given a clean Requests repository
+        Given a clean RequestsV2 repository
         And the next Part Request List
             | partId                               | quantity |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 2        |
@@ -136,6 +140,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 3              |                        |            | true   | Union para las piezas de laplataforma slot                                                  |
         Given a clean Models repository
         Given a clean Requests repository
+        Given a clean RequestsV2 repository
         And the next Part Request List
             | partId                               | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | 2        |

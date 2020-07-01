@@ -19,13 +19,11 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.6.0
  */
-//@Component
 public class StockManager {
 	private final PartRepository partRepository;
 	private final Map<UUID, StockLevel> stocks = new HashMap<>();
 
 	// - C O N S T R U C T O R S
-//	@Autowired
 	public StockManager( final @NotNull PartRepository partRepository ) {
 		this.partRepository = Objects.requireNonNull( partRepository );
 	}
@@ -33,6 +31,11 @@ public class StockManager {
 	// - G E T T E R S   &   S E T T E R S
 	public Set<UUID> getStockIterator() {
 		return this.stocks.keySet();
+	}
+
+	public StockManager clean() {
+		this.stocks.clear();
+		return this;
 	}
 
 	public int getStock( final UUID partId ) {
@@ -48,7 +51,7 @@ public class StockManager {
 		} else throw new DimensinfinRuntimeException( ErrorInfo.STOCK_PROCESSING_FAILURE.getErrorMessage( partId ) );
 	}
 
-	public void startStock() {
+	public StockManager startStock() {
 		this.partRepository.findAll().forEach( ( part ) -> {
 			LogWrapperLocal.info( "id: " + part.getId().toString() + " stock: " + part.getStockLevel() + "/" + part.getStockAvailable() );
 			stocks.put( part.getId(), new StockLevel.Builder()
@@ -56,6 +59,7 @@ public class StockManager {
 					.withStock( part.getStockAvailable() )
 					.build() );
 		} );
+		return this;
 	}
 
 	private static class StockLevel {

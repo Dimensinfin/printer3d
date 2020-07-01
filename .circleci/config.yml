@@ -102,7 +102,11 @@ jobs:
             DB_PASSWORD: inno-password
             SPRING_PROFILES_ACTIVE: test
           command: |
-            ./gradlew test
+            ./gradlew test -Dcucumber.options="--tags @P3D01"
+            ./gradlew test -Dcucumber.options="--tags @P3D02"
+            ./gradlew test -Dcucumber.options="--tags @P3D03"
+            ./gradlew test -Dcucumber.options="--tags @P3D04"
+            ./gradlew test -Dcucumber.options="--tags @P3D05"
       - store_test_results:
           path: ~/project/Printer3D-backend/build/test-results
       - store_artifacts:  

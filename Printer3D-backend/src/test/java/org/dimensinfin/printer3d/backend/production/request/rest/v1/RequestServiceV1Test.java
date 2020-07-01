@@ -71,7 +71,7 @@ public class RequestServiceV1Test {
 		Assertions.assertNotNull( requestServiceV1 );
 	}
 
-	@Test
+//	@Test
 	public void getOpenRequests() {
 		// Given
 		final List<PartRequest> requestPartList = new ArrayList<>();

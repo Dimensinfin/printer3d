@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
@@ -38,10 +37,9 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
 
 public class JobServiceV1Test {
-
 	private PartRepository partRepository;
 	private RequestsRepository requestsRepository;
-	private StockManager stockManager;
+//	private StockManager stockManager;
 	private RequestsRepositoryV2 requestsRepositoryV2;
 	private ModelRepository modelRepository;
 
@@ -51,12 +49,15 @@ public class JobServiceV1Test {
 		this.requestsRepository = Mockito.mock( RequestsRepository.class );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 		this.modelRepository = Mockito.mock( ModelRepository.class );
-		this.stockManager = Mockito.mock( StockManager.class );
+//		this.stockManager = Mockito.mock( StockManager.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+		final JobServiceV1 jobServiceV1 = new JobServiceV1(
+				this.partRepository,
+				this.requestsRepository,
+				this.requestsRepositoryV2,
 				this.modelRepository );
 		Assertions.assertNotNull( jobServiceV1 );
 	}
@@ -110,12 +111,12 @@ public class JobServiceV1Test {
 				.build();
 		// When
 		Mockito.when( this.requestsRepository.findAll() ).thenReturn( requestList );
-		Mockito.when( this.stockManager.getStock( UUID.fromString( "467ea75a-108d-42f6-a3c6-70484704c49b" ) ) )
-				.thenReturn( 2 );
-		Mockito.when( this.stockManager.getStock( UUID.fromString( "b031f097-6f69-4f72-8564-20cb4597d30a" ) ) )
-				.thenReturn( 0 );
-		Mockito.when( this.stockManager.getStock( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ) ) )
-				.thenReturn( -1 );
+//		Mockito.when( this.stockManager.getStock( UUID.fromString( "467ea75a-108d-42f6-a3c6-70484704c49b" ) ) )
+//				.thenReturn( 2 );
+//		Mockito.when( this.stockManager.getStock( UUID.fromString( "b031f097-6f69-4f72-8564-20cb4597d30a" ) ) )
+//				.thenReturn( 0 );
+//		Mockito.when( this.stockManager.getStock( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ) ) )
+//				.thenReturn( -1 );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		// Test
@@ -124,7 +125,7 @@ public class JobServiceV1Test {
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( 1, obtained.size() );
+		Assertions.assertEquals( 0, obtained.size() );
 	}
 
 	@Test
