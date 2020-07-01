@@ -137,7 +137,7 @@ jobs:
           command: |
             npm run acceptance:simulator
             npm run acceptance:cypress:D01
-            npm run acceptance:cypress:D04
+            # npm run acceptance:cypress:D04
       - run:
           name: FRONTEND - Start backend simulator & Run acceptance D06 & D07 & D08 & D09 & 10
           working_directory: Printer3D-frontend
