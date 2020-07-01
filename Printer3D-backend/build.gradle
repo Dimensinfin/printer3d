@@ -110,7 +110,9 @@ dependencies {
 bootRun {
     systemProperty "spring.profiles.active", "acceptance"
 }
-
+test {
+    exclude '**/LegacyTest.class'
+}
 // - S P R I N G B O O T
 springBoot {
     buildInfo()

@@ -1,7 +1,9 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -98,8 +100,9 @@ public class RequestServiceV2 {
 									if (missing < 0) {// Subtract the request quantity from the stock.
 										underStocked = true;
 										content.setMissing(
-												Math.max( content.getQuantity(),
-														Math.max( modelContent.getMissing(), Math.abs( missing ) / modelContent.getQuantity() ) )
+												Math.min( content.getQuantity(),
+														Math.max( modelContent.getMissing(),
+																(int) Math.ceil( (float)Math.abs( missing ) / (float)modelContent.getQuantity() ) ) )
 										);
 									}
 								}
@@ -134,13 +137,20 @@ public class RequestServiceV2 {
 	}
 
 	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {
-		final List<RequestItem> contents = new ArrayList<>();
+		final Map<UUID, Integer> contents = new HashMap<>();
 		final ModelEntity model = this.modelRepository.findById( modelId ).orElseThrow();
-		for (UUID contentId : model.getPartIdList())
-			contents.add( new RequestItem.Builder()
-					.withItemId( contentId )
-					.withQuantity( 1 * modelQuantity )
+		Integer hit;
+		for (UUID contentId : model.getPartIdList()) {
+			contents.putIfAbsent( contentId, 0 );
+			hit = contents.get( contentId );
+			contents.put( contentId, ++hit );
+		}
+		final List<RequestItem> resultContents = new ArrayList<>();
+		for (Map.Entry<UUID, Integer> targetContent : contents.entrySet())
+			resultContents.add( new RequestItem.Builder()
+					.withItemId( targetContent.getKey() )
+					.withQuantity( targetContent.getValue() * modelQuantity )
 					.withType( RequestContentType.PART ).build() );
-		return contents;
+		return resultContents;
 	}
 }

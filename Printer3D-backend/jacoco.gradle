@@ -7,7 +7,7 @@ jacoco {
 }
 jacocoTestReport {
     doFirst {
-        delete fileTree(dir: "${buildDir}/resources/docker")
+        delete fileTree(dir: "${buildDir}/resources/main/docker")
     }
     reports {
         xml.enabled = true

@@ -26,16 +26,16 @@ services:
       - POSTGRES_USER=printer3d-user
       - POSTGRES_PASSWORD=printer3d-password
 
-  postgres-integration:
-    container_name: postgres-integration
-    image: "postgres:11.2"
-    ports:
-      - "5131:5432"
-    environment:
-      - CURRENT_UID=1000
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=printer3d-user
-      - POSTGRES_PASSWORD=printer3d-password
+#  postgres-integration:
+#    container_name: postgres-integration
+#    image: "postgres:11.2"
+#    ports:
+#      - "5131:5432"
+#    environment:
+#      - CURRENT_UID=1000
+#      - POSTGRES_DB=postgres
+#      - POSTGRES_USER=printer3d-user
+#      - POSTGRES_PASSWORD=printer3d-password
 
   acceptance:
     container_name: printer3d-backend-acceptance
@@ -46,11 +46,11 @@ services:
       - SPRING_PROFILES_ACTIVE=acceptance
       - JDBC_DATABASE_URL=jdbc:postgresql://postgres-acceptance:5432/postgres
 
-  integration:
-    container_name: printer3d-backend-integration
-    image: dimensinfin/printer3d.backend
-    ports:
-      - "5121:9500"
-    environment:
-      - SPRING_PROFILES_ACTIVE=local
-      - JDBC_DATABASE_URL=jdbc:postgresql://postgres-integration:5432/postgres
+#  integration:
+#    container_name: printer3d-backend-integration
+#    image: dimensinfin/printer3d.backend
+#    ports:
+#      - "5121:9500"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=local
+#      - JDBC_DATABASE_URL=jdbc:postgresql://postgres-integration:5432/postgres

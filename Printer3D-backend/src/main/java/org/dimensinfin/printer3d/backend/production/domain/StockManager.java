@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
 /**
@@ -45,12 +46,13 @@ public class StockManager {
 	}
 
 	public void startStock() {
-		this.partRepository.findAll().forEach( ( part ) ->
-				stocks.put( part.getId(), new StockLevel.Builder()
-						.withLevel( part.getStockLevel() )
-						.withStock( part.getStockAvailable() )
-						.build() )
-		);
+		this.partRepository.findAll().forEach( ( part ) -> {
+			LogWrapperLocal.info( "id: " + part.getId().toString() );
+			stocks.put( part.getId(), new StockLevel.Builder()
+					.withLevel( part.getStockLevel() )
+					.withStock( part.getStockAvailable() )
+					.build() );
+		} );
 	}
 
 	private static class StockLevel {

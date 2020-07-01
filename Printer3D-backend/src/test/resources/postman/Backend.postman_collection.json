@@ -1,614 +1,972 @@
 {
-    "info": {
-        "_postman_id": "4d9d45ee-4c7c-47cb-912a-2b870505b91a",
-        "name": "Backend",
-        "description": "Call to the backend server to test the API.",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [{
-            "name": "Support",
-            "item": [{
-                    "name": "DeleteAllCoils",
-                    "request": {
-                        "method": "GET",
-                        "header": [{
-                            "key": "Content-Type",
-                            "value": "application/json",
-                            "type": "text"
-                        }],
-                        "url": {
-                            "raw": "{{backendServer}}{{backendPort}}{{inventory}}/coils/delete/all",
-                            "host": [
-                                "{{backendServer}}{{backendPort}}{{inventory}}"
-                            ],
-                            "path": [
-                                "coils",
-                                "delete",
-                                "all"
-                            ]
-                        },
-                        "description": "Delete all the Coils persisted at the repository."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "DeleteAllParts",
-                    "request": {
-                        "method": "GET",
-                        "header": [{
-                            "key": "Content-Type",
-                            "value": "application/json",
-                            "type": "text"
-                        }],
-                        "url": {
-                            "raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/delete/all",
-                            "host": [
-                                "{{backendServer}}{{backendPort}}"
-                            ],
-                            "path": [
-                                "api",
-                                "v1",
-                                "inventory",
-                                "parts",
-                                "delete",
-                                "all"
-                            ]
-                        },
-                        "description": "Deletes all the Parts from the Inventory repository."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "SetupMachine",
-                    "request": {
-                        "method": "PUT",
-                        "header": [{
-                            "key": "Content-Type",
-                            "value": "application/json",
-                            "type": "text"
-                        }],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n\t\"machineLabel\": \"Ender 3 Pro - B\",\n\t\"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n\t\"jobInstallmentDate\": \"2020-06-03T02:50:00.000000\",\n\t\"partInstancesCount\": 3\n}"
-                        },
-                        "url": {
-                            "raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/setup",
-                            "host": [
-                                "{{backendServer}}{{backendPort}}{{inventory}}"
-                            ],
-                            "path": [
-                                "machines",
-                                "setup"
-                            ]
-                        },
-                        "description": "Sets a predetermined job into the Machine. Used by the acceptance tests to fill the Machine fields that can change when submitting or cancelling build jobs."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "GetRepositoryRequest",
-                    "protocolProfileBehavior": {
-                        "disableBodyPruning": true
-                    },
-                    "request": {
-                        "method": "GET",
-                        "header": [{
-                            "key": "Content-Type",
-                            "value": "application/json",
-                            "type": "text"
-                        }],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "",
-                            "options": {
-                                "raw": {}
-                            }
-                        },
-                        "url": {
-                            "raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/repository",
-                            "host": [
-                                "{{backendServer}}{{backendPort}}{{productionv1}}"
-                            ],
-                            "path": [
-                                "requests",
-                                "repository"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ],
-            "description": "Support calls only available on development environments and not in Production.",
-            "protocolProfileBehavior": {}
-        },
-        {
-            "name": "Actuators",
-            "item": [{
-                "name": "Actuator-Info",
-                "request": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                        "raw": "{{backendServer}}{{backendPort}}/actuator/info",
-                        "host": [
-                            "{{backendServer}}{{backendPort}}"
-                        ],
-                        "path": [
-                            "actuator",
-                            "info"
-                        ]
-                    },
-                    "description": "Shows the application build information."
-                },
-                "response": []
-            }],
-            "protocolProfileBehavior": {}
-        },
-        {
-            "name": "NewPart",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"label\": \"Covid-19 Key\",\n  \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n  \"material\": \"PLA\",\n  \"color\": \"NARANJA-T\",\n  \"buildTime\": 30,\n  \"cost\": 0.85,\n  \"price\": 3,\n  \"stockLevel\": 5,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-                    "options": {
-                        "raw": {
-                            "language": "json"
-                        }
-                    }
-                },
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "parts"
-                    ]
-                },
-                "description": "Creates a new Part at the Inventory repository."
-            },
-            "response": []
-        },
-        {
-            "name": "NewPart-2",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"id\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n  \"label\": \"Boquilla Ganesha\",\n  \"description\": \"Boquilla con forma de elefante para fumar en pipas.\",\n  \"material\": \"PLA\",\n  \"color\": \"NARANJA-T\",\n  \"buildTime\": 30,\n  \"cost\": 0.85,\n  \"price\": 3,\n  \"stockLevel\": 5,\n  \"stockAvailable\": 2,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-                    "options": {
-                        "raw": {
-                            "language": "json"
-                        }
-                    }
-                },
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "parts"
-                    ]
-                }
-            },
-            "response": []
-        },
-        {
-            "name": "UpdatePart",
-            "request": {
-                "method": "PATCH",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"label\": \"Covid-19 Key\",\n  \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n  \"material\": \"PLA\",\n  \"color\": \"NARANJA-T\",\n  \"buildTime\": 30,\n  \"cost\": 0.85,\n  \"price\": 3,\n  \"stockLevel\": 5,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-                    "options": {
-                        "raw": {
-                            "language": "json"
-                        }
-                    }
-                },
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/{{partId}}",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}"
-                    ],
-                    "path": [
-                        "api",
-                        "v1",
-                        "inventory",
-                        "parts",
-                        "{{partId}}"
-                    ]
-                },
-                "description": "Updated some of the fields of the Part on the persistence repository."
-            },
-            "response": []
-        },
-        {
-            "name": "GetParts",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "parts"
-                    ]
-                },
-                "description": "Get the complete list of parts from the Inventory respository. There is an optional flag to filter out inactive parts."
-            },
-            "response": []
-        },
-        {
-            "name": "GetParts-filter active",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts?activesOnly=true",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}"
-                    ],
-                    "path": [
-                        "api",
-                        "v1",
-                        "inventory",
-                        "parts"
-                    ],
-                    "query": [{
-                        "key": "activesOnly",
-                        "value": "true"
-                    }]
-                },
-                "description": "Get the list of active Parts from the Inventory repository."
-            },
-            "response": []
-        },
-        {
-            "name": "NewCoil",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"material\": \"TPU\",\n  \"color\": \"BLANCO\",\n  \"weight\": 1000\n}",
-                    "options": {
-                        "raw": {
-                            "language": "json"
-                        }
-                    }
-                },
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventory}}/rolls",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventory}}"
-                    ],
-                    "path": [
-                        "rolls"
-                    ]
-                },
-                "description": "Create a new roll at the backend repository."
-            },
-            "response": []
-        },
-        {
-            "name": "GetCoils",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "coils"
-                    ]
-                },
-                "description": "Get the complete list of Rolls persisted at the Inventory repository."
-            },
-            "response": []
-        },
-        {
-            "name": "NewModel",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"id\": \"dda12806-2a1e-4a13-89c8-3bf0f23e5ffc\",\n  \"label\": \"Boquilla Ganesha\",\n  \"price\": 4,\n  \"stockLevel\": 3,\n  \"stockAvailable\": 4,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\"\n}"
-                },
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "models"
-                    ]
-                },
-                "description": "Creates a new Model. The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other Model fields."
-            },
-            "response": []
-        },
-        {
-            "name": "AddModelPart",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models/{{modelId}}/addPart/{{partId}}",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "models",
-                        "{{modelId}}",
-                        "addPart",
-                        "{{partId}}"
-                    ]
-                },
-                "description": "The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts that compose this model. If the Part is already at the model the part reference is added a second time."
-            },
-            "response": []
-        },
-        {
-            "name": "RemoveModelPart",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models/{{modelId}}/removePart/{{partId}}",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "models",
-                        "{{modelId}}",
-                        "removePart",
-                        "{{partId}}"
-                    ]
-                },
-                "description": "This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error."
-            },
-            "response": []
-        },
-        {
-            "name": "GetMachines v1",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "type": "text",
-                    "value": "application/json"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "machines"
-                    ]
-                },
-                "description": "Get the list of machines registered on the system."
-            },
-            "response": []
-        },
-        {
-            "name": "GetMachines v2",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv2}}"
-                    ],
-                    "path": [
-                        "machines"
-                    ]
-                },
-                "description": "Version 2 of the lsit of Machines.\nThe build job information is now on a separate block of information."
-            },
-            "response": []
-        },
-        {
-            "name": "StartBuild",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines/{{machineId}}/startbuild/{{partId}}",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "machines",
-                        "{{machineId}}",
-                        "startbuild",
-                        "{{partId}}"
-                    ]
-                },
-                "description": "Requests to start counting the time to build a new Part. This means the Machine is in use and that it should be working."
-            },
-            "response": []
-        },
-        {
-            "name": "CancelBuild",
-            "request": {
-                "method": "PUT",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/{{machineId}}/cancelbuild",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventory}}"
-                    ],
-                    "path": [
-                        "machines",
-                        "{{machineId}}",
-                        "cancelbuild"
-                    ]
-                },
-                "description": "Requests to clear the Machine data representing the current build Job."
-            },
-            "response": []
-        },
-        {
-            "name": "JobsPending",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{productionv1}}/jobs/pending",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{productionv1}}"
-                    ],
-                    "path": [
-                        "jobs",
-                        "pending"
-                    ]
-                },
-                "description": "The virtual list of jobs that the system has calculated that are required to reach the Inventory targets."
-            },
-            "response": []
-        },
-        {
-            "name": "Finishings",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/finishings",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{inventoryv1}}"
-                    ],
-                    "path": [
-                        "finishings"
-                    ]
-                },
-                "description": "The list of materials and their color to be used to register new Parts."
-            },
-            "response": []
-        },
-        {
-            "name": "NewRequest",
-            "request": {
-                "method": "POST",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"id\": \"45c52867-4888-4117-80e6-9aff5bacb551\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}",
-                    "options": {
-                        "raw": {}
-                    }
-                },
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{productionv1}}"
-                    ],
-                    "path": [
-                        "requests"
-                    ]
-                },
-                "description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
-            },
-            "response": []
-        },
-        {
-            "name": "GetRequests",
-            "request": {
-                "method": "GET",
-                "header": [{
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                }],
-                "url": {
-                    "raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
-                    "host": [
-                        "{{backendServer}}{{backendPort}}{{productionv1}}"
-                    ],
-                    "path": [
-                        "requests"
-                    ]
-                },
-                "description": "Get the complete list of **Requests** persisted at the Production repository and that are on an Open state. During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed."
-            },
-            "response": []
-        }
-    ],
-    "protocolProfileBehavior": {}
+	"info": {
+		"_postman_id": "4d9d45ee-4c7c-47cb-912a-2b870505b91a",
+		"name": "Backend",
+		"description": "Call to the backend server to test the API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Support",
+			"item": [
+				{
+					"name": "DeleteAllCoils",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/coils/delete/all",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventory}}"
+							],
+							"path": [
+								"coils",
+								"delete",
+								"all"
+							]
+						},
+						"description": "Delete all the Coils persisted at the repository."
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAllParts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/delete/all",
+							"host": [
+								"{{backendServer}}{{backendPort}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"inventory",
+								"parts",
+								"delete",
+								"all"
+							]
+						},
+						"description": "Deletes all the Parts from the Inventory repository."
+					},
+					"response": []
+				},
+				{
+					"name": "SetupMachine",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"machineLabel\": \"Ender 3 Pro - B\",\n\t\"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n\t\"jobInstallmentDate\": \"2020-06-03T02:50:00.000000\",\n\t\"partInstancesCount\": 3\n}"
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/setup",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventory}}"
+							],
+							"path": [
+								"machines",
+								"setup"
+							]
+						},
+						"description": "Sets a predetermined job into the Machine. Used by the acceptance tests to fill the Machine fields that can change when submitting or cancelling build jobs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetRepositoryRequest",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/repository",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests",
+								"repository"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAllRequestsV1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/delete/all",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests",
+								"delete",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAllRequestsV2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/v2/delete/all",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests",
+								"v2",
+								"delete",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Support calls only available on development environments and not in Production.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Actuators",
+			"item": [
+				{
+					"name": "Actuator-Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}/actuator/info",
+							"host": [
+								"{{backendServer}}{{backendPort}}"
+							],
+							"path": [
+								"actuator",
+								"info"
+							]
+						},
+						"description": "Shows the application build information."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Production",
+			"item": [
+				{
+					"name": "NewRequest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests"
+							]
+						},
+						"description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
+					},
+					"response": []
+				},
+				{
+					"name": "NewRequest V2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests"
+							]
+						},
+						"description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the\n        Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
+					},
+					"response": []
+				},
+				{
+					"name": "GetRequests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests"
+							]
+						},
+						"description": "Get the complete list of **Requests** persisted at the Production repository and that are on an Open state. During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed."
+					},
+					"response": []
+				},
+				{
+					"name": "GetRequests V2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv2}}"
+							],
+							"path": [
+								"requests"
+							]
+						},
+						"description": "        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state.\n        This method is compatible with the implementation of Requests V1 until the repository V1 is deprecated and defiled.\n        The process now extends to support Models that are packs of Parts. The new extension expands the list from the Model BOM to check agains\n        the current stock of Parts to check for run out of instances. Complete requests continue to be marked COMPLETED.\n        During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in\n        the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "StartBuild v2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"partCount\": 2,\n  \"jsonClass\": \"Job\",\n  \"expanded\": false,\n  \"selected\": false,\n  \"themeColor\": \"WHITE\",\n  \"priority\": 2,\n  \"aggregatedCount\": 5,\n  \"id\": \"4401940f-41c9-4941-851c-9bcd3a27f951\",\n  \"part\": {\n    \"jsonClass\": \"Part\",\n    \"expanded\": false,\n    \"selected\": false,\n    \"themeColor\": \"WHITE\",\n    \"id\": \"96d71bb4-e081-4d09-8162-f705803d9efe\",\n    \"label\": \"Pieza pequeña\",\n    \"description\": null,\n    \"material\": \"PLA\",\n    \"color\": \"ROJO\",\n    \"buildTime\": 2,\n    \"cost\": 1,\n    \"price\": 2,\n    \"stockLevel\": 5,\n    \"stockAvailable\": 0,\n    \"imagePath\": null,\n    \"modelPath\": null,\n    \"active\": true\n  },\n  \"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\"\n}"
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines/{{machineId}}/startbuild",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv2}}"
+							],
+							"path": [
+								"machines",
+								"{{machineId}}",
+								"startbuild"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StartBuild",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines/{{machineId}}/startbuild/{{partId}}",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"machines",
+								"{{machineId}}",
+								"startbuild",
+								"{{partId}}"
+							]
+						},
+						"description": "Requests to start counting the time to build a new Part. This means the Machine is in use and that it should be working."
+					},
+					"response": []
+				},
+				{
+					"name": "CompleteBuild",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines/{{machineId}}/completebuild",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"machines",
+								"{{machineId}}",
+								"completebuild"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelBuild",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/{{machineId}}/cancelbuild",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventory}}"
+							],
+							"path": [
+								"machines",
+								"{{machineId}}",
+								"cancelbuild"
+							]
+						},
+						"description": "Requests to clear the Machine data representing the current build Job."
+					},
+					"response": []
+				},
+				{
+					"name": "JobsPending",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/jobs/pending",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"jobs",
+								"pending"
+							]
+						},
+						"description": "The virtual list of jobs that the system has calculated that are required to reach the Inventory targets."
+					},
+					"response": []
+				}
+			],
+			"description": "Stores Production endpoints",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "NewPart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"cost\": 1.0,\n  \"price\": 5.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "Creates a new Part at the Inventory repository."
+					},
+					"response": []
+				},
+				{
+					"name": "NewPart-409 Duplicated",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"c926da84-258c-47d2-8cc8-859058c6266e\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars. Prueba de duplicado\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 31,\n  \"cost\": 2.0,\n  \"price\": 6.0,\n  \"stockLevel\": 3,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "[P3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion\n    with a clear message."
+					},
+					"response": []
+				},
+				{
+					"name": "GetParts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "Get the complete list of parts from the Inventory respository. There is an optional flag to filter out inactive parts."
+					},
+					"response": []
+				},
+				{
+					"name": "GetModels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Get the complete list of **Models** persisted at the Inventory repository."
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePart",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base Modificada\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"MORADO TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"cost\": 3.0,\n  \"price\": 6.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents."
+					},
+					"response": []
+				},
+				{
+					"name": "NewModel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n  \"label\": \"PLATAFORMA SLOT 1/2 Verde\",\n  \"price\": 4,\n  \"stockLevel\": 3,\n  \"partIdList\": [\n    \"a12ec0be-52a4-424f-81e1-70446bc38372\",\"a12ec0be-52a4-424f-81e1-70446bc38372\",\"9fd4337d-6a4d-47b3-a7ac-a61bd51fad39\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\"\n  ],\n  \"imagePath\": \"https://ibb.co/3dGbsRh\"\n}"
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Creates a new Model. The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other Model fields."
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateModel",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"dda12806-2a1e-4a13-89c8-3bf0f23e5ffc\",\n  \"label\": \"PLATAFORMA SLOT 1/2 Azul\",\n  \"price\": 25,\n  \"stockLevel\": 12,\n  \"partIdList\": [\n    \"eb80222b-efeb-4d90-9be7-1a0850338e5e\",\n    \"8d2853ca-ebf6-443e-b705-89f7a5149d37\"\n  ],\n  \"imagePath\": \"https://ibb.co/3dGbsRh\"\n}"
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents."
+					},
+					"response": []
+				},
+				{
+					"name": "GetModels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Get the complete list of **Models** persisted at the Inventory repository."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "UpdatePart",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"label\": \"Covid-19 Key\",\n  \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n  \"material\": \"PLA\",\n  \"colorCode\": \"NARANJA-T\",\n  \"buildTime\": 30,\n  \"cost\": 0.85,\n  \"price\": 3,\n  \"stockLevel\": 5,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/{{partId}}",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"parts",
+						"{{partId}}"
+					]
+				},
+				"description": "Updated some of the fields of the Part on the persistence repository."
+			},
+			"response": []
+		},
+		{
+			"name": "GetParts-filter active",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts?activesOnly=true",
+					"host": [
+						"{{backendServer}}{{backendPort}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"parts"
+					],
+					"query": [
+						{
+							"key": "activesOnly",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Get the list of active Parts from the Inventory repository."
+			},
+			"response": []
+		},
+		{
+			"name": "NewCoil",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"material\": \"TPU\",\n  \"color\": \"BLANCO\",\n  \"weight\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/rolls",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventory}}"
+					],
+					"path": [
+						"rolls"
+					]
+				},
+				"description": "Create a new roll at the backend repository."
+			},
+			"response": []
+		},
+		{
+			"name": "GetCoils",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+					],
+					"path": [
+						"coils"
+					]
+				},
+				"description": "Get the complete list of Rolls persisted at the Inventory repository."
+			},
+			"response": []
+		},
+		{
+			"name": "AddModelPart",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models/{{modelId}}/addPart/{{partId}}",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+					],
+					"path": [
+						"models",
+						"{{modelId}}",
+						"addPart",
+						"{{partId}}"
+					]
+				},
+				"description": "The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts that compose this model. If the Part is already at the model the part reference is added a second time."
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveModelPart",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models/{{modelId}}/removePart/{{partId}}",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+					],
+					"path": [
+						"models",
+						"{{modelId}}",
+						"removePart",
+						"{{partId}}"
+					]
+				},
+				"description": "This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error."
+			},
+			"response": []
+		},
+		{
+			"name": "GetMachines v1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+					],
+					"path": [
+						"machines"
+					]
+				},
+				"description": "Get the list of machines registered on the system."
+			},
+			"response": []
+		},
+		{
+			"name": "GetMachines v2",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventoryv2}}"
+					],
+					"path": [
+						"machines"
+					]
+				},
+				"description": "Version 2 of the lsit of Machines.\nThe build job information is now on a separate block of information."
+			},
+			"response": []
+		},
+		{
+			"name": "Finishings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/finishings",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+					],
+					"path": [
+						"finishings"
+					]
+				},
+				"description": "The list of materials and their color to be used to register new Parts."
+			},
+			"response": []
+		},
+		{
+			"name": "RequestClose",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/8674832e-8377-4e30-ab01-d6468a312012/close",
+					"host": [
+						"{{backendServer}}{{backendPort}}{{productionv1}}"
+					],
+					"path": [
+						"requests",
+						"8674832e-8377-4e30-ab01-d6468a312012",
+						"close"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
 }
