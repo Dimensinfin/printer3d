@@ -58,10 +58,6 @@
                 <span cy-field-label="FECHA PEDIDO" class="label">FECHA PEDIDO</span><br>
                 <span class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
             </div>
-            <!-- <div cy-name="label" class="field left-margin top-margin label-width">
-                <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-                <input type="text" class="dsf-form-control dsf-editable-form-item request-label" required [(ngModel)]="request.label" name="label" minlength="5" maxlength="100">
-            </div> -->
             <div cy-name="label" class="field field-margins">
                 <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
                 <div class="dsf-input-container label-width">
@@ -80,12 +76,26 @@
                 </div>
             </div>
             <div cy-name="requestDate" class="field left-margin top-margin date-width">
-                <span class="label">PIEZAS PEDIDO</span><br>
-                <div class="request-part" cy-name="dropParts" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
+                <div class="request-part" cy-name="dropContents" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
                 </div>
-                <div cy-name="requestParts">
-                    <div name="requestParts" *ngFor="let part4Request of getRequestParts()" style="position: relative;">
-                        <v1-part4-request [node]="part4Request" [variant]="'-REQUEST-CONTAINED-PARTS-'" [container]="self"></v1-part4-request>
+                <span class="label">CONTENIDO PEDIDO</span><br>
+                <div class="row">
+                    <div class="field column-required-width">
+                        <span class="label">CANTIDAD</span><br>
+                    </div>
+                    <div class="field column-label-width">
+                        <span class="label">ETIQUETA</span><br>
+                    </div>
+                    <div class="field column-material-width">
+                        <span class="label">TERMINACION</span><br>
+                    </div>
+                    <!-- <div class="field column-color-width">
+                        <span class="label">COLOR</span><br>
+                    </div> -->
+                </div>
+                <div cy-name="requestContents">
+                    <div *ngFor="let item of getRequestContents()" style="position: relative;">
+                        <v1-request-item [node]="item" [variant]="'-NEW-REQUEST-'" [container]="self"></v1-request-item>
                     </div>
                 </div>
             </div>

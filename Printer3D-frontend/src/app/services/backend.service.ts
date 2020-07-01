@@ -21,6 +21,7 @@ import { Request } from '@domain/Request.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { ModelForm } from '@domain/inventory/ModelForm.domain';
+import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -230,8 +231,8 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiNewRequest_v2(newRequest: Request, transformer: ResponseTransformer): Observable<Request> {
-        const request = this.APIV1 + '/production/requests';
+    public apiNewRequest_v2(newRequest: RequestRequest, transformer: ResponseTransformer): Observable<Request> {
+        const request = this.APIV2 + '/production/requests';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newRequest), headers)

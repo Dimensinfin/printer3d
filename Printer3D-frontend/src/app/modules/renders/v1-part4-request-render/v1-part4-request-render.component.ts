@@ -50,6 +50,6 @@ export class V1Part4RequestRenderComponent extends NodeContainerRenderComponent 
     public removePart(): void {
         const newRequestPanelAsAny = this.container as any;
         const newRequestPanel = newRequestPanelAsAny as V1NewRequestPanelComponent
-        newRequestPanel.removePart(this.getNode())
+        // newRequestPanel.removeContent(this.getNode())
     }
 }

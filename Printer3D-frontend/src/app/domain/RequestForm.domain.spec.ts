@@ -22,8 +22,8 @@ describe('CLASS RequestForm [Module: DTO]', () => {
             expect(instance.id).toBeDefined();
             expect(instance.label).toBeUndefined();
             expect(instance.requestDate).toBeDefined();
-            expect(instance.partList).toBeDefined();
-            expect(instance.partList.length).toBe(0);
+            expect(instance.contents).toBeDefined();
+            expect(instance.contents.length).toBe(0);
         });
         it('constructor.object: validate initial state with object data', () => {
             const instance = new RequestForm(requestFormData);
@@ -31,29 +31,29 @@ describe('CLASS RequestForm [Module: DTO]', () => {
             expect(instance.id).toBe("4e7001ee-6bf5-40b4-9c15-61802e4c59ea");
             expect(instance.label).toBe("Pedido de 100 Covid-19 Key");
             expect(instance.requestDate).toBeDefined();
-            expect(instance.partList).toBeDefined();
-            expect(instance.partList.length).toBe(0);
+            expect(instance.contents).toBeDefined();
+            expect(instance.contents.length).toBe(0);
         });
     });
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
         it('addPart: add a part to the Request', async () => {
-            expect(instance.partList).toBeDefined();
-            expect(instance.partList.length).toBe(0);
-            instance.addPart(new Part());
-            expect(instance.partList.length).toBe(1);
+            expect(instance.contents).toBeDefined();
+            expect(instance.contents.length).toBe(0);
+            instance.addContent(new Part());
+            expect(instance.contents.length).toBe(1);
         });
         xit('removePart: remove a part from the Request', async () => {
-            expect(instance.partList).toBeDefined();
-            expect(instance.partList.length).toBe(0, 'Number of Parts at creation');
+            expect(instance.contents).toBeDefined();
+            expect(instance.contents.length).toBe(0, 'Number of Parts at creation');
             const part1: Part = new Part({ labe: 'Part1' })
             const part2: Part = new Part({ labe: 'Part2' })
-            instance.addPart(part1);
-            instance.addPart(part1);
-            instance.addPart(part2);
-            expect(instance.partList.length).toBe(3, 'Number of parts after all additions.');
-            instance.removePart(part1)
-            expect(instance.partList.length).toBe(1, 'Number of parts after removal');
+            instance.addContent(part1);
+            instance.addContent(part1);
+            instance.addContent(part2);
+            expect(instance.contents.length).toBe(3, 'Number of parts after all additions.');
+            instance.removeContent(part1)
+            expect(instance.contents.length).toBe(1, 'Number of parts after removal');
         });
     });
 });

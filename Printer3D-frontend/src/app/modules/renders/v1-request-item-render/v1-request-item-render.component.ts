@@ -51,4 +51,9 @@ export class V1RequestItemRenderComponent extends NodeContainerRenderComponent {
             return part.getColor()
         } else return "-"
     }
+    public removeContent(): void {
+        const newRequestPanelAsAny = this.container as any;
+        const newRequestPanel = newRequestPanelAsAny as V1NewRequestPanelComponent
+        newRequestPanel.removeContent(this.getNode())
+    }
 }

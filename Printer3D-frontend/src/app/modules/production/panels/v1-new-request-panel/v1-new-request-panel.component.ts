@@ -27,6 +27,7 @@ import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
 import { Request } from '@domain/Request.domain';
 import { Part4Request } from '@domain/Part4Request.domain';
+import { RequestItem } from '@domain/RequestItem.domain';
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -51,27 +52,27 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
     public getLabel(): string {
         return this.request.label;
     }
-    public getRequestParts(): Part4Request[] {
-        return this.request.getRequestParts();
+    public getRequestContents(): RequestItem[] {
+        return this.request.getRequestContents();
     }
-    public hasParts(): boolean {
-        if (this.request.partList.length > 0) return true;
+    public hasContents(): boolean {
+        if (this.request.contents.length > 0) return true;
         else return false
     }
     public isFormValid(formState: any): boolean {
-        return (formState && this.hasParts())
+        return (formState && this.hasContents())
     }
     public onDrop(drop: any) {
         console.log('>[V1NewRequestPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop))
-        this.request.addPart(drop.dragData)
+        this.request.addContent(drop.dragData)
         console.log('<>>[V1NewRequestPanelComponent.onDrop]')
     }
-    public removePart(part: Part4Request): void {
-        this.request.removePart(part);
+    public removeContent(content: RequestItem): void {
+        this.request.removeContent(content);
     }
     public saveRequest(): void {
         this.backendConnections.push(
-            this.backendService.apiNewRequest_v1(new RequestFormToRequestConverter().convert(this.request), 
+            this.backendService.apiNewRequest_v2(new RequestFormToRequestConverter().convert(this.request), 
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
                 .setTransformation((entrydata: any): Request => {
                     // const persistedRequest: Request = new Request();

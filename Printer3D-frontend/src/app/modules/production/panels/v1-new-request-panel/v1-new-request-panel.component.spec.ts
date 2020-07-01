@@ -87,9 +87,9 @@ describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
             expect(component.getRequestParts().length).toBe(1)
         });
         it('getRequestParts: get the parts associated to the Request', () => {
-            expect(component.hasParts()).toBeFalse()
+            expect(component.hasContents()).toBeFalse()
             component.onDrop({ dragData: new Part() })
-            expect(component.hasParts()).toBeTrue()
+            expect(component.hasContents()).toBeTrue()
         });
         it('isFormValid.noParts: get the parts associated to the Request', () => {
             expect(component.isFormValid(true)).toBeFalse()
