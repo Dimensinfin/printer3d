@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
-import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
-import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdaterV1;
@@ -25,6 +23,8 @@ import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.Machin
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
+import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
@@ -47,6 +47,10 @@ public class MachineServiceV1 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
+
+	/**
+	 * @deprecated This endpoint has been superseded by a new version.
+	 */
 	@Deprecated
 	public MachineList getMachines() {
 		final List<Machine> machines = this.machineRepository.findAll()

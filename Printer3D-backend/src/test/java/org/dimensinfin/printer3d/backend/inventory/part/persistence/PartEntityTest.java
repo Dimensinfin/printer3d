@@ -5,8 +5,6 @@ import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR_CODE;
@@ -314,7 +312,56 @@ public class PartEntityTest {
 		} );
 	}
 
-//	@Test
+	@Test
+	public void decrementStock() {
+		// Given
+		final PartEntity part = new PartEntity.Builder()
+				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( 10 )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		// Test
+		Assertions.assertEquals( 10, part.getStockAvailable() );
+		part.decrementStock( 3 );
+		// Assertions
+		Assertions.assertEquals( 7, part.getStockAvailable() );
+	}
+	@Test
+	public void incrementStock() {
+		// Given
+		final PartEntity part = new PartEntity.Builder()
+				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR_CODE )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( 10 )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		// Test
+		Assertions.assertEquals( 10, part.getStockAvailable() );
+		part.incrementStock( 3 );
+		// Assertions
+		Assertions.assertEquals( 13, part.getStockAvailable() );
+	}
+
+		@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass( PartEntity.class )
 				.verify();
@@ -342,6 +389,7 @@ public class PartEntityTest {
 		Assertions.assertEquals( TEST_PART_ID.toString(), part.getId().toString() );
 		Assertions.assertEquals( TEST_PART_LABEL, part.getLabel() );
 		Assertions.assertEquals( TEST_PART_DESCRIPTION, part.getDescription() );
+		Assertions.assertEquals( TEST_PART_MATERIAL, part.getMaterial() );
 		Assertions.assertEquals( TEST_PART_COLOR_CODE, part.getColor() );
 		Assertions.assertEquals( TEST_PART_BUILD_TIME, part.getBuildTime() );
 		Assertions.assertEquals( TEST_PART_COST, part.getCost() );

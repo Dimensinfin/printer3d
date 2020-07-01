@@ -53,17 +53,18 @@ public class RequestServiceV1 {
 			final RequestList requestList = new RequestList.Builder().build();
 			this.requestsRepository.findAll()
 					.stream()
-					.filter( ( request ) -> request.isOpen() )
-					.forEach( ( request ) -> {
+					.filter( RequestEntity::isOpen )
+					.forEach( request -> {
 						// Extract the Parts from the stock. Check if stock goes negative.
 						boolean underStocked = false;
 						for (PartRequest partRequest : request.getPartList()) {
-							this.stockManager.minus( partRequest.getPartId(), partRequest.getQuantity() ); // Subtract the request quantity from the stock.
+							this.stockManager
+									.minus( partRequest.getPartId(), partRequest.getQuantity() ); // Subtract the request quantity from the stock.
 							if (this.stockManager.getStock( partRequest.getPartId() ) < 0) // There is stock shortage. Generate jobs.
 								underStocked = true;
 						}
 						if (!underStocked) request.signalCompleted();
-						requestList.addRequest( this.requestConverter.convert( request ) );
+						requestList.addRequest( requestConverter.convert( request ) );
 					} );
 			return requestList;
 		} finally {
@@ -85,7 +86,7 @@ public class RequestServiceV1 {
 			// Update the parts stocks reducing the stock with the Request quantities.
 			for (PartRequest partRequest : target.get().getPartList()) {
 				final Optional<PartEntity> partOpt = this.partRepository.findById( partRequest.getPartId() );
-				partOpt.ifPresent( ( partEntity ) -> {
+				partOpt.ifPresent( partEntity -> {
 					partEntity.decrementStock( partRequest.getQuantity() );
 					this.partRepository.save( partEntity );
 				} );

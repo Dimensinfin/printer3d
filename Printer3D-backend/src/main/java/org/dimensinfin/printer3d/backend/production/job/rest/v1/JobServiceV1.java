@@ -97,7 +97,7 @@ public class JobServiceV1 {
 							.map( requestV1ToV2Converter::convert ),
 					this.requestsRepositoryV2.findAll().stream() )
 					.filter( RequestEntityV2::isOpen )
-					.forEach( ( requestEntityV2 ) -> {
+					.forEach( requestEntityV2 -> {
 						// Subtract the Parts from the inventory
 						for (RequestItem content : requestEntityV2.getContents()) {
 							LogWrapper.info( "Processing Request: " + requestEntityV2.getId().toString() );
@@ -126,8 +126,8 @@ public class JobServiceV1 {
 		final Map<String, FinishingContainer> finishings = new HashMap<>(); // Initialize the result list
 		for (Job job : inputJobs) {
 			final String key = this.generateFinishingKey( job.getPart() );
-			finishings.computeIfAbsent( key, ( FinishingContainer ) -> new FinishingContainer.Builder().build() );
-			finishings.compute( key, ( String targetKey, FinishingContainer container ) -> container.addJob( job ) );
+			finishings.computeIfAbsent( key, finishingContainer -> new FinishingContainer.Builder().build() );
+			finishings.compute( key, ( String targetKey, FinishingContainer container ) -> Objects.requireNonNull( container ).addJob( job ) );
 		}
 		return new ArrayList<>( finishings.values() );
 	}
@@ -210,7 +210,7 @@ public class JobServiceV1 {
 		return finishings
 				.stream()
 				.sorted( ( fin1, fin2 ) -> new FinishingByCountComparator().compare( fin1, fin2 ) )
-				.flatMap( ( finishingContainer ) -> finishingContainer.getJobs().stream() )
+				.flatMap( finishingContainer -> finishingContainer.getJobs().stream() )
 				.collect( Collectors.toList() );
 	}
 }

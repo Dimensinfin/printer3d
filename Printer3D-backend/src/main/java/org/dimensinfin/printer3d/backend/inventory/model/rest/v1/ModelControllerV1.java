@@ -43,6 +43,9 @@ public class ModelControllerV1 {
 		return new ResponseEntity<>( this.modelServiceV1.getModels(), HttpStatus.OK );
 	}
 
+	/**
+	 * @deprecated This endpoint has been superseded by a new version.
+	 */
 	@PutMapping(path = "/inventory/models/{modelId}/addPart/{partId}",
 			consumes = "application/json",
 			produces = "application/json")
@@ -62,6 +65,9 @@ public class ModelControllerV1 {
 		return new ResponseEntity<>( this.modelServiceV1.newModel( modelRequest ), HttpStatus.CREATED );
 	}
 
+	/**
+	 * @deprecated This endpoint has been superseded by a new version.
+	 */
 	@PutMapping(path = "/inventory/models/{modelId}/removePart/{partId}",
 			consumes = "application/json",
 			produces = "application/json")

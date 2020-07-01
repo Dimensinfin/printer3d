@@ -93,7 +93,7 @@ jobs:
           command: |
             dockerize -wait tcp://localhost:${PORT}/actuator/health -timeout 3m
       - run:
-          name: BACKEND - Unit Testing application
+          name: BACKEND - Run acceptance tests for application
           working_directory: Printer3D-backend
           environment:
             PORT: 5140
@@ -107,6 +107,9 @@ jobs:
             ./gradlew test -Dcucumber.options="--tags @P3D03"
             ./gradlew test -Dcucumber.options="--tags @P3D04"
             ./gradlew test -Dcucumber.options="--tags @P3D05"
+            ./gradlew test -Dcucumber.options="--tags @P3D06"
+            ./gradlew test -Dcucumber.options="--tags @P3D07"
+            ./gradlew test -Dcucumber.options="--tags @P3D08"
       - store_test_results:
           path: ~/project/Printer3D-backend/build/test-results
       - store_artifacts:  

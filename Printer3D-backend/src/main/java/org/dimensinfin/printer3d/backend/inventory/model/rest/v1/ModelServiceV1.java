@@ -50,6 +50,7 @@ public class ModelServiceV1 {
 				.build();
 	}
 
+	@Deprecated
 	public Model addModelPart( final UpdateModelCompositionRequest modelCompositionRequest ) {
 		LogWrapper.enter();
 		try {
@@ -89,7 +90,9 @@ public class ModelServiceV1 {
 		}
 	}
 
+	@Deprecated
 	public Model removeModelPart( final UpdateModelCompositionRequest modelCompositionRequest ) {
+		
 		LogWrapper.enter();
 		try {
 			// Search for the model at the repository.

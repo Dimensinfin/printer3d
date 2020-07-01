@@ -52,10 +52,9 @@ public class StockManager {
 	}
 
 	public StockManager startStock() {
-		this.partRepository.findAll().forEach( ( part ) -> {
+		this.partRepository.findAll().forEach( part -> {
 			LogWrapperLocal.info( "id: " + part.getId().toString() + " stock: " + part.getStockLevel() + "/" + part.getStockAvailable() );
 			stocks.put( part.getId(), new StockLevel.Builder()
-					.withLevel( part.getStockLevel() )
 					.withStock( part.getStockAvailable() )
 					.build() );
 		} );
@@ -63,12 +62,10 @@ public class StockManager {
 	}
 
 	private static class StockLevel {
-		private int level = 0;
 		private int stock = 0;
 
 		// - C O N S T R U C T O R S
-		private StockLevel() {
-		}
+		private StockLevel() { }
 
 		// - G E T T E R S   &   S E T T E R S
 		public int getStock() {
@@ -82,7 +79,7 @@ public class StockManager {
 
 		// - B U I L D E R
 		public static class Builder {
-			private StockLevel onConstruction;
+			private final StockLevel onConstruction;
 
 			// - C O N S T R U C T O R S
 			public Builder() {
@@ -90,14 +87,7 @@ public class StockManager {
 			}
 
 			public StockLevel build() {
-				Objects.requireNonNull( this.onConstruction.level );
-				Objects.requireNonNull( this.onConstruction.stock );
 				return this.onConstruction;
-			}
-
-			public StockLevel.Builder withLevel( final Integer level ) {
-				this.onConstruction.level = Objects.requireNonNull( level );
-				return this;
 			}
 
 			public StockLevel.Builder withStock( final Integer stock ) {

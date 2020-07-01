@@ -35,7 +35,7 @@ public class Model {
 	@SerializedName("imagePath")
 	private String imagePath;
 	private boolean active = true;
-	private transient List<Part> partList = new ArrayList<>();
+	private List<Part> partList = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
 	private Model() {}
@@ -65,10 +65,6 @@ public class Model {
 		return this.price;
 	}
 
-	//	public int getStockAvailable() {
-	//		return this.stockAvailable;
-	//	}
-
 	public int getStockLevel() {
 		return this.stockLevel;
 	}
@@ -95,8 +91,6 @@ public class Model {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
 			Objects.requireNonNull( this.onConstruction.price );
-			Objects.requireNonNull( this.onConstruction.stockLevel );
-			Objects.requireNonNull( this.onConstruction.active );
 			return this.onConstruction;
 		}
 
@@ -129,11 +123,6 @@ public class Model {
 			this.onConstruction.price = Objects.requireNonNull( price );
 			return this;
 		}
-
-		//		public Model.Builder withStockAvailable( final Integer stockAvailable ) {
-		//			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
-		//			return this;
-		//		}
 
 		public Model.Builder withStockLevel( final Integer stockLevel ) {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );

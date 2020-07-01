@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MachineListV2 {
-	private List<MachineV2> machines = new ArrayList<MachineV2>();
+	private List<MachineV2> machines = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
 	private MachineListV2() {
