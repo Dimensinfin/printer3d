@@ -1,11 +1,12 @@
 #!/bin/bash
 # - PARAMETERS & CONSTANTS
-SERVICE='backend'
+#SERVICE='backend'
 COMMAND=$1
+ENVIRONMENT=$2
 
 WORKING_DIRECTORY="$(dirname "$0")"
 DOCKER_DIRECTORY="${WORKING_DIRECTORY}/src/main/resources/docker"
-DOCKER_COMMAND="docker-compose --file src/test/resources/docker-printer3d/docker-compose-"
+DOCKER_COMPOSER_COMMAND="docker-compose --file src/test/resources/docker-${ENVIRONMENT}/docker-compose.yml"
 
 # - G E N E R A T E   C O N T A I N E R
 generateContainer() {
@@ -22,13 +23,23 @@ generateContainer() {
 # - S T A R T / S T O P
 start() {
   cd "${WORKING_DIRECTORY}" || exit 1;
-  RUN_COMMAND="${DOCKER_COMMAND}${SERVICE}.yml"
+  RUN_COMMAND="${DOCKER_COMPOSER_COMMAND}"
   $RUN_COMMAND up &
 }
 stop() {
   cd "${WORKING_DIRECTORY}" || exit 1;
-  RUN_COMMAND="${DOCKER_COMMAND}${SERVICE}.yml"
-  $RUN_COMMAND down &
+  RUN_COMMAND="${DOCKER_COMPOSER_COMMAND}"
+  $RUN_COMMAND down
+}
+recycle() {
+  # - STOP
+  cd "${WORKING_DIRECTORY}" || exit 1;
+  RUN_COMMAND="${DOCKER_COMPOSER_COMMAND}"
+  $RUN_COMMAND down
+  generateContainer
+  cd "${WORKING_DIRECTORY}" || exit 1;
+  RUN_COMMAND="${DOCKER_COMPOSER_COMMAND}"
+  $RUN_COMMAND up &
 }
 
 case $COMMAND in
@@ -42,7 +53,7 @@ case $COMMAND in
   stop
   ;;
 *)
-  echo "Usage: $0 { generate | start | stop }"
+  echo "Usage: $0 { generate | start | stop | recycle }"
   echo
   exit 1
   ;;
