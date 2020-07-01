@@ -238,7 +238,7 @@
             "stockAvailable": 4,
             "imagePath": null,
             "modelPath": null,
-            "active": false
+            "active": true
         }
     ]
 }

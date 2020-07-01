@@ -1,0 +1,45 @@
+[{
+        "id": "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9",
+        "label": "Complete Slot Car Platform P01",
+        "requestDate": "2020-06-29T20:00:00.226181Z",
+        "state": "COMPLETED",
+        "contents": [{
+                "itemId": "a12ec0be-52a4-424f-81e1-70446bc38372",
+                "type": "PART",
+                "quantity": 1,
+                "missing": 0
+            },
+            {
+                "itemId": "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39",
+                "type": "PART",
+                "quantity": 1,
+                "missing": 0
+            },
+            {
+                "itemId": "2f780382-e539-4945-87ea-354bdd7879ce",
+                "type": "PART",
+                "quantity": 4,
+                "missing": 0
+            }
+        ]
+    },
+    {
+        "id": "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef",
+        "label": "Complete Slot Car Platform P02",
+        "requestDate": "2020-06-29T20:00:00.226181Z",
+        "state": "OPEN",
+        "contents": [{
+                "itemId": "ed36cdfb-e5ae-4275-a163-63b4be4d952c",
+                "type": "PART",
+                "quantity": 2,
+                "missing": 1
+            },
+            {
+                "itemId": "0f789845-cdc6-48ce-a0ce-cbaf63cffab5",
+                "type": "MODEL",
+                "quantity": 2,
+                "missing": 1
+            }
+        ]
+    }
+]

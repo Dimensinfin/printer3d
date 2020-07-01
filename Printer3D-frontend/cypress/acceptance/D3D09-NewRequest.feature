@@ -29,15 +29,6 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         And the target panel input field named "label" is "invalid"
         And the target panel has a drop place named "dropParts"
 
-    # @D3D09 @D3D09.07
-    # Scenario: [D3D09.07]-The Parts at the left panel can be dragged and deployed on the box at the right Panel.
-    #     Given there is a click on Feature "/NUEVO PEDIDO"
-    #     Then the page "NewRequestPage" is activated
-    #     Given the target panel is the panel of type "available-parts"
-    #     And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
-    #     Given the target panel is the panel of type "new-request"
-    #     And the target panel has a drop place named "dropParts"
-    #     When the drag source is dragged to the drop destination "dropParts"
 
     # @D3D09 @D3D09.08
     # Scenario: [D3D09.08]-If we drag a Part to the right panel box the number of Parts associated to the Request increases.
@@ -139,7 +130,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         When the drag source is dragged to the drop destination "dropParts"
         Then the target panel has 2 "part4-request"
 
-    @D3D09 @D3D09.15
+    @D3D09.15
     Scenario: [D3D09.15]-If the user clicks on the Remove button of a Part assigned to a Request then the number of that type of Parts reduces in 1. The the count reaches 0 then the part is removed from the Report.
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated

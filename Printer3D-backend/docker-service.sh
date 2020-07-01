@@ -4,8 +4,8 @@ SERVICE='backend'
 COMMAND=$1
 
 WORKING_DIRECTORY="$(dirname "$0")"
-DOCKER_DIRECTORY="${WORKING_DIRECTORY}/src/main/resources/docker"
-DOCKER_COMMAND="docker-compose --file src/test/resources/docker/docker-compose-"
+DOCKER_DIRECTORY="${WORKING_DIRECTORY}/src/main/resources/docker-printer3d"
+DOCKER_COMMAND="docker-compose --file src/test/resources/docker-printer3d/docker-compose-"
 
 # - G E N E R A T E   C O N T A I N E R
 generateContainer() {

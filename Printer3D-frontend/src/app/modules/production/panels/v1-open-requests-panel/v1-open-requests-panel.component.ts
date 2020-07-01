@@ -17,6 +17,9 @@ import { Request } from '@domain/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
 import { Model } from '@domain/inventory/Model.domain';
+import { RequestConstructor } from '@domain/constructor/Request.constructor';
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
+import { IContent } from '@domain/interfaces/IContent.interface';
 /**
  * To display some of the Request details we should have access to the list of Parts because the Request List from the backend will not have the Part details but only the Part identifier.
  * The Process should lookup on the Parts list for the Part instance.
@@ -54,17 +57,25 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
 
     // - R E F R E S H A B L E
     public clean(): void {
-        this.parts=[]
-        this.models=[]
+        this.parts = []
+        this.models = []
     }
     public refresh(): void {
         this.clean()
         this.downloadParts()
     }
     // - I P A R T P R O V I D E R
-    public findById(id: string): Part {
-        for (let part of this.parts)
-            if (part.getId() == id) return part;
+    /**
+     * Now identifier can belong to Parts or Models, the second parameter determined the type for the search.
+     * @param id The item identifier to search
+     */
+    public findById(id: string, type: RequestContentType): IContent {
+        if (type == RequestContentType.PART)
+            for (let part of this.parts)
+                if (part.getId() == id) return part;
+        if (type == RequestContentType.MODEL)
+            for (let model of this.models)
+                if (model.getId() == id) return model;
         return undefined;
     }
 
@@ -92,8 +103,8 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
                     for (const entry of entrydata.models) {
                         const model: Model = new Model(entry)
                         for (let index = 0; index < entry.partIdList.length; index++) {
-                            const partFound = this.findById(entry.partIdList[index])
-                            if (undefined != partFound) model.addPart(partFound)
+                            const partFound = this.findById(entry.partIdList[index], RequestContentType.PART)
+                            if (undefined != partFound) model.addPart(partFound as Part)
                         }
                         modelList.push(model)
                     }
@@ -112,11 +123,10 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
                 .setTransformation((entrydata: any): Request[] => {
                     // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
                     const requestList: Request[] = []
-                    const requestConstructor : RequestConstructor = new RequestConstructor(this)
-                    for (let entry of entrydata.requests) {
-                        const request: Request = new Request(entry)
-                        request.setPartProvider(this)
-                        requestList.push(request);
+                    const requestConstructor: RequestConstructor = new RequestConstructor(this)
+                    for (let index = 0; index < entrydata.length; index++) {
+                        // const request: Request = new Request(entrydata[0])
+                        requestList.push(requestConstructor.construct(entrydata[index]));
                     }
                     return requestList;
                 }))

@@ -1,3 +1,4 @@
+<!-- O P E N   R E Q U E S T S -->
 <div #requestInstance *ngIf="getVariant() === '-OPEN-REQUESTS-'">
     <div id="{{getUniqueId()}}" class="row cornered-panel">
         <div class="field date-width">
@@ -10,7 +11,7 @@
         </div>
         <div class="field part-count-width">
             <span cy-field-label="PIEZAS" class="label">NRO. PIEZAS</span><br>
-            <span cy-field-value="PIEZAS" cy-name="part-count" class="field-height request-part-count">{{getPartCount()}}</span>
+            <span cy-field-value="PIEZAS" cy-name="part-count" class="field-height request-part-count">{{getContentCount()}}</span>
         </div>
         <div class="field amount-width">
             <span cy-field-label="IMPORTE" class="label">IMPORTE</span><br>
@@ -27,6 +28,7 @@
         </svg>
     </div>
 </div>
+<!-- D E T A I L E D   R E Q U E S T -->
 <div #requestInstance *ngIf="getVariant() === '-DETAILED-REQUEST-'">
     <div id="{{getUniqueId()}}" class="column cornered-panel">
         <div class="row">
@@ -68,7 +70,7 @@
         </div>
         <div class="field part-count-width">
             <span cy-field-label="PIEZAS" class="label">NRO. PIEZAS</span><br>
-            <span cy-field-value="PIEZAS" cy-name="part-count" class="field-height request-part-count">{{getPartCount()}}</span>
+            <span cy-field-value="PIEZAS" cy-name="part-count" class="field-height request-part-count">{{getContentCount()}}</span>
         </div>
         <div class="field amount-width">
             <span cy-field-label="IMPORTE" class="label">IMPORTE</span><br>
@@ -93,8 +95,8 @@
                     <span class="label">COLOR</span><br>
                 </div>
             </div>
-            <div *ngFor="let part of getRequestParts()">
-                <v1-part4-request [node]="part" [variant]="'-DETAIL4REQUEST-'"></v1-part4-request>
+            <div *ngFor="let content of getContents()">
+                <v1-request-item [container]="self" [node]="content" [variant]="'-DETAIL4REQUEST-'"></v1-request-item>
             </div>
         </div>
         <svg class="corner-border" viewBox="0 0 100 100">

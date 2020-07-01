@@ -22,16 +22,16 @@ export class RequestConstructor implements Constructor<Request> {
     public construct(input: any): Request {
         const onConstruction: Request = new Request(input)
         const onConstructionAsAny = onConstruction as any
+        const contents: RequestItem[] = []
         for (const item of onConstructionAsAny.contents) {
-            const contents: RequestItem[] = []
             const itemContent = new RequestItem(item)
             const content: IContent = this.contentProvider.findById(itemContent.getId(), itemContent.getType())
             if (null != content) {
                 itemContent.setContent(content) // Fill the stub with the real instance
                 contents.push(itemContent)
             }
-            onConstructionAsAny.contents = contents
         }
+        onConstructionAsAny.contents = contents
         return onConstruction
     }
 }

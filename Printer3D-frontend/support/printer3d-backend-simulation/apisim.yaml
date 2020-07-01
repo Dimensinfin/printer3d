@@ -1,3 +1,20 @@
+simlet: production-open-requests
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v2/production/requests"
+
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.openrequests.v2.json"
+
+---
+
 simlet: inventory-partlist
 
 delay:
@@ -21,7 +38,7 @@ response:
 
 ---
 
-simlet: inventory-partlist
+simlet: inventory-partlist-actives
 
 request:
   - method: GET

@@ -16,6 +16,7 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
 import { Part } from '@domain/Part.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
+import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
 
 @Component({
     selector: 'v1-request',
@@ -23,6 +24,7 @@ import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
     styleUrls: ['./v1-request-render.component.scss']
 })
 export class V1RequestRenderComponent extends NodeContainerRenderComponent implements OnDestroy {
+    public self: V1RequestRenderComponent
     protected backendConnections: Subscription[] = [];
 
     constructor(
@@ -30,6 +32,7 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
         protected isolationService: IsolationService,
         protected backendService: BackendService) {
         super();
+        this.self = this
     }
     /**
      * Unsubscribe from any open subscription made to the backend.
@@ -49,13 +52,12 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
         return request.getRequestDate();
     }
     public getLabel(): string {
-        // this.requestInstance.nativeElement.setAttribute('cy-id', this.identifier);
         const request = this.node as Request
         return request.getLabel();
     }
-    public getPartCount(): string {
+    public getContentCount(): string {
         const request = this.node as Request
-        return request.getPartCount() + '';
+        return request.getContentCount() + '';
     }
     public getAmount(): string {
         const request = this.node as Request
@@ -75,9 +77,9 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
     }
 
     // - I N T E R A C T I O N S
-    public getRequestParts(): Part[] {
+    public getContents(): ICollaboration[] {
         const request = this.node as Request
-        return request.getParts()
+        return request.getContents()
     }
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.

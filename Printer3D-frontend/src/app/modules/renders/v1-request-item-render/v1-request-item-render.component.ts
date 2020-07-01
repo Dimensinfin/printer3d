@@ -43,12 +43,12 @@ export class V1RequestItemRenderComponent extends NodeContainerRenderComponent {
         if (this.getNode().getType() == RequestContentType.PART) {
             const part: Part = this.getNode().getContent() as any
             return part.getMaterial()
-        } else return " "
+        } else return "-"
     }
     public getColor(): string {
         if (this.getNode().getType() == RequestContentType.PART) {
             const part: Part = this.getNode().getContent() as any
             return part.getColor()
-        } else return " "
+        } else return "-"
     }
 }
