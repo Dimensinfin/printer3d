@@ -58,7 +58,7 @@ public class RequestServiceV1Test {
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		Mockito.when( this.requestsRepository.save( Mockito.any( RequestEntity.class ) ) ).thenReturn( requestEntity.close() );
 		// Test
-		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository, this.stockManager );
+		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository );
 		final Request obtained = requestServiceV1.closeRequest( requestId );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -67,7 +67,7 @@ public class RequestServiceV1Test {
 
 	@Test
 	public void constructorContract() {
-		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository, this.stockManager );
+		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository );
 		Assertions.assertNotNull( requestServiceV1 );
 	}
 
@@ -122,7 +122,7 @@ public class RequestServiceV1Test {
 		Mockito.when( this.stockManager.getStock( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ) ) )
 				.thenReturn( -1 );
 		// Test
-		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository, this.stockManager );
+		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository);
 		final RequestList obtained = requestServiceV1.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -147,7 +147,7 @@ public class RequestServiceV1Test {
 				new RequestToRequestEntityConverter().convert( request )
 		);
 		// Test
-		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository, this.stockManager );
+		final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository );
 		final Request obtained = requestServiceV1.newRequest( request );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -164,7 +164,7 @@ public class RequestServiceV1Test {
 		Mockito.when( request.getId() ).thenReturn( UUID.randomUUID() );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository, this.stockManager );
+			final RequestServiceV1 requestServiceV1 = new RequestServiceV1( this.requestsRepository, this.partRepository );
 			requestServiceV1.newRequest( request );
 		} );
 	}

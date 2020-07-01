@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
@@ -47,12 +48,12 @@ public class JobServiceV1 {
 	public JobServiceV1( final PartRepository partRepository,
 	                     final RequestsRepository requestsRepository,
 	                     final RequestsRepositoryV2 requestsRepositoryV2,
-	                     final ModelRepository modelRepository, final StockManager stockManager ) {
+	                     final ModelRepository modelRepository ) {
 		this.partRepository = Objects.requireNonNull( partRepository );
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.modelRepository = modelRepository;
-		this.stockManager = Objects.requireNonNull( stockManager );
+		this.stockManager = new StockManager( this.partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -98,7 +99,7 @@ public class JobServiceV1 {
 	}
 
 	private List<Job> generateRequestJobList() {
-		LogWrapperLocal.enter();
+		LogWrapper.enter();
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		try {
 			Stream.concat(
@@ -111,48 +112,48 @@ public class JobServiceV1 {
 					.forEach( ( requestEntityV2 ) -> {
 						// Subtract the Parts from the inventory
 						for (RequestItem content : requestEntityV2.getContents()) {
+							LogWrapper.info( "Processing Request: " + content.getItemId().toString() );
 							if (content.getType() == RequestContentType.PART) {
 								final int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
-								//								if (missing < 0) // There is stock shortage. Generate jobs.
-								//									jobs.addAll( this.generateRequestJobs(
-								//											content.getItemId(),
-								//											Math.abs( missing ) )
-								//									);
 							}
 							if (content.getType() == RequestContentType.MODEL) {
 								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
-									final int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
-									//									if (missing < 0) // There is stock shortage. Generate jobs.
-									//										jobs.addAll( this.generateRequestJobs(
-									//												content.getItemId(),
-									//												Math.abs( missing ) )
-									//										);
+									final int missing = this.stockManager
+											.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
 								}
 							}
 						}
 					} );
 			// Generate the jobs after processing all Requests
 			for (UUID stockId : this.stockManager.getStockIterator()) {
-				jobs.addAll( this.generateRequestJobs( stockId, Math.abs( this.stockManager.getStock( stockId ) ) ) );
+				if (this.stockManager.getStock( stockId ) < 0) {
+					LogWrapper.info( "Stock missing: " + stockId.toString() );
+					jobs.addAll( this.generateRequestJobs( stockId, Math.abs( this.stockManager.getStock( stockId ) ) ) );
+				}
 			}
 			return jobs;
 		} catch (final RuntimeException rte) {
 			LogWrapperLocal.error( rte );
 			return null;
 		} finally {
-			LogWrapperLocal.exit( "RequestJobList count:", jobs.size() );
+			LogWrapper.exit( "RequestJobList count:" + jobs.size() + "" );
 		}
 	}
 
 	private List<Job> generateRequestJobs( final UUID partId, final int jobCount ) {
-		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-		final Optional<PartEntity> partOpt = this.partRepository.findById( partId );
-		if (partOpt.isEmpty()) throw new DimensinfinRuntimeException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( partId ) );
-		for (int i = 0; i < jobCount; i++)
-			jobs.add( new Job.Builder().withPart( new PartEntityToPartConverter().convert(
-					partOpt.get()
-			) ).withPriority( REQUEST_PRIORITY ).build() );
-		return jobs;
+		LogWrapper.enter( "partId: " + partId.toString() + " jobcount: " + jobCount + "" );
+		try {
+			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
+			final Optional<PartEntity> partOpt = this.partRepository.findById( partId );
+			if (partOpt.isEmpty()) throw new DimensinfinRuntimeException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( partId ) );
+			for (int i = 0; i < jobCount; i++)
+				jobs.add( new Job.Builder().withPart( new PartEntityToPartConverter().convert(
+						partOpt.get()
+				) ).withPriority( REQUEST_PRIORITY ).build() );
+			return jobs;
+		} finally {
+			LogWrapper.exit();
+		}
 	}
 
 	/**
@@ -162,14 +163,19 @@ public class JobServiceV1 {
 	 * expected new values for the stock levels.
 	 */
 	private List<Job> generateStockLevelJobs() {
+		LogWrapper.enter();
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-		this.partRepository.findAll().forEach( part -> {
-			for (int stock = part.getStockAvailable(); stock < part.getStockLevel(); stock++)
-				jobs.add( new Job.Builder().withPart(
-						new PartEntityToPartConverter().convert( part )
-				).withPriority( STOCK_LEVEL_PRIORITY ).build() );
-		} );
-		return jobs;
+		try {
+			this.partRepository.findAll().forEach( part -> {
+				for (int stock = part.getStockAvailable(); stock < part.getStockLevel(); stock++)
+					jobs.add( new Job.Builder().withPart(
+							new PartEntityToPartConverter().convert( part )
+					).withPriority( STOCK_LEVEL_PRIORITY ).build() );
+			} );
+			return jobs;
+		} finally {
+			LogWrapper.exit( "Job count: " + jobs.size() );
+		}
 	}
 
 	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {

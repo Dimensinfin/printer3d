@@ -7,9 +7,6 @@ import java.util.Set;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
@@ -22,13 +19,13 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.6.0
  */
-@Component
+//@Component
 public class StockManager {
 	private final PartRepository partRepository;
 	private final Map<UUID, StockLevel> stocks = new HashMap<>();
 
 	// - C O N S T R U C T O R S
-	@Autowired
+//	@Autowired
 	public StockManager( final @NotNull PartRepository partRepository ) {
 		this.partRepository = Objects.requireNonNull( partRepository );
 	}
@@ -53,7 +50,7 @@ public class StockManager {
 
 	public void startStock() {
 		this.partRepository.findAll().forEach( ( part ) -> {
-			LogWrapperLocal.info( "id: " + part.getId().toString() );
+			LogWrapperLocal.info( "id: " + part.getId().toString() + " stock: " + part.getStockLevel() + "/" + part.getStockAvailable() );
 			stocks.put( part.getId(), new StockLevel.Builder()
 					.withLevel( part.getStockLevel() )
 					.withStock( part.getStockAvailable() )

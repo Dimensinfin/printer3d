@@ -49,14 +49,15 @@ public class JobServiceV1Test {
 	public void beforeEach() {
 		this.partRepository = Mockito.mock( PartRepository.class );
 		this.requestsRepository = Mockito.mock( RequestsRepository.class );
-		this.requestsRepositoryV2 = Mockito.mock(RequestsRepositoryV2.class);
-		this.modelRepository = Mockito.mock(ModelRepository.class);
+		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
+		this.modelRepository = Mockito.mock( ModelRepository.class );
 		this.stockManager = Mockito.mock( StockManager.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+				this.modelRepository );
 		Assertions.assertNotNull( jobServiceV1 );
 	}
 
@@ -118,7 +119,8 @@ public class JobServiceV1Test {
 		Mockito.when( this.partRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+				this.modelRepository );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -165,7 +167,8 @@ public class JobServiceV1Test {
 		Mockito.when( this.requestsRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+				this.modelRepository );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -212,7 +215,8 @@ public class JobServiceV1Test {
 		Mockito.when( this.requestsRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+				this.modelRepository );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );

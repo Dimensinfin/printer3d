@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
@@ -32,6 +33,7 @@ public class RequestServiceV2Test {
 	private RequestsRepository requestsRepository;
 	private RequestsRepositoryV2 requestsRepositoryV2;
 	private ModelRepository modelRepository;
+	private PartRepository partRepository;
 
 	@BeforeEach
 	public void beforeEach() {
@@ -39,11 +41,12 @@ public class RequestServiceV2Test {
 		this.requestsRepository = Mockito.mock( RequestsRepository.class );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 		this.modelRepository = Mockito.mock( ModelRepository.class );
+		this.partRepository = Mockito.mock( PartRepository.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2( this.stockManager, this.requestsRepository, this.requestsRepositoryV2,
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
 				this.modelRepository );
 		Assertions.assertNotNull( requestServiceV2 );
 	}
@@ -108,7 +111,8 @@ public class RequestServiceV2Test {
 		Mockito.when( this.stockManager.minus( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ), 3 ) )
 				.thenReturn( -1 );
 		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2( this.stockManager,
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
@@ -185,7 +189,8 @@ public class RequestServiceV2Test {
 		Mockito.when( this.stockManager.minus( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ), 3 ) )
 				.thenReturn( -1 );
 		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2( this.stockManager,
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
@@ -310,7 +315,8 @@ public class RequestServiceV2Test {
 		Mockito.when( this.stockManager.minus( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ), 3 ) )
 				.thenReturn( -1 );
 		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2( this.stockManager,
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
@@ -419,7 +425,8 @@ public class RequestServiceV2Test {
 		Mockito.when( this.modelRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( model ) );
 		Mockito.when( model.getPartIdList() ).thenReturn( idList );
 		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2( this.stockManager,
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );

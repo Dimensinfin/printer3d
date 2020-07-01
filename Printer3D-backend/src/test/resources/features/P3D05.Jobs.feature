@@ -7,6 +7,9 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
     # - H A P P Y   P A T H
     @P3D05.H @P3D05.01
     Scenario: [P3D05.01] When the pending jobs request is received a new list of jobs is calculated.
+        Given a clean Requests repository
+        Given a clean RequestsV2 repository
+        Given a clean Models repository
         Given a clean Parts repository
         And the following Parts in my service
             | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -19,6 +22,8 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
     @P3D05.H @P3D05.02
     Scenario: [P3D05.02] When a job is completed by the user the Machine Job record is expanded with the Part information and persisted on the
     historic Jobs repository.
+        Given a clean Requests repository
+        Given a clean RequestsV2 repository
         Given a clean Jobs repository
         Given a clean Parts repository
         Given the following Parts in my service

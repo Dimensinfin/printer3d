@@ -19,6 +19,7 @@ import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
@@ -41,14 +42,14 @@ public class RequestServiceV2 {
 	private final ModelRepository modelRepository;
 
 	// - C O N S T R U C T O R S
-	public RequestServiceV2( final @NotNull StockManager stockManager,
+	public RequestServiceV2( final @NotNull PartRepository partRepository,
 	                         final @NotNull RequestsRepository requestsRepository,
 	                         final @NotNull RequestsRepositoryV2 requestsRepositoryV2,
 	                         final @NotNull ModelRepository modelRepository ) {
-		this.stockManager = Objects.requireNonNull( stockManager );
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.modelRepository = modelRepository;
+		this.stockManager = new StockManager( partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -102,7 +103,8 @@ public class RequestServiceV2 {
 										content.setMissing(
 												Math.min( content.getQuantity(),
 														Math.max( modelContent.getMissing(),
-																(int) Math.ceil( (float)Math.abs( missing ) / (float)modelContent.getQuantity() ) ) )
+																(int) Math
+																		.ceil( (float) Math.abs( missing ) / (float) modelContent.getQuantity() ) ) )
 										);
 									}
 								}

@@ -30,11 +30,10 @@ public class RequestServiceV1 {
 
 	// - C O N S T R U C T O R S
 	public RequestServiceV1( final @NotNull RequestsRepository requestsRepository,
-	                         final @NotNull PartRepository partRepository,
-	                         final @NotNull StockManager stockManager ) {
+	                         final @NotNull PartRepository partRepository ) {
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.partRepository = Objects.requireNonNull( partRepository );
-		this.stockManager = Objects.requireNonNull( stockManager );
+		this.stockManager = new StockManager( this.partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
