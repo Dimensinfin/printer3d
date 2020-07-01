@@ -12,11 +12,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
@@ -40,17 +42,21 @@ public class JobServiceV1Test {
 	private PartRepository partRepository;
 	private RequestsRepository requestsRepository;
 	private StockManager stockManager;
+	private RequestsRepositoryV2 requestsRepositoryV2;
+	private ModelRepository modelRepository;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.partRepository = Mockito.mock( PartRepository.class );
 		this.requestsRepository = Mockito.mock( RequestsRepository.class );
+		this.requestsRepositoryV2 = Mockito.mock(RequestsRepositoryV2.class);
+		this.modelRepository = Mockito.mock(ModelRepository.class);
 		this.stockManager = Mockito.mock( StockManager.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
 		Assertions.assertNotNull( jobServiceV1 );
 	}
 
@@ -112,7 +118,7 @@ public class JobServiceV1Test {
 		Mockito.when( this.partRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -159,7 +165,7 @@ public class JobServiceV1Test {
 		Mockito.when( this.requestsRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -206,7 +212,7 @@ public class JobServiceV1Test {
 		Mockito.when( this.requestsRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.stockManager );
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2, this.modelRepository, this.stockManager );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );

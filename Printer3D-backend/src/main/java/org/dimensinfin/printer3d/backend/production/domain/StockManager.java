@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.backend.production.domain;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
@@ -30,6 +31,11 @@ public class StockManager {
 	@Autowired
 	public StockManager( final @NotNull PartRepository partRepository ) {
 		this.partRepository = Objects.requireNonNull( partRepository );
+	}
+
+	// - G E T T E R S   &   S E T T E R S
+	public Set<UUID> getStockIterator() {
+		return this.stocks.keySet();
 	}
 
 	public int getStock( final UUID partId ) {

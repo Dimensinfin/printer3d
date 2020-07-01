@@ -33,4 +33,8 @@ public class AcceptanceFieldMapConstants {
 	public static final String PART_REQUEST_LIST = "partRequestList";
 	public static final String PART_COPIES = "partCopies";
 	public static final String JOB_INSTALLMENT_DATE = "jobInstallmentDate";
+
+	public static final String JOB_PART_ID = "part.id";
+	public static final String JOB_PART_LABEL = "part.label";
+	public static final String PRIORITY = "priority";
 }

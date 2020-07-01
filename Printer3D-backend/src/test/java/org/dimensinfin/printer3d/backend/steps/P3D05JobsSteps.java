@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.production.job.JobHistoricValidator;
+import org.dimensinfin.printer3d.backend.support.production.job.JobValidator;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientSupport;
+import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 
 import io.cucumber.java.en.Then;
@@ -37,6 +39,16 @@ public class P3D05JobsSteps extends StepSupport {
 			if (partId.equalsIgnoreCase( job.getJobPartId().toString() )) {
 				Assertions.assertTrue( new JobHistoricValidator().validate( dataTable.get( 0 ), job ) );
 			}
+		}
+	}
+
+	@Then("the jobs records contain the next information")
+	public void the_jobs_records_contain_the_next_information( final List<Map<String, String>> dataTable ) {
+		final JobValidator jobValidator = new JobValidator();
+		for (int i = 0; i < dataTable.size(); i++) {
+			final Map<String, String> row = dataTable.get( i );
+			final Job record = this.printer3DWorld.getJobListResponseEntity().getBody().get( i );
+			Assertions.assertTrue( jobValidator.validate( row, record ) );
 		}
 	}
 

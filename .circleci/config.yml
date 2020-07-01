@@ -121,21 +121,22 @@ jobs:
           command: |
             node -v
             npm install
-      - run:
-          name: FRONTEND - Run unit tests
-          working_directory: Printer3D-frontend
-          command: |
-            npm run test:prod
+    #   - run:
+    #       name: FRONTEND - Run unit tests
+    #       working_directory: Printer3D-frontend
+    #       command: |
+    #         npm run test:prod
       - run:
           name: FRONTEND - Build optimized Production dist
           working_directory: Printer3D-frontend
           command: |
             npm run build:prod
       - run:
-          name: FRONTEND - Start backend simulator & Run acceptance D04
+          name: FRONTEND - Start backend simulator & Run acceptance D01 & D04
           working_directory: Printer3D-frontend
           command: |
             npm run acceptance:simulator
+            npm run acceptance:cypress:D01
             npm run acceptance:cypress:D04
       - run:
           name: FRONTEND - Start backend simulator & Run acceptance D06 & D07 & D08 & D09 & 10

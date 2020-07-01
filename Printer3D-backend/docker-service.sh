@@ -52,6 +52,9 @@ case $COMMAND in
 'stop')
   stop
   ;;
+'recycle')
+  recycle
+  ;;
 *)
   echo "Usage: $0 { generate | start | stop | recycle }"
   echo

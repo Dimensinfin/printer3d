@@ -8,37 +8,50 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
+import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
+import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.FinishingContainer;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.job.FinishingByCountComparator;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
-import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 @Service
 public class JobServiceV1 {
+	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final int REQUEST_PRIORITY = 1;
 	private static final int STOCK_LEVEL_PRIORITY = 2;
 	private final PartRepository partRepository;
 	private final RequestsRepository requestsRepository;
+	private final RequestsRepositoryV2 requestsRepositoryV2;
+	private final ModelRepository modelRepository;
 	private final StockManager stockManager;
 
 	// - C O N S T R U C T O R S
 	public JobServiceV1( final PartRepository partRepository,
 	                     final RequestsRepository requestsRepository,
-	                     final StockManager stockManager ) {
+	                     final RequestsRepositoryV2 requestsRepositoryV2,
+	                     final ModelRepository modelRepository, final StockManager stockManager ) {
 		this.partRepository = Objects.requireNonNull( partRepository );
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
+		this.requestsRepositoryV2 = requestsRepositoryV2;
+		this.modelRepository = modelRepository;
 		this.stockManager = Objects.requireNonNull( stockManager );
 	}
 
@@ -70,29 +83,6 @@ public class JobServiceV1 {
 		}
 	}
 
-	private List<Job> generateRequestJobList() {
-		LogWrapperLocal.enter();
-		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-		try {
-			this.requestsRepository.findAll() // Get the list of requests to process.
-					.stream()
-					.filter( ( requestEntity ) -> requestEntity.isOpen() )
-					.forEach( ( requestEntity ) -> {
-						for (PartRequest partList : requestEntity.getPartList()) {
-							this.stockManager.minus( partList.getPartId(), partList.getQuantity() ); // Subtract the request quantity from the stock.
-							if (this.stockManager.getStock( partList.getPartId() ) < 0) // There is stock shortage. Generate jobs.
-								jobs.addAll( this.generateRequestJobs(
-										partList.getPartId(),
-										Math.abs( this.stockManager.getStock( partList.getPartId() ) ) )
-								);
-						}
-					} );
-			return jobs;
-		} finally {
-			LogWrapperLocal.exit( "RequestJobList count:", jobs.size() );
-		}
-	}
-
 	private String generateFinishingKey( final Part target ) {
 		return target.getMaterial() + ":" + target.getColor();
 	}
@@ -105,6 +95,53 @@ public class JobServiceV1 {
 			finishings.compute( key, ( String targetKey, FinishingContainer container ) -> container.addJob( job ) );
 		}
 		return new ArrayList<>( finishings.values() );
+	}
+
+	private List<Job> generateRequestJobList() {
+		LogWrapperLocal.enter();
+		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
+		try {
+			Stream.concat(
+					this.requestsRepository.findAll()
+							.stream()
+							.filter( RequestEntity::isOpen )
+							.map( requestV1ToV2Converter::convert ),
+					this.requestsRepositoryV2.findAll().stream() )
+					.filter( ( requestEntityV2 ) -> requestEntityV2.isOpen() )
+					.forEach( ( requestEntityV2 ) -> {
+						// Subtract the Parts from the inventory
+						for (RequestItem content : requestEntityV2.getContents()) {
+							if (content.getType() == RequestContentType.PART) {
+								final int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
+								//								if (missing < 0) // There is stock shortage. Generate jobs.
+								//									jobs.addAll( this.generateRequestJobs(
+								//											content.getItemId(),
+								//											Math.abs( missing ) )
+								//									);
+							}
+							if (content.getType() == RequestContentType.MODEL) {
+								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
+									final int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
+									//									if (missing < 0) // There is stock shortage. Generate jobs.
+									//										jobs.addAll( this.generateRequestJobs(
+									//												content.getItemId(),
+									//												Math.abs( missing ) )
+									//										);
+								}
+							}
+						}
+					} );
+			// Generate the jobs after processing all Requests
+			for (UUID stockId : this.stockManager.getStockIterator()) {
+				jobs.addAll( this.generateRequestJobs( stockId, Math.abs( this.stockManager.getStock( stockId ) ) ) );
+			}
+			return jobs;
+		} catch (final RuntimeException rte) {
+			LogWrapperLocal.error( rte );
+			return null;
+		} finally {
+			LogWrapperLocal.exit( "RequestJobList count:", jobs.size() );
+		}
 	}
 
 	private List<Job> generateRequestJobs( final UUID partId, final int jobCount ) {
@@ -123,7 +160,6 @@ public class JobServiceV1 {
 	 * the current repository information that does not include the Requests demands. This is correct from the standpoint of the current timeline.
 	 * If the system wants to look ahead and be prepared for new demand while keeping the stocks levels then the process should have on account the
 	 * expected new values for the stock levels.
-	 * @return
 	 */
 	private List<Job> generateStockLevelJobs() {
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
@@ -134,6 +170,24 @@ public class JobServiceV1 {
 				).withPriority( STOCK_LEVEL_PRIORITY ).build() );
 		} );
 		return jobs;
+	}
+
+	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {
+		final Map<UUID, Integer> contents = new HashMap<>();
+		final ModelEntity model = this.modelRepository.findById( modelId ).orElseThrow();
+		Integer hit;
+		for (UUID contentId : model.getPartIdList()) {
+			contents.putIfAbsent( contentId, 0 );
+			hit = contents.get( contentId );
+			contents.put( contentId, ++hit );
+		}
+		final List<RequestItem> resultContents = new ArrayList<>();
+		for (Map.Entry<UUID, Integer> targetContent : contents.entrySet())
+			resultContents.add( new RequestItem.Builder()
+					.withItemId( targetContent.getKey() )
+					.withQuantity( targetContent.getValue() * modelQuantity )
+					.withType( RequestContentType.PART ).build() );
+		return resultContents;
 	}
 
 	private List<Job> sortByFinishingCount( final List<Job> inputList ) {
