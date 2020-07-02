@@ -18,6 +18,8 @@ services:
   postgres-integration:
     container_name: postgres-integration
     image: "postgres:11.2"
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
     ports:
       - "5131:5432"
     environment:
