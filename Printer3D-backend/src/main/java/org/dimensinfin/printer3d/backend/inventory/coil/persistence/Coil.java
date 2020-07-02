@@ -14,6 +14,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.dimensinfin.logging.LogWrapper;
+
 /**
  * To build a Part we require to use a plastic filament **Coil** on a 3D printer so we can print a thin plastic layer upon
  * another layer until we have the model complete. The **Coils** are the storage for the plastic. It comes in long mono filament plastic lines of
@@ -90,6 +92,19 @@ public class Coil {
 				.append( "color", color )
 				.append( "weight", weight )
 				.toString();
+	}
+
+	/**
+	 * Subtracts the grams of plastic from the selected Coil.
+	 *
+	 * @param weight the number og grams to remove from the coil estimated weight.
+	 * @return the updated coil instance.
+	 */
+	public Coil subtractMaterial( final Integer weight ) {
+		LogWrapper.info( "Selected coil: " + this.toString() );
+		LogWrapper.info( "Subtracting plastic: " + weight );
+		this.weight -= weight;
+		return this;
 	}
 
 	// - B U I L D E R

@@ -19,7 +19,7 @@ public class CucumberTableToJobRequestConverter extends CucumberTableConverter<J
 		if (null != cucumberRow.get( JOB_REQUEST_PART_ID ))
 			builder = builder.withPartId( UUID.fromString( cucumberRow.get( JOB_REQUEST_PART_ID ) ) );
 		if (null != cucumberRow.get( JOB_REQUEST_COPIES ))
-			builder = builder.withPartCopies( Integer.parseInt( cucumberRow.get( JOB_REQUEST_COPIES ) ) );
+			builder = builder.withCopies( Integer.parseInt( cucumberRow.get( JOB_REQUEST_COPIES ) ) );
 		return builder.build();
 	}
 }

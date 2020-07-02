@@ -57,4 +57,16 @@ public class P3D02CoilsSteps extends StepSupport {
 		Assertions.assertNotNull( coil );
 		this.printer3DWorld.setCoil( coil );
 	}
+	@Then("the coil with id {string} has the next data")
+	public void the_coil_with_id_has_the_next_data(final String coilId, final List<Map<String, String>> dataTable) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils() );
+		for ( Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()){
+			if ( coil.getId().toString().equalsIgnoreCase( coilId )){
+				Assertions.assertTrue(
+						new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), coil )
+				);
+			}
+		}
+	}
 }

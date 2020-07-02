@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
@@ -39,16 +40,18 @@ public class MachineServiceV2Test {
 
 	private MachineRepository machineRepository;
 	private PartRepository partRepository;
+	private CoilRepository coilRepository;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.machineRepository = Mockito.mock( MachineRepository.class );
 		this.partRepository = Mockito.mock( PartRepository.class );
+		this.coilRepository = Mockito.mock( CoilRepository.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.coilRepository );
 		Assertions.assertNotNull( machineServiceV2 );
 	}
 
@@ -91,7 +94,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityRunning.getJobInstallmentDate() ).thenReturn( OffsetDateTime.now().minus( Duration.ofMinutes( 4 ) ) );
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		// Test
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.coilRepository );
 		final MachineListV2 obtained = machineServiceV2.getMachines();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -123,7 +126,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		// Exceptions
 		Assertions.assertThrows( InvalidRequestException.class, () -> {
-			final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository );
+			final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.coilRepository );
 			machineServiceV2.getMachines();
 		} );
 	}
@@ -168,7 +171,7 @@ public class MachineServiceV2Test {
 				.thenReturn( OffsetDateTime.now().minus( Duration.ofMinutes( TEST_PART_BUILD_TIME + 2 ) ) );
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		// Test
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.coilRepository );
 		final MachineListV2 obtained = machineServiceV2.getMachines();
 		// Assertions
 		Assertions.assertNotNull( obtained );

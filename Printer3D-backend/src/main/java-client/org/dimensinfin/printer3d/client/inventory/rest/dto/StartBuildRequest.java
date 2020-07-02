@@ -6,6 +6,7 @@ import java.util.UUID;
 public class StartBuildRequest {
 	private UUID machineId;
 	private UUID partId;
+	private Integer partCount;
 
 	// - C O N S T R U C T O R S
 	private StartBuildRequest() {}
@@ -13,6 +14,10 @@ public class StartBuildRequest {
 	// - G E T T E R S   &   S E T T E R S
 	public UUID getMachineId() {
 		return this.machineId;
+	}
+
+	public Integer getPartCount() {
+		return this.partCount;
 	}
 
 	public UUID getPartId() {
@@ -34,6 +39,11 @@ public class StartBuildRequest {
 
 		public StartBuildRequest.Builder withMachineId( final UUID machineId ) {
 			this.onConstruction.machineId = Objects.requireNonNull( machineId );
+			return this;
+		}
+
+		public StartBuildRequest.Builder withMachineId( final Integer partCount ) {
+			this.onConstruction.partCount = Objects.requireNonNull( partCount );
 			return this;
 		}
 

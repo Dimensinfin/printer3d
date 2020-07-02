@@ -2,6 +2,9 @@
 * MachineServiceV1 - requires long development
 * JobControllerSupport
 * PartEntity
+* Job
+* JobRequest
+
 
 * MachineServiceV2
 * JobHistoric

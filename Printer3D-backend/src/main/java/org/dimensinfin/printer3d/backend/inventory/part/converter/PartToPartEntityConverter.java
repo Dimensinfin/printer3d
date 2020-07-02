@@ -18,6 +18,7 @@ public class PartToPartEntityConverter implements Converter<Part, PartEntity> {
 				.withBuildTime( input.getBuildTime() )
 				.withMaterial( input.getMaterial() )
 				.withColor( input.getColor() )
+				.withWeight( input.getWeight() )
 				.withCost( input.getCost() )
 				.withPrice( input.getPrice() )
 				.withStockLevel( input.getStockLevel() )

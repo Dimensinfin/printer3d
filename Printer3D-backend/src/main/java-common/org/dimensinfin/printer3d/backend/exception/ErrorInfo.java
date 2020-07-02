@@ -55,7 +55,10 @@ public enum ErrorInfo {
 			"The request [{0}] has assigned a Part with id [{1}] that does not exist on the Part repository." ),
 	STOCK_PROCESSING_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
 			APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
-			"The Part with id [{0}] is not found at the stock list." );
+			"The Part with id [{0}] is not found at the stock list." ),
+	COIL_NOT_FOUND( HttpStatus.INTERNAL_SERVER_ERROR,
+	                          APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
+			"Coil not found when processing a new build job. Check database records for the selected Part." );
 
 	public final HttpStatus status;
 	public final String errorCode;

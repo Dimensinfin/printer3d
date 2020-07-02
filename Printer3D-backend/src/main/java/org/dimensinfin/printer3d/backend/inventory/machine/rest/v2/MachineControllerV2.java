@@ -48,6 +48,6 @@ public class MachineControllerV2 {
 			produces = "application/json")
 	public ResponseEntity<MachineV2> startBuild( final @PathVariable @NotNull UUID machineId,
 	                                             final @RequestBody @Valid @NotNull JobRequest jobRequest ) {
-		return new ResponseEntity<>( this.machineServiceV2.startBuild( machineId,jobRequest ), HttpStatus.OK );
+		return new ResponseEntity<>( this.machineServiceV2.startBuild( machineId, jobRequest ), HttpStatus.OK );
 	}
 }

@@ -169,7 +169,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.REMOVE_MODEL_PART );
 	}
 
-	@When("the Start Build V2 for for Machine {string} request is processed")
+	@When("the Start Build V2 for Machine {string} request is processed")
 	public void the_Start_Build_V2_for_for_Machine_request_is_processed( final String machineId ) throws IOException {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		Assertions.assertNotNull( this.printer3DWorld.getJobRequest() );

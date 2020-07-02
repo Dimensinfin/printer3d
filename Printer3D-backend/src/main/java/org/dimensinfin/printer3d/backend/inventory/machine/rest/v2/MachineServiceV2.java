@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
@@ -11,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdaterV2;
@@ -31,15 +33,29 @@ import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 @Service
 @Transactional
 public class MachineServiceV2 {
-	protected final MachineRepository machineRepository;
-	protected final PartRepository partRepository;
+	public static <T> Collector<T, ?, T> toSingleton() {
+		return Collectors.collectingAndThen(
+				Collectors.toList(),
+				list -> {
+					if (list.size() < 1) throw new DimensinfinRuntimeException( ErrorInfo.COIL_NOT_FOUND );
+					LogWrapper.info( "Located coil: " + list.get( 0 ).toString() );
+					return list.get( 0 );
+				}
+		);
+	}
+
+	private final MachineRepository machineRepository;
+	private final PartRepository partRepository;
+	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
 	@Autowired
 	public MachineServiceV2( final @NotNull MachineRepository machineRepository,
-	                         final @NotNull PartRepository partRepository ) {
+	                         final @NotNull PartRepository partRepository,
+	                         final @NotNull CoilRepository coilRepository ) {
 		this.machineRepository = Objects.requireNonNull( machineRepository );
 		this.partRepository = Objects.requireNonNull( partRepository );
+		this.coilRepository = coilRepository;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -69,6 +85,7 @@ public class MachineServiceV2 {
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( jobRequest.getPartId() );
 			if (jobPartOpt.isEmpty())
 				throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineOpt.get().getCurrentJobPartId() ) );
+			this.subtractPlasticFromCoil( jobPartOpt.get(), jobRequest.getCopies() );
 			final MachineEntity machineEntity = this.machineRepository.save( new MachineUpdaterV2( machineOpt.get() ).update( jobRequest ) );
 			final BuildRecord buildRecord = new BuildRecord.Builder()
 					.withPartCopies( machineEntity.getCurrentPartInstances() )
@@ -89,5 +106,24 @@ public class MachineServiceV2 {
 				throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
 			return new PartEntityToPartConverter().convert( jobPartOpt.get() );
 		} else return null;
+	}
+
+	/**
+	 * Search for a coil with th same finishing than the part on the build job. There can be a single coil or multiple coils. Using streams filter
+	 * out all the matching coils and then select the first that has at least double weight left.
+	 *
+	 * @param partEntity the Part to be build
+	 * @param copies     the number of copies to build on this job.
+	 */
+	private void subtractPlasticFromCoil( final PartEntity partEntity, final int copies ) {
+		this.coilRepository.save(
+				this.coilRepository.findAll()
+						.stream()
+						.filter( coilEntity -> partEntity.getMaterial().equals( coilEntity.getMaterial() ) )
+						.filter( coilEntity -> partEntity.getColor().equals( coilEntity.getColor() ) )
+						.filter( coilEntity -> coilEntity.getWeight() > 2 * partEntity.getWeight() * copies )
+						.collect( toSingleton() ) // Gt the first coil on the list or fire an exception if there is no material left on inventory.
+						.subtractMaterial( partEntity.getWeight() * copies )
+		);
 	}
 }

@@ -34,6 +34,7 @@ public class MachineControllerV1 {
 	@GetMapping(path = "/inventory/machines",
 			consumes = "application/json",
 			produces = "application/json")
+	@Deprecated
 	public ResponseEntity<MachineList> getMachines() {
 		return new ResponseEntity<>( this.machineServiceV1.getMachines(), HttpStatus.OK );
 	}
@@ -55,6 +56,7 @@ public class MachineControllerV1 {
 	@PutMapping(path = "/inventory/machines/{machineId}/startbuild/{partId}",
 			consumes = "application/json",
 			produces = "application/json")
+	@Deprecated
 	public ResponseEntity<Machine> startBuild( final @PathVariable @NotNull UUID machineId,
 	                                           final @PathVariable @NotNull UUID partId ) {
 		return new ResponseEntity<>( this.machineServiceV1.startBuild(

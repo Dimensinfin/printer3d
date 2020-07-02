@@ -61,11 +61,11 @@ public class PartServiceV1 {
 				throw new RepositoryConflictException( ErrorInfo.PART_ALREADY_EXISTS, newPart.getId().toString() );
 			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
 			try {
-				this.partRepository.save( partEntity );
+				return new PartEntityToPartConverter().convert( this.partRepository.save( partEntity ) );
 			} catch (final DataIntegrityViolationException die) {
-				throw new RepositoryConflictException( ErrorInfo.PART_REPOSITORY_CONFLICT , die);
+				throw new RepositoryConflictException( ErrorInfo.PART_REPOSITORY_CONFLICT, die );
 			}
-			return newPart;
+			//			return newPart;
 		} finally {
 			LogWrapper.exit();
 		}
