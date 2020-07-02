@@ -6,13 +6,14 @@ import { Node } from './Node.domain';
 import { Part } from './Part.domain';
 
 export class PartContainer extends Node {
-    public id: string;
-    public label: string;
-    public description: string;
-    public buildTime: number;
-    public imagePath: string;
-    public modelPath: string;
-    public contents: Part[] = [];
+    public id: string
+    public label: string
+    public description: string
+    public buildTime: number
+    public weight:number
+    public imagePath: string
+    public modelPath: string
+    public contents: Part[] = []
 
     constructor(values: Object = {}) {
         super(values);

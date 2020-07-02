@@ -12,7 +12,7 @@ export class Part extends Node implements IContent {
     public description: string;
     public material: string = 'PLA'
     public color: string;
-    public weight : number
+    public weight : number=1
     public cost: number;
     public price: number;
     public buildTime: number;

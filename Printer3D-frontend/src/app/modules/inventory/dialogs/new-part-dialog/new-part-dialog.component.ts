@@ -104,6 +104,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
     }
     public closeModal(): void {
         console.log('>[NewPartDialogComponent.closeModal]')
+        this.isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY); // Clean the part on edition
         this.dialogRef.close();
     }
     public materialSelectorChanged(event: any): void {

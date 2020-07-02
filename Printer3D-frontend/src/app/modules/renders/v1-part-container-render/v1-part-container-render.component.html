@@ -31,6 +31,39 @@
             <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
             <span cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</span>
         </div>
+        <div class="field weight-width ">
+            <span cy-field-label="weight" class="label">PLASTICO</span><br>
+            <span cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</span>
+        </div>
+        <div class="column">
+            <div cy-name="edit-button" class="field edit-width" (click)="toggleEdition()">
+                <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
+            </div>
+            <div cy-name="expand-button" class="arrow-box" *ngIf="node.isExpandable()">
+                <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- E D I T   V A R I A N T -->
+<div *ngIf="getVariant() === '-EDITING-PART-GROUP-'">
+    <div id="{{getUniqueId()}}" class="row part-container-panel">
+        <div class="field label-width">
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
+        </div>
+        <div class="field">
+            <span cy-field-label="description" class="label">DESCRIPCION</span><br>
+            <span cy-field-value="description" class="partcontainer-description ">{{getDescription()}}</span>
+        </div>
+        <div class="field buildTime-width ">
+            <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
+            <span cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</span>
+        </div>
+        <div class="field weight-width ">
+            <span cy-field-label="weigth" class="label">PLASTICO</span><br>
+            <span cy-field-value="weigth" class="partcontainer-buildTime">{{getWeigth()}}</span>
+        </div>
         <div class="column">
             <div cy-name="edit-button" class="field edit-width" (click)="toggleEdition()">
                 <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>

@@ -14,11 +14,11 @@ import { NodeContainerRenderComponent } from '../node-container-render/node-cont
     styleUrls: ['./v1-part-container-render.component.scss']
 })
 export class V1PartContainerRenderComponent extends NodeContainerRenderComponent {
-    public getPartContainer(): PartContainer{
+    public getNode(): PartContainer {
         return this.node as PartContainer
     }
-    public getId(): string{
-        return this.getPartContainer().getId();
+    public getUniqueId(): string {
+        return this.getNode().getId();
     }
     public getLabel(): string {
         const part = this.node as PartContainer;
@@ -31,5 +31,11 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     public getBuildTime(): string {
         const part = this.node as PartContainer;
         return part.buildTime + ' min.';
+    }
+    public getWeigth(): string {
+        return this.getNode().weight + ' gr.'
+    }
+    public toggleEdition(): void {
+        console.log('>[V1PartContainerRenderComponent.toggleEdition]')
     }
 }

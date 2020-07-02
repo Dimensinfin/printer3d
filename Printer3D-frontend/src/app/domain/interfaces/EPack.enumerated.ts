@@ -17,7 +17,8 @@ export enum EVariant {
     SELLABLE_ITEMS = '-SELLABLE-ITEMS-',
     MODEL_COMPOSITION = '-MODEL-COMPOSITION-',
     CATALOG = '-CATALOG-',
-    NEW_REQUEST='-NEW-REQUEST-'
+    EDITING_PART_GROUP = '-EDITING-PART-GROUP-',
+    NEW_REQUEST = '-NEW-REQUEST-'
 }
 export enum EInteraction {
     ACTION = 'ACTION',
