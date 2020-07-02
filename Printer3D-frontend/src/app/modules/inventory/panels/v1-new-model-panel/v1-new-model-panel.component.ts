@@ -38,12 +38,15 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
         super();
     }
 
+    /**
+     * This event is signaled when the usrr click the Model edit button. The same component used to create models is used to edit them. This method loads the data onto the ModelForm for editing.
+     */
     public startEditing(model2Edit: Model): void {
         console.log('>[V1NewModelPanelComponent.startEditing]')
         this.model = new ModelForm(model2Edit)
         this.visible = true // This needs a event cycle to display the element
         this.editing = true
-        setTimeout(() => {
+        setTimeout(() => { // Delay the access to the componetn to wait for it to be connected on the display
             if (null != this.partContainer)
                 this.partContainer.startEditing(model2Edit.getParts())
         }, 100)

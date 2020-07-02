@@ -44,10 +44,26 @@
     fill: orangered;
 }
 
+.yellow-mark {
+    fill: yellowgreen;
+}
+
 .blueviolet-mark {
     fill: blueviolet;
 }
 
 .greenyellow-mark {
     fill: greenyellow;
+}
+
+.edit-icon {
+    fill: white;
+}
+
+.edit-icon:hover {
+    fill: greenyellow;
+}
+
+.arrow-expanded {
+    transform: rotate(90deg);
 }
