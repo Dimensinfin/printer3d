@@ -21,6 +21,7 @@ import { Job } from '@domain/Job.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { Part } from '@domain/Part.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
+import { JobRequestConstructor } from '@domain/constructor/JobRequest.constructor';
 
 @Component({
     selector: 'v3-machine',
@@ -112,7 +113,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     }
     public startBuild(): void {
         console.log('>[V2MachineRenderComponent.startBuild]')
-        const jobRequest: JobRequest = new JobRequest(this.target)
+        const jobRequest: JobRequest = new JobRequestConstructor().construct(this.target)
         this.backendConnections.push(
             this.backendService.apiMachinesStartBuild_v2(this.node.getId(), jobRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
