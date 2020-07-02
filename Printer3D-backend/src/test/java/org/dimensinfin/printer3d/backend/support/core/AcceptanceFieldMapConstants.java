@@ -5,7 +5,8 @@ public class AcceptanceFieldMapConstants {
 	public static final String LABEL = "label";
 	public static final String DESCRIPTION = "description";
 	public static final String MATERIAL = "material";
-	public static final String COLOR_CODE = "color";
+	public static final String COLOR = "color";
+	public static final String WEIGHT = "weight";
 	public static final String BUILD_TIME = "buildTime";
 	public static final String COST = "cost";
 	public static final String PRICE = "price";
@@ -19,8 +20,6 @@ public class AcceptanceFieldMapConstants {
 	public static final String TYPE = "type";
 	public static final String MISSING = "missing";
 
-	public static final String COLOR = "color";
-	public static final String WEIGHT = "weight";
 	public static final String MACHINE_LABEL = "machine";
 	public static final String MACHINE_CURRENT_JOB_PART = "currentJobPartId";
 	public static final String MACHINE_JOB_INSTALLMENT_DATE = "jobInstallmentDate";

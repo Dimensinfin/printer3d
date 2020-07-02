@@ -44,6 +44,9 @@ public class PartEntity {
 	@NotNull(message = "Part 'color' is mandatory.")
 	@Column(name = "color", nullable = false)
 	private String color;
+	@Column(name = "weight", nullable = false)
+	private Integer weight = 1;
+	@NotNull(message = "Part 'cost' value is mandatory.")
 	@NotNull(message = "Part 'buildTime' is mandatory.")
 	@Column(name = "build_time", nullable = false)
 	private Integer buildTime;
@@ -145,6 +148,10 @@ public class PartEntity {
 		return this;
 	}
 
+	public Integer getWeight() {
+		return this.weight;
+	}
+
 	public boolean isActive() {
 		return this.active;
 	}
@@ -166,6 +173,7 @@ public class PartEntity {
 				.append( this.description )
 				.append( this.material )
 				.append( this.color )
+				.append( this.weight )
 				.append( this.buildTime )
 				.append( this.cost )
 				.append( this.price )
@@ -189,6 +197,7 @@ public class PartEntity {
 				.append( this.description, part.description )
 				.append( this.material, part.material )
 				.append( this.color, part.color )
+				.append( this.weight, part.weight )
 				.append( this.buildTime, part.buildTime )
 				.append( this.cost, part.cost )
 				.append( this.price, part.price )
@@ -206,6 +215,7 @@ public class PartEntity {
 				.append( "description", this.description )
 				.append( "material", this.material )
 				.append( "color", this.color )
+				.append( "weight", this.weight )
 				.append( "buildTime", this.buildTime )
 				.append( "cost", this.cost )
 				.append( "price", this.price )
@@ -305,6 +315,11 @@ public class PartEntity {
 
 		public PartEntity.Builder withStockLevel( final Integer stockLevel ) {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
+			return this;
+		}
+
+		public PartEntity.Builder withWeight( final Integer weight ) {
+			if (null != weight) this.onConstruction.weight = Objects.requireNonNull( weight );
 			return this;
 		}
 	}

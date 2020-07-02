@@ -20,7 +20,8 @@ public class TestDataConstants {
 		public static final String TEST_PART_LABEL = "-TEST_PART_LABEL-";
 		public static final String TEST_PART_DESCRIPTION = "-TEST_PART_DESCRIPTION-";
 		public static final String TEST_PART_MATERIAL = "PLA";
-		public static final String TEST_PART_COLOR_CODE = "VERDE-T";
+		public static final String TEST_PART_COLOR = "VERDE-T";
+		public static final Integer TEST_PART_WEIGHT = 4;
 		public static final Integer TEST_PART_BUILD_TIME = 60;
 		public static final Float TEST_PART_COST = 0.76F;
 		public static final Float TEST_PART_PRICE = 2.00F;

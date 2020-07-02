@@ -20,7 +20,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR_CODE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COST;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_DESCRIPTION;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_ID;
@@ -45,7 +45,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -60,7 +60,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -88,7 +88,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -103,7 +103,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -132,7 +132,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -147,7 +147,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -173,7 +173,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -188,7 +188,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -265,7 +265,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -280,7 +280,7 @@ public class PartServiceV1Test {
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR_CODE )
+				.withColor( TEST_PART_COLOR )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )

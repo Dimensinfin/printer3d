@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,6 +21,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.1.0
  */
+@Immutable
 public class Part {
 	@NotNull(message = "Part unique UUID 'id' is a mandatory field and cannot be null.")
 	private UUID id;
@@ -32,6 +34,7 @@ public class Part {
 	private String material;
 	@NotNull(message = "Part 'color' is mandatory.")
 	private String color;
+	private int weight = 1;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
 	private Integer buildTime;
 	@NotNull(message = "Part 'cost' value is mandatory.")
@@ -119,6 +122,10 @@ public class Part {
 		return this;
 	}
 
+	public int getWeight() {
+		return this.weight;
+	}
+
 	public boolean isActive() {
 		return this.active;
 	}
@@ -135,6 +142,7 @@ public class Part {
 				.append( this.description )
 				.append( this.material )
 				.append( this.color )
+				.append( this.weight )
 				.append( this.buildTime )
 				.append( this.cost )
 				.append( this.price )
@@ -158,6 +166,7 @@ public class Part {
 				.append( this.description, part.description )
 				.append( this.material, part.material )
 				.append( this.color, part.color )
+				.append( this.weight, part.weight )
 				.append( this.buildTime, part.buildTime )
 				.append( this.cost, part.cost )
 				.append( this.price, part.price )
@@ -175,6 +184,7 @@ public class Part {
 				.append( "description", this.description )
 				.append( "material", this.material )
 				.append( "color", this.color )
+				.append( "weight", this.weight )
 				.append( "buildTime", this.buildTime )
 				.append( "cost", this.cost )
 				.append( "price", this.price )
@@ -274,6 +284,11 @@ public class Part {
 
 		public Part.Builder withStockLevel( final Integer stockLevel ) {
 			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
+			return this;
+		}
+
+		public Part.Builder withWeight( final Integer weight ) {
+			if (null != weight) this.onConstruction.weight = Objects.requireNonNull( weight );
 			return this;
 		}
 	}

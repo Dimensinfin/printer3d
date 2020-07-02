@@ -92,7 +92,7 @@ public class ModelServiceV1 {
 
 	@Deprecated
 	public Model removeModelPart( final UpdateModelCompositionRequest modelCompositionRequest ) {
-		
+
 		LogWrapper.enter();
 		try {
 			// Search for the model at the repository.

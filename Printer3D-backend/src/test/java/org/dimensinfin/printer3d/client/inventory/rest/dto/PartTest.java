@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.part.persistence;
+package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.UUID;
 
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COST;
@@ -20,10 +21,10 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_WEIGHT;
 
-public class PartEntityTest {
+public class PartTest {
 	@Test
 	public void buildContract() {
-		final PartEntity part = new PartEntity.Builder()
+		final Part part = new Part.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
@@ -44,7 +45,7 @@ public class PartEntityTest {
 	@Test
 	public void buildFailureNull() {
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( null )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -61,7 +62,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( null )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -78,7 +79,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -95,7 +96,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -112,7 +113,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -129,7 +130,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -146,7 +147,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -163,7 +164,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -184,7 +185,7 @@ public class PartEntityTest {
 	@Test
 	public void buildFailureUndefined() {
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
 					.withMaterial( TEST_PART_MATERIAL )
@@ -200,7 +201,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withDescription( TEST_PART_DESCRIPTION )
 					.withMaterial( TEST_PART_MATERIAL )
@@ -216,7 +217,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -232,7 +233,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -248,7 +249,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -264,7 +265,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -280,7 +281,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -296,7 +297,7 @@ public class PartEntityTest {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new PartEntity.Builder()
+			new Part.Builder()
 					.withId( TEST_PART_ID )
 					.withLabel( TEST_PART_LABEL )
 					.withDescription( TEST_PART_DESCRIPTION )
@@ -313,41 +314,42 @@ public class PartEntityTest {
 		} );
 	}
 
-	@Test
-	public void decrementStock() {
-		// Given
-		final PartEntity part = new PartEntity.Builder()
-				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
-				.withLabel( TEST_PART_LABEL )
-				.withDescription( TEST_PART_DESCRIPTION )
-				.withMaterial( TEST_PART_MATERIAL )
-				.withColor( TEST_PART_COLOR )
-				.withBuildTime( TEST_PART_BUILD_TIME )
-				.withCost( TEST_PART_COST )
-				.withPrice( TEST_PART_PRICE )
-				.withStockLevel( TEST_PART_STOCK_LEVEL )
-				.withStockAvailable( 10 )
-				.withImagePath( TEST_PART_IMAGE_PATH )
-				.withModelPath( TEST_PART_MODEL_PATH )
-				.withActive( false )
-				.build();
-		// Test
-		Assertions.assertEquals( 10, part.getStockAvailable() );
-		part.decrementStock( 3 );
-		// Assertions
-		Assertions.assertEquals( 7, part.getStockAvailable() );
-	}
+//	@Test
+//	public void decrementStock() {
+//		// Given
+//		final Part part = new Part.Builder()
+//				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
+//				.withLabel( TEST_PART_LABEL )
+//				.withDescription( TEST_PART_DESCRIPTION )
+//				.withMaterial( TEST_PART_MATERIAL )
+//				.withColor( TEST_PART_COLOR )
+//				.withBuildTime( TEST_PART_BUILD_TIME )
+//				.withCost( TEST_PART_COST )
+//				.withPrice( TEST_PART_PRICE )
+//				.withStockLevel( TEST_PART_STOCK_LEVEL )
+//				.withStockAvailable( 10 )
+//				.withImagePath( TEST_PART_IMAGE_PATH )
+//				.withModelPath( TEST_PART_MODEL_PATH )
+//				.withActive( false )
+//				.build();
+//		// Test
+//		Assertions.assertEquals( 10, part.getStockAvailable() );
+//		part.decrementStock( 3 );
+//		// Assertions
+//		Assertions.assertEquals( 7, part.getStockAvailable() );
+//	}
 
 	@Test
 	public void equalsContract() {
-		EqualsVerifier.forClass( PartEntity.class )
+		EqualsVerifier.forClass( Part.class )
+				.suppress( Warning.STRICT_INHERITANCE)
 				.verify();
 	}
 
 	@Test
 	public void getterContract() {
 		// Given
-		final PartEntity part = new PartEntity.Builder()
+		final Part part = new Part.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
@@ -383,7 +385,7 @@ public class PartEntityTest {
 	@Test
 	public void incrementStock() {
 		// Given
-		final PartEntity part = new PartEntity.Builder()
+		final Part part = new Part.Builder()
 				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
@@ -408,7 +410,7 @@ public class PartEntityTest {
 	@Test
 	public void toStringContract() {
 		// Given
-		final PartEntity part = new PartEntity.Builder()
+		final Part part = new Part.Builder()
 				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )

@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_9_0_001_printer3d_add_weight_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: parts
+            columns:
+              - column:
+                  name: weight
+                  type: int
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_9_0_002_printer3d_add_weight_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: parts
+            columnDataType: int
+            columnName: weight
+            defaultValueNumeric: 1
+  - changeSet:
+      id: 0_9_0_003_printer3d_add_weight_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: parts
+            columns:
+              - column:
+                  name: weight
+                  value:
+  - changeSet:
+      id: 0_9_0_005_printer3d_add_weight_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: parts
+            columns:
+              - column:
+                  name: weight
+                  value: 1
+  - changeSet:
+      id: 0_9_0_006_printer3d_add_weight_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: parts
+            columnDataType: int
+            columnName: weight
+            validate:  true

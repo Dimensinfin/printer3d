@@ -13,6 +13,7 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PRICE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.WEIGHT;
 
 public class PartValidator implements Validator<Part> {
 	public boolean validate( final Map<String, String> rowData, final Part record ) {
@@ -21,6 +22,7 @@ public class PartValidator implements Validator<Part> {
 		Assertions.assertEquals( rowData.get( DESCRIPTION ), record.getDescription() );
 		Assertions.assertEquals( Float.parseFloat( rowData.get( COST ) ), record.getCost() );
 		Assertions.assertEquals( Float.parseFloat( rowData.get( PRICE ) ), record.getPrice() );
+		Assertions.assertEquals( Float.parseFloat( rowData.get( WEIGHT ) ), record.getWeight() );
 		Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.isActive() );
 		return true;
 	}
