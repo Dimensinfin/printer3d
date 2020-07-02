@@ -77,5 +77,14 @@ describe('COMPONENT V1DropPartPanelComponent [Module: PRODUCTION]', () => {
             component.startEditing([new PartStack()])
             expect(component.droppedParts.length).toBe(1)
         });
+        it('addPart: get the request date to be used when saving the Request', () => {
+            expect(component.droppedParts.length).toBe(0)
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            expect(component.droppedParts.length).toBe(1)
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            expect(component.droppedParts.length).toBe(1)
+            component.addPart(new Part({ id: "3f7d2477-59ff-4444-bfb8-8c836be4ae5c" }))
+            expect(component.droppedParts.length).toBe(2)
+        });
     });
 });
