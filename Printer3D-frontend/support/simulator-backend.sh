@@ -3,7 +3,7 @@
 # $1 - the command to execute
 COMMAND=$1
 
-SERVICE_PORT=5110
+SERVICE_PORT=5121
 ADMIN_PORT=$(($SERVICE_PORT + 100))
 SIMULATION_NAME='printer3d-backend-simulation'
 

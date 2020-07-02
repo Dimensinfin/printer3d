@@ -137,7 +137,7 @@ jobs:
           name: FRONTEND - Build optimized Production dist
           working_directory: Printer3D-frontend
           command: |
-            npm run build:prod
+            npm run build:dev
       - run:
           name: FRONTEND - Start backend simulator & Run acceptance D01 & D04
           working_directory: Printer3D-frontend
