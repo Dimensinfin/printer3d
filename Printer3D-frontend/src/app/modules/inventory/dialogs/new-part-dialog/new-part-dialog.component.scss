@@ -1,40 +1,88 @@
-.part-color {
+// .title {
+//     font-size: 20px;
+//     padding-top: 16px;
+//     padding-bottom: 16px;
+//     background-color: black;
+//     padding-left: 10px;
+//     font-weight: bold;
+//     font-family: "Electrolize", sans-serif;
+//     text-transform: uppercase;
+//     text-shadow: 0px 0px 2px white, 0px 0px 1px white;
+//     flex-grow: 3;
+// }
+.dsf-input {
+    margin: 0px;
+    padding: 0px;
     font-size: 16px;
     font-weight: 600;
-    font-family: "Mina";
-    height: auto;
-    line-height: 1;
-    padding: 4px;
+    line-height: 28px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    width: calc(100% - 2px);
+    font-family: 'Mina';
     border-radius: 6px;
 }
 
-.part-material {
-    font-size: 16px;
-    font-weight: 600;
-    font-family: "Mina";
-    height: auto;
-    line-height: 1;
-    padding: 4px;
-    border-radius: 6px;
+.dsf-input-number {
+    text-align: right;
 }
 
+.dsf-input-container {
+    position: relative;
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.ng-valid {
+    fill: green
+}
+
+.ng-invalid {
+    fill: orangered;
+}
+
+.field-margins {
+    margin-left: 10px;
+}
+
+.weight-width {
+    width: 5em;
+}
+
+// .part-color {
+//     font-size: 16px;
+//     font-weight: 600;
+//     font-family: "Mina";
+//     height: auto;
+//     line-height: 1;
+//     padding: 4px;
+//     border-radius: 6px;
+// }
+// .part-material {
+//     font-size: 16px;
+//     font-weight: 600;
+//     font-family: "Mina";
+//     height: auto;
+//     line-height: 1;
+//     padding: 4px;
+//     border-radius: 6px;
+// }
 @media screen and (max-width: 600px) {
     .column {
         width: 100%;
     }
 }
 
-.row {
-    display: flex;
-}
-
-.column {
-    flex: 50%;
-    padding: 0px;
-    margin: 0px;
-    margin-right: 10px;
-}
-
+// .row {
+//     display: flex;
+// }
+// .column {
+//     flex: 50%;
+//     padding: 0px;
+//     margin: 0px;
+//     margin-right: 10px;
+// }
 .dsf-form-label {
     font-weight: 900;
     font-size: 9px;

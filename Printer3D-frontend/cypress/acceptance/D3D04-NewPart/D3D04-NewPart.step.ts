@@ -5,10 +5,19 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { IsolationService } from '../../support/IsolationService.support';
 import { NewPartForm } from '../../support/page-objects/NewPartForm.form';
+import { SupportService } from '../../support/SupportService.support';
 
-Then('the New Part dialog opens and blocks the display', function () {
-    cy.get('app-root').get('mat-dialog-container').get('new-part-dialog').should('have.length', 1)
-});
+const supportService = new SupportService();
+
+Then('the {string} dialog opens and blocks the display', function (pageName: string) {
+    const tag = supportService.translateTag(pageName) // Do name replacement
+    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
+    .should('exist')
+})
+
+//     Then('the New Part dialog opens and blocks the display', function () {
+//     cy.get('app-root').get('mat-dialog-container').get('new-part-dialog').should('have.length', 1)
+// });
 
 // Then('there is one instance of form with the next contents', function (dataTable) {
 //     console.log('[THEN] there is one instance of form with the next contents');

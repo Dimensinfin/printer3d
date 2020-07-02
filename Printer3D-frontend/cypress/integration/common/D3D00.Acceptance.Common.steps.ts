@@ -15,6 +15,62 @@ const TITLE_VALIDATION = '3DPrinterManagement - UI';
 const supportService = new SupportService();
 
 // - N E W E S T   I M P L E M E N T A T I O N
+// - DOCK
+Given('one instance of Dock', function () {
+    cy.get('app-root').find('v1-dock').should('have.length', 1)
+});
+// - FEATURE SELECTION
+When('there is a click on Feature {string}', function (featureLabel: string) {
+    cy.get('v1-dock')
+        .find('v2-feature-render')
+        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
+        .click('center');
+});
+// - TARGET SELECTION
+Given('the target panel is the panel of type {string}', function (renderName: string) {
+    const tag = supportService.translateTag(renderName) // Do name replacement
+    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
+    cy.get('@target-page').find(tag)
+        .as('target-panel')
+});
+// - FORMS
+Then('the target panel has an input field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input')
+            .should('have.text', fieldValue)
+    });
+Then('the target panel has an input field named {string} with label {string} and not empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input')
+            .should('not.be.empty')
+    });
+Then('the target panel has an input field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input')
+            .should('be.empty')
+    });
+Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
+    if (state == 'invalid') cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        .find('input').parent().within(($field) => {
+            cy.get('.ng-invalid').should('exist')
+        })
+});
+
+
+
+
+
+
+
 Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
@@ -95,9 +151,6 @@ Given('the application Printer3DManager', function () {
     new IsolationService().doLandingPage(); // Load the landing page.
     cy.title().should('eq', TITLE_VALIDATION);
 });
-Given('one instance of Dock', function () {
-    cy.get('app-root').find('v1-dock').should('have.length', 1)
-});
 When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, destination: string) {
     cy.get('v1-dock')
         .find('v2-feature-render')
@@ -131,9 +184,6 @@ Then('there are no Features active', function () {
         .find('v2-feature-render').within(($panel) => {
             cy.get('.corner-mark').should('have.length', 0)
         });
-});
-Then('there is a Feature with label {string}', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render').find('.feature-label').contains(label, { matchCase: false })
 });
 Then('the target panel has one or more {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType)

@@ -24,6 +24,3 @@ Then('the target panel has an input field named {string} with label {string} and
         cy.get('@target-field').find('input').parent()
             .find('[ng-reflect-model="' + fieldValue + '"]')
     });
-Then('the target item has a actionable image named {string}', function (buttonName: string) {
-    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
-});
