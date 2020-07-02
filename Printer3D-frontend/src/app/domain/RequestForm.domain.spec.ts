@@ -52,7 +52,7 @@ describe('CLASS RequestForm [Module: DTO]', () => {
             instance.addContent(part1);
             instance.addContent(part2);
             expect(instance.contents.length).toBe(3, 'Number of parts after all additions.');
-            instance.removeContent(part1)
+            // instance.removeContent(part1)
             expect(instance.contents.length).toBe(1, 'Number of parts after removal');
         });
     });

@@ -1,98 +1,51 @@
 // - DOMAIN
-import { PartToPartRecordConverter } from './PartToPartRecord.converter';
-import { Part } from '@domain/Part.domain';
-import { PartRecord } from '@domain/PartRecord.domain';
-import { CoilToCoilRecordConverter } from './CoilToCoilRecord.converter';
-import { Coil } from '@domain/Coil.domain';
-import { CoilRecord } from '@domain/CoilRecord.domain';
 import { RequestFormToRequestConverter } from './RequestFormToRequest.converter';
 import { RequestForm } from '@domain/RequestForm.domain';
-import { Request } from '@domain/Request.domain';
-import { PartRequest } from '@domain/dto/PartRequest.dto';
-import { RequestState } from '@domain/interfaces/EPack.enumerated';
+import { RequestState, RequestContentType } from '@domain/interfaces/EPack.enumerated';
+import { RequestRequest } from '@domain/dto/RequestRequest.dto';
+import { RequestItem } from '@domain/RequestItem.domain';
 
 describe('CLASS RequestFormToRequestConverter [Module: CONVERTER]', () => {
-    const testPartList: Part[] = [
-        new Part({
-            "id": "a047ef17-fa0b-4df8-9f5e-c98de82dc4a2",
-            "label": "Pieza de Plata",
-            "description": "Pieza de Plata",
-            "material": "PLA",
-            "color": "PLATA",
-            "buildTime": 15,
-            "cost": 0.9,
-            "price": 2.0,
-            "stockLevel": 10,
-            "stockAvailable": 8,
-            "imagePath": null,
-            "modelPath": null,
-            "active": true
-        }),
-        new Part({
-            "id": "5caaf805-f3dd-4dfe-9545-eaa3e6300da3",
-            "label": "Boquilla Ganesha - Embocadura",
-            "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
-            "material": "TPU",
-            "color": "BLANCO",
-            "buildTime": 20,
-            "cost": 0.45,
-            "price": 1.0,
-            "stockLevel": 15,
-            "stockAvailable": 10,
-            "imagePath": null,
-            "modelPath": "",
-            "active": true
-        }),
-        new Part({
-            "id": "5caaf805-f3dd-4dfe-9545-eaa3e6300da3",
-            "label": "Boquilla Ganesha - Embocadura",
-            "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
-            "material": "TPU",
-            "color": "AZUL",
-            "buildTime": 20,
-            "cost": 0.45,
-            "price": 1.0,
-            "stockLevel": 15,
-            "stockAvailable": 10,
-            "imagePath": null,
-            "modelPath": "",
-            "active": false
-        }),
-        new Part({
-            "id": "5caaf805-f3dd-4dfe-9545-eaa3e6300da3",
-            "label": "Boquilla Ganesha - Embocadura",
-            "description": "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables.",
-            "material": "TPU",
-            "color": "AZUL",
-            "buildTime": 20,
-            "cost": 0.45,
-            "price": 1.0,
-            "stockLevel": 15,
-            "stockAvailable": 10,
-            "imagePath": null,
-            "modelPath": "",
-            "active": false
-        })
-    ]
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Methods]', () => {
-        it('convert.simple: convert a RequestForm into a Request and packing the parts by identifier', () => {
-            const converter = new RequestFormToRequestConverter();
-            const obtained: Request = converter.convert(new RequestForm({
-                id: "da0bbeaf-2711-4e6f-9134-c9e15919ca57",
-                requestDate: new Date(),
-                label: '-REQUEST-FORM-LABEL-',
-                partList: testPartList
+        it('convert.: convert a RequestForm into a RequestRequest for background connection', () => {
+            // Given
+            const contents : RequestItem[]=[]
+            contents.push(new RequestItem({
+                itemId: "fed05e3a-fc43-41a2-95b3-2002e15a98ba",
+                type: RequestContentType.PART,
+                quantity: 5,
+                missing: 0
             }))
+            contents.push(new RequestItem({
+                itemId: "66fda6e3-cfad-45b0-95de-12c6d70149b9",
+                type: RequestContentType.MODEL,
+                quantity: 10,
+                missing: 0
+            }))
+            const form : RequestForm = new RequestForm({
+                id: "f37a66b0-0b80-47b6-a0e8-42ca5a68eb91",
+                label: "-TEST-REQUEST-FORM-LABEL-",
+                requestDate : new Date(),
+                contents: contents
+            })
+            const converter = new RequestFormToRequestConverter();
+            const obtained: RequestRequest = converter.convert(form)
             const obtainedAsAny = obtained as any;
-            console.log('>[]> Request: ' + JSON.stringify(obtained))
-            console.log('>[]> Single PartRequest: ' + JSON.stringify(obtainedAsAny.partList[0]))
+            console.log('>[]> RequestRequest: ' + JSON.stringify(obtained))
             expect(obtained).toBeDefined();
-            expect(obtainedAsAny.id).toBe("da0bbeaf-2711-4e6f-9134-c9e15919ca57")
-            expect(obtainedAsAny.partList).toBeDefined()
-            expect(obtainedAsAny.partList.length).toBe(2)
-            expect(obtainedAsAny.partList[0] instanceof PartRequest).toBeTrue()
-            expect(obtainedAsAny.partList[1].quantity).toBe(3)
+            expect(obtainedAsAny.id).toBe("f37a66b0-0b80-47b6-a0e8-42ca5a68eb91")
+            expect(obtainedAsAny.label).toBe("-TEST-REQUEST-FORM-LABEL-")
+            expect(obtainedAsAny.requestDate).toBeDefined()
+            expect(obtainedAsAny.state).toBe('OPEN')
+            expect(obtainedAsAny.contents).toBeDefined()
+            expect(obtainedAsAny.contents.length).toBe(2)
+            expect(obtainedAsAny.contents[0].itemId).toBe("fed05e3a-fc43-41a2-95b3-2002e15a98ba")
+            expect(obtainedAsAny.contents[0].type).toBe(RequestContentType.PART)
+            expect(obtainedAsAny.contents[0].quantity).toBe(5)
+            expect(obtainedAsAny.contents[1].itemId).toBe("66fda6e3-cfad-45b0-95de-12c6d70149b9")
+            expect(obtainedAsAny.contents[1].type).toBe(RequestContentType.MODEL)
+            expect(obtainedAsAny.contents[1].quantity).toBe(10)
         });
     });
 });

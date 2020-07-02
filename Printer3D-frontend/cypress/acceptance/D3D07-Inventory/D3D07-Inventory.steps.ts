@@ -10,6 +10,12 @@ const supportService = new SupportService();
 let store: any = {};
 
 // - N E W   B E S T   P R A C T I C E S
+Then('the page {string} is activated', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('app-root').find(tag).as('target-page')
+        .should('exist')
+});
 Then('the loading panels shows {string}', function (loadingMessage: string) {
     cy.get('@target-page').find('.index-loading')
         .contains(loadingMessage)

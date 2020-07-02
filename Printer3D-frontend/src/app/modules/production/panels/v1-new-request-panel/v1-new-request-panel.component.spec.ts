@@ -24,13 +24,16 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
-import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { V1NewRequestPanelComponent } from './v1-new-request-panel.component';
 import { RequestForm } from '@domain/RequestForm.domain';
 import { Part } from '@domain/Part.domain';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Model } from '@domain/inventory/Model.domain';
+import { RequestItem } from '@domain/RequestItem.domain';
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 
 describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
+    let fixture: ComponentFixture<V1NewRequestPanelComponent>
     let component: V1NewRequestPanelComponent;
     let isolationService: SupportIsolationService;
     let location: Location;
@@ -53,7 +56,7 @@ describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
             ]
         }).compileComponents();
 
-        const fixture = TestBed.createComponent(V1NewRequestPanelComponent);
+        fixture = TestBed.createComponent(V1NewRequestPanelComponent);
         component = fixture.componentInstance;
         isolationService = TestBed.get(SupportIsolationService)
         location = TestBed.get(Location)
@@ -80,50 +83,81 @@ describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
             component.request = new RequestForm({ label: expected })
             expect(component.getLabel()).toBe(expected);
         });
-        it('getRequestParts: get the parts associated to the Request', () => {
-            expect(component.getRequestParts()).toBeDefined()
-            expect(component.getRequestParts().length).toBe(0)
+        it('getRequestContents.Part: get the contents associated to the Request', () => {
+            expect(component.getRequestContents()).toBeDefined()
+            expect(component.getRequestContents().length).toBe(0)
             component.onDrop({ dragData: new Part() })
-            expect(component.getRequestParts().length).toBe(1)
+            expect(component.getRequestContents().length).toBe(1)
         });
-        it('getRequestParts: get the parts associated to the Request', () => {
+        it('getRequestContents.Model: get the contents associated to the Request', () => {
+            expect(component.getRequestContents()).toBeDefined()
+            expect(component.getRequestContents().length).toBe(0)
+            component.onDrop({ dragData: new Model() })
+            expect(component.getRequestContents().length).toBe(1)
+        });
+        it('hasContents: check if the Request has contents', () => {
             expect(component.hasContents()).toBeFalse()
-            component.onDrop({ dragData: new Part() })
+            component.onDrop({ dragData: new Model() })
             expect(component.hasContents()).toBeTrue()
         });
-        it('isFormValid.noParts: get the parts associated to the Request', () => {
+        it('isFormValid.noParts: consolidate the form status with the content container', () => {
             expect(component.isFormValid(true)).toBeFalse()
             expect(component.isFormValid(false)).toBeFalse()
         });
-        it('isFormValid.parts: get the parts associated to the Request', () => {
+        it('isFormValid.parts: consolidate the form status with the content container', () => {
             component.onDrop({ dragData: new Part() })
             expect(component.isFormValid(true)).toBeTrue()
             expect(component.isFormValid(false)).toBeFalse()
         });
-        it('onDrop: get the parts associated to the Request', () => {
-            expect(component.getRequestParts().length).toBe(0)
-            component.onDrop({ dragData: new Part() })
-            expect(component.getRequestParts().length).toBe(1)
+        it('onDrop: validate the drop of elements', () => {
+            expect(component.getRequestContents().length).toBe(0)
+            component.onDrop({ dragData: new Part({ id: "5f27847f-2951-49fb-ae2d-2b7cc8728dd1" }) })
+            expect(component.getRequestContents().length).toBe(1)
+            component.onDrop({ dragData: new Model({ id: "c0d74ab6-609c-4f5f-86a3-b73b1101b7da" }) })
+            expect(component.getRequestContents().length).toBe(2)
         });
-        xit('removePart: get the parts associated to the Request', () => {
-            expect(component.getRequestParts().length).toBe(0)
-            const part: Part = new Part()
-            component.onDrop({ dragData: part })
-            component.onDrop({ dragData: part })
-            expect(component.getRequestParts().length).toBe(2)
-            // component.removePart(part)
-            expect(component.getRequestParts().length).toBe(0)
+        it('onDrop.invalid: validate the drop of elements', () => {
+            expect(component.getRequestContents().length).toBe(0)
+            component.onDrop({ dragData: new RequestItem() })
+            expect(component.getRequestContents().length).toBe(0)
+        });
+        it('removeContent: pass the removal message to the container', () => {
+            expect(component.getRequestContents().length).toBe(0)
+            const testPart: Part = new Part({
+                id: "5f27847f-2951-49fb-ae2d-2b7cc8728dd1"
+            })
+            const item: RequestItem = new RequestItem({
+                itemId: "c0d74ab6-609c-4f5f-86a3-b73b1101b7da",
+                type: RequestContentType.PART,
+                quantity: 1,
+                contents: [testPart]
+            })
+            // const part: Part = new Part()
+            component.onDrop({ dragData: testPart })
+            component.onDrop({ dragData: testPart })
+            expect(component.getRequestContents().length).toBe(1)
+            component.removeContent(item)
+            expect(component.getRequestContents().length).toBe(1)
+            component.removeContent(item)
+            expect(component.getRequestContents().length).toBe(1)
         });
         it('saveRequest: save the Request to the backend', async () => {
+            jasmine.clock().install();
             const componentAsAny = component as any;
             expect(componentAsAny.backendConnections.length).toBe(0)
-            await component.saveRequest()
-            expect(componentAsAny.backendConnections.length).toBe(1)
-            expect(location.path()).toBe('/');
+            fixture.ngZone.run(() => {
+                component.saveRequest()
+                jasmine.clock().tick(200);
+                expect(componentAsAny.backendConnections.length).toBe(1)
+                expect(location.path()).toBe('/');
+            })
+            jasmine.clock().uninstall()
         });
-        it('cancelRequest: cancel the request', async () => {
-            await component.cancelRequest()
-            expect(location.path()).toBe('/');
+        it('cancelRequest: cancel the request', () => {
+            fixture.ngZone.run(() => {
+                component.cancelRequest()
+                expect(location.path()).toBe('/');
+            })
         });
     });
 });

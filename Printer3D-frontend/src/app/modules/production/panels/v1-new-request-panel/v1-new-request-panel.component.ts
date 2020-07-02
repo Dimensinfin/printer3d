@@ -28,6 +28,7 @@ import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRe
 import { Request } from '@domain/Request.domain';
 import { Part4Request } from '@domain/Part4Request.domain';
 import { RequestItem } from '@domain/RequestItem.domain';
+import { Model } from '@domain/inventory/Model.domain';
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -64,7 +65,8 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
     }
     public onDrop(drop: any) {
         console.log('>[V1NewRequestPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop))
-        this.request.addContent(drop.dragData)
+        if (drop.dragData instanceof Part) this.request.addContent(drop.dragData)
+        if (drop.dragData instanceof Model) this.request.addContent(drop.dragData)
         console.log('<>>[V1NewRequestPanelComponent.onDrop]')
     }
     public removeContent(content: RequestItem): void {
@@ -72,13 +74,12 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
     }
     public saveRequest(): void {
         this.backendConnections.push(
-            this.backendService.apiNewRequest_v2(new RequestFormToRequestConverter().convert(this.request), 
+            this.backendService.apiNewRequest_v2(new RequestFormToRequestConverter().convert(this.request),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
-                .setTransformation((entrydata: any): Request => {
-                    // const persistedRequest: Request = new Request();
-                    this.isolationService.successNotification('Pedido [' + this.request.label + '] registrado correctamente.', '/PRODUCCION/NUEVO PEDIDO/OK');
-                    return new Request(); // Discard the just persisted request and return an empty instance.
-                }))
+                    .setTransformation((entrydata: any): Request => {
+                        this.isolationService.successNotification('Pedido [' + this.request.label + '] registrado correctamente.', '/PRODUCCION/NUEVO PEDIDO/OK');
+                        return new Request(); // Discard the just persisted request and return an empty instance.
+                    }))
                 .subscribe((persistedRequest: Request) => {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
                     this.router.navigate(['/']);

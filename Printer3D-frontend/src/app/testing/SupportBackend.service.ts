@@ -10,6 +10,7 @@ import { SupportHttpClientWrapperService } from './SupportHttpClientWrapperServi
 import { RequestForm } from '@domain/RequestForm.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
+import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 
 export class SupportBackendService {
     private httpWrapper: SupportHttpClientWrapperService;
@@ -43,11 +44,17 @@ export class SupportBackendService {
     public apiNewRequest_v1(newRequest: RequestForm, transformer: ResponseTransformer): Observable<RequestForm> {
         console.log('[SupportBackendService.apiNewRequest_v1]> Transformation: ' + transformer.description)
         return Observable.create((observer) => {
-            this.httpWrapper.mockHttpPOSTCall('/production/requests')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
+            const data = this.directAccessMockResource('newrequest')
+            observer.next(transformer.transform(data));
+            observer.complete();
+        });
+    }
+    public apiNewRequest_v2(newRequest: RequestRequest, transformer: ResponseTransformer): Observable<RequestForm> {
+        console.log('[SupportBackendService.apiNewRequest_v2]> Transformation: ' + transformer.description)
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('newrequest')
+            observer.next(transformer.transform(data));
+            observer.complete();
         });
     }
     public apiNewModel_v1(newModel: ModelRequest, transformer: ResponseTransformer): Observable<RequestForm> {

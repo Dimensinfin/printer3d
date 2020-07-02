@@ -5,7 +5,7 @@ import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 
 export class RequestFormToRequestConverter implements Converter<RequestForm, RequestRequest> {
     public convert(input: RequestForm): RequestRequest {
-       const requestContents: any[] = []
+        const requestContents: any[] = []
         for (const content of input.getRequestContents())
             requestContents.push({
                 itemId: content.getId(),

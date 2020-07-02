@@ -35,6 +35,10 @@ import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { Request } from '@domain/Request.domain';
+import { JobRequest } from '@domain/dto/JobRequest.dto';
+import { Model } from '@domain/inventory/Model.domain';
+import { ModelRequest } from '@domain/dto/ModelRequest.dto';
+import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -80,30 +84,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 });
         });
     });
-    describe('Code Coverage Phase [ACTUATOR API]', () => {
-        xit('apiInventoryParts_v1.default: get the list of Parts', async () => {
-            service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
-                .setTransformation((entrydata: any): PartListResponse => {
-                    return new PartListResponse(entrydata);
-                }))
-                .subscribe((response: PartListResponse) => {
-                    expect(response).toBeDefined();
-                    expect(response.count).toBe(12);
-                    expect(response.parts.length).toBe(12);
-                });
-        });
-        it('apiInventoryUpdatePart_v1.default: update an existing Part', async () => {
-            const part: Part = new Part();
-            service.apiInventoryUpdatePart_v1(part, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
-                .setTransformation((entrydata: any): Part => {
-                    return new Part(entrydata);
-                }))
-                .subscribe((response: Part) => {
-                    expect(response).toBeDefined();
-                    expect(response.id).toBe("4e7001ee-6bf5-40b4-9c15-61802e4c59ea");
-                    expect(response.label).toBe("Covid-19 Key");
-                });
-        });
+    describe('Code Coverage Phase [NEW ENTITIES]', () => {
         it('apiNewPart_v1.default: get the persisted part', async () => {
             const part = new Part();
             service.apiNewPart_v1(part, new ResponseTransformer().setDescription('Transforms data into Part.')
@@ -124,13 +105,46 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('apiNewRequest_v1.default: get the persisted part', async () => {
-            const request = new Request();
-            service.apiNewRequest_v1(request, new ResponseTransformer().setDescription('Transforms data into Part.')
-                .setTransformation((entrydata: any): Request => {
-                    return new Request(entrydata);
+        it('apiNewModel_v1.default: get the persisted coils', async () => {
+            const model = new Model();
+            service.apiNewModel_v1(model, new ResponseTransformer().setDescription('Transforms data into Coil.')
+                .setTransformation((entrydata: any): Model => {
+                    return new Model(entrydata);
                 }))
-                .subscribe((response: Request) => {
+                .subscribe((response: Model) => {
+                    expect(response).toBeDefined();
+                });
+        });
+    });
+    describe('Code Coverage Phase [INVENTORY]', () => {
+        it('apiInventoryParts_v1.default: get the list of Parts', async () => {
+            service.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+                .setTransformation((entrydata: any): any => {
+                    return entrydata;
+                }))
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('apiInventoryUpdatePart_v1.default: update an existing Part', async () => {
+            const part: Part = new Part();
+            service.apiInventoryUpdatePart_v1(part, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+                .setTransformation((entrydata: any): Part => {
+                    return new Part(entrydata);
+                }))
+                .subscribe((response: Part) => {
+                    expect(response).toBeDefined();
+                    expect(response.id).toBe("4e7001ee-6bf5-40b4-9c15-61802e4c59ea");
+                    expect(response.label).toBe("Covid-19 Key");
+                });
+        });
+        it('apiInventoryUpdateModel_v1.default: get the list of Parts', async () => {
+            const updatingModel: ModelRequest = new ModelRequest()
+            service.apiInventoryUpdateModel_v1(updatingModel, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+                .setTransformation((entrydata: any): any => {
+                    return entrydata;
+                }))
+                .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });
         });
@@ -154,7 +168,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.coils.length).toBe(15, 'Number of Coils do not match.');
                 });
         });
-        it('apiInventoryMachines_v1.default: get the list of Machines', async () => {
+        it('apiInventoryGetMachines_v1.default: get the list of Machines', async () => {
             service.apiInventoryGetMachines_v1(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
                 .setTransformation((entrydata: any): MachineListResponse => {
                     return new MachineListResponse(entrydata);
@@ -189,6 +203,17 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
+        it('apiMachinesStartBuild_v2.default: start a build jot on a Machine', async () => {
+            const machineId: string = "-MACHINE-ID-"
+            const jobRequest: JobRequest = new JobRequest({ part: { id: "-ID-" } })
+            service.apiMachinesStartBuild_v2(machineId, jobRequest, new ResponseTransformer().setDescription('Transforms response to a Machine.')
+                .setTransformation((entrydata: any): Machine => {
+                    return new Machine(entrydata);
+                }))
+                .subscribe((response: Machine) => {
+                    expect(response).toBeDefined();
+                });
+        });
         it('apiMachinesCancelBuild_v1.default: cancel the build job on a Machine', async () => {
             const machineId: string = "-MACHINE-ID-"
             await service.apiMachinesCancelBuild_v1(machineId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
@@ -209,8 +234,37 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
+        it('apiInventoryGetModels_v1.default: complete the build job on a Machine', async () => {
+            await service.apiInventoryGetModels_v1(new ResponseTransformer().setDescription('Transforms response to a Model list.')
+                .setTransformation((entrydata: any): Model[] => {
+                    return entrydata
+                }))
+                .subscribe((response: Model[]) => {
+                    expect(response).toBeDefined();
+                });
+        });
     });
     describe('Code Coverage Phase [PRODUCTION]', () => {
+        it('apiNewRequest_v1.default: get the persisted part', async () => {
+            const request = new Request();
+            service.apiNewRequest_v1(request, new ResponseTransformer().setDescription('Transforms data into Part.')
+                .setTransformation((entrydata: any): Request => {
+                    return new Request(entrydata);
+                }))
+                .subscribe((response: Request) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('apiNewRequest_v2.default: get the persisted part', async () => {
+            const request = new RequestRequest();
+            service.apiNewRequest_v2(request, new ResponseTransformer().setDescription('Transforms data into Part.')
+                .setTransformation((entrydata: any): any => {
+                    return entrydata;
+                }))
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
         it('apiProductionGetJobs_v1.default: get the list jobs required to level the stocks', async () => {
             service.apiProductionGetJobs_v1(new ResponseTransformer().setDescription('Transforms Production Pending Jobs list form backend.')
                 .setTransformation((entrydata: any): Job[] => {
@@ -231,7 +285,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     const requestList: Request[] = []
                     for (let entry of entrydata.requests) {
                         const request: Request = new Request(entry)
-                        request.setPartProvider(entrydata)
+                        // request.setPartProvider(entrydata)
                         requestList.push(request);
                     }
                     return requestList;
@@ -239,6 +293,15 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 .subscribe((response: Request[]) => {
                     expect(response).toBeDefined();
                     expect(response.length).toBe(2, 'Number of Requests do not match');
+                });
+        });
+        it('apiProductionGetOpenRequests_v2.default: get the list jobs required to level the stocks', async () => {
+            service.apiProductionGetOpenRequests_v2(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
+                .setTransformation((entrydata: any): any => {
+                    return entrydata;
+                }))
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
                 });
         });
         it('apiRequestsClose_v1.default: get the list jobs required to level the stocks', async () => {

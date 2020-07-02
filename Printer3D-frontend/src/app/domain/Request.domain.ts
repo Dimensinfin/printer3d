@@ -15,14 +15,10 @@ export class Request extends Node {
     private state: RequestState = RequestState.OPEN;
     // V2 comapibility fields
     protected contents: RequestItem[] = []
-    // private partList: PartRequest[] = [];
-
-    // private partProvider: IPartProvider
 
     constructor(values: Object = {}) {
         super();
         Object.assign(this, values);
-        // this.transformInput();
         this.jsonClass = 'Request'
     }
 

@@ -15,7 +15,7 @@ import { TestBed } from '@angular/core/testing';
 import { V1Part4RequestRenderComponent } from './v1-part4-request-render.component';
 import { Part4Request } from '@domain/Part4Request.domain';
 
-describe('COMPONENT V1Part4RequestRenderComponent [Module: RENDER]', () => {
+xdescribe('COMPONENT V1Part4RequestRenderComponent [Module: RENDER]', () => {
     let component: V1Part4RequestRenderComponent;
 
     beforeEach(async(() => {

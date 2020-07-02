@@ -214,7 +214,7 @@ export class BackendService {
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryGetModels_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as MachineListResponse;
+                const response = transformer.transform(data) as any;
                 return response;
             }));
     }

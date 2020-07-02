@@ -30,7 +30,7 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 import { Part } from '@domain/Part.domain';
 import { V1PartContainerRenderComponent } from './v1-part-container-render.component';
 
-describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
+xdescribe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
     let component: V1PartContainerRenderComponent;
 
     beforeEach(async(() => {
