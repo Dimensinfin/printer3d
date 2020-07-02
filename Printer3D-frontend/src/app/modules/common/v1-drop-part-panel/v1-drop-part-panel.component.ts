@@ -4,13 +4,9 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-// - SERVICES
-import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { Part } from '@domain/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
-import { Model } from '@domain/inventory/Model.domain';
-import { ModelForm } from '@domain/inventory/ModelForm.domain';
 
 @Component({
     selector: 'v1-drop-part-panel',
@@ -18,16 +14,11 @@ import { ModelForm } from '@domain/inventory/ModelForm.domain';
     styleUrls: ['./v1-drop-part-panel.component.scss']
 })
 export class V1DropPartPanelComponent implements OnInit {
-    // @Input() model: Model
     public self: V1DropPartPanelComponent
     public droppedParts: PartStack[] = []
 
     public ngOnInit(): void {
         this.self = this
-        // if (null != this.model) { // In this case we are editing a Model. Load the parts.
-        //     for (const part of this.model.getParts())
-        //         this.addPart(part)
-        // }
     }
 
     public startEditing(initialPartList: PartStack[]): void {

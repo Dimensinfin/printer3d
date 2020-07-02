@@ -85,6 +85,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
             this.backendService.apiInventoryParts_v1(new ResponseTransformer()
                 .setDescription('Transforms response into a list of Parts.')
                 .setTransformation((entrydata: any): PartListResponse => {
+                    console.log('-[V1OpenRequestsPanelComponent.downloadParts]>Processing Parts')
                     return new PartListResponse(entrydata);
                 }))
                 .subscribe((response: PartListResponse) => {
@@ -98,6 +99,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
             this.backendService.apiInventoryGetModels_v1(new ResponseTransformer()
                 .setDescription('Transforms response into a list of Models.')
                 .setTransformation((entrydata: any): Model[] => {
+                    console.log('-[V1OpenRequestsPanelComponent.downloadModels]>Processing Models')
                     // For each of the Models expand the Parts from the part provider.
                     const modelList: Model[] = []
                     for (const entry of entrydata.models) {
@@ -121,16 +123,19 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
             this.backendService.apiProductionGetOpenRequests_v2(new ResponseTransformer()
                 .setDescription('Transforms response into a list of Requests.')
                 .setTransformation((entrydata: any): Request[] => {
+                    // console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>entrydata: '+JSON.stringify(entrydata))
+                    // console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>entrydata.length: '+entrydata.length)
+                    console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
                     // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
                     const requestList: Request[] = []
                     const requestConstructor: RequestConstructor = new RequestConstructor(this)
                     for (let index = 0; index < entrydata.length; index++) {
-                        // const request: Request = new Request(entrydata[0])
                         requestList.push(requestConstructor.construct(entrydata[index]));
                     }
                     return requestList;
                 }))
                 .subscribe((requestList: Request[]) => {
+                    console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Requests received: ' + requestList.length)
                     this.completeDowload(requestList); // Notify the completion of the download.
                 })
         )

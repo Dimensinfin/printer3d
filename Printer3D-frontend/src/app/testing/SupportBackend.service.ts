@@ -172,9 +172,16 @@ export class SupportBackendService {
             observer.complete();
         });
     }
-    public apiProductionGetOpenRequests_v1(transformer: ResponseTransformer): Observable<Machine> {
+    public apiProductionGetOpenRequests_v1(transformer: ResponseTransformer): Observable<any> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('production.openrequests')
+            observer.next(transformer.transform(data));
+            observer.complete();
+        });
+    }
+    public apiProductionGetOpenRequests_v2(transformer: ResponseTransformer): Observable<any> {
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('production.openrequests.v2')
             observer.next(transformer.transform(data));
             observer.complete();
         });

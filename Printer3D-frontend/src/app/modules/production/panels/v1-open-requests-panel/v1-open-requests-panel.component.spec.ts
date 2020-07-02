@@ -29,7 +29,7 @@ import { V1OpenRequestsPanelComponent } from './v1-open-requests-panel.component
 import { Request } from '@domain/Request.domain';
 import { Part } from '@domain/Part.domain';
 
-xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
+describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
     let component: V1OpenRequestsPanelComponent;
 
     beforeEach(async(() => {
@@ -60,19 +60,21 @@ xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
             expect(component.page).toBeUndefined()
             expect(componentAsAny.parts).toBeDefined();
             expect(componentAsAny.parts.length).toBe(0);
+            expect(componentAsAny.models).toBeDefined();
+            expect(componentAsAny.models.length).toBe(0);
         });
     });
 
     // - O N I N I A T I Z A T I O N   P H A S E
-    describe('On Initialization Phase', async () => {
+    describe('On Initialization Phase',  () => {
         it('ngOnInit.empty: validate initialization flow', async () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
             expect(componentAsAny.backendConnections.length).toBe(0);
             await component.ngOnInit();
-            jasmine.clock().tick(500);
+            jasmine.clock().tick(1200);
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
-            expect(componentAsAny.backendConnections.length).toBe(2); // This component downloads the Parts and the Requests
+            expect(componentAsAny.backendConnections.length).toBe(3); // This component downloads the Parts and the Requests
             expect(componentAsAny.dataModelRoot.length).toBe(2);
             expect(componentAsAny.renderNodeList.length).toBe(2);
             expect(component.isDownloading()).toBeFalse();

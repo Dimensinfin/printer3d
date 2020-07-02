@@ -93,7 +93,7 @@ jobs:
           command: |
             dockerize -wait tcp://localhost:${PORT}/actuator/health -timeout 3m
       - run:
-          name: BACKEND - Run acceptance tests for application
+          name: BACKEND - Run acceptance tests Phase 1
           working_directory: Printer3D-backend
           environment:
             PORT: 5140
@@ -105,8 +105,28 @@ jobs:
             ./gradlew test -Dcucumber.options="--tags @P3D01"
             ./gradlew test -Dcucumber.options="--tags @P3D02"
             # ./gradlew test -Dcucumber.options="--tags @P3D03"
+      - run:
+          name: BACKEND - Run acceptance tests Phase 2
+          working_directory: Printer3D-backend
+          environment:
+            PORT: 5140
+            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
+            SPRING_PROFILES_ACTIVE: test
+          command: |
             ./gradlew test -Dcucumber.options="--tags @P3D04"
             ./gradlew test -Dcucumber.options="--tags @P3D05"
+      - run:
+          name: BACKEND - Run acceptance tests Phase 3
+          working_directory: Printer3D-backend
+          environment:
+            PORT: 5140
+            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
+            SPRING_PROFILES_ACTIVE: test
+          command: |
             ./gradlew test -Dcucumber.options="--tags @P3D06"
             ./gradlew test -Dcucumber.options="--tags @P3D07"
             ./gradlew test -Dcucumber.options="--tags @P3D08"
