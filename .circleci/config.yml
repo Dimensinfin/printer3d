@@ -104,7 +104,7 @@ jobs:
           command: |
             ./gradlew test -Dcucumber.options="--tags @P3D01"
             ./gradlew test -Dcucumber.options="--tags @P3D02"
-            ./gradlew test -Dcucumber.options="--tags @P3D03"
+            # ./gradlew test -Dcucumber.options="--tags @P3D03"
             ./gradlew test -Dcucumber.options="--tags @P3D04"
             ./gradlew test -Dcucumber.options="--tags @P3D05"
             ./gradlew test -Dcucumber.options="--tags @P3D06"
@@ -270,7 +270,7 @@ workflows:
                 - hotfix
       - test-frontend-job:
           requires:
-            - start-job
+            - test-backend-job
           filters:
             branches:
               only:
