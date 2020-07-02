@@ -108,6 +108,34 @@ jobs:
           path: ~/project/Printer3D-backend/build/test-results
       - store_artifacts:  
           path: ~/project/Printer3D-backend/build/libs
+  test-frontend-job:
+    docker:
+      - image: circleci/node:12.16.3-browsers
+    environment:
+      PORT: 5100
+      CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
+    steps:
+      - checkout
+      - run:
+          name: FRONTEND - Install the framework
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm install
+      - run:
+          name: FRONTEND - Build optimized Production dist
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:dev
+      - run:
+          name: FRONTEND - Start backend simulator & Run acceptance D01 & D04
+          working_directory: Printer3D-frontend
+          command: |
+            npm run acceptance:simulator
+            npm run acceptance:ready
+            npm run cypress:run
+      - store_test_results:
+          path: ~/project/Printer3D-frontend/cypress/cucumber-json
 
   old-test-backend-job:
     docker:
@@ -182,7 +210,7 @@ jobs:
           path: ~/project/Printer3D-backend/build/test-results
       - store_artifacts:  
           path: ~/project/Printer3D-backend/build/libs
-  test-frontend-job:
+  old-test-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
     environment:
@@ -347,8 +375,7 @@ workflows:
 
       - stage-to-heroku:
           requires:
-            - test-backend-job
-            - test-frontend-job
+            - start-job
           filters:
             branches:
               only:
