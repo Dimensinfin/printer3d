@@ -53,6 +53,7 @@ export class BackendService {
         const request = this.APIV1 + '/inventory/parts';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
+        console.log(">[BackendService.apiNewPart_v1]> Body: " + JSON.stringify(newPart));
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newPart), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewPart_v1]> Transformation: " + transformer.description);
@@ -71,7 +72,7 @@ export class BackendService {
                 return response;
             }));
     }
-      public apiNewModel_v1(newModel: ModelRequest, transformer: ResponseTransformer): Observable<any> {
+    public apiNewModel_v1(newModel: ModelRequest, transformer: ResponseTransformer): Observable<any> {
         const request = this.APIV1 + '/inventory/models';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
@@ -105,7 +106,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryUpdateModel_v1(updatingModel:ModelRequest, transformer: ResponseTransformer): Observable<ModelForm> {
+    public apiInventoryUpdateModel_v1(updatingModel: ModelRequest, transformer: ResponseTransformer): Observable<ModelForm> {
         const request = this.APIV1 + '/inventory/models';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
@@ -270,7 +271,7 @@ export class BackendService {
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName)
             .set('x-api-version', 'api v2')
-                    return this.httpService.wrapHttpGETCall(request, headers)
+        return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionGetOpenRequests_v2]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Request[];

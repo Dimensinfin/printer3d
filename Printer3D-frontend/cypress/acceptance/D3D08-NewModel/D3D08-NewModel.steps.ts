@@ -54,9 +54,6 @@ When('the drag source is dragged to the drop destination {string}', function (dr
     cy.get('@drag-source').trigger('dragstart')
     cy.get('@target-panel').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
-Then('the target item has a actionable image named {string}', function (buttonName: string) {
-    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
-});
 When('the target item has actionable image named {string} is clicked', function (buttonName: string) {
     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
         .click()

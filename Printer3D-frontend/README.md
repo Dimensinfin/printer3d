@@ -4,6 +4,9 @@
 * v1-drop-part-panel
 * v1-new-model-panel
 * v1-part-stack-render
+* v1-part-container-render
+* Part.domain
+* new-part-dialog
 
 * RequestForm
 * Request

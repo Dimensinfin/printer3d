@@ -10,7 +10,7 @@ const supportService = new SupportService();
 let store: any = {};
 
 // - N E W   B E S T   P R A C T I C E S
-Then('the page {string} is activated', function (symbolicName: string) {
+Then('the page {string} is activated', function (symbolicName: string) { // This is required to remove the timing and detect the 'loading...'
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('app-root').find(tag).as('target-page')
@@ -262,37 +262,8 @@ When('the right arrow of the target Part Container is clicked', function () {
         cy.get('.arrow-box').click('center')
     })
 });
-// Given('the target panel is the panel of type {string}', function (panelType: string) {
-//     cy.get('app-root').find(panelType)
-//         .as('target-panel')
-// });
 
 
-
-// Then('active Parts show a green corner', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container').as('target-node-active')
-//         .find('v1-part')
-//         .find('.field')
-//         .find('.part-active').contains('ACTIVA')
-//     cy.get('@target-node-active').find('.corner-bottom').should('have.class', 'active')
-// });
-
-// Then('inactive Part show an orange corner', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container').as('target-node-inactive')
-//         .find('v1-part')
-//         .find('.field')
-//         .find('.part-active').contains('FUERA PROD.')
-//         .parents('node-container').as('target-node-inactive')
-//     cy.get('@target-node-inactive').find('.corner-bottom').should('not.have.class', 'active')
-// });
-
-// Given('the target panel is the panel named {string}', function (renderName: string) {
-//     const tag = supportService.translateTag(renderName) // Do name replacement
-//     cy.get('app-root').find('[cy-name="' + tag + '"]').as('target-panel')
-//         .should('exist')
-// });
 
 Then('the target item is expandable', function () {
     cy.get('@target-item').parent().parent().parent().parent().parent()
