@@ -82,12 +82,14 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
         if (part.active) return 'ACTIVA'
         else return 'FUERA PROD.'
     }
-    public isEditing(): boolean {
-        return this.editing;
-    }
     public isActive(): boolean {
         const part = this.node as Part;
         return part.active;
+    }
+
+    // - EDITING
+    public isEditing(): boolean {
+        return this.editing;
     }
     public toggleEdition(): void {
         this.editing = !this.editing;
@@ -112,7 +114,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
     /**
      * Save this part on the storage and open the dialog so the fields can be edited.
      */
-    public duplicatePart(): void { 
+    public duplicatePart(): void {
         this.isolationService.setToStorageObject(platformconstants.PARTIAL_PART_KEY, this.getNode())
         const targetFeature = new Feature({
             "label": "/Nueva Pieza",
@@ -129,7 +131,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
                 console.log('[V1FeatureRenderComponent.onClick]> Close detected');
                 targetFeature.deactivate();
             });
-}
+    }
     private activateEditing(): void {
         this.variant = EVariant.EDITABLE_PART;
         this.editPart = new Part(this.node);

@@ -33,6 +33,12 @@ Given('the target panel is the panel of type {string}', function (renderName: st
     cy.get('@target-page').find(tag)
         .as('target-panel')
 });
+Given('the target item the {string} with id {string}', function (symbolicName: string, recordId: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item')
+        .should('exist')
+});
 // - FORMS
 Then('the target panel has an input field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
@@ -82,12 +88,6 @@ Given('the target panel has one or more {string}', function (symbolicName: strin
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('@target-panel').find(tag).should('have.length.greaterThan', 0)
-});
-Given('the target item the {string} with id {string}', function (symbolicName: string, recordId: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item')
-        .should('exist')
 });
 
 

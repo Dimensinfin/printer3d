@@ -138,6 +138,18 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.label).toBe("Covid-19 Key");
                 });
         });
+        it('apiInventoryGroupUpdatePart_v1.default: update an existing Part', async () => {
+            const part: Part = new Part();
+            service.apiInventoryGroupUpdatePart_v1(part, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+                .setTransformation((entrydata: any): Part => {
+                    return new Part(entrydata);
+                }))
+                .subscribe((response: Part) => {
+                    expect(response).toBeDefined();
+                    expect(response.id).toBe("4e7001ee-6bf5-40b4-9c15-61802e4c59ea");
+                    expect(response.label).toBe("Covid-19 Key");
+                });
+        });
         it('apiInventoryUpdateModel_v1.default: get the list of Parts', async () => {
             const updatingModel: ModelRequest = new ModelRequest()
             service.apiInventoryUpdateModel_v1(updatingModel, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')

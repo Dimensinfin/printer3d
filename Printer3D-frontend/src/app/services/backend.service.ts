@@ -106,6 +106,17 @@ export class BackendService {
                 return response;
             }));
     }
+    public apiInventoryGroupUpdatePart_v1(updatingGroupContent: Part, transformer: ResponseTransformer): Observable<Part> {
+        const request = this.APIV1 + '/inventory/parts/group/' + updatingGroupContent.label;
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingGroupContent), headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Part;
+                return response;
+            }));
+    }
     public apiInventoryUpdateModel_v1(updatingModel: ModelRequest, transformer: ResponseTransformer): Observable<ModelForm> {
         const request = this.APIV1 + '/inventory/models';
         let headers = new HttpHeaders()

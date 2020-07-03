@@ -79,11 +79,17 @@ export class SupportBackendService {
     public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
         console.log('>[SupportBackendService.apiInventoryUpdatePart_v1]')
         return Observable.create((observer) => {
-            this.httpWrapper.mockHttpGETCall('/api/v2/inventory/parts/update')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
+            const data = this.directAccessMockResource('newpart')
+            observer.next(transformer.transform(data));
+            observer.complete();
+        });
+    }
+    public apiInventoryGroupUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
+        console.log('>[SupportBackendService.apiInventoryGroupUpdatePart_v1]')
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('newpart')
+            observer.next(transformer.transform(data));
+            observer.complete();
         });
     }
     public apiInventoryUpdateModel_v1(updatingModel: ModelRequest, transformer: ResponseTransformer): Observable<Part> {
