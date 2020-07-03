@@ -4,22 +4,25 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-// - ROUTER
-import { Router } from '@angular/router';
 // - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
-import { Request } from '@domain/Request.domain';
+import { Part } from '@domain/Part.domain';
+import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { BackendService } from '@app/services/backend.service';
+import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
-import { RequestState } from '@domain/interfaces/EPack.enumerated';
-import { Machine } from '@domain/Machine.domain';
+import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
+import { platformconstants } from '@app/platform/platform-constants';
+import { DialogFactoryService } from '@app/services/dialog-factory.service';
+import { Feature } from '@domain/Feature.domain';
 import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 import { Job } from '@domain/Job.domain';
-import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { Part } from '@domain/Part.domain';
+import { Machine } from '@domain/Machine.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { JobRequestConstructor } from '@domain/constructor/JobRequest.constructor';
 
@@ -28,9 +31,9 @@ import { JobRequestConstructor } from '@domain/constructor/JobRequest.constructo
     templateUrl: './v3-machine-render.component.html',
     styleUrls: ['./v3-machine-render.component.scss']
 })
-export class V3MachineRenderComponent extends BackgroundEnabledComponent implements OnInit {
+export class V3MachineRenderComponent extends NodeContainerRenderComponent implements OnInit {
     @ViewChild(V1BuildCountdownTimerPanelComponent) private sessionTimer: V1BuildCountdownTimerPanelComponent;
-    @Input() node: Machine;
+    // @Input() node: Machine;
     public self: V3MachineRenderComponent;
     public target: Job;
     public state: string = 'IDLE'
@@ -53,9 +56,21 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         console.log('<[V3MachineRenderComponent.ngOnInit]')
     }
 
+    public getNode(): Machine {
+        return this.node as Machine
+    }
     public getUniqueId(): string {
-        const machine = this.node as Machine
+        const machine = this.node as any
         return machine.getId();
+    }
+    public getLabel(): string {
+        return this.getNode().label
+    }
+    public getModel(): string {
+        return this.getNode().model
+    }
+    public getCharacteristics(): string {
+        return this.getNode().characteristics
     }
     /**
      * Calculated the build time to setup on the Timer. If the Job was set by dragging the target then the time is the target 'buildTime'.
@@ -77,16 +92,16 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     }
 
     private loadBuildPart(): void {
-        console.log('>[V2MachineRenderComponent.loadBuildPart]> Running: ' + this.node.isRunning())
-        if (this.node.isRunning()) {
+        console.log('>[V2MachineRenderComponent.loadBuildPart]> Running: ' + this.getNode().isRunning())
+        if (this.getNode().isRunning()) {
             this.target = new Job({
                 id: uuidv4(),
-                part: this.node.buildRecord.part,
+                part: this.getNode().buildRecord.part,
                 priority: 3,
-                partCount: this.node.buildRecord.partCopies
+                partCount: this.getNode().buildRecord.partCopies
             })
             this.state = 'RUNNING'
-            this.remainingTime = this.node.buildRecord.remainingTime;
+            this.remainingTime = this.getNode().buildRecord.remainingTime;
         }
     }
 
@@ -115,7 +130,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
         console.log('>[V2MachineRenderComponent.startBuild]')
         const jobRequest: JobRequest = new JobRequestConstructor().construct(this.target)
         this.backendConnections.push(
-            this.backendService.apiMachinesStartBuild_v2(this.node.getId(), jobRequest,
+            this.backendService.apiMachinesStartBuild_v2(this.getNode().getId(), jobRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.successNotification(
@@ -136,7 +151,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public onClear(): void {
         console.log('>[V3MachineRenderComponent.onClear]')
         this.backendConnections.push(
-            this.backendService.apiMachinesCancelBuild_v1(this.node.getId(),
+            this.backendService.apiMachinesCancelBuild_v1(this.getNode().getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine" on onClear.')
                     .setTransformation((entrydata: any): Machine => {
                         console.log('>[V2MachineRenderComponent.onClear.setTransformation]> Part Label: ' + this.getPartLabel())
@@ -159,7 +174,7 @@ export class V3MachineRenderComponent extends BackgroundEnabledComponent impleme
     public completeBuild(): void {
         console.log('>[V3MachineRenderComponent.completeBuild]')
         this.backendConnections.push(
-            this.backendService.apiMachinesCompleteBuild_v1(this.node.getId(),
+            this.backendService.apiMachinesCompleteBuild_v1(this.getNode().getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.warningNotification(

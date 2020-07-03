@@ -1,7 +1,12 @@
-import { Part } from './Part.domain';
-import { deprecate } from 'util';
+// - CORE
+import { v4 as uuidv4 } from 'uuid';
+// - DOMAIN
+import { ICollaboration } from './interfaces/core/ICollaboration.interface';
+import { Node } from './Node.domain';
+import { IContent } from './interfaces/IContent.interface';
+import { RequestContentType } from './interfaces/EPack.enumerated';
 
-export class Machine {
+export class Machine extends Node {
     private id: string;
     public label: string;
     public model: string;
@@ -13,10 +18,11 @@ export class Machine {
     // public jobInstallmentDate: string;
 
     constructor(values: Object = {}) {
+        super()
         Object.assign(this, values);
     }
-    
-    public getId() : string{
+
+    public getId(): string {
         return this.id;
     }
     public isRunning(): boolean {

@@ -13,8 +13,8 @@
             "price": 5.0,
             "stockLevel": 2,
             "stockAvailable": 0,
-            "imagePath": null,
-            "modelPath": null,
+            "imagePath": "https://ibb.co/3dGbsRh",
+            "modelPath": "pieza3.sft",
             "active": true
         },
         {

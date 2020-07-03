@@ -11,7 +11,7 @@ export class JobRequestConstructor implements Constructor<JobRequest> {
         return new JobRequest ({
             id: input.getId(),
             partId: input.getPart().getId(),
-            copies: input.getCopies
+            copies: input.getCopies()
         })
     }
 }

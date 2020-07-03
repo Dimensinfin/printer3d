@@ -25,10 +25,9 @@ import { Feature } from '@domain/Feature.domain';
     templateUrl: './v1-part-render.component.html',
     styleUrls: ['./v1-part-render.component.scss']
 })
-export class V1PartRenderComponent extends NodeContainerRenderComponent implements OnDestroy {
+export class V1PartRenderComponent extends NodeContainerRenderComponent {
     public editPart: Part = new Part();
     public editing: boolean = false;
-    protected backendConnections: Subscription[] = [];
     private dataToPartTransformer: ResponseTransformer;
 
     constructor(
@@ -43,15 +42,6 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent implemen
                 this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
                 return targetPart;
             });
-    }
-
-    /**
-     * Unsubscribe from any open subscription made to the backend.
-     */
-    public ngOnDestroy(): void {
-        this.backendConnections.forEach(element => {
-            element.unsubscribe();
-        });
     }
 
     public getPart(): Part {

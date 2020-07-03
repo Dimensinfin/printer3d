@@ -7,13 +7,14 @@ import { EVariant } from '@app/domain/interfaces/EPack.enumerated';
 import { IViewer } from '@app/domain/interfaces/core/IViewer.interface';
 import { Node } from '@domain/Node.domain';
 import { IColorTheme } from '@domain/interfaces/core/IColorTheme.interface';
+import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 
 @Component({
     selector: 'node-container',
     templateUrl: './node-container-render.component.html',
     styleUrls: ['./node-container-render.component.scss']
 })
-export class NodeContainerRenderComponent {
+export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
     @Input() container: IViewer;
     @Input() node: Node;
     @Input() variant: EVariant = EVariant.DEFAULT;
@@ -49,5 +50,10 @@ export class NodeContainerRenderComponent {
     public isActive(): boolean {
         if (null != this.node) return this.node.isActive();
         else return true;
+    }
+    public isEmpty(target?: any): boolean {
+        if (null == target) return true;
+        if (Object.keys(target).length == 0) return true;
+        return false;
     }
 }

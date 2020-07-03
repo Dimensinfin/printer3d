@@ -5,15 +5,15 @@
     <div style="margin-left: 10px;">
         <div class="field label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" cy-name="machine-label" class="field-height machine-label">{{node.label}}</span>
+            <span cy-field-value="ETIQUETA" cy-name="machine-label" class="field-height machine-label">{{getLabel()}}</span>
         </div>
         <div class="field part-count-width">
             <span cy-field-label="MODEL" class="label">MODEL</span><br>
-            <span cy-field-value="MODEL" cy-name="machine-model" class="field-height">{{node.model}}</span>
+            <span cy-field-value="MODEL" cy-name="machine-model" class="field-height">{{getModel()}}</span>
         </div>
         <div class="field part-count-width">
             <span cy-field-label="CARACTERISTICAS" class="label">CARACTERISTICAS</span><br>
-            <span cy-field-value="CARACTERISTICAS" cy-name="machine-characteristics" class="field-height">{{node.characteristics}}</span>
+            <span cy-field-value="CARACTERISTICAS" cy-name="machine-characteristics" class="field-height">{{getCharacteristics()}}</span>
         </div>
         <div class="field machine-part-width">
             <span cy-field-label="PIEZA" class="label">PIEZA EN PRODUCCION</span><br>

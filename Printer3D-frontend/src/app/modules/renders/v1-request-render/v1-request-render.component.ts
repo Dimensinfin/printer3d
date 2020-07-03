@@ -23,9 +23,8 @@ import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface
     templateUrl: './v1-request-render.component.html',
     styleUrls: ['./v1-request-render.component.scss']
 })
-export class V1RequestRenderComponent extends NodeContainerRenderComponent implements OnDestroy {
+export class V1RequestRenderComponent extends NodeContainerRenderComponent {
     public self: V1RequestRenderComponent
-    protected backendConnections: Subscription[] = [];
 
     constructor(
         protected router: Router,
@@ -33,14 +32,6 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent imple
         protected backendService: BackendService) {
         super();
         this.self = this
-    }
-    /**
-     * Unsubscribe from any open subscription made to the backend.
-     */
-    public ngOnDestroy(): void {
-        this.backendConnections.forEach(element => {
-            element.unsubscribe();
-        });
     }
 
     public getUniqueId(): string {

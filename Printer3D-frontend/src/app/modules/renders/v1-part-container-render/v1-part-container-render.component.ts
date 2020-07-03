@@ -35,6 +35,18 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     public getWeigth(): string {
         return this.getNode().weight + ' gr.'
     }
+    public getImagePath(): string {
+        return this.getNode().imagePath
+    }
+    public getModelPath(): string {
+        return this.getNode().modelPath
+    }
+    public imagePathVisible(): boolean {
+        return !this.isEmpty(this.getNode().imagePath)
+    }
+    public modelVisible(): boolean {
+        return !this.isEmpty(this.getNode().modelPath)
+    }
     public toggleEdition(): void {
         console.log('>[V1PartContainerRenderComponent.toggleEdition]')
     }
