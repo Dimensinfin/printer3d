@@ -3,7 +3,6 @@
 */
 export enum EVariant {
     DEFAULT = '-DEFAULT-',
-    PART_LIST = '-PART-LIST-',
     COIL_LIST = '-COIL-LIST-',
     JOB_LIST = '-JOB-LIST-',
     REQUEST_PART_LIST = '-REQUEST-PART-LIST-',

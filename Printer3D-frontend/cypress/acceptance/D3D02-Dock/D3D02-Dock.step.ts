@@ -36,45 +36,13 @@ Then('the target Feature {string} changes to state {string}', function (featureL
     cy.get('@target-feature').within(($panel) => {
         cy.get('.corner-mark').should('not.exist')
     });
-    // switch (state) {
-    //     case 'active':
-    //         cy.get('v1-dock')
-    //             .find('v1-feature-render')
-    //             .find('.feature-block')
-    //             .contains(featureLabel, { matchCase: false })
-    //             .closest('.feature-block')
-    //             .find('.clip')
-    //             .find('div')
-    //             .eq(0)
-    //             .should('have.class', 'container').and('have.class', 'active');
-    //         break;
-    //     case 'inactive':
-    //         cy.get('v1-dock')
-    //             .find('v1-feature-render')
-    //             .find('.feature-block')
-    //             .contains(featureLabel, { matchCase: false })
-    //             .closest('.feature-block')
-    //             .find('.clip')
-    //             .find('div')
-    //             .eq(0)
-    //             .should('have.class', 'container').and('not.have.class', 'active');
-    //         break;
-    // }
 });
 
 
-
-// Then('there are {int} Features active', function (int) {
-//     cy.get('v1-dock').find('v1-feature-render')
-// });
 
 
 Then('the target page is InventoryPartListPage', function () {
     cy.get('app-root').find('inventory-part-list-page').should('have.length', 1);
-});
-
-Then('the target page is V2InventoryPartListPage', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').should('have.length', 1);
 });
 
 Then('there are {int} Features', function (featureCount) {

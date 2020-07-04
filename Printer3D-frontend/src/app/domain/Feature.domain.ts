@@ -9,6 +9,7 @@ export class Feature extends Node {
     public enabled: boolean = false;
     public route: string = '/';
     public interaction: EInteraction = EInteraction.PAGEROUTE;
+    public modifier: string
     public dialog: string;
 
     constructor(values: Object = {}) {
