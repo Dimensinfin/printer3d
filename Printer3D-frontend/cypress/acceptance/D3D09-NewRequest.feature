@@ -17,17 +17,17 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         When the Feature with label "/PEDIDOS" is clicked the destination is the Page "OpenRequestsPage"
         When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "NewRequestPage"
 
-    @D3D09 @D3D09.06
-    Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
-        Given there is a click on Feature "/NUEVO PEDIDO"
-        Then the page "NewRequestPage" is activated
-        And the target page has one panel of type "new-request"
-        Given the target panel is the panel of type "new-request"
-        Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
-        Then the target panel has a field named "requestDate" with label "FECHA PEDIDO" and not empty
-        And the target panel has a input field named "label" with label "ETIQUETA" and empty
-        And the target panel input field named "label" is "invalid"
-        And the target panel has a drop place named "dropParts"
+    # @D3D09 @D3D09.06
+    # Scenario: [D3D09.06]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
+    #     Given there is a click on Feature "/NUEVO PEDIDO"
+    #     Then the page "NewRequestPage" is activated
+    #     And the target page has one panel of type "new-request"
+    #     Given the target panel is the panel of type "new-request"
+    #     Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
+    #     Then the target panel has a field named "requestDate" with label "FECHA PEDIDO" and not empty
+    #     And the target panel has a input field named "label" with label "ETIQUETA" and empty
+    #     And the target panel input field named "label" is "invalid"
+    #     And the target panel has a drop place named "dropParts"
 
 
     # @D3D09 @D3D09.08

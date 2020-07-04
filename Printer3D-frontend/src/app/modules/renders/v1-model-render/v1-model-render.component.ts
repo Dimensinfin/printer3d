@@ -25,7 +25,11 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
         return this.getNode().getLabel()
     }
     public getContentCount(): number {
-        return this.getNode().getParts().length
+        let count: number = 0
+        for (const content of this.getComposingParts()) {
+            count += content.getCount()
+        }
+        return count
     }
     public getPrice(): string {
         return this.getNode().getPrice() + ' €'
