@@ -200,6 +200,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PartList'
+  /api/v1/inventory/parts/group/{label}:
+    patch:
+      tags:
+        - Inventory
+      summary: Update a group of Parts that have a common label.
+      description: >
+        Usually there a re a set of parts that share most of the field values changing only the finishings (material and color). Because the
+        frontend will group them into sets and there is no purpose on having different values for same parts this endpoint will take care of
+        changing the et values to the whole set of parts that have the same Label.
+      operationId: updateGroupPart
+      requestBody:
+        description: >
+          Contains the Part fields to be used to update the Part record at the repository.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Part'
+      responses:
+        201:
+          description: >
+            The new Part as stored at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Part'
 
   # - M O D E L S
   /api/v1/inventory/models:

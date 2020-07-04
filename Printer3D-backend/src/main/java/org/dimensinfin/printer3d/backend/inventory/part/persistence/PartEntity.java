@@ -79,6 +79,11 @@ public class PartEntity {
 		return this.buildTime;
 	}
 
+	public PartEntity setBuildTime( final Integer buildTime ) {
+		this.buildTime = buildTime;
+		return this;
+	}
+
 	public String getColor() {
 		return this.color;
 	}
@@ -109,6 +114,11 @@ public class PartEntity {
 		return this.imagePath;
 	}
 
+	public PartEntity setImagePath( final String imagePath ) {
+		this.imagePath = imagePath;
+		return this;
+	}
+
 	public String getLabel() {
 		return this.label;
 	}
@@ -119,6 +129,11 @@ public class PartEntity {
 
 	public String getModelPath() {
 		return this.modelPath;
+	}
+
+	public PartEntity setModelPath( final String modelPath ) {
+		this.modelPath = modelPath;
+		return this;
 	}
 
 	public Float getPrice() {
@@ -150,6 +165,11 @@ public class PartEntity {
 
 	public Integer getWeight() {
 		return this.weight;
+	}
+
+	public PartEntity setWeight( final Integer weight ) {
+		this.weight = weight;
+		return this;
 	}
 
 	public boolean isActive() {

@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
@@ -19,6 +20,7 @@ import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConver
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -78,6 +80,21 @@ public class PartFeignClientV1 extends CommonFeignClient {
 			final AppErrorInfo appException = new AppErrorInfoConverter().convert( response.errorBody().string() );
 			throw new AppErrorInfoToDimensinfinRuntimeExceptionConverter().convert( appException );
 		}
+	}
+
+	public ResponseEntity<CountResponse> updateGroupPart( final String selectionLabel, final UpdateGroupPartRequest updateData ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the update for a selected group of Parts.";
+		final Response<CountResponse> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.updateGroupPart( selectionLabel, updateData )
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
 	public ResponseEntity<Part> updatePart( final String authorizationToken, final Part part ) throws IOException {

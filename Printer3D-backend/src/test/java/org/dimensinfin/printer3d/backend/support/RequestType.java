@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.backend.support;
 public enum RequestType {
 	NEW_PART,
 	UPDATE_PART,
+	UPDATE_GROUP_PART,
 	GET_PARTS,
 	NEW_COIL,
 	GET_COILS,

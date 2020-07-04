@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
+import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
@@ -18,6 +19,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
@@ -56,6 +58,9 @@ public class Printer3DWorld extends CommonWorld {
 	private List<RequestItem> requestContents;
 	private RequestV2 requestV2;
 	private ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity;
+	private String selectionLabel;
+	private UpdateGroupPartRequest updateGroupPartRequest;
+	private ResponseEntity<CountResponse> updateGroupPartResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -301,12 +306,39 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public String getSelectionLabel() {
+		return this.selectionLabel;
+	}
+
+	public Printer3DWorld setSelectionLabel( final String selectionLabel ) {
+		this.selectionLabel = selectionLabel;
+		return this;
+	}
+
 	public ResponseEntity<Machine> getStartBuildResponseEntity() {
 		return this.startBuildResponseEntity;
 	}
 
 	public Printer3DWorld setStartBuildResponseEntity( final ResponseEntity<Machine> startBuildResponseEntity ) {
 		this.startBuildResponseEntity = startBuildResponseEntity;
+		return this;
+	}
+
+	public UpdateGroupPartRequest getUpdateGroupPartRequest() {
+		return this.updateGroupPartRequest;
+	}
+
+	public Printer3DWorld setUpdateGroupPartRequest( final UpdateGroupPartRequest updateGroupPartRequest ) {
+		this.updateGroupPartRequest = updateGroupPartRequest;
+		return this;
+	}
+
+	public ResponseEntity<CountResponse> getUpdateGroupPartResponseEntity() {
+		return this.updateGroupPartResponseEntity;
+	}
+
+	public Printer3DWorld setUpdateGroupPartResponseEntity( final ResponseEntity<CountResponse> updateGroupPartResponseEntity ) {
+		this.updateGroupPartResponseEntity = updateGroupPartResponseEntity;
 		return this;
 	}
 

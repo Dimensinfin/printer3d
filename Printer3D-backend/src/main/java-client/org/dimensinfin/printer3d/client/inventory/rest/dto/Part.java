@@ -34,7 +34,7 @@ public class Part {
 	private String material;
 	@NotNull(message = "Part 'color' is mandatory.")
 	private String color;
-	private int weight = 1;
+	private int weight;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
 	private Integer buildTime;
 	@NotNull(message = "Part 'cost' value is mandatory.")

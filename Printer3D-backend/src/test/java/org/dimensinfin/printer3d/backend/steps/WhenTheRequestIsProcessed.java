@@ -10,6 +10,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
@@ -183,6 +184,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.START_BUILD );
 	}
 
+	@When("the Update Group Parts with label {string} request is processed")
+	public void the_Update_Group_Parts_with_label_request_is_processed( final String selectionLabel ) throws IOException {
+		this.printer3DWorld.setSelectionLabel( selectionLabel );
+		this.processRequestByType( RequestType.UPDATE_GROUP_PART );
+	}
+
 	@When("the Update Model request is processed")
 	public void the_Update_Model_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.UPDATE_MODEL );
@@ -211,6 +218,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( updatePartResponseEntity );
 				this.printer3DWorld.setUpdatePartResponseEntity( updatePartResponseEntity );
 				return updatePartResponseEntity;
+			case UPDATE_GROUP_PART:
+				Assertions.assertNotNull( this.printer3DWorld.getUpdateGroupPartRequest() );
+				final ResponseEntity<CountResponse> updateGroupPartResponseEntity = this.partFeignClientV1
+						.updateGroupPart( this.printer3DWorld.getSelectionLabel(),
+								this.printer3DWorld.getUpdateGroupPartRequest() );
+				Assertions.assertNotNull( updateGroupPartResponseEntity );
+				this.printer3DWorld.setUpdateGroupPartResponseEntity( updateGroupPartResponseEntity );
+				return updateGroupPartResponseEntity;
 			case GET_PARTS:
 				final ResponseEntity<PartList> partListResponseEntity = this.partFeignClientV1
 						.getParts( this.printer3DWorld.getJwtAuthorizationToken() );

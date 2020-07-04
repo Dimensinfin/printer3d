@@ -11,14 +11,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 @RestController
 @CrossOrigin
@@ -46,6 +49,14 @@ public class PartControllerV1 {
 			produces = "application/json")
 	public ResponseEntity<Part> newPart( final @RequestBody @Valid @NotNull Part part ) {
 		return new ResponseEntity<>( this.partServiceV1.newPart( part ), HttpStatus.CREATED );
+	}
+
+	@PatchMapping(path = "/inventory/parts/group/{label}",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<CountResponse> updateGroupPart( final @PathVariable @NotNull String label,
+	                                                      final @RequestBody @Valid @NotNull UpdateGroupPartRequest updateData ) {
+		return new ResponseEntity<>( this.partServiceV1.updateGroupPart( label, updateData ), HttpStatus.OK );
 	}
 
 	@PatchMapping(path = "/inventory/parts",

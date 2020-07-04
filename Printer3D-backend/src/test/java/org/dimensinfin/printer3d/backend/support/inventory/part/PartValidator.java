@@ -22,7 +22,7 @@ public class PartValidator implements Validator<Part> {
 		Assertions.assertEquals( rowData.get( DESCRIPTION ), record.getDescription() );
 		Assertions.assertEquals( Float.parseFloat( rowData.get( COST ) ), record.getCost() );
 		Assertions.assertEquals( Float.parseFloat( rowData.get( PRICE ) ), record.getPrice() );
-		Assertions.assertEquals( Float.parseFloat( rowData.get( WEIGHT ) ), record.getWeight() );
+		if (null != rowData.get( WEIGHT )) Assertions.assertEquals( Float.parseFloat( rowData.get( WEIGHT ) ), record.getWeight() );
 		Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.isActive() );
 		return true;
 	}

@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants;
 import org.dimensinfin.printer3d.backend.support.inventory.part.CucumberTableToPartConverter;
+import org.dimensinfin.printer3d.backend.support.inventory.part.CucumberTableToUpdateGroupPartRequestConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.part.PartValidator;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -49,6 +51,14 @@ public class P3D01PartsSteps extends StepSupport {
 		final Part part = new CucumberTableToPartConverter().convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( part );
 		this.printer3DWorld.setPart( part );
+	}
+
+	@Given("the next Update Group Part request")
+	public void the_next_Update_Group_Part_request( final List<Map<String, String>> dataTable ) {
+		final UpdateGroupPartRequest updateGroupPartRequest = new CucumberTableToUpdateGroupPartRequestConverter()
+				.convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( updateGroupPartRequest );
+		this.printer3DWorld.setUpdateGroupPartRequest( updateGroupPartRequest );
 	}
 
 	@Given("the next Update Part request")

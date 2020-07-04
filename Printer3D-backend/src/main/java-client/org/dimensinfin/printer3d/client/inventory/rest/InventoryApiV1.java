@@ -4,6 +4,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
@@ -14,6 +15,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -207,6 +209,20 @@ public interface InventoryApiV1 {
 	Call<Machine> startBuild( @Header("Authorization") final @NotNull String authorizationToken,
 	                          @Path("machineId") final @NotNull UUID machineId,
 	                          @Path("partId") final @NotNull UUID partId );
+
+	/**
+	 * Usually there a re a set of parts that share most of the field values changing only the finishings (material and color). Because the
+	 * frontend will group them into sets and there is no purpose on having different values for same parts this endpoint will take care of
+	 * changing the et values to the whole set of parts that have the same Label.
+	 *
+	 * @param part Contains the Part fields to be used to update group of Parts at the repository.
+	 *             (optional)
+	 * @return Call&lt;Part&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PATCH("api/v1/inventory/parts/group/{label}")
+	Call<CountResponse> updateGroupPart( @Path("label") final @NotNull String label,
+	                                     @Body final @NotNull @Valid UpdateGroupPartRequest updateData );
 
 	/**
 	 * Updates an existing Model.

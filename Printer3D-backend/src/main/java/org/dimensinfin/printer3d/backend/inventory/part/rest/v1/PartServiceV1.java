@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
@@ -16,10 +17,12 @@ import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartToPartEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartGroupUpdater;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartUpdater;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 @Service
 public class PartServiceV1 {
@@ -65,7 +68,27 @@ public class PartServiceV1 {
 			} catch (final DataIntegrityViolationException die) {
 				throw new RepositoryConflictException( ErrorInfo.PART_REPOSITORY_CONFLICT, die );
 			}
-			//			return newPart;
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	/**
+	 * Usually there a re a set of parts that share most of the field values changing only the finishings (material and color). Because the
+	 * frontend will group them into sets and there is no purpose on having different values for same parts this endpoint will take care of
+	 * changing the et values to the whole set of parts that have the same Label.
+	 */
+	public CountResponse updateGroupPart( final String label, final @NotNull UpdateGroupPartRequest updateData ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Parts that have the same label.
+			final List<PartEntity> targets = this.partRepository.findByLabel( label );
+			int counter = 0;
+			for (PartEntity partEntity : targets) {
+				this.partRepository.save( new PartGroupUpdater( partEntity ).update( updateData ) );
+				counter++;
+			}
+			return new CountResponse.Builder().withRecords( counter ).build();
 		} finally {
 			LogWrapper.exit();
 		}

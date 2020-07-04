@@ -37,7 +37,7 @@ Feature: [STORY] Manage the Parts on the Inventory repository
 
     @P3D01.H @P3D01.03
     Scenario: [P3D01.03] Request the list of Parts available on Inventory repository.
-        Given a clean Inventory repository
+        Given a clean Parts repository
         And the following Parts in my service
             | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -53,6 +53,28 @@ Feature: [STORY] Manage the Parts on the Inventory repository
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
+    @P3D01.H @P3D01.04
+    Scenario: [P3D01.04] When a group update is received validate that only the affected Parts are updated.
+        Given a clean Parts repository
+        And the following Parts in my service
+            | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        And the next Update Group Part request
+            | label                  | buildTime | weight | imagePath              | modelPath    | description                    |
+            | Covid-19 Key - UPDATED | 65        | 12     | https://ibb.co/changed | pieza101.STL | This is a changed description. |
+        When the Update Group Parts with label "Covid-19 Key" request is processed
+        Then there is a valid response with return code of "200 OK"
+        When the Get Parts request is processed
+        And we have the next list of Parts at the repository
+            | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath    | active | description                                                                                                   |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 65        | 12     | 0.65 | 2.00  | 3          | 2              | https://ibb.co/changed | pieza101.STL | true   | This is a changed description.                                                                                |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 65        | 12     | 0.65 | 2.00  | 3          | 2              | https://ibb.co/changed | pieza101.STL | true   | This is a changed description.                                                                                |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL   | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+
+    @P3D01.H @P3D01.05
+    Scenario: [P3D01.05] When a new Part request is received ccheck that missing optional fields get persisted on database with default values.
 
     # - E X C E P T I O N S
     @P3D01.E @P3D01.E.01
