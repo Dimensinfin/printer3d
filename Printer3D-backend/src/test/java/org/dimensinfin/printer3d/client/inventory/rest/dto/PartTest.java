@@ -341,7 +341,7 @@ public class PartTest {
 
 	@Test
 	public void equalsContract() {
-		EqualsVerifier.forClass( Part.class )
+		EqualsVerifier.forClass( Part.class ).withIgnoredFields( "id" )
 				.suppress( Warning.STRICT_INHERITANCE)
 				.verify();
 	}
@@ -416,6 +416,7 @@ public class PartTest {
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
+				.withWeight( 1 )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )

@@ -68,10 +68,6 @@ task cleanResources(type: Delete, dependsOn: clean) {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
-
 // - S W A G G E R   C L I E N T
 task swaggerGenerate(type: GenerateSwaggerCode) {
     group = 'openapi'
@@ -111,7 +107,8 @@ bootRun {
     systemProperty "spring.profiles.active", "acceptance"
 }
 test {
-    exclude '**/LegacyTest.class'
+    useJUnitPlatform()
+    exclude '**/RunAcceptance*.class'
     systemProperty "cucumber.options", System.getProperty("cucumber.options")
 }
 

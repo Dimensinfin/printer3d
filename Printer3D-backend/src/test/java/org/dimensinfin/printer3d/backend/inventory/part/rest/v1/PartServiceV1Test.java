@@ -31,6 +31,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PRICE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_WEIGHT;
 
 public class PartServiceV1Test {
 	private PartEntity testPart;
@@ -89,6 +90,7 @@ public class PartServiceV1Test {
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -104,6 +106,7 @@ public class PartServiceV1Test {
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -266,6 +269,7 @@ public class PartServiceV1Test {
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
@@ -281,6 +285,7 @@ public class PartServiceV1Test {
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
