@@ -45,16 +45,6 @@ Then('the target panel has a input field named {string} with label {string} and 
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
             .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('input').invoke('val')
-            .then(text => {
-                const someText = text as string;
-                cy.log(someText);
-            })
-        cy.get('@target-field').find('input').invoke('text')
-            .then(text => {
-                const someText = text as string;
-                cy.log(someText);
-            })
         cy.get('@target-field').find('input')
             .should('have.text', fieldValue)
     });
@@ -142,7 +132,7 @@ Then('the target panel has a field named {string} with label {string} and not em
         cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
             .should('not.be.empty')
     });
-Then('the target panel has a field named {string} with label {string} and and contents {string}',
+Then('the target panel has a field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')

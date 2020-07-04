@@ -61,3 +61,19 @@ Feature: [D3D17]-[STORY] Now that there are Parts and Models and they could be u
         Then the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Verde"
         Then the target item has a column named "TERMINACION" with value "-/-"
         Then the target item has a named "remove-button" button
+
+    @D3D17.04
+    Scenario: [D3D17.04]-Validate the state of the new Request before any interaction.
+        # - Open the New Request page and select the Request form
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the page "NewRequestPage" is activated
+        Given the target panel is the panel of type "new-request"
+
+        Then the target dialog has a title "/NUEVO PEDIDO/DEFINICION"
+        And the target panel has a field named "requestDate" with label "FECHA PEDIDO" and contents "Jul 4, 2020"
+        And the target panel has a field named "quantity" with label "NRO. PIEZAS" and contents "0"
+        And the target panel has a field named "price" with label "PRECIO" and contents "0 €"
+        And the target panel has a input field named "label" with label "ETIQUETA" and empty
+
+    # @D3D17.04
+    # Scenario: [D3D17.04]-A new Request has some new fields like the name of the Request and some other calculated like the number of items and total cost of the Request.

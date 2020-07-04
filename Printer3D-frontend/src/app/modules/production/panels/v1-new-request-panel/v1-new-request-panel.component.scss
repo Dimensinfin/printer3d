@@ -8,6 +8,10 @@
     margin-left: 20px;
 }
 
+.date-width {
+    width: 150px;
+}
+
 // .title {
 //     font-size: 22px;
 //     padding-top: 20px;
@@ -27,27 +31,24 @@
     margin-right: 15px;
 }
 
-.corner-border {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 18px;
-}
-
-.corner-clear {
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    width: 18px;
-}
-
-.corner-mark {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 11px;
-}
-
+// .corner-border {
+//     position: absolute;
+//     bottom: 0px;
+//     right: 0px;
+//     width: 18px;
+// }
+// .corner-clear {
+//     position: absolute;
+//     bottom: -1px;
+//     right: -1px;
+//     width: 18px;
+// }
+// .corner-mark {
+//     position: absolute;
+//     bottom: 0px;
+//     right: 0px;
+//     width: 11px;
+// }
 .request-part {
     text-align: center;
     color: #808080;

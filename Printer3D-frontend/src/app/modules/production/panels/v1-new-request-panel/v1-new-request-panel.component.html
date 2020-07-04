@@ -54,9 +54,19 @@
                     </svg>
                 </div>
             </div>
-            <div cy-name="requestDate" class="field left-margin date-width">
-                <span cy-field-label="FECHA PEDIDO" class="label">FECHA PEDIDO</span><br>
-                <span class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
+            <div class="row">
+                <div cy-name="requestDate" class="field left-margin">
+                    <span cy-field-label="FECHA PEDIDO" class="label">FECHA PEDIDO</span><br>
+                    <span cy-field-value="FECHA PEDIDO" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
+                </div>
+                <div cy-name="quantity" class="field left left-margin">
+                    <span cy-field-label="NRO. PIEZAS" class="label">NRO. PIEZAS</span><br>
+                    <span cy-field-value="NRO. PIEZAS" class="field-height request-requestDate">{{getContentCount()}}</span>
+                </div>
+                <div cy-name="price" class="field left-margin">
+                    <span cy-field-label="PRECIO" class="label">PRECIO</span><br>
+                    <span cy-field-value="PRECIO" class="field-height request-requestDate">{{getRequestAmount()}}</span>
+                </div>
             </div>
             <div cy-name="label" class="field field-margins">
                 <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
@@ -75,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div cy-name="requestDate" class="field left-margin top-margin date-width">
+            <div cy-name="requestContents" class="field left-margin top-margin">
                 <div class="request-part" cy-name="dropContents" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
                 </div>
                 <span class="label">CONTENIDO PEDIDO</span><br>

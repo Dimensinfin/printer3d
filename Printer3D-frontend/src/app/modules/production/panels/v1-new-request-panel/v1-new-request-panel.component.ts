@@ -60,6 +60,16 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         if (this.request.contents.length > 0) return true;
         else return false
     }
+    public getContentCount(): number {
+        return this.request.contents.length
+    }
+    public getRequestAmount(): string {
+        let amount: number = 0
+        for (const content of this.getRequestContents()) {
+            amount += content.getPrice() * content.getQuantity()
+        }
+        return amount + ' €'
+    }
     public isFormValid(formState: any): boolean {
         return (formState && this.hasContents())
     }
