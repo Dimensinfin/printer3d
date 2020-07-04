@@ -80,8 +80,11 @@
                 </div>
                 <span class="label">CONTENIDO PEDIDO</span><br>
                 <div class="row">
-                    <div class="field column-required-width">
+                    <div class="field column-quantity-width">
                         <span class="label">CANTIDAD</span><br>
+                    </div>
+                    <div class="field column-price-width">
+                        <span class="label">PRECIO</span><br>
                     </div>
                     <div class="field column-label-width">
                         <span class="label">ETIQUETA</span><br>
@@ -89,9 +92,6 @@
                     <div class="field column-material-width">
                         <span class="label">TERMINACION</span><br>
                     </div>
-                    <!-- <div class="field column-color-width">
-                        <span class="label">COLOR</span><br>
-                    </div> -->
                 </div>
                 <div cy-name="requestContents">
                     <div *ngFor="let item of getRequestContents()" style="position: relative;">

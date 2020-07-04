@@ -39,6 +39,9 @@ export class V1RequestItemRenderComponent extends NodeContainerRenderComponent {
     public getLabel(): string {
         return this.getNode().getContent().getLabel()
     }
+    public getPrice(): string {
+        return this.getNode().getPrice() * this.getNode().getQuantity() + " €"
+    }
     public getMaterial(): string {
         if (this.getNode().getType() == RequestContentType.PART) {
             const part: Part = this.getNode().getContent() as any

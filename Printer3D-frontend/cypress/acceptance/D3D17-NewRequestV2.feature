@@ -42,3 +42,22 @@ Feature: [D3D17]-[STORY] Now that there are Parts and Models and they could be u
         Then the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Verde"
         Then the target item has a column named "TERMINACION" with value "-/-"
         Then the target item has a named "remove-button" button
+
+    @D3D17.03
+    Scenario: [D3D17.03]-When composing the Request we can use Models and Parts. If we add a Model the data shown on the request should be this.
+        # - Add a model to a new Request
+        Given there is a click on Feature "/NUEVO PEDIDO"
+        Then the page "NewRequestPage" is activated
+        Given the target panel is the panel of type "available-request-elements"
+        And the drag source the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        Given the target panel is the panel of type "new-request"
+        And the target panel has a drop place named "dropContents"
+        When the drag source is dragged to the drop destination "dropContents"
+
+        # - Validate the data to be rendered for a Model on a Request.
+        Given the target item the "request-content" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        Then the target item has a column named "CANTIDAD" with value "1"
+        Then the target item has a column named "PRECIO" with value "15 €"
+        Then the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Verde"
+        Then the target item has a column named "TERMINACION" with value "-/-"
+        Then the target item has a named "remove-button" button

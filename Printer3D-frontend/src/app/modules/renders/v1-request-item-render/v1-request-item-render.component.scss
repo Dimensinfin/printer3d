@@ -2,7 +2,11 @@
     min-width: 40px;
 }
 
-.column-required-width {
+.column-quantity-width {
+    min-width: 46px;
+}
+
+.column-price-width {
     min-width: 40px;
 }
 
@@ -12,10 +16,6 @@
 
 .column-material-width {
     min-width: 50px;
-}
-
-.column-color-width {
-    min-width: 150px;
 }
 
 .remove-width {
