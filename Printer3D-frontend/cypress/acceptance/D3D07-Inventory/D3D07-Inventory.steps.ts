@@ -60,21 +60,21 @@ Then('the target item has a named {string} button', function (buttonName: string
     cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
         .should('exist')
 });
-Given('the target item named button {string} is clicked', function (buttonName:string) {
+Given('the target item named button {string} is clicked', function (buttonName: string) {
     cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
         .click()
 });
-Given('the target item field named {string} is editable', function (fieldName:string) {
+Given('the target item field named {string} is editable', function (fieldName: string) {
     cy.get('@target-item').find('[cy-name="' + fieldName + '"]')
-    .find('input').should('exist')
+        .find('input').should('exist')
 
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-// .find('node-container').find('v1-part').find('.field').as('target-part-field')
-// .find('.label').contains(fieldName)
-// cy.get('@target-part-field').find('input').should('exist')
+    //     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
+    // .find('node-container').find('v1-part').find('.field').as('target-part-field')
+    // .find('.label').contains(fieldName)
+    // cy.get('@target-part-field').find('input').should('exist')
 
 
-  });
+});
 
 
 
@@ -308,6 +308,25 @@ Then('the target panel has a input field named {string} with label {string} and 
         cy.get('@target-panel').find('[name="' + fieldName + '"]').parent().find('label')
             .contains(fieldLabel)
         cy.get('@target-panel').find('[name="' + fieldName + '"]')
+            .should('have.value', fieldValue)
+    });
+
+
+// - E X P E R I M E N T 
+Then('the target panel has a input field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input')
+            .should('have.value', fieldValue)
+    });
+Then('the target panel has a textarea field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('textarea')
             .should('have.value', fieldValue)
     });
 Then('the target panel has a select field named {string} with label {string} and value {string}',

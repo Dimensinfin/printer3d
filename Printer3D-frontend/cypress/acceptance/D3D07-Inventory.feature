@@ -31,7 +31,7 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         Given the target panel is the panel of type "catalog"
         Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Verde"
-        And the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "5"
+        And the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "6"
         And the target item has a field named "price" with label "PRECIO" and value "15 €"
 
         When the mouse enter the target item
@@ -193,11 +193,11 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         When the target Part Duplicate button is clicked
         Then the "New Part" dialog opens and blocks the display
         Given the target panel is the panel named "new-part-dialog"
-        Then the target panel has a input field named "label" with label "ETIQUETA" and value "Boquilla Ganesha - Embocadura"
-        Then the target panel has a input field named "description" with label "Descripción" and value "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
-        Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
-        Then the target panel has a input field named "cost" with label "COSTE FAB." and value "0.45"
-        Then the target panel has a input field named "price" with label "PRECIO" and value "1"
-        Then the target panel has a input field named "buildTime" with label "TIEMPO" and value "20"
+        Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
+        Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
+        # Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
+        Then the target panel has a input field named "cost" with label "COSTE FAB." and contents "0.45"
+        Then the target panel has a input field named "price" with label "PRECIO" and contents "1"
+        Then the target panel has a input field named "buildTime" with label "TIEMPO" and contents "20"
         Then the target panel has a input field named "stockLevel" with label "STOCK DESEADO" and value "15"
-        Then the target panel has a input field named "stockAvailable" with label "STOCK ACTUAL" and value "10"
+        Then the target panel has a input field named "stockAvailable" with label "STOCK ACTUAL" and value "0"

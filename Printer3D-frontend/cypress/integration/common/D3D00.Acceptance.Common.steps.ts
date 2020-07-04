@@ -45,8 +45,8 @@ Then('the target panel has a input field named {string} with label {string} and 
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
             .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('input')
-            .should('have.text', fieldValue)
+        cy.get('@target-field').find('input').invoke('text')
+            .should('equal', fieldValue)
     });
 Then('the target panel has a numeric input field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
