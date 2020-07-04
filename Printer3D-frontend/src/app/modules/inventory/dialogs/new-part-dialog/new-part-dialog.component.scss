@@ -10,30 +10,6 @@
 //     text-shadow: 0px 0px 2px white, 0px 0px 1px white;
 //     flex-grow: 3;
 // }
-.dsf-input {
-    margin: 0px;
-    padding: 0px;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 28px;
-    border: 1px solid white;
-    background-color: black;
-    color: white;
-    width: calc(100% - 2px);
-    font-family: 'Mina';
-    border-radius: 6px;
-}
-
-.dsf-input-number {
-    text-align: right;
-}
-
-.dsf-input-container {
-    position: relative;
-    font-size: 16px;
-    line-height: 26px;
-}
-
 .ng-valid {
     fill: green
 }

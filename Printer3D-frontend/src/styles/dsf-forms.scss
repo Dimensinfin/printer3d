@@ -67,23 +67,28 @@ $form-item-invalid: #A94442; // Red
 }
 
 // - F O R M   V A L I D A T I O N S
+.ng-valid {
+    fill: green
+}
+
+.ng-invalid {
+    fill: orangered;
+}
+
 .ng-valid.required,
 .ng-valid[required] {
-    border-left: $color-border-width solid $form-item-valid; // green
+    fill: green
 }
 
-.ng-invalid:not(form) {
-    border-left: $color-border-width solid $form-item-invalid; // red
-}
-
-.no-style .ng-valid {
-    border-left: 1px solid #CCC;
-}
-
-.no-style .ng-invalid {
-    border-left: 1px solid #CCC;
-}
-
+// .ng-invalid:not(form) {
+//     border-left: $color-border-width solid $form-item-invalid; // red
+// }
+// .no-style .ng-valid {
+//     border-left: 1px solid #CCC;
+// }
+// .no-style .ng-invalid {
+//     border-left: 1px solid #CCC;
+// }
 // - B U T T O N S
 #centered-container {
     display: flex;
@@ -189,4 +194,33 @@ $clearform-button-color: #FF7733;
 // - B U T T O N S
 .cancel-button:hover {
     background-color: orange;
+}
+
+// - F I E L D S
+.dsf-input {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    width: calc(100% - 2px);
+    font-family: 'Mina';
+    border-radius: 5px;
+}
+
+.dsf-input-drop {
+    width: calc(100% - 0px);
+}
+
+.dsf-input-number {
+    text-align: right;
+}
+
+.dsf-input-container {
+    position: relative;
+    font-size: 16px;
+    line-height: 26px;
 }

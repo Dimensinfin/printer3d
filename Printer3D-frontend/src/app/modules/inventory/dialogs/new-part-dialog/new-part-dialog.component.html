@@ -47,7 +47,7 @@
                     <div cy-name="material" class="field field-margins">
                         <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>
                         <div class="dsf-input-container label-width">
-                            <select name="material" class="dsf-input part-material" [(ngModel)]="part.material" required (change)="materialSelectorChanged($event.target.value)">
+                            <select name="material" class="dsf-input dsf-input-drop part-material" [(ngModel)]="part.material" required (change)="materialSelectorChanged($event.target.value)" #material="ngModel">
                                 <option *ngFor="let material of materials" [value]="material">{{material}}</option>
                             </select>
                             <svg class="corner-border" viewBox="0 0 100 100">
@@ -56,7 +56,7 @@
                             <svg class="corner-clear" viewBox="0 0 100 100">
                                 <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                             </svg>
-                            <div class="orangered-mark" [ngClass]="{'ng-valid': !partLabel.invalid}">
+                            <div class="orangered-mark" [ngClass]="{'ng-valid': !material.invalid}">
                                 <svg class="corner-mark" viewBox="0 0 100 100">
                                     <path d="M100,100 L0,100 L100,0 L100,100" />
                                 </svg>
@@ -67,7 +67,7 @@
                     <div cy-name="color" class="field field-margins">
                         <span cy-field-label="COLOR" class="label">COLOR</span><br>
                         <div class="dsf-input-container label-width">
-                            <select name="color" class="dsf-input part-color" [(ngModel)]="part.color" required>
+                            <select name="color" class="dsf-input dsf-input-drop part-color" [(ngModel)]="part.color" required #color="ngModel">
                                 <option [ngValue]="null" selected>-Selecciona Color-</option>
                                 <option *ngFor="let color of colors" [value]="color">{{color}}</option>
                             </select>
@@ -77,7 +77,7 @@
                             <svg class="corner-clear" viewBox="0 0 100 100">
                                 <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                             </svg>
-                            <div class="orangered-mark" [ngClass]="{'ng-valid': !partLabel.invalid}">
+                            <div class="orangered-mark" [ngClass]="{'ng-valid': !color.invalid}">
                                 <svg class="corner-mark" viewBox="0 0 100 100">
                                     <path d="M100,100 L0,100 L100,0 L100,100" />
                                 </svg>
