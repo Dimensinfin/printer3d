@@ -73,7 +73,7 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     public modelVisible(): boolean {
         return !this.isEmpty(this.getNode().modelPath)
     }
-    private updateNode() : void{
+    private updateNode(): void {
         const containerAsAny = this.getNode() as any
         containerAsAny.description = this.editPart.description
         containerAsAny.buildTime = this.editPart.buildTime
@@ -97,14 +97,13 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     }
     public saveEditing(): void {
         console.log('>[V1PartContainerRenderComponent.saveEditing]');
-        // this.node = new PartContainerConstructor(this.getNode()).construct(this.editPart)
-         const updateGroupRequest: UpdateGroupRequest = new UpdateGroupRequestConstructor().construct(this.editPart)
+        const updateGroupRequest: UpdateGroupRequest = new UpdateGroupRequestConstructor().construct(this.editPart)
         this.backendConnections.push(
             this.backendService.apiInventoryGroupUpdatePart_v1(updateGroupRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
                     .setTransformation((entrydata: any): Part => {
                         const targetPart: Part = new Part(entrydata);
-                        this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
+                        this.isolationService.successNotification('Grupo de piezas [' + updateGroupRequest.label + '] actualizada correctamente.', '/INVENTARIO/ACTILIZACION GRUPO/OK');
                         return targetPart;
                     }))
                 .subscribe((unrequired: any) => {

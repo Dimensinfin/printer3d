@@ -87,8 +87,8 @@
     </div>
 </div>
 <!-- N E W   M O D E L   V A R I A N T -->
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-NEW-MODEL-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
-    <div class="row part-panel">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-NEW-MODEL-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
+    <div class="row">
         <div class="field label-width">
             <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
             <span cy-field-value="ETIQUETA" class="field-height part-material">{{getLabel()}}</span>
@@ -106,17 +106,15 @@
             <span cy-field-value="DISPONIBLE" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
         </div>
     </div>
-    <div>
-        <svg class="corner-border" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
-        </svg>
-        <svg class="corner-clear" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
-        </svg>
-        <svg class="corner-mark" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow" />
-        </svg>
-    </div>
+    <svg class="corner-border" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+    </svg>
+    <svg class="corner-clear" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+    </svg>
+    <svg class="corner-mark" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow" />
+    </svg>
 </div>
 <!-- R E Q U E S T A B L E   I T E M S   V A R I A N T -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'REQUEST-CONTENT'" [dragClass]="'part-selected'">
@@ -149,8 +147,8 @@
     </svg>
 </div>
 <!-- C A T A L O G   V A R I A N T -->
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-CATALOG-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
-    <div class="row cornered-panel">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-CATALOG-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
+    <div class="row">
         <div cy-name="edit-button" class="edit-attributes" (click)="toggleEdition()">
             <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
         </div>
@@ -189,22 +187,20 @@
             <svg class="duplicate-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
         </div>
     </div>
-    <div>
-        <svg class="corner-border" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
-        </svg>
-        <svg class="corner-clear" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
-        </svg>
-        <svg *ngIf="isActive()" class="corner-mark" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow" />
-        </svg>
-        <svg *ngIf="!isActive()" class="corner-mark" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
-        </svg>
-    </div>
+    <svg class="corner-border" viewBox="0 0 100 100"> -->
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+    </svg>
+    <svg class="corner-clear" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+    </svg>
+    <svg *ngIf="isActive()" class="corner-mark" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="greenyellow" />
+    </svg>
+    <svg *ngIf="!isActive()" class="corner-mark" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
+    </svg>
 </div>
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-EDITABLE-PART-'">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-EDITABLE-PART-'">
     <form class="dsf-form" autocomplete="off">
         <div class="part-panel">
             <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">

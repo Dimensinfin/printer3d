@@ -1,6 +1,6 @@
 <!-- J O B - L I S T   V A R I A N T -->
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'" [ngClass]="{'job-priority-high': getPriority()==1}">
-    <div class="row cornered-panel">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'" [ngClass]="{'job-priority-high': getPriority()==1}">
+    <div class="row">
         <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
         <div class="field number-width">
             <span cy-field-label="quantity" class="label">CANTIDAD</span><br>
@@ -34,8 +34,8 @@
     </svg>
 </div>
 <!-- B U I L D I N G   V A R I A N T -->
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
-    <div class="row cornered-panel">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
+    <div class="row">
         <div class="field part-count-edit-width" *ngIf="!isRunning(); else partCounter">
             <span cy-field-label="PIEZAS" class="label">CANTIDAD</span><br>
             <input type="number" class="job-part-count" required [(ngModel)]="node['partCount']" name="jobPartCount" (mouseleave)="onMouseLeave()">
@@ -69,7 +69,7 @@
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
     </svg>
-    <svg class="corner-mark" viewBox="0 0 100 100">
-        <path d="M100,100 L0,100 L100,0 L100,100" fill="blue" />
+    <svg class="corner-mark blue-mark" viewBox="0 0 100 100">
+        <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>

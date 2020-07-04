@@ -177,7 +177,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
             this.backendService.apiMachinesCompleteBuild_v1(this.getNode().getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
                     .setTransformation((entrydata: any): Machine => {
-                        this.isolationService.warningNotification(
+                        this.isolationService.successNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] completada con exito.',
                             '/COMPLETAR/CONSTRUCCION'
                         )
