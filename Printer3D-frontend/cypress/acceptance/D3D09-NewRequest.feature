@@ -25,7 +25,7 @@ Feature: [D3D09]-[STORY] Add a new Feature to create Requests. The request is fi
         Given the target panel is the panel of type "new-request"
         Then the target panel has a title "/NUEVO PEDIDO/DEFINICION"
         Then the target panel has a field named "requestDate" with label "FECHA PEDIDO" and not empty
-        And the target panel has an input field named "label" with label "ETIQUETA" and empty
+        And the target panel has a input field named "label" with label "ETIQUETA" and empty
         And the target panel input field named "label" is "invalid"
         And the target panel has a drop place named "dropParts"
 

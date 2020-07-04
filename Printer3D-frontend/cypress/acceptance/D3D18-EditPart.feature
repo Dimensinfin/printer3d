@@ -35,11 +35,11 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
     #     Then the target item input field named "imagePath" is editable
     #     Then the target item input field named "modelPath" is editable
     #     Then the target item has a actionable image named "update-button"
-    #     And the target panel has an input field named "description" with label "DESCRIPCION" and contents "Base para la plataforma de slot cars."
-    #     And the target panel has an input field named "buildTime" with label "TIEMPO" and contents "30 min."
-    #     And the target panel has an input field named "weight" with label "PESO" and contents "4 gr."
-    #     And the target panel has an input field named "imagePath" with label "IMAGEN" and contents "https://ibb.co/3dGbsRh"
-    #     And the target panel has an input field named "modelPath" with label "FICHERO IMPR." and contents "pieza3.sft"
+    #     And the target panel has a input field named "description" with label "DESCRIPCION" and contents "Base para la plataforma de slot cars."
+    #     And the target panel has a input field named "buildTime" with label "TIEMPO" and contents "30 min."
+    #     And the target panel has a input field named "weight" with label "PESO" and contents "4 gr."
+    #     And the target panel has a input field named "imagePath" with label "IMAGEN" and contents "https://ibb.co/3dGbsRh"
+    #     And the target panel has a input field named "modelPath" with label "FICHERO IMPR." and contents "pieza3.sft"
 
     @D3D18.03
     Scenario: [D3D18.03]-Validate the contents of a Part Container. Now there are new fields and the Image and Model File should also be visible if not empty.
@@ -53,4 +53,3 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         And the target item has a field named "weight" with label "PLASTICO" and value "4 gr."
         And the target item has a field named "imagePath" with label "IMAGEN" and value "https://ibb.co/3dGbsRh"
         And the target item has a field named "modelPath" with label "FICHERO IMPR." and value "pieza3.sft"
-

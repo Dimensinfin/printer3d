@@ -29,39 +29,6 @@ Then('the target page has one panel of type {string} with variant {string}', fun
 
 
 
-// - PANEL CONTENTS
-Then('the target panel has a title {string}', function (title: string) {
-    cy.get('@target-panel').find('.title').contains(title, { matchCase: false })
-});
-Then('the target panel has {int} {string}', function (count: number, symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-    cy.get('@target-panel').find(tag).should('have.length', count)
-});
-Then('the target panel has a field named {string} with label {string} and empty',
-    function (fieldName: string, fieldLabel: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
-            .should('be.empty')
-    });
-Then('the target panel has a field named {string} with label {string} and not empty',
-    function (fieldName: string, fieldLabel: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
-            .should('not.be.empty')
-    });
-Then('the target panel has a field named {string} with label {string} and and contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
-            .contains(fieldValue, { matchCase: false })
-    });
 // - ITEMS
 Then('the target item has a field named {string} with label {string} and value {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {

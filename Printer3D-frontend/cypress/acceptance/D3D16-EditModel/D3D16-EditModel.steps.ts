@@ -16,7 +16,7 @@ Then('the target item has a named {string} button', function (buttonName: string
     cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
         .should('exist')
 });
-Then('the target panel has an input field named {string} with label {string} and contents {string}',
+Then('the target panel has a input field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')

@@ -35,7 +35,7 @@ export class DialogFactoryService {
                     break;
                 case 'NewCoilDialog':
                     dialogConfig = new MatDialogConfig();
-                    dialogConfig.disableClose = true;
+                    dialogConfig.disableClose = false;
                     dialogConfig.id = "newcoil-component";
                     dialogConfig.height = "86vh";
                     this.modalDialog = this.matDialog.open(NewCoilDialogComponent, dialogConfig);

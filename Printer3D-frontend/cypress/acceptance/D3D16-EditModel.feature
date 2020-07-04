@@ -22,9 +22,9 @@ Feature: [D3D16]-[STORY] Models should be editable. Some of the fields and the l
 
         Given the target item named button "edit-button" is clicked
         Given the target panel is the panel of type "model-detail"
-        Then the target panel has an input field named "label" with label "ETIQUETA" and contents "PLATAFORMA SLOT 1/32 - Verde"
-        Then the target panel has an input field named "price" with label "PRECIO" and contents "15"
-        Then the target panel has an input field named "stock" with label "NIVEL STOCK DESEADO" and contents "3"
+        Then the target panel has a input field named "label" with label "ETIQUETA" and contents "PLATAFORMA SLOT 1/32 - Verde"
+        Then the target panel has a input field named "price" with label "PRECIO" and contents "15"
+        Then the target panel has a input field named "stock" with label "NIVEL STOCK DESEADO" and contents "3"
 
         Given the target panel is the panel of type "drop-part-location"
         Then the target panel has 3 "part-stack"

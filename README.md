@@ -81,7 +81,7 @@ Then('the target page has one panel of type {string} with variant {string}', fun
 });
 ```
 
-        Then the target panel has an input field named "label" with label "ETIQUETA" and empty
+        Then the target panel has a input field named "label" with label "ETIQUETA" and empty
 
 
 # PROCEDURES

@@ -40,15 +40,51 @@ Given('the target item the {string} with id {string}', function (symbolicName: s
         .should('exist')
 });
 // - FORMS
-Then('the target panel has an input field named {string} with label {string} and contents {string}',
+Then('the target panel has a input field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
             .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input').invoke('val')
+            .then(text => {
+                const someText = text as string;
+                cy.log(someText);
+            })
+        cy.get('@target-field').find('input').invoke('text')
+            .then(text => {
+                const someText = text as string;
+                cy.log(someText);
+            })
         cy.get('@target-field').find('input')
             .should('have.text', fieldValue)
     });
-Then('the target panel has an input field named {string} with label {string} and not empty',
+Then('the target panel has a numeric input field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input').invoke('val')
+            .then(text => {
+                const someText = text as string;
+                cy.log(someText);
+            })
+        cy.get('@target-field').find('input').invoke('text')
+            .then(text => {
+                const someText = text as string;
+                cy.log(someText);
+            })
+        cy.get('@target-field').find('input').invoke('val')
+            .should('equal', fieldValue)
+    });
+Then('the target panel has a textarea field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('textarea')
+            .should('have.text', fieldValue)
+    });
+Then('the target panel has a input field named {string} with label {string} and not empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
@@ -56,12 +92,20 @@ Then('the target panel has an input field named {string} with label {string} and
         cy.get('@target-field').find('input')
             .should('not.be.empty')
     });
-Then('the target panel has an input field named {string} with label {string} and empty',
+Then('the target panel has a input field named {string} with label {string} and empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
             .contains(fieldLabel, { matchCase: false })
         cy.get('@target-field').find('input')
+            .should('be.empty')
+    });
+Then('the target panel has a textarea field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('textarea')
             .should('be.empty')
     });
 Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
@@ -70,6 +114,42 @@ Then('the target panel input field named {string} is {string}', function (fieldN
             cy.get('.ng-invalid').should('exist')
         })
 });
+// - PANEL CONTENTS
+Then('the target dialog has a title {string}', function (title: string) {
+    cy.get('@target-panel').find('.header-title').contains(title, { matchCase: false })
+});
+Then('the target panel has a title {string}', function (title: string) {
+    cy.get('@target-panel').find('.panel-title').contains(title, { matchCase: false })
+});
+Then('the target panel has {int} {string}', function (count: number, symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+    cy.get('@target-panel').find(tag).should('have.length', count)
+});
+Then('the target panel has a field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
+            .should('be.empty')
+    });
+Then('the target panel has a field named {string} with label {string} and not empty',
+    function (fieldName: string, fieldLabel: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
+            .should('not.be.empty')
+    });
+Then('the target panel has a field named {string} with label {string} and and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
+            .contains(fieldValue, { matchCase: false })
+    });
 
 
 

@@ -45,9 +45,9 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     #     Then the page "NewModelPage" is activated
     #     Then the target panel has a title "/NUEVO MODELO/DEFINICION"
     #     Given the target panel is the panel of type "new-model"
-    #     Then the target panel has an input field named "label" with label "ETIQUETA" and empty
-    #     Then the target panel has an input field named "price" with label "PRECIO" and empty
-    #     Then the target panel has an input field named "stock" with label "NIVEL STOCK DESEADO" and empty
+    #     Then the target panel has a input field named "label" with label "ETIQUETA" and empty
+    #     Then the target panel has a input field named "price" with label "PRECIO" and empty
+    #     Then the target panel has a input field named "stock" with label "NIVEL STOCK DESEADO" and empty
     #     And the target panel input field named "label" is "invalid"
     #     And the target panel input field named "price" is "invalid"
     #     And the target panel input field named "stock" is "invalid"

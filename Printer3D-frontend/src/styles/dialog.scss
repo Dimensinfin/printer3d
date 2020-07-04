@@ -7,50 +7,10 @@ mat-dialog-container#newpart-component {
     padding: 0px;
 }
 
-// Back color 1D091A
 mat-dialog-container#newcoil-component {
-    border: 3px solid #260935;
-    border-radius: 11px;
-    background-color: #1D091A;
-    font-family: 'Mina', "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: white;
-}
-
-// mat-dialog-container#newrequest-component {
-//     border: 2px solid #260935;
-//     border-radius: 9px;
-//     background-color: #1D091A;
-//     font-family: 'Mina', "Helvetica Neue", Helvetica, Arial, sans-serif;
-//     color: white;
-// }
-mat-dialog-container#newmodel-component {
-    border: 3px solid #361731;
-    border-radius: 11px;
+    border: 2px solid #361731;
     background-color: #240F21;
     font-family: 'Mina', "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: white;
-}
-
-.dialog-title {
-    font-family: 'Mina';
-}
-
-.row-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-
-.form-button {
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Electrolize';
-    flex-grow: 1;
-    justify-content: center;
-    margin-left: 30px;
-    margin-right: 30px;
-}
-
-.button-area {
-    margin-top: 30px;
+    padding: 0px;
 }
