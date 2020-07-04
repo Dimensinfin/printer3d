@@ -19,6 +19,10 @@ import { platformconstants } from '@app/platform/platform-constants';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { Feature } from '@domain/Feature.domain';
 import { PartContainer } from '@domain/PartContainer.domain';
+import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
+import { UpdateGroupRequestConstructor } from '@domain/constructor/UpdateGroupRequest.constructor';
+import { AnyARecord } from 'dns';
+import { PartContainerConstructor } from '@domain/constructor/PartContainer.constructor';
 
 @Component({
     selector: 'v1-part-container',
@@ -44,8 +48,7 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
         return this.getNode().getId();
     }
     public getLabel(): string {
-        const part = this.node as PartContainer;
-        return part.label;
+        return this.getNode().label;
     }
     public getDescription(): string {
         const part = this.node as PartContainer;
@@ -70,6 +73,14 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     public modelVisible(): boolean {
         return !this.isEmpty(this.getNode().modelPath)
     }
+    private updateNode() : void{
+        const containerAsAny = this.getNode() as any
+        containerAsAny.description = this.editPart.description
+        containerAsAny.buildTime = this.editPart.buildTime
+        containerAsAny.weight = this.editPart.weight
+        containerAsAny.imagePath = this.editPart.imagePath
+        containerAsAny.modelPath = this.editPart.modelPath
+    }
 
     // - EDITING
     public isEditing(): boolean {
@@ -86,20 +97,21 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     }
     public saveEditing(): void {
         console.log('>[V1PartContainerRenderComponent.saveEditing]');
-        this.node = new Part(this.editPart);
+        // this.node = new PartContainerConstructor(this.getNode()).construct(this.editPart)
+         const updateGroupRequest: UpdateGroupRequest = new UpdateGroupRequestConstructor().construct(this.editPart)
         this.backendConnections.push(
-            this.backendService.apiInventoryGroupUpdatePart_v1(this.node as Part,
+            this.backendService.apiInventoryGroupUpdatePart_v1(updateGroupRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
                     .setTransformation((entrydata: any): Part => {
                         const targetPart: Part = new Part(entrydata);
                         this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
                         return targetPart;
                     }))
-                .subscribe((updatedPart: Part) => {
-                    // console.log('-[V1PartRenderComponent.saveEditing]> Updated Part: ' + JSON.stringify(updatedPart))
-                    this.node = updatedPart;
-                    this.toggleEdition();
-                    this.ref.detectChanges();
+                .subscribe((unrequired: any) => {
+                    this.toggleEdition()
+                    this.closeEditing()
+                    this.updateNode()
+                    this.ref.detectChanges()
                 })
         );
     }

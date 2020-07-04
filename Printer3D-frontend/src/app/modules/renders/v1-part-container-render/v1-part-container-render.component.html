@@ -18,7 +18,7 @@
 </div>
 <!-- C A T A L O G   V A R I A N T -->
 <div *ngIf="getVariant() === '-CATALOG-'">
-    <div id="{{getUniqueId()}}">
+    <div id="{{getUniqueId()}}" (click)="toggleExpanded()">
         <div class="row part-container-panel">
             <div class="field label-width">
                 <span cy-field-label="label" class="label">ETIQUETA</span><br>

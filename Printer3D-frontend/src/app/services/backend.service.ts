@@ -22,6 +22,7 @@ import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { ModelForm } from '@domain/inventory/ModelForm.domain';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
+import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -106,8 +107,8 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryGroupUpdatePart_v1(updatingGroupContent: Part, transformer: ResponseTransformer): Observable<Part> {
-        const request = this.APIV1 + '/inventory/parts/group/' + updatingGroupContent.label;
+    public apiInventoryGroupUpdatePart_v1(updatingGroupContent: UpdateGroupRequest, transformer: ResponseTransformer): Observable<Part> {
+        const request = this.APIV1 + '/inventory/parts/group';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingGroupContent), headers)
