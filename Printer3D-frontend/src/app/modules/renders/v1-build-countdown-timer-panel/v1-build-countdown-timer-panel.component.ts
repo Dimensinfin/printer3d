@@ -18,6 +18,8 @@ import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render
 
 const K = 1000;
 const INTERVAL = K;
+const toHours = (ms: number) =>
+    Math.floor(ms / K / 60 / 60);
 const toMinutes = (ms: number) =>
     Math.floor(ms / K / 60);
 const toSeconds = (ms: number) =>
@@ -29,11 +31,12 @@ const toSeconds = (ms: number) =>
     styleUrls: ['./v1-build-countdown-timer-panel.component.scss']
 })
 export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
-    @Input() parent: V3MachineRenderComponent;
-    @Input() time: number;
-    public minutes: number;
-    public seconds: number;
-    private duration: number;
+    @Input() parent: V3MachineRenderComponent
+    @Input() time: number
+    public hours: number = 0
+    public minutes: number
+    public seconds: number
+    private duration: number
     private timerSubscription: Subscription;
 
     public ngOnInit(): void {
@@ -59,6 +62,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
                 // Calculate the number of secods left.
                 let left = this.duration - elapsed;
                 // Convert to minutes/seconds.
+                this.hours = toHours(left * K);
                 this.minutes = toMinutes(left * K);
                 this.seconds = toSeconds(left * K);
                 if (left < 1) this.completeTimer();
@@ -91,6 +95,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
     private setTimer(durationInSeconds: number): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Duration: ' + durationInSeconds);
         this.duration = durationInSeconds;
+        this.hours = toHours(durationInSeconds * K);
         this.minutes = toMinutes(durationInSeconds * K);
         console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Minutes: ' + this.minutes);
         this.seconds = toSeconds(durationInSeconds * K);
