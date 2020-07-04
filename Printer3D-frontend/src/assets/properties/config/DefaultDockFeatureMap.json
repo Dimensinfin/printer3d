@@ -45,6 +45,7 @@
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
+        "modifier": "DROP",
         "route": "inventory/newmodel"
     },
     {
@@ -52,6 +53,7 @@
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
+        "modifier": "DROP",
         "route": "/production/newrequest"
     }
 ]

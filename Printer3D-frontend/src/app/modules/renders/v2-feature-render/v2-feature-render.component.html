@@ -13,7 +13,7 @@
             <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
         </svg>
     </div>
-    <svg class="corner-top" viewBox="0 0 100 100" *ngIf="node.interaction=='DIALOG'">
-        <path d="M0,0 L0,100 L100,0 L0,0" fill="blue"/>
+    <svg class="corner-top" viewBox="0 0 100 100" [ngClass]="{'blue-mark': node.interaction=='DIALOG', 'blueviolet-mark': node.modifier=='DROP'}">
+        <path d="M0,0 L0,100 L100,0 L0,0"/>
     </svg>
 </div>
