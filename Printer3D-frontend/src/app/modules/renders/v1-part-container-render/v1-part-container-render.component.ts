@@ -115,8 +115,8 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
         );
     }
     private activateEditing(): void {
-        this.variant = EVariant.EDITING_PART_GROUP;
-        this.editPart = new Part(this.node);
+        this.variant = EVariant.EDITING_PART_GROUP
+        this.editPart = new Part(this.node)
     }
     private closeEditing(): void {
         this.variant = EVariant.CATALOG;

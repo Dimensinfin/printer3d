@@ -24,6 +24,9 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     public getLabel(): string {
         return this.getNode().getLabel()
     }
+    public getContentCount(): number {
+        return this.getNode().getParts().length
+    }
     public getPrice(): string {
         return this.getNode().getPrice() + ' €'
     }

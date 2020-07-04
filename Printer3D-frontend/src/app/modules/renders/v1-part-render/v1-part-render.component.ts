@@ -137,6 +137,6 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
         this.editPart = new Part(this.node);
     }
     private closeEditing(): void {
-        this.variant = EVariant.PART_LIST;
+        this.variant = EVariant.CATALOG;
     }
 }

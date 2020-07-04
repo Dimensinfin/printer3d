@@ -60,15 +60,20 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
         console.log('-[NewPartDialogComponent.ngOnInit]> Previous Part: ' + pendingPart)
         if (null == pendingPart) {
             console.log('-[NewPartDialogComponent.ngOnInit]> Initializing Part')
-            this.part.id = uuidv4();
-            this.part.material = 'PLA';
-            this.part.color = undefined;
+            this.part.id = uuidv4()
+            this.part.material = 'PLA'
+            this.part.color = undefined
+            this.part.stockAvailable = 0
+            setTimeout(() => {
+                this.materialSelectorChanged(this.part.material)
+            }, 300);
         }
         else {
             console.log('-[NewPartDialogComponent.ngOnInit]> Setting Previous Part: ' + pendingPart)
             this.part = new Part(JSON.parse(pendingPart))
             this.part.createNewId() // Create a new id for any new part under creation
-            this.part.color = undefined;
+            this.part.color = undefined
+            this.part.stockAvailable = 0
         }
         this.readFinishings();
     }
@@ -128,8 +133,8 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
                         this.finishings.set(element['material'], colors);
                         this.materials.push(element['material']);
                     }
-                    // console.log('-[NewPartDialogComponent.readFinishings]> finishings: ' + JSON.stringify(this.finishings))
-                    this.materialSelectorChanged(data[0]['material'])
+                    // TODO - If the part is duplicated then the materail selected should be the one of the part. The same for the color.
+                    // this.materialSelectorChanged(data[0]['material'])
                 })
         );
     }
