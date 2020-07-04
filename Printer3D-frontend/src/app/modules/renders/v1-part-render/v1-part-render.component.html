@@ -120,24 +120,24 @@
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'REQUEST-CONTENT'" [dragClass]="'part-selected'">
     <div class="row">
         <div class="field label-width">
-            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" class="field-height part-material">{{getLabel()}}</span>
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" class="field-height part-material">{{getLabel()}}</span>
         </div>
         <div class="field left material-width">
-            <span cy-field-label="MATERIAL" class="label">MATERIAL/COLOR</span><br>
-            <span cy-field-value="MATERIAL" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
+            <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
+            <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
         </div>
         <!-- <div class="field color-width">
             <span cy-field-label="COLOR" class="label">COLOR</span><br>
             <span cy-field-value="COLOR" class="field-height part-color"></span>
         </div> -->
         <div class="field stock-width">
-            <span cy-field-label="DISPONIBLE" class="label">DISPONIBLE</span><br>
-            <span cy-field-value="DISPONIBLE" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
+            <span cy-field-label="partCount" class="label">DISPONIBLE</span><br>
+            <span cy-field-value="partCount" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
         </div>
         <div class="field stock-width">
-            <span cy-field-label="PRICE" class="label">PRECIO</span><br>
-            <span cy-field-value="PRICE" class="field-height part-stockAvailable">{{getPrice()}}</span>
+            <span cy-field-label="price" class="label">PRECIO</span><br>
+            <span cy-field-value="price" class="field-height part-stockAvailable">{{getPrice()}}</span>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
