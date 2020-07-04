@@ -54,16 +54,6 @@ Then('the target panel has a numeric input field named {string} with label {stri
         cy.get('@target-field').find('[cy-field-label="' + fieldLabel + '"]')
             .contains(fieldLabel, { matchCase: false })
         cy.get('@target-field').find('input').invoke('val')
-            .then(text => {
-                const someText = text as string;
-                cy.log(someText);
-            })
-        cy.get('@target-field').find('input').invoke('text')
-            .then(text => {
-                const someText = text as string;
-                cy.log(someText);
-            })
-        cy.get('@target-field').find('input').invoke('val')
             .should('equal', fieldValue)
     });
 Then('the target panel has a textarea field named {string} with label {string} and contents {string}',

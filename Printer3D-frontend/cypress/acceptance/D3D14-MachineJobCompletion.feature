@@ -27,3 +27,6 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         And the target item button with name "COMPLETE" has a label "Completar" and is "enabled"
         And the target item button with name "CANCEL" has a label "Cancelar" and is "enabled"
         When there is a click on the target item "COMPLETE" button
+
+# @D3D13.07
+#     Scenario: [D3D13.07]-When the job completes the number of copies continues not being editable.

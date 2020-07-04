@@ -1,21 +1,3 @@
-// .corner-border {
-//     position: absolute;
-//     bottom: 0px;
-//     right: 0px;
-//     width: 18px;
-// }
-// .corner-clear {
-//     position: absolute;
-//     bottom: 0px;
-//     right: 0px;
-//     width: 16px;
-// }
-// .corner-mark {
-//     position: absolute;
-//     bottom: 0px;
-//     right: 0px;
-//     width: 11px;
-// }
 .number-width {
     min-width: 35px;
 }
@@ -26,6 +8,10 @@
 
 .job-priority-high {
     background-color: #330011;
+}
+
+.job-material-width {
+    min-width: 200px;
 }
 
 .part-count-edit-width {

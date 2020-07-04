@@ -18,7 +18,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given there is a click on Feature "/TRABAJOS PND."
         Given the target panel is the panel named "machines"
         Then the target panel has a title "/MAQUINAS"
-        Then on the target panel there are one or more "v3-machine"
+        Then the target panel has 2 "machine"
 
     @D3D13 @D3D13.02
     Scenario: [D3D13.02]-Any of the machines has a list of fields. If the Part is not assigned then there are no buttons.
@@ -45,7 +45,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And the target item button with name "START-BUILD" has a label "Comenzar" and is "enabled"
         And the target item button with name "CLEAR" has a label "Clear" and is "enabled"
         And on the target panel there are one or more "v1-build-countdown-timer"
-        Then the "build-countdown-timer" item has a value of "30:00"
+        Then the "build-countdown-timer" item has a value of "0h30m"
 
     @D3D13 @D3D13.04
     Scenario: [D3D13.04]-Once Part is dropped and the buttons are visible, if the user clicks the Clear button the job is cancelled and the Part is removed from the slot.
@@ -77,7 +77,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And the target Machine has "1" instances of "button"
         And the target item button with name "CANCEL" has a label "Cancelar" and is "enabled"
 
-    @D3D13 @D3D13.06
+    @D3D13.06
     Scenario: [D3D13.06]-If there is a Job running and the Cancel button is clicked the job is cancelled and the Machine returns to idle.
         Given there is a click on Feature "/TRABAJOS PND."
         Given the target panel is the panel named "jobs-list"

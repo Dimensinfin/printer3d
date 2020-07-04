@@ -44,6 +44,11 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     public getBuildTime(): number {
         return this.getNode().getPart().buildTime;
     }
+    public isEditable() : boolean{
+        if (this.isRunning()) return false
+        if (this.machine.state=='COMPLETED') return false
+        return true
+    }
     public isRunning(): boolean {
         return this.machine.isRunning()
     }

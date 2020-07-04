@@ -9,6 +9,9 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
+Then('there is a Feature with label {string}', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render').find('.feature-label').contains(label, { matchCase: false })
+});
 Then('the target item is draggable and with the contraint {string}', function (constraintName: string) {
     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
     cy.get('@target-item').get('[draggable="true"]').first()
