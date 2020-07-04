@@ -108,8 +108,9 @@ bootRun {
 }
 test {
     useJUnitPlatform()
-    exclude '**/RunAcceptance*.class'
     systemProperty "cucumber.options", System.getProperty("cucumber.options")
+    dependsOn cleanTest
+    testLogging.showStandardStreams = true
 }
 
 // - S P R I N G B O O T

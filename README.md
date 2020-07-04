@@ -14,7 +14,13 @@
 #### 5101 - Integration frontend server<br>5121 - Local backend application springboot instance<br>5131 - Postgres database docker container for the integration environment
 #### 5190 - Experimental GUI fontend server. Uses the same mock server.
 
-# Printer3DFrontend
+# Printer3D-Backend
+
+## Filtering tests
+
+./gradlew test -Dcucumber.optis="--tags @P3D08" --tests **/backend/core/exception/*Test
+
+# Printer3D-Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
 
