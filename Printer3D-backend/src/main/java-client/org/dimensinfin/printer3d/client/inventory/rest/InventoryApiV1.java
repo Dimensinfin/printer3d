@@ -220,9 +220,8 @@ public interface InventoryApiV1 {
 	 * @return Call&lt;Part&gt;
 	 */
 	@Headers({ "Content-Type:application/json" })
-	@PATCH("api/v1/inventory/parts/group/{label}")
-	Call<CountResponse> updateGroupPart( @Path("label") final @NotNull String label,
-	                                     @Body final @NotNull @Valid UpdateGroupPartRequest updateData );
+	@PATCH("api/v1/inventory/parts/group")
+	Call<CountResponse> updateGroupPart( @Body final @NotNull @Valid UpdateGroupPartRequest updateData );
 
 	/**
 	 * Updates an existing Model.

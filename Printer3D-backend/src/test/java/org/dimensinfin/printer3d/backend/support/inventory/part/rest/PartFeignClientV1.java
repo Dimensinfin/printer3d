@@ -82,14 +82,14 @@ public class PartFeignClientV1 extends CommonFeignClient {
 		}
 	}
 
-	public ResponseEntity<CountResponse> updateGroupPart( final String selectionLabel, final UpdateGroupPartRequest updateData ) throws IOException {
+	public ResponseEntity<CountResponse> updateGroupPart( final UpdateGroupPartRequest updateData ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the update for a selected group of Parts.";
 		final Response<CountResponse> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( InventoryApiV1.class )
-				.updateGroupPart( selectionLabel, updateData )
+				.updateGroupPart( updateData )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

@@ -34,6 +34,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
@@ -220,9 +221,9 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return updatePartResponseEntity;
 			case UPDATE_GROUP_PART:
 				Assertions.assertNotNull( this.printer3DWorld.getUpdateGroupPartRequest() );
-				final ResponseEntity<CountResponse> updateGroupPartResponseEntity = this.partFeignClientV1
-						.updateGroupPart( this.printer3DWorld.getSelectionLabel(),
-								this.printer3DWorld.getUpdateGroupPartRequest() );
+				final UpdateGroupPartRequest request = this.printer3DWorld.getUpdateGroupPartRequest()
+						.setLabel(  this.printer3DWorld.getSelectionLabel());
+				final ResponseEntity<CountResponse> updateGroupPartResponseEntity = this.partFeignClientV1.updateGroupPart(request );
 				Assertions.assertNotNull( updateGroupPartResponseEntity );
 				this.printer3DWorld.setUpdateGroupPartResponseEntity( updateGroupPartResponseEntity );
 				return updateGroupPartResponseEntity;

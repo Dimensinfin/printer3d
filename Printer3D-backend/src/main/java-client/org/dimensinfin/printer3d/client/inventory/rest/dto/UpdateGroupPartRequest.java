@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.client.inventory.rest.dto;
 import java.util.Objects;
 
 public class UpdateGroupPartRequest {
+	private String label;
 	private String description;
 	private int weight;
 	private Integer buildTime;
@@ -20,6 +21,15 @@ public class UpdateGroupPartRequest {
 
 	public String getImagePath() {
 		return imagePath;
+	}
+
+	public String getLabel() {
+		return this.label;
+	}
+
+	public UpdateGroupPartRequest setLabel( final String label ) {
+		this.label = label;
+		return this;
 	}
 
 	public String getModelPath() {
@@ -55,6 +65,11 @@ public class UpdateGroupPartRequest {
 
 		public UpdateGroupPartRequest.Builder withImagePath( final String imagePath ) {
 			if (null != imagePath) this.onConstruction.imagePath = imagePath;
+			return this;
+		}
+
+		public UpdateGroupPartRequest.Builder withLabel( final String label ) {
+			if (null != label) this.onConstruction.label = label;
 			return this;
 		}
 

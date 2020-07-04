@@ -78,11 +78,11 @@ public class PartServiceV1 {
 	 * frontend will group them into sets and there is no purpose on having different values for same parts this endpoint will take care of
 	 * changing the et values to the whole set of parts that have the same Label.
 	 */
-	public CountResponse updateGroupPart( final String label, final @NotNull UpdateGroupPartRequest updateData ) {
+	public CountResponse updateGroupPart( final @NotNull UpdateGroupPartRequest updateData ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Parts that have the same label.
-			final List<PartEntity> targets = this.partRepository.findByLabel( label );
+			final List<PartEntity> targets = this.partRepository.findByLabel( updateData.getLabel() );
 			int counter = 0;
 			for (PartEntity partEntity : targets) {
 				this.partRepository.save( new PartGroupUpdater( partEntity ).update( updateData ) );

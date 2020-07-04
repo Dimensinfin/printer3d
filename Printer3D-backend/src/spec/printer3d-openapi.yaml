@@ -200,7 +200,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PartList'
-  /api/v1/inventory/parts/group/{label}:
+  /api/v1/inventory/parts/group:
     patch:
       tags:
         - Inventory
@@ -216,7 +216,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Part'
+              $ref: '#/components/schemas/UpdateGroupPartRequest'
       responses:
         201:
           description: >
@@ -224,7 +224,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Part'
+                $ref: '#/components/schemas/CounterResponse'
 
   # - M O D E L S
   /api/v1/inventory/models:

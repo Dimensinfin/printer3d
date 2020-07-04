@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,12 +50,11 @@ public class PartControllerV1 {
 		return new ResponseEntity<>( this.partServiceV1.newPart( part ), HttpStatus.CREATED );
 	}
 
-	@PatchMapping(path = "/inventory/parts/group/{label}",
+	@PatchMapping(path = "/inventory/parts/group",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> updateGroupPart( final @PathVariable @NotNull String label,
-	                                                      final @RequestBody @Valid @NotNull UpdateGroupPartRequest updateData ) {
-		return new ResponseEntity<>( this.partServiceV1.updateGroupPart( label, updateData ), HttpStatus.OK );
+	public ResponseEntity<CountResponse> updateGroupPart( final @RequestBody @Valid @NotNull UpdateGroupPartRequest updateData ) {
+		return new ResponseEntity<>( this.partServiceV1.updateGroupPart( updateData ), HttpStatus.OK );
 	}
 
 	@PatchMapping(path = "/inventory/parts",
