@@ -19,7 +19,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then there is a Feature with label "/NUEVO ROLLO"
         Then there is a Feature with label "/NUEVA PIEZA"
         Then there is a Feature with label "/NUEVO MODELO"
-       Then there is a Feature with label "/NUEVO PEDIDO"
+        Then there is a Feature with label "/NUEVO PEDIDO"
 
     @D3D02.02
     Scenario: [D3D02.02]-Check that Features that open Dialogs have a corner in blue.
@@ -36,7 +36,9 @@ Feature: [D3D02]-Test the dock contents and configuration.
 
     @D3D02.03
     Scenario: [D3D02.0]-Different types of features have different visuals. The ones that open a Dialog a blue corner. The ones that open editors a violet corner.
-       Given one instance of Dock
+        Given one instance of Dock
+        Then the Feature with label "/NUEVO MODELO" opens a DropPage
+        Then the Feature with label "/NUEVO PEDIDO" opens a DropPage
 
     @D3D02 @D3D02.04
     Scenario: [D3D02.04]-When a new page is selected the Dock visual configuration for the active Feature changes.

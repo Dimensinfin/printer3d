@@ -7,35 +7,42 @@ import { IsolationService } from '../../support/IsolationService.support';
 
 const INVENTORY_PART_LIST_PAGE_NAME = '/Inventory/Part List';
 
+// - L A T E S T   R E V I S I O N
 Then('there is a Feature with label {string}', function (label: string) {
     cy.get('v1-dock').find('v2-feature-render').find('.feature-label').contains(label, { matchCase: false })
 });
-Then('the Feature with label {string} opens a Dialog', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render')
-        .contains(label, { matchCase: false }).parent().parent().as('target-feature')
-    cy.get('@target-feature').find('.corner-top').should('exist')
-});
-Then('the Feature with label {string} opens a Page', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render')
-        .contains(label, { matchCase: false }).parent().parent().as('target-feature')
-    cy.get('@target-feature').find('.corner-top').should('not.exist')
-});
-
-
 Then('there are {int} Features enabled', function (int) {
     cy.get('v1-dock').find('v2-feature-render').within(($panel) => {
         cy.get('.feature-clip').should('not.have.class', 'disabled')
     });
 });
-Then('the target Feature {string} changes to state {string}', function (featureLabel:string, state:string) {
-    if ( state=='active')
-    cy.get('@target-feature').within(($panel) => {
-        cy.get('.corner-mark').should('exist')
-    });
-    if ( state=='inactive')
-    cy.get('@target-feature').within(($panel) => {
-        cy.get('.corner-mark').should('not.exist')
-    });
+
+Then('the Feature with label {string} opens a Dialog', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render')
+        .contains(label, { matchCase: false }).parent().parent().as('target-feature')
+    cy.get('@target-feature').find('.corner-top').parent().find('.blue-mark').should('exist')
+});
+Then('the Feature with label {string} opens a Page', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render')
+        .contains(label, { matchCase: false }).parent().parent().as('target-feature')
+    cy.get('@target-feature').find('.corner-top').parent().find('.blue-mark').should('not.exist')
+});
+Then('the Feature with label {string} opens a DropPage', function (label: string) {
+    cy.get('v1-dock').find('v2-feature-render')
+        .contains(label, { matchCase: false }).parent().parent().as('target-feature')
+    cy.get('@target-feature').find('.corner-top').parent().find('.blueviolet-mark').should('exist')
+});
+
+
+Then('the target Feature {string} changes to state {string}', function (featureLabel: string, state: string) {
+    if (state == 'active')
+        cy.get('@target-feature').within(($panel) => {
+            cy.get('.corner-mark').should('exist')
+        });
+    if (state == 'inactive')
+        cy.get('@target-feature').within(($panel) => {
+            cy.get('.corner-mark').should('not.exist')
+        });
     // switch (state) {
     //     case 'active':
     //         cy.get('v1-dock')

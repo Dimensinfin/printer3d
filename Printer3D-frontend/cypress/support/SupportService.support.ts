@@ -25,6 +25,7 @@ export class SupportService {
         this.translationTable['open-requests'] = 'v1-open-requests-panel'
         this.translationTable['request-detail'] = 'v1-request-detail-panel'
         // - RENDERS
+        this.translationTable['feature'] = 'v2-feature'
         this.translationTable['job'] = 'v1-pending-job'
         this.translationTable['machine'] = 'v3-machine'
         this.translationTable['part'] = 'v1-part'
