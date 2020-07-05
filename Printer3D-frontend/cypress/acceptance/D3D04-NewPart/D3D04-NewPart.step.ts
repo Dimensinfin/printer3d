@@ -15,58 +15,8 @@ Then('the {string} dialog opens and blocks the display', function (dialogName: s
     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
         .should('exist')
 })
-Then('the target panel has a input field named {string} with label {string} and empty',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('input')
-            .should('be.empty')
-    });
-Then('the target panel has a textarea field named {string} with label {string} and empty',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        // Read an attribute into a variable.
-        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(elem => {
-            // elem is the underlying Javascript object targeted by the .get() command.
-            // const xyz: string = Cypress.$(elem).val() as string;
-            cy.log(elem as string);
-        })
-        cy.get('@target-field').find('textarea')
-            .should('be.empty')
-    });
-Then('the target panel has a numeric input field named {string} with label {string} and contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('input').then(elem => {
-            // elem is the underlying Javascript object targeted by the .get() command.
-            const xyz: string = Cypress.$(elem).val() as string;
-            cy.log(xyz);
-        })
-        cy.get('@target-field').find('input').invoke('val')
-            .should('equal', fieldValue)
-    });
-Then('the target panel has a select field named {string} with label {string} and contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('select').then(elem => {
-            // elem is the underlying Javascript object targeted by the .get() command.
-            const xyz: string = Cypress.$(elem).val() as string;
-            cy.log(xyz);
-        })
-        cy.get('@target-field').find('select').invoke('val')
-            .should('equal', fieldValue)
-    });
-
-
-// - E X P E R I M E N T A L
-Then('the target panel has a form field named {string} with label {string} and empty',
+// - I N P U T   F I E L D S
+Then('the target panel has a form field named {string} with label {string} not and empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
@@ -82,17 +32,17 @@ Then('the target panel has a form field named {string} with label {string} and e
                 case 'input':
                     cy.log('input')
                     cy.get('@target-field').find('input')
-                        .should('be.empty')
+                        .should('not.be.empty')
                     break
                 case 'select':
                     cy.log('select')
                     cy.get('@target-field').find('select')
-                        .should('be.empty')
+                        .should('not.be.empty')
                     break
                 case 'textarea':
                     cy.log('select')
                     cy.get('@target-field').find('textarea')
-                        .should('be.empty')
+                        .should('not.be.empty')
                     break
             }
         }
@@ -128,6 +78,103 @@ Then('the target panel has a form field named {string} with label {string} and c
             }
         }
     });
+Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
+    cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+    let inputType: string = ''
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        cy.log(type as string);
+        inputType = type as string
+    })
+    let stateClass = 'ng-valid'
+    if (state == 'invalid') stateClass = 'ng-invalid'
+    if (state == 'valid') stateClass = 'ng-valid'
+    if (state == 'indiferent') stateClass = 'dsf-input'
+    if (inputType != '') {
+        switch (inputType) {
+            case 'input':
+                cy.log('input')
+                cy.get('@target-field').find('input')
+                    .should('have.class', stateClass)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select')
+                    .should('have.class', stateClass)
+                break
+            case 'textarea':
+                cy.log('textarea')
+                cy.get('@target-field').find('textarea')
+                    .should('have.class', stateClass)
+                break
+        }
+    }
+});
+// - B U T T O N S
+Then('the target panel button with name {string} has a label {string} and is {string}', function (
+    buttonName: string, buttonLabel: string, buttonState: string) {
+    cy.get('@target-panel')
+        .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
+    if (buttonState == 'disabled') {
+        cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').invoke('attr', 'disabled')
+        .should('exist')
+    } else {
+        cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').invoke('attr', 'disabled')
+        .should('not.exist')
+    }
+});
+Then('the target panel field {string} is tested for size constraints {int} and {int}',
+    function (fieldName: string, minCharacters: number, maxCharacters: number) {
+        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters - 1))
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // invalid-one below limit
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters))
+        cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-low limit
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(maxCharacters))
+        cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-high limit
+        let largerValue = supportService.generateRandomString(maxCharacters + 5)
+        cy.get('@target-field').find('input').clear().type(largerValue)
+        cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
+    });
+Then('the target panel field {string} is tested for value constraints', function (fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
+    const numberValue: string = supportService.generateRandomNum(1, 15) + ''
+    cy.get('@target-field').find('input').clear().type(numberValue)
+    cy.get('@target-field').find('input').should('have.class', 'ng-valid') // validate invalid before starting test
+});
+
+
+// - E X P E R I M E N T A L
+
+Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    let inputType: string = ''
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        // cy.log(type as string);
+        // inputType = type as string
+        switch (type) {
+            case 'input':
+                cy.get('@target-field').find('input').clear().type(fieldValue)
+                break
+            case 'textarea':
+                cy.get('@target-field').find('textarea').clear().type(fieldValue)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select').select(fieldValue)
+                break
+        }
+    })
+    // cy.log(inputType)
+    // if (inputType != '') {
+    // }
+});
+Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue + '')
+});
+
 
 
 //     Then('the New Part dialog opens and blocks the display', function () {
@@ -142,18 +189,18 @@ Then('the target panel has a form field named {string} with label {string} and c
 //     form.validateHasContents(dataTable);
 // });
 
-Then('the NewPart dialog input fields should be empty', function () {
-    console.log('[THEN] the NewPart dialog input fields should be empty');
-    const form = new NewPartForm();
-    expect(form).to.not.be.null;
-    form.fieldIsEmpty('label');
-    form.fieldIsEmpty('description');
-    form.fieldIsEmpty('buildTime');
-    form.fieldIsEmpty('cost');
-    form.fieldIsEmpty('price');
-    form.fieldIsEmpty('imagePath');
-    form.fieldIsEmpty('modelPath');
-});
+// Then('the NewPart dialog input fields should be empty', function () {
+//     console.log('[THEN] the NewPart dialog input fields should be empty');
+//     const form = new NewPartForm();
+//     expect(form).to.not.be.null;
+//     form.fieldIsEmpty('label');
+//     form.fieldIsEmpty('description');
+//     form.fieldIsEmpty('buildTime');
+//     form.fieldIsEmpty('cost');
+//     form.fieldIsEmpty('price');
+//     form.fieldIsEmpty('imagePath');
+//     form.fieldIsEmpty('modelPath');
+// });
 
 Then('the button {string} has the next properties', function (buttonName: string, dataTable: any) {
     console.log('[THEN] the button {string} has the next properties');

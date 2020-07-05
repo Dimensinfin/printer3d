@@ -75,6 +75,11 @@ $form-item-invalid: #A94442; // Red
     fill: orangered;
 }
 
+.ng-invalid.required,
+.ng-invalid[required] {
+    fill: orangered
+}
+
 .ng-valid.required,
 .ng-valid[required] {
     fill: green

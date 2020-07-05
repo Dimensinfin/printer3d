@@ -11,40 +11,80 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         Given the application Printer3DManager
 
     # - H A P P Y   P A T H
-    @D3D04.01
-    Scenario: [D3D04.01]-If the Feature New Part receives a click then we should show the New Part Dialog.
-        Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
-        Then the "New Part" dialog opens and blocks the display
+    # @D3D04.01
+    # Scenario: [D3D04.01]-If the Feature New Part receives a click then we should show the New Part Dialog.
+    #     Given one instance of Dock
+    #     When there is a click on Feature "/NUEVA PIEZA"
+    #     Then the "New Part" dialog opens and blocks the display
 
-    @D3D04.02
-    Scenario: [D3D04.02]-A new part dialog should have most of the fields empty. There are predefined values for the stock, weight and material.
+    # @D3D04.02
+    # Scenario: [D3D04.02]-A new part dialog should have most of the fields empty. There are predefined values for the stock, weight and material.
+    #     Given there is a click on Feature "/NUEVA PIEZA"
+    #     Then the "New Part" dialog opens and blocks the display
+    #     And the target dialog has a title "/INVENTARIO/NUEVA PIEZA"
+    #     And the target panel has a form field named "label" with label "ETIQUETA" and empty
+    #     And the target panel has a form field named "description" with label "DESCRIPCIÓN" and empty
+    #     And the target panel has a form field named "material" with label "MATERIAL" and contents "PLA"
+    #     And the target panel has a form field named "color" with label "COLOR" and empty
+    #     And the target panel has a form field named "weight" with label "PESO" and contents "1"
+    #     And the target panel has a form field named "cost" with label "COSTE FAB." and empty
+    #     And the target panel has a form field named "price" with label "PRECIO" and empty
+    #     And the target panel has a form field named "buildTime" with label "TIEMPO" and empty
+    #     And the target panel has a form field named "stock" with label "STOCK DESEADO" and contents "1"
+    #     And the target panel has a form field named "stockAvailable" with label "DISPONIBLES" and contents "0"
+    #     And the target panel has a form field named "imagePath" with label "IMAGEN" and empty
+    #     And the target panel has a form field named "modelPath" with label "FICHERO MODELO" and empty
+
+    # @D3D04.03
+    # Scenario: [D3D04.03]-An empty Part dialog has some of the fields mandatory and invalid because they are empty. Also the Save buttons are disabled.
+    #     Given there is a click on Feature "/NUEVA PIEZA"
+    #     Then the "New Part" dialog opens and blocks the display
+    #     # - Check the state of the fields
+    #     Then the target panel input field named "label" is "invalid"
+    #     And the target panel input field named "description" is "indiferent"
+    #     And the target panel input field named "material" is "valid"
+    #     And the target panel input field named "color" is "invalid"
+    #     And the target panel input field named "weight" is "valid"
+    #     And the target panel input field named "cost" is "invalid"
+    #     And the target panel input field named "price" is "invalid"
+    #     And the target panel input field named "buildTime" is "invalid"
+    #     And the target panel input field named "stock" is "indiferent"
+    #     And the target panel input field named "stockAvailable" is "indiferent"
+    #     And the target panel input field named "imagePath" is "indiferent"
+    #     And the target panel input field named "modelPath" is "indiferent"
+    #     # - Check the state of the buttons
+    #     And the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "disabled"
+    #     And the target panel button with name "submit-button" has a label "Guardar" and is "disabled"
+    #     And the target panel button with name "cancel-button" has a label "Cancelar" and is "enabled"
+# 
+    # @D3D04.04
+    # Scenario: [D3D04.04]-If we enter enough characters the label field changes to 'valid'.
+    #     Given there is a click on Feature "/NUEVA PIEZA"
+    #     Then the "New Part" dialog opens and blocks the display
+    #     # - Check the field contents size
+    #     Then the target panel field "label" is tested for size constraints 3 and 50
+    #     Then the target panel field "cost" is tested for value constraints
+    #     Then the target panel field "price" is tested for value constraints
+    #     Then the target panel field "buildTime" is tested for value constraints
+
+    @D3D04.05
+    Scenario: [D3D04.05]-If all the mandatory fields are filled then the Save buttons activate.
         Given there is a click on Feature "/NUEVA PIEZA"
         Then the "New Part" dialog opens and blocks the display
-        And the target dialog has a title "/INVENTARIO/NUEVA PIEZA"
-        And the target panel has a form field named "label" with label "ETIQUETA" and empty
-        And the target panel has a form field named "description" with label "DESCRIPCIÓN" and empty
-        And the target panel has a form field named "material" with label "MATERIAL" and contents "PLA"
-        And the target panel has a form field named "color" with label "COLOR" and empty
-        And the target panel has a form field named "weight" with label "PESO" and contents "1"
-        And the target panel has a form field named "cost" with label "COSTE FAB." and empty
-        And the target panel has a form field named "price" with label "PRECIO" and empty
-        And the target panel has a form field named "buildTime" with label "TIEMPO" and empty
-        And the target panel has a form field named "stock" with label "STOCK DESEADO" and contents "1"
-        And the target panel has a form field named "stockAvailable" with label "DISPONIBLES" and contents "0"
-        And the target panel has a form field named "imagePath" with label "IMAGEN" and empty
-        And the target panel has a form field named "modelPath" with label "FICHERO MODELO" and empty
+        # - Fill all the mandatory fields
+        Given "-ETIQUETA-" is set on form field "label"
+        And "AMARILLO" is set on form field "color"
+        And 1 is set on form field "cost"
+        And 2 is set on form field "price"
+        And 3 is set on form field "buildTime"
+        #     # - Check the state of the buttons
+        And the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
+        And the target panel button with name "submit-button" has a label "Guardar" and is "enabled"
+        And the target panel button with name "cancel-button" has a label "Cancelar" and is "enabled"
 
 # @D3D04.03
 # Scenario: [D3D04.03]-After a Part duplication when the new Part feature is clicked the form should be with the fields empty.
 #     Given one instance of Dock
-# @D3D04 @D3D04.05
-# Scenario: [D3D04.05]-A new part dialog should have some fields with default values
-#     Given there is a click on Feature "/NUEVA PIEZA"
-#     Then the New Part dialog opens and blocks the display
-#     And the New Part dialog input field "material" should not be empty
-#     And the New Part dialog input field "stockLevel" should be "1"
-#     And the New Part dialog input field "stockAvailable" should be "0"
 
 # @D3D04 @D3D04.06
 # Scenario: [D3D04.06]-A New Part dialog should have two buttons. One to save the new part and another to cancel the operation.
