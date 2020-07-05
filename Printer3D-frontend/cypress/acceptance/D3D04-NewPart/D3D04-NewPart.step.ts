@@ -9,11 +9,126 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
-Then('the {string} dialog opens and blocks the display', function (pageName: string) {
-    const tag = supportService.translateTag(pageName) // Do name replacement
+// - L A T E S T   I M P L E M E N T A T I O N
+Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
+    const tag = supportService.translateTag(dialogName) // Do name replacement
     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
-    .should('exist')
+        .should('exist')
 })
+Then('the target panel has a input field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input')
+            .should('be.empty')
+    });
+Then('the target panel has a textarea field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        // Read an attribute into a variable.
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(elem => {
+            // elem is the underlying Javascript object targeted by the .get() command.
+            // const xyz: string = Cypress.$(elem).val() as string;
+            cy.log(elem as string);
+        })
+        cy.get('@target-field').find('textarea')
+            .should('be.empty')
+    });
+Then('the target panel has a numeric input field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('input').then(elem => {
+            // elem is the underlying Javascript object targeted by the .get() command.
+            const xyz: string = Cypress.$(elem).val() as string;
+            cy.log(xyz);
+        })
+        cy.get('@target-field').find('input').invoke('val')
+            .should('equal', fieldValue)
+    });
+Then('the target panel has a select field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('select').then(elem => {
+            // elem is the underlying Javascript object targeted by the .get() command.
+            const xyz: string = Cypress.$(elem).val() as string;
+            cy.log(xyz);
+        })
+        cy.get('@target-field').find('select').invoke('val')
+            .should('equal', fieldValue)
+    });
+
+
+// - E X P E R I M E N T A L
+Then('the target panel has a form field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        // Read the type of field from the cy-input-type
+        let inputType: string = ''
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            cy.log(type as string);
+            inputType = type as string
+        })
+        if (inputType != '') {
+            switch (inputType) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .should('be.empty')
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .should('be.empty')
+                    break
+                case 'textarea':
+                    cy.log('select')
+                    cy.get('@target-field').find('textarea')
+                        .should('be.empty')
+                    break
+            }
+        }
+    });
+Then('the target panel has a form field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        // Read the type of field from the cy-input-type
+        let inputType: string = ''
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            cy.log(type as string);
+            inputType = type as string
+        })
+        if (inputType != '') {
+            switch (inputType) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'textarea':
+                    cy.log('textarea')
+                    cy.get('@target-field').find('textarea')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+            }
+        }
+    });
+
 
 //     Then('the New Part dialog opens and blocks the display', function () {
 //     cy.get('app-root').get('mat-dialog-container').get('new-part-dialog').should('have.length', 1)

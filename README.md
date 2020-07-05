@@ -113,11 +113,18 @@ Then('the target page has one panel of type {string} with variant {string}', fun
 * **SELECT ROWS** 
 ```sql
 SELECT id FROM parts WHERE color='INDEFINIDO';
+SELECT id FROM parts WHERE active=false;
 ```
 * **DELETE BAD COLORS**
 ```sql
 DELETE FROM parts WHERE color='INDEFINIDO';
 ```
+
+* **CLOSE REQUEST**
+```sql
+UPDATE printer3d.requestsv2 SET state='CLOSE' WHERE id='d6510c35-2b78-46bd-b2c2-f1343b7d4bae';
+```
+
 # UTILITIES
 
 # GOURCE

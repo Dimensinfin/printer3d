@@ -2,38 +2,42 @@
 @D3D04
 Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
-    If the user interacts with Inventory features that affect the Parts there should be requirements to control the
-    presentation, contents and interaction flow. Parts cannot be eliminated but some of their fields are editable
-    once the part is constructed.
-    This feature will deal with the requirements when a new Part is created.
+    One of the key elements to work are the Parts. They are created on a Dialog that has two entries. The first is a Feature button that creates a new Part.
+    The second is duplicating a previous existing Part inheriting some but not all of the field values.
+    Describe and test the cretion of a new Part.
+    Descrive and test the duplication of an existing part creating a new Part.
 
     Background: Dock Default Configuration setup
         Given the application Printer3DManager
 
     # - H A P P Y   P A T H
     @D3D04.01
-    Scenario: [D3D04.01]-If the Feature New Part received a click then we should show the New Part Dialog.
+    Scenario: [D3D04.01]-If the Feature New Part receives a click then we should show the New Part Dialog.
         Given one instance of Dock
         When there is a click on Feature "/NUEVA PIEZA"
         Then the "New Part" dialog opens and blocks the display
 
     @D3D04.02
-    Scenario: [D3D04.02]-A new part dialog should have some fields empty. There are predefined values for the stock
+    Scenario: [D3D04.02]-A new part dialog should have most of the fields empty. There are predefined values for the stock, weight and material.
         Given there is a click on Feature "/NUEVA PIEZA"
         Then the "New Part" dialog opens and blocks the display
         And the target dialog has a title "/INVENTARIO/NUEVA PIEZA"
-        And the target panel has a input field named "label" with label "ETIQUETA" and empty
-        And the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and empty
-        # And the target panel has a input field named "material" with label "MATERIAL" and empty
-        # And the target panel has a input field named "color" with label "COLOR" and empty
-        And the target panel has a numeric input field named "weight" with label "PESO" and contents "1"
-        And the target panel has a input field named "cost" with label "COSTE FAB." and empty
-        And the target panel has a input field named "price" with label "PRECIO" and empty
-        And the target panel has a input field named "buildTime" with label "TIEMPO" and empty
+        And the target panel has a form field named "label" with label "ETIQUETA" and empty
+        And the target panel has a form field named "description" with label "DESCRIPCIÓN" and empty
+        And the target panel has a form field named "material" with label "MATERIAL" and contents "PLA"
+        And the target panel has a form field named "color" with label "COLOR" and empty
+        And the target panel has a form field named "weight" with label "PESO" and contents "1"
+        And the target panel has a form field named "cost" with label "COSTE FAB." and empty
+        And the target panel has a form field named "price" with label "PRECIO" and empty
+        And the target panel has a form field named "buildTime" with label "TIEMPO" and empty
+        And the target panel has a form field named "stock" with label "STOCK DESEADO" and contents "1"
+        And the target panel has a form field named "stockAvailable" with label "DISPONIBLES" and contents "0"
+        And the target panel has a form field named "imagePath" with label "IMAGEN" and empty
+        And the target panel has a form field named "modelPath" with label "FICHERO MODELO" and empty
 
-    @D3D04.03
-    Scenario: [D3D04.03]-After a Part duplication when the new Part feature is clicked the form should be with the fields empty.
-        Given one instance of Dock
+# @D3D04.03
+# Scenario: [D3D04.03]-After a Part duplication when the new Part feature is clicked the form should be with the fields empty.
+#     Given one instance of Dock
 # @D3D04 @D3D04.05
 # Scenario: [D3D04.05]-A new part dialog should have some fields with default values
 #     Given there is a click on Feature "/NUEVA PIEZA"

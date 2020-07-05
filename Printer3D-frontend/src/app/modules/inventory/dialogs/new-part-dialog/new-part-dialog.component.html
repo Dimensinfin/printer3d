@@ -8,7 +8,7 @@
             <div class="column">
                 <!-- L A B E L -->
                 <div cy-name="label" class="field field-margins">
-                    <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
+                    <span cy-field-label="label" cy-input-type="input" class="label">ETIQUETA<span style="color: red;">&nbsp;*</span></span><br>
                     <div class="dsf-input-container label-width">
                         <input name="partLabel" type="text" class="dsf-input" [(ngModel)]="part.label" required minlength="3" maxlength="50" #partLabel="ngModel">
                         <svg class="corner-border" viewBox="0 0 100 100">
@@ -26,26 +26,15 @@
                 </div>
                 <!-- D E S C R I P T I O N -->
                 <div cy-name="description" class="field field-margins">
-                    <span cy-field-label="DESCRIPCIÓN" class="label">DESCRIPCIÓN</span><br>
+                    <span cy-field-label="description" cy-input-type="textarea" class="label">DESCRIPCIÓN</span><br>
                     <div class="dsf-input-container label-width">
                         <textarea name="description" cols="38" rows="5" class="dsf-input part-description" [(ngModel)]="part.description" minlength="5" maxlength="500"></textarea>
-                        <!-- <svg class="corner-border" viewBox="0 0 100 100">
-                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
-                        </svg>
-                        <svg class="corner-clear" viewBox="0 0 100 100">
-                            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
-                        </svg>
-                        <div class="yellow-mark">
-                            <svg class="corner-mark" viewBox="0 0 100 100">
-                                <path d="M100,100 L0,100 L100,0 L100,100" />
-                            </svg>
-                        </div> -->
                     </div>
                 </div>
                 <div class="row">
                     <!-- M A T E R I A L -->
                     <div cy-name="material" class="field field-margins">
-                        <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>
+                        <span cy-field-label="material" cy-input-type="select" class="label">MATERIAL</span><br>
                         <div class="dsf-input-container label-width">
                             <select name="material" class="dsf-input dsf-input-drop part-material" [(ngModel)]="part.material" required (change)="materialSelectorChanged($event.target.value)" #material="ngModel">
                                 <option *ngFor="let material of materials" [value]="material">{{material}}</option>
@@ -65,7 +54,7 @@
                     </div>
                     <!-- C O L O R -->
                     <div cy-name="color" class="field field-margins">
-                        <span cy-field-label="COLOR" class="label">COLOR</span><br>
+                        <span cy-field-label="color" cy-input-type="select" class="label">COLOR<span style="color: red;">&nbsp;*</span></span><br>
                         <div class="dsf-input-container label-width">
                             <select name="color" class="dsf-input dsf-input-drop part-color" [(ngModel)]="part.color" required #color="ngModel">
                                 <option [ngValue]="null" selected>-Selecciona Color-</option>
@@ -85,8 +74,8 @@
                         </div>
                     </div>
                     <!-- W E I G H T -->
-                    <div cy-name="weight" class="field field-margins">
-                        <span cy-field-label="PESO" class="label">PESO</span><br>
+                    <div cy-name="weight" class="field left">
+                        <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
                         <div class="dsf-input-container weight-width">
                             <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.weight" required minlength="1" maxlength="4" #partWeight="ngModel">
                             <svg class="corner-border" viewBox="0 0 100 100">
@@ -103,103 +92,142 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <!-- C O S T -->
+                    <div cy-name="cost" class="field field-margins">
+                        <span cy-field-label="cost" cy-input-type="input" class="label">COSTE FAB.<span style="color: red;">&nbsp;*</span></span><br>
+                        <div class="dsf-input-container weight-width">
+                            <input name="cost" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.cost" required minlength="1" maxlength="4" #cost="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                            </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                            </svg>
+                            <div class="orangered-mark" [ngClass]="{'ng-valid': !cost.invalid}">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- P R I C E -->
+                    <div cy-name="price" class="field field-margins">
+                        <span cy-field-label="price" cy-input-type="input" class="label">PRECIO<span style="color: red;">&nbsp;*</span></span><br>
+                        <div class="dsf-input-container weight-width">
+                            <input name="price" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.price" required minlength="1" maxlength="4" #price="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                            </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                            </svg>
+                            <div class="orangered-mark" [ngClass]="{'ng-valid': !price.invalid}">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- B U I L D   T I M E -->
+                    <div cy-name="buildTime" class="field field-margins">
+                        <span cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO<span style="color: red;">&nbsp;*</span></span><br>
+                        <div class="dsf-input-container weight-width">
+                            <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.buildTime" required minlength="1" maxlength="4" #buildTime="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                            </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                            </svg>
+                            <div class="orangered-mark" [ngClass]="{'ng-valid': !buildTime.invalid}">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- S T O C K   L E V E L -->
+                    <div cy-name="stock" class="field field-margins">
+                        <span cy-field-label="stock" cy-input-type="input" class="label">STOCK DESEADO<span style="color: red;">&nbsp;*</span></span><br>
+                        <div class="dsf-input-container weight-width">
+                            <input name="stock" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.stockLevel" required minlength="1" maxlength="4" #stock="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                        </svg>
+                            <div class="orangered-mark" [ngClass]="{'ng-valid': !stock.invalid}">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- A C T U A L   S T O C K -->
+                    <div cy-name="stockAvailable" class="field field-margins">
+                        <span cy-field-label="stockAvailable" cy-input-type="input" class="label">DISPONIBLES<span style="color: red;">&nbsp;*</span></span><br>
+                        <div class="dsf-input-container weight-width">
+                            <input name="stockAvailable" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.stockAvailable" required minlength="1" maxlength="4" #stockAvailable="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                            </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                            </svg>
+                            <div class="orangered-mark" [ngClass]="{'ng-valid': !stockAvailable.invalid}">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- A C T U A L   S T O C K -->
+                    <div cy-name="imagePath" class="field field-margins">
+                        <span cy-field-label="imagePath" cy-input-type="input" class="label">IMAGEN</span><br>
+                        <div class="dsf-input-container path-width">
+                            <input name="imagePath" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.imagePath" required minlength="1" maxlength="4" #imagePath="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                            </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                            </svg>
+                            <div class="greenyellow-mark">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- A C T U A L   S T O C K -->
+                    <div cy-name="modelPath" class="field left">
+                        <span cy-field-label="modelPath" cy-input-type="input" class="label">FICHERO MODELO</span><br>
+                        <div class="dsf-input-container path-width">
+                            <input name="modelPath" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.modelPath" required minlength="1" maxlength="4" #modelPath="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                            </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                            </svg>
+                            <div class="greenyellow-mark">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <table cellspacing="5px">
-                <!-- <tr> -->
-                <!-- <td>
-                        <div class="row">
-                            <div class="column">
-                                <label class="dsf-form-label" for="label">ETIQUETA<span style="color: red;">&nbsp;*</span></label>
-                                <input type="text" class="dsf-form-control dsf-editable-form-item part-label" required [(ngModel)]="part.label" name="label" minlength="3" maxlength="50">
-                            </div>
-                            <div class="column">
-                                <label class="dsf-form-label" for="label">Descripción</label>
-                                <textarea id="part-description" cols="38" rows="5" class="dsf-form-control dsf-editable-form-item part-description" [(ngModel)]="part.description" name="description" minlength="5" maxlength="500"></textarea>
-                            </div>
-                        </div>
-                    </td> -->
-                <!-- </tr> -->
-                <!-- <tr>
-                    <td>
-                        <div class="row">
-                            <div class="field field-margins">
-                                <label class="dsf-form-label" for="label">MATERIAL<span style="color: red;">&nbsp;*</span></label>
-                            </div>
-                            <div class="field field-margins">
-                                <label class="dsf-form-label" for="label">COLOR<span style="color: red;">&nbsp;*</span></label>
-
-                            </div>
-                        </div>
-                    </td>
-                </tr> -->
-                <tr>
-                    <td>
-                        <div class="row">
-                            <!-- C O S T -->
-                            <div cy-name="cost" class="field field-margins">
-                                <label cy-field-label="COSTE FAB." class="dsf-form-label" for="cost">COSTE FAB.<span style="color: red;">&nbsp;*</span></label>
-                                <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-cost" required [(ngModel)]="part.cost" name="cost" min="0">
-                            </div>
-                            <!-- P R I C E -->
-                            <div cy-name="price" class="field field-margins">
-                                <label cy-field-label="PRECIO" class="dsf-form-label" for="price">PRECIO<span style="color: red;">&nbsp;*</span></label>
-                                <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-price" required [(ngModel)]="part.price" name="price" min="0">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <!-- B U I L D   T I M E -->
-                            <div cy-name="buildTime" class="field field-margins">
-                                <label cy-field-label="TIEMPO" class="dsf-form-label" for="stockLevel">TIEMPO<span style="color: red;">&nbsp;*</span></label>
-                                <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-build-time" required [(ngModel)]="part.buildTime" name="buildTime" min="10">
-                            </div>
-                            <div class="field field-margins">
-                                <span>&nbsp;</span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <!-- S T O C K   L E V E L -->
-                            <div class="field field-margins">
-                                <label cy-field-label="STOCK DESEADO" class="dsf-form-label" for="stockLevel">STOCK DESEADO<span style="color: red;">&nbsp;*</span></label>
-                                <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-stock-level" required [(ngModel)]="part.stockLevel" name="stockLevel" min="0">
-                            </div>
-                            <!-- A C T U A L   S T O C K -->
-                            <div class="field field-margins">
-                                <label cy-field-label="STOCK ACTUAL" class="dsf-form-label" for="stockAvailable">STOCK ACTUAL</label><br>
-                                <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number small-field part-stock-available" [(ngModel)]="part.stockAvailable" name="stockAvailable" min="0">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <!-- I M A G E   P A T H -->
-                            <div class="field field-margins">
-                                <label class="dsf-form-label" for="imagePath">IMAGEN</label>
-                                <input type="text" class="dsf-form-control dsf-editable-form-item part-image-path" [(ngModel)]="part.imagePath" name="imagePath" maxlength="100">
-                            </div>
-                            <!-- M O D E L   P A T H -->
-                            <div class="column">
-                                <label class="dsf-form-label" for="modelPath">FICHERO MODELO</label>
-                                <input type="text" class="dsf-form-control dsf-editable-form-item part-model-path" [(ngModel)]="part.modelPath" name="modelPath" maxlength="100">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
         </form>
     </section>
     <footer id="modal-footer">
-        <div class="centered-container button-area">
-            <div class="button-container" style="width: 315px;">
+        <div class="centered-container button-row">
+            <div class="button-container double-button">
                 <button style="width: 315px;" id="repeat-button" type="submit" class="button ok-button" [disabled]="!newPartForm.form.valid" (click)="savePartAndRepeat()">
                     <i class="fa fa-check" aria-hidden="true"></i>
                     &nbsp;&nbsp;Guardar y Repetir
@@ -226,7 +254,7 @@
                 </div>
             </div>
         </div>
-        <div class="centered-container button-area">
+        <div class="centered-container button-row">
             <div class="button-container">
                 <button id="submit-button" type="submit" class="button ok-button" [disabled]="!newPartForm.form.valid" (click)="savePart()">
                     <i class="fa fa-check" aria-hidden="true"></i>
@@ -253,7 +281,8 @@
                     </svg>
                 </div>
             </div>
-            <div class="button-container">
+            <div style="width: 15px;">&nbsp;</div>
+            <div class="button-container" style="margin-bottom: 20px;">
                 <button id="cancel-button" type="button" class="button cancel-button" (click)="closeModal()">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 &nbsp;&nbsp;Go Back/Cancel
