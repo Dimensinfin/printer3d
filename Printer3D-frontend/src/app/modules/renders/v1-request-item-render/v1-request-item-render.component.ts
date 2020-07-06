@@ -30,8 +30,12 @@ export class V1RequestItemRenderComponent extends NodeContainerRenderComponent {
     public getUniqueId(): string {
         return this.getNode().getId()
     }
-    public getMissing(): number {
-        return this.getNode().getMissing();
+    public hasMissing () :boolean{
+        return this.getNode().getMissing() > 0
+    }
+    public getMissing(): string {
+        if (this.hasMissing()) return this.getNode().getMissing()+'';
+        else return '-'
     }
     public getRequired(): number {
         return this.getNode().getQuantity()
