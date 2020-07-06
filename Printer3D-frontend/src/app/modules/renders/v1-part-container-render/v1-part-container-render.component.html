@@ -2,19 +2,19 @@
 <div *ngIf="getVariant() === '-CATALOG-'">
     <div id="{{getUniqueId()}}" (click)="toggleExpanded()">
         <div class="row part-container-panel">
-            <div class="field label-width">
+            <div cy-name="label" class="field label-width">
                 <span cy-field-label="label" class="label">ETIQUETA</span><br>
                 <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
             </div>
-            <div class="field">
+            <div cy-name="description" class="field">
                 <span cy-field-label="description" class="label">DESCRIPCION</span><br>
                 <span cy-field-value="description" class="partcontainer-description">{{getDescription()}}</span>
             </div>
-            <div class="field buildTime-width">
+            <div cy-name="buildTime" class="field buildTime-width">
                 <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
                 <span cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</span>
             </div>
-            <div class="field weight-width">
+            <div cy-name="weight" class="field weight-width">
                 <span cy-field-label="weight" class="label">PLASTICO</span><br>
                 <span cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</span>
             </div>

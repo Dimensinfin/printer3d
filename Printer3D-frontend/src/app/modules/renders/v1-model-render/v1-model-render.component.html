@@ -1,3 +1,4 @@
+<!-- S E L L A B L E   I T E M S -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'REQUEST-CONTENT'" [dragClass]="'model-selected'">
     <div class="row" (mouseenter)="mouseEnter(node)" (mouseleave)="mouseLeave(node)">
         <div class="field label-width">
@@ -29,21 +30,22 @@
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>
+<!-- C A T A L O G -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-CATALOG-'">
     <div class="row" (mouseenter)="mouseEnter(node)" (mouseleave)="mouseLeave(node)">
-        <div class="field label-width">
+        <div cy-name="label" class="field label-width">
             <span cy-field-label="label" class="label">ETIQUETA</span><br>
             <span cy-field-value="label" class="field-height part-material">{{getLabel()}}</span>
         </div>
-        <div class="field left price-width">
+        <div cy-name="partCount" class="field left quantity-width">
             <span cy-field-label="partCount" class="label">NUMERO PIEZAS</span><br>
             <span cy-field-value="partCount" class="field-height part-material">{{getContentCount()}}</span>
         </div>
-        <div class="field price-width">
+        <div cy-name="price" class="field price-width">
             <span cy-field-label="price" class="label">PRECIO</span><br>
             <span cy-field-value="price" class="field-height part-material">{{getPrice()}}</span>
         </div>
-        <div cy-name="edit-button" class="field duplicate-width" (click)="toggleEdition()">
+        <div cy-name="edit-button" class="field" (click)="toggleEdition()">
             <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
         </div>
     </div>

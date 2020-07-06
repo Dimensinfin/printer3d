@@ -13,16 +13,16 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     Background: Application landing page
         Given the application Printer3DManager
 
-    @D3D07 @D3D07.01
-    Scenario: [D3D07.01]-Validate the structure of the Inventory Part List Page version 2.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
-        And the loading panels shows "Clasificando Piezas..."
-        When the loading panel completes
-        Given the target panel is the panel of type "catalog"
-        Then the target panel has a title "/CATALOGO PIEZAS Y MODELOS"
-        Then the target panel has 2 "model"
-        Then the target panel has 6 "part-container"
+    # @D3D07 @D3D07.01
+    # Scenario: [D3D07.01]-Validate the structure of the Inventory Part List Page version 2.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     And the loading panels shows "Clasificando Piezas..."
+    #     When the loading panel completes
+    #     Given the target panel is the panel of type "catalog"
+    #     Then the target panel has a title "/CATALOGO PIEZAS Y MODELOS"
+    #     Then the target panel has 2 "model"
+    #     Then the target panel has 6 "part-container"
 
     @D3D07 @D3D07.02
     Scenario: [D3D07.02]-Validate the contents of a Model. If the Model is hovered then the Model expands to show the contents.

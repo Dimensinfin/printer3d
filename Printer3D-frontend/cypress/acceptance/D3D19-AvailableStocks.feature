@@ -1,7 +1,7 @@
 @D3D19
 Feature: [D3D19]-[STORY] There is a list of items that can be deployed inside a Request.
 
-        When creating a request there is a panel that contains the elements that can be deployed on the Request.
+    To create a request there is a panel that contains the elements that can be deployed on the Request.
     This list has also some interactions and some data on the panels that is described on this feature.
 
     Background: Application landing page

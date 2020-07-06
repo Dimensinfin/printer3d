@@ -45,9 +45,6 @@ Then('the target item has a column named {string} with value {string}', function
         cy.get('[cy-name="' + columnName + '"]').contains(fieldValue, { matchCase: false })
     })
 });
-Then('the target item has a actionable image named {string}', function (buttonName: string) {
-    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
-});
 Given('a hover on the target item', function () {
     cy.get('@target-item').trigger('mouseenter')
 });

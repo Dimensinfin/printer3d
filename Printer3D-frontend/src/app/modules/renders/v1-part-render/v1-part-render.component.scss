@@ -1,17 +1,25 @@
-.part {
-    font-family: 'Electrolize', sans-serif;
-    font-weight: bold;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
+// .part {
+//     font-family: 'Electrolize', sans-serif;
+//     font-weight: bold;
+//     font-size: 20px;
+//     font-weight: bold;
+//     color: white;
+// }
+.edit-attributes {
+    width: 50px;
 }
 
-.edit-attributes {
-    width: 60px;
+.save-attributes {
+    width: 50px;
+}
+
+.save-disabled {
+    fill: gray;
+    opacity: 40%
 }
 
 .save-modifications {
-    width: 60px;
+    width: 50px;
     filter: invert(54%) sepia(16%) saturate(7150%) hue-rotate(85deg) brightness(123%) contrast(119%);
 }
 
@@ -29,11 +37,7 @@
 }
 
 .material-width {
-    min-width: 240px;
-}
-
-.price-width {
-    width: 35px;
+    min-width: 280px;
 }
 
 .stock-width {
@@ -41,7 +45,11 @@
 }
 
 .active-width {
-    min-width: 55px;
+    min-width: 90px;
+}
+
+.price-width {
+    width: 35px;
 }
 
 .active {
@@ -64,7 +72,23 @@
 
 .duplicate-icon {
     margin-top: 6px;
-    height: 32px;
+    height: 25px;
+}
+
+.save-icon-disabled {
+    margin-top: 6px;
+    height: 30px;
+}
+
+.save-icon {
+    margin-top: 6px;
+    height: 30px;
+}
+
+.save-icon:hover {
+    margin-top: 6px;
+    height: 30px;
+    fill: green;
 }
 
 .duplicate-icon:hover {

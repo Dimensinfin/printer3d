@@ -130,6 +130,14 @@ Then('the target panel has a field named {string} with label {string} and conten
         cy.get('@target-field').find('[cy-field-value="' + fieldLabel + '"]')
             .contains(fieldValue, { matchCase: false })
     });
+// - B U T T O N S
+Then('the target item has a actionable image named {string}', function (buttonName: string) {
+    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
+});
+Then('the target item has a disabled image named {string}', function (buttonName: string) {
+    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
+    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').invoke('attr', 'disabled').should('exist')
+});
 
 
 
