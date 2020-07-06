@@ -7,6 +7,7 @@ import { RendersModule } from '../renders/renders.module';
 // - COMPONENTS
 import { V1DockComponent } from './v1-dock/v1-dock.component';
 import { V1DropPartPanelComponent } from './v1-drop-part-panel/v1-drop-part-panel.component';
+import { V1WorkLoadPanelComponent } from './v1-work-load-panel/v1-work-load-panel.component';
 
 @NgModule({
     imports: [
@@ -16,11 +17,13 @@ import { V1DropPartPanelComponent } from './v1-drop-part-panel/v1-drop-part-pane
     ],
     declarations: [
         V1DockComponent,
-        V1DropPartPanelComponent
+        V1DropPartPanelComponent,
+        V1WorkLoadPanelComponent
     ],
     exports: [
         V1DockComponent,
-        V1DropPartPanelComponent
+        V1DropPartPanelComponent,
+        V1WorkLoadPanelComponent
     ]
 })
 export class AppCommonModule { }

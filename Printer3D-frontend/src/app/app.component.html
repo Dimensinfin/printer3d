@@ -1,10 +1,13 @@
-<div class="row"><span class="app-title">{{appTitle}}</span>
+<div class="row"><span cy-name="app-title" class="app-title">{{appTitle}}</span>
     <div>
-        <span class="app-version">{{appVersion}}</span><br>
-        <span class="backend-version">{{backendVersion}}</span>
+        <span cy-name="app-version" class="app-version">{{appVersion}}</span><br>
+        <span cy-name="backend-version" class="backend-version">{{backendVersion}}</span>
+    </div>
+    <div class="left">
+        <v1-work-load-panel></v1-work-load-panel>
     </div>
 </div>
-<div class="page-path">/DASHBOARD</div>
+<div cy-name="page-path" class="page-path">/DASHBOARD</div>
 <hr>
 <v1-dock [routerDetector]="self"></v1-dock>
 <hr style="margin-top: 7px;">
