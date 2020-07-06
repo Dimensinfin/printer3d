@@ -20,6 +20,11 @@ export class V2FeatureRenderComponent {
 
     constructor(private dialogFactory: DialogFactoryService) { }
 
+    public isMarkVisible(): boolean {
+        if (this.node.interaction == 'DIALOG') return true
+        if (this.node.modifier == 'DROP') return true
+        return false
+    }
     /**
      * If the Feature is of the type PAGEROUTE then we should send a message to the Dock to report the change on the Feature active.
      * If the feature is of type DIALOG then we can process the click here by opening the dialog requested.
