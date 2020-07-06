@@ -67,13 +67,6 @@ Given('the target item named button {string} is clicked', function (buttonName: 
 Given('the target item field named {string} is editable', function (fieldName: string) {
     cy.get('@target-item').find('[cy-name="' + fieldName + '"]')
         .find('input').should('exist')
-
-    //     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-    // .find('node-container').find('v1-part').find('.field').as('target-part-field')
-    // .find('.label').contains(fieldName)
-    // cy.get('@target-part-field').find('input').should('exist')
-
-
 });
 
 
@@ -83,76 +76,6 @@ Given('the target item field named {string} is editable', function (fieldName: s
 
 
 // ---------------------------------------------------
-// Then('the V2InventoryPartListPage is activated', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').as('target-page')
-//         .should('exist');
-// });
-
-// Then('one instance of ViewerPanel', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').should('exist');
-// });
-
-// Then('one or more instances of NodeContainer', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel').find('node-container').should('exist');
-// });
-
-Then('the first NodeContainer contains a Part Container Render', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').find('v1-part-container').should('exist');
-});
-
-Then('on the v1-part-container component there is a field named {string} with class {string}', function (fieldName: string, fieldClass: string) {
-    const fieldClassIdentifier = '.' + fieldClass
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').first().find('v1-part-container')
-        .find('.field').as('target-partcontainer-field')
-        .find(fieldClassIdentifier).should('exist')
-    cy.get('@target-partcontainer-field').find('.label').contains(fieldName)
-    cy.get('@target-partcontainer-field').find(fieldClassIdentifier).should('exist')
-});
-
-Then('there is a loading panel displaying {string}', function (downloadMessage: string) {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('.index-loading').contains(downloadMessage)
-});
-
-// Then('on the v1-part-container component there is a right arrow', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container').find('.arrow-box')
-//         .find('.right-arrow').should('exist')
-// });
-
-// When('the right arrow is clicked', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container').find('.arrow-box')
-//         .find('.right-arrow').first().click()
-// });
-// Then('the container expands and there are one or more v1-part nodes', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container').find('v1-part').should('exist');
-// });
-
-Then('on the v1-part component there is a field named {string} with class {string}', function (fieldName: string, fieldClass: string) {
-    const fieldClassIdentifier = '.' + fieldClass
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').find('v1-part').first()
-        .find('.field').as('target-part-field')
-        .find(fieldClassIdentifier).should('exist')
-    cy.get('@target-part-field').find('.label').contains(fieldName)
-    cy.get('@target-part-field').find(fieldClassIdentifier).should('exist')
-});
-// Then('the field {string} is editable', function (fieldName: string) {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container').find('v1-part').find('.field').as('target-part-field')
-//         .find('.label').contains(fieldName)
-//     cy.get('@target-part-field').find('input').should('exist')
-// });
-
-When('the first v1-part is selected as the target', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container').find('v1-part')
-        .first().as('target-part')
-});
 
 Then('the field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
     cy.get('@target-part')
@@ -178,22 +101,6 @@ Then('the target Part shows an Edit button at the right', function () {
     });
 });
 
-// When('any Part shows a Save button a the right', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container')
-//         .find('v1-part')
-//         .find('.save-modifications').should('exist')
-// });
-
-// Then('the target Part shows a Edit button at the right', function () {
-// });
-// Then('any Part shows an Edit button at the right', function () {
-//     cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-//         .find('node-container')
-//         .find('v1-part').first().within(($part) => {
-//         cy.get('.edit-attributes').should('exist')
-//     });
-// });
 
 Then('the target Part shows a Save button at the right', function () {
     cy.get('@target-part').within(($part) => {
@@ -213,20 +120,6 @@ When('the target Part Save button is clicked', function () {
     });
 });
 
-Then('the new part contents are persisted to the backend', function () {
-    cy.log('the new part contents are persisted to the backend')
-    cy.wait(1000)
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container')
-        .find('v1-part').should('exist')
-});
-
-
-Then('the edit state is exited', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container')
-        .find('v1-part').find('input').should('not.exist')
-});
 
 Then('the target Part field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
     cy.get('@target-part')
@@ -251,11 +144,6 @@ Then('the target Part field {string} is changed to {string}', function (fieldNam
         .find('.field').within(($panel) => {
             cy.get('[name="' + fieldName + '"]').clear().type(newValue)
         });
-});
-Then('when the target Part Container is the second', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').find('viewer-panel')
-        .find('node-container')
-        .find('v1-part-container').eq(1).as('target-part')
 });
 When('the right arrow of the target Part Container is clicked', function () {
     cy.get('@target-part').parent().parent().within(($panel) => {

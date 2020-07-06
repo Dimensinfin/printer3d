@@ -34,6 +34,20 @@ Then('the Feature with label {string} opens a DropPage', function (label: string
 });
 
 
+Then('there are {int} Features enabled', function (int) {
+    cy.get('v1-dock').find('v2-feature-render').within(($panel) => {
+        cy.get('.feature-clip').should('not.have.class', 'disabled')
+    });
+});
+Then('the target Feature {string} changes to state {string}', function (featureLabel:string, state:string) {
+    if ( state=='active')
+    cy.get('@target-feature').within(($panel) => {
+        cy.get('.corner-mark').should('exist')
+    });
+    if ( state=='inactive')
+    cy.get('@target-feature').within(($panel) => {
+        cy.get('.corner-mark').should('not.exist')
+    });
 Then('the target Feature {string} changes to state {string}', function (featureLabel: string, state: string) {
     if (state == 'active')
         cy.get('@target-feature').within(($panel) => {
@@ -71,17 +85,9 @@ Then('the target Feature {string} changes to state {string}', function (featureL
 
 
 
-// Then('there are {int} Features active', function (int) {
-//     cy.get('v1-dock').find('v1-feature-render')
-// });
-
 
 Then('the target page is InventoryPartListPage', function () {
     cy.get('app-root').find('inventory-part-list-page').should('have.length', 1);
-});
-
-Then('the target page is V2InventoryPartListPage', function () {
-    cy.get('app-root').find('v2-inventory-part-list-page').should('have.length', 1);
 });
 
 Then('there are {int} Features', function (featureCount) {
