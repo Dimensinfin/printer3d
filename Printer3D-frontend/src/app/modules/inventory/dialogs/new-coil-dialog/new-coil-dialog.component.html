@@ -1,85 +1,153 @@
-<div id="modal-content-wrapper">
+<div cy-name="new-coil-dialog" id="modal-content-wrapper">
     <header id="modal-header">
         <div class="header-title">/Inventario/Nuevo Rollo</div>
     </header>
     <section id="modal-body">
-        <!-- N E W   S E R V I C E   F O R M -->
+        <!-- N E W   C O I L   F O R M -->
         <form #newCoilForm="ngForm" class="dsf-form" autocomplete="off">
-            <table cellspacing="5px">
-                <!-- I D E N T I F I E R -->
-                <tr>
-                    <td>
-                        <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="label">ID</label>
-                            <span class="tooltiptext tooltip-right">
-                                Identificador único generado automaticamente.
-                            </span>
+            <div class="row">
+                <!-- M A T E R I A L -->
+                <div cy-name="material" class="field field-margins">
+                    <span cy-field-label="material" cy-input-type="input" class="label">MATERIAL</span><br>
+                    <div class="dsf-input-container material-width">
+                        <input name="material" class="dsf-input" [(ngModel)]="coil.material" required minlength="2" maxlength="16" #material="ngModel">
+                        <svg class="corner-border" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        </svg>
+                        <svg class="corner-clear" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                        </svg>
+                        <div [ngClass]="{'ng-valid': !material.invalid}">
+                            <svg class="corner-mark" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            </svg>
                         </div>
-                    </td>
-                    <td><span id="coil-id" class="dsf-form-control dsf-untouchable-form-item coil-id">{{coil.id}}</span></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <!-- M A T E R I A L -->
-                    <td>
-                        <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="label">Material<span style="color: red;">&nbsp;*</span></label>
-                            <span class="tooltiptext tooltip-right">
-                                El tipo de material del filamento.
-                            </span>
+                    </div>
+                </div>
+                <!-- C O L O R -->
+                <div cy-name="color" class="field left">
+                    <span cy-field-label="color" cy-input-type="input" class="label">COLOR</span><br>
+                    <div class="dsf-input-container color-width">
+                        <input name="color" class="dsf-input" [(ngModel)]="coil.color" required minlength="2" maxlength="32" #color="ngModel">
+                        <svg class="corner-border" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        </svg>
+                        <svg class="corner-clear" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                        </svg>
+                        <div [ngClass]="{'ng-valid': !color.invalid}">
+                            <svg class="corner-mark" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            </svg>
                         </div>
-                    </td>
-                    <td>
-                        <input id="coil-material" type="text" class="dsf-form-control dsf-editable-form-item coil-material" required [(ngModel)]="coil.material" name="material" minlength="1" maxlength="16" #spy>
-                    </td>
-                    <!-- C O L O R -->
-                    <td>
-                        <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="label">Color<span style="color: red;">&nbsp;*</span></label>
-                            <span class="tooltiptext tooltip-right">
-                                El color del filamento.
-                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row centered-container">
+                <!-- W E I G H T -->
+                <div cy-name="weight" class="field">
+                    <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
+                    <div class="dsf-input-container weight-width">
+                        <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="coil.weight" required min="1" max="2000" #partWeight="ngModel">
+                        <svg class="corner-border" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        </svg>
+                        <svg class="corner-clear" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                        </svg>
+                        <div [ngClass]="{'ng-valid': !partWeight.invalid}">
+                            <svg class="corner-mark" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            </svg>
                         </div>
-                    </td>
-                    <td>
-                        <input id="coil-color" type="text" class="dsf-form-control dsf-editable-form-item coil-color" required [(ngModel)]="coil.color" name="color" minlength="1" maxlength="32" #spy>
-                    </td>
-                </tr>
-                <tr>
-                    <!-- W E I G H T -->
-                    <td>
-                        <div class="dsf-tooltip">
-                            <label class="dsf-form-label" for="label">Peso<span style="color: red;">&nbsp;*</span></label>
-                            <span class="tooltiptext tooltip-right">
-                                El peso del rollo.
-                            </span>
-                        </div>
-                    </td>
-                    <td>
-                        <input id="coil-weight" type="number" class="dsf-form-control dsf-number dsf-editable-form-item coil-weight" required [(ngModel)]="coil.weight" name="weight">
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+            </div>
         </form>
     </section>
     <footer id="modal-footer">
-        <div class="centered-container button-area">
-            <button id="repeat-button" type="submit" class="dsf-form-button repeat-button form-button" [disabled]="!newCoilForm.form.valid" (click)="saveCoilAndRepeat()">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                &nbsp;&nbsp;Guardar y Repetir
-            </button>
+        <div class="centered-container button-row">
+            <div class="button-container double-button">
+                <button cy-name="repeat-button" type="submit" class="button ok-button double-button" [disabled]="!newCoilForm.form.valid" (click)="saveCoilAndRepeat()">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Guardar y Repetir
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#240F21" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="#240F21" />
+                </svg>
+                <div *ngIf="newCoilForm.form.valid">
+                    <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
         </div>
-        <div class="centered-container button-area">
-            <button id="submit-button" type="submit" class="dsf-form-button submit-button form-button" [disabled]="!newCoilForm.form.valid" (click)="saveCoil()">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                &nbsp;&nbsp;Guardar Datos
-            </button>
-            <button id="cancel-button" type="button" class="dsf-form-button clearform-button form-button" (click)="closeModal()">
+        <div class="centered-container button-row">
+            <div class="button-container">
+                <button cy-name="submit-button" type="submit" class="button ok-button" [disabled]="!newCoilForm.form.valid" (click)="saveCoil()">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Guardar Datos
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#240F21" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="#240F21" />
+                </svg>
+                <div *ngIf="newCoilForm.form.valid">
+                    <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
+            <div style="width: 15px;">&nbsp;</div>
+            <div class="button-container" style="margin-bottom: 20px;">
+                <button cy-name="cancel-button" type="button" class="button cancel-button" (click)="closeModal()">
                 <i class="fa fa-times" aria-hidden="true"></i>
-                &nbsp;&nbsp;Go Back/Cancel
-            </button>
+                &nbsp;&nbsp;Cancelar
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#240F21" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="#240F21" />
+                </svg>
+                <div>
+                    <svg class="button-right-mark orange-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark orange-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
         </div>
     </footer>
 </div>

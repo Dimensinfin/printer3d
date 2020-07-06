@@ -4,8 +4,8 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
     One of the key elements to work are the Parts. They are created on a Dialog that has two entries. The first is a Feature button that creates a new Part.
     The second is duplicating a previous existing Part inheriting some but not all of the field values.
-    Describe and test the cretion of a new Part.
-    Descrive and test the duplication of an existing part creating a new Part.
+    Describe and test the creation of a new Part.
+    Describe and test the duplication of an existing part creating a new Part.
 
     Background: Dock Default Configuration setup
         Given the application Printer3DManager
