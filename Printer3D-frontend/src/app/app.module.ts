@@ -24,6 +24,7 @@ import { BackendService } from './services/backend.service';
 import { AppComponent } from './app.component';
 
 // - APPLICATION MODULES
+import { AppCommonModule } from './modules/common/common.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { RendersModule } from './modules/renders/renders.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
@@ -33,7 +34,6 @@ import { ProductionModule } from './modules/production/production.module';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { AppErrorHandler } from './AppErrorHandler';
-// import { V1PendingJobsPanelComponent } from './panels/v1-pending-jobs-panel/v1-pending-jobs-panel.component';
 registerLocaleData(localeEs);
 
 // - ERROR INTERCEPTION
@@ -60,6 +60,7 @@ registerLocaleData(localeEs);
         MatDialogModule,
         NgDragDropModule.forRoot(),
         // - APPLICATION MODULES
+        AppCommonModule,
         SharedModule,
         RendersModule,
         InventoryModule,
@@ -67,7 +68,6 @@ registerLocaleData(localeEs);
     ],
     declarations: [
         AppComponent,
-        // V1DropPartPanelComponent,
     ],
     providers: [
         // - SERVICES
@@ -83,9 +83,6 @@ registerLocaleData(localeEs);
         // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
         // { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
     ],
-    // exports: [
-    //     V1DropPartPanelComponent
-    // ],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

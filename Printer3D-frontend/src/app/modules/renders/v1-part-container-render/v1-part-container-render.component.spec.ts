@@ -25,7 +25,7 @@ import { HttpClientWrapperService } from '@app/services/httpclientwrapper.servic
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { V1DockComponent } from '../../shared/panels/v1-dock/v1-dock.component';
+import { V1DockComponent } from '../../common/v1-dock/v1-dock.component';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { Part } from '@domain/Part.domain';
 import { V1PartContainerRenderComponent } from './v1-part-container-render.component';
