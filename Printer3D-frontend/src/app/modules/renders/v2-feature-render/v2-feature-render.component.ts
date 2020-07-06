@@ -25,6 +25,9 @@ export class V2FeatureRenderComponent {
         if (this.node.modifier == 'DROP') return true
         return false
     }
+    public getLabel(): string {
+        return this.node.label
+    }
     /**
      * If the Feature is of the type PAGEROUTE then we should send a message to the Dock to report the change on the Feature active.
      * If the feature is of type DIALOG then we can process the click here by opening the dialog requested.

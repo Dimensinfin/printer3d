@@ -18,15 +18,15 @@ When('the Feature with label {string} is clicked the destination is the Page {st
     cy.wait(500)
     cy.get('app-root').find(tag).should('exist')
 });
-When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (label: string, symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.get('v1-dock')
-        .find('v2-feature-render')
-        .contains(label, { matchCase: false }).parent()
-        .click('center');
-    cy.get('app-root')
-        .get(tag).should('exist').as('target-dialog')
-});
+// When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (label: string, symbolicName: string) {
+//     const tag = supportService.translateTag(symbolicName) // Do name replacement
+//     cy.get('v1-dock')
+//         .find('v2-feature-render')
+//         .contains(label, { matchCase: false }).parent()
+//         .click('center');
+//     cy.get('app-root')
+//         .get(tag).should('exist').as('target-dialog')
+// });
 Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
     cy.get('@target-panel').within(($item) => {
         cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })

@@ -26,21 +26,14 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given one instance of Dock
         Then the Feature with label "/NUEVO ROLLO" opens a Dialog
         Then the Feature with label "/NUEVA PIEZA" opens a Dialog
-        Then the Feature with label "/NUEVO MODELO" opens a Page
-        Then the Feature with label "/NUEVO PEDIDO" opens a Page
-
-        Then the Feature with label "/ROLLOS" opens a Page
-        Then the Feature with label "/INVENTARIO" opens a Page
-        Then the Feature with label "/PEDIDOS" opens a Page
-        Then the Feature with label "/TRABAJOS PND." opens a Page
 
     @D3D02.03
-    Scenario: [D3D02.0]-Different types of features have different visuals. The ones that open a Dialog a blue corner. The ones that open editors a violet corner.
+    Scenario: [D3D02.03]-Different types of features have different visuals. The ones that open a Dialog a blue corner. The ones that open editors a violet corner.
         Given one instance of Dock
         Then the Feature with label "/NUEVO MODELO" opens a DropPage
         Then the Feature with label "/NUEVO PEDIDO" opens a DropPage
 
-    @D3D02 @D3D02.04
+    @D3D02.04
     Scenario: [D3D02.04]-When a new page is selected the Dock visual configuration for the active Feature changes.
         Given one instance of Dock
         When there are no Features active
@@ -49,18 +42,27 @@ Feature: [D3D02]-Test the dock contents and configuration.
         When there is a click on Feature "/NUEVA PIEZA"
         And the target Feature "/NUEVA PIEZA" changes to state "active"
 
-    @D3D02 @D3D02.05
+    @D3D02.05
     Scenario: [D3D02.05] When the dialog closes the Feature that opens it should go back to inactive.
         Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
+        # When there is a click on Feature "/NUEVA PIEZA"
+        And the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "new-part-dialog"
         And the target Feature "/NUEVA PIEZA" changes to state "active"
-        When there is a click on the "CLOSE" button
+        When there is a click on the "cancel-button" button of target dialog
         And the target Feature "/NUEVA PIEZA" changes to state "inactive"
 
-    @D3D02 @D3D02.06
+    @D3D02.06
     Scenario: [D3D02.06]-Validate the elements that open a Dialog.
         Given one instance of Dock
         When the Feature with label "/NUEVO ROLLO" is clicked the destination is the Dialog "new-coil-dialog"
         And there is a click on the "cancel-button" button of target dialog
         When the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "new-part-dialog"
         When there is a click on the "cancel-button" button of target dialog
+
+    @D3D02.07
+    Scenario: [D3D02.07]-Check that Features that open Pages do not have any top corner colored differently
+        Given one instance of Dock
+        Then the Feature with label "/ROLLOS" opens a Page
+        Then the Feature with label "/INVENTARIO" opens a Page
+        Then the Feature with label "/PEDIDOS" opens a Page
+        Then the Feature with label "/TRABAJOS PND." opens a Page

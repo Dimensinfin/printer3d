@@ -219,14 +219,6 @@ When('the Feature with label {string} is clicked the destination is the Page {st
     cy.wait(1200)
     cy.get('app-root').find(destination).should('exist')
 });
-When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (label: string, destination: string) {
-    cy.get('v1-dock')
-        .find('v2-feature-render')
-        .contains(label, { matchCase: false }).parent()
-        .click('center');
-    cy.get('app-root')
-        .get(destination).should('exist').as('target-dialog')
-});
 // - C O M M O N   T O   S O M E   F E A T U R E S
 Given('the target panel is the panel with variant {string}', function (variant: string) {
     cy.get('@target-page').find('.row')
