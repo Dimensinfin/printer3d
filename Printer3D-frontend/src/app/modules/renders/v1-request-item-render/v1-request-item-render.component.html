@@ -1,8 +1,9 @@
+<!-- D E T A I L 4 R E Q U E S T  -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-DETAIL4REQUEST-'" class="row">
     <div class="field column-missing-width ">
         <span cy-name="FALTAN" class="field-height part-missed-count">{{getMissing()}}</span>
     </div>
-    <div class="field column-required-width ">
+    <div class="field column-quantity-width ">
         <span cy-name="PEDIDAS" class="field-height part-required">{{getRequired()}}</span>
     </div>
     <div class="field column-label-width ">
@@ -11,9 +12,6 @@
     <div class="field column-material-width ">
         <span cy-name="TERMINACION" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
     </div>
-    <!-- <div class="field column-color-width ">
-        <span cy-name="COLOR" class="field-height part-color">{{getColor()}}</span>
-    </div> -->
 </div>
 <!-- N E W   R E Q U E S T  -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-NEW-REQUEST-'" class="row">

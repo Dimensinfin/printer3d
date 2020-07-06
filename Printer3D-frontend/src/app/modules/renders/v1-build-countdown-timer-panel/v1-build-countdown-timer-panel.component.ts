@@ -61,10 +61,9 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
             this.timerSubscription = timer$.subscribe(elapsed => {
                 // Calculate the number of secods left.
                 let left = this.duration - elapsed;
-                // Convert to minutes/seconds.
-                this.hours = toHours(left * K);
-                this.minutes = toMinutes(left * K);
-                this.seconds = toSeconds(left * K);
+                // Convert to hours/minutes.
+                this.hours = Math.floor(durationInSeconds / 3600);
+                this.minutes = Math.floor((durationInSeconds - this.hours * 3600) / 60)
                 if (left < 1) this.completeTimer();
             });
         } else {
@@ -95,10 +94,9 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
     private setTimer(durationInSeconds: number): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Duration: ' + durationInSeconds);
         this.duration = durationInSeconds;
-        this.hours = toHours(durationInSeconds * K);
-        this.minutes = toMinutes(durationInSeconds * K);
+        this.hours = Math.floor(durationInSeconds / 3600);
+        console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Hours: ' + this.hours);
+        this.minutes = Math.floor((durationInSeconds - this.hours * 3600) / 60)
         console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Minutes: ' + this.minutes);
-        this.seconds = toSeconds(durationInSeconds * K);
-        console.log('>[V1BuildCountdownTimerPanelComponent.setTimer]> Seconds: ' + this.seconds);
     }
 }
