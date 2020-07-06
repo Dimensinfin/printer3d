@@ -3,6 +3,9 @@ package org.dimensinfin.printer3d.backend.production.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 public class FinishingContainer {
@@ -23,6 +26,13 @@ public class FinishingContainer {
 	public FinishingContainer addJob( final Job job ) {
 		this.jobs.add( job );
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
+				.append( "jobs", jobs )
+				.toString();
 	}
 
 	// - B U I L D E R

@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.production.job.rest.v1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,7 @@ public class JobServiceV1 {
 			// Initialize the result list
 			final List<Job> jobs = new ArrayList<>( this.generateMissingRequestJobs() );
 			this.stockManager.clean().startStock(); // Initialize the stock with the current repository values.
+			this.reserveModels(); // Subtract the model parts from the inventory before leveling.
 			jobs.addAll( this.sortByFinishingCount( this.generateStockLevelJobs() ) );
 			return jobs;
 		} finally {
@@ -129,6 +131,7 @@ public class JobServiceV1 {
 			finishings.computeIfAbsent( key, finishingContainer -> new FinishingContainer.Builder().build() );
 			finishings.compute( key, ( String targetKey, FinishingContainer container ) -> Objects.requireNonNull( container ).addJob( job ) );
 		}
+		LogWrapper.info( "Finishings: " + finishings.values().toString() );
 		return new ArrayList<>( finishings.values() );
 	}
 
@@ -176,7 +179,10 @@ public class JobServiceV1 {
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		try {
 			this.partRepository.findAll().forEach( part -> {
-				for (int stock = part.getStockAvailable(); stock < part.getStockLevel(); stock++)
+				final int missingParts = part.getStockLevel() - this.stockManager.getStock( part.getId() ); // Account for model requirements.
+				LogWrapper.info( "Stock: " + part.getStockLevel() + " count: " + this.stockManager.getStock( part.getId() ) );
+				LogWrapper.info( "Missing: " + missingParts );
+				for (int count = 0; count < missingParts; count++)
 					jobs.add( new Job.Builder().withPart(
 							new PartEntityToPartConverter().convert( part )
 					).withPriority( STOCK_LEVEL_PRIORITY ).build() );
@@ -205,11 +211,22 @@ public class JobServiceV1 {
 		return resultContents;
 	}
 
+	private void reserveModels() {
+		this.modelRepository.findAll()
+				.stream()
+				.filter( modelEntity -> modelEntity.isActive() )
+				.forEach( modelEntity -> {
+					for (UUID partId : modelEntity.getPartIdList())
+						this.stockManager.minus( partId, modelEntity.getStockLevel() ); // Subtract the part instance required for the model					}
+				} );
+	}
+
 	private List<Job> sortByFinishingCount( final List<Job> inputList ) {
 		final List<FinishingContainer> finishings = this.generateFinishingList( inputList );
+		Collections.sort(finishings, new FinishingByCountComparator());
 		return finishings
 				.stream()
-				.sorted( ( fin1, fin2 ) -> new FinishingByCountComparator().compare( fin1, fin2 ) )
+//				.sorted( ( fin1, fin2 ) -> new FinishingByCountComparator().compare( fin1, fin2 ) )
 				.flatMap( finishingContainer -> finishingContainer.getJobs().stream() )
 				.collect( Collectors.toList() );
 	}

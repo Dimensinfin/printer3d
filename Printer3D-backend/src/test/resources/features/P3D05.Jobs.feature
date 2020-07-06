@@ -75,3 +75,51 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+
+    @P3D05.H @P3D05.04
+    Scenario: [P3D05.04] When calculating the Model requirements from stock using the preferred stock level the list of jobs for leveling grows.
+        Given a clean Requests repository
+        Given a clean RequestsV2 repository
+        Given a clean Parts repository
+        And the following Parts in my service
+            | id                                   | label                                   | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                 |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 10     | 30        | 1.0  | 5.00  | 2          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                       |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 10     | 45        | 1.0  | 5.00  | 3          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 10     | 15        | 0.1  | 1.00  | 10         | 2              |                        |            | true   | Union para las piezas de laplataforma slot                                                  |
+        Given a clean Models repository
+        And the following Models in my service
+            | id                                   | label              | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataform | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
+        When the Get Jobs request is processed
+        Then there is a valid response with return code of "200 OK"
+        And the list of jobs has "28" records
+        And the jobs records contain the next information
+            | part.id                              | part.label                              | priority |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
