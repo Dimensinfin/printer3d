@@ -13,14 +13,12 @@ import { RendersModule } from '../renders/renders.module';
 // - COMPONENTS
 import { NewPartDialogComponent } from './dialogs/new-part-dialog/new-part-dialog.component';
 import { NewCoilDialogComponent } from './dialogs/new-coil-dialog/new-coil-dialog.component';
-// import { V2PartListPageComponent } from './pages/v2-inventory-part-list-page/v2-inventory-part-list-page.component';
 import { V2CoilListPageComponent } from './pages/v2-coil-list-page/v2-coil-list-page.component';
 import { V1NewModelPageComponent } from './pages/v1-new-model-page/v1-new-model-page.component';
 import { V1NewModelPanelComponent } from './panels/v1-new-model-panel/v1-new-model-panel.component';
 import { V1AvailablePartsPanelComponent } from './panels/v1-available-parts-panel/v1-available-parts-panel.component';
 import { V3InventoryPageComponent } from './pages/v3-inventory-page/v3-inventory-page.component';
 import { V1CatalogPanelComponent } from './panels/v1-catalog-panel/v1-catalog-panel.component';
-import { V1EditPartPanelComponent } from './panels/v1-edit-part-panel/v1-edit-part-panel.component';
 
 const routes: Routes = [
     { path: 'partlist', component: V3InventoryPageComponent },
@@ -41,14 +39,12 @@ const routes: Routes = [
     declarations: [
         NewPartDialogComponent,
         NewCoilDialogComponent,
-        // V2PartListPageComponent,
         V2CoilListPageComponent,
         V1NewModelPageComponent,
         V1NewModelPanelComponent,
         V1AvailablePartsPanelComponent,
         V3InventoryPageComponent,
         V1CatalogPanelComponent,
-        V1EditPartPanelComponent
     ],
     exports: [
         RouterModule
