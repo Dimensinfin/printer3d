@@ -13,9 +13,11 @@ export class SupportService {
         this.translationTable['OpenRequestsPage'] = 'v1-open-requests-page'
         this.translationTable['NewModelPage'] = 'v1-new-model-page'
         this.translationTable['InventoryPage'] = 'v3-inventory-page'
+        this.translationTable['CoilsPage'] = 'v2-coil-list-page'
         // - PANELS
         this.translationTable['dock'] = 'v1-dock'
         this.translationTable['work-load'] = 'v1-work-load-panel'
+        this.translationTable['coils'] = 'v1-coils-panel'
         this.translationTable['available-parts'] = 'v1-available-parts-panel'
         this.translationTable['new-request'] = 'v1-new-request-panel'
         this.translationTable['new-model'] = 'v1-new-model-panel'

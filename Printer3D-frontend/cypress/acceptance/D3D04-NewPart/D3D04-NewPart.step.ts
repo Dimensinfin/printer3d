@@ -83,13 +83,8 @@ Then('the target panel has a form field named {string} with label {string} and c
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
             .contains(fieldLabel, { matchCase: false })
-        // Read the type of field from the cy-input-type
-        // let inputType: string = ''
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
             cy.log(type as string);
-            // inputType = type as string
-            // })
-            // if (inputType != '') {
             switch (type) {
                 case 'input':
                     cy.log('input')
@@ -180,10 +175,7 @@ Then('the target panel field {string} is tested for value constraints', function
 
 Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
     cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
-    let inputType: string = ''
     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-        // cy.log(type as string);
-        // inputType = type as string
         switch (type) {
             case 'input':
                 cy.get('@target-field').find('input').clear().type(fieldValue)
@@ -197,9 +189,6 @@ Given('{string} is set on form field {string}', function (fieldValue: string, fi
                 break
         }
     })
-    // cy.log(inputType)
-    // if (inputType != '') {
-    // }
 });
 Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
     cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')

@@ -36,7 +36,7 @@ import { Part } from '@domain/Part.domain';
 import { NewCoilDialogComponent } from './new-coil-dialog.component';
 import { Coil } from '@domain/Coil.domain';
 
-describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
+xdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
     let component: NewCoilDialogComponent;
     let backendService: SupportBackendService;
     let fixture: ComponentFixture<NewCoilDialogComponent>;

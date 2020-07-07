@@ -31,7 +31,7 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 import { V1CoilRenderComponent } from './v1-coil-render.component';
 import { Coil } from '@domain/Coil.domain';
 
-describe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
+xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
     let component: V1CoilRenderComponent;
 
     beforeEach(async(() => {

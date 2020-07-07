@@ -6,19 +6,19 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 import { IsolationService } from '../../support/IsolationService.support';
 import { contains } from 'cypress/types/jquery';
 
-Then('the V2CoilListPage is activated', function () {
-    cy.get('app-root').find('v2-coil-list-page').as('target-page')
-        .should('exist')
-});
-Then('the V2CoilListPage has {string} panels', function (panelCount: number) {
-    cy.get('app-root').find('v2-coil-list-page')
+// Then('the V2CoilListPage is activated', function () {
+//     cy.get('app-root').find('v2-coil-list-page').as('target-page')
+//         .should('exist')
+// });
+Then('the target page has {string} panels', function (panelCount: number) {
+    cy.get('app-root').get('@target-page').find('.row').first()
         .children()
         .should('have.length', panelCount)
 });
-Then('the panel on page V2CoilListPage has variant {string}', function (variant: string) {
-    cy.get('app-root').find('v2-coil-list-page').find('.row')
-        .find('[ng-reflect-variant="' + variant + '"]')
-        .should('exist')
+Then('the target panel has variant {string}', function (variant: string) {
+    cy.get('@target-panel').find('viewer-panel').invoke('attr', 'ng-reflect-variant').should('equal',variant )
+        // .find('[ng-reflect-variant="' + variant + '"]')
+        // .should('exist')
 });
 Given('the target Coil is one of color {string}', function (color: string) {
     cy.get('v1-coil').contains(color, { matchCase: false })

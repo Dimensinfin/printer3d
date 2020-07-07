@@ -22,6 +22,12 @@ import { Coil } from '@domain/Coil.domain';
     styleUrls: ['./v1-coil-render.component.scss']
 })
 export class V1CoilRenderComponent extends NodeContainerRenderComponent {
+    public getNode(): Coil {
+        return this.node as Coil
+    }
+    public getUniqueId(): string {
+        return this.getNode().getId()
+    }
     public getMaterial(): string {
         const coil = this.node as Coil;
         return coil.material;
@@ -32,6 +38,6 @@ export class V1CoilRenderComponent extends NodeContainerRenderComponent {
     }
     public getWeight(): string {
         const coil = this.node as Coil;
-        return coil.weight+' gr.';
+        return coil.weight + ' gr.';
     }
 }

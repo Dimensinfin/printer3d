@@ -1,34 +1,31 @@
 @D3D10
 Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
 
-    Coil list comes from the Coils repository at the backend. THis initial concept will only store some of the information
+    Coil list comes from the Coils repository at the backend. This initial concept will only store some of the information
     and it should be used to complete the list of Finishings.
     The Coils list should show a selected list of the Coil fields.
     The list is ordered alphabetically by Material and then by Color.
 
     Background: Application landing page
         Given the application Printer3DManager
+        Given there is a click on Feature "/ROLLOS"
+        Then the page "CoilsPage" is activated
+        Given the target panel is the panel of type "coils"
 
     @D3D10 @D3D10.01
-    Scenario: [D3D10.01]-Check that the Feature points to the right page component.
-        Given one instance of Dock
-        When the Feature with label "/ROLLOS" is clicked the destination is the Page "v2-coil-list-page"
+    Scenario: [D3D10.01]-The coils page has a single panel and the variant is set to '-COIL-LIST-'
+        And the target page has "1" panels
+        And the target panel has variant "-COIL-LIST-"
 
     @D3D10 @D3D10.02
-    Scenario: [D3D10.02]-The Coils page has a single panel that contains the list of Coils.
-        Given there is a click on Feature "/ROLLOS"
-        Then the V2CoilListPage is activated
-        And the V2CoilListPage has "1" panels
-        And the panel on page V2CoilListPage has variant "-COIL-LIST-"
-        Given the target panel is the panel with variant "-COIL-LIST-"
-        And the target panel has one or more "coil"
+    Scenario: [D3D10.02]-Check the title and the contents for the coils panel.
+        Then the target panel has a title "/ROLLOS DISPONIBLES"
+        Then the target panel has 15 "coil"
 
     @D3D10 @D3D10.03
-    Scenario: [D3D10.03]-Check that the Inventory Coil List informs of the required fields.
-        Given there is a click on Feature "/ROLLOS"
-        Then the V2CoilListPage is activated
-        Given the target panel is the panel with variant "-COIL-LIST-"
-        Given the target Coil is one of color "MORADO TRANSPARENTE"
-        And on the target Coil there is a field labeled "MATERIAL" with field name "material" and the value "PLA"
-        And on the target Coil there is a field labeled "COLOR" with field name "color" and the value "MORADO TRANSPARENTE"
-        And on the target Coil there is a field labeled "PESO" with field name "weight" and the value "600 gr."
+    Scenario: [D3D10.03]-Validate the contents of a Coil.
+        # - Check the model contents visible on the catalog
+        Given the target item the "coil" with id "653abddd-290b-47f9-9e1c-941ff9df90dd"
+        Then the target item has a field named "material" with label "MATERIAL" and value "PLA"
+        And the target item has a field named "color" with label "COLOR" and value "MORADO TRANSPARENTE"
+        And the target item has a field named "weight" with label "PESO" and value "600 gr."

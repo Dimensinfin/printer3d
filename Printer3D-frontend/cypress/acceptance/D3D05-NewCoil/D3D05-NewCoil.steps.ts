@@ -13,9 +13,20 @@ const supportService = new SupportService();
 // - L A T E S T   I M P L E M E N T A T I O N
 Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
     const tag = supportService.translateTag(dialogName) // Do name replacement
-    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
+    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target-dialog')
         .should('exist')
 })
+Then('the coil is persisted at the backend', function () {
+    cy.log('Coil persisted')
+});
+Then('the dialog closes', function () {
+    console.log('Dialog closes');
+    cy.get('new-coil-dialog').should('not.exist');
+});
+When('there is a click on the {string} button of target dialog', function (buttonName: string) {
+    cy.get('@target-dialog').find('[cy-name="' + buttonName + '"]').click('center')
+});
+
 // - I N P U T   F I E L D S
 Then('the target panel has a form field named {string} with label {string} and empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
@@ -48,6 +59,32 @@ Then('the target panel has a form field named {string} with label {string} and e
             }
         }
     });
+Then('the target panel has a form field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            cy.log(type as string);
+            switch (type) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'textarea':
+                    cy.log('textarea')
+                    cy.get('@target-field').find('textarea')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+            }
+        })
+    });
 Then('the target panel field {string} is tested for size constraints {int} and {int}',
     function (fieldName: string, minCharacters: number, maxCharacters: number) {
         cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
@@ -62,6 +99,27 @@ Then('the target panel field {string} is tested for size constraints {int} and {
         cy.get('@target-field').find('input').clear().type(largerValue)
         cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
     });
+Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        switch (type) {
+            case 'input':
+                cy.get('@target-field').find('input').clear().type(fieldValue)
+                break
+            case 'textarea':
+                cy.get('@target-field').find('textarea').clear().type(fieldValue)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select').select(fieldValue)
+                break
+        }
+    })
+});
+Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue + '')
+});
 
 
 
@@ -83,31 +141,24 @@ Then('when all required fields have next values', function (dataTable) {
     form.formInput(row);
 });
 
-When('there is a click on the {string} button', function (buttonName) {
-    console.log('[WHEN] there is a click on the {string} button');
-    switch (buttonName) {
-        case 'GUARDAR':
-            cy.get('new-coil-dialog').find('button').get('#submit-button').should('not.be.disabled')
-            cy.get('new-coil-dialog').find('button').get('#submit-button').click();
-            break;
-        case 'CLOSE':
-            cy.get('new-coil-dialog').find('button').get('#cancel-button').should('not.be.disabled')
-            cy.get('new-coil-dialog').find('button').get('#cancel-button').click();
-            break;
-        case 'GUARDARYCONTINUAR':
-            cy.get('new-coil-dialog').find('button').get('#repeat-button').should('not.be.disabled')
-            cy.get('new-coil-dialog').find('button').get('#repeat-button').click();
-            break;
-    }
-});
+// When('there is a click on the {string} button', function (buttonName) {
+//     console.log('[WHEN] there is a click on the {string} button');
+//     switch (buttonName) {
+//         case 'GUARDAR':
+//             cy.get('new-coil-dialog').find('button').get('#submit-button').should('not.be.disabled')
+//             cy.get('new-coil-dialog').find('button').get('#submit-button').click();
+//             break;
+//         case 'CLOSE':
+//             cy.get('new-coil-dialog').find('button').get('#cancel-button').should('not.be.disabled')
+//             cy.get('new-coil-dialog').find('button').get('#cancel-button').click();
+//             break;
+//         case 'GUARDARYCONTINUAR':
+//             cy.get('new-coil-dialog').find('button').get('#repeat-button').should('not.be.disabled')
+//             cy.get('new-coil-dialog').find('button').get('#repeat-button').click();
+//             break;
+//     }
+// });
 
-Then('the coil is persisted at the backend', function () {
-});
-
-Then('the dialog closes', function () {
-    console.log('[THEN] the dialog closes');
-    cy.get('new-coil-dialog').should('have.length', 0);
-});
 
 Then('there is one field called {string} with the content {string}', function (fieldName: string, value: string) {
     cy.get('mat-dialog-container').find('input').get('[name="' + fieldName + '"]').should('have.value', value)

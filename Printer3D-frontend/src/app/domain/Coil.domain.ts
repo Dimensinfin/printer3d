@@ -12,12 +12,15 @@ export class Coil extends Node {
     constructor(values: Object = {}) {
         super();
         Object.assign(this, values);
-        this.jsonClass='Coil';
+        this.jsonClass = 'Coil';
     }
 
     public createNewId(): string {
         this.id = uuidv4();
         return this.id;
+    }
+    public getId(): string {
+        return this.id
     }
     public getCoilIdentifier(): string {
         return this.material + ':' + this.color;
