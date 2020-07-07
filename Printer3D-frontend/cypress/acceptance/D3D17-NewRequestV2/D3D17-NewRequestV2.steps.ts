@@ -26,7 +26,3 @@ When('the drag source is dragged to the drop destination {string}', function (dr
     cy.get('@drag-source').trigger('dragstart')
     cy.get('@target-panel').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
-Then('the target item has a named {string} button', function (buttonName: string) {
-    cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
-        .should('exist')
-});

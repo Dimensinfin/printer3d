@@ -16,6 +16,186 @@ Then('the target panel has a drop place named {string}', function (symbolicName:
 
     })
 });
+// - I N P U T   F I E L D S
+Then('the target panel has a field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-value="' + fieldName + '"]')
+            .should('be.empty')
+    });
+Then('the target panel has a field named {string} with label {string} and not empty',
+    function (fieldName: string, fieldLabel: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-value="' + fieldName + '"]')
+            .should('not.be.empty')
+    });
+Then('the target panel has a field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-value="' + fieldName + '"]')
+            .contains(fieldValue, { matchCase: false })
+    });
+Then('the target panel has a form field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            switch (type) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .should('be.empty')
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .should('not.have.value')
+                    break
+                case 'textarea':
+                    cy.log('textarea')
+                    cy.get('@target-field').find('textarea')
+                        .should('be.empty')
+                    break
+            }
+        })
+    });
+Then('the target panel has a form field named {string} with label {string} and not empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        // Read the type of field from the cy-input-type
+        let inputType: string = ''
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            cy.log(type as string);
+            inputType = type as string
+        })
+        if (inputType != '') {
+            switch (inputType) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .should('not.be.empty')
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .should('have.value')
+                    break
+                case 'textarea':
+                    cy.log('select')
+                    cy.get('@target-field').find('textarea')
+                        .should('not.be.empty')
+                    break
+            }
+        }
+    });
+Then('the target panel has a form field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            cy.log(type as string);
+            switch (type) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'textarea':
+                    cy.log('textarea')
+                    cy.get('@target-field').find('textarea')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+            }
+        })
+    });
+// - C O N T E N T S
+Then('the target panel has a panel labeled {string} named {string}',
+    function (fieldLabel: string, fieldName: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('content-panel')
+        cy.get('@target-panel').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+    });
+Then('the target item has a named {string} button', function (buttonName: string) {
+    cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
+        .should('exist')
+});
+Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        switch (type) {
+            case 'input':
+                cy.get('@target-field').find('input').clear().type(fieldValue)
+                break
+            case 'textarea':
+                cy.get('@target-field').find('textarea').clear().type(fieldValue)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select').select(fieldValue)
+                break
+        }
+    })
+});
+Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
+    cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        cy.log(type as string);
+        let stateClass = 'ng-valid'
+        if (state == 'invalid') stateClass = 'ng-invalid'
+        if (state == 'valid') stateClass = 'ng-valid'
+        if (state == 'indiferent') stateClass = 'dsf-input'
+        switch (type) {
+            case 'input':
+                cy.log('input')
+                cy.get('@target-field').find('input')
+                    .should('have.class', stateClass)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select')
+                    .should('have.class', stateClass)
+                break
+            case 'textarea':
+                cy.log('textarea')
+                cy.get('@target-field').find('textarea')
+                    .should('have.class', stateClass)
+                break
+        }
+    })
+});
+Then('the target panel field {string} is tested for size constraints {int} and {int}',
+    function (fieldName: string, minCharacters: number, maxCharacters: number) {
+        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('input').clear() // Clear the field before starting
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters - 1))
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // invalid-one below limit
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters))
+        cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-low limit
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(maxCharacters))
+        cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-high limit
+        let largerValue = supportService.generateRandomString(maxCharacters + 5)
+        cy.get('@target-field').find('input').clear().type(largerValue)
+        cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
+    });
+
+
+
 
 
 // - OLD
@@ -71,13 +251,6 @@ Given('on the target Part there is a field named {string} with field name {strin
 //         .parent().as('target-field')
 //     cy.get('@target-field').find('[name="' + fieldName + '"]').should('exist').should('be.empty')
 // });
-Then('the target panel has a panel labeled {string} named {string} and with {string} elements', function (
-    fieldLabel: string, fieldName: string, elementCount: number) {
-    cy.get('@target-panel').find('.field').find('.label').contains(fieldLabel, { matchCase: false })
-        .parent().as('target-field')
-    cy.get('@target-field').find('[name="' + fieldName + '"]').should('exist')
-        .find('v1-part').should('have.length', elementCount)
-});
 Then('the target part is draggable with the contraint {string}', function (scope: string) {
     cy.get('@target-part').parent().parent().find('[draggable="true"]')
         .should('exist')

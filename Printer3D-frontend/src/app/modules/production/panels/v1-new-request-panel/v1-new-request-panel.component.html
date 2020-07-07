@@ -6,7 +6,7 @@
                     <span>/NUEVO PEDIDO/DEFINICION</span>
                 </div>
                 <div class="button-container">
-                    <button cy-name="SAVE" class="button ok-button" style="width: 150px;" [disabled]="!isFormValid(newRequestForm.form.valid)" (click)="saveRequest()">
+                    <button cy-name="save" class="button ok-button" style="width: 150px;" [disabled]="!isFormValid(newRequestForm.form.valid)" (click)="saveRequest()">
                         <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Guardar</span>
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="button-container">
-                    <button cy-name="CANCEL" class="button cancel-button" style="width: 150px;" (click)="cancelRequest()">
+                    <button cy-name="cancel" class="button cancel-button" style="width: 150px;" (click)="cancelRequest()">
                         <span><img class="button-icon" src="/assets/media/close-white-36dp.svg"></span><span class="button-label">Cancelar</span>
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
@@ -56,29 +56,29 @@
             </div>
             <div class="row">
                 <div cy-name="requestDate" class="field left-margin">
-                    <span cy-field-label="FECHA PEDIDO" class="label">FECHA PEDIDO</span><br>
-                    <span cy-field-value="FECHA PEDIDO" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
+                    <span cy-field-label="requestDate" class="label">FECHA PEDIDO</span><br>
+                    <span cy-field-value="requestDate" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
                 </div>
                 <div cy-name="quantity" class="field left left-margin">
-                    <span cy-field-label="NRO. PIEZAS" class="label">NRO. PIEZAS</span><br>
-                    <span cy-field-value="NRO. PIEZAS" class="field-height request-requestDate">{{getContentCount()}}</span>
+                    <span cy-field-label="quantity" class="label">NRO. PIEZAS</span><br>
+                    <span cy-field-value="quantity" class="field-height request-requestDate">{{getContentCount()}}</span>
                 </div>
                 <div cy-name="price" class="field left-margin">
-                    <span cy-field-label="PRECIO" class="label">PRECIO</span><br>
-                    <span cy-field-value="PRECIO" class="field-height request-requestDate">{{getRequestAmount()}}</span>
+                    <span cy-field-label="price" class="label">PRECIO</span><br>
+                    <span cy-field-value="price" class="field-height request-requestDate">{{getRequestAmount()}}</span>
                 </div>
             </div>
             <div cy-name="label" class="field field-margins">
-                <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
+                <span cy-field-label="label" cy-input-type="input" class="label">ETIQUETA</span><br>
                 <div class="dsf-input-container label-width">
-                    <input id="modelLabel" name="modelLabel" type="text" class="dsf-input" required [(ngModel)]="request.label" minlength="3" maxlength="50" #modelLabel="ngModel">
+                    <input name="label" type="text" class="dsf-input" required [(ngModel)]="request.label" minlength="3" maxlength="50" #label="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div [ngClass]="{'ng-valid': !modelLabel.invalid}">
+                    <div [ngClass]="{'ng-valid': !label.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -88,7 +88,7 @@
             <div cy-name="requestContents" class="field left-margin top-margin">
                 <div class="request-part" cy-name="dropContents" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
                 </div>
-                <span class="label">CONTENIDO PEDIDO</span><br>
+                <span cy-field-label="requestContents" class="label">CONTENIDO PEDIDO</span><br>
                 <div class="row">
                     <div class="field column-quantity-width">
                         <span class="label">CANTIDAD</span><br>
@@ -103,11 +103,11 @@
                         <span class="label">TERMINACION</span><br>
                     </div>
                 </div>
-                <div cy-name="requestContents">
-                    <div *ngFor="let item of getRequestContents()" style="position: relative;">
-                        <v1-request-item [node]="item" [variant]="'-NEW-REQUEST-'" [container]="self"></v1-request-item>
-                    </div>
+                <!-- <div> -->
+                <div *ngFor="let item of getRequestContents()" style="position: relative;">
+                    <v1-request-item [node]="item" [variant]="'-NEW-REQUEST-'" [container]="self"></v1-request-item>
                 </div>
+                <!-- </div> -->
             </div>
         </div>
         <div>
