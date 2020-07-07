@@ -16,7 +16,7 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 import { V2CoilListPageComponent } from './v2-coil-list-page.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 
-describe('COMPONENT V2CoilListPageComponent [Module: INVENTORY]', () => {
+xdescribe('COMPONENT V2CoilListPageComponent [Module: INVENTORY]', () => {
     let component: V2CoilListPageComponent;
 
     beforeEach(async(() => {

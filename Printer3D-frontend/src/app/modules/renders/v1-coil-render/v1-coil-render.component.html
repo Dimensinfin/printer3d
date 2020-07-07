@@ -1,17 +1,17 @@
 <!-- C O I L - L I S T   V A R I A N T -->
 <div *ngIf="getVariant() === '-COIL-LIST-'" class="cornered-panel">
     <div class="row">
-        <div class="field material-width">
-            <span class="label">MATERIAL</span><br>
-            <span name="material" class="field-height part-material">{{getMaterial()}}</span>
+        <div cy-name="material" class="field material-width">
+            <span cy-field-label="material" class="label">MATERIAL</span><br>
+            <span cy-field-value="material" class="field-height">{{getMaterial()}}</span>
         </div>
-        <div class="field color-width">
-            <span class="label">COLOR</span><br>
-            <span name="color" class="field-height part-color">{{getColor()}}</span>
+        <div cy-name="color" class="field color-width">
+            <span cy-field-label="color" class="label">COLOR</span><br>
+            <span cy-field-value="color" class="field-height">{{getColor()}}</span>
         </div>
-        <div class="field weight-width">
-            <span class="label">PESO</span><br>
-            <span name="weight" class="field-height part-weight">{{getWeight()}}</span>
+        <div cy-name="weight" class="field weight-width">
+            <span cy-field-label="weight" class="label">PESO</span><br>
+            <span cy-field-value="weight" class="field-height">{{getWeight()}}</span>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">

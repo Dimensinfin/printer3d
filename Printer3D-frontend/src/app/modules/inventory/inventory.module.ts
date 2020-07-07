@@ -19,6 +19,7 @@ import { V1NewModelPanelComponent } from './panels/v1-new-model-panel/v1-new-mod
 import { V1AvailablePartsPanelComponent } from './panels/v1-available-parts-panel/v1-available-parts-panel.component';
 import { V3InventoryPageComponent } from './pages/v3-inventory-page/v3-inventory-page.component';
 import { V1CatalogPanelComponent } from './panels/v1-catalog-panel/v1-catalog-panel.component';
+import { V1CoilsPanelComponent } from './panels/v1-coils-panel/v1-coils-panel.component';
 
 const routes: Routes = [
     { path: 'partlist', component: V3InventoryPageComponent },
@@ -45,6 +46,7 @@ const routes: Routes = [
         V1AvailablePartsPanelComponent,
         V3InventoryPageComponent,
         V1CatalogPanelComponent,
+        V1CoilsPanelComponent,
     ],
     exports: [
         RouterModule
