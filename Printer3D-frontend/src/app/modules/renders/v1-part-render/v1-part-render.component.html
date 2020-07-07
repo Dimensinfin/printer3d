@@ -90,7 +90,7 @@
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>
-<!-- C A T A L O G   V A R I A N T -->
+<!-- C A T A L O G -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-CATALOG-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
     <div class="row">
         <div cy-name="edit-button" class="edit-attributes" (click)="toggleEdition()">
@@ -142,64 +142,92 @@
 </div>
 <!-- E D I T A B L E   P A R T -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-EDITABLE-PART-'">
-    <form class="dsf-form" autocomplete="off">
-        <div class="part-panel">
-            <table width="100%" colspacing="0px" cellpadding="0px" border-spacing="0px">
-                <tr>
-                    <td>
-                        <div class="edit-attributes" (click)="toggleEdition()">
-                            <img src="/assets/media/edit_attributes-white-36dp.svg">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="save-modifications" (click)="saveEditing()">
-                            <img src="/assets/media/check_circle-white-36dp.svg">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field material-width">
-                            <span cy-field-label="material" class="label">MATERIAL</span><br>
-                            <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field color-width">
-                            <span cy-field-label="color" class="label">COLOR</span><br>
-                            <span cy-field-value="color" class="field-height part-color">{{getColor()}}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span cy-field-label="stock" class="label">STOCK</span><br>
-                            <input cy-field-value="stock" type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.stockLevel" name="stock">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span class="label">DISPONIBLE</span><br>
-                            <input cy-field-value="color" type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.stockAvailable" name="stockAvailable">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span class="label">COSTE</span><br>
-                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.cost" required name="cost">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field stock-width">
-                            <span class="label">PRECIO</span><br>
-                            <input type="number" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.price" name="price">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="field active-width">
-                            <span class="label">ACTIVA</span><br>
-                            <input type="checkbox" class="dsf-form-control dsf-editable-form-item dsf-number field-height part-stock-available" min="0" [(ngModel)]="editPart.active" name="active">
-                        </div>
-                    </td>
-                </tr>
-            </table>
+    <form #editPartForm="ngForm" class="dsf-form" autocomplete="off">
+        <div class="row">
+            <div cy-name="edit-button" class="edit-attributes" (click)="toggleEdition()">
+                <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
+            </div>
+            <button cy-name="save" type="submit" class="save-attributes" (click)="saveEditing()" [ngClass]="{'save-button-disabled':!editPartForm.form.valid,'save-button-enabled':editPartForm.form.valid}" [disabled]="!editPartForm.form.valid">
+                <svg class="save-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
+            </button>
+            <div cy-name="material" class="field material-width">
+                <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
+                <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
+            </div>
+            <div cy-name="stock" class="field">
+                <span cy-field-label="stock" cy-input-type="input" class="label">STOCK</span><br>
+                <div class="dsf-input-container stock-width">
+                    <input name="stock" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.stockLevel" required min="1" max="100" #stock="ngModel">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <div [ngClass]="{'ng-valid': !stock.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div cy-name="stockAvailable" class="field">
+                <span cy-field-label="stockAvailable" cy-input-type="input" class="label">DISPONIBLE</span><br>
+                <div class="dsf-input-container stock-width">
+                    <input name="stockAvailable" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.stockAvailable" required min="0" max="100" #stockAvailable="ngModel">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <div [ngClass]="{'ng-valid': !stockAvailable.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div cy-name="cost" class="field">
+                <span cy-field-label="cost" cy-input-type="input" class="label">COSTE</span><br>
+                <div class="dsf-input-container stock-width">
+                    <input name="cost" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.cost" required min="0.01" #cost="ngModel">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <div [ngClass]="{'ng-valid': !cost.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div cy-name="price" class="field">
+                <span cy-field-label="price" cy-input-type="input" class="label">PRECIO</span><br>
+                <div class="dsf-input-container stock-width">
+                    <input name="price" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.price" required min="0.01" #price="ngModel">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <div [ngClass]="{'ng-valid': !price.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div cy-name="active" class="field">
+                <span cy-field-label="active" cy-input-type="checkbox" class="label">ACTIVA</span><br>
+                <div class="dsf-input-container stock-width">
+                    <input name="active" type="checkbox" class="dsf-input checkbox-input" [(ngModel)]="editPart.active" required #active="ngModel">
+                </div>
+            </div>
         </div>
     </form>
 </div>

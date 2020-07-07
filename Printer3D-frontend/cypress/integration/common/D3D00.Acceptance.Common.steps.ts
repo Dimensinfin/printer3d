@@ -89,10 +89,16 @@ Then('the target panel has a textarea field named {string} with label {string} a
             .should('be.empty')
     });
 Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
-    if (state == 'invalid') cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        .find('input').parent().within(($field) => {
-            cy.get('.ng-invalid').should('exist')
-        })
+    if (state == 'invalid')
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+            .find('input').parent().within(($field) => {
+                cy.get('.ng-invalid').should('exist')
+            })
+    if (state == 'valid')
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+            .find('input').parent().within(($field) => {
+                cy.get('.ng-invalid').should('not.exist')
+            })
 });
 // - PANEL CONTENTS
 Then('the target dialog has a title {string}', function (title: string) {

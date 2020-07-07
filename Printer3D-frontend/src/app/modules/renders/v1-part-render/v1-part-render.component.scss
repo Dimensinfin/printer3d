@@ -1,26 +1,15 @@
-// .part {
-//     font-family: 'Electrolize', sans-serif;
-//     font-weight: bold;
-//     font-size: 20px;
-//     font-weight: bold;
-//     color: white;
-// }
 .edit-attributes {
     width: 50px;
 }
 
 .save-attributes {
     width: 50px;
+    all: initial;
 }
 
 .save-disabled {
     fill: gray;
     opacity: 40%
-}
-
-.save-modifications {
-    width: 50px;
-    filter: invert(54%) sepia(16%) saturate(7150%) hue-rotate(85deg) brightness(123%) contrast(119%);
 }
 
 .part-stock-available {
@@ -75,6 +64,32 @@
     height: 25px;
 }
 
+.duplicate-icon:hover {
+    fill: greenyellow;
+}
+
+.checkbox-input {
+    margin-top: 4px;
+    height: 20px;
+}
+
+// - SAVE ICON
+.save-button-enabled {
+    fill: white;
+}
+
+.save-button-enabled:hover {
+    fill: greenyellow;
+}
+
+.save-button-disabled {
+    fill: gray;
+}
+
+.save-button-disabled:hover {
+    fill: gray;
+}
+
 .save-icon-disabled {
     margin-top: 6px;
     height: 30px;
@@ -85,12 +100,13 @@
     height: 30px;
 }
 
-.save-icon:hover {
-    margin-top: 6px;
-    height: 30px;
-    fill: green;
-}
-
-.duplicate-icon:hover {
-    fill: greenyellow;
-}
+// .save-icon:hover {
+//     margin-top: 6px;
+//     height: 30px;
+//     fill: green;
+// }
+// .save-icon:disabled {
+//     margin-top: 6px;
+//     height: 30px;
+//     fill: gray;
+// }
