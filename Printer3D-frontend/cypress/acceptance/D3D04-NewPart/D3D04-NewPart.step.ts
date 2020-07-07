@@ -16,7 +16,38 @@ Then('the {string} dialog opens and blocks the display', function (dialogName: s
         .should('exist')
 })
 // - I N P U T   F I E L D S
-Then('the target panel has a form field named {string} with label {string} not and empty',
+Then('the target panel has a form field named {string} with label {string} and empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        // Read the type of field from the cy-input-type
+        // let inputType: string = ''
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            //     cy.log(type as string);
+            //     inputType = type as string
+            // })
+            // if (inputType != '') {
+            switch (type) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .should('be.empty')
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .should('not.have.value')
+                    break
+                case 'textarea':
+                    cy.log('select')
+                    cy.get('@target-field').find('textarea')
+                        .should('be.empty')
+                    break
+            }
+        })
+    });
+Then('the target panel has a form field named {string} with label {string} and not empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
@@ -37,7 +68,7 @@ Then('the target panel has a form field named {string} with label {string} not a
                 case 'select':
                     cy.log('select')
                     cy.get('@target-field').find('select')
-                        .should('not.be.empty')
+                        .should('have.value')
                     break
                 case 'textarea':
                     cy.log('select')
@@ -53,13 +84,13 @@ Then('the target panel has a form field named {string} with label {string} and c
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
             .contains(fieldLabel, { matchCase: false })
         // Read the type of field from the cy-input-type
-        let inputType: string = ''
+        // let inputType: string = ''
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
             cy.log(type as string);
-            inputType = type as string
-        })
-        if (inputType != '') {
-            switch (inputType) {
+            // inputType = type as string
+            // })
+            // if (inputType != '') {
+            switch (type) {
                 case 'input':
                     cy.log('input')
                     cy.get('@target-field').find('input')
@@ -76,7 +107,7 @@ Then('the target panel has a form field named {string} with label {string} and c
                         .invoke('val').should('equal', fieldValue)
                     break
             }
-        }
+        })
     });
 Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
     cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
@@ -116,10 +147,10 @@ Then('the target panel button with name {string} has a label {string} and is {st
         .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
     if (buttonState == 'disabled') {
         cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').invoke('attr', 'disabled')
-        .should('exist')
+            .should('exist')
     } else {
         cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').invoke('attr', 'disabled')
-        .should('not.exist')
+            .should('not.exist')
     }
 });
 Then('the target panel field {string} is tested for size constraints {int} and {int}',

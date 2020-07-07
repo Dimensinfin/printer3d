@@ -26,7 +26,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Verde"
         And the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "6"
         And the target item has a field named "price" with label "PRECIO" and value "15 €"
-        And    the target item has a actionable image named "edit-button"
+        And the target item has a actionable image named "edit-button"
 
     @D3D20.03
     Scenario: [D3D20.03]-Validate the contents for the Part Group.
