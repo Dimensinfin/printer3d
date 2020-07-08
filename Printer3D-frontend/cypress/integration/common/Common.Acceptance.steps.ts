@@ -14,7 +14,7 @@ Then('the page {string} is activated', function (symbolicName: string) {
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('app-root').find(tag).as('target-page')
         .should('exist')
-    cy.wait(500) // Now there is a delay on the Api Simulation so we need to add  delay
+    // cy.wait(500) // Now there is a delay on the Api Simulation so we need to add  delay
 });
 Then('the target page has one panel of type {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement

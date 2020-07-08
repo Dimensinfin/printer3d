@@ -8,31 +8,157 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
-Then('the target item has a drop place named {string}', function (dropName: string) {
-    cy.get('@target-item').find('[cy-name="' + dropName + '"]').should('exist')
-});
-Then('the target item has a panel labeled {string} named {string}',
-    function (fieldLabel: string, fieldName: string) {
-        cy.get('@target-item').get('[cy-name="' + fieldName + '"]').as('content-panel')
-        cy.get('@target-item').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-    });
-Then('the target item has no {string}', function (renderName: string) {
+// - T A R G E T   S E L E C T I O N
+Given('the target is the panel of type {string}', function (renderName: string) {
     const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[translation]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-item').find(tag).should('not.exist')
+    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
+    cy.get('@target-page').find(tag)
+        .as('target-panel').as('target')
 });
-Then('the target item has no buttons', function () {
-    cy.get('@target-item').find('button').should('not.exist')
+Given('the target the {string} with id {string}', function (symbolicName: string, recordId: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
+        .should('exist')
 });
-Then('the target item has {int} {string}', function (count: number, symbolicName: string) {
+
+// - T A R G E T   C O N T E N T S
+Then('the target has the title {string}', function (title: string) {
+    cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
+});
+Then('the target has {int} {string}', function (count: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-    cy.get('@target-item').find(tag).should('have.length', count)
+    cy.get('@target').find(tag).should('have.length', count)
+});
+Then('field named {string} with label {string} and value {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
+        })
+        cy.get('@target').within(($item) => {
+            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
+                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+        })
+    });
+Then('the target has a drop place named {string}', function (dropName: string) {
+    cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
+});
+Then('the target has a panel labeled {string} named {string}',
+    function (fieldLabel: string, fieldName: string) {
+        cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-panel')
+        cy.get('@target').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+    });
+Then('the panel {string} has no {string}', function (targetName: string, symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target').within(($item) => {
+        cy.get('[cy-name="' + targetName + '"]').find(tag).should('not.exist')
+    })
+});
+Then('the target has no {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target').within(($item) => {
+        cy.get('button').should('not.exist')
+    })
+});
+Then('the target has {int} {string}', function (count: number, symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+    cy.get('@target').within(($item) => {
+        cy.get(tag).should('have.length', count)
+    })
+});
+Then('the button with name {string} has a label {string} and is {string}', function (
+    buttonName: string, buttonLabel: string, buttonState: string) {
+    if (buttonState == 'disabled')
+        cy.get('@target').get('[disabled]')
+            .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
+    else
+        cy.get('@target').get('[cy-name="' + buttonName + '"]')
+            .contains(buttonLabel, { matchCase: false })
+});
+
+// - D R A G   &   D R O P
+Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+    cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
+        .should('have.prop', 'draggable')
+        .should('exist')
 });
 When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
     cy.get('@drag-source').trigger('dragstart')
-    cy.get('@target-item').find('[cy-name="' + dropDestination + '"]').trigger('drop')
+    cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
+});
+
+// - B U T T O N S
+When('the button with name {string} is clicked', function (buttonName: string) {
+    cy.get('@target').within(($item) => {
+        cy.get('[cy-name="' + buttonName + '"]')
+            .scrollIntoView().click()
+    })
+});
+
+// - F O R M S
+Then('form field named {string} with label {string} and contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-name="' + fieldName + '"]')
+            cy.get('[cy-field-label="' + fieldName + '"]')
+                .contains(fieldLabel, { matchCase: false })
+            cy.get('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+                cy.log(type as string);
+                switch (type) {
+                    case 'input':
+                        cy.log('input')
+                        cy.get('input')
+                            .invoke('val').should('equal', fieldValue)
+                        break
+                    case 'select':
+                        cy.log('select')
+                        cy.get('select')
+                            .invoke('val').should('equal', fieldValue)
+                        break
+                    case 'textarea':
+                        cy.log('textarea')
+                        cy.get('textarea')
+                            .invoke('val').should('equal', fieldValue)
+                        break
+                }
+            })
+        })
+    });
+Then('form field named {string} is {string}', function (fieldName: string, state: string) {
+    cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-field')
+    let inputType: string = ''
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        cy.log(type as string);
+        inputType = type as string
+    })
+    let stateClass = 'ng-valid'
+    if (state == 'invalid') stateClass = 'ng-invalid'
+    if (state == 'valid') stateClass = 'ng-valid'
+    if (state == 'indiferent') stateClass = 'dsf-input'
+    if (inputType != '') {
+        switch (inputType) {
+            case 'input':
+                cy.log('input')
+                cy.get('@target-field').find('input')
+                    .should('have.class', stateClass)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select')
+                    .should('have.class', stateClass)
+                break
+            case 'textarea':
+                cy.log('textarea')
+                cy.get('@target-field').find('textarea')
+                    .should('have.class', stateClass)
+                break
+        }
+    }
 });
 
 

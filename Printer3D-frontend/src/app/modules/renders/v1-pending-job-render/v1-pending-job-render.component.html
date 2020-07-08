@@ -36,31 +36,44 @@
 <!-- B U I L D I N G   V A R I A N T -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
     <div class="row">
-        <div class="field part-count-edit-width" *ngIf="isEditable(); else partCounter">
-            <span cy-field-label="PIEZAS" class="label">CANTIDAD</span><br>
-            <input type="number" class="job-part-count" required [(ngModel)]="node['partCount']" name="jobPartCount" (mouseleave)="onMouseLeave()">
+        <div cy-name="quantity" class="field">
+            <span cy-field-label="quantity" cy-input-type="input" class="label">CANTIDAD</span><br>
+            <div class="dsf-input-container quantity-width">
+                <input name="quantity" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="node['partCount']" (mouseleave)="onMouseLeave()" required min="1" max="100" #quantity="ngModel">
+                <svg class="corner-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="corner-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                </svg>
+                <div [ngClass]="{'ng-valid': !quantity.invalid}">
+                    <svg class="corner-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                </div>
+            </div>
         </div>
         <ng-template #partCounter>
-            <div class="field part-count-width">
-                <span cy-field-label="PIEZAS" class="label">CANTIDAD</span><br>
-                <span cy-field-value="PIEZAS" cy-name="job-parts" class="field-height job-label">{{getCopies()}}</span>
+            <div cy-name="quantity-data" class="field quantity-width">
+                <span cy-field-label="quantity-data" class="label">CANTIDAD</span><br>
+                <span cy-field-value="quantity-data" class="field-height job-label">{{getCopies()}}</span>
             </div>
         </ng-template>
-        <div class="field building-label-width">
-            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" cy-name="job-label" class="field-height job-label">{{getLabel()}}</span>
+        <div cy-name="label" class="field building-label-width">
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" class="field-height job-label">{{getLabel()}}</span>
         </div>
-        <div class="field">
-            <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>
-            <span cy-field-value="MATERIAL" class="part-material">{{getMaterial()}}</span>
+        <div cy-name="material" class="field right">
+            <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
+            <span cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</span>
         </div>
-        <div class="field">
+        <!-- <div class="field">
             <span cy-field-label="COLOR" class="label">COLOR</span><br>
             <span cy-field-value="COLOR" class="part-color">{{getColor()}}</span>
-        </div>
-        <div class="field">
-            <span cy-field-label="TIEMPO" class="label">TIEMPO CONSTRUC.</span><br>
-            <span cy-field-value="TIEMPO" name="buildtime" class="part-buildtime">{{getBuildTime()}}</span>
+        </div> -->
+        <div cy-name="buildTime" class="field">
+            <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
+            <span cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}}</span>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
