@@ -32,6 +32,7 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 import { Part } from '@domain/Part.domain';
 import { V1PartRenderComponent } from './v1-part-render.component';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
+import { FormsModule } from '@angular/forms';
 
 describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
     let component: V1PartRenderComponent;
@@ -55,6 +56,7 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [
+                FormsModule,
                 RouterTestingModule.withRoutes(routes)
             ],
             declarations: [
@@ -147,6 +149,11 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
         it('isEditing: check the "editing" flag', () => {
             expect(component.isEditing()).toBeFalse();
         });
+        it('isActive: check the "editing" flag', () => {
+            testPart.active = true;
+            component.node = testPart
+            expect(component.isActive()).toBeTrue();
+        });
     });
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
@@ -185,6 +192,18 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
             expect(component.getStockAvailable()).toBe(4);
             expect(component.getActive()).toBe('ACTIVA');
             jasmine.clock().uninstall()
+        });
+        it('duplicatePart: generate the event to open the new part dialog', async () => {
+            const componentAsAny =component as any
+            componentAsAny.dialogFactory = {
+                processClick: () => { return {
+                    afterClosed: ()=>{return Observable.create((observer) => {
+                        observer.next('-DATA-');
+                        observer.complete();
+                    })}
+                }}
+            }
+            component.duplicatePart()
         });
     });
 });

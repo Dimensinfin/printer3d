@@ -36,9 +36,8 @@ import { Part } from '@domain/Part.domain';
 import { NewCoilDialogComponent } from './new-coil-dialog.component';
 import { Coil } from '@domain/Coil.domain';
 
-xdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
+describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
     let component: NewCoilDialogComponent;
-    let backendService: SupportBackendService;
     let fixture: ComponentFixture<NewCoilDialogComponent>;
 
     beforeEach(async(() => {
@@ -54,7 +53,6 @@ xdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
                 NewCoilDialogComponent
             ],
             providers: [
-                // { provide: MatDialog, useValue: {} },
                 { provide: MatDialogRef, useValue: { close: (dialogResult: any) => { } } },
                 { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: AppStoreService, useClass: SupportAppStoreService },
@@ -64,7 +62,6 @@ xdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
 
         fixture = TestBed.createComponent(NewCoilDialogComponent);
         component = fixture.componentInstance;
-        backendService = TestBed.get(BackendService);
     }));
 
     // - C O N S T R U C T I O N   P H A S E
@@ -118,13 +115,11 @@ xdescribe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
             console.log('[saveCoilAndRepeat: persist the Coil on the backend repository]> about to call "saveCoilAndRepeat"')
             expect(component.coil.id).toBe('df23d097-4a7c-40e2-837f-e716459a526d', 'Initial id should be the mock value');
             await component.saveCoilAndRepeat();
-            // fixture.whenStable().then(() => {
-                console.log('>[saveCoilAndRepeat]> Coil: ' + JSON.stringify(component.coil))
-                expect('df23d097-4a7c-40e2-837f-e716459a526d' === component.coil.id).toBeFalse();
-                expect(component.coil.material).toBe('PLA');
-                expect(component.coil.color).toBe('')
-                expect(component.coil.weight).toBeUndefined('Weight should be undefined');
-            // })
+            console.log('>[saveCoilAndRepeat]> Coil: ' + JSON.stringify(component.coil))
+            expect('df23d097-4a7c-40e2-837f-e716459a526d' === component.coil.id).toBeFalse();
+            expect(component.coil.material).toBe('PLA');
+            expect(component.coil.color).toBe('')
+            expect(component.coil.weight).toBeUndefined('Weight should be undefined');
         });
         it('closeModal: start closing the dialog', async () => {
             const componentAsAny = component as any;

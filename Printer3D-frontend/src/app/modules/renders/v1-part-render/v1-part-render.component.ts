@@ -44,47 +44,39 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
             });
     }
 
-    public getPart(): Part {
+    public getNode(): Part {
         return this.node as Part
     }
     public getUniqueId(): string {
-        return this.getPart().getId()
+        return this.getNode().getId()
     }
     public getLabel(): string {
-        const part = this.node as Part;
-        return part.label;
+        return this.getNode().label;
     }
     public getMaterial(): string {
-        const part = this.node as Part;
-        return part.material;
+        return this.getNode().material;
     }
     public getColor(): string {
-        const part = this.node as Part;
-        return part.color;
+        return this.getNode().color;
     }
     public getCost(): string {
-        const part = this.node as Part;
-        return part.cost + ' €';
+        return this.getNode().cost + ' €';
     }
     public getPrice(): string {
-        const part = this.node as Part;
-        return part.price + ' €';
+        return this.getNode().price + ' €';
     }
     public getStockRequired(): number {
-        const part = this.node as Part;
-        return part.stockLevel;
+        return this.getNode().stockLevel;
     }
     public getStockAvailable(): number {
-        return this.getPart().getAvailable();
+        return this.getNode().getAvailable();
     }
     public getActive(): string {
-        const part = this.node as Part;
-        if (part.active) return 'ACTIVA'
+        if (this.getNode().active) return 'ACTIVA'
         else return 'FUERA PROD.'
     }
     public isActive(): boolean {
-        const part = this.node as Part;
-        return part.active;
+        return this.getNode().active;
     }
 
     // - EDITING

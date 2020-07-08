@@ -51,8 +51,7 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
         return this.getNode().label;
     }
     public getDescription(): string {
-        const part = this.node as PartContainer;
-        return part.description;
+        return this.getNode().description;
     }
     public getBuildTime(): string {
         const part = this.node as PartContainer;
@@ -72,14 +71,6 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     }
     public modelVisible(): boolean {
         return !this.isEmpty(this.getNode().modelPath)
-    }
-    private updateNode(): void {
-        const containerAsAny = this.getNode() as any
-        containerAsAny.description = this.editPart.description
-        containerAsAny.buildTime = this.editPart.buildTime
-        containerAsAny.weight = this.editPart.weight
-        containerAsAny.imagePath = this.editPart.imagePath
-        containerAsAny.modelPath = this.editPart.modelPath
     }
 
     // - EDITING
@@ -107,7 +98,6 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
                         return targetPart;
                     }))
                 .subscribe((unrequired: any) => {
-                    this.toggleEdition()
                     this.closeEditing()
                     this.updateNode()
                     this.ref.detectChanges()
@@ -121,5 +111,15 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     private closeEditing(): void {
         this.variant = EVariant.CATALOG;
     }
-
+    private updateNode(): void {
+        console.log('>[V1PartContainerRenderComponent.updateNode]');
+        const containerAsAny = this.getNode() as any
+        console.log('>[V1PartContainerRenderComponent.updateNode]> editPart.description: ' + this.editPart.description);
+        console.log('>[V1PartContainerRenderComponent.updateNode]> containerAsAny.description: ' + containerAsAny.description);
+        containerAsAny.description = this.editPart.description
+        containerAsAny.buildTime = this.editPart.buildTime
+        containerAsAny.weight = this.editPart.weight
+        containerAsAny.imagePath = this.editPart.imagePath
+        containerAsAny.modelPath = this.editPart.modelPath
+    }
 }

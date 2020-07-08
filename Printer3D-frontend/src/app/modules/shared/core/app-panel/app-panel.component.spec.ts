@@ -49,7 +49,7 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [getters]', () => {
         it('getVariant.success: check the variant field', () => {
-            const expected = EVariant.PART_LIST
+            const expected = EVariant.CATALOG
             component.variant = expected;
             let obtained = component.getVariant();
             expect(obtained).toBe(expected);
@@ -72,7 +72,7 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
     });
     describe('Code Coverage Phase [setters]', () => {
         it('setVariant.success: validate the set for the variant', () => {
-            const expected = EVariant.PART_LIST;
+            const expected = EVariant.CATALOG;
             component.setVariant(expected);
             let obtained = component.getVariant();
             expect(obtained).toBe(expected);

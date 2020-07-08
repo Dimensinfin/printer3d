@@ -20,18 +20,10 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { V1DockComponent } from '../../common/v1-dock/v1-dock.component';
-import { SupportBackendService } from '@app/testing/SupportBackend.service';
-import { BackendService } from '@app/services/backend.service';
-import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
-import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { V1CoilRenderComponent } from './v1-coil-render.component';
 import { Coil } from '@domain/Coil.domain';
 
-xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
+describe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
     let component: V1CoilRenderComponent;
 
     beforeEach(async(() => {
@@ -57,19 +49,21 @@ xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
         });
     });
 
-    // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Methods]', () => {
-        it('getMaterial: get the material field', () => {
-            component.node = new Coil({ material: "PLA" });
-            expect(component.getMaterial()).toBe('PLA')
-        });
-        it('getColor: get the material field', () => {
-            component.node = new Coil({ color: "RED" });
+    // - C O V E R A G E   P H A S E
+    describe('Coverage Phase [Getters]', () => {
+        it('getters: validate getter contract', () => {
+            const coil = new Coil({
+                "id": "9903926b-e786-4fb2-8e8e-68960ebebb7a",
+                "material": "PLA",
+                "color": "RED",
+                "weight": 800
+            })
+            component.node = coil
+            expect(component).toBeDefined();
+            expect(component.getUniqueId()).toBe("9903926b-e786-4fb2-8e8e-68960ebebb7a")
+            expect(component.getMaterial()).toBe("PLA")
             expect(component.getColor()).toBe('RED')
-        });
-        it('getWeight: get the material field', () => {
-            component.node = new Coil({ weight: 123 });
-            expect(component.getWeight()).toBe('123 gr.')
+            expect(component.getWeight()).toBe('800 gr.')
         });
     });
 });

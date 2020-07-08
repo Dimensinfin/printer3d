@@ -30,11 +30,11 @@ export class V1RequestItemRenderComponent extends NodeContainerRenderComponent {
     public getUniqueId(): string {
         return this.getNode().getId()
     }
-    public hasMissing () :boolean{
+    public hasMissing(): boolean {
         return this.getNode().getMissing() > 0
     }
     public getMissing(): string {
-        if (this.hasMissing()) return this.getNode().getMissing()+'';
+        if (this.hasMissing()) return this.getNode().getMissing() + '';
         else return '-'
     }
     public getRequired(): number {
@@ -58,6 +58,7 @@ export class V1RequestItemRenderComponent extends NodeContainerRenderComponent {
             return part.getColor()
         } else return "-"
     }
+    // - I N T E R A C T I O N S
     public removeContent(): void {
         const newRequestPanelAsAny = this.container as any;
         const newRequestPanel = newRequestPanelAsAny as V1NewRequestPanelComponent

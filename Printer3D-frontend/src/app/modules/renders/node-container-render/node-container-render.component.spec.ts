@@ -50,13 +50,13 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             expect(component.getNode()).toBeDefined()
         });
         it('getVariant.success: check the variant field', () => {
-            const expected = EVariant.PART_LIST
+            const expected = EVariant.CATALOG
             component.variant = expected;
             let obtained = component.getVariant();
             expect(obtained).toBe(expected);
         });
         it('getVariant.success: check the variant field', () => {
-            const expected = EVariant.PART_LIST
+            const expected = EVariant.CATALOG
             component.variant = expected;
             let obtained = component.getVariant();
             expect(obtained).toBe(expected);

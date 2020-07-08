@@ -37,6 +37,8 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     public getComposingParts(): PartStack[] {
         return this.getNode().getParts()
     }
+
+    // - I N T E R A C T I O N S
     public mouseEnter(node: any): void {
         this.inside = true;
     }

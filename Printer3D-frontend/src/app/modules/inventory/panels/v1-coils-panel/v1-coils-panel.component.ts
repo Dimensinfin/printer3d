@@ -38,6 +38,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
     public ngOnInit(): void {
         console.log(">[V1CoilsPanelComponent.ngOnInit]");
         this.startDownloading();
+        this.setVariant(EVariant.COIL_LIST)
         this.refresh();
         console.log("<[V1CoilsPanelComponent.ngOnInit]");
     }

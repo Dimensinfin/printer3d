@@ -29,7 +29,7 @@ import { V1PendingJobRenderComponent } from './v1-pending-job-render.component';
 import { Job } from '@domain/Job.domain';
 import { Part } from '@domain/Part.domain';
 
-xdescribe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
+describe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
     let component: V1PendingJobRenderComponent;
     let testPart: Part = new Part({
         "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
@@ -48,7 +48,10 @@ xdescribe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
     })
     let testJob: Job = new Job({
         id: "9903926b-e786-4fb2-8e8e-68960ebebb7a",
-        part: testPart
+        part: testPart,
+        priority: 3,
+        partCount: 4,
+        aggregatedCount: 8
     })
 
     beforeEach(async(() => {
@@ -107,6 +110,70 @@ xdescribe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
             component.node = testJob;
             expect(component.getBuildTime()).toBeDefined()
             expect(component.getBuildTime()).toBe(90)
+        });
+        it('getCopies.success: get number of part copies', () => {
+            component.node = testJob;
+            expect(component.getCopies()).toBe('x 4')
+        });
+        it('getPriority.success: get job priority', () => {
+            component.node = testJob;
+            expect(component.getPriority()).toBe(3)
+        });
+        it('getAggregatedNumber.success: get the number of parts aggregates to the stack', () => {
+            component.node = testJob;
+            expect(component.getAggregatedNumber()).toBe('x 8')
+        });
+        it('isEditable.success: true if the number of aggregated is editable', () => {
+            const componentAsAny = component as any
+            component.node = testJob;
+            componentAsAny.machine = {
+                state: 'IDLE',
+                isRunning: () => { return false }
+            }
+            expect(component.isEditable()).toBeTrue()
+            componentAsAny.machine = {
+                state: 'RUNNING',
+                isRunning: () => { return true }
+            }
+            expect(component.isEditable()).toBeFalse()
+            componentAsAny.machine = {
+                state: 'COMPLETED',
+                isRunning: () => { return false }
+            }
+            expect(component.isEditable()).toBeFalse()
+            componentAsAny.machine = {
+                state: 'IDLE',
+                isRunning: () => { return false }
+            }
+            expect(component.isEditable()).toBeTrue()
+        });
+        it('isRunning.success: true if the number of aggregated is editable', () => {
+            const componentAsAny = component as any
+            component.node = testJob;
+            componentAsAny.machine = {
+                state: 'RUNNING',
+                isRunning: () => { return true }
+            }
+            expect(component.isRunning()).toBeTrue()
+            componentAsAny.machine = {
+                state: 'IDLE',
+                isRunning: () => { return false }
+            }
+            expect(component.isRunning()).toBeFalse()
+        });
+    });
+    // - C O D E   C O V E R A G E   P H A S E
+    describe('Code Coverage Phase [Interactions]', () => {
+        it('onMouseLeave.: send the event to recalculate the timer', () => {
+            const componentAsAny = component as any
+            let counter: number = 0
+            component.node = testJob;
+            componentAsAny.machine = {
+                state: 'IDLE',
+                changePartCount: (count) => { counter = count }
+            }
+            component.onMouseLeave()
+            expect(counter).toBe(4)
         });
     });
 });

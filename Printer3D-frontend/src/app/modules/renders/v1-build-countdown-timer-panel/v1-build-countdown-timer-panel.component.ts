@@ -16,15 +16,6 @@ import { take } from 'rxjs/operators';
 // - DOMAIN
 import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render.component';
 
-const K = 1000;
-const INTERVAL = K;
-const toHours = (ms: number) =>
-    Math.floor(ms / K / 60 / 60);
-const toMinutes = (ms: number) =>
-    Math.floor(ms / K / 60);
-const toSeconds = (ms: number) =>
-    Math.floor(ms / K) % 60;
-
 @Component({
     selector: 'v1-build-countdown-timer',
     templateUrl: './v1-build-countdown-timer-panel.component.html',
@@ -35,7 +26,6 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
     @Input() time: number
     public hours: number = 0
     public minutes: number
-    public seconds: number
     private duration: number
     private timerSubscription: Subscription;
 

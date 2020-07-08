@@ -1,12 +1,7 @@
 // - DOMAIN
 import { Node } from './Node.domain';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
-import { PartRequest } from './dto/PartRequest.dto';
-import { IPartProvider } from './interfaces/IPartProvider.interface';
-import { Part } from './Part.domain';
-import { Part4Request } from './Part4Request.domain';
 import { RequestItem } from './RequestItem.domain';
-import { ICollaboration } from './interfaces/core/ICollaboration.interface';
 
 export class Request extends Node {
     private id: string;
@@ -32,13 +27,8 @@ export class Request extends Node {
         return new Date(this.requestDate);
     }
     public getContents(): RequestItem[] {
-        // const contents: ICollaboration[] = []
-        // for (const item of this.contents) {
-        //     contents.push(item.getContent())
-        // }
         return this.contents
     }
-
     public getContentCount(): number {
         let count: number = 0
         for (let content of this.contents)

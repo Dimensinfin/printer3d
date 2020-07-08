@@ -31,7 +31,7 @@ import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-
 import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render.component';
 // import { V2MachineRenderComponent } from '../v2-machine-render/v2-machine-render.component';
 
-const TEST_TIME: number = 12 * 60;
+const TEST_TIME: number = 1 * 3600 + 12 * 60;
 
 describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () => {
     let component: V1BuildCountdownTimerPanelComponent;
@@ -61,8 +61,8 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             const componentAsAny = component as any;
             expect(componentAsAny.parent).toBeUndefined();
             expect(componentAsAny.time).toBeUndefined();
+            expect(component.hours).toBe(0);
             expect(component.minutes).toBeUndefined();
-            expect(component.seconds).toBeUndefined();
             expect(componentAsAny.duration).toBeUndefined();
             expect(componentAsAny.timerSubscription).toBeUndefined();
         });
@@ -92,8 +92,8 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             expect(component).toBeDefined();
             expect(componentAsAny.parent.isAutostart).toHaveBeenCalled();
             expect(componentAsAny.duration).toBe(TEST_TIME)
-            expect(componentAsAny.minutes).toBe(12)
-            expect(componentAsAny.seconds).toBe(0)
+            expect(component.hours).toBe(1)
+            expect(component.minutes).toBe(12)
         });
         it('ngOnInit.autostart: validate initialization flow', async () => {
             const componentAsAny = component as any;
@@ -102,8 +102,8 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             await component.ngOnInit();
             expect(component).toBeDefined();
             expect(componentAsAny.duration).toBe(TEST_TIME)
-            expect(componentAsAny.minutes).toBe(12)
-            expect(componentAsAny.seconds).toBe(0)
+            expect(component.hours).toBe(1)
+            expect(component.minutes).toBe(12)
             expect(componentAsAny.timerSubscription).toBeDefined()
         });
     });
@@ -129,8 +129,16 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             componentAsAny.time = TEST_TIME;
             component.ngOnInit();
             expect(componentAsAny.duration).toBe(TEST_TIME);
+            expect(component.hours).toBe(1)
             expect(component.minutes).toBe(12);
-            expect(component.seconds).toBe(0);
+        });
+        it('setTime: set the timer fields', () => {
+            const componentAsAny = component as any;
+            // componentAsAny.time = TEST_TIME;
+            component.setTime(TEST_TIME);
+            expect(componentAsAny.duration).toBe(TEST_TIME);
+            expect(component.hours).toBe(1)
+            expect(component.minutes).toBe(12);
         });
         it('activate.timer: start the timer', async () => {
             const TEST_TIME: number = 12 * 60;
@@ -147,7 +155,7 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             component.deactivate();
             expect(componentAsAny.timerSubscription).toBeDefined();
         });
-        it('completeTimer: start the timer', fakeAsync(() => {
+        it('completeTimer: complete the timer', fakeAsync(() => {
             const TEST_TIME: number = 1;
             const componentAsAny = component as any;
             componentAsAny.duration = TEST_TIME;
@@ -156,9 +164,9 @@ describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () =>
             component.activate();
             tick(2000);
             expect(componentAsAny.duration).toBe(TEST_TIME);
+            expect(component.hours).toBe(0)
             expect(component.minutes).toBe(0);
-            expect(component.seconds).toBe(0);
-            expect(componentAsAny.parent.completeTime).toHaveBeenCalled();
+             expect(componentAsAny.parent.completeTime).toHaveBeenCalled();
         }));
     });
 });

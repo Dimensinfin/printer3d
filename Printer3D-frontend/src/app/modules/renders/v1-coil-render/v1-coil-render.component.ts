@@ -29,15 +29,12 @@ export class V1CoilRenderComponent extends NodeContainerRenderComponent {
         return this.getNode().getId()
     }
     public getMaterial(): string {
-        const coil = this.node as Coil;
-        return coil.material;
+        return this.getNode().material;
     }
     public getColor(): string {
-        const coil = this.node as Coil;
-        return coil.color;
+        return this.getNode().color;
     }
     public getWeight(): string {
-        const coil = this.node as Coil;
-        return coil.weight + ' gr.';
+        return this.getNode().weight + ' gr.';
     }
 }

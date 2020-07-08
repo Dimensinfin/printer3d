@@ -106,7 +106,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 });
         });
         it('apiNewModel_v1.default: get the persisted coils', async () => {
-            const model = new Model();
+            const model = new ModelRequest();
             service.apiNewModel_v1(model, new ResponseTransformer().setDescription('Transforms data into Coil.')
                 .setTransformation((entrydata: any): Model => {
                     return new Model(entrydata);
