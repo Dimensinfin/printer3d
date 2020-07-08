@@ -9,6 +9,7 @@ export class SupportService {
         this.translationTable['New Part'] = 'new-part-dialog'
         this.translationTable['New Coil'] = 'new-coil-dialog'
         this.translationTable['ProductionJobListPage'] = 'production-job-list-page'
+        this.translationTable['Production Jobs Page'] = 'production-job-list-page'
         this.translationTable['NewRequestPage'] = 'v1-new-request-page'
         this.translationTable['OpenRequestsPage'] = 'v1-open-requests-page'
         this.translationTable['NewModelPage'] = 'v1-new-model-page'
@@ -18,6 +19,7 @@ export class SupportService {
         this.translationTable['dock'] = 'v1-dock'
         this.translationTable['work-load'] = 'v1-work-load-panel'
         this.translationTable['coils'] = 'v1-coils-panel'
+        this.translationTable['machines'] = 'v2-machines-panel'
         this.translationTable['available-parts'] = 'v1-available-parts-panel'
         this.translationTable['new-request'] = 'v1-new-request-panel'
         this.translationTable['new-model'] = 'v1-new-model-panel'
@@ -27,6 +29,7 @@ export class SupportService {
         this.translationTable['model-detail'] = 'v1-new-model-panel'
         this.translationTable['open-requests'] = 'v1-open-requests-panel'
         this.translationTable['request-detail'] = 'v1-request-detail-panel'
+        this.translationTable['jobs-list'] = 'v1-pending-jobs-panel'
         // - RENDERS
         this.translationTable['feature'] = 'v2-feature'
         this.translationTable['job'] = 'v1-pending-job'
@@ -41,6 +44,7 @@ export class SupportService {
         this.translationTable['model'] = 'v1-model'
         this.translationTable['request-item'] = 'v1-request-item'
         this.translationTable['request-content'] = 'v1-request-item'
+        this.translationTable['job-timer'] = 'v1-build-countdown-timer'
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.

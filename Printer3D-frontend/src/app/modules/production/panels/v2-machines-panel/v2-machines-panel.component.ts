@@ -49,7 +49,7 @@ export class V2MachinesPanelComponent implements OnInit, OnDestroy, Refreshable 
                     }))
                 .subscribe((response: MachineListResponse) => {
                     // Process the response to extract the Machines to the render list
-                    this.machines = response.getMachines();
+                    this.machines = this.sortMachinesByLabel(response.getMachines());
                 })
         );
     }
@@ -62,4 +62,10 @@ export class V2MachinesPanelComponent implements OnInit, OnDestroy, Refreshable 
         this.clean();
         this.getMachines();
     }
+    private sortMachinesByLabel(containers: Machine[]): Machine[] {
+        return containers.sort((machine1, machine2) =>
+            0 - (machine2.label > machine1.label ? 1 : -1)
+        )
+    }
+
 }

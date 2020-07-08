@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div cy-name="requestContents" class="field left-margin top-margin">
-                <div class="request-part" cy-name="dropContents" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
+                <div cy-name="dropContents" class="request-part" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
                 </div>
                 <span cy-field-label="requestContents" class="label">CONTENIDO PEDIDO</span><br>
                 <div class="row">
@@ -103,11 +103,9 @@
                         <span class="label">TERMINACION</span><br>
                     </div>
                 </div>
-                <!-- <div> -->
                 <div *ngFor="let item of getRequestContents()" style="position: relative;">
                     <v1-request-item [node]="item" [variant]="'-NEW-REQUEST-'" [container]="self"></v1-request-item>
                 </div>
-                <!-- </div> -->
             </div>
         </div>
         <div>

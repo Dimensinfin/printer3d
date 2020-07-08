@@ -173,10 +173,10 @@ Given('the target panel has one or more {string}', function (symbolicName: strin
 
 
 // - A C C E P T A N C E
-Given('the target panel is the panel named {string}', function (elementName: string) {
-    cy.get('app-root').find('[cy-name="' + elementName + '"]').as('target-panel')
-        .should('exist')
-});
+// Given('the target panel is the panel named {string}', function (elementName: string) {
+//     cy.get('app-root').find('[cy-name="' + elementName + '"]').as('target-panel')
+//         .should('exist')
+// });
 Then('on the target panel there is one {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType).should('have.length', 1)
 });

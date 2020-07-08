@@ -187,10 +187,10 @@ Then('the {string} dialog opens and blocks the display', function (pageName: str
     const tag = supportService.translateTag(pageName) // Do name replacement
     cy.get('app-root').get('mat-dialog-container').get(tag).should('exist')
 });
-Given('the target panel is the panel named {string}', function (elementName: string) {
-    cy.get('[cy-name="' + elementName + '"]').as('target-panel')
-        .should('exist')
-});
+// Given('the target panel is the panel named {string}', function (elementName: string) {
+//     cy.get('[cy-name="' + elementName + '"]').as('target-panel')
+//         .should('exist')
+// });
 Then('the target panel has a input field named {string} with label {string} and value {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').find('[name="' + fieldName + '"]').parent().find('label')

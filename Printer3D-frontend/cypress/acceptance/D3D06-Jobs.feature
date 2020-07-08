@@ -17,7 +17,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     Scenario: [D3D06.02]-Validate the content of the Jobs page once the Jobs feature is clicked.
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Then the target panel has one or more "job"
 
     @D3D06 @D3D06.03
@@ -25,16 +25,16 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
         Then the page "ProductionJobListPage" has 2 panels
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Then the target panel has a title "/TRABAJOS/PENDIENTES"
-        Given the target panel is the panel named "machines"
+        Given the target panel is the panel of type "machines"
         Then the target panel has a title "/MAQUINAS"
 
     @D3D06 @D3D06.05
     Scenario: [D3D06.05]-The pending job list at the left panel shows the job records and they have the next list of required fields.
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Then the target panel has 4 "job"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         Then the target item has a field named "quantity" with label "CANTIDAD" and value "x 2"
@@ -47,7 +47,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     Scenario: [D3D06.06]-The pending job elements can be dragged to another place with the constraint 'JOB'.
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         Then the target item is draggable and with the contraint "JOB"
 
@@ -55,7 +55,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     Scenario: [D3D06.07]-The machine panel has a drop slot where the user can drop PendingJobs with the constraint 'JOB'.
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
-        Given the target panel is the panel named "machines"
+        Given the target panel is the panel of type "machines"
         Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Then the target item is droppable and with the contraint "JOB"
 
@@ -63,7 +63,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
     Scenario: [D3D06.08]-Jobs can have different priorities. Higher priority jobs have a different backgorund tint.
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         Then the target item has a field named "PRIORIDAD" with value "1"
         Given the target item the "job" with id "1682544c-364b-4e30-b097-fd181bcc50a5"

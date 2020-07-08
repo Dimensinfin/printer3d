@@ -1,29 +1,30 @@
+<!-- M A C H I N E S   D O   N O T   H A V E   V A R I A N T -->
 <div id="{{getUniqueId()}}" class="row cornered-panel">
-    <div class="row">
+    <div class="row" style=" padding-top: 20px;">
         <img class="machine-image" src="/assets/media/Creality3DEnder3Pro.png">
     </div>
     <div style="margin-left: 10px;">
-        <div class="field label-width">
-            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" cy-name="machine-label" class="field-height machine-label">{{getLabel()}}</span>
+        <div cy-name="label" class="cy-field-value">
+            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-value="label" cy-name="machine-label" class="field-height machine-label">{{getLabel()}}</span>
         </div>
-        <div class="field part-count-width">
-            <span cy-field-label="MODEL" class="label">MODEL</span><br>
-            <span cy-field-value="MODEL" cy-name="machine-model" class="field-height">{{getModel()}}</span>
+        <div cy-name="model" class="field">
+            <span cy-field-label="model" class="label">MODEL</span><br>
+            <span cy-field-value="model" cy-name="machine-model" class="field-height">{{getModel()}}</span>
         </div>
-        <div class="field part-count-width">
-            <span cy-field-label="CARACTERISTICAS" class="label">CARACTERISTICAS</span><br>
-            <span cy-field-value="CARACTERISTICAS" cy-name="machine-characteristics" class="field-height">{{getCharacteristics()}}</span>
+        <div cy-name="characteristics" class="field">
+            <span cy-field-label="characteristics" class="label">CARACTERISTICAS</span><br>
+            <span cy-field-value="characteristics" cy-name="machine-characteristics" class="field-height">{{getCharacteristics()}}</span>
         </div>
-        <div class="field machine-part-width">
-            <span cy-field-label="PIEZA" class="label">PIEZA EN PRODUCCION</span><br>
-            <div *ngIf="!target">
-                <div cy-name="drop-job" class="machine-job" droppable [dropScope]="'JOB'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span name="drop-job">TRABAJO PENDIENTE</span>
+        <div cy-name="buildingPart" class="field machine-part-width">
+            <span cy-field-label="buildingPart" class="label">PIEZA EN PRODUCCION</span><br>
+            <div *ngIf="!target; else runningJob">
+                <div cy-name="dropJobs" class="job-drop-area" droppable [dropScope]="'JOB'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)"><span> --- TRABAJO A REALIZAR --- </span>
                 </div>
             </div>
-            <div *ngIf="target" class="set-job">
+            <ng-template #runningJob class="set-job">
                 <v1-pending-job [node]="target" [machine]="self" [variant]="'-BUILDING-JOB-'"></v1-pending-job>
-            </div>
+            </ng-template>
         </div>
     </div>
     <div class="column" style="flex-grow: 1;" *ngIf="target">
@@ -55,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div cy-name="start-button" class="start-width" *ngIf="state=='COMPLETED'">
+        <div cy-name="complete-button" class="start-width" *ngIf="state=='COMPLETED'">
             <div style="position: relative;">
                 <button cy-name="COMPLETE" class="button ok-button" (click)="completeBuild()">
                     <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Completar</span>
@@ -143,7 +144,7 @@
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
     </svg>
-    <svg cy-field-mark="REQUEST" class="corner-mark completed-request" viewBox="0 0 100 100">
+    <svg cy-field-mark="REQUEST" class="corner-mark" [ngClass]="{'completed-request':state=='COMPLETED'}" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>

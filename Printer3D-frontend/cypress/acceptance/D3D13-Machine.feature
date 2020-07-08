@@ -2,9 +2,9 @@
 Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
 
     The list of Machines is not editable but by the system administrator. They are rendered on a fixed postion panel to avoid them from scrolling out of view.
-    If the Machin is IDLE id does not have any Part on the build slot. Neither it has activation buttons not the timer counter.
+    If the Machine is IDLE it does not have any Part on the build slot. Neither it has activation buttons not the timer counter.
     If a Part is dropped on the Machine the actuator buttons are shown and the counter initialized to the Part build time.
-    If the Start button is clicked the Machine start the Part build and the timer start to count down.
+    If the Start button is clicked the Machine starts the Part build and the timer starts to count down.
     If the Clear button is clicked the Part is removed from the build slot.
     If the Machine is RUNNING then the build timer is shown. There is only visible the Cancel button to stop Part building.
     If the Machine is RUNNING and the build remaining time reaches zero then there is a new Button named Complete to complete the build and store the part on the inventory stock.
@@ -13,46 +13,64 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given the application Printer3DManager
 
     # - H A P P Y   P A T H
-    @D3D13 @D3D13.01
-    Scenario: [D3D13.01]-The list of Machines is a fixed list at the right panel and should show some fields.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Given the target panel is the panel named "machines"
-        Then the target panel has a title "/MAQUINAS"
-        Then the target panel has 2 "machine"
+    # @D3D13 @D3D13.01
+    # Scenario: [D3D13.01]-The list of Machines is a fixed list at the right panel and should show some fields.
+    #     Given there is a click on Feature "/TRABAJOS PND."
+    #     Then the page "Production Jobs Page" is activated
+    #     Given the target panel is the panel of type "machines"
+    #     Then the target panel has a title "/MAQUINAS"
+    #     Then the target panel has 2 "machine"
 
-    @D3D13 @D3D13.02
-    Scenario: [D3D13.02]-Any of the machines has a list of fields. If the Part is not assigned then there are no buttons.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Given the target panel is the panel named "machines"
-        Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-        Then the target item has a field labeled "ETIQUETA" with value "Ender 3 Pro - A"
-        Then the target item has a field labeled "MODEL" with value "Creality 3D Ender 3 Pro"
-        Then the target item has a field labeled "CARACTERISTICAS" with value "Max size set to 200mm. Has adaptor for flexible plastic filament."
-        Given the target machine the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-        And the target machine has no Job assigned
-        And the target Machine has no instances of "button"
+    # @D3D13 @D3D13.02
+    # Scenario: [D3D13.02]-Any of the machines has a list of fields. If the Part is not assigned then there are no buttons.
+    #     Given there is a click on Feature "/TRABAJOS PND."
+    #     Then the page "Production Jobs Page" is activated
+    #     Given the target panel is the panel of type "machines"
+    #     # - Validate the content for the Machine fields
+    #     Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    #     Then the target item has a field named "label" with label "ETIQUETA" and value "Ender 3 Pro - A"
+    #     And the target item has a field named "model" with label "MODEL" and value "Creality 3D Ender 3 Pro"
+    #     And the target item has a field named "characteristics" with label "CARACTERISTICAS" and value "Max size set to 200mm. Has adaptor for flexible plastic filament."
+    #     # - There is a panel for dropping parts and empty
+    #     And the target item has a drop place named "dropJobs"
+    #     And the target item has a panel labeled "PIEZA EN PRODUCCION" named "buildingPart"
+    #     And the target item has no "job"
+    #     # - There are no buttons
+    #     And the target item has no buttons
 
     @D3D13 @D3D13.03
     Scenario: [D3D13.03]-When one Part is dropped on the Part slot then the right panel activates with the time counter and the interaction buttons.
         Given there is a click on Feature "/TRABAJOS PND."
-        Given the target panel is the panel named "jobs-list"
-        Given the target job the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Given the target panel is the panel named "machines"
-        Given the target machine the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-        When the target Job is dragged and dropped on the target Machine
-        Then the target machine has one Job assigned with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        And the target Machine has "2" instances of "button"
-        And the target item button with name "START-BUILD" has a label "Comenzar" and is "enabled"
-        And the target item button with name "CLEAR" has a label "Clear" and is "enabled"
-        And on the target panel there are one or more "v1-build-countdown-timer"
-        Then the "build-countdown-timer" item has a value of "0h30m"
+        Then the page "Production Jobs Page" is activated
+        # - Select a Job for drag
+        Given the target panel is the panel of type "jobs-list"
+        Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        # - Drag a part to the drop contents
+        Given the target panel is the panel of type "machines"
+        Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        When the drag source is dragged to the drop destination "dropJobs"
+        # - Check that the buttons are shown and also the timer
+        Then the target item has 1 "job-timer"
+        And the target item button with name "start-button" has a label "Comenzar" and is "enabled"
+        And the target item button with name "clear-button" has a label "Clear" and is "enabled"
+
+
+
+    # - Drag and drop a job to the machine
+
+    # Given the target machine the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    # When the target Job is dragged and dropped on the target Machine
+    # Then the target machine has one Job assigned with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    # And the target Machine has "2" instances of "button"
+    # And on the target panel there are one or more "v1-build-countdown-timer"
+    # Then the "build-countdown-timer" item has a value of "0h30m"
 
     @D3D13 @D3D13.04
     Scenario: [D3D13.04]-Once Part is dropped and the buttons are visible, if the user clicks the Clear button the job is cancelled and the Part is removed from the slot.
         Given there is a click on Feature "/TRABAJOS PND."
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Given the target job the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Given the target panel is the panel named "machines"
+        Given the target panel is the panel of type "machines"
         Given the target machine the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         When the target Job is dragged and dropped on the target Machine
@@ -64,9 +82,9 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
     @D3D13 @D3D13.05
     Scenario: [D3D13.05]-If the Start button is clicked then the Machine changes to RUNNING state, the job is submited for build to the backend and the timer starts to countdown.
         Given there is a click on Feature "/TRABAJOS PND."
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Given the target job the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Given the target panel is the panel named "machines"
+        Given the target panel is the panel of type "machines"
         Given the target machine the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         When the target Job is dragged and dropped on the target Machine
@@ -80,9 +98,9 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
     @D3D13.06
     Scenario: [D3D13.06]-If there is a Job running and the Cancel button is clicked the job is cancelled and the Machine returns to idle.
         Given there is a click on Feature "/TRABAJOS PND."
-        Given the target panel is the panel named "jobs-list"
+        Given the target panel is the panel of type "jobs-list"
         Given the target job the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Given the target panel is the panel named "machines"
+        Given the target panel is the panel of type "machines"
         Given the target machine the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         When the target Job is dragged and dropped on the target Machine

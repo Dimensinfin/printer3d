@@ -1,28 +1,27 @@
-.cornered-panel {
-    position: relative;
-    margin-bottom: 5px;
-}
-
+// .cornered-panel {
+//     position: relative;
+//     margin-bottom: 5px;
+// }
 .machine-image {
-    width: 170px;
-    height: 170px;
+    width: 160px;
+    height: 160px;
     background-color: #343149;
+    border: 1px solid grey;
 }
 
 .machine-label {
     font-size: 24px;
     font-weight: bold;
-    color: yellow;
+    color: blueviolet;
+    text-shadow: 0px 0px 2px blueviolet, 0px 0px 1px blueviolet;
 }
 
-.machine-job {
-    margin-top: 10px;
-    border: 2px dashed green;
-    height: 35px;
+.job-drop-area {
     text-align: center;
-    vertical-align: middle;
-    line-height: 30px;
     color: #808080;
+    margin-bottom: 20px;
+    border: 1px dashed;
+    line-height: 50px;
 }
 
 .drag-over {
@@ -33,6 +32,21 @@
     border: 2px solid green;
 }
 
+// .machine-job {
+//     margin-top: 10px;
+//     border: 2px dashed green;
+//     height: 35px;
+//     text-align: center;
+//     vertical-align: middle;
+//     line-height: 30px;
+//     color: #808080;
+// }
+// .drag-over {
+//     background-color: greenyellow;
+// }
+// .drag-hint {
+//     border: 2px solid green;
+// }
 .set-job {
     background-color: rosybrown;
     margin: 2px;
@@ -134,4 +148,8 @@ $clearform-button-color: #FF7733;
 .clear-button:hover:disabled {
     background: #D0D0D0;
     color: white;
+}
+
+.completed-request {
+    fill: green;
 }

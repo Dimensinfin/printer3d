@@ -14,10 +14,10 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details 
     @D3D12 @D3D12.01
     Scenario: [D3D12.01]-Select a Request from the list of requests in the Open state and verify that there is no Close button.
         Given there is a click on Feature "/PEDIDOS"
-        Given the target panel is the panel named "open-request-list"
+        Given the target panel is the panel of type "open-request-list"
         Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
         Given a hover on the target item
-        Then the target panel is the panel named "request-details"
+        Then the target panel is the panel of type "request-details"
         Then on the target panel there is one "request"
         Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
         And in the target item there is no "COMPLETAR" button
@@ -25,10 +25,10 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details 
     @D3D12 @D3D12.02
     Scenario: [D3D12.02]-Select a Request from the list of requests in the Completed state and verify that there is a Close button.
         Given there is a click on Feature "/PEDIDOS"
-        Given the target panel is the panel named "open-request-list"
+        Given the target panel is the panel of type "open-request-list"
         Given the target item the "request" with id "8674832e-8377-4e30-ab01-d6468a312012"
         Given a hover on the target item
-        Then the target panel is the panel named "request-details"
+        Then the target panel is the panel of type "request-details"
         Then on the target panel there is one "request"
         Given the target item the "request" with id "8674832e-8377-4e30-ab01-d6468a312012"
         And in the target item there is a "COMPLETAR" button
@@ -36,10 +36,10 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details 
     @D3D12 @D3D12.03
     Scenario: [D3D12.03]-If the Complete button is clicked the request is updated on the backend, a notification is shown and the page closes and returns to the Dashboard.
         Given there is a click on Feature "/PEDIDOS"
-        Given the target panel is the panel named "open-request-list"
+        Given the target panel is the panel of type "open-request-list"
         Given the target item the "request" with id "8674832e-8377-4e30-ab01-d6468a312012"
         Given a hover on the target item
-        Then the target panel is the panel named "request-details"
+        Then the target panel is the panel of type "request-details"
         Given the target item the "request" with id "8674832e-8377-4e30-ab01-d6468a312012"
         And the target panel button with name "COMPLETAR" has a label "Completar" and is "enabled"
         When there is a click on the target panel "COMPLETAR" button
@@ -51,10 +51,10 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details 
     @D3D12 @D3D12.04
     Scenario: [D3D12.04]-When the Detailed Request panel shows requests that are open because there are missing Parts then the Missed part should be highlighted and there should be a number with the number of missing parts.
         Given there is a click on Feature "/PEDIDOS"
-        Given the target panel is the panel named "open-request-list"
+        Given the target panel is the panel of type "open-request-list"
         Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
         Given a hover on the target item
-        Then the target panel is the panel named "request-details"
+        Then the target panel is the panel of type "request-details"
         Then on the target panel there is one "request"
         Given the target item the "request" with id "9903926b-e786-4fb2-8e8e-68960ebebb7a"
         And in the target item there is no "COMPLETAR" button

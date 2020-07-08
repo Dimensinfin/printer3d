@@ -15,8 +15,8 @@ Then('the target panel has a drop place named {string}', function (symbolicName:
 
     })
 });
-Then('the target panel has a panel labeled {string} named {string} and with {string} elements', function (
-    fieldLabel: string, fieldName: string, elementCount: number) {
+Then('the target panel has a panel labeled {string} named {string} and with {string} elements', 
+function (   fieldLabel: string, fieldName: string, elementCount: number) {
     cy.get('@target-panel').find('.field').find('.label').contains(fieldLabel, { matchCase: false })
         .parent().as('target-field')
     cy.get('@target-field').find('[cy-name="' + fieldName + '"]').should('exist')

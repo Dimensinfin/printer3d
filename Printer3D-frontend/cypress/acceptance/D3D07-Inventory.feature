@@ -192,7 +192,7 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         When the target Part Duplicate button is clicked
         Then the "New Part" dialog opens and blocks the display
-        Given the target panel is the panel named "new-part-dialog"
+        Given the target panel is the panel of type "new-part-dialog"
         Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
         Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
         # Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
