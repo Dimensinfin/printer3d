@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { platformconstants } from '../../../platform/platform-constants';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 // - TESTING
 import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
@@ -15,11 +17,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
 import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
-import { AppStoreService } from '@app/services/app-store.service';
+import { ToastrService } from 'ngx-toastr';
+import { SupportToastrService } from '@app/testing/SupportToastrService.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
+import { BackendService } from '@app/services/backend.service';
+import { SupportBackendService } from '@app/testing/SupportBackend.service';
+import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
+import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
+import { DialogFactoryService } from '@app/services/dialog-factory.service';
+import { V1DockComponent } from '../../common/v1-dock/v1-dock.component';
+import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
+import { Part } from '@domain/Part.domain';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
+import { FormsModule } from '@angular/forms';
 import { V1CoilRenderComponent } from './v1-coil-render.component';
 import { Coil } from '@domain/Coil.domain';
 
@@ -35,6 +47,11 @@ describe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
                 V1CoilRenderComponent
             ],
             providers: [
+                { provide: ToastrService, useClass: SupportToastrService },
+                { provide: IsolationService, useClass: SupportIsolationService },
+                { provide: BackendService, useClass: SupportBackendService },
+                { provide: DialogFactoryService, useValue: {} },
+                { provide: ChangeDetectorRef, useValue: { detectChanges: () => { } } },
             ]
         }).compileComponents();
 

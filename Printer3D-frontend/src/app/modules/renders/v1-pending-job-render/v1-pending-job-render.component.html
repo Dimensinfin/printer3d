@@ -14,10 +14,6 @@
             <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
             <span cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</span>
         </div>
-        <!-- <div class="field">
-            <span cy-field-label="color" class="label">COLOR</span><br>
-            <span cy-field-value="color" class="part-color"></span>
-        </div> -->
         <div class="field">
             <span cy-field-label="buildTime" class="label">TIEMPO CONSTRUC.</span><br>
             <span cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}} min.</span>
@@ -36,7 +32,7 @@
 <!-- B U I L D I N G   V A R I A N T -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
     <div class="row">
-        <div cy-name="quantity" class="field">
+        <div cy-name="quantity" class="field" *ngIf="isEditable()">
             <span cy-field-label="quantity" cy-input-type="input" class="label">CANTIDAD</span><br>
             <div class="dsf-input-container quantity-width">
                 <input name="quantity" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="node['partCount']" (mouseleave)="onMouseLeave()" required min="1" max="100" #quantity="ngModel">
@@ -53,12 +49,12 @@
                 </div>
             </div>
         </div>
-        <ng-template #partCounter>
+        <div *ngIf="!isEditable()">
             <div cy-name="quantity-data" class="field quantity-width">
                 <span cy-field-label="quantity-data" class="label">CANTIDAD</span><br>
                 <span cy-field-value="quantity-data" class="field-height job-label">{{getCopies()}}</span>
             </div>
-        </ng-template>
+        </div>
         <div cy-name="label" class="field building-label-width">
             <span cy-field-label="label" class="label">ETIQUETA</span><br>
             <span cy-field-value="label" class="field-height job-label">{{getLabel()}}</span>
@@ -67,10 +63,6 @@
             <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
             <span cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</span>
         </div>
-        <!-- <div class="field">
-            <span cy-field-label="COLOR" class="label">COLOR</span><br>
-            <span cy-field-value="COLOR" class="part-color">{{getColor()}}</span>
-        </div> -->
         <div cy-name="buildTime" class="field">
             <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
             <span cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}}</span>
