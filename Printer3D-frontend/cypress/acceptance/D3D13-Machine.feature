@@ -120,7 +120,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And the target has no "buttons"
 
     @D3D13.07
-    Scenario: [D3D13.07]-When a Part id dropped on the pache the Job block displays some job information and has the count of copies editable.
+    Scenario: [D3D13.07]-When a Part id dropped on the machine the Job block displays some job information and has the count of copies editable.
         Given there is a click on Feature "/TRABAJOS PND."
         Then the page "Production Jobs Page" is activated
         # - Select a Job for drag
@@ -133,7 +133,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         # - Validate the fields of the job displayed
         And form field named "quantity" with label "CANTIDAD" and contents "1"
-        And form field named "quantity" is "invalid"
+        And form field named "quantity" is "valid"
         And field named "label" with label "ETIQUETA" and value "Covid-19 Key"
         And field named "material" with label "MATERIAL/COLOR" and value "PLA/NARANJA-T"
         And field named "buildTime" with label "TIEMPO" and value "30"

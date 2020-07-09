@@ -128,6 +128,14 @@ Then('form field named {string} is {string}', function (fieldName: string, state
         }
     }
 });
+Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue + '')
+});
+Given('empty is set on form field {string}', function (fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear()
+});
 
 //----------------------------------------
 // Then('the V2CoilListPage is activated', function () {
