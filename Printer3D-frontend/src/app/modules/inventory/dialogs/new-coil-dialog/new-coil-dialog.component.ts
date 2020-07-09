@@ -14,12 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { IsolationService } from '@app/platform/isolation.service';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-import { PartRecord } from '@domain/PartRecord.domain';
-import { Part } from '@domain/Part.domain';
-import { PartConstructor } from '@domain/constructor/Part.constructor';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Coil } from '@domain/Coil.domain';
-import { CoilConstructor } from '@domain/constructor/Coil.constructor';
 
 @Component({
     selector: 'new-coil-dialog',
@@ -62,9 +58,8 @@ export class NewCoilDialogComponent implements OnInit, OnDestroy {
     // - I N T E R A C T I O N S
     public saveCoil(): void {
         console.log('><[NewCoilDialogComponent.saveCoil]')
-        const newRoll: Coil = new CoilConstructor().construct(this.coil);
         this.backendConnections.push(
-            this.backendService.apiNewCoil_v1(newRoll, this.dataToCoilTransformer)
+            this.backendService.apiNewCoil_v1(this.coil, this.dataToCoilTransformer)
                 .subscribe((persistedRoll: Coil) => {
                     this.closeModal();
                 })
@@ -72,9 +67,8 @@ export class NewCoilDialogComponent implements OnInit, OnDestroy {
     }
     public saveCoilAndRepeat() {
         console.log('><[NewCoilDialogComponent.saveCoilAndRepeat]')
-        const newRoll: Coil = new CoilConstructor().construct(this.coil);
         this.backendConnections.push(
-            this.backendService.apiNewCoil_v1(newRoll, this.dataToCoilTransformer)
+            this.backendService.apiNewCoil_v1(this.coil, this.dataToCoilTransformer)
                 .subscribe((persistedRoll: Coil) => {
                     console.log('><[NewCoilDialogComponent.saveCoilAndRepeat]> Restarting form')
                     this.coil.createNewId();

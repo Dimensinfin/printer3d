@@ -17,7 +17,7 @@ import { Request } from '@domain/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
 import { Model } from '@domain/inventory/Model.domain';
-import { RequestConstructor } from '@domain/constructor/Request.constructor';
+import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { IContent } from '@domain/interfaces/IContent.interface';
 /**
@@ -128,9 +128,9 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
                     console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
                     // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
                     const requestList: Request[] = []
-                    const requestConstructor: RequestConstructor = new RequestConstructor(this)
+                    const requestConverter: DataToRequestConverter = new DataToRequestConverter(this)
                     for (let index = 0; index < entrydata.length; index++) {
-                        requestList.push(requestConstructor.construct(entrydata[index]));
+                        requestList.push(requestConverter.convert(entrydata[index]));
                     }
                     return requestList;
                 }))

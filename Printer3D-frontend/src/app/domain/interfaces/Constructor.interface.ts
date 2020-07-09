@@ -1,3 +1,3 @@
 export interface Constructor<T> {
-    construct(input: any): T;
+    convert(input: any): T;
 }

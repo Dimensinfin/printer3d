@@ -1,12 +1,12 @@
 // - DOMAIN
 import { Request } from '../Request.domain';
-import { RequestConstructor } from './Request.constructor';
+import { DataToRequestConverter } from './DataToRequest.converter';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { Model } from '@domain/inventory/Model.domain';
 import { Part } from '@domain/Part.domain';
 
-describe('CLASS RequestConstructor [Module: CONSTRUCTORS]', () => {
+describe('CLASS DataToRequestConverter [Module: CONVERTERS]', () => {
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Construct]', () => {
         it('constructor.empty: create a new Request processing the serialized input', () => {
@@ -19,8 +19,8 @@ describe('CLASS RequestConstructor [Module: CONSTRUCTORS]', () => {
                     return null
                 }
             } as IContentProvider
-            const instance = new RequestConstructor(contentProvider);
-            const request: Request = instance.construct({
+            const instance = new DataToRequestConverter(contentProvider);
+            const request: Request = instance.convert({
                 "id": "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef",
                 "label": "Complete Slot Car Platform P02",
                 "requestDate": "2020-06-29T20:00:00.226181Z",

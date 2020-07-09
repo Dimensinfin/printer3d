@@ -16,7 +16,7 @@ import { Part } from '@domain/Part.domain';
 import { Request } from '@domain/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { Model } from '@domain/inventory/Model.domain';
-import { RequestConstructor } from '@domain/constructor/Request.constructor';
+import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { IContent } from '@domain/interfaces/IContent.interface';
 import { Job } from '@domain/Job.domain';

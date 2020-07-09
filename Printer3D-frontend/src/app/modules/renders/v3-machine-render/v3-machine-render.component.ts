@@ -24,7 +24,7 @@ import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer
 import { Job } from '@domain/Job.domain';
 import { Machine } from '@domain/Machine.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
-import { JobRequestConstructor } from '@domain/constructor/JobRequest.constructor';
+import { JobToJobRequestConverter } from '@domain/converter/JobToJobRequest.converter';
 
 @Component({
     selector: 'v3-machine',
@@ -128,7 +128,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     }
     public startBuild(): void {
         console.log('>[V2MachineRenderComponent.startBuild]')
-        const jobRequest: JobRequest = new JobRequestConstructor().construct(this.target)
+        const jobRequest: JobRequest = new JobToJobRequestConverter().convert(this.target)
         this.backendConnections.push(
             this.backendService.apiMachinesStartBuild_v2(this.getNode().getId(), jobRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')

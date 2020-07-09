@@ -17,12 +17,9 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
 import { platformconstants } from '@app/platform/platform-constants';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { Feature } from '@domain/Feature.domain';
 import { PartContainer } from '@domain/PartContainer.domain';
 import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
-import { UpdateGroupRequestConstructor } from '@domain/constructor/UpdateGroupRequest.constructor';
-import { AnyARecord } from 'dns';
-import { PartContainerConstructor } from '@domain/constructor/PartContainer.constructor';
+import { PartToUpdateGroupRequestConverter } from '@domain/converter/PartToUpdateGroupRequest.converter';
 
 @Component({
     selector: 'v1-part-container',
@@ -88,7 +85,7 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
     }
     public saveEditing(): void {
         console.log('>[V1PartContainerRenderComponent.saveEditing]');
-        const updateGroupRequest: UpdateGroupRequest = new UpdateGroupRequestConstructor().construct(this.editPart)
+        const updateGroupRequest: UpdateGroupRequest = new PartToUpdateGroupRequestConverter().convert(this.editPart)
         this.backendConnections.push(
             this.backendService.apiInventoryGroupUpdatePart_v1(updateGroupRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
