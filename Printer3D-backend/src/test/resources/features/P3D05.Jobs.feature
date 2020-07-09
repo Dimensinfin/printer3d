@@ -9,12 +9,14 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
     Scenario: [P3D05.01] When the pending jobs request is received a new list of jobs is calculated.
         Given a clean Requests repository
         Given a clean RequestsV2 repository
+        Given a clean Jobs repository
         Given a clean Models repository
         Given a clean Parts repository
         And the following Parts in my service
-            | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | id                                   | label            | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key     | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key     | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
         When the Get Jobs request is processed
         Then there is a valid response with return code of "200 OK"
         And the list of jobs has "2" records
@@ -25,6 +27,7 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
         Given a clean Requests repository
         Given a clean RequestsV2 repository
         Given a clean Jobs repository
+        Given a clean Models repository
         Given a clean Parts repository
         Given the following Parts in my service
             | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -41,6 +44,10 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
 
     @P3D05.H @P3D05.03
     Scenario: [P3D05.03] Jobs from Requests have a higher priority than stock level jobs.
+        Given a clean Requests repository
+        Given a clean RequestsV2 repository
+        Given a clean Jobs repository
+        Given a clean Models repository
         Given a clean Parts repository
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                 |
@@ -62,7 +69,7 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
             | a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9 | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
         When the Get Jobs request is processed
         Then there is a valid response with return code of "200 OK"
-        And the list of jobs has "10" records
+        And the list of jobs has "25" records
         And the jobs records contain the next information
             | part.id                              | part.label                              | priority |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 1        |
@@ -74,12 +81,29 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
             | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
 
     @P3D05.H @P3D05.04
     Scenario: [P3D05.04] When calculating the Model requirements from stock using the preferred stock level the list of jobs for leveling grows.
         Given a clean Requests repository
         Given a clean RequestsV2 repository
+        Given a clean Jobs repository
+        Given a clean Models repository
         Given a clean Parts repository
         And the following Parts in my service
             | id                                   | label                                   | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                 |

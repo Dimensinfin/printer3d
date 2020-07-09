@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
@@ -45,6 +46,8 @@ public class StockManager {
 	}
 
 	public int minus( final UUID partId, final int quantity ) {
+		LogWrapper.info( "Subtracting id: " + partId.toString() );
+		LogWrapper.info( "Quantity: " + quantity );
 		if (this.stocks.containsKey( partId )) {
 			this.stocks.computeIfPresent( partId, ( UUID key, StockLevel stockLevel ) -> stockLevel.reduceStock( quantity ) );
 			return this.stocks.get( partId ).getStock();

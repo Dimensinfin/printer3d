@@ -44,7 +44,7 @@ public class JobServiceV1 {
 	private final RequestsRepository requestsRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 	private final ModelRepository modelRepository;
-	private final StockManager stockManager;
+	private StockManager stockManager;
 
 	// - C O N S T R U C T O R S
 	public JobServiceV1( final PartRepository partRepository,
@@ -55,7 +55,6 @@ public class JobServiceV1 {
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.modelRepository = modelRepository;
-		this.stockManager = new StockManager( this.partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -76,7 +75,8 @@ public class JobServiceV1 {
 	public List<Job> getPendingJobs() {
 		LogWrapper.enter();
 		try {
-			this.stockManager.startStock(); // Initialize the stock with the current repository values.
+			this.stockManager = new StockManager( this.partRepository );
+			this.stockManager.clean().startStock(); // Initialize the stock with the current repository values.
 			this.collectRequestPartsFromRepository();
 			// Initialize the result list
 			final List<Job> jobs = new ArrayList<>( this.generateMissingRequestJobs() );
@@ -101,8 +101,9 @@ public class JobServiceV1 {
 					.filter( RequestEntityV2::isOpen )
 					.forEach( requestEntityV2 -> {
 						// Subtract the Parts from the inventory
+						LogWrapper.info( "Processing Request: " + requestEntityV2.getId().toString() );
 						for (RequestItem content : requestEntityV2.getContents()) {
-							LogWrapper.info( "Processing Request: " + requestEntityV2.getId().toString() );
+							LogWrapper.info( "Processing Content: " + content.getItemId().toString() );
 							if (content.getType() == RequestContentType.PART) {
 								this.stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
 							}
@@ -141,6 +142,7 @@ public class JobServiceV1 {
 		try {
 			// Generate the jobs after processing all Requests
 			for (UUID stockId : this.stockManager.getStockIterator()) {
+				LogWrapper.info( "stockId: " + stockId.toString() );
 				if (this.stockManager.getStock( stockId ) < 0) {
 					LogWrapper.info( "Stock missing: " + stockId.toString() );
 					jobs.addAll( this.generateRequestJobs( stockId, Math.abs( this.stockManager.getStock( stockId ) ) ) );
@@ -223,10 +225,10 @@ public class JobServiceV1 {
 
 	private List<Job> sortByFinishingCount( final List<Job> inputList ) {
 		final List<FinishingContainer> finishings = this.generateFinishingList( inputList );
-		Collections.sort(finishings, new FinishingByCountComparator());
+		Collections.sort( finishings, new FinishingByCountComparator() );
 		return finishings
 				.stream()
-//				.sorted( ( fin1, fin2 ) -> new FinishingByCountComparator().compare( fin1, fin2 ) )
+				//				.sorted( ( fin1, fin2 ) -> new FinishingByCountComparator().compare( fin1, fin2 ) )
 				.flatMap( finishingContainer -> finishingContainer.getJobs().stream() )
 				.collect( Collectors.toList() );
 	}
