@@ -8,12 +8,14 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilUpdater;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
 @Service
 public class CoilServiceV1 {
@@ -44,5 +46,25 @@ public class CoilServiceV1 {
 		} finally {
 			LogWrapper.exit();
 		}
+	}
+
+	/**
+	 * Updates a Coil. All only field allowed to be changed is the weight.
+	 *
+	 * @since 0.10.0
+	 */
+	public Coil updateCoil( final @NotNull UpdateCoilRequest updateCoilRequest ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Model by id. If not found reject the request because this should be an update.
+			final Optional<Coil> target = this.coilRepository.findById( updateCoilRequest.getId() );
+			if (target.isEmpty())
+				throw new DimensinfinRuntimeException( ErrorInfo.COIL_NOT_FOUND, updateCoilRequest.getId().toString() );
+			final Coil coilEntity = new CoilUpdater( target.get() ).update( updateCoilRequest );
+			return this.coilRepository.save( coilEntity );
+		} finally {
+			LogWrapper.exit();
+		}
+
 	}
 }

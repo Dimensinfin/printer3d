@@ -9,12 +9,15 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
-import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToCoilConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CoilValidator;
+import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToCoilConverter;
+import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToUpdateCoilRequestConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class P3D02CoilsSteps extends StepSupport {
 	// - C O N S T R U C T O R S
@@ -24,12 +27,25 @@ public class P3D02CoilsSteps extends StepSupport {
 
 	@Then("the Coil repository has a record for new Coil with the next fields")
 	public void the_Coil_repository_has_a_record_for_new_Coil_with_the_next_fields( final List<Map<String, String>> dataTable ) {
-		Assertions.assertNotNull( this.printer3DWorld.getNewCoilResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getNewCoilResponseEntity().getBody() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilResponseEntity().getBody() );
 		Assertions.assertTrue(
 				new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ),
-						this.printer3DWorld.getNewCoilResponseEntity().getBody() )
+						this.printer3DWorld.getCoilResponseEntity().getBody() )
 		);
+	}
+
+	@Then("the coil with id {string} has the next data")
+	public void the_coil_with_id_has_the_next_data( final String coilId, final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils() );
+		for (Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()) {
+			if (coil.getId().toString().equalsIgnoreCase( coilId )) {
+				Assertions.assertTrue(
+						new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), coil )
+				);
+			}
+		}
 	}
 
 	@Then("the item {string} of the list of Coils has the next fields")
@@ -41,6 +57,18 @@ public class P3D02CoilsSteps extends StepSupport {
 		Assertions.assertTrue(
 				new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), record )
 		);
+	}
+
+	@When("the item with id {string} of the list of Coils has the next fields")
+	public void the_item_with_id_of_the_list_of_Coils_has_the_next_fields( final String targetId, final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils() );
+		for (Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()) {
+			if (coil.getId().toString().equals( targetId ))
+				Assertions.assertTrue(
+						new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), coil )
+				);
+		}
 	}
 
 	@Then("the list of Coils has {string} items")
@@ -57,16 +85,11 @@ public class P3D02CoilsSteps extends StepSupport {
 		Assertions.assertNotNull( coil );
 		this.printer3DWorld.setCoil( coil );
 	}
-	@Then("the coil with id {string} has the next data")
-	public void the_coil_with_id_has_the_next_data(final String coilId, final List<Map<String, String>> dataTable) {
-		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils() );
-		for ( Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()){
-			if ( coil.getId().toString().equalsIgnoreCase( coilId )){
-				Assertions.assertTrue(
-						new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), coil )
-				);
-			}
-		}
+
+	@Given("the next Update Coil request")
+	public void the_next_Update_Coil_request( final List<Map<String, String>> dataTable ) {
+		final UpdateCoilRequest updateCoilRequest = new CucumberTableToUpdateCoilRequestConverter().convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( updateCoilRequest );
+		this.printer3DWorld.setUpdateCoilRequest( updateCoilRequest );
 	}
 }

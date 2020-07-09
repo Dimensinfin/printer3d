@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
 @RestController
 @CrossOrigin
@@ -45,5 +47,18 @@ class CoilControllerV1 {
 			produces = "application/json")
 	public ResponseEntity<Coil> newCoil( final @RequestBody @Valid @NotNull Coil coil ) {
 		return new ResponseEntity<>( this.coilServiceV1.newCoil( coil ), HttpStatus.CREATED );
+	}
+
+	/**
+	 * Updates a Coil. All only field allowed to be changed is the weight.
+	 * @param updateCoilRequest the new data to persist for this Coil
+	 * @return the coil data as found on the repository.
+	 * @since 0.10.0
+	 */
+	@PatchMapping(path = "/inventory/coils",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Coil> updateCoil( final @RequestBody @Valid @NotNull UpdateCoilRequest updateCoilRequest ) {
+		return new ResponseEntity<>( this.coilServiceV1.updateCoil( updateCoilRequest ), HttpStatus.OK );
 	}
 }

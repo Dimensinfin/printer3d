@@ -395,6 +395,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Coil'
+    patch:
+      tags:
+        - Inventory
+      summary: Updates an existing Coil.
+      description: >
+        Updates a Coil. All only field allowed to be changed is the weight.
+      operationId: updateCoil
+      requestBody:
+        description: >
+          Contains the **Coil** fields that come from the GUI with the new Coil data.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCoilRequest'
+      responses:
+        200:
+          description: >
+            The new Coil data as stored at the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coil'
     get:
       tags:
         - Inventory
@@ -874,6 +896,16 @@ components:
             The color name for the plastic on the coil. A coil should have this field as mandatory
           example:
             VERDE-T
+        weight:
+          type: number
+          format: int32
+          default: 1
+          minimum: 1
+          maximum: 400
+          description: >
+            This is the weigth in grames consumed by the Machine to build one instance of this Part.
+          example:
+            12
         buildTime:
           type: number
           format: int32
@@ -952,6 +984,60 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Part'
+    UpdateGroupPartRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 50
+          description: >
+            It is a human readable label to identify the product. It is a product code but that it usually it is not unique since the same part
+            design can be used with different finishings or colours. Cannot be changed for the lifetime of the Part and it is keyed by the user at
+            the front end interface.
+          example:
+            Covid-19 Key
+        description:
+          type: string
+          format: string
+          maxLength: 500
+          description: >
+            A user description of the part. It is useful but it is not mandatory.
+          example:
+            'This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.'
+        weight:
+          type: number
+          format: int32
+          default: 1
+          minimum: 1
+          maximum: 400
+          description: >
+            This is the weigth in grames consumed by the Machine to build one instance of this Part.
+          example:
+            12
+        buildTime:
+          type: number
+          format: int32
+          default: 5
+          description: >
+            This field stores the time in minutes that lasts the 3d printer job to finish.
+          example:
+            15
+        imagePath:
+          type: string
+          format: url
+          description: >
+            The URL for an external image stored on a public repository or Google drive. This image will be used when showing the catalog.
+          example:
+            'https://ibb.co/3dGbsRh'
+        modelPath:
+          type: string
+          format: string
+          description: >
+            The file name os the model to be used on the printer to be used on the printer job.
+          example:
+            'pieza3.STL'
 
     Machine:
       type: object
@@ -1303,6 +1389,7 @@ components:
         - id
         - material
         - color
+        - weight
       properties:
         id:
           type: string
@@ -1343,8 +1430,33 @@ components:
             from the inventory when they have their weight under a predetermined level. The unit or representation is grames.
           example:
             1000
+    UpdateCoilRequest:
+      type: object
+      required:
+        - id
+        - weight
+      properties:
+        id:
+          type: string
+          format: uuid
+          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          description: >
+            The unique identifier for a single coil. ON this enpoint used to locate the Coil to be updated.
+          example:
+            009ab011-03ad-4e84-9a88-25708d1cfd64
+        weight:
+          type: string
+          format: int32
+          minimum: 0
+          maximum: 2000
+          default: 1000
+          description: >
+            The new coil weight as reported by the user on the GUI. The unit or representation is grames.
+          example:
+            1000
     CoilList:
       type: object
+      deprecated: true
       required:
         - count
         - coils
@@ -1703,3 +1815,13 @@ components:
         format: string
         minLength: 1
         maxLength: 32
+    CounterResponse:
+      type: object
+      properties:
+        records:
+          type: number
+          format: int32
+          description: >
+            The number of records processed by the previous operation. Applies to deletions and also to updates.
+          example:
+            3

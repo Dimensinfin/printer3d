@@ -58,6 +58,11 @@ public class Coil {
 		return material;
 	}
 
+	public Coil setWeight( final Integer weight ) {
+		this.weight = weight;
+		return this;
+	}
+
 	public Integer getWeight() {
 		return weight;
 	}

@@ -185,6 +185,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.START_BUILD );
 	}
 
+	@When("the Update Coil request is processed")
+	public void the_Update_Coil_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.UPDATE_COIL );
+	}
+
 	@When("the Update Group Parts with label {string} request is processed")
 	public void the_Update_Group_Parts_with_label_request_is_processed( final String selectionLabel ) throws IOException {
 		this.printer3DWorld.setSelectionLabel( selectionLabel );
@@ -222,8 +227,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 			case UPDATE_GROUP_PART:
 				Assertions.assertNotNull( this.printer3DWorld.getUpdateGroupPartRequest() );
 				final UpdateGroupPartRequest request = this.printer3DWorld.getUpdateGroupPartRequest()
-						.setLabel(  this.printer3DWorld.getSelectionLabel());
-				final ResponseEntity<CountResponse> updateGroupPartResponseEntity = this.partFeignClientV1.updateGroupPart(request );
+						.setLabel( this.printer3DWorld.getSelectionLabel() );
+				final ResponseEntity<CountResponse> updateGroupPartResponseEntity = this.partFeignClientV1.updateGroupPart( request );
 				Assertions.assertNotNull( updateGroupPartResponseEntity );
 				this.printer3DWorld.setUpdateGroupPartResponseEntity( updateGroupPartResponseEntity );
 				return updateGroupPartResponseEntity;
@@ -239,7 +244,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 						.newCoil( this.printer3DWorld.getJwtAuthorizationToken(),
 								this.printer3DWorld.getCoil() );
 				Assertions.assertNotNull( newCoilResponseEntity );
-				this.printer3DWorld.setNewCoilResponseEntity( newCoilResponseEntity );
+				this.printer3DWorld.setCoilResponseEntity( newCoilResponseEntity );
 				return newCoilResponseEntity;
 			case GET_COILS:
 				final ResponseEntity<CoilList> coilListResponseEntity = this.coilFeignClientV1
@@ -367,6 +372,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( modelListResponseEntity );
 				this.printer3DWorld.setModelListResponseEntity( modelListResponseEntity );
 				return modelListResponseEntity;
+			case UPDATE_COIL:
+				Assertions.assertNotNull( this.printer3DWorld.getUpdateCoilRequest() );
+				final ResponseEntity<Coil> updateCoilResponseEntity = this.coilFeignClientV1.updateCoil(
+						this.printer3DWorld.getUpdateCoilRequest() );
+				Assertions.assertNotNull( updateCoilResponseEntity );
+				this.printer3DWorld.setCoilResponseEntity( updateCoilResponseEntity );
+				return updateCoilResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

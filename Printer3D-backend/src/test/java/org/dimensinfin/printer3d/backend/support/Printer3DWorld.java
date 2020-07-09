@@ -19,6 +19,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
@@ -34,7 +35,7 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<Part> updatePartResponseEntity;
 	private ResponseEntity<PartList> partListResponseEntity;
 	private Coil coil;
-	private ResponseEntity<Coil> newCoilResponseEntity;
+	private ResponseEntity<Coil> coilResponseEntity;
 	private ResponseEntity<CoilList> coilListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 	private ResponseEntity<MachineList> machineListResponseEntity;
@@ -61,6 +62,7 @@ public class Printer3DWorld extends CommonWorld {
 	private String selectionLabel;
 	private UpdateGroupPartRequest updateGroupPartRequest;
 	private ResponseEntity<CountResponse> updateGroupPartResponseEntity;
+	private UpdateCoilRequest updateCoilRequest;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -189,12 +191,12 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<Coil> getNewCoilResponseEntity() {
-		return this.newCoilResponseEntity;
+	public ResponseEntity<Coil> getCoilResponseEntity() {
+		return this.coilResponseEntity;
 	}
 
-	public Printer3DWorld setNewCoilResponseEntity( final ResponseEntity<Coil> newCoilResponseEntity ) {
-		this.newCoilResponseEntity = newCoilResponseEntity;
+	public Printer3DWorld setCoilResponseEntity( final ResponseEntity<Coil> coilResponseEntity ) {
+		this.coilResponseEntity = coilResponseEntity;
 		return this;
 	}
 
@@ -321,6 +323,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setStartBuildResponseEntity( final ResponseEntity<Machine> startBuildResponseEntity ) {
 		this.startBuildResponseEntity = startBuildResponseEntity;
+		return this;
+	}
+
+	public UpdateCoilRequest getUpdateCoilRequest() {
+		return this.updateCoilRequest;
+	}
+
+	public Printer3DWorld setUpdateCoilRequest( final UpdateCoilRequest updateCoilRequest ) {
+		this.updateCoilRequest = updateCoilRequest;
 		return this;
 	}
 

@@ -10,9 +10,10 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
+import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -61,6 +62,21 @@ public class CoilFeignClientV1 extends CommonFeignClient {
 				.build()
 				.create( InventoryApiV1.class )
 				.newCoil( authorizationToken, coil )
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
+
+	public ResponseEntity<Coil> updateCoil( final UpdateCoilRequest updateCoilRequest ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
+		final Response<Coil> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( InventoryApiV1.class )
+				.updateCoil( updateCoilRequest )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

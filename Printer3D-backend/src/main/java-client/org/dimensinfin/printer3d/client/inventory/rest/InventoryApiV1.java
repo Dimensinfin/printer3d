@@ -15,6 +15,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 import retrofit2.Call;
@@ -211,6 +212,18 @@ public interface InventoryApiV1 {
 	                          @Path("partId") final @NotNull UUID partId );
 
 	/**
+	 * Updates an existing Coil.
+	 * Updates a Coil. All only field allowed to be changed is the weight.
+	 *
+	 * @param updateCoilRequest Contains the **Coil** fields that come from the GUI with the new Coil data.
+	 *                          (optional)
+	 * @return Call&lt;Coil&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PATCH("api/v1/inventory/coils")
+	Call<Coil> updateCoil( @Body UpdateCoilRequest updateCoilRequest );
+
+	/**
 	 * Usually there a re a set of parts that share most of the field values changing only the finishings (material and color). Because the
 	 * frontend will group them into sets and there is no purpose on having different values for same parts this endpoint will take care of
 	 * changing the et values to the whole set of parts that have the same Label.
@@ -249,4 +262,5 @@ public interface InventoryApiV1 {
 	@PATCH("api/v1/inventory/parts")
 	Call<Part> updatePart( @Header("Authorization") final @NotNull String authorizationToken,
 	                       @Body final @NotNull @Valid Part part );
+
 }
