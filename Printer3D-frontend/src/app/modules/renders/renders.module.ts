@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AgGridModule } from 'ag-grid-angular';
 import { NgDragDropModule } from 'ng-drag-drop';
 // - APPLICATION MODULES
 import { SharedModule } from '../shared/shared.module';
@@ -17,7 +16,6 @@ import { V1CoilRenderComponent } from './v1-coil-render/v1-coil-render.component
 import { V2FeatureRenderComponent } from './v2-feature-render/v2-feature-render.component';
 import { V1RequestRenderComponent } from './v1-request-render/v1-request-render.component';
 import { V3MachineRenderComponent } from './v3-machine-render/v3-machine-render.component';
-// import { V1Part4RequestRenderComponent } from './v1-part4-request-render/v1-part4-request-render.component';
 import { V1PartStackRenderComponent } from './v1-part-stack-render/v1-part-stack-render.component';
 import { V1ModelRenderComponent } from './v1-model-render/v1-model-render.component';
 import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-request-item-render.component';
@@ -26,7 +24,6 @@ import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-reques
     imports: [
         CommonModule,
         FormsModule,
-        AgGridModule.withComponents([]),
         NgDragDropModule.forRoot(),
     ],
     declarations: [
@@ -40,8 +37,7 @@ import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-reques
         V2FeatureRenderComponent,
         V1RequestRenderComponent,
         V3MachineRenderComponent,
-        // V1Part4RequestRenderComponent,
-        V1PartStackRenderComponent,
+         V1PartStackRenderComponent,
         V1ModelRenderComponent,
         V1RequestItemRenderComponent
     ],
@@ -55,7 +51,6 @@ import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-reques
         V2FeatureRenderComponent,
         V1RequestRenderComponent,
         V3MachineRenderComponent,
-        // V1Part4RequestRenderComponent,
         V1PartStackRenderComponent,
         V1ModelRenderComponent,
         V1RequestItemRenderComponent

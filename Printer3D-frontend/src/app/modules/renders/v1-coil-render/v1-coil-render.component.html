@@ -1,6 +1,12 @@
 <!-- C O I L - L I S T   V A R I A N T -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-COIL-LIST-'">
     <div class="row">
+        <button cy-name="edit-button" class="edit-attributes button-enabled" (click)="toggleEdition()">
+            <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
+        </button>
+        <button cy-name="save-button" type="submit" class="save-attributes button-disabled">
+            <svg class="save-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
+        </button>
         <div cy-name="material" class="field material-width">
             <span cy-field-label="material" class="label">MATERIAL</span><br>
             <span cy-field-value="material" class="field-height">{{getMaterial()}}</span>
@@ -23,4 +29,51 @@
     <svg class="corner-mark blueviolet-mark" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
+</div>
+<!-- E D I T   C O I L -->
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-COIL-EDITING-'">
+    <form class="dsf-form" autocomplete="off">
+        <div class="row">
+            <button cy-name="edit-button" class="edit-attributes button-enabled" (click)="toggleEdition()">
+            <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
+        </button>
+            <button cy-name="save-button" type="submit" class="save-attributes" (click)="saveEditing()" [ngClass]="{'button-disabled':weight.invalid,'button-enabled':!weight.invalid}" [disabled]="weight.invalid">
+            <svg class="save-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
+        </button>
+            <div cy-name="material" class="field material-width">
+                <span cy-field-label="material" class="label">MATERIAL</span><br>
+                <span cy-field-value="material" class="field-height">{{getMaterial()}}</span>
+            </div>
+            <div cy-name="color" class="field color-width">
+                <span cy-field-label="color" class="label">COLOR</span><br>
+                <span cy-field-value="color" class="field-height">{{getColor()}}</span>
+            </div>
+            <div cy-name="weight" class="field weight-width">
+                <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
+                <div class="dsf-input-container weight-width">
+                    <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editCoil.weight" required min="1" #weight="ngModel">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                </svg>
+                    <div [ngClass]="{'ng-valid': !weight.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg class="corner-mark blueviolet-mark" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" />
+        </svg>
+    </form>
 </div>

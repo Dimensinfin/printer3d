@@ -43,9 +43,6 @@
 <div *ngIf="getVariant() === '-EDITING-PART-GROUP-'">
     <form class="dsf-form" autocomplete="off">
         <div id="{{getUniqueId()}}" class="row part-container-panel">
-            <!-- <div class="edit-attributes" (click)="toggleEdition()">
-                <img src="/assets/media/edit_attributes-white-36dp.svg">
-            </div> -->
             <div cy-name="update-button" class="update-button" (click)="saveEditing()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
             </div>
@@ -84,7 +81,7 @@
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div class="orangered-mark" [ngClass]="{'ng-valid': !partWeight.invalid}">
+                    <div [ngClass]="{'ng-valid': !partWeight.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -111,7 +108,7 @@
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div class="orangered-mark" [ngClass]="{'ng-valid': !imagePath.invalid}">
+                    <div [ngClass]="{'ng-valid': !imagePath.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>

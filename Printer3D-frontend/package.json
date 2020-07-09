@@ -60,8 +60,6 @@
         "@angular/router": "9.1.7",
         "@bahmutov/add-typescript-to-cypress": "2.1.2",
         "@types/uuid": "7.0.3",
-        "ag-grid-angular": "23.1.1",
-        "ag-grid-community": "23.1.1",
         "compression": "1.7.4",
         "config": "3.3.1",
         "express": "4.17.1",

@@ -39,6 +39,7 @@ import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { Model } from '@domain/inventory/Model.domain';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
+import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 
 describe('SERVICE BackendService [Module: CORE]', () => {
     let service: BackendService;
@@ -153,6 +154,16 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         it('apiInventoryUpdateModel_v1.default: get the list of Parts', async () => {
             const updatingModel: ModelRequest = new ModelRequest()
             service.apiInventoryUpdateModel_v1(updatingModel, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+                .setTransformation((entrydata: any): any => {
+                    return entrydata;
+                }))
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('apiInventoryUpdateCoil_v1.default: get the list of Parts', async () => {
+            const updatingCoil: UpdateCoilRequest = new UpdateCoilRequest()
+            service.apiInventoryUpdateCoil_v1(updatingCoil, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): any => {
                     return entrydata;
                 }))

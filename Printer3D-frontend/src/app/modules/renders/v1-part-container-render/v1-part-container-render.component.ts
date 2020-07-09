@@ -91,7 +91,7 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
                     .setTransformation((entrydata: any): Part => {
                         const targetPart: Part = new Part(entrydata);
-                        this.isolationService.successNotification('Grupo de piezas [' + updateGroupRequest.label + '] actualizada correctamente.', '/INVENTARIO/ACTILIZACION GRUPO/OK');
+                        this.isolationService.successNotification('Grupo de piezas [' + updateGroupRequest.label + '] actualizada correctamente.', '/INVENTARIO/ACTUALIZACION GRUPO/OK');
                         return targetPart;
                     }))
                 .subscribe((unrequired: any) => {

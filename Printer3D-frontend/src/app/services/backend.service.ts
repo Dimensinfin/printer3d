@@ -23,6 +23,7 @@ import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { ModelForm } from '@domain/inventory/ModelForm.domain';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
+import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -126,6 +127,17 @@ export class BackendService {
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as ModelForm;
+                return response;
+            }));
+    }
+    public apiInventoryUpdateCoil_v1(updatingCoil: UpdateCoilRequest, transformer: ResponseTransformer): Observable<Coil> {
+        const request = this.APIV1 + '/inventory/coils';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingCoil), headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as Coil;
                 return response;
             }));
     }
