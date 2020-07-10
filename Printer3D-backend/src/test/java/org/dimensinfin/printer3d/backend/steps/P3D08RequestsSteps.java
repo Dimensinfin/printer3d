@@ -26,7 +26,6 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ITEM_ID;
 
 public class P3D08RequestsSteps extends StepSupport {
@@ -62,8 +61,8 @@ public class P3D08RequestsSteps extends StepSupport {
 		this.printer3DWorld.setRequestV2( request );
 	}
 
-	@Then("the Request V2 with id {string} the next list of contents")
-	public void the_Request_V2_with_id_the_next_list_of_contents( final String requestId,
+	@Then("the Request V2 with id {string} has the next list of contents")
+	public void the_Request_V2_with_id_has_the_next_list_of_contents( final String requestId,
 	                                                              final List<Map<String, String>> dataTable ) {
 		final ResponseEntity<List<RequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
 		Assertions.assertNotNull( requests );
@@ -131,16 +130,16 @@ public class P3D08RequestsSteps extends StepSupport {
 //		}
 //	}
 
-	@Then("the response to Get Requests has the next contents")
-	public void the_response_to_Get_Requests_has_the_next_contents( final List<Map<String, String>> dataTable ) throws IOException {
-		final ResponseEntity<List<RequestV2>> requests = this.requestFeignClientV2.getOpenRequests();
-		Assertions.assertNotNull( requests );
-		Assertions.assertNotNull( requests.getBody() );
-		for (Map<String, String> row : dataTable) {
-			final RequestV2 record = this.searchRequest( row.get( ID ), requests.getBody() );
-			Assertions.assertTrue( new RequestV2Validator().validate( row, record ) );
-		}
-	}
+//	@Then("the response to Get Requests has the next contents")
+//	public void the_response_to_Get_Requests_has_the_next_contents( final List<Map<String, String>> dataTable ) throws IOException {
+//		final ResponseEntity<List<RequestV2>> requests = this.requestFeignClientV2.getOpenRequests();
+//		Assertions.assertNotNull( requests );
+//		Assertions.assertNotNull( requests.getBody() );
+//		for (Map<String, String> row : dataTable) {
+//			final RequestV2 record = this.searchRequest( row.get( ID ), requests.getBody() );
+//			Assertions.assertTrue( new RequestV2Validator().validate( row, record ) );
+//		}
+//	}
 
 	@Then("the resulting list of Requests has a request with id {string} with the next data")
 	public void the_resulting_list_of_Requests_has_a_request_with_id_with_the_next_data( final String requestId,
