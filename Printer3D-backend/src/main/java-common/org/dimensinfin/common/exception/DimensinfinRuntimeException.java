@@ -4,8 +4,6 @@ import java.text.MessageFormat;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
-
-import org.dimensinfin.printer3d.backend.core.exception.ErrorInfoN;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 
 public class DimensinfinRuntimeException extends RuntimeException {

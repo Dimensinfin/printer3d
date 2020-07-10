@@ -3,6 +3,8 @@ package org.dimensinfin.printer3d.backend.core.exception;
 import java.text.MessageFormat;
 import java.util.UUID;
 
+import org.dimensinfin.common.exception.ErrorInfoN;
+
 public class Printer3DErrorInfo {
 	public static final RequestCannotBeFulfilled REQUEST_CANNOT_BE_FULFILLED = new RequestCannotBeFulfilled();
 

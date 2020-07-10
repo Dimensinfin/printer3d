@@ -7,10 +7,12 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.ErrorInfoN;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
@@ -24,10 +26,18 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
+import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
+
 @Service
 public class PartServiceV1 {
 	private final PartRepository partRepository;
 	private final PartEntityToPartConverter partConverter;
+	private final ErrorInfoN PART_ALREADY_EXISTS = new ErrorInfoN.Builder()
+			.withCode( "PART_ALREADY_EXISTS" )
+			.withHttpStatus( HttpStatus.CONFLICT )
+			.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
+			.withMessageTemplate( "The Part [{0}] already exists. Use the Update endpoint." )
+			.build();
 
 	// - C O N S T R U C T O R S
 	@Autowired
@@ -61,7 +71,7 @@ public class PartServiceV1 {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<PartEntity> target = this.partRepository.findById( newPart.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( ErrorInfo.PART_ALREADY_EXISTS, newPart.getId().toString() );
+				throw new RepositoryConflictException( PART_ALREADY_EXISTS, newPart.getId().toString() );
 			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
 			try {
 				return new PartEntityToPartConverter().convert( this.partRepository.save( partEntity ) );

@@ -1,15 +1,13 @@
-package org.dimensinfin.printer3d.backend.core.exception;
+package org.dimensinfin.common.exception;
 
 import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 
-import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
-
 public class ErrorInfoN {
 	private String errorName;
-	private HttpStatus status = HttpStatus.CONFLICT;
-	private String errorCode = APPLICATION_ERROR_CODE_PREFIX + ".logic.exception";
+	private HttpStatus status;
+	private String errorCode ;
 	private String message;
 
 	// - C O N S T R U C T O R S
@@ -48,6 +46,16 @@ public class ErrorInfoN {
 
 		public ErrorInfoN.Builder withErrorName( final String errorName ) {
 			this.onConstruction.errorName = Objects.requireNonNull( errorName );
+			return this;
+		}
+
+		public ErrorInfoN.Builder withErrorCode( final String errorCode ) {
+			this.onConstruction.errorCode = Objects.requireNonNull( errorCode );
+			return this;
+		}
+
+		public ErrorInfoN.Builder withHttpStatus( final HttpStatus httpStatus ) {
+			this.onConstruction.status = Objects.requireNonNull( httpStatus );
 			return this;
 		}
 
