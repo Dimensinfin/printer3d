@@ -19,6 +19,7 @@ import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
@@ -37,18 +38,22 @@ public class RequestServiceV2 {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestConverterV2 = new RequestEntityV2ToRequestV2Converter();
 	private final StockManager stockManager;
-	private final RequestsRepository requestsRepository;
+	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 	private final ModelRepository modelRepository;
+	private final PartRepository partRepository;
 
 	// - C O N S T R U C T O R S
 	public RequestServiceV2( final @NotNull PartRepository partRepository,
-	                         final @NotNull RequestsRepository requestsRepository,
+	                         final @NotNull RequestsRepository requestsRepositoryV1,
 	                         final @NotNull RequestsRepositoryV2 requestsRepositoryV2,
-	                         final @NotNull ModelRepository modelRepository ) {
-		this.requestsRepository = Objects.requireNonNull( requestsRepository );
+	                         final @NotNull ModelRepository modelRepository,
+	                         final @NotNull PartRepository partRepository1 ) {
+		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.modelRepository = modelRepository;
+		this.partRepository = partRepository1;
+
 		this.stockManager = new StockManager( partRepository );
 	}
 
@@ -77,7 +82,7 @@ public class RequestServiceV2 {
 			this.stockManager.startStock(); // Initialize the stock with the current Part stock data
 			// Get the list of OPEN Requests for processing. Join the old V1 to the new V2 requests after tranformation.
 			return Stream.concat(
-					this.requestsRepository.findAll()
+					this.requestsRepositoryV1.findAll()
 							.stream()
 							.filter( RequestEntity::isOpen )
 							.map( requestV1ToV2Converter::convert ),
@@ -85,13 +90,63 @@ public class RequestServiceV2 {
 							.stream()
 							.filter( RequestEntityV2::isOpen ) )
 					.map( requestEntityV2 -> {
-						if (!this.collectItemsFromStock(requestEntityV2)) requestEntityV2.signalCompleted();
+						if (!this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
 						return requestConverterV2.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
 		} catch (final RuntimeException rte) {
 			LogWrapperLocal.error( rte );
 			return new ArrayList<>();
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	/**
+	 * When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
+	 * The close should be able to close requests on the old repository and also on the new repository. So the identifier should be searched on
+	 * both repositories to locate the right instance to be closed.
+	 *
+	 * @param requestId the request identifier for the Request being closed.
+	 */
+	public RequestV2 closeRequest( final UUID requestId ) {
+		LogWrapper.enter();
+		try {
+			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
+			Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
+			if (targetV1.isEmpty() && targetV2.isEmpty())
+				throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_NOT_FOUND, requestId.toString() );
+			// Transform the targets to the common V2 structure.
+			RequestEntityV2 requestEntityV2 = null;
+			if (targetV1.isPresent())
+				requestEntityV2 = new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );
+			if (targetV2.isPresent())
+				requestEntityV2 = targetV2.get();
+			// Update the parts stocks reducing the stock with the Request quantities.
+			for (RequestItem content : Objects.requireNonNull( requestEntityV2 ).getContents()) {
+				if (content.getType() == RequestContentType.PART) {
+					final Optional<PartEntity> partOpt = this.partRepository.findById( content.getItemId() );
+					partOpt.ifPresent( partEntity -> {
+						partEntity.decrementStock( content.getQuantity() );
+						this.partRepository.save( partEntity );
+					} );
+				}
+				if (content.getType() == RequestContentType.MODEL) {
+					final Optional<ModelEntity> modelEntityOpt = this.modelRepository.findById( content.getItemId() );
+					modelEntityOpt.ifPresent( modelEntity -> {
+						for (UUID partIdentifier : modelEntity.getPartIdList()) {
+							final Optional<PartEntity> partOpt = this.partRepository.findById( content.getItemId() );
+							partOpt.ifPresent( partEntity -> {
+								partEntity.decrementStock( content.getQuantity() );
+								this.partRepository.save( partEntity );
+							} );
+						}
+					} );
+				}
+			}
+			targetV1.ifPresent( requestEntityV1lambda -> this.requestsRepositoryV1.save( requestEntityV1lambda.close() ) );
+			targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
+			return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
 		} finally {
 			LogWrapper.exit();
 		}
@@ -115,10 +170,11 @@ public class RequestServiceV2 {
 	}
 
 	/**
-	 * 	For each of the requests found get the contents and subtract the required number of items from the stock values. If any of the subtractions
-	 * 	results in a negative value then the Request should be kept open and this is signaled by the returned boolean.
-	 * 	Extract the Ids
-	 * 	from the stock. Check if stock goes negative. For Models this expands to the BOM.
+	 * For each of the requests found get the contents and subtract the required number of items from the stock values. If any of the subtractions
+	 * results in a negative value then the Request should be kept open and this is signaled by the returned boolean.
+	 * Extract the Ids
+	 * from the stock. Check if stock goes negative. For Models this expands to the BOM.
+	 *
 	 * @param requestEntityV2 the request entity that should be processed
 	 * @return true if there are missing items. This means the Request should be kept open. If false the Request can be COMPLETED.
 	 */

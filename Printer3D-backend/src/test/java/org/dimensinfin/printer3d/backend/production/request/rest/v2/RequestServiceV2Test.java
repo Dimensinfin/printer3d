@@ -60,7 +60,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository, partRepository1 );
 		Assertions.assertNotNull( requestServiceV2 );
 	}
 
@@ -128,7 +128,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository, partRepository1 );
 		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -206,7 +206,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository, partRepository1 );
 		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -384,7 +384,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository, partRepository1 );
 		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -494,7 +494,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository, partRepository1 );
 		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
