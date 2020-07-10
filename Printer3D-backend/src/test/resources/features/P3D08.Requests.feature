@@ -91,28 +91,31 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And the resulting list of Requests has a request with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" with the next data
             | id                                   | label                          | requestDate                 | state     |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | COMPLETED |
-        
+
     @P3D08.H @P3D08.05
     Scenario: [P3D08.05] When a new request cannot be completed because there are not enough Parts at the Inventory the jobs generated to complete the
     Request have priority 1.
         And the following Parts in my service
-            | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-        And the next Part Request List
-            | partId                               | quantity |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 2        |
-        And the next New Request request with the current Part Request List
-            | id                                   | label                    | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Tests Request to be Open | 2020-06-15T20:00:00.226181Z | OPEN  |
-        When the New Request request is processed
+            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
+        And the next Request Contents List
+            | itemId                               | type | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 2        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
+        When the New Request V2 request is processed
         Then there is a valid response with return code of "201 CREATED"
+
         When the Get Jobs request is processed
         Then there is a valid response with return code of "200 OK"
-        And the list of jobs has "6" records
+        And the list of jobs has "13" records
         And there are "2" records of priority "1"
-        And there are "4" records of priority "2"
-
+        And there are "11" records of priority "2"
 
     @P3D08.H @P3D08.06
     Scenario: [P3D08.06] When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
