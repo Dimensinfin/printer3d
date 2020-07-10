@@ -136,25 +136,3 @@ Given('empty is set on form field {string}', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('input').clear()
 });
-
-//----------------------------------------
-// Then('the V2CoilListPage is activated', function () {
-//     cy.get('app-root').find('v2-coil-list-page').as('target-page')
-//         .should('exist')
-// });
-// Then('the target page has {string} panels', function (panelCount: number) {
-//     cy.get('app-root').get('@target-page').find('.row').first()
-//         .children()
-//         .should('have.length', panelCount)
-// });
-// Given('the target Coil is one of color {string}', function (color: string) {
-//     cy.get('v1-coil').contains(color, { matchCase: false })
-//         .parent().parent().as('target-coil')
-// });
-// Given('on the target Coil there is a field labeled {string} with field name {string} and the value {string}', function (
-//     fieldLabel: string, fieldName: string, value: string) {
-//     cy.get('@target-coil')
-//         .find('.label').contains(fieldLabel, { matchCase: false })
-//     cy.get('@target-coil')
-//         .find('[name="' + fieldName + '"]').contains(value, { matchCase: false })
-// });

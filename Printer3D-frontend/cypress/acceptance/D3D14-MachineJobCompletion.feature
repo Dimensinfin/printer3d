@@ -10,6 +10,7 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
     @D3D14 @D3D14.01
     Scenario: [D3D14.01]-Register a job on both the machines and await for job completion using test fast time forward.
         Given there is a click on Feature "/TRABAJOS PND."
+        Then the page "Production Jobs Page" is activated
         Given the target panel is the panel of type "jobs-list"
         Given the target job the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         Given the target panel is the panel of type "machines"
