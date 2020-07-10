@@ -77,20 +77,23 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
      */
     public completeRequest(): void {
         const request = this.node as Request
-        this.backendConnections.push(
-            this.backendService.apiRequestsClose_v1(request.getId(),
-                new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
-                    .setTransformation((entrydata: any): Request => {
-                        const targetRequest: Request = new Request(entrydata);
-                        this.isolationService.successNotification(
-                            'Pedido [' + targetRequest.getLabel() + '] completado correctamente.',
-                            '/PRODUCCION/PEDIDO/OK');
-                        return targetRequest;
-                    })
-            )
-                .subscribe((request: Request) => {
-                    this.router.navigate(['/']);
-                })
-        )
+        this.isolationService.errorNotification(
+            'Cierre de pedidos desactivado temporalmente.',
+            '/PRODUCCION/PEDIDO/BLOQUEO');
+        // this.backendConnections.push(
+        //     this.backendService.apiRequestsClose_v1(request.getId(),
+        //         new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+        //             .setTransformation((entrydata: any): Request => {
+        //                 const targetRequest: Request = new Request(entrydata);
+        //                 this.isolationService.successNotification(
+        //                     'Pedido [' + targetRequest.getLabel() + '] completado correctamente.',
+        //                     '/PRODUCCION/PEDIDO/OK');
+        //                 return targetRequest;
+        //             })
+        //     )
+        //         .subscribe((request: Request) => {
+        //             this.router.navigate(['/']);
+        //         })
+        // )
     }
 }
