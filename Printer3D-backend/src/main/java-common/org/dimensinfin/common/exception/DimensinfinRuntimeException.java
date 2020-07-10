@@ -20,6 +20,7 @@ public class DimensinfinRuntimeException extends RuntimeException {
 	protected ErrorInfo errorInfo = ErrorInfo.RUNTIME_INTERNAL_ERROR;
 	protected String cause;
 	private ErrorInfoN error;
+//	pri
 
 	// - C O N S T R U C T O R S
 	public DimensinfinRuntimeException() {
@@ -35,6 +36,11 @@ public class DimensinfinRuntimeException extends RuntimeException {
 		this.errorInfo = errorInfo;
 	}
 
+	public DimensinfinRuntimeException setError( final ErrorInfoN error ) {
+		this.error = error;
+		return this;
+	}
+
 	public DimensinfinRuntimeException( final RuntimeException runtime ) {
 		super( processException( runtime ) );
 	}
@@ -47,6 +53,10 @@ public class DimensinfinRuntimeException extends RuntimeException {
 	public DimensinfinRuntimeException( final ErrorInfoN error ) {
 		this.error = error;
 	}
+
+//	public DimensinfinRuntimeException( final RestExceptionMessage exception ) {
+//
+//	}
 
 	// - G E T T E R S   &   S E T T E R S
 	public String getErrorCode() {

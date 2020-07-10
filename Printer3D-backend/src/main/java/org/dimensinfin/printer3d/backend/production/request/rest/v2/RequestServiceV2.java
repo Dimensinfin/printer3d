@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
@@ -47,7 +49,7 @@ public class RequestServiceV2 {
 	public RequestServiceV2( final @NotNull PartRepository partRepository,
 	                         final @NotNull RequestsRepository requestsRepositoryV1,
 	                         final @NotNull RequestsRepositoryV2 requestsRepositoryV2,
-	                         final @NotNull ModelRepository modelRepository) {
+	                         final @NotNull ModelRepository modelRepository ) {
 		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.modelRepository = modelRepository;
@@ -143,10 +145,10 @@ public class RequestServiceV2 {
 						} );
 					}
 				}
-			}
-			targetV1.ifPresent( requestEntityV1lambda -> this.requestsRepositoryV1.save( requestEntityV1lambda.close() ) );
-			targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
-			return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
+				targetV1.ifPresent( requestEntityV1lambda -> this.requestsRepositoryV1.save( requestEntityV1lambda.close() ) );
+				targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
+				return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
+			} else throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED.parameters( requestEntityV2.getId() ) );
 		} finally {
 			LogWrapper.exit();
 		}
