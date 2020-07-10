@@ -34,15 +34,15 @@ public class Part {
 	private String material;
 	@NotNull(message = "Part 'color' is mandatory.")
 	private String color;
-	private int weight;
+	private int weight = 1;
 	@NotNull(message = "Part 'buildTime' is mandatory.")
 	private Integer buildTime;
 	@NotNull(message = "Part 'cost' value is mandatory.")
 	private Float cost;
 	@NotNull(message = "Part 'price' value is mandatory.")
 	private Float price;
-	@NotNull(message = "Part 'stockLevel' value is mandatory.")
-	private Integer stockLevel;
+	//	@NotNull(message = "Part 'stockLevel' value is mandatory.")
+	private Integer stockLevel = 1;
 	private int stockAvailable = 0;
 	@Size(max = 100)
 	private String imagePath;
@@ -283,7 +283,7 @@ public class Part {
 		}
 
 		public Part.Builder withStockLevel( final Integer stockLevel ) {
-			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
+			if( null != stockLevel ) this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
 			return this;
 		}
 
