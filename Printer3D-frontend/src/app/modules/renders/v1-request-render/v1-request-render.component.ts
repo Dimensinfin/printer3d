@@ -17,6 +17,8 @@ import { RequestState } from '@domain/interfaces/EPack.enumerated';
 import { Part } from '@domain/Part.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
+import { environment } from '@env/environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'v1-request',
@@ -77,23 +79,31 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
      */
     public completeRequest(): void {
         const request = this.node as Request
-        this.isolationService.errorNotification(
-            'Cierre de pedidos desactivado temporalmente.',
-            '/PRODUCCION/PEDIDO/BLOQUEO');
-        // this.backendConnections.push(
-        //     this.backendService.apiRequestsClose_v1(request.getId(),
-        //         new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
-        //             .setTransformation((entrydata: any): Request => {
-        //                 const targetRequest: Request = new Request(entrydata);
-        //                 this.isolationService.successNotification(
-        //                     'Pedido [' + targetRequest.getLabel() + '] completado correctamente.',
-        //                     '/PRODUCCION/PEDIDO/OK');
-        //                 return targetRequest;
-        //             })
-        //     )
-        //         .subscribe((request: Request) => {
-        //             this.router.navigate(['/']);
-        //         })
-        // )
+        // this.isolationService.errorNotification(
+        //     'Cierre de pedidos desactivado temporalmente.',
+        //     '/PRODUCCION/PEDIDO/BLOQUEO');
+        this.backendConnections.push(
+            this.backendService.apiRequestsClose_v1(request.getId(),
+                new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+                    .setTransformation((entrydata: any): Request => {
+                        const targetRequest: Request = new Request(entrydata);
+                        this.isolationService.successNotification(
+                            'Pedido [' + targetRequest.getLabel() + '] completado correctamente.',
+                            '/PRODUCCION/PEDIDO/OK');
+                        return targetRequest;
+                    }))
+                .subscribe((request: Request) => {
+                    this.router.navigate(['/']);
+                }, (error) => {
+                    console.log('-[V1RequestRenderComponent.completeRequest.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse) {
+                            const errorInfo: string = error.error.errorInfo
+                            const httpStatus: string = error.error.httpStatus
+                            const message: string = this.isolationService.exceptionMessageMap(error.error)
+                            this.isolationService.errorNotification(message, errorInfo)
+                        }
+                })
+        )
     }
 }
