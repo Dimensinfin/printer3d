@@ -1,6 +1,5 @@
 #!/bin/bash
 # - PARAMETERS & CONSTANTS
-#SERVICE='backend'
 COMMAND=$1
 ENVIRONMENT=$2
 
@@ -15,6 +14,7 @@ generateContainer() {
   ./gradlew clean bootJar
   cp ./build/libs/*.jar "$DOCKER_DIRECTORY"
   cp ./build/resources/main/app-banner.txt "$DOCKER_DIRECTORY"
+  cp ./build/resources/main/app-banner.txt ./build/libs/app-banner.txt
   cd "$DOCKER_DIRECTORY" || exit 1;
   mv -v printer3d-backend-*.jar "printer3d-backend-acceptance.jar"
   echo "${DOCKER_DIRECTORY}/Dockerfile"

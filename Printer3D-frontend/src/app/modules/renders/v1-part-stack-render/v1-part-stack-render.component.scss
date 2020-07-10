@@ -22,12 +22,9 @@
     min-width: 150px;
 }
 
-.remove-width {
-    margin-left: auto;
-}
-
 .remove-icon {
     height: 25px;
+    margin-top: -6px;
 }
 
 .remove-icon:hover {
@@ -35,7 +32,7 @@
 }
 
 .count-width {
-    min-width: 30px;
+    width: 46px;
 }
 
 .label-width {
@@ -43,11 +40,11 @@
 }
 
 .material-width {
-    min-width: 50px;
+    width: 150px;
 }
 
 .color-width {
-    min-width: 106px;
+    width: 106px;
 }
 
 .field-small {
