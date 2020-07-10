@@ -117,13 +117,6 @@ export class SupportBackendService {
                 })
         });
     }
-    public apiInventoryGetMachines_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
-        return Observable.create((observer) => {
-            const data = this.directAccessMockResource('inventory.machines')
-            observer.next(transformer.transform(data));
-            observer.complete();
-        });
-    }
     public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<CoilListResponse> {
         console.log('>[SupportBackendService.apiInventoryGetMachines_v2]')
         return Observable.create((observer) => {
@@ -132,13 +125,6 @@ export class SupportBackendService {
                     observer.next(transformer.transform(data));
                     observer.complete();
                 })
-        });
-    }
-    public apiMachinesStartBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
-        return Observable.create((observer) => {
-            const data = this.directAccessMockResource('inventory.machines.cancelbuild')
-            observer.next(transformer.transform(data));
-            observer.complete();
         });
     }
     public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {

@@ -163,18 +163,6 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryGetMachines_v1(transformer: ResponseTransformer): Observable<MachineListResponse> {
-        const request = this.APIV1 + '/inventory/machines';
-        let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName)
-            .set('x-api-version', 'api v1');
-        return this.httpService.wrapHttpGETCall(request, headers)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as MachineListResponse;
-                return response;
-            }));
-    }
     public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<MachineListResponse> {
         const request = this.APIV2 + '/inventory/machines';
         let headers = new HttpHeaders()
@@ -184,17 +172,6 @@ export class BackendService {
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as MachineListResponse;
-                return response;
-            }));
-    }
-    public apiMachinesStartBuild_v1(machineId: string, partId: string, transformer: ResponseTransformer): Observable<Machine> {
-        const request = this.APIV2 + '/inventory/machines/' + machineId + '/startbuild/' + partId;
-        let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpPUTCall(request, headers)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiMachinesStartBuild_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Machine;
                 return response;
             }));
     }

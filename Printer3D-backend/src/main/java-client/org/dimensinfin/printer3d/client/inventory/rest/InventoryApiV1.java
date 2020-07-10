@@ -9,7 +9,6 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
@@ -105,19 +104,6 @@ public interface InventoryApiV1 {
 	Call<FinishingsResponse> getFinishings( @Header("Authorization") final @NotNull String authorizationToken );
 
 	/**
-	 * Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
-	 * Machines do not change frequently so there is no need to have their UI. The Machine records are created manually but anyway the system is able
-	 * to return their list form the repository. When the list of Machine records is collected from the repository the fields for job installation
-	 * time are checked. If the elapsed time from this recorded time is less than the current time, then the job is expected to have finished. At this
-	 * moment the machine is cleared and the part count for the target **Part** job is increased in the number of instances built.
-	 *
-	 * @return Call&lt;MachineList&gt;
-	 */
-	@Headers({ "Content-Type:application/json" })
-	@GET("api/v1/inventory/machines")
-	Call<MachineList> getMachines( @Header("Authorization") final @NotNull String authorizationToken );
-
-	/**
 	 * Get the list of Models persisted at the Inventory repository.
 	 * Get the complete list of **Models** persisted at the Inventory repository.
 	 *
@@ -197,21 +183,6 @@ public interface InventoryApiV1 {
 	                             @Path("partId") UUID partId );
 
 	/**
-	 * Signals the registration and start of a new build job.
-	 * With this command the **Machine** will be active and building one new instance of the referenced Part model. The front end will not allow
-	 * setting new jobs until this ends or it is cancelled.
-	 *
-	 * @param machineId The unique id (uuid) of the Machine that will execute the build job. (required)
-	 * @param partId    The unique id (uuid) of the Part item to be built. (required)
-	 * @return Call&lt;Machine&gt;
-	 */
-	@Headers({ "Content-Type:application/json" })
-	@PUT("api/v1/inventory/machines/{machineId}/startbuild/{partId}")
-	Call<Machine> startBuild( @Header("Authorization") final @NotNull String authorizationToken,
-	                          @Path("machineId") final @NotNull UUID machineId,
-	                          @Path("partId") final @NotNull UUID partId );
-
-	/**
 	 * Updates an existing Coil.
 	 * Updates a Coil. All only field allowed to be changed is the weight.
 	 *
@@ -228,8 +199,8 @@ public interface InventoryApiV1 {
 	 * frontend will group them into sets and there is no purpose on having different values for same parts this endpoint will take care of
 	 * changing the et values to the whole set of parts that have the same Label.
 	 *
-	 * @param part Contains the Part fields to be used to update group of Parts at the repository.
-	 *             (optional)
+	 * @param updateData Contains the Part fields to be used to update group of Parts at the repository.
+	 *                   (optional)
 	 * @return Call&lt;Part&gt;
 	 */
 	@Headers({ "Content-Type:application/json" })

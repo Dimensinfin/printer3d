@@ -27,13 +27,11 @@ import org.dimensinfin.printer3d.backend.support.production.request.rest.Request
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
@@ -119,11 +117,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_MACHINES_V2 );
 	}
 
-	@When("the Get Machines request is processed")
-	public void the_Get_Machines_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_MACHINES_V1 );
-	}
-
 	@When("the Get Models request is processed")
 	public void the_Get_Models_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_MODELS );
@@ -176,13 +169,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		Assertions.assertNotNull( this.printer3DWorld.getJobRequest() );
 		this.processRequestByType( RequestType.START_BUILDV2 );
-	}
-
-	@When("the Start Build for Part {string} for Machine {string} request is processed")
-	public void the_Start_Build_for_Part_for_Machine_request_is_processed( final String partId, final String machineId ) throws IOException {
-		this.printer3DWorld.setPartId( UUID.fromString( partId ) );
-		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
-		this.processRequestByType( RequestType.START_BUILD );
 	}
 
 	@When("the Update Coil request is processed")
@@ -258,28 +244,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( finishingsResponseEntity );
 				this.printer3DWorld.setFinishingsResponseEntity( finishingsResponseEntity );
 				return finishingsResponseEntity;
-			case GET_MACHINES_V1:
-				final ResponseEntity<MachineList> machinesResponseEntity = this.machineFeignClientV1
-						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
-				Assertions.assertNotNull( machinesResponseEntity );
-				this.printer3DWorld.setMachineListResponseEntity( machinesResponseEntity );
-				return machinesResponseEntity;
 			case GET_MACHINES_V2:
 				final ResponseEntity<MachineListV2> machinesv2ResponseEntity = this.machineFeignClientV2
 						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( machinesv2ResponseEntity );
 				this.printer3DWorld.setMachineListv2ResponseEntity( machinesv2ResponseEntity );
 				return machinesv2ResponseEntity;
-			case START_BUILD:
-				final ResponseEntity<Machine> startBuildResponseEntity = this.machineFeignClientV1
-						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
-								new StartBuildRequest.Builder()
-										.withMachineId( this.printer3DWorld.getMachineId() )
-										.withPartId( this.printer3DWorld.getPartId() )
-										.build() );
-				Assertions.assertNotNull( startBuildResponseEntity );
-				this.printer3DWorld.setStartBuildResponseEntity( startBuildResponseEntity );
-				return startBuildResponseEntity;
 			case CANCEL_BUILD:
 				final ResponseEntity<Machine> cancelBuildResponseEntity = this.machineFeignClientV1
 						.cancelBuild( this.printer3DWorld.getJwtAuthorizationToken(), this.printer3DWorld.getMachineId() );
