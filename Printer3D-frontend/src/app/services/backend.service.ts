@@ -280,7 +280,7 @@ export class BackendService {
             }));
     }
     public apiRequestsClose_v1(requestId: string, transformer: ResponseTransformer): Observable<Request> {
-        const request = this.APIV1 + '/production/requests/' + requestId + '/close';
+        const request = this.APIV2 + '/production/requests/' + requestId + '/close';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPUTCall(request, headers)
