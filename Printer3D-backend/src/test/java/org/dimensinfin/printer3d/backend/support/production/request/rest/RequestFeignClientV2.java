@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.backend.support.production.request.rest;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,21 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 				.build()
 				.create( ProductionApiV2.class )
 				.getOpenRequests()
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+	}
+
+	public ResponseEntity<RequestV2> closeRequest( final UUID requestId ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request to close an specific Request.";
+		final Response<RequestV2> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( ProductionApiV2.class )
+				.closeRequest( requestId )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

@@ -681,7 +681,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Request'
+              $ref: '#/components/schemas/RequestV2'
       responses:
         200:
           description: >
@@ -689,7 +689,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Request'
+                $ref: '#/components/schemas/RequestV2'
     get:
       tags:
         - Production
@@ -713,74 +713,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/RequestV2'
 
-  /api/v1/production/requests:
-    post:
-      tags:
-        - Production
-      summary: Creates a new Request instance at the persistence repository.
-      description: >
-        Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the
-        Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open.
-      deprecated: true
-      operationId: newRequest
-      requestBody:
-        description: >
-          Contains the **Request** field values filled at the UI.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Request'
-      responses:
-        201:
-          description: >
-            The new Request as transformed from the persistence repository.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Request'
-    patch:
-      tags:
-        - Production
-      summary: Updates an Open Request instance at the persistence repository.
-      description: >
-        An open Request can be edited at the UI. The user can decide to reduce the number of Parts initially requested or he can add or remove
-        Parts from the Request. Once the Request is completed and closed it is not editable..
-      deprecated: true
-      operationId: updateRequest
-      requestBody:
-        description: >
-          Contains the **Request** field values filled at the UI.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Request'
-      responses:
-        200:
-          description: >
-            The new Request as transformed from the persistence repository.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Request'
-    get:
-      tags:
-        - Production
-      summary: Get the list of Requests persisted at the repository.
-      description: >
-        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state. During the processing each of
-        the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes
-        to COMPLETED during this request. The Part stocks are updated for each Request processed.
-      deprecated: true
-      operationId: getOpenRequests
-      responses:
-        200:
-          description: >
-            The list of Requests in the Open state as transformed from the repository stored copy.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestList'
-  /api/v1/production/requests/{requestId}/close:
+  /api/v2/production/requests/{requestId}/close:
     put:
       tags:
         - Production
@@ -807,7 +740,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Request'
+                $ref: '#/components/schemas/RequestV2'
 
   # - J O B S
   /api/v1/production/jobs/pending:
@@ -1782,23 +1715,23 @@ components:
             The number of copies of this Part that are requested. Parts of different colors have different identifiers and then different records.
           example:
             3
-    RequestList:
-      type: object
-      required:
-        - count
-        - requests
-      properties:
-        count:
-          type: number
-          format: int32
-          description: >
-            The number of Requests that follow on the response.
-          example:
-            8
-        requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/Request'
+#    RequestList:
+#      type: object
+#      required:
+#        - count
+#        - requests
+#      properties:
+#        count:
+#          type: number
+#          format: int32
+#          description: >
+#            The number of Requests that follow on the response.
+#          example:
+#            8
+#        requests:
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/Request'
 
 
     UUID:

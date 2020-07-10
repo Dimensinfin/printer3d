@@ -1,6 +1,8 @@
 package org.dimensinfin.printer3d.client.production.rest;
 
 import java.util.List;
+import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
@@ -9,6 +11,8 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ProductionApiV2 {
 	// - G E T T E R S   &   S E T T E R S
@@ -22,6 +26,16 @@ public interface ProductionApiV2 {
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v2/production/requests")
 	Call<List<RequestV2>> getOpenRequests();
+
+	/**
+	 * Closes the state of a selected Request.
+	 * When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
+	 *
+	 * @return Call&lt;Request&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@PUT("api/v2/production/requests/{requestId}/close")
+	Call<RequestV2> closeRequest( @Path("requestId") final @NotNull UUID requestId );
 
 	/**
 	 * Creates a new Request instance at the persistence repository.

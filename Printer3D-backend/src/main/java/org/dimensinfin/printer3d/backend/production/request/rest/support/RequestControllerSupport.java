@@ -2,6 +2,8 @@ package org.dimensinfin.printer3d.backend.production.request.rest.support;
 
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Optional;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.context.annotation.Profile;
@@ -11,16 +13,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
+import org.dimensinfin.printer3d.backend.production.request.rest.v1.RequestServiceV1;
+import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
 @Profile({ "local", "acceptance", "test" })
@@ -33,12 +42,14 @@ public class RequestControllerSupport {
 	private static final RequestEntityToRequestConverter requestEntityToRequestConverter = new RequestEntityToRequestConverter();
 	private final RequestsRepository requestsRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
+//	private final RequestServiceV1 requestServiceV1;
 
 	// - C O N S T R U C T O R S
 	public RequestControllerSupport( final @NotNull RequestsRepository requestsRepository,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
+//		this.requestServiceV1 = requestServiceV1;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -68,6 +79,13 @@ public class RequestControllerSupport {
 		return new ResponseEntity<>( this.deleteAllRequestsServiceV2(), HttpStatus.OK );
 	}
 
+	@PostMapping(path = "/production/requests",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<Request> newRequest( final @RequestBody @Valid @NotNull Request request ) {
+		return new ResponseEntity<>( this.newRequestService( request ), HttpStatus.CREATED );
+	}
+
 	protected CountResponse deleteAllRequestsService() {
 		try {
 			final long recordCount = this.requestsRepository.count();
@@ -91,6 +109,23 @@ public class RequestControllerSupport {
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
 			throw new RepositoryException( ErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
+		}
+	}
+
+	protected Request newRequestService( final Request newRequest ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Part by id. If found reject the request because this should be a new creation.
+			final Optional<RequestEntity> target = this.requestsRepository.findById( newRequest.getId() );
+			if (target.isPresent())
+				throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_ALREADY_EXISTS, newRequest.getId().toString() );
+			return new RequestEntityToRequestConverter().convert(
+					this.requestsRepository.save(
+							new RequestToRequestEntityConverter().convert( newRequest )
+					)
+			);
+		} finally {
+			LogWrapper.exit();
 		}
 	}
 }
