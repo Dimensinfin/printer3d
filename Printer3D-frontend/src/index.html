@@ -1,76 +1,76 @@
-<!doctype html>
-<html lang="en">
+<div style="position: fixed; margin-right: 10px;">
+    <div class="panel-title">
+        <span>/MAQUINAS</span>
+    </div>
+    <hr>
+    <div>
+        <div *ngFor="let machine of machines">
+            <v3-machine [node]="machine"></v3-machine>
+        </div>
+    </div>
+</div>
+<!-- F O N T A W E S O M E 4 . 7 . 0 -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- F O N T S -->
+<link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mina&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Changa+One&display=swap" rel="stylesheet">
+<!-- M A T E R I A L -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- D R A G   &   D R O P -->
+<link rel="stylesheet" href="node_modules/ng-drag-drop/style.css" type="text/text">
 
-<head>
-    <meta charset="utf-8">
-    <title>3DPrinterManagement - UI</title>
-    <base href="/">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-    <!-- F O N T A W E S O M E 4 . 7 . 0 -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <!-- F O N T S -->
-    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mina&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Changa+One&display=swap" rel="stylesheet">
-    <!-- M A T E R I A L -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- D R A G   &   D R O P -->
-    <link rel="stylesheet" href="node_modules/ng-drag-drop/style.css" type="text/text">
-
-    <style>
-        body {
-            background-color: #180A16;
-            color: white;
-            font-family: 'Electrolize', sans-serif;
-        }
-        
-         :host {
-            font-family: 'Electrolize', sans-serif;
-            font-size: 14px;
-            color: white;
-            background-color: black;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        .index-loading {
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0px 1px 3px #1A53FF, 0px -1px 3px #1A53FF;
-            font-family: 'Electrolize', sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: #1A53FF;
-            margin-top: 64px;
-        }
-        
-        .loading {
-            color: white;
-            background-color: black;
-        }
-        
-        .loading-box {
-            border: 2px solid #1A53FF;
-            padding: 10px;
-            padding-left: 80px;
-            padding-right: 80px;
-        }
-        
-        .app-title {
-            font-size: 32px;
-            font-weight: bold;
-            font-family: 'Electrolize', sans-serif;
-            text-transform: uppercase;
-            text-shadow: 0px 1px 3px #FF0000, 0px -1px 3px #FF0000;
-            color: #FF0000;
-            padding: 6px;
-        }
-    </style>
+<style>
+    body {
+        background-color: #180A16;
+        color: white;
+        font-family: 'Electrolize', sans-serif;
+    }
+    
+     :host {
+        font-family: 'Electrolize', sans-serif;
+        font-size: 14px;
+        color: white;
+        background-color: black;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .index-loading {
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 0px 1px 3px #1A53FF, 0px -1px 3px #1A53FF;
+        font-family: 'Electrolize', sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        color: #1A53FF;
+        margin-top: 64px;
+    }
+    
+    .loading {
+        color: white;
+        background-color: black;
+    }
+    
+    .loading-box {
+        border: 2px solid #1A53FF;
+        padding: 10px;
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+    
+    .app-title {
+        font-size: 32px;
+        font-weight: bold;
+        font-family: 'Electrolize', sans-serif;
+        text-transform: uppercase;
+        text-shadow: 0px 1px 3px #FF0000, 0px -1px 3px #FF0000;
+        color: #FF0000;
+        padding: 6px;
+    }
+</style>
 </head>
 
 <body class="mat-typography">
@@ -78,7 +78,7 @@
         <div class="index-loading app-title">3DPrinterManagement - UI</div>
         <div class="index-loading">
             <span class="loading-box">
-            <span>· · · LOADING · · ·</span><span style="margin-left: 20px;">v0.10.3 · · ·</span>
+            <span>· · · LOADING · · ·</span><span style="margin-left: 20px;">v0.10.4 · · ·</span>
             </span>
         </div>
     </app-root>
