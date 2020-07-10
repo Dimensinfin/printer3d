@@ -13,11 +13,11 @@ public class ApiError {
 
 	// - G E T T E R S   &   S E T T E R S
 	public String getErrorCode() {
-		return this.dimensinfinRuntimeException.getErrorInfo().errorCode;
+		return this.dimensinfinRuntimeException.getErrorCode();
 	}
 
 	public String getErrorInfo() {
-		return this.dimensinfinRuntimeException.getErrorInfo().name();
+		return this.dimensinfinRuntimeException.getErrorInfoName();
 	}
 
 	public String getHttpStatus() {

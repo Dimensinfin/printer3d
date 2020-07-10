@@ -58,7 +58,10 @@ public enum ErrorInfo {
 			"The Part with id [{0}] is not found at the stock list." ),
 	COIL_NOT_FOUND( HttpStatus.INTERNAL_SERVER_ERROR,
 	                          APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
-			"Coil not found when processing a new build job. Check database records for the selected Part." );
+			"Coil not found when processing a new build job. Check database records for the selected Part." ),
+	REQUEST_CANNOT_BE_FULFILLED( HttpStatus.CONFLICT,
+			APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
+			"The request [{0}] has not enough resources to be completed. Obsolete state." );
 
 	public final HttpStatus status;
 	public final String errorCode;
