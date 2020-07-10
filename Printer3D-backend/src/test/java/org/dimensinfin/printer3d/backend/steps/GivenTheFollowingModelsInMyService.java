@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
@@ -31,18 +30,6 @@ public class GivenTheFollowingModelsInMyService extends StepSupport {
 			final NewModelRequest newModelRequest = new CucumberTableToNewModelRequestConverter().convert( row );
 			// Create the model.
 			this.modelFeignClientV1.newModel( this.printer3DWorld.getJwtAuthorizationToken(), newModelRequest );
-			// Add the list of parts
-//			this.addPartReferences( row.get( ID ), row.get( PART_ID_LIST ) );
-		}
-	}
-
-	protected void addPartReferences( final String modelId, final String partRawList ) throws IOException {
-		final String[] partList = partRawList.split( "," );
-		for (int i = 0; i < partList.length; i++) {
-			this.modelFeignClientV1.addModelPart( this.printer3DWorld.getJwtAuthorizationToken(),
-					UUID.fromString( modelId.trim() ),
-					UUID.fromString( partList[i].trim() )
-			);
 		}
 	}
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.ModelEntityToModelConverter;
@@ -25,7 +24,6 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateModelCompositionRequest;
 
 @Service
 public class ModelServiceV1 {
@@ -49,22 +47,6 @@ public class ModelServiceV1 {
 				.withPartList( models )
 				.build();
 	}
-
-	@Deprecated
-	public Model addModelPart( final UpdateModelCompositionRequest modelCompositionRequest ) {
-		LogWrapper.enter();
-		try {
-			// Search for the model at the repository.
-			final Optional<ModelEntity> modelOptional = this.modelRepository.findById( modelCompositionRequest.getModelId() );
-			if (modelOptional.isEmpty())
-				throw new InvalidRequestException( ErrorInfo.MODEL_NOT_FOUND.getErrorMessage( modelCompositionRequest.getModelId() ) );
-			final ModelEntity modelEntity = this.modelRepository.save( modelOptional.get().addPart( modelCompositionRequest.getPartId() ) );
-			return this.constructModel( modelEntity );
-		} finally {
-			LogWrapper.exit();
-		}
-	}
-
 	/**
 	 * After the <code>ModelEntity</code> creation the service will compose the Model to be returned to the frontend. On this conversion the
 	 * <code>partList</code> is scanned to read from the backend repository the Part instances that should be attached to the model.
@@ -84,22 +66,6 @@ public class ModelServiceV1 {
 			final ModelEntity modelEntity = this.modelRepository.save(
 					new NewModelRequestToModelEntityConverter().convert( newModelRequest )
 			);
-			return this.constructModel( modelEntity );
-		} finally {
-			LogWrapper.exit();
-		}
-	}
-
-	@Deprecated
-	public Model removeModelPart( final UpdateModelCompositionRequest modelCompositionRequest ) {
-
-		LogWrapper.enter();
-		try {
-			// Search for the model at the repository.
-			final Optional<ModelEntity> modelOptional = this.modelRepository.findById( modelCompositionRequest.getModelId() );
-			if (modelOptional.isEmpty())
-				throw new InvalidRequestException( ErrorInfo.MODEL_NOT_FOUND.getErrorMessage( modelCompositionRequest.getModelId() ) );
-			final ModelEntity modelEntity = this.modelRepository.save( modelOptional.get().removePart( modelCompositionRequest.getPartId() ) );
 			return this.constructModel( modelEntity );
 		} finally {
 			LogWrapper.exit();

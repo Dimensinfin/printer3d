@@ -42,21 +42,6 @@ public interface InventoryApiV1 {
 	Call<ModelList> getModels();
 
 	/**
-	 * Add a new Part reference *partId* to the list of Parts that compose this model.
-	 * The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts that
-	 * compose this model. If the Part is already at the model the part reference is added a second time.
-	 *
-	 * @param modelId The unique id (uuid) of the Model that store the Part link being received. (required)
-	 * @param partId  The unique id (uuid) of the Part that is being added to this Model composition. (required)
-	 * @return Call&lt;Model&gt;
-	 */
-	@Headers({ "Content-Type:application/json" })
-	@PUT("api/v1/inventory/models/{modelId}/addPart/{partId}")
-	Call<Model> addModelPart( @Header("Authorization") final @NotNull String authorizationToken,
-	                          @Path("modelId") UUID modelId,
-	                          @Path("partId") UUID partId );
-
-	/**
 	 * Signals the cancellation of the current build.
 	 * With this command the **Machine** will be recorded as ready. This cancellation command has not to be related toa real cancellation at the real
 	 * 3D printer. Maybe used to correct the current job being performed by the real printer..
@@ -167,20 +152,6 @@ public interface InventoryApiV1 {
 	@POST("api/v1/inventory/parts")
 	Call<Part> newPart( @Header("Authorization") final @NotNull String authorizationToken,
 	                    @Body final @NotNull @Valid Part newPart );
-
-	/**
-	 * Removes a Part reference *partId* from the list of Parts that compose this model.
-	 * This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error.
-	 *
-	 * @param modelId The unique id (uuid) of the Model that store the Part link being removed. (required)
-	 * @param partId  The unique id (uuid) of the Part that is being removed from this Model composition. (required)
-	 * @return Call&lt;Model&gt;
-	 */
-	@Headers({ "Content-Type:application/json" })
-	@PUT("api/v1/inventory/models/{modelId}/removePart/{partId}")
-	Call<Model> removeModelPart( @Header("Authorization") final @NotNull String authorizationToken,
-	                             @Path("modelId") UUID modelId,
-	                             @Path("partId") UUID partId );
 
 	/**
 	 * Updates an existing Coil.
