@@ -11,8 +11,6 @@ import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -46,34 +44,6 @@ public class MachineFeignClientV1 extends CommonFeignClient {
 				.build()
 				.create( InventoryApiV1.class )
 				.completeBuild( machineId )
-				.execute();
-		if (response.isSuccessful()) {
-			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
-	}
-
-	public ResponseEntity<MachineList> getMachines( final String authorizationToken ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the list of all tth Machines.";
-		final Response<MachineList> response = new Retrofit.Builder()
-				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
-				.addConverterFactory( GSON_CONVERTER_FACTORY )
-				.build()
-				.create( InventoryApiV1.class )
-				.getMachines( authorizationToken )
-				.execute();
-		if (response.isSuccessful()) {
-			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
-	}
-
-	public ResponseEntity<Machine> startBuild( final String authorizationToken, final StartBuildRequest startBuildRequest ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request to start a new build job.";
-		final Response<Machine> response = new Retrofit.Builder()
-				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
-				.addConverterFactory( GSON_CONVERTER_FACTORY )
-				.build()
-				.create( InventoryApiV1.class )
-				.startBuild( authorizationToken, startBuildRequest.getMachineId(), startBuildRequest.getPartId() )
 				.execute();
 		if (response.isSuccessful()) {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );

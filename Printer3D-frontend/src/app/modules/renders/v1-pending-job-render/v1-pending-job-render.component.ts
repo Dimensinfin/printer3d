@@ -55,5 +55,6 @@ export class V1PendingJobRenderComponent extends NodeContainerRenderComponent {
     public onMouseLeave(): void {
         console.log('>[V1PendingJobRenderComponent.onLostFocus]')
         this.machine.changePartCount(this.getNode().getCopies())
+        console.log('<[V1PendingJobRenderComponent.onLostFocus]')
     }
 }

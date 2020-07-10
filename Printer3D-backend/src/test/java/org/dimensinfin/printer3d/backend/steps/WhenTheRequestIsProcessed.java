@@ -22,22 +22,17 @@ import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineF
 import org.dimensinfin.printer3d.backend.support.inventory.model.rest.ModelFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
-import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.StartBuildRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
-import org.dimensinfin.printer3d.client.production.rest.dto.Request;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import io.cucumber.java.en.When;
@@ -49,7 +44,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final MachineFeignClientV2 machineFeignClientV2;
 	private final JobFeignClientV1 jobFeignClientV1;
 	private final ModelFeignClientV1 modelFeignClientV1;
-	private final RequestFeignClientV1 requestFeignClientV1;
+//	private final RequestFeignClientV1 requestFeignClientV1;
 	private final RequestFeignClientV2 requestFeignClientV2;
 
 	// - C O N S T R U C T O R S
@@ -60,7 +55,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
 	                                  final @NotNull JobFeignClientV1 jobFeignClientV1,
 	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1,
-	                                  final @NotNull RequestFeignClientV1 requestFeignClientV1,
+//	                                  final @NotNull RequestFeignClientV1 requestFeignClientV1,
 	                                  final @NotNull RequestFeignClientV2 requestFeignClientV2 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
@@ -69,7 +64,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.machineFeignClientV2 = Objects.requireNonNull( machineFeignClientV2 );
 		this.jobFeignClientV1 = Objects.requireNonNull( jobFeignClientV1 );
 		this.modelFeignClientV1 = Objects.requireNonNull( modelFeignClientV1 );
-		this.requestFeignClientV1 = Objects.requireNonNull( requestFeignClientV1 );
+//		this.requestFeignClientV1 = Objects.requireNonNull( requestFeignClientV1 );
 		this.requestFeignClientV2 = requestFeignClientV2;
 	}
 
@@ -119,11 +114,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_MACHINES_V2 );
 	}
 
-	@When("the Get Machines request is processed")
-	public void the_Get_Machines_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_MACHINES_V1 );
-	}
-
 	@When("the Get Models request is processed")
 	public void the_Get_Models_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_MODELS );
@@ -139,10 +129,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_REQUESTSV2 );
 	}
 
-	@When("the Get Requests request is processed")
-	public void the_Get_Requests_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_REQUESTS );
-	}
+//	@When("the Get Requests request is processed")
+//	public void the_Get_Requests_request_is_processed() throws IOException {
+//		this.processRequestByType( RequestType.GET_REQUESTS );
+//	}
 
 	@When("the New Coil request is processed")
 	public void the_New_Coil_request_is_processed() throws IOException {
@@ -159,11 +149,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.NEW_PART );
 	}
 
-	@When("the New Request request is processed")
-	public void the_New_Request_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.NEW_REQUEST );
+//	@When("the New Request request is processed")
+//	public void the_New_Request_request_is_processed() throws IOException {
+//		this.processRequestByType( RequestType.NEW_REQUEST );
+//	}
+	@When("the New Request V2 request is processed")
+	public void the_New_Request_V2_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.NEW_REQUESTV2);
 	}
-
 	@When("the Remove Model Part request with model {string} and part {string} is processed")
 	public void the_Remove_Model_Part_request_with_model_and_part_is_processed( final String modelId, final String partId ) throws IOException {
 		this.printer3DWorld.setModelId( UUID.fromString( modelId ) );
@@ -176,13 +169,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		Assertions.assertNotNull( this.printer3DWorld.getJobRequest() );
 		this.processRequestByType( RequestType.START_BUILDV2 );
-	}
-
-	@When("the Start Build for Part {string} for Machine {string} request is processed")
-	public void the_Start_Build_for_Part_for_Machine_request_is_processed( final String partId, final String machineId ) throws IOException {
-		this.printer3DWorld.setPartId( UUID.fromString( partId ) );
-		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
-		this.processRequestByType( RequestType.START_BUILD );
 	}
 
 	@When("the Update Coil request is processed")
@@ -258,28 +244,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( finishingsResponseEntity );
 				this.printer3DWorld.setFinishingsResponseEntity( finishingsResponseEntity );
 				return finishingsResponseEntity;
-			case GET_MACHINES_V1:
-				final ResponseEntity<MachineList> machinesResponseEntity = this.machineFeignClientV1
-						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
-				Assertions.assertNotNull( machinesResponseEntity );
-				this.printer3DWorld.setMachineListResponseEntity( machinesResponseEntity );
-				return machinesResponseEntity;
 			case GET_MACHINES_V2:
 				final ResponseEntity<MachineListV2> machinesv2ResponseEntity = this.machineFeignClientV2
 						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( machinesv2ResponseEntity );
 				this.printer3DWorld.setMachineListv2ResponseEntity( machinesv2ResponseEntity );
 				return machinesv2ResponseEntity;
-			case START_BUILD:
-				final ResponseEntity<Machine> startBuildResponseEntity = this.machineFeignClientV1
-						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
-								new StartBuildRequest.Builder()
-										.withMachineId( this.printer3DWorld.getMachineId() )
-										.withPartId( this.printer3DWorld.getPartId() )
-										.build() );
-				Assertions.assertNotNull( startBuildResponseEntity );
-				this.printer3DWorld.setStartBuildResponseEntity( startBuildResponseEntity );
-				return startBuildResponseEntity;
 			case CANCEL_BUILD:
 				final ResponseEntity<Machine> cancelBuildResponseEntity = this.machineFeignClientV1
 						.cancelBuild( this.printer3DWorld.getJwtAuthorizationToken(), this.printer3DWorld.getMachineId() );
@@ -334,25 +304,32 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( removeModelPartResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( removeModelPartResponseEntity );
 				return removeModelPartResponseEntity;
-			case NEW_REQUEST:
-				Assertions.assertNotNull( this.printer3DWorld.getNewRequest() );
-				final ResponseEntity<Request> newRequestResponseEntity = this.requestFeignClientV1.newRequest(
-						this.printer3DWorld.getNewRequest() );
-				Assertions.assertNotNull( newRequestResponseEntity );
-				this.printer3DWorld.setRequestResponseEntity( newRequestResponseEntity );
-				return newRequestResponseEntity;
-			case GET_REQUESTS:
-				final ResponseEntity<RequestList> getRequestsResponseEntity = this.requestFeignClientV1.getOpenRequests();
-				Assertions.assertNotNull( getRequestsResponseEntity );
-				this.printer3DWorld.setRequestListResponseEntity( getRequestsResponseEntity );
-				return getRequestsResponseEntity;
+//			case NEW_REQUEST:
+//				Assertions.assertNotNull( this.printer3DWorld.getNewRequest() );
+//				final ResponseEntity<Request> newRequestResponseEntity = this.requestFeignClientV1.newRequest(
+//						this.printer3DWorld.getNewRequest() );
+//				Assertions.assertNotNull( newRequestResponseEntity );
+//				this.printer3DWorld.setRequestResponseEntity( newRequestResponseEntity );
+//				return newRequestResponseEntity;
+			case NEW_REQUESTV2:
+				Assertions.assertNotNull( this.printer3DWorld.getRequestV2() );
+				final ResponseEntity<RequestV2> newRequestV2ResponseEntity = this.requestFeignClientV2.newRequest(
+						this.printer3DWorld.getRequestV2() );
+				Assertions.assertNotNull( newRequestV2ResponseEntity );
+				this.printer3DWorld.setRequestResponseEntity( newRequestV2ResponseEntity );
+				return newRequestV2ResponseEntity;
+//			case GET_REQUESTS:
+//				final ResponseEntity<RequestList> getRequestsResponseEntity = this.requestFeignClientV1.getOpenRequests();
+//				Assertions.assertNotNull( getRequestsResponseEntity );
+//				this.printer3DWorld.setRequestListResponseEntity( getRequestsResponseEntity );
+//				return getRequestsResponseEntity;
 			case GET_REQUESTSV2:
 				final ResponseEntity<List<RequestV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
 				Assertions.assertNotNull( getRequestsV2ResponseEntity );
 				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
 				return getRequestsV2ResponseEntity;
 			case CLOSE_REQUEST:
-				final ResponseEntity<Request> closeRequestResponseEntity = this.requestFeignClientV1.closeRequest(
+				final ResponseEntity<RequestV2> closeRequestResponseEntity = this.requestFeignClientV2.closeRequest(
 						this.printer3DWorld.getRequestId()
 				);
 				Assertions.assertNotNull( closeRequestResponseEntity );

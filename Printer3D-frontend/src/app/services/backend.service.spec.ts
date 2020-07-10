@@ -191,17 +191,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.coils.length).toBe(15, 'Number of Coils do not match.');
                 });
         });
-        it('apiInventoryGetMachines_v1.default: get the list of Machines', async () => {
-            service.apiInventoryGetMachines_v1(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
-                .setTransformation((entrydata: any): MachineListResponse => {
-                    return new MachineListResponse(entrydata);
-                }))
-                .subscribe((response: MachineListResponse) => {
-                    expect(response).toBeDefined();
-                    expect(response.count).toBe(2, 'Number of Machines do not match.');
-                    expect(response.machines.length).toBe(2, 'Number of Machines do not match.');
-                });
-        });
         it('apiInventoryMachines_v2.default: get the list of Machines', async () => {
             console.log('apiInventoryMachines_v2.default: get the list of Coils')
             await service.apiInventoryGetMachines_v2(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
@@ -213,17 +202,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                     expect(response.count).toBe(2, 'Number of Machines do not match.');
                     expect(response.machines.length).toBe(2, 'Number of Machines do not match.');
-                });
-        });
-        it('apiMachinesStartBuild_v1.default: start a build jot on a Machine', async () => {
-            const machineId: string = "-MACHINE-ID-"
-            const partId: string = "-PART-ID-"
-            service.apiMachinesStartBuild_v1(machineId, partId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
-                .setTransformation((entrydata: any): Machine => {
-                    return new Machine(entrydata);
-                }))
-                .subscribe((response: Machine) => {
-                    expect(response).toBeDefined();
                 });
         });
         it('apiMachinesStartBuild_v2.default: start a build jot on a Machine', async () => {

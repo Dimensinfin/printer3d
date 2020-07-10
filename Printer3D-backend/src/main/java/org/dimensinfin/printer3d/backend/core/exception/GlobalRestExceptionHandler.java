@@ -18,8 +18,8 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>( new ApiError( dimensinfinRuntimeException ), dimensinfinRuntimeException.getHttpStatus() );
 	}
 
-	@ExceptionHandler(RepositoryConflictException.class)
-	protected ResponseEntity<ApiError> handleRepositoryException( final RepositoryConflictException repositoryConflictException ) {
-		return new ResponseEntity<>( new ApiError( repositoryConflictException ), repositoryConflictException.getHttpStatus() );
-	}
+//	@ExceptionHandler(RepositoryConflictException.class)
+//	protected ResponseEntity<ApiError> handleRepositoryException( final RepositoryConflictException repositoryConflictException ) {
+//		return new ResponseEntity<>( new ApiError( repositoryConflictException ), repositoryConflictException.getHttpStatus() );
+//	}
 }

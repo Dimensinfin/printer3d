@@ -74,7 +74,7 @@ public class PartFeignClientV1 extends CommonFeignClient {
 		} else {
 			if (response.code() == 400) {
 				final RestExceptionMessage restException = new RestExceptionMessageConverter().convert( response.errorBody().string() );
-				final String message = restException.getErrors().get( 0 ).getDefaultMessage();
+				final String message = restException.getMessage();
 				throw new DimensinfinRuntimeException( ErrorInfo.INVALID_REQUEST_STRUCTURE, message );
 			}
 			final AppErrorInfo appException = new AppErrorInfoConverter().convert( response.errorBody().string() );

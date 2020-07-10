@@ -122,7 +122,17 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
             this.remainingTime = job.getBuildSeconds();
         }
     }
+    /**
+     * After the user changes the number of copies if desires to start the job it has to exit the area of the Job. At this moment we fire an event and pass the number of coppies from the Job to the Machine.
+     * If the number of copies is 'null' then this means the copies field is invalid and that the start job button should be disabled. This can be controlled by the state of the machine. The new state INVALID will disable the buttons.
+     * @param newCount the new number of copies set for this job
+     */
     public changePartCount(newCount: number): void {
+        console.log('-[V3MachineRenderComponent.changePartCount]> Part count: ' + newCount)
+        if (null == newCount)
+            this.state = 'INVALID'
+        else
+            this.state = 'IDLE'
         this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
         this.sessionTimer.setTime(this.remainingTime)
     }

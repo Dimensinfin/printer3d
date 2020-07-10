@@ -47,7 +47,6 @@ public class RequestServiceV2Test {
 
 	@BeforeEach
 	public void beforeEach() {
-		//		this.stockManager = Mockito.mock( StockManager.class );
 		this.requestsRepository = Mockito.mock( RequestsRepository.class );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 		this.modelRepository = Mockito.mock( ModelRepository.class );
@@ -128,7 +127,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepository,
 				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository);
 		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );

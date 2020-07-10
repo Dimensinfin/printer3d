@@ -137,3 +137,56 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And field named "label" with label "ETIQUETA" and value "Covid-19 Key"
         And field named "material" with label "MATERIAL/COLOR" and value "PLA/NARANJA-T"
         And field named "buildTime" with label "TIEMPO" and value "30"
+
+    @D3D13.08
+    Scenario: [D3D13.08]-If the number of copies is invalidated then the Start button is disabled.
+        Given there is a click on Feature "/TRABAJOS PND."
+        Then the page "Production Jobs Page" is activated
+        # - Select a Job for drag
+        Given the target is the panel of type "jobs-list"
+        Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        # - Drag a part to the drop contents
+        Given the target is the panel of type "machines"
+        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        When the drag source is dragged to the drop destination "dropJobs"
+        # - Invalidate the contents of the copies
+        Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        And empty is set on form field "quantity"
+        When the mouse exits the target
+        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        Then the target has no "buttons"
+
+    # WARNING - Jasmine clock is not working as expected. Until fixed this type of tests are disabled.
+    # @D3D13.09
+    # Scenario: [D3D13.09]-When the job completes the number of copies continues not being editable.
+    #     # - Use a visit initialization with time configured
+    #     Given a timed application Printer3DManager
+    #     Given there is a click on Feature "/TRABAJOS PND."
+    #     Then the page "Production Jobs Page" is activated
+    #     # - Select a Job for drag
+    #     Given the target is the panel of type "jobs-list"
+    #     Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    #     # - Drag a part to the drop contents
+    #     Given the target is the panel of type "machines"
+    #     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    #     When the drag source is dragged to the drop destination "dropJobs"
+    #     Then the target has 1 "job-timer"
+    #     # - Change the number of copies to 2
+    #     Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    #     And 2 is set on form field "quantity"
+    #     # - Click the Start and advance the time to complete the job
+    #     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    #     When the button with name "start-button" is clicked
+    #     Then advance time "1" minutes
+    #     Then advance time "5" minutes
+    #     Then advance time "30" minutes
+    #     Then advance time "30" minutes
+    #     # - Validate the new state for the Machine
+    #     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    #     Then the field named "timer" contains "0H00M"
+    #     And the target has 2 "buttons"
+    #     And the button with name "complete-button" has a label "Completar" and is "enabled"
+    #     And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
+    #     # - Then validate that the quantity field is not editable
+    #     Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    #     And field named "quantity-data" with label "CANTIDAD" and value "2"

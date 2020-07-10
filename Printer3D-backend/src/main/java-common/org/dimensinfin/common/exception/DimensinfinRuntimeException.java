@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 
+import org.dimensinfin.printer3d.backend.core.exception.ErrorInfoN;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 
 public class DimensinfinRuntimeException extends RuntimeException {
@@ -17,7 +18,9 @@ public class DimensinfinRuntimeException extends RuntimeException {
 	}
 
 	protected ErrorInfo errorInfo = ErrorInfo.RUNTIME_INTERNAL_ERROR;
-	protected String cause ;
+	protected String cause;
+	private ErrorInfoN error;
+//	pri
 
 	// - C O N S T R U C T O R S
 	public DimensinfinRuntimeException() {
@@ -33,6 +36,11 @@ public class DimensinfinRuntimeException extends RuntimeException {
 		this.errorInfo = errorInfo;
 	}
 
+	public DimensinfinRuntimeException setError( final ErrorInfoN error ) {
+		this.error = error;
+		return this;
+	}
+
 	public DimensinfinRuntimeException( final RuntimeException runtime ) {
 		super( processException( runtime ) );
 	}
@@ -42,7 +50,20 @@ public class DimensinfinRuntimeException extends RuntimeException {
 		this.errorInfo = errorInfo;
 	}
 
+	public DimensinfinRuntimeException( final ErrorInfoN error ) {
+		this.error = error;
+	}
+
+//	public DimensinfinRuntimeException( final RestExceptionMessage exception ) {
+//
+//	}
+
 	// - G E T T E R S   &   S E T T E R S
+	public String getErrorCode() {
+		if (null == error) return this.errorInfo.errorCode;
+		else return this.error.getErrorCode();
+	}
+
 	public ErrorInfo getErrorInfo() {
 		return this.errorInfo;
 	}
@@ -52,10 +73,20 @@ public class DimensinfinRuntimeException extends RuntimeException {
 		return this;
 	}
 
-	public HttpStatus getHttpStatus() {
-		return this.errorInfo.status;
+	public String getErrorInfoName() {
+		if (null == error) return this.errorInfo.name();
+		else return this.error.getErrorName();
 	}
 
-	protected void setCause( final Throwable rootCause ) {
+	public HttpStatus getHttpStatus() {
+		if (null == error) return this.errorInfo.status;
+		else return this.error.getStatus();
 	}
+
+	public String getMessage() {
+		if (null == this.error) return super.getMessage();
+		else return this.error.getMessage();
+	}
+	//	protected void setCause( final Throwable rootCause ) {
+	//	}
 }

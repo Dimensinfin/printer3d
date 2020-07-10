@@ -13,27 +13,31 @@ import org.dimensinfin.printer3d.backend.production.request.persistence.Requests
 
 public class RequestControllerSupportTest {
 
-	private RequestsRepository requestsRepository;
+	private RequestsRepository requestsRepositoryV1;
 	private RequestsRepositoryV2 requestsRepositoryV2;
 
 	@BeforeEach
 	public void beforeEach() {
-		this.requestsRepository = Mockito.mock( RequestsRepository.class );
-		this.requestsRepositoryV2 = Mockito.mock(RequestsRepositoryV2.class);
+		this.requestsRepositoryV1 = Mockito.mock( RequestsRepository.class );
+		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository, this.requestsRepositoryV2 );
+		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
+				this.requestsRepositoryV1,
+				this.requestsRepositoryV2 );
 		Assertions.assertNotNull( requestControllerSupport );
 	}
 
 	@Test
 	public void deleteAllRequests() {
 		// When
-		Mockito.when( this.requestsRepository.count() ).thenReturn( 2L );
+		Mockito.when( this.requestsRepositoryV1.count() ).thenReturn( 2L );
 		// Test
-		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository, this.requestsRepositoryV2 );
+		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
+				this.requestsRepositoryV1,
+				this.requestsRepositoryV2 );
 		final ResponseEntity<CountResponse> obtained = requestControllerSupport.deleteAllRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -44,16 +48,14 @@ public class RequestControllerSupportTest {
 	@Test
 	public void deleteAllRequestsException() {
 		// When
-		Mockito.when( this.requestsRepository.count() ).thenReturn( 2L );
-		Mockito.doThrow( RuntimeException.class ).when( this.requestsRepository ).deleteAll();
+		Mockito.when( this.requestsRepositoryV1.count() ).thenReturn( 2L );
+		Mockito.doThrow( RuntimeException.class ).when( this.requestsRepositoryV1 ).deleteAll();
 		// Exceptions
 		Assertions.assertThrows( RepositoryException.class, () -> {
-			final RequestControllerSupport requestControllerSupport = new RequestControllerSupport( this.requestsRepository, this.requestsRepositoryV2 );
+			final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
+					this.requestsRepositoryV1,
+					this.requestsRepositoryV2 );
 			requestControllerSupport.deleteAllRequests();
 		} );
-	}
-
-	@Test
-	public void getRepositoryRequests() {
 	}
 }

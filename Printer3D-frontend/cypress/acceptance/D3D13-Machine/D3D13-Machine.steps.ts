@@ -4,6 +4,7 @@ import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICE
 import { SupportService } from '../../support/SupportService.support';
+import { find } from 'cypress/types/lodash';
 
 const supportService = new SupportService();
 
@@ -97,6 +98,7 @@ When('the button with name {string} is clicked', function (buttonName: string) {
         cy.get('[cy-name="' + buttonName + '"]')
             .scrollIntoView().click()
     })
+    cy.wait(500)
 });
 
 // - F O R M S
@@ -158,6 +160,30 @@ Then('form field named {string} is {string}', function (fieldName: string, state
                 break
         }
     }
+});
+Given('empty is set on form field {string}', function (fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear()
+});
+Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue + '')
+});
+
+// - M O V E M E N T
+When('the mouse exits the target', function () {
+    cy.get('@target').find('[cy-focus="mouseleave"]').trigger('mouseleave')
+});
+
+// - T I M E   C O N T R O L
+Given('a timed application Printer3DManager', function () {
+    cy.viewport(1400, 900)
+    cy.clock()
+    cy.visit('/')
+});
+Then('advance time {string} minutes', function (minutes: number) {
+    cy.tick(minutes * 60 * 1000)
+    cy.wait(1000)
 });
 
 

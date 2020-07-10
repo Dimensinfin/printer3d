@@ -228,7 +228,6 @@ public class JobServiceV1 {
 		Collections.sort( finishings, new FinishingByCountComparator() );
 		return finishings
 				.stream()
-				//				.sorted( ( fin1, fin2 ) -> new FinishingByCountComparator().compare( fin1, fin2 ) )
 				.flatMap( finishingContainer -> finishingContainer.getJobs().stream() )
 				.collect( Collectors.toList() );
 	}
