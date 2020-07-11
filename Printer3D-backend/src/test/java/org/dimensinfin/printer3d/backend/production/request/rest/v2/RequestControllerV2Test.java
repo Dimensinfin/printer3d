@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,23 @@ public class RequestControllerV2Test {
 	}
 
 	@Test
+	public void closeRequest() {
+		// Given
+		final UUID requestId = UUID.randomUUID();
+		final RequestV2 request = Mockito.mock( RequestV2.class );
+		// When
+		Mockito.when( this.requestServiceV2.closeRequest( requestId ) ).thenReturn( request );
+		Mockito.when( request.getId() ).thenReturn( requestId );
+		// Test
+		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
+		final ResponseEntity<RequestV2> obtained = requestControllerV2.closeRequest( requestId );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertNotNull( obtained.getBody() );
+		Assertions.assertEquals( requestId.toString(), obtained.getBody().getId().toString() );
+	}
+
+	@Test
 	public void constructorContract() {
 		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
 		Assertions.assertNotNull( requestControllerV2 );
@@ -41,8 +59,7 @@ public class RequestControllerV2Test {
 		Mockito.when( this.requestServiceV2.getOpenRequests() ).thenReturn( openRequests );
 		// Test
 		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
-		final ResponseEntity<List<RequestV2>> obtained = requestControllerV2
-				.getOpenRequests();
+		final ResponseEntity<List<RequestV2>> obtained = requestControllerV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

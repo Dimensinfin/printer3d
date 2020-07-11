@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.common.exception.ErrorInfoN;
+import org.dimensinfin.common.exception.DimensinfinError;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
@@ -32,7 +32,7 @@ import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION
 public class PartServiceV1 {
 	private final PartRepository partRepository;
 	private final PartEntityToPartConverter partConverter;
-	private final ErrorInfoN PART_ALREADY_EXISTS = new ErrorInfoN.Builder()
+	private final DimensinfinError PART_ALREADY_EXISTS = new DimensinfinError.Builder()
 			.withErrorName( "PART_ALREADY_EXISTS" )
 			.withHttpStatus( HttpStatus.CONFLICT )
 			.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )

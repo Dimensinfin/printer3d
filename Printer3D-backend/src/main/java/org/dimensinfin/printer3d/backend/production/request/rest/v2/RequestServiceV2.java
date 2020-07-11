@@ -107,7 +107,11 @@ public class RequestServiceV2 {
 	 * The close should be able to close requests on the old repository and also on the new repository. So the identifier should be searched on
 	 * both repositories to locate the right instance to be closed.
 	 *
+	 * @exception 404 NOT FOUND - If the request searched by the request id is not found on neither of the v1 or v2 repositories then we should
+	 * raise this exception. This has to be reported to the system administrator because there can show a data corruption problem. Other cause can
+	 * be that the Request has been closed before on another session and that frontend data is stale.
 	 * @param requestId the request identifier for the Request being closed.
+	 * @return Returns the current state of the Request on the repository.
 	 */
 	@Transactional
 	public RequestV2 closeRequest( final UUID requestId ) {
@@ -116,7 +120,9 @@ public class RequestServiceV2 {
 			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 			if (targetV1.isEmpty() && targetV2.isEmpty())
-				throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_NOT_FOUND, requestId.toString() );
+				throw new RepositoryConflictException(
+						Printer3DErrorInfo.REQUEST_NOT_FOUND( requestId),
+						"No Request found while trying to complete a Request.");
 			// Transform the targets to the common V2 structure.
 			RequestEntityV2 requestEntityV2 = null;
 			if (targetV1.isPresent())

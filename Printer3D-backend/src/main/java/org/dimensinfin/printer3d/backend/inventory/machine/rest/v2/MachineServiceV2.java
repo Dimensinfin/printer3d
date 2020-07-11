@@ -81,7 +81,7 @@ public class MachineServiceV2 {
 			// Find the machine and update it.
 			final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
 			if (machineOpt.isEmpty())
-				throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
+			ing the 	throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( jobRequest.getPartId() );
 			if (jobPartOpt.isEmpty())
 				throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineOpt.get().getCurrentJobPartId() ) );

@@ -39,6 +39,11 @@ public class RequestControllerV2 {
 		return new ResponseEntity<>( this.requestServiceV2.getOpenRequests(), HttpStatus.OK );
 	}
 
+	/**
+	 * When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
+	 * @param requestId The unique id (uuid) of the Request we are closing.
+	 * @return Returns the current state of the Request on the repository.
+	 */
 	@PutMapping(path = "/production/requests/{requestId}/close",
 			consumes = "application/json",
 			produces = "application/json")

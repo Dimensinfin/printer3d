@@ -719,7 +719,9 @@ paths:
         - Production
       summary: Closes the state of a selected Request.
       description: >
-        When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
+        When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory. The close should
+        be able to close requests on the old repository and also on the new repository. So the identifier should be searched on both repositories
+        to locate the right instance to be closed.
       operationId: closeRequest
       parameters:
         - in: path
@@ -736,11 +738,20 @@ paths:
       responses:
         200:
           description: >
-            The Request closed.
+            Returns the current state of the Request on the repository.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestV2'
+        404:
+          description: >
+            If the request searched by the request id is not found on neither of the v1 or v2 repositories then we should raise this exception.
+            This has to be reported to the system administrator because there can show a data corruption problem.
+            Other cause can be that the Request has been closed before on another session and that frontend data is stale.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensinfinError'
 
   # - J O B S
   /api/v1/production/jobs/pending:
@@ -1758,3 +1769,69 @@ components:
             The number of records processed by the previous operation. Applies to deletions and also to updates.
           example:
             3
+    DimensinfinError:
+      type: object
+      properties:
+        errorName:
+          type: string
+          format: string
+          description: >
+            This literal is the coded name of the exception. There are two classes of exceptions, the wrapped system exceptions lile SQL errors and
+            the application login exceptions that are catalogued and sometimes are expected.
+            This is a unique identifier across all the exception hierarchy.
+          example:
+            REQUEST_CANNOT_BE_FULFILLED
+        status:
+          $ref: '#/components/schemas/HttpStatus'
+        errorCode:
+          type: string
+          format: string
+          description: >
+            This is a dot composed string with a categorization of the exception on the category tree that applies to this application or to any
+            other application that shares the common exceptions. Two different exceptions can have the same 'errorCode' but different 'errorName'
+            for example because they are generated on different actions or on different entity classes.
+          example:
+            printer3d.defined.logic.exception
+        message:
+          type: string
+          format: string
+          description: >
+            The exception message. Usually this message is parametrized so it can insert key information about the affected instance. This message
+            should be localized and the localization is the 'errorName'.
+          example:
+            'Part record with id [] not found at the repository.'
+        cause:
+          type: string
+          format: string
+          description: >
+            Sometimes the same exception can be triggered by different causes of even this information comes from external system exceptions.
+            This field is optional and not informed on most of the exceptions.
+          example:
+            'Repository exception while inserting resource.'
+    HttpStatus:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          format: int32
+          description: >
+            This is one of the catalogued HTTP return error codes ('https://www.restapitutorial.com/httpstatuscodes.html'). This is the numeric
+            format for the http error code.
+          example:
+            404
+        statusName:
+          type: string
+          format: string
+          description: >
+            The string representation (from the current HTTP library) for the http error code.
+          example:
+            NOT FOUND
+
+
+#  private String errorName;
+#  private HttpStatus status;
+#  private String errorCode ;
+#  private String message;
+
+
+
