@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import org.dimensinfin.common.exception.ApiError;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(DimensinfinRuntimeException.class)
-	protected ResponseEntity<DimensinfinRuntimeException> handleDimensinfinRuntimeException( final DimensinfinRuntimeException dimensinfinRuntimeException ) {
-		return new ResponseEntity<>( dimensinfinRuntimeException, dimensinfinRuntimeException.getStatus() );
+	protected ResponseEntity<ApiError> handleDimensinfinRuntimeException( final DimensinfinRuntimeException dimensinfinRuntimeException ) {
+		return new ResponseEntity<>( new ApiError( dimensinfinRuntimeException ), dimensinfinRuntimeException.getStatus() );
 	}
 
 	//	@ExceptionHandler(RepositoryConflictException.class)

@@ -26,16 +26,16 @@ public class DimensinfinRuntimeException extends RuntimeException {
 	//	public DimensinfinRuntimeException() {
 	//		super( ErrorInfo.RUNTIME_INTERNAL_ERROR.getErrorMessage( " " ).trim() );
 	//	}
-	//
-	//	public DimensinfinRuntimeException( final @NotNull String errorMessage ) {
-	//		super( ErrorInfo.RUNTIME_INTERNAL_ERROR.getErrorMessage( errorMessage ) );
-	//	}
-	//
-	//	public DimensinfinRuntimeException( final @NotNull ErrorInfo errorInfo ) {
-	//		super( errorInfo.getErrorMessage() );
-	//		this.errorInfo = errorInfo;
-	//	}
-	//
+
+		public DimensinfinRuntimeException( final  String errorMessage ) {
+			super( ErrorInfo.RUNTIME_INTERNAL_ERROR.getErrorMessage( errorMessage ) );
+		}
+
+		public DimensinfinRuntimeException( final  ErrorInfo errorInfo ) {
+			super( errorInfo.getErrorMessage() );
+//			this.errorInfo = errorInfo;
+		}
+
 		public DimensinfinRuntimeException ( final DimensinfinError error ) {
 			this.error = error;
 //			return this;

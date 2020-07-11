@@ -17,19 +17,19 @@ public class ApiError {
 	}
 
 	public String getErrorInfo() {
-		return this.dimensinfinRuntimeException.getErrorInfoName();
+		return this.dimensinfinRuntimeException.getErrorName();
 	}
 
 	public String getHttpStatus() {
-		return this.dimensinfinRuntimeException.getHttpStatus().toString();
+		return this.dimensinfinRuntimeException.getStatus().toString();
 	}
 
 	public Integer getHttpStatusCode() {
-		return this.dimensinfinRuntimeException.getHttpStatus().value();
+		return this.dimensinfinRuntimeException.getStatus().value();
 	}
 
 	public String getHttpStatusName() {
-		return this.dimensinfinRuntimeException.getHttpStatus().name();
+		return this.dimensinfinRuntimeException.getStatus().name();
 	}
 
 	public String getMessage() {
