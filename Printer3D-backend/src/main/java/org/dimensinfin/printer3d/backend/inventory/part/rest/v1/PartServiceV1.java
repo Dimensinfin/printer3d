@@ -33,10 +33,10 @@ public class PartServiceV1 {
 	private final PartRepository partRepository;
 	private final PartEntityToPartConverter partConverter;
 	private final ErrorInfoN PART_ALREADY_EXISTS = new ErrorInfoN.Builder()
-			.withCode( "PART_ALREADY_EXISTS" )
+			.withErrorName( "PART_ALREADY_EXISTS" )
 			.withHttpStatus( HttpStatus.CONFLICT )
 			.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
-			.withMessageTemplate( "The Part [{0}] already exists. Use the Update endpoint." )
+			.withMessage( "The Part [{0}] already exists. Use the Update endpoint." )
 			.build();
 
 	// - C O N S T R U C T O R S
@@ -71,7 +71,7 @@ public class PartServiceV1 {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<PartEntity> target = this.partRepository.findById( newPart.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( PART_ALREADY_EXISTS, newPart.getId().toString() );
+				throw new RepositoryConflictException( PART_ALREADY_EXISTS );
 			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
 			try {
 				return new PartEntityToPartConverter().convert( this.partRepository.save( partEntity ) );

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
@@ -20,7 +21,11 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_PART_COPIES;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_MODEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
@@ -106,7 +111,7 @@ public class MachineServiceV2Test {
 		Assertions.assertTrue( target.isRunning() );
 		Assertions.assertEquals( TEST_PART_ID.toString(), target.getBuildRecord().getPart().getId().toString() );
 		final int newBuildTime = (TEST_PART_BUILD_TIME * 60 * 3) - 4 * 60;
-		Assertions.assertEquals( newBuildTime, target.getRemainingTime() );
+		assertThat( target.getRemainingTime() ).isBetween( newBuildTime - 1, newBuildTime );
 	}
 
 	@Test
@@ -131,7 +136,7 @@ public class MachineServiceV2Test {
 		} );
 	}
 
-	//	@Test
+	@Test
 	public void getMachinesRunComplete() {
 		// Given
 		final PartEntity part = new PartEntity.Builder()
@@ -166,6 +171,11 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityRunning.getLabel() ).thenReturn( TEST_MACHINE_LABEL );
 		Mockito.when( machineEntityIdle.getModel() ).thenReturn( TEST_MACHINE_MODEL );
 		Mockito.when( machineEntityRunning.getModel() ).thenReturn( TEST_MACHINE_MODEL );
+		Mockito.when( machineEntityIdle.getCurrentPartInstances() ).thenReturn( 2 );
+		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 2 );
+		Mockito.when( machineEntityIdle.getJobInstallmentDate() ).thenReturn( null );
+		Mockito.when( machineEntityRunning.getJobInstallmentDate() ).thenReturn( OffsetDateTime.now() );
+
 		Mockito.when( machineEntityRunning.getCurrentJobPartId() ).thenReturn( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
 		Mockito.when( machineEntityRunning.getJobInstallmentDate() )
 				.thenReturn( OffsetDateTime.now().minus( Duration.ofMinutes( TEST_PART_BUILD_TIME + 2 ) ) );
@@ -179,9 +189,77 @@ public class MachineServiceV2Test {
 		Assertions.assertEquals( 2, obtained.getMachines().size() );
 		MachineV2 target = obtained.getMachines().get( 0 );
 		Assertions.assertFalse( target.isRunning() );
-		target = obtained.getMachines().get( 1 );
-		Assertions.assertFalse( target.isRunning() );
 		Assertions.assertNull( target.getBuildRecord().getPart() );
 		Assertions.assertEquals( 0, target.getRemainingTime() );
+		target = obtained.getMachines().get( 1 );
+		Assertions.assertTrue( target.isRunning() );
+	}
+
+	@Test
+	public void startBuild() {
+		// Given
+		final UUID machineId = UUID.fromString( "988bb790-2212-4c8a-bdbf-8a5a95199c91" );
+		final JobRequest jobRequest = new JobRequest.Builder()
+				.withId( TEST_JOB_ID )
+				.withPartId( TEST_PART_ID )
+				.withCopies( TEST_JOB_PART_COPIES )
+				.build();
+		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
+		final PartEntity partEntity = new PartEntity.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR )
+				.withWeight( 10 )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		final List<Coil> coils = new ArrayList<>();
+		coils.add( new Coil.Builder()
+				.withId( UUID.randomUUID() )
+				.withMaterial( "FLEX" )
+				.withColor( "ROJO" )
+				.withWeight( 800 )
+				.build() );
+		coils.add( new Coil.Builder()
+				.withId( UUID.randomUUID() )
+				.withMaterial( "PLA" )
+				.withColor( "ROJO" )
+				.withWeight( 800 )
+				.build() );
+		final Coil targetCoil = new Coil.Builder()
+				.withId( UUID.randomUUID() )
+				.withMaterial( "PLA" )
+				.withColor( "VERDE-T" )
+				.withWeight( 100 )
+				.build();
+		coils.add( targetCoil );
+		// When
+		Mockito.when( this.machineRepository.findById( machineId ) ).thenReturn( Optional.of( machineEntity ) );
+		Mockito.when( this.partRepository.findById( TEST_PART_ID ) ).thenReturn( Optional.of( partEntity ) );
+		Mockito.when( this.coilRepository.findAll() ).thenReturn( coils );
+		Mockito.when( this.machineRepository.save( Mockito.any( MachineEntity.class ) ) ).thenReturn( machineEntity );
+		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
+		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( UUID.randomUUID() );
+		Mockito.when( machineEntity.getId() ).thenReturn( UUID.randomUUID() );
+		Mockito.when( machineEntity.getLabel() ).thenReturn( "LABEL" );
+		Mockito.when( machineEntity.getModel() ).thenReturn( "MODEL" );
+		Mockito.when( machineEntity.getCharacteristics() ).thenReturn( "CHARACTERISTICS" );
+		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( 2 );
+		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( OffsetDateTime.now() );
+		// Test
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.coilRepository );
+		final MachineV2 obtained = machineServiceV2.startBuild( machineId, jobRequest );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( true, obtained.isRunning() );
+		Assertions.assertEquals( 100 - 10 * 3, targetCoil.getWeight() );
 	}
 }

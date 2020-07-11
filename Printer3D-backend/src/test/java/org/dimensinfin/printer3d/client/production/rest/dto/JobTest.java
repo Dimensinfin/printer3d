@@ -12,7 +12,10 @@ public class JobTest {
 	@Test
 	public void buildContract() {
 		final Part part = Mockito.mock( Part.class );
-		final Job job = new Job.Builder().withPart( part ).build();
+		final Job job = new Job.Builder()
+				.withPart( part )
+				.withPriority( 4 )
+				.build();
 		Assertions.assertNotNull( job );
 	}
 
@@ -20,10 +23,15 @@ public class JobTest {
 	public void buildFailure() {
 		final Part part = Mockito.mock( Part.class );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new Job.Builder().withPart( null ).build();
+			new Job.Builder()
+					.withPart( null )
+					.withPriority( 4 )
+					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new Job.Builder().build();
+			new Job.Builder()
+					.withPriority( 4 )
+					.build();
 		} );
 	}
 
@@ -31,11 +39,15 @@ public class JobTest {
 	public void getterContract() {
 		// Given
 		final Part part = Mockito.mock( Part.class );
-		final Job job = new Job.Builder().withPart( part ).build();
+		final Job job = new Job.Builder()
+				.withPart( part )
+				.withPriority( 3 )
+				.build();
 		// When
 		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
 		// Assertions
 		Assertions.assertNotNull( job.getId() );
 		Assertions.assertEquals( part.getId().toString(), job.getPart().getId().toString() );
+		Assertions.assertEquals( 3, job.getPriority() );
 	}
 }

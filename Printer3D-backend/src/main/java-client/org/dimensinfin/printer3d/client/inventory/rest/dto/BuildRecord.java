@@ -79,7 +79,8 @@ public class BuildRecord {
 			// Validate the installment date and the part. Both should be null.
 			if (null == this.onConstruction.part)
 				this.onConstruction.jobInstallmentDate = null;
-			else this.onConstruction.state = BuildState.RUNNING;
+			else
+				this.onConstruction.state = BuildState.RUNNING;
 			if (null == this.onConstruction.state) this.onConstruction.state = BuildState.IDLE;
 			return this.onConstruction;
 		}

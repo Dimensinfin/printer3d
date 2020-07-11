@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
@@ -108,6 +109,7 @@ public class RequestServiceV2 {
 	 *
 	 * @param requestId the request identifier for the Request being closed.
 	 */
+	@Transactional
 	public RequestV2 closeRequest( final UUID requestId ) {
 		LogWrapper.enter();
 		try {

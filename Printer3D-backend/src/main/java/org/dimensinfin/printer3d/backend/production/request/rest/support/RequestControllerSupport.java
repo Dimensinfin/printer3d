@@ -28,7 +28,6 @@ import org.dimensinfin.printer3d.backend.production.request.converter.RequestToR
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
-import org.dimensinfin.printer3d.backend.production.request.rest.v1.RequestServiceV1;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 

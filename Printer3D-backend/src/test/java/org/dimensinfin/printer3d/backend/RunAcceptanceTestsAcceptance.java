@@ -11,6 +11,6 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 		features = { "src/test/resources/features" },
 		snippets= CAMELCASE,
 		glue = { "org.dimensinfin.printer3d.backend.steps" },
-		plugin = { "pretty", "json:target/cucumber_report.json" },
+		plugin = { "pretty", "json:build/cucumber_report.json" },
 		tags = { "not @skip_scenario", "not @front", "not @duplication" })
 public class RunAcceptanceTestsAcceptance {}

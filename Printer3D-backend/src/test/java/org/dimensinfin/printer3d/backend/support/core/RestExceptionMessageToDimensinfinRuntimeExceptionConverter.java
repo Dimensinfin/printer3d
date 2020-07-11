@@ -1,8 +1,10 @@
 package org.dimensinfin.printer3d.backend.support.core;
 
+import org.springframework.http.HttpStatus;
+
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.ErrorInfoN;
 import org.dimensinfin.core.interfaces.Converter;
-import org.dimensinfin.printer3d.backend.core.exception.ErrorInfoN;
 
 public class RestExceptionMessageToDimensinfinRuntimeExceptionConverter implements Converter<RestExceptionMessage, DimensinfinRuntimeException> {
 	@Override
@@ -10,6 +12,8 @@ public class RestExceptionMessageToDimensinfinRuntimeExceptionConverter implemen
 		return new DimensinfinRuntimeException().setError(
 				new ErrorInfoN.Builder()
 						.withErrorName( input.getErrorInfo() )
+						.withHttpStatus( HttpStatus.valueOf( input.getHttpStatusCode() ) )
+						.withErrorCode( input.getErrorCode() )
 						.withMessage( input.getMessage() )
 						.build()
 		);

@@ -28,7 +28,7 @@ public class JobRequest {
 	 */
 	@NotNull(message = "The number of copies cannot be null.")
 	@SerializedName("copies")
-	private int copies;
+	private int copies = 1;
 
 	// - C O N S T R U C T O R S
 	private JobRequest() {}
@@ -56,6 +56,8 @@ public class JobRequest {
 		}
 
 		public JobRequest build() {
+			Objects.requireNonNull( this.onConstruction.id );
+			Objects.requireNonNull( this.onConstruction.partId );
 			return this.onConstruction;
 		}
 

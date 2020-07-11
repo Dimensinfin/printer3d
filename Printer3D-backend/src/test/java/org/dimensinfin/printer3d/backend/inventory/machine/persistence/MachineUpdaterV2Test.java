@@ -24,6 +24,7 @@ public class MachineUpdaterV2Test {
 		final MachineEntity machineEntity = new MachineEntity();
 		final UUID partId = UUID.randomUUID();
 		final JobRequest jobRequest = new JobRequest.Builder()
+				.withId( UUID.randomUUID() )
 				.withPartId( TEST_JOB_PART_ID )
 				.withCopies( 3 )
 				.build();

@@ -208,6 +208,353 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "NewPart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"weight\": 4,\n  \"cost\": 1.0,\n  \"price\": 5.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "Creates a new Part at the Inventory repository."
+					},
+					"response": []
+				},
+				{
+					"name": "NewPart-409 Duplicated",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"c926da84-258c-47d2-8cc8-859058c6266e\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars. Prueba de duplicado\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 31,\n  \"cost\": 2.0,\n  \"price\": 6.0,\n  \"stockLevel\": 3,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "[P3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion\n    with a clear message."
+					},
+					"response": []
+				},
+				{
+					"name": "GetParts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "Get the complete list of parts from the Inventory respository. There is an optional flag to filter out inactive parts."
+					},
+					"response": []
+				},
+				{
+					"name": "NewCoil",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"8328e3ff-1cee-42f1-bd1d-275353debb6d\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"weight\": 450\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"coils"
+							]
+						},
+						"description": "Create a new roll at the backend repository."
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCoil",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"8328e3ff-1cee-42f1-bd1d-275353debb6d\",\n  \"weight\": 450\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"coils"
+							]
+						},
+						"description": "Updates a Coil. All only field allowed to be changed is the weight."
+					},
+					"response": []
+				},
+				{
+					"name": "GetCoils",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"coils"
+							]
+						},
+						"description": "Get the complete list of Rolls persisted at the Inventory repository."
+					},
+					"response": []
+				},
+				{
+					"name": "GetModels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Get the complete list of **Models** persisted at the Inventory repository."
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePart",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base Modificada\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"MORADO TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"cost\": 3.0,\n  \"price\": 6.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"parts"
+							]
+						},
+						"description": "Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents."
+					},
+					"response": []
+				},
+				{
+					"name": "NewModel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n  \"label\": \"PLATAFORMA SLOT 1/2 Verde\",\n  \"price\": 4,\n  \"stockLevel\": 3,\n  \"partIdList\": [\n    \"a12ec0be-52a4-424f-81e1-70446bc38372\",\"a12ec0be-52a4-424f-81e1-70446bc38372\",\"9fd4337d-6a4d-47b3-a7ac-a61bd51fad39\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\"\n  ],\n  \"imagePath\": \"https://ibb.co/3dGbsRh\"\n}"
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Creates a new Model. The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other Model fields."
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateModel",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"dda12806-2a1e-4a13-89c8-3bf0f23e5ffc\",\n  \"label\": \"PLATAFORMA SLOT 1/2 Azul\",\n  \"price\": 25,\n  \"stockLevel\": 12,\n  \"partIdList\": [\n    \"eb80222b-efeb-4d90-9be7-1a0850338e5e\",\n    \"8d2853ca-ebf6-443e-b705-89f7a5149d37\"\n  ],\n  \"imagePath\": \"https://ibb.co/3dGbsRh\"\n}"
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents."
+					},
+					"response": []
+				},
+				{
+					"name": "GetModels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "Get the complete list of **Models** persisted at the Inventory repository."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMachines v2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv2}}"
+							],
+							"path": [
+								"machines"
+							]
+						},
+						"description": "Version 2 of the lsit of Machines.\nThe build job information is now on a separate block of information."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Production",
 			"item": [
 				{
@@ -254,15 +601,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}",
+							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}",
 							"options": {
 								"raw": {}
 							}
 						},
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
 							"host": [
-								"{{backendServer}}{{backendPort}}{{productionv1}}"
+								"{{backendServer}}{{backendPort}}{{productionv2}}"
 							],
 							"path": [
 								"requests"
@@ -451,16 +798,9 @@
 						"description": "The virtual list of jobs that the system has calculated that are required to reach the Inventory targets."
 					},
 					"response": []
-				}
-			],
-			"description": "Stores Production endpoints",
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Inventory",
-			"item": [
+				},
 				{
-					"name": "NewPart",
+					"name": "StartBuild V2",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -472,221 +812,25 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"cost\": 1.0,\n  \"price\": 5.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"id\": \"009ab011-03ad-4e84-9a88-25708d1cfd64\",\n  \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"copies\": 2\n}"
 						},
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines/{{machineId}}/startbuild",
 							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+								"{{backendServer}}{{backendPort}}{{inventoryv2}}"
 							],
 							"path": [
-								"parts"
+								"machines",
+								"{{machineId}}",
+								"startbuild"
 							]
 						},
-						"description": "Creates a new Part at the Inventory repository."
-					},
-					"response": []
-				},
-				{
-					"name": "NewPart-409 Duplicated",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"c926da84-258c-47d2-8cc8-859058c6266e\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars. Prueba de duplicado\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 31,\n  \"cost\": 2.0,\n  \"price\": 6.0,\n  \"stockLevel\": 3,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"parts"
-							]
-						},
-						"description": "[P3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion\n    with a clear message."
-					},
-					"response": []
-				},
-				{
-					"name": "GetParts",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"parts"
-							]
-						},
-						"description": "Get the complete list of parts from the Inventory respository. There is an optional flag to filter out inactive parts."
-					},
-					"response": []
-				},
-				{
-					"name": "GetModels",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"models"
-							]
-						},
-						"description": "Get the complete list of **Models** persisted at the Inventory repository."
-					},
-					"response": []
-				},
-				{
-					"name": "UpdatePart",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base Modificada\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"MORADO TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"cost\": 3.0,\n  \"price\": 6.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"parts"
-							]
-						},
-						"description": "Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents."
-					},
-					"response": []
-				},
-				{
-					"name": "NewModel",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n  \"label\": \"PLATAFORMA SLOT 1/2 Verde\",\n  \"price\": 4,\n  \"stockLevel\": 3,\n  \"partIdList\": [\n    \"a12ec0be-52a4-424f-81e1-70446bc38372\",\"a12ec0be-52a4-424f-81e1-70446bc38372\",\"9fd4337d-6a4d-47b3-a7ac-a61bd51fad39\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\",\"2f780382-e539-4945-87ea-354bdd7879ce\"\n  ],\n  \"imagePath\": \"https://ibb.co/3dGbsRh\"\n}"
-						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"models"
-							]
-						},
-						"description": "Creates a new Model. The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other Model fields."
-					},
-					"response": []
-				},
-				{
-					"name": "UpdateModel",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"dda12806-2a1e-4a13-89c8-3bf0f23e5ffc\",\n  \"label\": \"PLATAFORMA SLOT 1/2 Azul\",\n  \"price\": 25,\n  \"stockLevel\": 12,\n  \"partIdList\": [\n    \"eb80222b-efeb-4d90-9be7-1a0850338e5e\",\n    \"8d2853ca-ebf6-443e-b705-89f7a5149d37\"\n  ],\n  \"imagePath\": \"https://ibb.co/3dGbsRh\"\n}"
-						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"models"
-							]
-						},
-						"description": "Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents."
-					},
-					"response": []
-				},
-				{
-					"name": "GetModels",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"models"
-							]
-						},
-						"description": "Get the complete list of **Models** persisted at the Inventory repository."
+						"description": "With this command the **Machine** will be active and building one new instance of the referenced Part model. The front end will not allow\n        setting new jobs until this ends or it is cancelled.\n        At this moment the plastic quantity that is required to build the Part is subtracted from a Coil with the same finishing. If there are more\n        than a single coil with the same finishing one of them is used indistinctly."
 					},
 					"response": []
 				}
 			],
+			"description": "Stores Production endpoints",
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -756,63 +900,6 @@
 					]
 				},
 				"description": "Get the list of active Parts from the Inventory repository."
-			},
-			"response": []
-		},
-		{
-			"name": "NewCoil",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"material\": \"TPU\",\n  \"color\": \"BLANCO\",\n  \"weight\": 1000\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventory}}/rolls",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{inventory}}"
-					],
-					"path": [
-						"rolls"
-					]
-				},
-				"description": "Create a new roll at the backend repository."
-			},
-			"response": []
-		},
-		{
-			"name": "GetCoils",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-					],
-					"path": [
-						"coils"
-					]
-				},
-				"description": "Get the complete list of Rolls persisted at the Inventory repository."
 			},
 			"response": []
 		},
@@ -895,30 +982,6 @@
 			"response": []
 		},
 		{
-			"name": "GetMachines v2",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{inventoryv2}}"
-					],
-					"path": [
-						"machines"
-					]
-				},
-				"description": "Version 2 of the lsit of Machines.\nThe build job information is now on a separate block of information."
-			},
-			"response": []
-		},
-		{
 			"name": "Finishings",
 			"request": {
 				"method": "GET",
@@ -943,24 +1006,24 @@
 			"response": []
 		},
 		{
-			"name": "RequestClose",
+			"name": "CloseRequest",
 			"request": {
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/8674832e-8377-4e30-ab01-d6468a312012/close",
+					"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests/988bb790-2212-4c8a-bdbf-8a5a95199c91/close",
 					"host": [
-						"{{backendServer}}{{backendPort}}{{productionv1}}"
+						"{{backendServer}}{{backendPort}}{{productionv2}}"
 					],
 					"path": [
 						"requests",
-						"8674832e-8377-4e30-ab01-d6468a312012",
+						"988bb790-2212-4c8a-bdbf-8a5a95199c91",
 						"close"
 					]
 				}
