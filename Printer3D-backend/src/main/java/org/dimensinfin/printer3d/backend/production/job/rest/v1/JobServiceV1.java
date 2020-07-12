@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
@@ -159,7 +159,8 @@ public class JobServiceV1 {
 		try {
 			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 			final Optional<PartEntity> partOpt = this.partRepository.findById( partId );
-			if (partOpt.isEmpty()) throw new DimensinfinRuntimeException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( partId ) );
+			if (partOpt.isEmpty())
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.PART_NOT_FOUND( partId ) );
 			for (int i = 0; i < jobCount; i++)
 				jobs.add( new Job.Builder().withPart( new PartEntityToPartConverter().convert(
 						partOpt.get()

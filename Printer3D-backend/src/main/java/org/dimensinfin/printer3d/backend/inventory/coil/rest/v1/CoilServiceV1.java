@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilUpdater;
@@ -41,7 +41,7 @@ public class CoilServiceV1 {
 			// Search for the Roll by id. If found reject the request because this should be a new creation.
 			final Optional<Coil> target = this.coilRepository.findById( newCoil.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( ErrorInfo.ROLL_ALREADY_EXISTS, newCoil.getId().toString() );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.COIL_ALREADY_EXISTS( newCoil.getId() ) );
 			return this.coilRepository.save( newCoil );
 		} finally {
 			LogWrapper.exit();
@@ -59,7 +59,7 @@ public class CoilServiceV1 {
 			// Search for the Model by id. If not found reject the request because this should be an update.
 			final Optional<Coil> target = this.coilRepository.findById( updateCoilRequest.getId() );
 			if (target.isEmpty())
-				throw new DimensinfinRuntimeException( ErrorInfo.COIL_NOT_FOUND, updateCoilRequest.getId().toString() );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.COIL_NOT_FOUND( updateCoilRequest.getId() ) );
 			final Coil coilEntity = new CoilUpdater( target.get() ).update( updateCoilRequest );
 			return this.coilRepository.save( coilEntity );
 		} finally {

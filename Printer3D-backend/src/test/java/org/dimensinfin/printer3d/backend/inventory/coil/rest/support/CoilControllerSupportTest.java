@@ -33,7 +33,7 @@ public class CoilControllerSupportTest {
 		Mockito.when( this.coilRepository.count() ).thenReturn( TEST_RECORD_COUNT );
 		// Test
 		final CoilControllerSupport coilControllerSupport = new CoilControllerSupport( this.coilRepository );
-		final ResponseEntity<CountResponse> obtained = coilControllerSupport.deleteAllRolls();
+		final ResponseEntity<CountResponse> obtained = coilControllerSupport.deleteAllCoils();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
@@ -50,7 +50,7 @@ public class CoilControllerSupportTest {
 		final CoilControllerSupport coilControllerSupport = new CoilControllerSupport( this.coilRepository );
 		// Exceptions
 		Assertions.assertThrows( RepositoryException.class, () -> {
-			coilControllerSupport.deleteAllRolls();
+			coilControllerSupport.deleteAllCoils();
 		} );
 	}
 

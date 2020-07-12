@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
@@ -37,7 +37,7 @@ public class MachineServiceV2 {
 		return Collectors.collectingAndThen(
 				Collectors.toList(),
 				list -> {
-					if (list.size() < 1) throw new DimensinfinRuntimeException( ErrorInfo.COIL_NOT_FOUND );
+					if (list.isEmpty()) throw new DimensinfinRuntimeException( Printer3DErrorInfo.EXPECTED_COIL_NOT_FOUND() );
 					LogWrapper.info( "Located coil: " + list.get( 0 ).toString() );
 					return list.get( 0 );
 				}
@@ -81,10 +81,10 @@ public class MachineServiceV2 {
 			// Find the machine and update it.
 			final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
 			if (machineOpt.isEmpty())
-			ing the 	throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
+				throw new RepositoryConflictException( Printer3DErrorInfo.MACHINE_NOT_FOUND( machineId.toString() ) );
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( jobRequest.getPartId() );
 			if (jobPartOpt.isEmpty())
-				throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineOpt.get().getCurrentJobPartId() ) );
+				throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( machineOpt.get().getCurrentJobPartId() ) );
 			this.subtractPlasticFromCoil( jobPartOpt.get(), jobRequest.getCopies() );
 			final MachineEntity machineEntity = this.machineRepository.save( new MachineUpdaterV2( machineOpt.get() ).update( jobRequest ) );
 			final BuildRecord buildRecord = new BuildRecord.Builder()
@@ -103,7 +103,7 @@ public class MachineServiceV2 {
 		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 			if (jobPartOpt.isEmpty())
-				throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
+				throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
 			return new PartEntityToPartConverter().convert( jobPartOpt.get() );
 		} else return null;
 	}

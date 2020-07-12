@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.ModelEntityToModelConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.NewModelRequestToModelEntityConverter;
@@ -47,6 +47,7 @@ public class ModelServiceV1 {
 				.withPartList( models )
 				.build();
 	}
+
 	/**
 	 * After the <code>ModelEntity</code> creation the service will compose the Model to be returned to the frontend. On this conversion the
 	 * <code>partList</code> is scanned to read from the backend repository the Part instances that should be attached to the model.
@@ -60,7 +61,7 @@ public class ModelServiceV1 {
 			// Search for the Model by id. If found reject the request because this should be a new creation.
 			final Optional<ModelEntity> target = this.modelRepository.findById( newModelRequest.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( ErrorInfo.MODEL_ALREADY_EXISTS, newModelRequest.getId().toString() );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.MODEL_ALREADY_EXISTS( newModelRequest.getId() ) );
 			LogWrapperLocal.info( "ModelEntity: " + target.toString() );
 			// Save the entity to the repository.
 			final ModelEntity modelEntity = this.modelRepository.save(
@@ -85,7 +86,7 @@ public class ModelServiceV1 {
 			// Search for the Model by id. If not found reject the request because this should be an update.
 			final Optional<ModelEntity> target = this.modelRepository.findById( modelRequest.getId() );
 			if (target.isEmpty())
-				throw new DimensinfinRuntimeException( ErrorInfo.MODEL_NOT_FOUND, modelRequest.getId().toString() );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.MODEL_NOT_FOUND( modelRequest.getId() ) );
 			ModelEntity updatedEntity = new ModelUpdater( target.get() ).update( modelRequest );
 			updatedEntity = this.modelRepository.save( updatedEntity );
 			return new ModelEntityToModelConverter().convert( updatedEntity );

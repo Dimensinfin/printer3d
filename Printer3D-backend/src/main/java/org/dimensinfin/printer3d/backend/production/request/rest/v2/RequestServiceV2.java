@@ -14,11 +14,9 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
@@ -107,11 +105,12 @@ public class RequestServiceV2 {
 	 * The close should be able to close requests on the old repository and also on the new repository. So the identifier should be searched on
 	 * both repositories to locate the right instance to be closed.
 	 *
-	 * @exception 404 NOT FOUND - If the request searched by the request id is not found on neither of the v1 or v2 repositories then we should
-	 * raise this exception. This has to be reported to the system administrator because there can show a data corruption problem. Other cause can
-	 * be that the Request has been closed before on another session and that frontend data is stale.
 	 * @param requestId the request identifier for the Request being closed.
 	 * @return Returns the current state of the Request on the repository.
+	 * @throws 404 NOT FOUND - If the request searched by the request id is not found on neither of the v1 or v2 repositories then we should
+	 *             raise this exception. This has to be reported to the system administrator because there can show a data corruption problem. Other
+	 *             cause can
+	 *             be that the Request has been closed before on another session and that frontend data is stale.
 	 */
 	@Transactional
 	public RequestV2 closeRequest( final UUID requestId ) {
@@ -121,8 +120,8 @@ public class RequestServiceV2 {
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 			if (targetV1.isEmpty() && targetV2.isEmpty())
 				throw new RepositoryConflictException(
-						Printer3DErrorInfo.REQUEST_NOT_FOUND( requestId),
-						"No Request found while trying to complete a Request.");
+						Printer3DErrorInfo.REQUEST_NOT_FOUND( requestId ),
+						"No Request found while trying to complete a Request." );
 			// Transform the targets to the common V2 structure.
 			RequestEntityV2 requestEntityV2 = null;
 			if (targetV1.isPresent())
@@ -156,7 +155,7 @@ public class RequestServiceV2 {
 				targetV1.ifPresent( requestEntityV1lambda -> this.requestsRepositoryV1.save( requestEntityV1lambda.close() ) );
 				targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
 				return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
-			} else throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED.parameters( requestEntityV2.getId() ) );
+			} else throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED( requestEntityV2.getId() ) );
 		} finally {
 			LogWrapper.exit();
 		}
@@ -168,7 +167,7 @@ public class RequestServiceV2 {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntityV2> target = this.requestsRepositoryV2.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_ALREADY_EXISTS, newRequest.getId().toString() );
+				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_ALREADY_EXISTS( newRequest.getId()) );
 			return new RequestEntityV2ToRequestV2Converter().convert(
 					this.requestsRepositoryV2.save(
 							new RequestV2ToRequestEntityV2Converter().convert( newRequest )

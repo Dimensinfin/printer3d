@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 
 @Profile({ "local", "acceptance", "test" })
@@ -34,7 +34,7 @@ public class CoilControllerSupport {
 	@GetMapping(path = "/inventory/coils/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> deleteAllRolls() {
+	public ResponseEntity<CountResponse> deleteAllCoils() {
 		try {
 			final long recordCount = this.coilRepository.count();
 			this.coilRepository.deleteAll();
@@ -43,7 +43,8 @@ public class CoilControllerSupport {
 					.build(), HttpStatus.OK );
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new RepositoryException( ErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
+			throw new RepositoryException( Printer3DErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE(new SQLException( sqle ) ),
+					"Detected exception while deleting all coils on repository.");
 		}
 	}
 }

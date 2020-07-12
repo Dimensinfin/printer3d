@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
-import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
 import org.dimensinfin.printer3d.backend.production.job.converter.JobEntityToJobConverter;
+import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 
 @Profile({ "local", "acceptance", "test" })
@@ -74,7 +74,8 @@ public class JobControllerSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new RepositoryException( ErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
+			throw new RepositoryException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+					"Detected exception while deleting all Jobs from the repository." );
 		}
 	}
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
@@ -42,7 +42,7 @@ public class StockManager {
 	public int getStock( final UUID partId ) {
 		if (this.stocks.containsKey( partId ))
 			return this.stocks.get( partId ).getStock();
-		else throw new DimensinfinRuntimeException( ErrorInfo.STOCK_PROCESSING_FAILURE.getErrorMessage( partId ) );
+		else throw new DimensinfinRuntimeException( Printer3DErrorInfo.STOCK_PROCESSING_FAILURE( partId ) );
 	}
 
 	public int minus( final UUID partId, final int quantity ) {
@@ -51,7 +51,7 @@ public class StockManager {
 		if (this.stocks.containsKey( partId )) {
 			this.stocks.computeIfPresent( partId, ( UUID key, StockLevel stockLevel ) -> stockLevel.reduceStock( quantity ) );
 			return this.stocks.get( partId ).getStock();
-		} else throw new DimensinfinRuntimeException( ErrorInfo.STOCK_PROCESSING_FAILURE.getErrorMessage( partId ) );
+		} else throw new DimensinfinRuntimeException( Printer3DErrorInfo.STOCK_PROCESSING_FAILURE( partId ) );
 	}
 
 	public StockManager startStock() {

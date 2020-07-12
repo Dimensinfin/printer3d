@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.common.client.rest.CountResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
@@ -41,14 +41,14 @@ public class RequestControllerSupport {
 	private static final RequestEntityToRequestConverter requestEntityToRequestConverter = new RequestEntityToRequestConverter();
 	private final RequestsRepository requestsRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
-//	private final RequestServiceV1 requestServiceV1;
+	//	private final RequestServiceV1 requestServiceV1;
 
 	// - C O N S T R U C T O R S
 	public RequestControllerSupport( final @NotNull RequestsRepository requestsRepository,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
-//		this.requestServiceV1 = requestServiceV1;
+		//		this.requestServiceV1 = requestServiceV1;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -94,7 +94,8 @@ public class RequestControllerSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new RepositoryException( ErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
+			throw new RepositoryException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+					"Detected exception while deleting all Requests from the repository." );
 		}
 	}
 
@@ -107,7 +108,8 @@ public class RequestControllerSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new RepositoryException( ErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE, new SQLException( sqle ) );
+			throw new RepositoryException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+					"Detected exception while deleting all Requests from the repository." );
 		}
 	}
 
@@ -117,7 +119,7 @@ public class RequestControllerSupport {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntity> target = this.requestsRepository.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_ALREADY_EXISTS, newRequest.getId().toString() );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
 			return new RequestEntityToRequestConverter().convert(
 					this.requestsRepository.save(
 							new RequestToRequestEntityConverter().convert( newRequest )

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
@@ -47,10 +47,8 @@ public class MachineControllerSupport {
 		final List<MachineEntity> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
 		for (MachineEntity machine : machines)
 			LogWrapperLocal.info( "Found Machine: " + machine.toString() );
-		if (null == machines)
-			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
 		if (machines.isEmpty())
-			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( setupRequest.getMachineLabel() ) );
+			throw new RepositoryConflictException( Printer3DErrorInfo.MACHINE_NOT_FOUND( setupRequest.getMachineLabel() ) );
 		for (MachineEntity machine : machines)
 			this.machineRepository.save( new SupportMachineUpdater( machine ).update( setupRequest ) );
 		return new ResponseEntity<>( true, HttpStatus.OK );

@@ -309,7 +309,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 			final ResponseEntity response = this.processRequest( requestType );
 			this.printer3DWorld.setHttpStatus( response.getStatusCode() );
 		} catch (final DimensinfinRuntimeException runtime) {
-			this.printer3DWorld.setHttpStatus( runtime.getHttpStatus() );
+			this.printer3DWorld.setHttpStatus( runtime.getStatus() );
 			this.printer3DWorld.setApplicationException( runtime );
 			LogWrapperLocal.error( runtime );
 		}

@@ -8,17 +8,13 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.common.exception.RestExceptionMessage;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
-import org.dimensinfin.printer3d.backend.support.core.AppErrorInfo;
-import org.dimensinfin.printer3d.backend.support.core.AppErrorInfoConverter;
-import org.dimensinfin.printer3d.backend.support.core.AppErrorInfoToDimensinfinRuntimeExceptionConverter;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
-import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessage;
 import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConverter;
-import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageToDimensinfinRuntimeExceptionConverter;
 import org.dimensinfin.printer3d.client.production.rest.ProductionApiV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
@@ -60,18 +56,19 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else {
-			if (response.code() == 500) {
+//			if (response.code() == 500) {
 				final RestExceptionMessage restException = new RestExceptionMessageConverter().convert( response.errorBody().string() );
-				final String message = restException.getMessage();
-				throw new DimensinfinRuntimeException( ErrorInfo.INVALID_REQUEST_STRUCTURE, message );
-			}
-			if (response.code() == 409) {
-				final RestExceptionMessage restException = new RestExceptionMessageConverter().convert( response.errorBody().string() );
-				//				final String message = restException.getMessage();
-				throw new RestExceptionMessageToDimensinfinRuntimeExceptionConverter().convert( restException );
-			}
-			final AppErrorInfo appException = new AppErrorInfoConverter().convert( response.errorBody().string() );
-			throw new AppErrorInfoToDimensinfinRuntimeExceptionConverter().convert( appException );
+//				final String message = restException.getMessage();
+			throw new DimensinfinRuntimeException( DimensinfinErrorInfo.INVALID_REQUEST_STRUCTURE( restException ));
+//				throw new DimensinfinRuntimeException( ErrorInfo.INVALID_REQUEST_STRUCTURE, message );
+//			}
+//			if (response.code() == 409) {
+//				final RestExceptionMessage restException = new RestExceptionMessageConverter().convert( response.errorBody().string() );
+//				//				final String message = restException.getMessage();
+//				throw new RestExceptionMessageToDimensinfinRuntimeExceptionConverter().convert( restException );
+//			}
+//			final AppErrorInfo appException = new AppErrorInfoConverter().convert( response.errorBody().string() );
+//			throw new AppErrorInfoToDimensinfinRuntimeExceptionConverter().convert( appException );
 		}
 	}
 

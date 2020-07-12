@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.core.exception.InvalidRequestException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
+import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineConverter;
@@ -43,7 +42,7 @@ public class MachineServiceV1 {
 	public Machine cancelBuild( final @NotNull UUID machineId ) {
 		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
 		if (machineOpt.isEmpty())
-			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
+			throw new RepositoryConflictException( Printer3DErrorInfo.MACHINE_NOT_FOUND( machineId.toString() ) );
 		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
 	}
 
@@ -58,7 +57,7 @@ public class MachineServiceV1 {
 	public Machine completeBuild( final UUID machineId ) {
 		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
 		if (machineOpt.isEmpty())
-			throw new DimensinfinRuntimeException( ErrorInfo.MACHINE_NOT_FOUND.getErrorMessage( machineId ) );
+			throw new RepositoryConflictException( Printer3DErrorInfo.MACHINE_NOT_FOUND( machineId.toString() ) );
 		final MachineEntity machineEntity = machineOpt.get();
 		this.storeBuiltParts( machineEntity.getCurrentJobPartId(), machineEntity.getCurrentPartInstances() );
 		this.recordJob( machineEntity );
@@ -68,7 +67,7 @@ public class MachineServiceV1 {
 	private void recordJob( final MachineEntity machineEntity ) {
 		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 		if (jobPartOpt.isEmpty())
-			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( machineEntity.getCurrentJobPartId() ) );
+			throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
 		final JobEntity job = new JobEntity.Builder()
 				.withPartId( machineEntity.getCurrentJobPartId() )
 				.withBuildTime( jobPartOpt.get().getBuildTime() * machineEntity.getCurrentPartInstances() ) // Multiple copies take longer to build.
@@ -84,7 +83,7 @@ public class MachineServiceV1 {
 	private void storeBuiltParts( final UUID currentJobPartId, final int currentPartInstances ) {
 		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( currentJobPartId );
 		if (jobPartOpt.isEmpty())
-			throw new InvalidRequestException( ErrorInfo.PART_NOT_FOUND.getErrorMessage( currentJobPartId ) );
+			throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( currentJobPartId ) );
 		final PartEntity targetPart = jobPartOpt.get();
 		targetPart.incrementStock( currentPartInstances );
 		this.partRepository.save( targetPart );
