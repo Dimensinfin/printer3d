@@ -1,5 +1,7 @@
 package org.dimensinfin.printer3d.backend.core.exception;
 
+import org.springframework.http.HttpStatus;
+
 import org.dimensinfin.common.exception.DimensinfinError;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
@@ -13,14 +15,10 @@ import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 public class RepositoryException extends DimensinfinRuntimeException {
 	// - C O N S T R U C T O R S
 	public RepositoryException( final DimensinfinError error ) {
-		super( error );
+		super( error.setStatus( HttpStatus.INTERNAL_SERVER_ERROR ) );
 	}
-	//	public RepositoryException( final DimensinfinError error, final SQLException sqle ) {
-	//		super( error );
-	//		error.setStatus( HttpStatus.INTERNAL_SERVER_ERROR );
-	//		if (null != sqle.getCause()) {
-	//			error.setCause( sqle.getCause().toString() );
-	//		}
-	//		error.updateMessage( error.getMessage().concat( " " ).concat( sqle.getMessage() ) );
-	//	}
+
+	public RepositoryException( final DimensinfinError error, final String cause ) {
+		super( error.setStatus( HttpStatus.INTERNAL_SERVER_ERROR ).setCause( cause ) );
+	}
 }

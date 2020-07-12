@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
 
 /**
  * Now a Request item can be of different types. So there is a need to use an isolation class that will contain the neutral data and be ale to
@@ -81,7 +81,10 @@ public class RequestItem implements Serializable {
 		}
 
 		public RequestItem.Builder withType( final RequestContentType type ) {
-			if (type == RequestContentType.UNIDENTIFIED) throw new DimensinfinRuntimeException( ErrorInfo.RUNTIME_INTERNAL_ERROR );
+			if (type == RequestContentType.UNIDENTIFIED)
+				throw new DimensinfinRuntimeException( DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR(
+					"Request content type found UNIDENTIFIED while constructing a RequestItem."
+			) );
 			this.onConstruction.type = type;
 			return this;
 		}

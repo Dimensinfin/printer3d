@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.core;
+package org.dimensinfin.common.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
