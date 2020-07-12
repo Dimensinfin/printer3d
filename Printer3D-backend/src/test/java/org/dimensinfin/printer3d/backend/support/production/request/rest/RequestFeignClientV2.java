@@ -8,9 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.common.exception.RestExceptionMessage;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
@@ -56,19 +54,7 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else {
-//			if (response.code() == 500) {
-				final RestExceptionMessage restException = new RestExceptionMessageConverter().convert( response.errorBody().string() );
-//				final String message = restException.getMessage();
-			throw new DimensinfinRuntimeException( DimensinfinErrorInfo.INVALID_REQUEST_STRUCTURE( restException ));
-//				throw new DimensinfinRuntimeException( ErrorInfo.INVALID_REQUEST_STRUCTURE, message );
-//			}
-//			if (response.code() == 409) {
-//				final RestExceptionMessage restException = new RestExceptionMessageConverter().convert( response.errorBody().string() );
-//				//				final String message = restException.getMessage();
-//				throw new RestExceptionMessageToDimensinfinRuntimeExceptionConverter().convert( restException );
-//			}
-//			final AppErrorInfo appException = new AppErrorInfoConverter().convert( response.errorBody().string() );
-//			throw new AppErrorInfoToDimensinfinRuntimeExceptionConverter().convert( appException );
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ));
 		}
 	}
 
@@ -84,6 +70,8 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+		} else {
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ));
+		}
 	}
 }

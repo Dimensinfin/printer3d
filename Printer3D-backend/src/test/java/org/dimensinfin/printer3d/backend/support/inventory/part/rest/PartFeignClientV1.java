@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.client.rest.CountResponse;
-import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.common.exception.RestExceptionMessage;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
@@ -39,7 +37,8 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.execute();
 		if (response.isSuccessful()) {
 			return response.body().getCount();
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+		} else
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 	}
 
 	public ResponseEntity<PartList> getParts( final String authorizationToken ) throws IOException {
@@ -53,7 +52,8 @@ public class PartFeignClientV1 extends CommonFeignClient {
 				.execute();
 		if (response.isSuccessful()) {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+		} else
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 	}
 
 	public ResponseEntity<Part> newPart( final String authorizationToken, final Part part ) throws IOException {
@@ -68,15 +68,8 @@ public class PartFeignClientV1 extends CommonFeignClient {
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else {
-//			if (response.code() == 400) {
-				final RestExceptionMessage restException = new RestExceptionMessageConverter().convert( response.errorBody().string() );
-//				final String message = restException.getMessage();
-				throw new DimensinfinRuntimeException( DimensinfinErrorInfo.INVALID_REQUEST_STRUCTURE( restException ));
-//			}
-//			final AppErrorInfo appException = new AppErrorInfoConverter().convert( response.errorBody().string() );
-//			throw new DimensinfinRuntimeException(DimensinfinErrorInfo.INVALID_REQUEST_STRUCTURE( restException ) );
-		}
+		} else
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 	}
 
 	public ResponseEntity<CountResponse> updateGroupPart( final UpdateGroupPartRequest updateData ) throws IOException {
@@ -91,7 +84,8 @@ public class PartFeignClientV1 extends CommonFeignClient {
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+		} else
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 	}
 
 	public ResponseEntity<Part> updatePart( final String authorizationToken, final Part part ) throws IOException {
@@ -106,6 +100,7 @@ public class PartFeignClientV1 extends CommonFeignClient {
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+		} else
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 	}
 }

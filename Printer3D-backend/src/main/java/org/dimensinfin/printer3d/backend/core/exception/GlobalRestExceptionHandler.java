@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.dimensinfin.common.exception.ApiError;
 import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -25,8 +26,10 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid( final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request ) {
+		LogWrapper.info( "Exception: " + ex.toString() );
+		LogWrapper.info( "message: " + ex.getMessage() );
 		return new ResponseEntity<>(
-				new ApiError( new DimensinfinRuntimeException( DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR( ex.getMessage() ) ) ),
+				new ApiError( new DimensinfinRuntimeException( DimensinfinErrorInfo.INVALID_REQUEST_STRUCTURE(ex ) ) ),
 				HttpStatus.BAD_REQUEST );
 	}
 }

@@ -43,7 +43,7 @@ public class MachineServiceV1Test {
 		this.jobRepository = Mockito.mock( JobRepository.class );
 	}
 
-//	@Test
+	@Test
 	public void cancelBuild() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );

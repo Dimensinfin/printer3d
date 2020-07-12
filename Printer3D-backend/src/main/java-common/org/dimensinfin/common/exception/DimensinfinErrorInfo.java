@@ -3,6 +3,7 @@ package org.dimensinfin.common.exception;
 import java.text.MessageFormat;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 public class DimensinfinErrorInfo {
 	public static DimensinfinError RUNTIME_INTERNAL_ERROR( final String message ) {
@@ -13,8 +14,8 @@ public class DimensinfinErrorInfo {
 				.withMessage( MessageFormat.format( "Runtime uncatalogued exception: {0}", message ) )
 				.build();
 	}
-	public static DimensinfinError INVALID_REQUEST_STRUCTURE( final RestExceptionMessage restException ) {
-		// TODO - Process the eception to extract the validation cause.
+
+	public static DimensinfinError INVALID_REQUEST_STRUCTURE( final MethodArgumentNotValidException restException ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "INVALID_REQUEST_STRUCTURE" )
 				.withHttpStatus( HttpStatus.BAD_REQUEST )

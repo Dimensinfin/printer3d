@@ -22,12 +22,12 @@ public class CucumberTableToRequestV2Converter extends CucumberTableConverter<Re
 
 	@Override
 	public RequestV2 convert( final Map<String, String> cucumberRow ) {
-		return new RequestV2.Builder()
-				.withId( UUID.fromString( cucumberRow.get( ID ) ) )
-				.withLabel( cucumberRow.get( LABEL ) )
-				.withState( RequestState.valueOf( cucumberRow.get( STATE ) ) )
-				.withRequestDate( cucumberRow.get( REQUEST_DATE ) )
-				.withContents( this.requestContents )
-				.build();
+		final RequestV2.Builder builder = new RequestV2.Builder();
+		if (null != cucumberRow.get( ID )) builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
+		if (null != cucumberRow.get( LABEL )) builder.withLabel( cucumberRow.get( LABEL ) );
+		if (null != cucumberRow.get( STATE )) builder.withState( RequestState.valueOf( cucumberRow.get( STATE ) ) );
+		if (null != cucumberRow.get( REQUEST_DATE )) builder.withRequestDate( cucumberRow.get( REQUEST_DATE ) );
+		builder.withContents( this.requestContents );
+		return builder.build();
 	}
 }
