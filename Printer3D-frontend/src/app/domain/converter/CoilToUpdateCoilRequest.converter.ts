@@ -7,6 +7,7 @@ import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 export class CoilToUpdateCoilRequestConverter implements Converter<Coil, UpdateCoilRequest>  {
     public convert(input: Coil): UpdateCoilRequest {
         return new UpdateCoilRequest({
+            id: input.id,
             weight: input.weight
         })
     }

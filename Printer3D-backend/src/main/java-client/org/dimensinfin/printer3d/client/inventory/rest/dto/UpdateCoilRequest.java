@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -16,8 +17,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @since 0.10.0
  */
 public class UpdateCoilRequest {
+	@NotNull(message = "Coil 'id' is a mandatory field used to locate the target and caanot be null.")
 	@SerializedName("id")
-	private UUID id = null;
+	private UUID id;
+	@NotNull(message = "Weight data cannot be null.")
 	@SerializedName("weight")
 	private Integer weight;
 
@@ -51,8 +54,8 @@ public class UpdateCoilRequest {
 	@Override
 	public String toString() {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
-				.append( "id", id )
-				.append( "weight", weight )
+				.append( "id", this.id )
+				.append( "weight", this.weight )
 				.toString();
 	}
 
