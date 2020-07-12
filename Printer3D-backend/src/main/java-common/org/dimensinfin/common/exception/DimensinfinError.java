@@ -2,6 +2,7 @@ package org.dimensinfin.common.exception;
 
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ public class DimensinfinError {
 	@SerializedName("cause")
 	public String getCause() {
 		return this.cause;
+	}
+
+	public DimensinfinError setCause( final String cause ) {
+		this.cause = cause;
+		return this;
 	}
 
 	@SerializedName("errorCode")
@@ -57,8 +63,8 @@ public class DimensinfinError {
 		return this.status.name();
 	}
 
-	public DimensinfinError setCause( final String cause ) {
-		this.cause = cause;
+	public DimensinfinError updateMessage( final String newMessage ) {
+		this.message = newMessage;
 		return this;
 	}
 
@@ -74,15 +80,12 @@ public class DimensinfinError {
 		public DimensinfinError build() {
 			Objects.requireNonNull( this.onConstruction.errorName );
 			Objects.requireNonNull( this.onConstruction.errorCode );
-			//			Objects.requireNonNull( this.onConstruction.status );
 			Objects.requireNonNull( this.onConstruction.message );
 			return this.onConstruction;
 		}
 
-		public DimensinfinError.Builder withCause( final Optional<String> cause ) {
-			if (null != cause)
-				if (cause.isPresent())
-					this.onConstruction.message = Objects.requireNonNull( cause.get() );
+		public DimensinfinError.Builder withCause( final @NotNull Optional<String> causeOptional ) {
+			causeOptional.ifPresent( c -> this.onConstruction.message = Objects.requireNonNull( c ) );
 			return this;
 		}
 

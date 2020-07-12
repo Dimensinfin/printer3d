@@ -14,6 +14,6 @@ public class InvalidRequestException extends DimensinfinRuntimeException {
 
 	public InvalidRequestException( final RuntimeException runtime ) {
 		super( runtime );
-		this.errorInfo = ErrorInfo.INVALID_REQUEST_STRUCTURE;
+//		this.errorInfo = ErrorInfo.INVALID_REQUEST_STRUCTURE;
 	}
 }
