@@ -6,11 +6,9 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.client.rest.CountResponse;
-import org.dimensinfin.common.exception.DimensinfinError;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
@@ -24,18 +22,16 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
-import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
-
 @Service
 public class PartServiceV1 {
 	private final PartRepository partRepository;
 	private final PartEntityToPartConverter partConverter;
-	private final DimensinfinError PART_ALREADY_EXISTS = new DimensinfinError.Builder()
-			.withErrorName( "PART_ALREADY_EXISTS" )
-			.withHttpStatus( HttpStatus.CONFLICT )
-			.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
-			.withMessage( "The Part [{0}] already exists. Use the Update endpoint." )
-			.build();
+	//	private final DimensinfinError PART_ALREADY_EXISTS = new DimensinfinError.Builder()
+	//			.withErrorName( "PART_ALREADY_EXISTS" )
+	//			.withHttpStatus( HttpStatus.CONFLICT )
+	//			.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
+	//			.withMessage( "The Part [{0}] already exists. Use the Update endpoint." )
+	//			.build();
 
 	// - C O N S T R U C T O R S
 	@Autowired
@@ -69,7 +65,7 @@ public class PartServiceV1 {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<PartEntity> target = this.partRepository.findById( newPart.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( PART_ALREADY_EXISTS );
+				throw new RepositoryConflictException( Printer3DErrorInfo.PART_ALREADY_EXISTS( newPart.getId() ) );
 			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
 			//			try {
 			return new PartEntityToPartConverter().convert( this.partRepository.save( partEntity ) );

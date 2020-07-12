@@ -81,6 +81,15 @@ public class Printer3DErrorInfo extends DimensinfinErrorInfo {
 				.build();
 	}
 
+	public static DimensinfinError PART_ALREADY_EXISTS( final UUID partId ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "PART_ALREADY_EXISTS" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
+				.withHttpStatus( HttpStatus.CONFLICT )
+				.withMessage( MessageFormat.format( "Part with id [{0}] already exists. Use the Update endpoint.", partId ) )
+				.build();
+	}
+
 	public static DimensinfinError MACHINE_NOT_FOUND( final String machineIdentification ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "MACHINE_NOT_FOUND" )
@@ -147,10 +156,11 @@ public class Printer3DErrorInfo extends DimensinfinErrorInfo {
 						requestId ) )
 				.build();
 	}
+
 	public static DimensinfinError STOCK_PROCESSING_FAILURE( final UUID partId ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "STOCK_PROCESSING_FAILURE" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX +".logic.exception")
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
 				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
 				.withMessage( MessageFormat.format( "Part with id [{0}] is not found at the stock list.", partId ) )
 				.build();

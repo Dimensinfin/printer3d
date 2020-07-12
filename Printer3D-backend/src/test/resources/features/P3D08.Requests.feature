@@ -180,3 +180,16 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
         Then there is a exception response with return code of "409 CONFLICT"
         And the exception response contains the message "The request [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] has not enough resources to be completed. Obsolete state."
+
+    @P3D08.E @P3D08.E.02
+    Scenario: [P3D08.E.02] If there are missing fields on the request of they do fail any of the validations then we report a reject exception.
+        And the next Request Contents List
+            | itemId                               | type  | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a |  | 2020-06-29T20:00:00.226181Z | OPEN  |
+        When the New Request V2 request is processed
+        Then there is a exception response with return code of "400 BAD_REQUEST"
+        And the exception response contains the message "Validation failed for argument"

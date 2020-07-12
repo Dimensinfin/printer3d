@@ -667,6 +667,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestV2'
+        400:
+          description: >
+            If the request to create a new requst has not all the required fields or they do not pass the validations then we reject the request
+            with a bad format request exception. The response message should explain the cause for the rejection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensinfinError'
     patch:
       tags:
         - Production
