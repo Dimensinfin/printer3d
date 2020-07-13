@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
@@ -72,9 +72,9 @@ public class PartFeignClientV1 extends CommonFeignClient {
 			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 	}
 
-	public ResponseEntity<CountResponse> updateGroupPart( final UpdateGroupPartRequest updateData ) throws IOException {
+	public ResponseEntity<CounterResponse> updateGroupPart( final UpdateGroupPartRequest updateData ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the update for a selected group of Parts.";
-		final Response<CountResponse> response = new Retrofit.Builder()
+		final Response<CounterResponse> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()

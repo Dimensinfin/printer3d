@@ -70,21 +70,21 @@ public class P3D01PartsSteps extends StepSupport {
 
 	@Then("the response for Update Part has the next fields")
 	public void the_response_for_Update_Part_has_the_next_fields( final List<Map<String, String>> dataTable ) {
-		Assertions.assertNotNull( this.printer3DWorld.getUpdatePartResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getUpdatePartResponseEntity().getBody() );
+		Assertions.assertNotNull( this.printer3DWorld.getPartResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getPartResponseEntity().getBody() );
 		Assertions.assertTrue(
 				new PartValidator().validate( dataTable.get( 0 ),
-						this.printer3DWorld.getUpdatePartResponseEntity().getBody() )
+						this.printer3DWorld.getPartResponseEntity().getBody() )
 		);
 	}
 
 	@Then("the response for new Part has the next fields")
 	public void the_response_for_new_Part_has_the_next_fields( final List<Map<String, String>> dataTable ) {
-		Assertions.assertNotNull( this.printer3DWorld.getNewPartResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getNewPartResponseEntity().getBody() );
+		Assertions.assertNotNull( this.printer3DWorld.getPartResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getPartResponseEntity().getBody() );
 		Assertions.assertTrue(
 				new PartValidator().validate( dataTable.get( 0 ),
-						this.printer3DWorld.getNewPartResponseEntity().getBody() )
+						this.printer3DWorld.getPartResponseEntity().getBody() )
 		);
 	}
 

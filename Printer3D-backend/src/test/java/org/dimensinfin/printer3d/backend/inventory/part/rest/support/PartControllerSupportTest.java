@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 
 public class PartControllerSupportTest {
 
@@ -27,12 +27,12 @@ public class PartControllerSupportTest {
 	public void deleteAllParts() {
 		// Given
 		final Integer TEST_RECORD_COUNT = 4;
-		final CountResponse countResponse = new CountResponse.Builder().withRecords( TEST_RECORD_COUNT ).build();
+		final CounterResponse counterResponse = new CounterResponse.Builder().withRecords( TEST_RECORD_COUNT ).build();
 		// When
-		Mockito.when( this.partServiceSupport.deleteAllParts() ).thenReturn( countResponse );
+		Mockito.when( this.partServiceSupport.deleteAllParts() ).thenReturn( counterResponse );
 		// Test
 		final PartControllerSupport partControllerSupport = new PartControllerSupport( this.partServiceSupport );
-		final ResponseEntity<CountResponse> obtained = partControllerSupport.deleteAllParts();
+		final ResponseEntity<CounterResponse> obtained = partControllerSupport.deleteAllParts();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

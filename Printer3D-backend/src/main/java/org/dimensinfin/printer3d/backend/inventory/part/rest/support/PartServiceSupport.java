@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
@@ -23,11 +23,11 @@ public class PartServiceSupport {
 		this.partRepository = Objects.requireNonNull( partRepository );
 	}
 
-	public CountResponse deleteAllParts() {
+	public CounterResponse deleteAllParts() {
 		try {
 			final long recordCount = this.partRepository.count();
 			this.partRepository.deleteAll();
-			return new CountResponse.Builder()
+			return new CounterResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build();
 		} catch (final RuntimeException sqle) {

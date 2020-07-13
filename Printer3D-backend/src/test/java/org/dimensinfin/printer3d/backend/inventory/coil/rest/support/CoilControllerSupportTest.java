@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 
@@ -33,7 +33,7 @@ public class CoilControllerSupportTest {
 		Mockito.when( this.coilRepository.count() ).thenReturn( TEST_RECORD_COUNT );
 		// Test
 		final CoilControllerSupport coilControllerSupport = new CoilControllerSupport( this.coilRepository );
-		final ResponseEntity<CountResponse> obtained = coilControllerSupport.deleteAllCoils();
+		final ResponseEntity<CounterResponse> obtained = coilControllerSupport.deleteAllCoils();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

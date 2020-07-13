@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
@@ -39,15 +39,15 @@ public class ModelControllerSupport {
 	@GetMapping(path = "/inventory/models/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> deleteAllModels() {
+	public ResponseEntity<CounterResponse> deleteAllModels() {
 		return new ResponseEntity<>( this.deleteAllModelsService(), HttpStatus.OK );
 	}
 
-	protected CountResponse deleteAllModelsService() {
+	protected CounterResponse deleteAllModelsService() {
 		try {
 			final long recordCount = this.modelRepository.count();
 			this.modelRepository.deleteAll();
-			return new CountResponse.Builder()
+			return new CounterResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build();
 		} catch (final RuntimeException sqle) {

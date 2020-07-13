@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 
@@ -29,12 +29,12 @@ public class ModelControllerSupportTest {
 	public void deleteAllModels() {
 		// Given
 		final int TEST_RECORD_COUNT = 4;
-		final CountResponse countResponse = new CountResponse.Builder().withRecords( TEST_RECORD_COUNT ).build();
+		final CounterResponse counterResponse = new CounterResponse.Builder().withRecords( TEST_RECORD_COUNT ).build();
 		// When
 		Mockito.when( this.modelRepository.count() ).thenReturn( (long) TEST_RECORD_COUNT );
 		// Test
 		final ModelControllerSupport modelControllerSupport = new ModelControllerSupport( this.modelRepository );
-		final ResponseEntity<CountResponse> obtained = modelControllerSupport.deleteAllModels();
+		final ResponseEntity<CounterResponse> obtained = modelControllerSupport.deleteAllModels();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

@@ -10,7 +10,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
@@ -145,6 +145,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		Assertions.assertNotNull( this.printer3DWorld.getJobRequest() );
 		this.processRequestByType( RequestType.START_BUILDV2 );
 	}
+	@When("the Delete Request request for request {string} is processed")
+	public void the_Delete_Request_request_for_request_is_processed(final String requestId) throws IOException {
+		this.printer3DWorld.setRequestId( UUID.fromString( requestId) );
+		this.processRequestByType( RequestType.DELETE_REQUEST );
+	}
 
 	@When("the Update Coil request is processed")
 	public void the_Update_Coil_request_is_processed() throws IOException {
@@ -175,7 +180,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 						.newPart( this.printer3DWorld.getJwtAuthorizationToken(),
 								this.printer3DWorld.getPart() );
 				Assertions.assertNotNull( newPartResponseEntity );
-				this.printer3DWorld.setNewPartResponseEntity( newPartResponseEntity );
+				this.printer3DWorld.setPartResponseEntity( newPartResponseEntity );
 				return newPartResponseEntity;
 			case UPDATE_PART:
 				Assertions.assertNotNull( this.printer3DWorld.getPart() );
@@ -183,15 +188,15 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 						.updatePart( this.printer3DWorld.getJwtAuthorizationToken(),
 								this.printer3DWorld.getPart() );
 				Assertions.assertNotNull( updatePartResponseEntity );
-				this.printer3DWorld.setUpdatePartResponseEntity( updatePartResponseEntity );
+				this.printer3DWorld.setPartResponseEntity( updatePartResponseEntity );
 				return updatePartResponseEntity;
 			case UPDATE_GROUP_PART:
 				Assertions.assertNotNull( this.printer3DWorld.getUpdateGroupPartRequest() );
 				final UpdateGroupPartRequest request = this.printer3DWorld.getUpdateGroupPartRequest()
 						.setLabel( this.printer3DWorld.getSelectionLabel() );
-				final ResponseEntity<CountResponse> updateGroupPartResponseEntity = this.partFeignClientV1.updateGroupPart( request );
+				final ResponseEntity<CounterResponse> updateGroupPartResponseEntity = this.partFeignClientV1.updateGroupPart( request );
 				Assertions.assertNotNull( updateGroupPartResponseEntity );
-				this.printer3DWorld.setUpdateGroupPartResponseEntity( updateGroupPartResponseEntity );
+				this.printer3DWorld.setCounterResponseResponseEntity( updateGroupPartResponseEntity );
 				return updateGroupPartResponseEntity;
 			case GET_PARTS:
 				final ResponseEntity<PartList> partListResponseEntity = this.partFeignClientV1
@@ -229,19 +234,19 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				final ResponseEntity<Machine> cancelBuildResponseEntity = this.machineFeignClientV1
 						.cancelBuild( this.printer3DWorld.getJwtAuthorizationToken(), this.printer3DWorld.getMachineId() );
 				Assertions.assertNotNull( cancelBuildResponseEntity );
-				this.printer3DWorld.setStartBuildResponseEntity( cancelBuildResponseEntity );
+				this.printer3DWorld.setMachineResponseEntity( cancelBuildResponseEntity );
 				return cancelBuildResponseEntity;
 			case COMPLETE_BUILD:
 				final ResponseEntity<Machine> completeBuildResponseEntity = this.machineFeignClientV1
 						.completeBuild( this.printer3DWorld.getMachineId() );
 				Assertions.assertNotNull( completeBuildResponseEntity );
-				this.printer3DWorld.setStartBuildResponseEntity( completeBuildResponseEntity );
+				this.printer3DWorld.setMachineResponseEntity( completeBuildResponseEntity );
 				return completeBuildResponseEntity;
 			case GET_JOBS:
 				final ResponseEntity<List<Job>> pendingJobsResponseEntity = this.jobFeignClientV1
 						.getPendingJobs();
 				Assertions.assertNotNull( pendingJobsResponseEntity );
-				this.printer3DWorld.setJobListResponseEntity( pendingJobsResponseEntity );
+				this.printer3DWorld.setListJobResponseEntity( pendingJobsResponseEntity );
 				return pendingJobsResponseEntity;
 			case NEW_MODEL:
 				Assertions.assertNotNull( this.printer3DWorld.getNewModelRequest() );
@@ -276,7 +281,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 						this.printer3DWorld.getRequestId()
 				);
 				Assertions.assertNotNull( closeRequestResponseEntity );
-				this.printer3DWorld.setCloseRequestResponseEntity( closeRequestResponseEntity );
+				this.printer3DWorld.setRequestV2ResponseEntity( closeRequestResponseEntity );
 				return closeRequestResponseEntity;
 			case START_BUILDV2:
 				final ResponseEntity<Machine> startBuildV2ResponseEntity = this.machineFeignClientV2
@@ -284,7 +289,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 								this.printer3DWorld.getMachineId(),
 								this.printer3DWorld.getJobRequest() );
 				Assertions.assertNotNull( startBuildV2ResponseEntity );
-				this.printer3DWorld.setStartBuildResponseEntity( startBuildV2ResponseEntity );
+				this.printer3DWorld.setMachineResponseEntity( startBuildV2ResponseEntity );
 				return startBuildV2ResponseEntity;
 			case GET_MODELS:
 				final ResponseEntity<ModelList> modelListResponseEntity = this.modelFeignClientV1
@@ -299,6 +304,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( updateCoilResponseEntity );
 				this.printer3DWorld.setCoilResponseEntity( updateCoilResponseEntity );
 				return updateCoilResponseEntity;
+			case DELETE_REQUEST:
+				Assertions.assertNotNull( this.printer3DWorld.getRequestId() );
+				final ResponseEntity<CounterResponse> deleteRequestResponseEntity = this.requestFeignClientV2.deleteRequest(
+						this.printer3DWorld.getRequestId() );
+				Assertions.assertNotNull( deleteRequestResponseEntity );
+				this.printer3DWorld.setCounterResponseResponseEntity( deleteRequestResponseEntity );
+				return deleteRequestResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

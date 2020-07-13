@@ -720,6 +720,35 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RequestV2'
+    delete:
+      tags:
+        - Production
+      summary: Delete the selected Request form the repository.
+      description: >
+        Requests have no other relations with repository records so they can be deleted safely. If the user select to remove a Request because it
+        should be modified of because no longer required the record ban be deleted without impact. Only OPEN Requests can be deleted. CLOSED are no
+        longer available for update or deletion.
+      operationId: deleteRequest
+      parameters:
+        - in: path
+          name: requestId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Request we should delete.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            Delete the selected request from the repository. The endpoint received the unique request identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounterResponse'
 
   /api/v2/production/requests/{requestId}/close:
     put:

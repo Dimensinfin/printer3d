@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
@@ -53,7 +53,7 @@ public class PartControllerV1 {
 	@PatchMapping(path = "/inventory/parts/group",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> updateGroupPart( final @RequestBody @Valid @NotNull UpdateGroupPartRequest updateData ) {
+	public ResponseEntity<CounterResponse> updateGroupPart( final @RequestBody @Valid @NotNull UpdateGroupPartRequest updateData ) {
 		return new ResponseEntity<>( this.partServiceV1.updateGroupPart( updateData ), HttpStatus.OK );
 	}
 

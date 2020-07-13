@@ -45,15 +45,6 @@ public class P3D08RequestsSteps extends StepSupport {
 		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
 	}
 
-	//	@Given("creating the next Request V2 with previous Contents on repository")
-	//	public void creating_the_next_Request_V2_with_previous_Contents_on_repository( final List<Map<String, String>> dataTable ) throws IOException {
-	//		final RequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
-	//		Assertions.assertNotNull( request );
-	//		this.printer3DWorld.setRequestV2( request );
-	//		// Creating the request at the repository using the endpoint
-	//		final ResponseEntity<RequestV2> requestResponse = this.requestFeignClientV2.newRequest( request );
-	//		Assertions.assertNotNull( requestResponse );
-	//	}
 	@Given("creating the next Request V2 with previous Contents")
 	public void creating_the_next_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
 		final RequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
@@ -63,7 +54,7 @@ public class P3D08RequestsSteps extends StepSupport {
 
 	@Then("the Request V2 with id {string} has the next list of contents")
 	public void the_Request_V2_with_id_has_the_next_list_of_contents( final String requestId,
-	                                                              final List<Map<String, String>> dataTable ) {
+	                                                                  final List<Map<String, String>> dataTable ) {
 		final ResponseEntity<List<RequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
 		Assertions.assertNotNull( requests );
 		Assertions.assertNotNull( requests.getBody() );
@@ -87,25 +78,6 @@ public class P3D08RequestsSteps extends StepSupport {
 		Assertions.assertEquals( 0, requests.getBody().size() );
 	}
 
-	//	@Given("the next New Request request with the current Part Request List")
-	//	public void the_next_New_Request_request_with_the_current_Part_Request_List( final List<Map<String, String>> dataTable ) {
-	//		final Request request = new CucumberTableToNewRequestConverter( this.printer3DWorld.getPartRequestList() ).convert( dataTable.get( 0 ) );
-	//		Assertions.assertNotNull( request );
-	//		this.printer3DWorld.setNewRequest( request );
-	//	}
-
-	//	/**
-	//	 * Builds a list of Part Request records to be used on next New Request backend endpoint calls. THis will help to simplify the test data on the
-	//	 * cucumber feature files.
-	//	 */
-	//	@Given("the next Part Request List")
-	//	public void the_next_Part_Request_List( final List<Map<String, String>> dataTable ) {
-	//		final List<PartRequest> partRequests = new ArrayList<>();
-	//		for (Map<String, String> row : dataTable)
-	//			partRequests.add( cucumberTableToPartRequestConverter.convert( row ) );
-	//		this.printer3DWorld.setPartRequestList( partRequests );
-	//	}
-
 	@Given("the next Request Contents List")
 	public void the_next_Request_Contents_List( final List<Map<String, String>> dataTable ) {
 		final CucumberTableToRequestItemConverter converter = new CucumberTableToRequestItemConverter();
@@ -114,32 +86,13 @@ public class P3D08RequestsSteps extends StepSupport {
 			requestContents.add( converter.convert( row ) );
 		this.printer3DWorld.setRequestContents( requestContents );
 	}
-//
-//	/**
-//	 * Reads the content of the Request repository without processing or any other data manipulation. The request of the list of open requests will do
-//	 * some reprocessing with the part storage. This endpoint should not generate any of that effect.
-//	 */
-//	@Then("the repository list of Requests has the next contents")
-//	public void the_repository_list_of_Requests_has_the_next_contents( final List<Map<String, String>> dataTable ) throws IOException {
-//		final ResponseEntity<RequestList> requests = this.requestFeignClientSupport.getRepositoryRequests();
-//		Assertions.assertNotNull( requests );
-//		Assertions.assertNotNull( requests.getBody() );
-//		for (Map<String, String> row : dataTable) {
-//			final RequestV2 record = this.searchRequest( row.get( ID ), requests.getBody() );
-//			Assertions.assertTrue( new RequestV2Validator().validate( row, record ) );
-//		}
-//	}
 
-//	@Then("the response to Get Requests has the next contents")
-//	public void the_response_to_Get_Requests_has_the_next_contents( final List<Map<String, String>> dataTable ) throws IOException {
-//		final ResponseEntity<List<RequestV2>> requests = this.requestFeignClientV2.getOpenRequests();
-//		Assertions.assertNotNull( requests );
-//		Assertions.assertNotNull( requests.getBody() );
-//		for (Map<String, String> row : dataTable) {
-//			final RequestV2 record = this.searchRequest( row.get( ID ), requests.getBody() );
-//			Assertions.assertTrue( new RequestV2Validator().validate( row, record ) );
-//		}
-//	}
+	@Then("the number of records processed is {string}")
+	public void the_number_of_records_processed_is( final String recordCount ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCounterResponseResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCounterResponseResponseEntity().getBody() );
+		Assertions.assertEquals( Integer.parseInt( recordCount ), this.printer3DWorld.getCounterResponseResponseEntity().getBody().getRecords() );
+	}
 
 	@Then("the resulting list of Requests has a request with id {string} with the next data")
 	public void the_resulting_list_of_Requests_has_a_request_with_id_with_the_next_data( final String requestId,

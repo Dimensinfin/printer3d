@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
@@ -44,7 +44,7 @@ public class JobControllerSupportTest {
 		Mockito.when( this.jobRepository.count() ).thenReturn( (long) 2 );
 		// Test
 		final JobControllerSupport jobControllerSupport = new JobControllerSupport( this.jobRepository );
-		final ResponseEntity<CountResponse> obtained = jobControllerSupport.deleteAllJobs();
+		final ResponseEntity<CounterResponse> obtained = jobControllerSupport.deleteAllJobs();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

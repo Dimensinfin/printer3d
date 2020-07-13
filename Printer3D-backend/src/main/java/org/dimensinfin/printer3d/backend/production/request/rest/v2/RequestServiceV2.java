@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
@@ -161,13 +162,30 @@ public class RequestServiceV2 {
 		}
 	}
 
+	public CounterResponse deleteRequest( final UUID requestId ) {
+		LogWrapper.enter();
+		try {
+			// Search for the Request by id. Search on both repositories
+			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
+			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
+			if (targetV1.isEmpty() && targetV2.isEmpty())
+				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_NOT_FOUND( requestId ),
+						"Request not found while trying to delete the request." );
+			targetV1.ifPresent( this.requestsRepositoryV1::delete );
+			targetV2.ifPresent( this.requestsRepositoryV2::delete );
+			return new CounterResponse.Builder().withRecords( 1 ).build();
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
 	public RequestV2 newRequest( final RequestV2 newRequest ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntityV2> target = this.requestsRepositoryV2.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_ALREADY_EXISTS( newRequest.getId()) );
+				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
 			return new RequestEntityV2ToRequestV2Converter().convert(
 					this.requestsRepositoryV2.save(
 							new RequestV2ToRequestEntityV2Converter().convert( newRequest )

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
@@ -34,11 +34,11 @@ public class CoilControllerSupport {
 	@GetMapping(path = "/inventory/coils/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> deleteAllCoils() {
+	public ResponseEntity<CounterResponse> deleteAllCoils() {
 		try {
 			final long recordCount = this.coilRepository.count();
 			this.coilRepository.deleteAll();
-			return new ResponseEntity<>( new CountResponse.Builder()
+			return new ResponseEntity<>( new CounterResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build(), HttpStatus.OK );
 		} catch (final RuntimeException sqle) {

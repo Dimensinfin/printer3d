@@ -4,7 +4,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
@@ -176,7 +176,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@PATCH("api/v1/inventory/parts/group")
-	Call<CountResponse> updateGroupPart( @Body final @NotNull @Valid UpdateGroupPartRequest updateData );
+	Call<CounterResponse> updateGroupPart( @Body final @NotNull @Valid UpdateGroupPartRequest updateData );
 
 	/**
 	 * Updates an existing Model.

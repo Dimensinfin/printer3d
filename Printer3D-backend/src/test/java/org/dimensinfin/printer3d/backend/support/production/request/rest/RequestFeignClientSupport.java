@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
@@ -41,7 +41,7 @@ public class RequestFeignClientSupport extends CommonFeignClient {
 	public Integer deleteAllRequests() {
 		final String ENDPOINT_MESSAGE = "Request to delete all Request records.";
 		try {
-			final Response<CountResponse> response = new Retrofit.Builder()
+			final Response<CounterResponse> response = new Retrofit.Builder()
 					.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 					.addConverterFactory( GSON_CONVERTER_FACTORY )
 					.build()
@@ -60,7 +60,7 @@ public class RequestFeignClientSupport extends CommonFeignClient {
 	public Integer deleteAllRequestsV2() {
 		final String ENDPOINT_MESSAGE = "Request to delete all Request v2 records.";
 		try {
-			final Response<CountResponse> response = new Retrofit.Builder()
+			final Response<CounterResponse> response = new Retrofit.Builder()
 					.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 					.addConverterFactory( GSON_CONVERTER_FACTORY )
 					.build()

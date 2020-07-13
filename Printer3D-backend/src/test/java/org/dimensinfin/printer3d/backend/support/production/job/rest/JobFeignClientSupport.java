@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
@@ -42,7 +42,7 @@ public class JobFeignClientSupport extends CommonFeignClient {
 	public Integer clearJobsRepositoryTable() {
 		final String ENDPOINT_MESSAGE = "Request to delete all Job records.";
 		try {
-			final Response<CountResponse> response = new Retrofit.Builder()
+			final Response<CounterResponse> response = new Retrofit.Builder()
 					.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 					.addConverterFactory( GSON_CONVERTER_FACTORY )
 					.build()

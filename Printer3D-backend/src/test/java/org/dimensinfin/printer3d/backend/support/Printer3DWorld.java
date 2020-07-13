@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
@@ -27,9 +27,9 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 public class Printer3DWorld extends CommonWorld {
+	private DimensinfinRuntimeException applicationException;
 	private Part part;
-	private ResponseEntity<Part> newPartResponseEntity;
-	private ResponseEntity<Part> updatePartResponseEntity;
+	private ResponseEntity<Part> partResponseEntity;
 	private ResponseEntity<PartList> partListResponseEntity;
 	private Coil coil;
 	private ResponseEntity<Coil> coilResponseEntity;
@@ -39,23 +39,18 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<MachineListV2> machineListv2ResponseEntity;
 	private UUID partId;
 	private UUID machineId;
-	private ResponseEntity<Machine> startBuildResponseEntity;
-	private ResponseEntity<List<Job>> jobListResponseEntity;
+	private ResponseEntity<Machine> machineResponseEntity;
+	private ResponseEntity<List<Job>> listJobResponseEntity;
 	private NewModelRequest newModelRequest;
 	private ResponseEntity<Model> modelResponseEntity;
-	//	private List<PartRequest> partRequestList;
-	private UUID modelId;
-	//	private Request newRequest;
-	//	private ResponseEntity<Request> requestResponseEntity;
-	//	private ResponseEntity<RequestList> requestListResponseEntity;
-	private UUID requestId;
-	private ResponseEntity<RequestV2> closeRequestResponseEntity;
-	private JobRequest jobRequest;
 	private ResponseEntity<ModelList> modelListResponseEntity;
-	private DimensinfinRuntimeException applicationException;
+	private UUID modelId;
+	private UUID requestId;
+	private ResponseEntity<RequestV2> requestV2ResponseEntity;
+	private JobRequest jobRequest;
 	private String selectionLabel;
 	private UpdateGroupPartRequest updateGroupPartRequest;
-	private ResponseEntity<CountResponse> updateGroupPartResponseEntity;
+	private ResponseEntity<CounterResponse> counterResponseResponseEntity;
 	private UpdateCoilRequest updateCoilRequest;
 	private List<RequestItem> requestContents;
 	private RequestV2 requestV2;
@@ -69,15 +64,6 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setApplicationException( final DimensinfinRuntimeException applicationException ) {
 		this.applicationException = applicationException;
-		return this;
-	}
-
-	public ResponseEntity<RequestV2> getCloseRequestResponseEntity() {
-		return this.closeRequestResponseEntity;
-	}
-
-	public Printer3DWorld setCloseRequestResponseEntity( final ResponseEntity<RequestV2> closeRequestResponseEntity ) {
-		this.closeRequestResponseEntity = closeRequestResponseEntity;
 		return this;
 	}
 
@@ -108,6 +94,15 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public ResponseEntity<CounterResponse> getCounterResponseResponseEntity() {
+		return this.counterResponseResponseEntity;
+	}
+
+	public Printer3DWorld setCounterResponseResponseEntity( final ResponseEntity<CounterResponse> counterResponseResponseEntity ) {
+		this.counterResponseResponseEntity = counterResponseResponseEntity;
+		return this;
+	}
+
 	public ResponseEntity<FinishingsResponse> getFinishingsResponseEntity() {
 		return this.finishingsResponseEntity;
 	}
@@ -117,21 +112,21 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<List<Job>> getJobListResponseEntity() {
-		return this.jobListResponseEntity;
-	}
-
-	public Printer3DWorld setJobListResponseEntity( final ResponseEntity<List<Job>> jobListResponseEntity ) {
-		this.jobListResponseEntity = jobListResponseEntity;
-		return this;
-	}
-
 	public JobRequest getJobRequest() {
 		return this.jobRequest;
 	}
 
 	public Printer3DWorld setJobRequest( final JobRequest jobRequest ) {
 		this.jobRequest = jobRequest;
+		return this;
+	}
+
+	public ResponseEntity<List<Job>> getListJobResponseEntity() {
+		return this.listJobResponseEntity;
+	}
+
+	public Printer3DWorld setListJobResponseEntity( final ResponseEntity<List<Job>> listJobResponseEntity ) {
+		this.listJobResponseEntity = listJobResponseEntity;
 		return this;
 	}
 
@@ -171,6 +166,15 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public ResponseEntity<Machine> getMachineResponseEntity() {
+		return this.machineResponseEntity;
+	}
+
+	public Printer3DWorld setMachineResponseEntity( final ResponseEntity<Machine> machineResponseEntity ) {
+		this.machineResponseEntity = machineResponseEntity;
+		return this;
+	}
+
 	public UUID getModelId() {
 		return this.modelId;
 	}
@@ -207,15 +211,6 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<Part> getNewPartResponseEntity() {
-		return this.newPartResponseEntity;
-	}
-
-	public Printer3DWorld setNewPartResponseEntity( final ResponseEntity<Part> newPartResponseEntity ) {
-		this.newPartResponseEntity = newPartResponseEntity;
-		return this;
-	}
-
 	public Part getPart() {
 		return this.part;
 	}
@@ -224,15 +219,6 @@ public class Printer3DWorld extends CommonWorld {
 		this.part = part;
 		return this;
 	}
-
-	//	public Request getNewRequest() {
-	//		return this.newRequest;
-	//	}
-
-	//	public Printer3DWorld setNewRequest( final Request newRequest ) {
-	//		this.newRequest = newRequest;
-	//		return this;
-	//	}
 
 	public UUID getPartId() {
 		return this.partId;
@@ -252,6 +238,15 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public ResponseEntity<Part> getPartResponseEntity() {
+		return this.partResponseEntity;
+	}
+
+	public Printer3DWorld setPartResponseEntity( final ResponseEntity<Part> partResponseEntity ) {
+		this.partResponseEntity = partResponseEntity;
+		return this;
+	}
+
 	public List<RequestItem> getRequestContents() {
 		return this.requestContents;
 	}
@@ -260,15 +255,6 @@ public class Printer3DWorld extends CommonWorld {
 		this.requestContents = requestContents;
 		return this;
 	}
-
-	//	public List<PartRequest> getPartRequestList() {
-	//		return this.partRequestList;
-	//	}
-
-	//	public Printer3DWorld setPartRequestList( final List<PartRequest> partRequestList ) {
-	//		this.partRequestList = partRequestList;
-	//		return this;
-	//	}
 
 	public UUID getRequestId() {
 		return this.requestId;
@@ -288,24 +274,6 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	//	public ResponseEntity<RequestList> getRequestListResponseEntity() {
-	//		return this.requestListResponseEntity;
-	//	}
-
-	//	public Printer3DWorld setRequestListResponseEntity( final ResponseEntity<RequestList> requestListResponseEntity ) {
-	//		this.requestListResponseEntity = requestListResponseEntity;
-	//		return this;
-	//	}
-
-	//	public ResponseEntity<Request> getRequestResponseEntity() {
-	//		return this.requestResponseEntity;
-	//	}
-
-	//	public Printer3DWorld setRequestResponseEntity( final ResponseEntity<Request> requestResponseEntity ) {
-	//		this.requestResponseEntity = requestResponseEntity;
-	//		return this;
-	//	}
-
 	public RequestV2 getRequestV2() {
 		return this.requestV2;
 	}
@@ -315,21 +283,21 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public ResponseEntity<RequestV2> getRequestV2ResponseEntity() {
+		return this.requestV2ResponseEntity;
+	}
+
+	public Printer3DWorld setRequestV2ResponseEntity( final ResponseEntity<RequestV2> requestV2ResponseEntity ) {
+		this.requestV2ResponseEntity = requestV2ResponseEntity;
+		return this;
+	}
+
 	public String getSelectionLabel() {
 		return this.selectionLabel;
 	}
 
 	public Printer3DWorld setSelectionLabel( final String selectionLabel ) {
 		this.selectionLabel = selectionLabel;
-		return this;
-	}
-
-	public ResponseEntity<Machine> getStartBuildResponseEntity() {
-		return this.startBuildResponseEntity;
-	}
-
-	public Printer3DWorld setStartBuildResponseEntity( final ResponseEntity<Machine> startBuildResponseEntity ) {
-		this.startBuildResponseEntity = startBuildResponseEntity;
 		return this;
 	}
 
@@ -348,24 +316,6 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setUpdateGroupPartRequest( final UpdateGroupPartRequest updateGroupPartRequest ) {
 		this.updateGroupPartRequest = updateGroupPartRequest;
-		return this;
-	}
-
-	public ResponseEntity<CountResponse> getUpdateGroupPartResponseEntity() {
-		return this.updateGroupPartResponseEntity;
-	}
-
-	public Printer3DWorld setUpdateGroupPartResponseEntity( final ResponseEntity<CountResponse> updateGroupPartResponseEntity ) {
-		this.updateGroupPartResponseEntity = updateGroupPartResponseEntity;
-		return this;
-	}
-
-	public ResponseEntity<Part> getUpdatePartResponseEntity() {
-		return this.updatePartResponseEntity;
-	}
-
-	public Printer3DWorld setUpdatePartResponseEntity( final ResponseEntity<Part> updatePartResponseEntity ) {
-		this.updatePartResponseEntity = updatePartResponseEntity;
 		return this;
 	}
 }

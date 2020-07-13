@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
@@ -67,14 +67,14 @@ public class RequestControllerSupport {
 	@GetMapping(path = "/production/requests/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> deleteAllRequests() {
+	public ResponseEntity<CounterResponse> deleteAllRequests() {
 		return new ResponseEntity<>( this.deleteAllRequestsService(), HttpStatus.OK );
 	}
 
 	@GetMapping(path = "/production/requests/v2/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> deleteAllRequestsV2() {
+	public ResponseEntity<CounterResponse> deleteAllRequestsV2() {
 		return new ResponseEntity<>( this.deleteAllRequestsServiceV2(), HttpStatus.OK );
 	}
 
@@ -85,11 +85,11 @@ public class RequestControllerSupport {
 		return new ResponseEntity<>( this.newRequestService( request ), HttpStatus.CREATED );
 	}
 
-	protected CountResponse deleteAllRequestsService() {
+	protected CounterResponse deleteAllRequestsService() {
 		try {
 			final long recordCount = this.requestsRepository.count();
 			this.requestsRepository.deleteAll();
-			return new CountResponse.Builder()
+			return new CounterResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build();
 		} catch (final RuntimeException sqle) {
@@ -99,11 +99,11 @@ public class RequestControllerSupport {
 		}
 	}
 
-	protected CountResponse deleteAllRequestsServiceV2() {
+	protected CounterResponse deleteAllRequestsServiceV2() {
 		try {
 			final long recordCount = this.requestsRepositoryV2.count();
 			this.requestsRepositoryV2.deleteAll();
-			return new CountResponse.Builder()
+			return new CounterResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build();
 		} catch (final RuntimeException sqle) {

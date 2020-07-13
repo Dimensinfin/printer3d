@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 
 /**
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
@@ -35,7 +35,7 @@ public class PartControllerSupport {
 	@GetMapping(path = "/inventory/parts/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CountResponse> deleteAllParts() {
+	public ResponseEntity<CounterResponse> deleteAllParts() {
 		return new ResponseEntity<>( this.partServiceSupport.deleteAllParts(), HttpStatus.OK );
 	}
 }

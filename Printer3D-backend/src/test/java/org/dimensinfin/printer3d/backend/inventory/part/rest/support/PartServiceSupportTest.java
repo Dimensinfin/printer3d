@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
@@ -32,7 +32,7 @@ public class PartServiceSupportTest {
 		Mockito.doNothing().when( this.partRepository ).deleteAll();
 		// Test
 		final PartServiceSupport partServiceSupport = new PartServiceSupport( this.partRepository );
-		final CountResponse obtained = partServiceSupport.deleteAllParts();
+		final CounterResponse obtained = partServiceSupport.deleteAllParts();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( TEST_PARTLIST_COUNT, obtained.getRecords() );

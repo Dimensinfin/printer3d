@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.client.inventory.rest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 import retrofit2.Call;
@@ -15,15 +15,15 @@ import retrofit2.http.PUT;
 public interface InventoryApiSupport {
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/inventory/models/delete/all")
-	Call<CountResponse> deleteAllModels();
+	Call<CounterResponse> deleteAllModels();
 
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/inventory/parts/delete/all")
-	Call<CountResponse> deleteAllParts();
+	Call<CounterResponse> deleteAllParts();
 
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/inventory/coils/delete/all")
-	Call<CountResponse> deleteAllRolls();
+	Call<CounterResponse> deleteAllRolls();
 
 	@Headers({ "Content-Type:application/json" })
 	@PUT("/api/v1/inventory/machines/setup")

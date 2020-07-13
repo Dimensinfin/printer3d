@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
@@ -38,7 +38,7 @@ public class RequestControllerSupportTest {
 		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
 				this.requestsRepositoryV1,
 				this.requestsRepositoryV2 );
-		final ResponseEntity<CountResponse> obtained = requestControllerSupport.deleteAllRequests();
+		final ResponseEntity<CounterResponse> obtained = requestControllerSupport.deleteAllRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

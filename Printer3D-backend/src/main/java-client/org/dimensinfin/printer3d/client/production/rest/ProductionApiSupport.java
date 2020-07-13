@@ -2,7 +2,7 @@ package org.dimensinfin.printer3d.client.production.rest;
 
 import java.util.List;
 
-import org.dimensinfin.common.client.rest.CountResponse;
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
@@ -22,13 +22,13 @@ public interface ProductionApiSupport {
 
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/production/jobs/delete/all")
-	Call<CountResponse> deleteAllJobs();
+	Call<CounterResponse> deleteAllJobs();
 
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/production/requests/delete/all")
-	Call<CountResponse> deleteAllRequests();
+	Call<CounterResponse> deleteAllRequests();
 
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/production/requests/v2/delete/all")
-	Call<CountResponse> deleteAllRequestsV2();
+	Call<CounterResponse> deleteAllRequestsV2();
 }

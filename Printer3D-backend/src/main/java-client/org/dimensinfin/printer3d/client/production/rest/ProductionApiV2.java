@@ -2,12 +2,15 @@ package org.dimensinfin.printer3d.client.production.rest;
 
 import java.util.List;
 import java.util.UUID;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -38,6 +41,18 @@ public interface ProductionApiV2 {
 	Call<RequestV2> closeRequest( @Path("requestId") final @NotNull UUID requestId );
 
 	/**
+	 * Delete the selected Request form the repository.
+	 * Requests have no other relations with repository records so they can be deleted safely. If the user select to remove a Request because it
+	 * should be modified of because no longer required the record ban be deleted without impact. Only OPEN Requests can be deleted. CLOSED are no
+	 * longer available for update or deletion.
+	 *
+	 * @return Call&lt;CounterResponse&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@DELETE("api/v2/production/requests/{requestId}")
+	Call<CounterResponse> deleteRequest( @Path("requestId") final @NotNull UUID requestId );
+
+	/**
 	 * Creates a new Request instance at the persistence repository.
 	 * Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the
 	 * Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open.
@@ -48,5 +63,5 @@ public interface ProductionApiV2 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@POST("api/v2/production/requests")
-	Call<RequestV2> newRequest( @Body RequestV2 request );
+	Call<RequestV2> newRequest( @Body final @NotNull @Valid RequestV2 request );
 }

@@ -154,6 +154,28 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | id                                   | label                       | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                           |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars. |
 
+    @P3D08.H @P3D08.07
+    Scenario: [P3D08.07] There is an endpoint that allows to delete a Request from the repository. The request should be on OPEN state.
+        And the following Parts in my service
+            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
+        And the next Request Contents List
+            | itemId                               | type | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 1        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
+
+        When the Delete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
+        Then there is a valid response with return code of "200 OK"
+        And the number of records processed is "1"
+
     # - E X C E P T I O N S
     @P3D08.E @P3D08.E.01
     Scenario: [P3D08.E.01] Before closing a Request we have to be sure there are enough Parts on stock. If not raise an exception.
@@ -188,8 +210,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
         And creating the next Request V2 with previous Contents
-            | id                                   |  requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a |     2020-06-29T20:00:00.226181Z | OPEN  |
+            | id                                   | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | 2020-06-29T20:00:00.226181Z | OPEN  |
         When the New Request V2 request is processed
         Then there is a exception response with return code of "400 BAD_REQUEST"
         And the exception response contains the message "Validation failed for argument"

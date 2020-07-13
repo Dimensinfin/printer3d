@@ -49,7 +49,7 @@ public class P3D05JobsSteps extends StepSupport {
 		final JobValidator jobValidator = new JobValidator();
 		for (int i = 0; i < dataTable.size(); i++) {
 			final Map<String, String> row = dataTable.get( i );
-			final Job record = this.printer3DWorld.getJobListResponseEntity().getBody().get( i );
+			final Job record = this.printer3DWorld.getListJobResponseEntity().getBody().get( i );
 			LogWrapper.info( "i: " + i + " row id: " + row.get( PART_ID ) + " record id: " + record.getPart().getId() );
 			Assertions.assertTrue( jobValidator.validate( row, record ) );
 		}
@@ -57,18 +57,18 @@ public class P3D05JobsSteps extends StepSupport {
 
 	@Then("the list of jobs has {string} records")
 	public void the_list_of_jobs_has_records( final String jobCount ) {
-		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity().getBody() );
-		Assertions.assertEquals( Integer.parseInt( jobCount ), this.printer3DWorld.getJobListResponseEntity().getBody().size() );
+		Assertions.assertNotNull( this.printer3DWorld.getListJobResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getListJobResponseEntity().getBody() );
+		Assertions.assertEquals( Integer.parseInt( jobCount ), this.printer3DWorld.getListJobResponseEntity().getBody().size() );
 	}
 
 	@Then("there are {string} records of priority {string}")
 	public void there_are_records_of_priority( final String recordCount, final String priority ) {
-		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity() );
-		Assertions.assertNotNull( this.printer3DWorld.getJobListResponseEntity().getBody() );
+		Assertions.assertNotNull( this.printer3DWorld.getListJobResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getListJobResponseEntity().getBody() );
 		Assertions.assertEquals(
 				Integer.parseInt( recordCount ),
-				this.printer3DWorld.getJobListResponseEntity().getBody()
+				this.printer3DWorld.getListJobResponseEntity().getBody()
 						.stream()
 						.filter( ( job ) -> job.getPriority() == Integer.parseInt( priority ) )
 						.collect( Collectors.toList() )

@@ -2,11 +2,11 @@ package org.dimensinfin.common.client.rest;
 
 import java.util.Objects;
 
-public class CountResponse {
+public class CounterResponse {
 	private int records;
 
 	// - C O N S T R U C T O R S
-	private CountResponse() {}
+	private CounterResponse() {}
 
 	// - G E T T E R S   &   S E T T E R S
 	public int getRecords() {
@@ -15,14 +15,14 @@ public class CountResponse {
 
 	// - B U I L D E R
 	public static class Builder {
-		private CountResponse onConstruction;
+		private CounterResponse onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new CountResponse();
+			this.onConstruction = new CounterResponse();
 		}
 
-		public CountResponse build() {
+		public CounterResponse build() {
 			return this.onConstruction;
 		}
 

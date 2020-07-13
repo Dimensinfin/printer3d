@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
@@ -54,7 +55,24 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else {
-			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ));
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
+		}
+	}
+
+	public ResponseEntity<CounterResponse> deleteRequest( final UUID requestId ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request to delete from the repository the selected Request.";
+		final Response<CounterResponse> response = new Retrofit.Builder()
+				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
+				.addConverterFactory( GSON_CONVERTER_FACTORY )
+				.build()
+				.create( ProductionApiV2.class )
+				.deleteRequest( requestId )
+				.execute();
+		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
+			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
+		} else {
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 		}
 	}
 
@@ -71,7 +89,7 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else {
-			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ));
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 		}
 	}
 }
