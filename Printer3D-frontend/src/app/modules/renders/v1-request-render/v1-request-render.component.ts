@@ -5,6 +5,8 @@ import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 // - ROUTER
 import { Router } from '@angular/router';
 // - DOMAIN
@@ -14,11 +16,10 @@ import { BackendService } from '@app/services/backend.service';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
-import { Part } from '@domain/Part.domain';
-import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
 import { environment } from '@env/environment';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DeleteConfirmationDialogComponent } from '@app/modules/production/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
     selector: 'v1-request',
@@ -31,7 +32,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
     constructor(
         protected router: Router,
         protected isolationService: IsolationService,
-        protected backendService: BackendService) {
+        protected backendService: BackendService,
+        protected matDialog: MatDialog) {
         super();
         this.self = this
     }
@@ -109,31 +111,19 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
     }
     public deleteRequest(): void {
         const request = this.node as Request
-        this.backendConnections.push(
-            this.backendService.apiProductionDeleteRequest_v1(request.getId(),
-                new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
-                    .setTransformation((entrydata: any): any => {
-                        this.isolationService.infoNotification(
-                            'Pedido [' + request.getLabel() + '] borrado satisfactoriamente.',
-                            '/PRODUCCION/PEDIDO/OK');
-                        return entrydata;
-                    }))
-                .subscribe((request: any) => {
-                    this.router.navigate(['/']);
-                }, (error) => {
-                    console.log('-[V1RequestRenderComponent.completeRequest.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse) {
-                            if (error.error.status == 404) {
-                                this.isolationService.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')
-                            } else {
-                                const errorInfo: string = error.error.errorInfo
-                                const httpStatus: string = error.error.httpStatus
-                                const message: string = this.isolationService.exceptionMessageMap(error.error)
-                                this.isolationService.errorNotification(message, errorInfo)
-                            }
-                        }
-                })
-        )
+        let dialogConfig: MatDialogConfig;
+        dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = false;
+        dialogConfig.id = "delete-request-confirmation-dialog";
+        dialogConfig.data = {
+            request: request
+        }
+        console.log('-[V1RequestRenderComponent.deleteRequest]> Open dialog')
+        const dialogRef = this.matDialog.open(DeleteConfirmationDialogComponent, dialogConfig);
+        dialogRef.afterClosed()
+            .subscribe(result => {
+                console.log('[V1RequestRenderComponent.deleteRequest]> Close detected');
+                this.router.navigate(['/']);
+            });
     }
 }

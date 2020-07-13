@@ -12,9 +12,11 @@ export class SupportService {
         this.translationTable['Production Jobs Page'] = 'production-job-list-page'
         this.translationTable['NewRequestPage'] = 'v1-new-request-page'
         this.translationTable['OpenRequestsPage'] = 'v1-open-requests-page'
+        this.translationTable['Open Requests Page'] = 'v1-open-requests-page'
         this.translationTable['NewModelPage'] = 'v1-new-model-page'
         this.translationTable['InventoryPage'] = 'v3-inventory-page'
         this.translationTable['CoilsPage'] = 'v2-coil-list-page'
+        this.translationTable['Delete Confirmation'] = 'delete-confirmation-dialog'
         // - PANELS
         this.translationTable['dock'] = 'v1-dock'
         this.translationTable['work-load'] = 'v1-work-load-panel'

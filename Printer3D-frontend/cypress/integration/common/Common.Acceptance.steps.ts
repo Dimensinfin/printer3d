@@ -45,9 +45,6 @@ Then('the target item has a column named {string} with value {string}', function
         cy.get('[cy-name="' + columnName + '"]').contains(fieldValue, { matchCase: false })
     })
 });
-Given('a hover on the target item', function () {
-    cy.get('@target-item').trigger('mouseenter')
-});
 
 // - DRAG & DROP
 When('the mouse enter the target item', function () {

@@ -188,7 +188,7 @@ Then('advance time {string} minutes', function (minutes: number) {
 
 
 
-
+//--------------------------------------
 Then('the target machine has no Job assigned', function () {
     cy.get('@target-item').get('v1-part')
         .should('not.exist')

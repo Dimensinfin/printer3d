@@ -12,7 +12,6 @@ import { RendersModule } from '../renders/renders.module';
 // - COMPONENTS
 import { ProductionJobListPageComponent } from './pages/production-job-list-page/production-job-list-page.component';
 import { V1PendingJobsPanelComponent } from './panels/v1-pending-jobs-panel/v1-pending-jobs-panel.component';
-// import { V1MachinesPanelComponent } from './panels/v1-machines-panel/v1-machines-panel.component';
 import { V2MachinesPanelComponent } from './panels/v2-machines-panel/v2-machines-panel.component';
 import { V1NewRequestPageComponent } from './pages/v1-new-request-page/v1-new-request-page.component';
 import { V1AvailablePartsPanelComponent } from './panels/v1-available-parts-panel/v1-available-parts-panel.component';
@@ -21,6 +20,7 @@ import { V1OpenRequestsPageComponent } from './pages/v1-open-requests-page/v1-op
 import { V1OpenRequestsPanelComponent } from './panels/v1-open-requests-panel/v1-open-requests-panel.component';
 import { V1RequestDetailPanelComponent } from './panels/v1-request-detail-panel/v1-request-detail-panel.component';
 import { V1RequestableElementsPanelComponent } from './panels/v1-requestable-elements-panel/v1-requestable-elements-panel.component';
+import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
@@ -40,7 +40,6 @@ const routes: Routes = [
     declarations: [
         ProductionJobListPageComponent,
         V1PendingJobsPanelComponent,
-        // V1MachinesPanelComponent,
         V2MachinesPanelComponent,
         V1NewRequestPageComponent,
         V1AvailablePartsPanelComponent,
@@ -48,12 +47,12 @@ const routes: Routes = [
         V1OpenRequestsPageComponent,
         V1OpenRequestsPanelComponent,
         V1RequestDetailPanelComponent,
-        V1RequestableElementsPanelComponent
+        V1RequestableElementsPanelComponent,
+        DeleteConfirmationDialogComponent
     ],
     exports: [
         ProductionJobListPageComponent,
         V1PendingJobsPanelComponent,
-        // V1MachinesPanelComponent,
         V2MachinesPanelComponent,
         V1NewRequestPageComponent,
         V1AvailablePartsPanelComponent,
