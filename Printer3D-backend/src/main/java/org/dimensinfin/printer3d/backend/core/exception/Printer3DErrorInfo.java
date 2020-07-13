@@ -12,15 +12,6 @@ import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
 
 public class Printer3DErrorInfo extends DimensinfinErrorInfo {
-	public static DimensinfinError REQUEST_NOT_FOUND( final UUID requestId ) {
-		return new DimensinfinError.Builder()
-				.withErrorName( "REQUEST_NOT_FOUND" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".defined.repository.logic" )
-				.withHttpStatus( HttpStatus.CONFLICT )
-				.withMessage( MessageFormat.format( "Request record with id [{0}] not found at the repository.", requestId ) )
-				.build();
-	}
-
 	public static DimensinfinError INVENTORY_STORE_REPOSITORY_FAILURE( final SQLException sqle ) {
 		if (null != sqle.getCause())
 			return new DimensinfinError.Builder()

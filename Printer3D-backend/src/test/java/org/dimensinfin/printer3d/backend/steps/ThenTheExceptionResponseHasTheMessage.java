@@ -22,10 +22,18 @@ public class ThenTheExceptionResponseHasTheMessage extends StepSupport {
 		Assertions.assertTrue( exception.getMessage().toLowerCase().contains( exceptionMessage.toLowerCase() ) );
 	}
 
+	@Then("the exception response has the cause {string}")
+	public void the_exception_response_has_the_cause( final String cause ) {
+		final DimensinfinRuntimeException exception = this.printer3DWorld.getApplicationException();
+		Assertions.assertNotNull( exception );
+		Assertions.assertEquals( exception.getCauseMessage().toLowerCase(), cause.toLowerCase() );
+	}
+
 	@Then("the exception response has the message {string}")
 	public void the_exception_response_has_the_message( final String exceptionMessage ) {
 		final DimensinfinRuntimeException exception = this.printer3DWorld.getApplicationException();
 		Assertions.assertNotNull( exception );
-		Assertions.assertTrue( exception.getMessage().toLowerCase().contains( exceptionMessage.toLowerCase() ) );
+		Assertions.assertEquals( exception.getMessage().toLowerCase(), exceptionMessage.toLowerCase() );
 	}
+
 }

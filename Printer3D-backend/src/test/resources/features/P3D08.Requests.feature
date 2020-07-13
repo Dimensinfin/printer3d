@@ -201,7 +201,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
         Then there is a exception response with return code of "409 CONFLICT"
-        And the exception response contains the message "The request [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] has not enough resources to be completed. Obsolete state."
+        And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] has not enough resources to be completed. Obsolete state."
 
     @P3D08.E @P3D08.E.02
     Scenario: [P3D08.E.02] If there are missing fields on the request of they do fail any of the validations then we report a reject exception.
@@ -215,3 +215,33 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         When the New Request V2 request is processed
         Then there is a exception response with return code of "400 BAD_REQUEST"
         And the exception response contains the message "Validation failed for argument"
+
+    @P3D08.E @P3D08.E.03
+    Scenario: [P3D08.E.03] If the Requests that should be deleted is on the state CLOSED then raise an exception.
+        And the following Parts in my service
+            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
+        And the next Request Contents List
+            | itemId                               | type | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 1        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | CLOSE |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
+
+        When the Delete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
+        Then there is a exception response with return code of "409 CONFLICT"
+        And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] is not on the correct state to perform the requested operation."
+
+    @P3D08.E @P3D08.E.04
+    Scenario: [P3D08.E.04] When completing a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
+    another session).
+        When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa" is processed
+        Then there is a valid response with return code of "404 NOT_FOUND"
+        And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa] not found at the repository."
+        And the exception response has the cause "No Request found while trying to complete a Request."

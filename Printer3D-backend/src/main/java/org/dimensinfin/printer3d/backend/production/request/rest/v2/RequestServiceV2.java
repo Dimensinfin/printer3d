@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,14 +12,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.common.exception.DimensinfinError;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
@@ -35,10 +38,32 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
+import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
+
 @Service
 public class RequestServiceV2 {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestConverterV2 = new RequestEntityV2ToRequestV2Converter();
+
+	public static DimensinfinError REQUEST_NOT_FOUND( final UUID requestId ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "REQUEST_NOT_FOUND" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".defined.repository.logic" )
+				.withHttpStatus( HttpStatus.NOT_FOUND )
+				.withMessage( MessageFormat.format( "Request record with id [{0}] not found at the repository.", requestId ) )
+				.build();
+	}
+
+	public static DimensinfinError REQUEST_NOT_IN_CORRECT_STATE( final UUID requestId ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "REQUEST_NOT_IN_CORRECT_STATE" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
+				.withHttpStatus( HttpStatus.CONFLICT )
+				.withMessage( MessageFormat.format(
+						"Request record with id [{0}] is not on the correct state to perform the requested operation.", requestId ) )
+				.build();
+	}
+
 	private final StockManager stockManager;
 	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
@@ -94,7 +119,7 @@ public class RequestServiceV2 {
 					} )
 					.collect( Collectors.toList() );
 		} catch (final RuntimeException rte) {
-			LogWrapperLocal.error( rte );
+			LogWrapper.error( rte );
 			return new ArrayList<>();
 		} finally {
 			LogWrapper.exit();
@@ -120,8 +145,8 @@ public class RequestServiceV2 {
 			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 			if (targetV1.isEmpty() && targetV2.isEmpty())
-				throw new RepositoryConflictException(
-						Printer3DErrorInfo.REQUEST_NOT_FOUND( requestId ),
+				throw new DimensinfinRuntimeException(
+						REQUEST_NOT_FOUND( requestId ),
 						"No Request found while trying to complete a Request." );
 			// Transform the targets to the common V2 structure.
 			RequestEntityV2 requestEntityV2 = null;
@@ -169,10 +194,20 @@ public class RequestServiceV2 {
 			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 			if (targetV1.isEmpty() && targetV2.isEmpty())
-				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_NOT_FOUND( requestId ),
+				throw new DimensinfinRuntimeException( REQUEST_NOT_FOUND( requestId ),
 						"Request not found while trying to delete the request." );
-			targetV1.ifPresent( this.requestsRepositoryV1::delete );
-			targetV2.ifPresent( this.requestsRepositoryV2::delete );
+			targetV1.ifPresent( request -> {
+				if (request.isOpen())
+					this.requestsRepositoryV1.delete( request );
+				else
+					throw new RepositoryConflictException( REQUEST_NOT_IN_CORRECT_STATE( requestId ) );
+			} );
+			targetV2.ifPresent( request -> {
+				if (request.isOpen())
+					this.requestsRepositoryV2.delete( request );
+				else
+					throw new RepositoryConflictException( REQUEST_NOT_IN_CORRECT_STATE( requestId ) );
+			} );
 			return new CounterResponse.Builder().withRecords( 1 ).build();
 		} finally {
 			LogWrapper.exit();

@@ -21,6 +21,11 @@ public class DimensinfinRuntimeException extends RuntimeException {
 		this.error = null;
 	}
 
+	public DimensinfinRuntimeException( final DimensinfinError error, final String cause ) {
+		this.error = error;
+		if (null != cause) this.error.setCause( cause );
+	}
+
 	// - G E T T E R S   &   S E T T E R S
 	@SerializedName("cause")
 	public String getCauseMessage() {
