@@ -38,7 +38,7 @@
             </div>
             <div cy-name="complete-request-button" class="float-top-right complete-width" *ngIf="isCompleted()">
                 <div style="position: relative;">
-                    <button cy-name="COMPLETAR" class="button ok-button" (click)="completeRequest()">
+                    <button cy-name="complete" class="button ok-button" (click)="completeRequest()">
                         <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Completar</span>
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
@@ -58,6 +58,33 @@
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
                         <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0"  />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div cy-name="delete-request-button" class="below-top-right complete-width">
+                <div style="position: relative;">
+                    <button cy-name="delete" class="button cancel-button" (click)="deleteRequest()">
+                        <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Borrar</span>
+                    </button>
+                    <svg class="button-right-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="button-right-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                    </svg>
+                    <svg class="button-left-border" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                    </svg>
+                    <svg class="button-left-clear" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                    </svg>
+                    <div>
+                        <svg class="button-right-mark ko-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                        <svg class="button-left-mark ko-mark" viewBox="0 0 100 100">
                             <path d="M0,0 L0,100 L100,0 L0,0"  />
                         </svg>
                     </div>

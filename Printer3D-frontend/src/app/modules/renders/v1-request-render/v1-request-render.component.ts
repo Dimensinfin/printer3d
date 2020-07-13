@@ -79,11 +79,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
      */
     public completeRequest(): void {
         const request = this.node as Request
-        // this.isolationService.errorNotification(
-        //     'Cierre de pedidos desactivado temporalmente.',
-        //     '/PRODUCCION/PEDIDO/BLOQUEO');
         this.backendConnections.push(
-            this.backendService.apiRequestsClose_v1(request.getId(),
+            this.backendService.apiProductionRequestsClose_v1(request.getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
                     .setTransformation((entrydata: any): Request => {
                         const targetRequest: Request = new Request(entrydata);
@@ -93,6 +90,35 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
                         return targetRequest;
                     }))
                 .subscribe((request: Request) => {
+                    this.router.navigate(['/']);
+                }, (error) => {
+                    console.log('-[V1RequestRenderComponent.completeRequest.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse) {
+                            if (error.error.status == 404) {
+                                this.isolationService.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')
+                            } else {
+                                const errorInfo: string = error.error.errorInfo
+                                const httpStatus: string = error.error.httpStatus
+                                const message: string = this.isolationService.exceptionMessageMap(error.error)
+                                this.isolationService.errorNotification(message, errorInfo)
+                            }
+                        }
+                })
+        )
+    }
+    public deleteRequest(): void {
+        const request = this.node as Request
+        this.backendConnections.push(
+            this.backendService.apiProductionDeleteRequest_v1(request.getId(),
+                new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+                    .setTransformation((entrydata: any): any => {
+                        this.isolationService.infoNotification(
+                            'Pedido [' + request.getLabel() + '] borrado satisfactoriamente.',
+                            '/PRODUCCION/PEDIDO/OK');
+                        return entrydata;
+                    }))
+                .subscribe((request: any) => {
                     this.router.navigate(['/']);
                 }, (error) => {
                     console.log('-[V1RequestRenderComponent.completeRequest.exception]> Error message: ' + JSON.stringify(error.error))

@@ -307,7 +307,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         });
         it('apiRequestsClose_v1.default: get the list jobs required to level the stocks', async () => {
             const requestId: string = "-REQUEST-ID-"
-            service.apiRequestsClose_v1(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
+            service.apiProductionRequestsClose_v1(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
                 .setTransformation((entrydata: any): Request => {
                     return new Request(entrydata);
                 }))

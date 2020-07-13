@@ -36,6 +36,11 @@ export class HttpClientWrapperService {
         let newheaders = this.wrapHttpSecureHeaders(requestHeaders);
         return this.http.put(request, { headers: newheaders });
     }
+    public wrapHttpDELETECall(request: string, requestHeaders?: HttpHeaders): Observable<any> {
+        console.log("><[HttpClientWrapperService.wrapHttpDELETECall]> request: " + request);
+        let newheaders = this.wrapHttpSecureHeaders(requestHeaders);
+        return this.http.delete(request, { headers: newheaders });
+    }
     public wrapHttpPATCHCall(request: string, body: string, requestHeaders?: HttpHeaders): Observable<any> {
         console.log("><[HttpClientWrapperService.wrapHttpPATCHCall]> request: " + request);
         let newheaders = this.wrapHttpSecureHeaders(requestHeaders);

@@ -351,6 +351,24 @@ response:
     file: "${sim.path}/responses/production.request.close.json"
 
 ---
+  
+simlet: inventory-deleterequest
+
+request:
+  - method: DELETE
+  - uriPathPattern: "/api/v1/production/requests"
+
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body: |+
+    {
+      "records": 1
+    }
+
+---
 
 simlet: inventory-newmodel
 

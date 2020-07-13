@@ -6,32 +6,10 @@
     fill: red;
 }
 
-// .cornered-panel {
-//     margin-bottom: 4px;
-//     position: relative;
-// }
 .label-width {
     min-width: 50%;
 }
 
-// .corner-border {
-//     position: absolute;
-//     bottom: 0px;
-//     right: 0px;
-//     width: 15px;
-// }
-// .corner-clear {
-//     position: absolute;
-//     bottom: -1px;
-//     right: -1px;
-//     width: 15px;
-// }
-// .corner-mark {
-//     position: absolute;
-//     bottom: 0px;
-//     right: 0px;
-//     width: 9px;
-// }
 .date-width {
     flex-grow: 6;
     min-width: 15%;
@@ -40,6 +18,12 @@
 .float-top-right {
     position: absolute;
     top: 20px;
+    right: 20px;
+}
+
+.below-top-right {
+    position: absolute;
+    top: 80px;
     right: 20px;
 }
 
