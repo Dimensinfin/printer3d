@@ -24,8 +24,8 @@ public class RestExceptionResponse {
 	private String errorCode;
 	@JsonProperty("httpStatus")
 	private String httpStatus;
-	@JsonProperty("errorInfo")
-	private String errorInfo;
+	@JsonProperty("errorName")
+	private String errorName;
 	@JsonProperty("httpStatusCode")
 	private int httpStatusCode;
 	@JsonProperty("message")
@@ -55,13 +55,13 @@ public class RestExceptionResponse {
 	}
 
 	@JsonProperty("errorInfo")
-	public String getErrorInfo() {
-		return errorInfo;
+	public String getErrorName() {
+		return errorName;
 	}
 
 	@JsonProperty("errorInfo")
-	public void setErrorInfo( String errorInfo ) {
-		this.errorInfo = errorInfo;
+	public void setErrorName( String errorName ) {
+		this.errorName = errorName;
 	}
 
 	@JsonProperty("httpStatus")
@@ -125,7 +125,7 @@ public class RestExceptionResponse {
 	}
 
 	public RestExceptionResponse withErrorInfo( String errorInfo ) {
-		this.errorInfo = errorInfo;
+		this.errorName = errorInfo;
 		return this;
 	}
 

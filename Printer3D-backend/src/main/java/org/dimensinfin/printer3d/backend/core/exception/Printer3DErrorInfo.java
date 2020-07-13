@@ -136,18 +136,6 @@ public class Printer3DErrorInfo extends DimensinfinErrorInfo {
 				.withMessage( MessageFormat.format( "Coil with id [{0}] not found at the repository.", coilId ) )
 				.build();
 	}
-
-	public static DimensinfinError REQUEST_ALREADY_EXISTS( final UUID requestId ) {
-		return new DimensinfinError.Builder()
-				.withErrorName( "REQUEST_ALREADY_EXISTS" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
-				.withHttpStatus( HttpStatus.CONFLICT )
-				.withMessage( MessageFormat.format(
-						"Request with id [{0}] already exists at the repository. This should not be possible and means a development defect.",
-						requestId ) )
-				.build();
-	}
-
 	public static DimensinfinError STOCK_PROCESSING_FAILURE( final UUID partId ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "STOCK_PROCESSING_FAILURE" )

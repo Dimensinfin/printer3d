@@ -28,6 +28,7 @@ import org.dimensinfin.printer3d.backend.production.request.converter.RequestToR
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
+import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
@@ -119,7 +120,7 @@ public class RequestControllerSupport {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntity> target = this.requestsRepository.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( Printer3DErrorInfo.REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
+				throw new DimensinfinRuntimeException( RequestServiceV2.REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
 			return new RequestEntityToRequestConverter().convert(
 					this.requestsRepository.save(
 							new RequestToRequestEntityConverter().convert( newRequest )

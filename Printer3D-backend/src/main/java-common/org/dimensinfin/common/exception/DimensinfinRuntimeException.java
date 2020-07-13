@@ -44,7 +44,7 @@ public class DimensinfinRuntimeException extends RuntimeException {
 	@SerializedName("errorName")
 	public String getErrorName() {
 		if (null != this.error) return this.error.getErrorName();
-		if (null != this.exceptionResponse) return this.exceptionResponse.getErrorInfo();
+		if (null != this.exceptionResponse) return this.exceptionResponse.getErrorName();
 		else return null;
 	}
 

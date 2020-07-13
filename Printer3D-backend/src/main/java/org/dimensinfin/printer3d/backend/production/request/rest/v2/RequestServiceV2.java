@@ -64,6 +64,18 @@ public class RequestServiceV2 {
 				.build();
 	}
 
+	public static DimensinfinError REQUEST_ALREADY_EXISTS( final UUID requestId ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "REQUEST_ALREADY_EXISTS" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
+				.withHttpStatus( HttpStatus.CONFLICT )
+				.withMessage( MessageFormat.format(
+						"Request with id [{0}] already exists at the repository. This should not be possible and means a development defect.",
+						requestId ) )
+				.build();
+	}
+
+
 	private final StockManager stockManager;
 	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
@@ -147,7 +159,7 @@ public class RequestServiceV2 {
 			if (targetV1.isEmpty() && targetV2.isEmpty())
 				throw new DimensinfinRuntimeException(
 						REQUEST_NOT_FOUND( requestId ),
-						"No Request found while trying to complete a Request." );
+						"No Request found while trying to complete the Request." );
 			// Transform the targets to the common V2 structure.
 			RequestEntityV2 requestEntityV2 = null;
 			if (targetV1.isPresent())
@@ -181,7 +193,8 @@ public class RequestServiceV2 {
 				targetV1.ifPresent( requestEntityV1lambda -> this.requestsRepositoryV1.save( requestEntityV1lambda.close() ) );
 				targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
 				return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
-			} else throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED( requestEntityV2.getId() ) );
+			} else
+				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED( requestEntityV2.getId() ) );
 		} finally {
 			LogWrapper.exit();
 		}
@@ -195,7 +208,7 @@ public class RequestServiceV2 {
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 			if (targetV1.isEmpty() && targetV2.isEmpty())
 				throw new DimensinfinRuntimeException( REQUEST_NOT_FOUND( requestId ),
-						"Request not found while trying to delete the request." );
+						"No Request found while trying to delete the request." );
 			targetV1.ifPresent( request -> {
 				if (request.isOpen())
 					this.requestsRepositoryV1.delete( request );
@@ -220,7 +233,7 @@ public class RequestServiceV2 {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntityV2> target = this.requestsRepositoryV2.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
+				throw new RepositoryConflictException( REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
 			return new RequestEntityV2ToRequestV2Converter().convert(
 					this.requestsRepositoryV2.save(
 							new RequestV2ToRequestEntityV2Converter().convert( newRequest )

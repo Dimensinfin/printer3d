@@ -36,4 +36,10 @@ public class ThenTheExceptionResponseHasTheMessage extends StepSupport {
 		Assertions.assertEquals( exception.getMessage().toLowerCase(), exceptionMessage.toLowerCase() );
 	}
 
+	@Then("the exception response name is {string}")
+	public void the_exception_response_name_is( final String errorName ) {
+		final DimensinfinRuntimeException exception = this.printer3DWorld.getApplicationException();
+		Assertions.assertNotNull( exception );
+		Assertions.assertEquals( exception.getErrorName().toLowerCase(), errorName.toLowerCase() );
+	}
 }

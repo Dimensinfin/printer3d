@@ -1,4 +1,4 @@
-@P3D08 @Models
+@P3D08 @Requests
 Feature: [STORY] Create a new Feature to see the list of Open Requests. A request is a need from a customer of a set of parts.
     If the request cannot be completed with stock parts then it is left Open.
 
@@ -201,6 +201,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
         Then there is a exception response with return code of "409 CONFLICT"
+        And the exception response name is "REQUEST_CANNOT_BE_FULFILLED"
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] has not enough resources to be completed. Obsolete state."
 
     @P3D08.E @P3D08.E.02
@@ -236,12 +237,41 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
         When the Delete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
         Then there is a exception response with return code of "409 CONFLICT"
+        And the exception response name is "REQUEST_NOT_IN_CORRECT_STATE"
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] is not on the correct state to perform the requested operation."
 
     @P3D08.E @P3D08.E.04
     Scenario: [P3D08.E.04] When completing a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
     another session).
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa" is processed
-        Then there is a valid response with return code of "404 NOT_FOUND"
+        Then there is a exception response with return code of "404 NOT_FOUND"
+        And the exception response name is "REQUEST_NOT_FOUND"
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa] not found at the repository."
-        And the exception response has the cause "No Request found while trying to complete a Request."
+        And the exception response has the cause "No Request found while trying to complete the Request."
+
+    @P3D08.E @P3D08.E.05
+    Scenario: [P3D08.E.05] When deleting a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
+    another session).
+        When the Delete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa" is processed
+        Then there is a exception response with return code of "404 NOT_FOUND"
+        And the exception response name is "REQUEST_NOT_FOUND"
+        And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa] not found at the repository."
+        And the exception response has the cause "No Request found while trying to delete the Request."
+
+    @P3D08.E @P3D08.E.06
+    Scenario: [P3D08.E.06] If when creating a request we found another Request with the same identifier then report that the action should use the
+    update endpoint.
+        And the next Request Contents List
+            | itemId                               | type  | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
+
+        When the New Request V2 request is processed
+        Then there is a exception response with return code of "409 CONFLICT"
+        And the exception response name is "REQUEST_ALREADY_EXISTS"
+        And the exception response has the message "Request with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] already exists at the repository. This should not be possible and means a development defect."
