@@ -744,11 +744,31 @@ paths:
       responses:
         200:
           description: >
-            Delete the selected request from the repository. The endpoint received the unique request identifier.
+            The request is completely deleted with a success result.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CounterResponse'
+        404:
+          description: >
+            The request is not found on the repositories. The cause could be that the same Request was deleted before on another session.
+
+            * **REQUEST_NOT_FOUND** - No Request found while trying to delete the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensinfinError'
+        409:
+          description: >
+            The Request to be deleted was not on the correct COMPLETED state. There are missing Parts for this request so it can not be deleted.
+
+            * **REQUEST_NOT_IN_CORRECT_STATE** - Request record with id [{0}] is not on the correct state to perform the requested operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensinfinError'
+
+
 
   /api/v2/production/requests/{requestId}/close:
     put:

@@ -47,10 +47,11 @@ export class DeleteConfirmationDialogComponent extends BackgroundEnabledComponen
         this.request = data.request;
     }
 
-    public requestName () : string{
+    public requestName(): string {
         return this.request.getLabel()
     }
     public deleteRequest(): void {
+        document.cookie = 'apiProductionGetOpenRequests_v2' + "=" + '404-REQUEST_NOT_FOUND'
         this.backendConnections.push(
             this.backendService.apiProductionDeleteRequest_v1(this.request.getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')

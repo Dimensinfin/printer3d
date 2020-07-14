@@ -123,8 +123,6 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
             this.backendService.apiProductionGetOpenRequests_v2(new ResponseTransformer()
                 .setDescription('Transforms response into a list of Requests.')
                 .setTransformation((entrydata: any): Request[] => {
-                    // console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>entrydata: '+JSON.stringify(entrydata))
-                    // console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>entrydata.length: '+entrydata.length)
                     console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
                     // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
                     const requestList: Request[] = []

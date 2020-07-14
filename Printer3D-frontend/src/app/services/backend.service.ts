@@ -291,7 +291,7 @@ export class BackendService {
             }));
     }
     public apiProductionDeleteRequest_v1(requestId: string, transformer: ResponseTransformer): Observable<any> {
-        const request = this.APIV1 + '/production/requests/' + requestId + '/close';
+        const request = this.APIV2 + '/production/requests/' + requestId;
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpDELETECall(request, headers)

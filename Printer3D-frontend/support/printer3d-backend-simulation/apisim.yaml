@@ -1,3 +1,43 @@
+simlet: inventory-deleterequest
+
+request:
+  - uriPathPattern: "/api/v2/production/requests/{requestId}"
+  - method: DELETE
+
+responses:
+- when:
+    request:
+      - where: cookie
+        named: apiProductionGetOpenRequests_v2
+        equals: "404-REQUEST_NOT_FOUND"
+  # then
+  from: stub
+  status: 404
+  headers:
+    - "Content-Type: application/json"
+  body: |+
+    {
+      "timestamp": "2020-07-14T07:41:22.117152Z",
+      "httpStatus": "404 NOT_FOUND",
+      "httpStatusCode": 404,
+      "httpStatusName": "NOT_FOUND",
+      "errorName": "REQUEST_NOT_FOUND",
+      "errorCode": "dimensinfin.printer3d.defined.repository.logic",
+      "cause": "No Request found while trying to delete the request.",
+      "message": "Request record with id [{0}] not found at the repository."
+    }
+# otherwise
+- from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body: |+
+    {
+      "records": 1
+    }
+
+---
+
 simlet: production-open-requests
 
 request:
@@ -351,24 +391,7 @@ response:
     file: "${sim.path}/responses/production.request.close.json"
 
 ---
-  
-simlet: inventory-deleterequest
 
-request:
-  - method: DELETE
-  - uriPathPattern: "/api/v1/production/requests"
-
-response:
-  from: stub
-  status: 200
-  headers:
-    - "Content-Type: application/json"
-  body: |+
-    {
-      "records": 1
-    }
-
----
 
 simlet: inventory-newmodel
 
