@@ -32,12 +32,15 @@ Then('target has a panel labeled {string} named {string}',
 Then('column named {string} with contents {string}', function (fieldName: string, fieldContents: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
 });
-
+// - D I A L O G
 Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
     const tag = supportService.translateTag(dialogName) // Do name replacement
     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target-dialog').as('target')
         .should('exist')
 })
+Then('the dialog closes', function () {
+    cy.get('@target-dialog').should('not.exist');
+});
 
 
 // --- FROM C13

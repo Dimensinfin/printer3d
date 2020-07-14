@@ -123,7 +123,7 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         dialogRef.afterClosed()
             .subscribe(result => {
                 console.log('[V1RequestRenderComponent.deleteRequest]> Close detected');
-                this.router.navigate(['/']);
+                // this.router.navigate(['/']);
             });
     }
 }

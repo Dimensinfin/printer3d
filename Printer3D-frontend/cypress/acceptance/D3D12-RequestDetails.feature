@@ -117,5 +117,43 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         And the button with name "delete-button" has a label "Borrar" and is "enabled"
         And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
 
-# @D3D12 @D3D12.07
-#     Scenario: [D3D12.07]-
+    @D3D12 @D3D12.07
+    Scenario: [D3D12.07]-If the Cancel button of the Confirmation dialog is clicked then the dialog closes.
+        # - Select a request to check its details.
+        Given the target is the panel of type "open-requests"
+        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        Given a hover on the target
+        # - Click on the Delete button
+        Given the target is the panel of type "request-detail"
+        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        And the button with name "delete-button" has a label "Borrar" and is "enabled"
+        And the button with name "delete-button" is clicked
+        Then the "Delete Confirmation" dialog opens and blocks the display
+        # - Click on the cancel of the Confirmation dialog
+        Given the target is the panel of name "delete-request-dialog"
+        And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
+        When the button with name "cancel-button" is clicked
+        Then the dialog closes
+
+    @D3D12 @D3D12.08
+    Scenario: [D3D12.08]-If the Delete button of the Confirmation dialog is clicked then the Request is deleted, a notification shown and the dialog closes.
+        # - Select a request to check its details.
+        Given the target is the panel of type "open-requests"
+        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        Given a hover on the target
+        # - Click on the Delete button
+        Given the target is the panel of type "request-detail"
+        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        And the button with name "delete-button" has a label "Borrar" and is "enabled"
+        And the button with name "delete-button" is clicked
+        Then the "Delete Confirmation" dialog opens and blocks the display
+        # - Click on the Delete of the Confirmation dialog
+        Given the target is the panel of name "delete-request-dialog"
+        And the button with name "delete-button" has a label "Borrar" and is "enabled"
+        When the button with name "delete-button" is clicked
+        Then the Request is updated on the backend
+        And there is a Notification panel
+        And the dialog closes
+
+    @D3D12 @D3D12.08
+    Scenario: [D3D12.08]-After the Request is deleted and the dialog closes the Open Requests page should refresh and the number of Requests opens should be smaller.
