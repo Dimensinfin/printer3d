@@ -6,8 +6,6 @@ import { TestBed } from '@angular/core/testing';
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
-import { AppStoreService } from '@app/services/app-store.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
@@ -28,8 +26,6 @@ describe('COMPONENT V1AvailablePartsPanelComponent [Module: PRODUCTION]', () => 
                 V1AvailablePartsPanelComponent
             ],
             providers: [
-                // { provide: IsolationService, useClass: SupportIsolationService },
-                // { provide: AppStoreService, useClass: SupportAppStoreService },
                 { provide: BackendService, useClass: SupportBackendService },
             ]
         }).compileComponents();

@@ -19,7 +19,6 @@ import { RollbarModule } from 'angular-rollbar'
 import { RollbarService } from 'angular-rollbar'
 // - SERVICES
 import { IsolationService } from './platform/isolation.service';
-import { AppStoreService } from './services/app-store.service';
 import { DialogFactoryService } from './services/dialog-factory.service';
 import { BackendService } from './services/backend.service';
 // - COMPONENTS-CORE
@@ -77,7 +76,6 @@ registerLocaleData(localeEs);
     providers: [
         // - SERVICES
         { provide: IsolationService, useClass: IsolationService },
-        { provide: AppStoreService, useClass: AppStoreService },
         { provide: BackendService, useClass: BackendService },
         { provide: DialogFactoryService, useClass: DialogFactoryService },
         // { provide: AuthenticationService, useClass: AuthenticationService },

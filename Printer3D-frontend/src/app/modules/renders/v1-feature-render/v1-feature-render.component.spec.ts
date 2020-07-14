@@ -15,9 +15,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
 import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
-import { AppStoreService } from '@app/services/app-store.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
@@ -56,7 +54,6 @@ describe('COMPONENT V1FeatureRenderComponent [Module: SHARED]', () => {
             providers: [
                 { provide: DialogFactoryService, useValue: dialogFactoryService },
                 { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: AppStoreService, useClass: SupportAppStoreService },
                 { provide: BackendService, useClass: SupportBackendService },
                 { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]

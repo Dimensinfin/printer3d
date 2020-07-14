@@ -15,11 +15,9 @@ import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
 import { routes } from '@app/testing/RouteMockUp.component';
 import { Location } from "@angular/common";
 // - PROVIDERS
-import { AppStoreService } from '@app/services/app-store.service';
 import { IsolationService } from '@app/platform/isolation.service';
 import { BackendService } from '@app/services/backend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';

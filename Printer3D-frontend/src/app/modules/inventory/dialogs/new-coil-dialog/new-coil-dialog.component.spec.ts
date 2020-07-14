@@ -23,9 +23,7 @@ import { routes } from '@app/testing/RouteMockUp.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 // - PROVIDERS
-import { AppStoreService } from '@app/services/app-store.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
@@ -55,7 +53,6 @@ describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
             providers: [
                 { provide: MatDialogRef, useValue: { close: (dialogResult: any) => { } } },
                 { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: AppStoreService, useClass: SupportAppStoreService },
                 { provide: BackendService, useClass: SupportBackendService }
             ]
         }).compileComponents();

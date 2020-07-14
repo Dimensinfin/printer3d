@@ -13,8 +13,6 @@ import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
-import { AppStoreService } from './app-store.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { HttpClientWrapperService } from './httpclientwrapper.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';

@@ -4,7 +4,6 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 // - SERVICES
-import { AppStoreService } from '@app/services/app-store.service';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { PartRecord } from '@domain/PartRecord.domain';

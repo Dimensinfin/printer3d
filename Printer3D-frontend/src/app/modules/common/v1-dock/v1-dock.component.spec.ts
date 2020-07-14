@@ -8,16 +8,14 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
-import { AppStoreService } from '@app/services/app-store.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { V1DockComponent } from './v1-dock.component';
 import { Feature } from '@domain/Feature.domain';
 import { AppComponent } from '@app/app.component';
 
-describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
+xdescribe('COMPONENT V1DockComponent [Module: SHARED]', () => {
     let component: V1DockComponent;
     let routerDetector: any = { refresh: () => { } };
     let location: Location;
@@ -35,7 +33,6 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
             ],
             providers: [
                 { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: AppStoreService, useClass: SupportAppStoreService }
             ]
         }).compileComponents();
 

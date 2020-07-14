@@ -16,7 +16,6 @@ import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
 import { IsolationService } from '../platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
-import { AppStoreService } from './app-store.service';
 import { BackendService } from './backend.service';
 // import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { HttpClientWrapperService } from './httpclientwrapper.service';
