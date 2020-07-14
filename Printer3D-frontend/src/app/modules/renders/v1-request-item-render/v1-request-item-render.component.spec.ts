@@ -15,9 +15,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
 import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
-import { AppStoreService } from '@app/services/app-store.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { SupportAppStoreService } from '@app/testing/SupportAppStore.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
@@ -35,7 +33,7 @@ import { Part } from '@domain/Part.domain';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
 import { Model } from '@domain/inventory/Model.domain';
 
-describe('COMPONENT V1RequestItemRenderComponent [Module: RENDER]', () => {
+xdescribe('COMPONENT V1RequestItemRenderComponent [Module: RENDER]', () => {
     let component: V1RequestItemRenderComponent;
 
     beforeEach(async(() => {

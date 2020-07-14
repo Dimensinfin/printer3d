@@ -8,6 +8,13 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
+// - F E A T U R E   S E L E C T I O N
+When('there is a click on Feature {string}', function (featureLabel: string) {
+    cy.get('v1-dock')
+        .find('v2-feature')
+        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
+        .click('center');
+});
 // - L A T E S T   I M P L E M E N T A T I O N
 Given('a hover on the target', function () {
     cy.get('@target').trigger('mouseenter')
@@ -50,6 +57,10 @@ Given('response {string} for {string}', function (responseCode: string, endpoint
 Then('there is a {string} Notification panel', function (string) {
     cy.get('#toast-container').should('exist')
 });
+// -  D O C K
+Then('the target page refreshes', function () {
+    
+  });
 
 
 // --- FROM C13

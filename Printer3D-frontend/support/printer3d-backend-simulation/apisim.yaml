@@ -1,20 +1,20 @@
 simlet: inventory-deleterequest
 
 request:
-  - uriPathPattern: "/api/v2/production/requests/{requestId}"
-  - method: DELETE
+- uriPathPattern: "/api/v2/production/requests/{requestId}"
+- method: DELETE
 
 responses:
 - when:
     request:
-      - where: cookie
-        named: apiProductionGetOpenRequests_v2
-        equals: "404-REQUEST_NOT_FOUND"
+    - where: cookie
+      named: apiProductionGetOpenRequests_v2
+      equals: "404-REQUEST_NOT_FOUND"
   # then
   from: stub
   status: 404
   headers:
-    - "Content-Type: application/json"
+  - "Content-Type: application/json"
   body: |+
     {
       "timestamp": "2020-07-14T07:41:22.117152Z",
@@ -26,11 +26,11 @@ responses:
       "cause": "No Request found while trying to delete the request.",
       "message": "Request record with id [{0}] not found at the repository."
     }
-# otherwise
+  # otherwise
 - from: stub
   status: 200
   headers:
-    - "Content-Type: application/json"
+  - "Content-Type: application/json"
   body: |+
     {
       "records": 1
@@ -41,14 +41,45 @@ responses:
 simlet: production-open-requests
 
 request:
-  - method: GET
-  - uriPathPattern: "/api/v2/production/requests"
+- uriPathPattern: "/api/v2/production/requests"
+- method: GET
 
-response:
+responses:
+- when:
+    request:
+    - where: cookie
+      named: apiProductionGetOpenRequests_v2
+      equals: "200-REQUEST_DELETED"
+  # then
   from: stub
   status: 200
   headers:
-    - "Content-Type: application/json"
+  - "Content-Type: application/json"
+  body: |+
+    [{
+      "id": "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef",
+      "label": "Complete Slot Car Platform P02",
+      "requestDate": "2020-06-29T20:00:00.226181Z",
+      "state": "OPEN",
+      "contents": [{
+              "itemId": "ed36cdfb-e5ae-4275-a163-63b4be4d952c",
+              "type": "PART",
+              "quantity": 2,
+              "missing": 1
+          },
+          {
+              "itemId": "0f789845-cdc6-48ce-a0ce-cbaf63cffab5",
+              "type": "MODEL",
+              "quantity": 2,
+              "missing": 1
+          }
+      ]
+      }
+    ]
+- from: stub
+  status: 200
+  headers:
+  - "Content-Type: application/json"
   body:
     type: text
     file: "${sim.path}/responses/production.openrequests.v2.json"
@@ -63,7 +94,7 @@ delay:
   initial: 400
   subsequent: 200
 
-  request:
+request:
   - method: GET
   - uriPathPattern: "/api/v1/inventory/parts"
 

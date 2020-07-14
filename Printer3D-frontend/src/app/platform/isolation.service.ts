@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { SESSION_STORAGE } from 'ngx-webstorage-service';
 import { StorageService } from 'ngx-webstorage-service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,20 @@ export class IsolationService {
     public exceptionMessageMap(exception: any): string {
         const messageMapped: boolean = false
         return 'Excepcion de tipo [' + exception.errorInfo + '] durante la ultima operacion.'
+    }
+    public processException(error: HttpErrorResponse): void {
+        if (error.error.status == 404) {
+            this.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')
+        } else {
+            const errorName: string = error.error.errorName
+            const httpStatus: string = error.error.httpStatus
+            const message: string = error.error.message
+            const cause: string = error.error.cause
+            if (null != cause)
+                this.errorNotification(message + '\nCausa: ' + cause, '[' + httpStatus + ']/' + errorName)
+            else
+                this.errorNotification(message, '[' + httpStatus + ']/' + errorName)
+        }
     }
     // - S T O R A G E
     public getFromStorage(key: string): string {

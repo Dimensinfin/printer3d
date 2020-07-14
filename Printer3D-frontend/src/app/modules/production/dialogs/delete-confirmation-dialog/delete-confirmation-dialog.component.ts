@@ -51,7 +51,6 @@ export class DeleteConfirmationDialogComponent extends BackgroundEnabledComponen
         return this.request.getLabel()
     }
     public deleteRequest(): void {
-        document.cookie = 'apiProductionGetOpenRequests_v2' + "=" + '404-REQUEST_NOT_FOUND'
         this.backendConnections.push(
             this.backendService.apiProductionDeleteRequest_v1(this.request.getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
@@ -62,26 +61,18 @@ export class DeleteConfirmationDialogComponent extends BackgroundEnabledComponen
                         return entrydata;
                     }))
                 .subscribe((request: any) => {
-                    this.dialogRef.close();
+                    this.dialogRef.close('DELETED');
                 }, (error) => {
                     console.log('-[V1RequestRenderComponent.deleteRequest.exception]> Error message: ' + JSON.stringify(error.error))
                     if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse) {
-                            if (error.error.status == 404) {
-                                this.isolationService.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')
-                            } else {
-                                const errorInfo: string = error.error.errorInfo
-                                const httpStatus: string = error.error.httpStatus
-                                const message: string = this.isolationService.exceptionMessageMap(error.error)
-                                this.isolationService.errorNotification(message, errorInfo)
-                            }
-                        }
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         )
 
     }
     public closeModal(): void {
         console.log('>[NewCoilDialogComponent.closeModal]')
-        this.dialogRef.close();
+        this.dialogRef.close('CANCELED');
     }
 }

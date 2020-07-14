@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { V1OpenRequestsPageComponent } from './v1-open-requests-page.component';
 
-describe('V1OpenRequestsPageComponent', () => {
+xdescribe('V1OpenRequestsPageComponent', () => {
   let component: V1OpenRequestsPageComponent;
   let fixture: ComponentFixture<V1OpenRequestsPageComponent>;
 

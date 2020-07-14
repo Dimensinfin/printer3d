@@ -54,7 +54,7 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
         this.target = node;
         this.fireSelectionChanged();
     }
-    public fireSelectionChanged () : void{}
+    public fireSelectionChanged(): void { }
     /**
       Reconstructs the list of nodes to be rendered from the current DataRoot and their collaborations to the view.
       */
@@ -65,7 +65,7 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
         let initialList = this.applyPolicies(this.dataModelRoot);
         // Generate the contents by collaborating to the view all the nodes.
         for (let node of initialList) {
-            let nodes = node.collaborate2View(null, this.variant);
+            let nodes = node.collaborate2View(this.variant);
             if (null != nodes) {
                 console.log("-[AppPanelComponent.notifyDataChanged]> Collaborating " + nodes.length + " nodes.");
                 // Add the collaborated nodes to the list of nodes to return.
