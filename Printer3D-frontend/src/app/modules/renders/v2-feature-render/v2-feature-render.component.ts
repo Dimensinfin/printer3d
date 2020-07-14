@@ -8,17 +8,20 @@ import { V1DockComponent } from '../../common/v1-dock/v1-dock.component';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { IsolationService } from '@app/platform/isolation.service';
 import { platformconstants } from '@app/platform/platform-constants';
+import { DockService } from '@app/services/dock.service';
 
 @Component({
-    selector: 'v2-feature-render',
+    selector: 'v2-feature',
     templateUrl: './v2-feature-render.component.html',
     styleUrls: ['./v2-feature-render.component.scss']
 })
 export class V2FeatureRenderComponent {
-    @Input() dock: V1DockComponent;
+    // @Input() dock: V1DockComponent;
     @Input() node: Feature;
 
-    constructor(private dialogFactory: DialogFactoryService) { }
+    constructor(
+        private dialogFactory: DialogFactoryService,
+        private dockService: DockService) { }
 
     public isMarkVisible(): boolean {
         if (this.node.interaction == 'DIALOG') return true
@@ -39,7 +42,7 @@ export class V2FeatureRenderComponent {
                 switch (this.node.interaction) {
                     case 'PAGEROUTE':
                         console.log('><[V1FeatureRenderComponent,onClick]> PAGEROUTE')
-                        if (null != this.dock) this.dock.activateFeature(this.node);
+                        this.dockService.activateFeature(this.node);
                         break;
                     case 'DIALOG':
                         console.log('><[V1FeatureRenderComponent,onClick]> DIALOG')
