@@ -16,7 +16,6 @@ import { DockService } from '@app/services/dock.service';
     styleUrls: ['./v2-feature-render.component.scss']
 })
 export class V2FeatureRenderComponent {
-    // @Input() dock: V1DockComponent;
     @Input() node: Feature;
 
     constructor(

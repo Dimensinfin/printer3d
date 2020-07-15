@@ -44,6 +44,7 @@ export class DeleteConfirmationDialogComponent extends BackgroundEnabledComponen
         protected backendService: BackendService
     ) {
         super()
+        console.log('> data: '+JSON.stringify(data))
         this.request = data.request;
     }
 

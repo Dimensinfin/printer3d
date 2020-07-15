@@ -70,12 +70,12 @@ describe('COMPONENT V1DropPartPanelComponent [Module: PRODUCTION]', () => {
     });
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
-        it('startEditing: get the request date to be used when saving the Request', () => {
+        it('startEditing: this is used when editing an existing container', () => {
             expect(component.droppedParts.length).toBe(0)
             component.startEditing([new PartStack()])
             expect(component.droppedParts.length).toBe(1)
         });
-        it('addPart: get the request date to be used when saving the Request', () => {
+        it('addPart: add a new part to the container', () => {
             expect(component.droppedParts.length).toBe(0)
             component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
             expect(component.droppedParts.length).toBe(1)
@@ -83,6 +83,50 @@ describe('COMPONENT V1DropPartPanelComponent [Module: PRODUCTION]', () => {
             expect(component.droppedParts.length).toBe(1)
             component.addPart(new Part({ id: "3f7d2477-59ff-4444-bfb8-8c836be4ae5c" }))
             expect(component.droppedParts.length).toBe(2)
+        });
+        it('onDrop: drop a part on the container', () => {
+            expect(component.droppedParts.length).toBe(0)
+            component.onDrop({ dragData: new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }) })
+            expect(component.droppedParts.length).toBe(1)
+            component.onDrop({ dragData: new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }) })
+            expect(component.droppedParts.length).toBe(1)
+            component.onDrop({ dragData: new Part({ id: "3f7d2477-59ff-4444-bfb8-8c836be4ae5c" }) })
+            expect(component.droppedParts.length).toBe(2)
+        });
+        it('removePart.single: remove a part form the container', () => {
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            component.addPart(new Part({ id: "3f7d2477-59ff-4444-bfb8-8c836be4ae5c" }))
+            expect(component.droppedParts.length).toBe(2)
+            component.removePart(new Part({ id: "3f7d2477-59ff-4444-bfb8-8c836be4ae5c" }))
+            expect(component.droppedParts.length).toBe(1)
+        });
+        it('removePartmultiple: remove a part form the container', () => {
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            component.addPart(new Part({ id: "3f7d2477-59ff-4444-bfb8-8c836be4ae5c" }))
+            expect(component.droppedParts.length).toBe(2)
+            component.removePart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            expect(component.droppedParts.length).toBe(2)
+            component.removePart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            expect(component.droppedParts.length).toBe(1)
+        });
+        it('getDroppedParts: get the list of parts', () => {
+            expect(component.getDroppedParts()).toBeDefined()
+            expect(component.getDroppedParts().length).toBe(0)
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            expect(component.getDroppedParts()).toBeDefined()
+            expect(component.getDroppedParts().length).toBe(1)
+        });
+        it('getPartIdList: get the list of part identifiers', () => {
+            expect(component.getPartIdList()).toBeDefined()
+            expect(component.getPartIdList().length).toBe(0)
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            component.addPart(new Part({ id: "0834cd30-e8cc-40fe-92b3-fe9ed3d10668" }))
+            component.addPart(new Part({ id: "3f7d2477-59ff-4444-bfb8-8c836be4ae5c" }))
+            expect(component.getPartIdList()).toBeDefined()
+            console.log('> id list: ' + JSON.stringify(component.getPartIdList()))
+            expect(component.getPartIdList().length).toBe(3)
         });
     });
 });

@@ -33,7 +33,7 @@ import { Part } from '@domain/Part.domain';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
 import { Model } from '@domain/inventory/Model.domain';
 
-xdescribe('COMPONENT V1RequestItemRenderComponent [Module: RENDER]', () => {
+describe('COMPONENT V1RequestItemRenderComponent [Module: RENDER]', () => {
     let component: V1RequestItemRenderComponent;
 
     beforeEach(async(() => {

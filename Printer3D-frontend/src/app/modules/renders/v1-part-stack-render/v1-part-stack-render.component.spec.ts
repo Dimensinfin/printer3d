@@ -28,6 +28,7 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { Coil } from '@domain/Coil.domain';
 import { V1PartStackRenderComponent } from './v1-part-stack-render.component';
+import { PartStack } from '@domain/PartStack.domain';
 
 describe('COMPONENT V1PartStackRenderComponent [Module: RENDER]', () => {
     let component: V1PartStackRenderComponent;
@@ -52,6 +53,39 @@ describe('COMPONENT V1PartStackRenderComponent [Module: RENDER]', () => {
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
             expect(component).toBeDefined('component has not been created.');
+        });
+    });
+    // - C O D E   C O V E R A G E   P H A S E
+    describe('Code Coverage Phase [getters]', () => {
+        it('getters: check the getter results', () => {
+            component.node = new PartStack({
+                id: '-PART-STACK-UNIQUE-ID-',
+                label: '-PART-STACK-LABEL-',
+                stackCount: 7,
+                material: 'FLEX',
+                color: 'TURQUESA'
+            })
+            expect(component.getNode()).toBeDefined()
+            expect(component.getNode() instanceof PartStack).toBeTrue()
+            expect(component.getUniqueId()).toBe('-PART-STACK-UNIQUE-ID-')
+            expect(component.getRequired()).toBe(7)
+            expect(component.getLabel()).toBe('-PART-STACK-LABEL-')
+            expect(component.getMaterial()).toBe('FLEX')
+            expect(component.getColor()).toBe('TURQUESA')
+        });
+        it('removePart: pass the event to remove a part', () => {
+            component.node = new PartStack({
+                id: '-PART-STACK-UNIQUE-ID-',
+                label: '-PART-STACK-LABEL-',
+                stackCount: 7,
+                material: 'FLEX',
+                color: 'TURQUESA'
+            })
+            const componentAsAny = component as any
+            componentAsAny.container = { removePart: (data: any) => { } }
+            spyOn(componentAsAny.container, 'removePart')
+            component.removePart()
+            expect(componentAsAny.container.removePart).toHaveBeenCalled()
         });
     });
 });

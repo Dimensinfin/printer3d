@@ -113,6 +113,81 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
         });
     });
     describe('Coverage Phase [Editing]', () => {
+        it('isEditing: check the "editing" flag', () => {
+            expect(component.isEditing()).toBeFalse();
+        });
+        it('toggleEdition.noEvent: check the change on the editing', () => {
+            const partContainer = new PartContainer({
+                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
+                "label": "Boquilla Ganesha",
+                "description": "Boquilla Ganesha",
+                "buildTime": 90,
+                "weight": 6,
+                "imagePath": '-IMAGE-',
+                "modelPath": '-MODEL-PATH-',
+                contents: [
+                    new Part({
+                        "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
+                        "label": "Boquilla Ganesha",
+                        "description": "Boquilla Ganesha",
+                        "material": "PLA",
+                        "color": "GRIS",
+                        "buildTime": 90,
+                        "weight": 6,
+                        "cost": 1.0,
+                        "price": 6.0,
+                        "stockLevel": 5,
+                        "stockAvailable": 0,
+                        "imagePath": 'image',
+                        "modelPath": null,
+                        "active": true
+                    })
+                ]
+            })
+            component.node = partContainer
+            component.toggleEdition()
+            expect(component.editing).toBeTrue();
+            component.toggleEdition()
+            expect(component.editing).toBeFalse();
+            component.toggleEdition()
+            expect(component.editing).toBeTrue();
+        });
+        it('toggleEdition.event: check the change on the editing', () => {
+            const partContainer = new PartContainer({
+                "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
+                "label": "Boquilla Ganesha",
+                "description": "Boquilla Ganesha",
+                "buildTime": 90,
+                "weight": 6,
+                "imagePath": '-IMAGE-',
+                "modelPath": '-MODEL-PATH-',
+                contents: [
+                    new Part({
+                        "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
+                        "label": "Boquilla Ganesha",
+                        "description": "Boquilla Ganesha",
+                        "material": "PLA",
+                        "color": "GRIS",
+                        "buildTime": 90,
+                        "weight": 6,
+                        "cost": 1.0,
+                        "price": 6.0,
+                        "stockLevel": 5,
+                        "stockAvailable": 0,
+                        "imagePath": 'image',
+                        "modelPath": null,
+                        "active": true
+                    })
+                ]
+            })
+            component.node = partContainer
+            component.toggleEdition({ event: 'event', stopPropagation: () => { } })
+            expect(component.editing).toBeTrue();
+            component.toggleEdition()
+            expect(component.editing).toBeFalse();
+            component.toggleEdition()
+            expect(component.editing).toBeTrue();
+        });
         it('saveEditing: save the edited model properties', async () => {
             jasmine.clock().install();
             const partContainer = new PartContainer({

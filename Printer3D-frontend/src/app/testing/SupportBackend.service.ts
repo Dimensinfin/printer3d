@@ -11,9 +11,11 @@ import { RequestForm } from '@domain/RequestForm.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export class SupportBackendService {
     private httpWrapper: SupportHttpClientWrapperService;
+    private failuresList: Map<string, any> = new Map<string, any>();
 
     constructor() {
         this.httpWrapper = new SupportHttpClientWrapperService();
@@ -186,12 +188,25 @@ export class SupportBackendService {
             observer.complete();
         });
     }
-    public apiRequestsClose_v1(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiProductionRequestsClose_v1(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('newrequest')
             observer.next(transformer.transform(data));
             observer.complete();
         });
+    }
+    public apiProductionDeleteRequest_v1(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
+        const failureHit = this.failuresList.get('apiProductionDeleteRequest_v1')
+        if (null != failureHit)
+            return Observable.create((observer) => {
+                observer.error(new HttpErrorResponse({ error: failureHit }));
+            });
+        else
+            return Observable.create((observer) => {
+                const data = this.directAccessMockResource('newrequest')
+                observer.next(transformer.transform(data));
+                observer.complete();
+            });
     }
 
     private directAccessMockResource(dataIdentifier: string): any {
@@ -199,5 +214,9 @@ export class SupportBackendService {
         console.log(">[SupportBackendService.directAccessMockResource]> path: " +
             '../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');
         return rawdata
+    }
+    // - F A I L U R E   G E N E R A T I O N
+    public activateFailure(method: string, response: any): void {
+        this.failuresList.set(method, response)
     }
 }
