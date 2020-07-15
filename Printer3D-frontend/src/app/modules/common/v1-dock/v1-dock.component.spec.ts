@@ -48,8 +48,8 @@ xdescribe('COMPONENT V1DockComponent [Module: SHARED]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const componentAsAny = component as any;
             expect(component).toBeDefined('component has not been created.');
-            expect(component.self).toBeDefined('field "self" not defined.');
-            expect(componentAsAny.activeFeature).toBeUndefined('field "activeFeature" has initial value and should not.');
+            // expect(component.self).toBeDefined('field "self" not defined.');
+            // expect(componentAsAny.configuredFeatures).toBeUndefined('field "activeFeature" has initial value and should not.');
             expect(componentAsAny.configuredFeatures).toBeDefined('field "configuredFeatures" not defined.');
             expect(componentAsAny.configuredFeatures.length).toBe(0);
         });
@@ -87,50 +87,50 @@ xdescribe('COMPONENT V1DockComponent [Module: SHARED]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Methods]', () => {
-        it('activateFeature.null: clear the list of active features', () => {
-            const componentAsAny = component as any;
-            componentAsAny.routerDetector = routerDetector;
-            expect(componentAsAny.activeFeature).toBeUndefined();
-            componentAsAny.activeFeature = new Feature()
-            expect(componentAsAny.activeFeature).toBeDefined()
-            component.activateFeature(null);
-            expect(componentAsAny.activeFeature).toBeUndefined();
-            expect(location.path()).toBe('/');
-        });
-        it('activateFeature.firstTime: activate a new feature when there is none active', () => {
-            const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
-            const featureB = new Feature({ label: '/Nueva Pieza', active: false });
-            const componentAsAny = component as any;
-            componentAsAny.routerDetector = routerDetector;
-            componentAsAny.configuredFeatures.push(featureA);
-            componentAsAny.configuredFeatures.push(featureB);
-            expect(componentAsAny.activeFeature).toBeUndefined();
-            component.activateFeature(featureA);
-            expect(componentAsAny.activeFeature).toBe(featureA);
-        });
-        it('activateFeature.active: activate a new feature when there is one active', () => {
-            const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
-            const featureB = new Feature({ label: '/Nueva Pieza', active: false });
-            const componentAsAny = component as any;
-            componentAsAny.routerDetector = routerDetector;
-            componentAsAny.configuredFeatures.push(featureA);
-            componentAsAny.configuredFeatures.push(featureB);
-            expect(componentAsAny.activeFeature).toBeUndefined();
-            component.activateFeature(featureA);
-            expect(componentAsAny.activeFeature).toBe(featureA);
-            component.activateFeature(featureB);
-            expect(componentAsAny.activeFeature).toBe(featureB);
-        });
-        xit('clean: clean the Dock configuration', () => {
-            const componentAsAny = component as any;
-            componentAsAny.configuredFeatures = []
-            componentAsAny.configuredFeatures.push(new Feature());
-            componentAsAny.configuredFeatures.push(new Feature());
-            componentAsAny.configuredFeatures.push(new Feature());
-            componentAsAny.configuredFeatures.push(new Feature());
-            expect(componentAsAny.configuredFeatures.length).toBe(4);
-            component.clean();
-            expect(componentAsAny.configuredFeatures.length).toBe(2);
-        });
+        // it('activateFeature.null: clear the list of active features', () => {
+        //     const componentAsAny = component as any;
+        //     componentAsAny.routerDetector = routerDetector;
+        //     expect(componentAsAny.activeFeature).toBeUndefined();
+        //     componentAsAny.activeFeature = new Feature()
+        //     expect(componentAsAny.activeFeature).toBeDefined()
+        //     component.activateFeature(null);
+        //     expect(componentAsAny.activeFeature).toBeUndefined();
+        //     expect(location.path()).toBe('/');
+        // });
+        // it('activateFeature.firstTime: activate a new feature when there is none active', () => {
+        //     const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
+        //     const featureB = new Feature({ label: '/Nueva Pieza', active: false });
+        //     const componentAsAny = component as any;
+        //     componentAsAny.routerDetector = routerDetector;
+        //     componentAsAny.configuredFeatures.push(featureA);
+        //     componentAsAny.configuredFeatures.push(featureB);
+        //     expect(componentAsAny.activeFeature).toBeUndefined();
+        //     component.activateFeature(featureA);
+        //     expect(componentAsAny.activeFeature).toBe(featureA);
+        // });
+        // it('activateFeature.active: activate a new feature when there is one active', () => {
+        //     const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
+        //     const featureB = new Feature({ label: '/Nueva Pieza', active: false });
+        //     const componentAsAny = component as any;
+        //     componentAsAny.routerDetector = routerDetector;
+        //     componentAsAny.configuredFeatures.push(featureA);
+        //     componentAsAny.configuredFeatures.push(featureB);
+        //     expect(componentAsAny.activeFeature).toBeUndefined();
+        //     component.activateFeature(featureA);
+        //     expect(componentAsAny.activeFeature).toBe(featureA);
+        //     component.activateFeature(featureB);
+        //     expect(componentAsAny.activeFeature).toBe(featureB);
+        // });
+        // xit('clean: clean the Dock configuration', () => {
+        //     const componentAsAny = component as any;
+        //     componentAsAny.configuredFeatures = []
+        //     componentAsAny.configuredFeatures.push(new Feature());
+        //     componentAsAny.configuredFeatures.push(new Feature());
+        //     componentAsAny.configuredFeatures.push(new Feature());
+        //     componentAsAny.configuredFeatures.push(new Feature());
+        //     expect(componentAsAny.configuredFeatures.length).toBe(4);
+        //     component.clean();
+        //     expect(componentAsAny.configuredFeatures.length).toBe(2);
+        // });
     });
 });

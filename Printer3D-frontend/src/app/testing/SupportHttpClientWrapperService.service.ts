@@ -99,6 +99,22 @@ export class SupportHttpClientWrapperService {
             observer.complete();
         });
     }
+    public wrapHttpDELETECall(_request: string, _requestHeaders?: HttpHeaders): Observable<any> {
+        console.log("><[SupportHttpClientWrapperService.wrapHttpDELETECall]> request: " + _request);
+        return Observable.create((observer) => {
+            try {
+                let data = this.decodeRequestPath(_request);
+                if (null == data)
+                    observer.next('');
+                else
+                    observer.next(data);
+            } catch (error) {
+                console.log("><[SupportHttpClientWrapperService.wrapHttpDELETECall]> error: " + JSON.stringify(error));
+                observer.next('');
+            }
+            observer.complete();
+        });
+    }
     public wrapHttpPATCHCall(request: string, body: any, _requestHeaders?: HttpHeaders): Observable<any> {
         console.log("><[SupportHttpClientWrapperService.wrapHttpPATCHCall]> request: " + request);
         return Observable.create((observer) => {

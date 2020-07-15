@@ -222,17 +222,6 @@ export class BackendService {
     }
 
     // - P R O D U C T I O N
-    // public apiNewRequest_v1(newRequest: Request, transformer: ResponseTransformer): Observable<Request> {
-    //     const request = this.APIV1 + '/production/requests';
-    //     let headers = new HttpHeaders()
-    //         .set('xapp-name', environment.appName);
-    //     return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newRequest), headers)
-    //         .pipe(map((data: any) => {
-    //             console.log(">[BackendService.apiNewRequest_v1]> Transformation: " + transformer.description);
-    //             const response = transformer.transform(data) as Request;
-    //             return response;
-    //         }));
-    // }
     public apiNewRequest_v2(newRequest: RequestRequest, transformer: ResponseTransformer): Observable<Request> {
         const request = this.APIV2 + '/production/requests';
         let headers = new HttpHeaders()
@@ -255,18 +244,6 @@ export class BackendService {
                 return response;
             }));
     }
-    // public apiProductionGetOpenRequests_v1(transformer: ResponseTransformer): Observable<Request[]> {
-    //     const request = this.APIV1 + '/production/requests';
-    //     let headers = new HttpHeaders()
-    //         .set('xapp-name', environment.appName)
-    //         .set('x-api-version', 'api v1')
-    //     return this.httpService.wrapHttpGETCall(request, headers)
-    //         .pipe(map((data: any) => {
-    //             console.log(">[BackendService.apiProductionGetOpenRequests_v1]> Transformation: " + transformer.description);
-    //             const response = transformer.transform(data) as Request[];
-    //             return response;
-    //         }));
-    // }
     public apiProductionGetOpenRequests_v2(transformer: ResponseTransformer): Observable<Request[]> {
         const request = this.APIV2 + '/production/requests';
         let headers = new HttpHeaders()

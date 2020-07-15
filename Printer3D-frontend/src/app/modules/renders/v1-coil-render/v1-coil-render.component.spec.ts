@@ -83,4 +83,47 @@ describe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
             expect(component.getWeight()).toBe('800 gr.')
         });
     });
+    describe('Coverage Phase [Editing]', () => {
+        it('isEditing: check the "editing" flag', () => {
+            expect(component.isEditing()).toBeFalse();
+        });
+        it('toggleEdition: check the change on the editing', () => {
+            const coil = new Coil({
+                "id": "9903926b-e786-4fb2-8e8e-68960ebebb7a",
+                "material": "PLA",
+                "color": "RED",
+                "weight": 800
+            })
+            component.node = coil;
+            component.toggleEdition()
+            expect(component.editing).toBeTrue();
+            component.toggleEdition()
+            expect(component.editing).toBeFalse();
+            component.toggleEdition()
+            expect(component.editing).toBeTrue();
+        });
+        it('saveEditing: check the save flow', async () => {
+            const coil = new Coil({
+                "id": "9903926b-e786-4fb2-8e8e-68960ebebb7a",
+                "material": "PLA",
+                "color": "RED",
+                "weight": 800
+            })
+            component.node = coil
+            component.editCoil = coil
+            expect(component.getMaterial()).toBe("PLA");
+            expect(component.getColor()).toBe("RED");
+            expect(component.getWeight()).toBe('800 gr.');
+            component.editing = true;
+            expect(component.editing).toBeTrue();
+            jasmine.clock().install();
+            await component.saveEditing();
+            jasmine.clock().tick(1100);
+            expect(component.editing).toBeFalse();
+            expect(component.getMaterial()).toBe("PLA");
+            expect(component.getColor()).toBe("ROJO");
+            expect(component.getWeight()).toBe('750 gr.');
+            jasmine.clock().uninstall()
+        });
+    });
 });

@@ -57,8 +57,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
         service = TestBed.get(BackendService);
         isolationService = TestBed.get(IsolationService);
     });
@@ -245,16 +244,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         });
     });
     describe('Code Coverage Phase [PRODUCTION]', () => {
-        it('apiNewRequest_v1.default: get the persisted part', async () => {
-            const request = new Request();
-            service.apiNewRequest_v1(request, new ResponseTransformer().setDescription('Transforms data into Part.')
-                .setTransformation((entrydata: any): Request => {
-                    return new Request(entrydata);
-                }))
-                .subscribe((response: Request) => {
-                    expect(response).toBeDefined();
-                });
-        });
         it('apiNewRequest_v2.default: get the persisted part', async () => {
             const request = new RequestRequest();
             service.apiNewRequest_v2(request, new ResponseTransformer().setDescription('Transforms data into Part.')
@@ -278,23 +267,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.length).toBe(16, 'Number of Jobs do not match');
                 });
         });
-        it('apiProductionGetOpenRequests_v1.default: get the list jobs required to level the stocks', async () => {
-            service.apiProductionGetOpenRequests_v1(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
-                .setTransformation((entrydata: any): Request[] => {
-                    // Extract requests from the response.
-                    const requestList: Request[] = []
-                    for (let entry of entrydata.requests) {
-                        const request: Request = new Request(entry)
-                        // request.setPartProvider(entrydata)
-                        requestList.push(request);
-                    }
-                    return requestList;
-                }))
-                .subscribe((response: Request[]) => {
-                    expect(response).toBeDefined();
-                    expect(response.length).toBe(2, 'Number of Requests do not match');
-                });
-        });
         it('apiProductionGetOpenRequests_v2.default: get the list jobs required to level the stocks', async () => {
             service.apiProductionGetOpenRequests_v2(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
                 .setTransformation((entrydata: any): any => {
@@ -304,9 +276,19 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('apiRequestsClose_v1.default: get the list jobs required to level the stocks', async () => {
+        it('apiProductionRequestsClose_v1.default: complete a request', async () => {
             const requestId: string = "-REQUEST-ID-"
             service.apiProductionRequestsClose_v1(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
+                .setTransformation((entrydata: any): Request => {
+                    return new Request(entrydata);
+                }))
+                .subscribe((response: Request) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('apiProductionDeleteRequest_v1.default: delete a request', async () => {
+            const requestId: string = "-REQUEST-ID-"
+            service.apiProductionDeleteRequest_v1(requestId, new ResponseTransformer().setDescription('Transforms Request form backend.')
                 .setTransformation((entrydata: any): Request => {
                     return new Request(entrydata);
                 }))

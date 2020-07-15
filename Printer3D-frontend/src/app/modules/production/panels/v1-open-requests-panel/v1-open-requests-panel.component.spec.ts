@@ -26,8 +26,10 @@ import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerate
 import { V1OpenRequestsPanelComponent } from './v1-open-requests-panel.component';
 import { Request } from '@domain/Request.domain';
 import { Part } from '@domain/Part.domain';
+import { Model } from '@domain/inventory/Model.domain';
+import { IContent } from '@domain/interfaces/IContent.interface';
 
-xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
+describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
     let component: V1OpenRequestsPanelComponent;
 
     beforeEach(async(() => {
@@ -120,6 +122,14 @@ xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
             partList.push(new Part({ id: 'FOUND' }))
             componentAsAny.parts = partList
             expect(component.findById('NOTFOUND', RequestContentType.PART)).toBeUndefined()
+        });
+        it('findById.model: as a Part storage export a function to search for Parts', () => {
+            const componentAsAny = component as any;
+            const modelList: Model[] = []
+            modelList.push(new Model({ id: 'FOUND' }))
+            modelList.push(new Model({ id: 'NOTFOUND' }))
+            componentAsAny.models = modelList
+            expect(component.findById('FOUND', RequestContentType.MODEL)).toBeDefined()
         });
     });
 });

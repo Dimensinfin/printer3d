@@ -99,7 +99,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
             this.backendService.apiInventoryGetModels_v1(new ResponseTransformer()
                 .setDescription('Transforms response into a list of Models.')
                 .setTransformation((entrydata: any): Model[] => {
-                    console.log('-[V1OpenRequestsPanelComponent.downloadModels]>Processing Models')
+                    console.log('-[V1OpenRequestsPanelComponent.downloadModels]> Processing Models')
                     // For each of the Models expand the Parts from the part provider.
                     const modelList: Model[] = []
                     for (const entry of entrydata.models) {

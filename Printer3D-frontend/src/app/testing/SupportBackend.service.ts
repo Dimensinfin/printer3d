@@ -100,6 +100,14 @@ export class SupportBackendService {
             observer.complete();
         });
     }
+    public apiInventoryUpdateCoil_v1(updatingModel: ModelRequest, transformer: ResponseTransformer): Observable<Coil> {
+        console.log('>[SupportBackendService.apiInventoryUpdateCoil_v1]')
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('newcoil')
+            observer.next(transformer.transform(data));
+            observer.complete();
+        });
+    }
     public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.finishings')

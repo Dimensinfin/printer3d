@@ -33,7 +33,6 @@ import { Router } from '@angular/router';
 export class DockService {
     private activeFeature: Feature;
     private featureList: Feature[];
-    // @Input() routerDetector: AppComponent;
 
     constructor(
         protected router: Router,
@@ -100,7 +99,5 @@ export class DockService {
     private pageChange(route: string): void {
         console.log('><[DockService.pageChange]> Route: ' + route);
         this.router.navigate([route]);
-        // if (null != this.routerDetector) this.routerDetector.refresh();
     }
-
 }
