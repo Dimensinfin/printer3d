@@ -1,12 +1,12 @@
 {
     "name": "printer3d-frontend",
-    "version": "v0.10.4",
+    "version": "v0.11.0",
     "backversion": "<0.6.0",
     "scripts": {
         "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D12.08",
         "docker:start": "docker-compose -f ./support/docker/docker-compose.yml up & ",
         "docker:stop": "docker-compose -f ./support/docker/docker-compose.yml down ",
-        "start:dev": "ng serve --progress --proxy-config proxy.conf.json --port 5100",
+        "serve:dev": "ng serve --progress --proxy-config proxy.conf.json --port 5100",
         "build:dev": "ng build ",
         "build:stage": "ng build --aot --configuration=stage",
         "build:prod": "ng build --aot --configuration=production",
@@ -30,7 +30,7 @@
         "acceptance:cypress:batchB": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/acceptance/D3D1*.feature\"",
         "integration:cypress:batchA": "npm run start:dev & wait-on http://localhost:5100 && cypress run --spec \"./cypress/integration/D3D*.feature\"",
         "heroku-postbuild": "ng build --configuration=${NODE_ENV}",
-        "start:integration": "export NODE_ENV=integration && export PORT=5150 && npm run build:dev && npm start",
+        "serve:integration": "export NODE_ENV=integration && export PORT=5150 && npm run build:dev && npm start",
         "analyzer": "ng build --aot --configuration=stage --stats-json && webpack-bundle-analyzer ./dist/Printer3D-frontend/stats-es2015.json"
     },
     "private": true,
