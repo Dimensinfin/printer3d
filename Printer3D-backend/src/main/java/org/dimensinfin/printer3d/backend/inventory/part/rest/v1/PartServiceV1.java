@@ -1,17 +1,21 @@
 package org.dimensinfin.printer3d.backend.inventory.part.rest.v1;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.common.exception.DimensinfinError;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartToPartEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
@@ -22,16 +26,40 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
+import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
+
 @Service
 public class PartServiceV1 {
+	public static DimensinfinError PART_REPOSITORY_CONFLICT( final UUID partId, final String constraintMessage ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "PART_REPOSITORY_CONFLICT" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".constraintviolation" )
+				.withHttpStatus( HttpStatus.CONFLICT )
+				.withMessage( MessageFormat.format( "The Part [{0}] is rejected because constraint violation. {1}", partId, constraintMessage ) )
+				.build();
+	}
+
+	public static DimensinfinError PART_NOT_FOUND( final UUID partId ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "PART_NOT_FOUND" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".notfound" )
+				.withHttpStatus( HttpStatus.NOT_FOUND )
+				.withMessage( MessageFormat.format( "Part with id [{0}] not found at the repository.", partId ) )
+				.build();
+	}
+
+	public static DimensinfinError PART_ALREADY_EXISTS( final UUID partId ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "PART_ALREADY_EXISTS" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
+				.withHttpStatus( HttpStatus.CONFLICT )
+				.withMessage( MessageFormat.format( "Part with id [{0}] already exists. Use the Update endpoint.", partId ) )
+				.build();
+	}
+
 	private final PartRepository partRepository;
 	private final PartEntityToPartConverter partConverter;
-	//	private final DimensinfinError PART_ALREADY_EXISTS = new DimensinfinError.Builder()
-	//			.withErrorName( "PART_ALREADY_EXISTS" )
-	//			.withHttpStatus( HttpStatus.CONFLICT )
-	//			.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
-	//			.withMessage( "The Part [{0}] already exists. Use the Update endpoint." )
-	//			.build();
+
 
 	// - C O N S T R U C T O R S
 	@Autowired
@@ -65,13 +93,13 @@ public class PartServiceV1 {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<PartEntity> target = this.partRepository.findById( newPart.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( Printer3DErrorInfo.PART_ALREADY_EXISTS( newPart.getId() ) );
+				throw new DimensinfinRuntimeException( PART_ALREADY_EXISTS( newPart.getId() ) );
 			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
-			//			try {
-			return new PartEntityToPartConverter().convert( this.partRepository.save( partEntity ) );
-			//			} catch (final DataIntegrityViolationException die) {
-			//				throw new RepositoryConflictException( ErrorInfo.PART_REPOSITORY_CONFLICT, die );
-			//			}
+			try {
+				return new PartEntityToPartConverter().convert( this.partRepository.save( partEntity ) );
+			} catch (final DataIntegrityViolationException die) {
+				throw new DimensinfinRuntimeException( PART_REPOSITORY_CONFLICT( newPart.getId(), die.getMessage() ) );
+			}
 		} finally {
 			LogWrapper.exit();
 		}
@@ -104,7 +132,7 @@ public class PartServiceV1 {
 			// Search for the Part by id. If not found reject the request because this should be an update.
 			final Optional<PartEntity> target = this.partRepository.findById( updatePart.getId() );
 			if (target.isEmpty())
-				throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( updatePart.getId() ),
+				throw new DimensinfinRuntimeException( PART_NOT_FOUND( updatePart.getId() ),
 						"Part not found while trying to update it." );
 			return new PartEntityToPartConverter().convert(
 					this.partRepository.save( new PartUpdater( target.get() ).update( updatePart ) )

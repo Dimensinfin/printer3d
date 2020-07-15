@@ -17,6 +17,7 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRe
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -67,7 +68,7 @@ public class MachineServiceV1 {
 	private void recordJob( final MachineEntity machineEntity ) {
 		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 		if (jobPartOpt.isEmpty())
-			throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
+			throw new RepositoryConflictException( PartServiceV1.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
 		final JobEntity job = new JobEntity.Builder()
 				.withPartId( machineEntity.getCurrentJobPartId() )
 				.withBuildTime( jobPartOpt.get().getBuildTime() * machineEntity.getCurrentPartInstances() ) // Multiple copies take longer to build.
@@ -83,7 +84,7 @@ public class MachineServiceV1 {
 	private void storeBuiltParts( final UUID currentJobPartId, final int currentPartInstances ) {
 		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( currentJobPartId );
 		if (jobPartOpt.isEmpty())
-			throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( currentJobPartId ) );
+			throw new RepositoryConflictException( PartServiceV1.PART_NOT_FOUND( currentJobPartId ) );
 		final PartEntity targetPart = jobPartOpt.get();
 		targetPart.incrementStock( currentPartInstances );
 		this.partRepository.save( targetPart );

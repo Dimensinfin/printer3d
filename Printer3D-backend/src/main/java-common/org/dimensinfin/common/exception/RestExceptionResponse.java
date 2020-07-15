@@ -27,7 +27,7 @@ public class RestExceptionResponse {
 	@JsonProperty("errorName")
 	private String errorName;
 	@JsonProperty("httpStatusCode")
-	private int httpStatusCode;
+	private int httpStatusCode = 500;
 	@JsonProperty("message")
 	private String message;
 	@JsonProperty("cause")

@@ -14,7 +14,7 @@ public class DimensinfinErrorTest {
 				.withErrorCode( "-ERROR-CODE-" )
 				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
 				.withMessage( "-MESSAGE-" )
-				.withCause( Optional.of( "-CAUSE-" ) )
+				.withCause(  "-CAUSE-" )
 				.build();
 		Assertions.assertNotNull( errorComplete );
 		final DimensinfinError errorNoCause = new DimensinfinError.Builder()
@@ -22,7 +22,6 @@ public class DimensinfinErrorTest {
 				.withErrorCode( "-ERROR-CODE-" )
 				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
 				.withMessage( "-MESSAGE-" )
-				.withCause( Optional.empty() )
 				.build();
 		Assertions.assertNotNull( errorNoCause );
 		final DimensinfinError errorNullCause = new DimensinfinError.Builder()
@@ -43,7 +42,7 @@ public class DimensinfinErrorTest {
 				.withErrorCode( "-ERROR-CODE-" )
 				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
 				.withMessage( "-MESSAGE-" )
-				.withCause( Optional.of( "-CAUSE-" ) )
+				.withCause(  "-CAUSE-"  )
 				.build();
 		// Assertions
 		Assertions.assertEquals( "-ERROR-CODE-", error.getErrorCode() );
@@ -63,7 +62,7 @@ public class DimensinfinErrorTest {
 				.withErrorCode( "-ERROR-CODE-" )
 				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
 				.withMessage( "-MESSAGE-" )
-				.withCause( Optional.of( "-CAUSE-" ) )
+				.withCause(  "-CAUSE-"  )
 				.build();
 		// Assertions
 		Assertions.assertEquals( "-CAUSE-", error.getCause() );

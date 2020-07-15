@@ -47,7 +47,7 @@ public class RequestEntity {
 	@Size(min = 3, max = 50)
 	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
-	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	private OffsetDateTime requestDate;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state", columnDefinition = "request_state", nullable = false)
@@ -55,7 +55,7 @@ public class RequestEntity {
 	private RequestState state = RequestState.OPEN;
 	@Type(type = "jsonb")
 	@Column(name = "part_list", columnDefinition = "jsonb")
-	private List<PartRequest> partList = new ArrayList<PartRequest>();
+	private List<PartRequest> partList = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
 	private RequestEntity() {}
@@ -95,7 +95,6 @@ public class RequestEntity {
 	}
 
 	// - B U I L D E R
-	// - B U I L D E R
 	public static class Builder {
 		private final RequestEntity onConstruction;
 
@@ -105,6 +104,10 @@ public class RequestEntity {
 		}
 
 		public RequestEntity build() {
+			Objects.requireNonNull( this.onConstruction.id );
+			Objects.requireNonNull( this.onConstruction.label );
+			Objects.requireNonNull( this.onConstruction.requestDate );
+			Objects.requireNonNull( this.onConstruction.state );
 			return this.onConstruction;
 		}
 
@@ -118,9 +121,8 @@ public class RequestEntity {
 			return this;
 		}
 
-		public RequestEntity.Builder
-		withPartList( final List<PartRequest> partList ) {
-			this.onConstruction.partList = Objects.requireNonNull( partList );
+		public RequestEntity.Builder withPartList( final List<PartRequest> partList ) {
+			if (null != partList) this.onConstruction.partList = partList;
 			return this;
 		}
 

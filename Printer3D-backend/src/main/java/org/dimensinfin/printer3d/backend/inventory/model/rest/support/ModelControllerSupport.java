@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 
 @Profile({ "local", "acceptance", "test" })
@@ -52,8 +52,8 @@ public class ModelControllerSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new RepositoryException( Printer3DErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
-					"Detected exception while deleting all the Models from the repository." );
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+					"Detected exception while deleting all Models from the repository." );
 		}
 	}
 }

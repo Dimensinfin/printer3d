@@ -47,7 +47,7 @@ public class RequestEntityV2 {
 	@Size(min = 3, max = 50)
 	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
-	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	private OffsetDateTime requestDate;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state", columnDefinition = "request_state", nullable = false)
@@ -104,11 +104,15 @@ public class RequestEntityV2 {
 		}
 
 		public RequestEntityV2 build() {
+			Objects.requireNonNull( this.onConstruction.id );
+			Objects.requireNonNull( this.onConstruction.label );
+			Objects.requireNonNull( this.onConstruction.requestDate );
+			Objects.requireNonNull( this.onConstruction.state );
 			return this.onConstruction;
 		}
 
 		public RequestEntityV2.Builder withContents( final List<RequestItem> contents ) {
-			this.onConstruction.contents = Objects.requireNonNull( contents );
+			if (null != contents) this.onConstruction.contents = contents;
 			return this;
 		}
 

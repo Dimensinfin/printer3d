@@ -22,7 +22,6 @@ import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.core.exception.RepositoryException;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
@@ -82,7 +81,7 @@ public class RequestControllerSupport {
 	@PostMapping(path = "/production/requests",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Request> newRequest( final @RequestBody @Valid @NotNull Request request ) {
+	public ResponseEntity<Request> newRequestV1( final @RequestBody @Valid @NotNull Request request ) {
 		return new ResponseEntity<>( this.newRequestService( request ), HttpStatus.CREATED );
 	}
 
@@ -95,7 +94,7 @@ public class RequestControllerSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new RepositoryException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Requests from the repository." );
 		}
 	}
@@ -109,7 +108,7 @@ public class RequestControllerSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new RepositoryException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Requests from the repository." );
 		}
 	}

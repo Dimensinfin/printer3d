@@ -1,11 +1,13 @@
 package org.dimensinfin.common.exception;
 
-import com.google.gson.annotations.SerializedName;
 import org.springframework.http.HttpStatus;
 
 public class DimensinfinRuntimeException extends RuntimeException {
-	private DimensinfinError error;
-	private RestExceptionResponse exceptionResponse;
+	private final String errorName;
+	private final String errorCode;
+	private final String causeMessage;
+	private final String message;
+	private final HttpStatus httpStatus;
 
 	// - C O N S T R U C T O R S
 	public DimensinfinRuntimeException( final String errorMessage ) {
@@ -13,66 +15,56 @@ public class DimensinfinRuntimeException extends RuntimeException {
 	}
 
 	public DimensinfinRuntimeException( final DimensinfinError error ) {
-		this.error = error;
+		this.errorName = error.getErrorName();
+		this.errorCode = error.getErrorCode();
+		this.causeMessage = error.getCause();
+		this.message = error.getMessage();
+		this.httpStatus = error.getStatus();
 	}
 
 	public DimensinfinRuntimeException( final RestExceptionResponse exceptionResponse ) {
-		this.exceptionResponse = exceptionResponse;
-		this.error = null;
+		this.errorName = exceptionResponse.getErrorName();
+		this.errorCode = exceptionResponse.getErrorCode();
+		this.causeMessage = exceptionResponse.getCause();
+		this.message = exceptionResponse.getMessage();
+		this.httpStatus = HttpStatus.valueOf( exceptionResponse.getHttpStatusCode() );
 	}
 
 	public DimensinfinRuntimeException( final DimensinfinError error, final String cause ) {
-		this.error = error;
-		if (null != cause) this.error.setCause( cause );
+		this.errorName = error.getErrorName();
+		this.errorCode = error.getErrorCode();
+		this.causeMessage = cause;
+		this.message = error.getMessage();
+		this.httpStatus = error.getStatus();
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	@SerializedName("cause")
 	public String getCauseMessage() {
-		if (null != this.error) return this.error.getCause();
-		if (null != this.exceptionResponse) return this.exceptionResponse.getCause();
-		else return null;
+		return this.causeMessage;
 	}
 
-	@SerializedName("errorCode")
 	public String getErrorCode() {
-		if (null != this.error) return this.error.getErrorCode();
-		if (null != this.exceptionResponse) return this.exceptionResponse.getErrorCode();
-		else return null;
+		return this.errorCode;
 	}
 
-	@SerializedName("errorName")
 	public String getErrorName() {
-		if (null != this.error) return this.error.getErrorName();
-		if (null != this.exceptionResponse) return this.exceptionResponse.getErrorName();
-		else return null;
+		return this.errorName;
 	}
 
-	@SerializedName("message")
+	public HttpStatus getHttpStatus() {
+		return this.httpStatus;
+	}
+
+	public int getHttpStatusCode() {
+		return this.httpStatus.value();
+	}
+
+	public String getHttpStatusName() {
+		return this.httpStatus.name();
+	}
+
+	@Override
 	public String getMessage() {
-		if (null != this.error) return this.error.getMessage();
-		if (null != this.exceptionResponse) return this.exceptionResponse.getMessage();
-		else return super.getMessage();
-	}
-
-	@SerializedName("status")
-	public HttpStatus getStatus() {
-		if (null != this.error) return this.error.getStatus();
-		if (null != this.exceptionResponse) return HttpStatus.valueOf( this.exceptionResponse.getHttpStatusCode() );
-		else return HttpStatus.INTERNAL_SERVER_ERROR;
-	}
-
-	@SerializedName("statusCode")
-	public int getStatusCode() {
-		if (null != this.error) return this.error.getStatusCode();
-		if (null != this.exceptionResponse) return this.exceptionResponse.getHttpStatusCode();
-		else return HttpStatus.INTERNAL_SERVER_ERROR.value();
-	}
-
-	@SerializedName("statusName")
-	public String getStatusName() {
-		if (null != this.error) return this.error.getStatusName();
-		if (null != this.exceptionResponse) return this.exceptionResponse.getHttpStatus();
-		else return HttpStatus.INTERNAL_SERVER_ERROR.name();
+		return this.message;
 	}
 }

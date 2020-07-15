@@ -21,9 +21,9 @@ public class DimensinfinRuntimeExceptionTest {
 		// Assertions
 		Assertions.assertEquals( "dimensinfin.uncatalogued.runtime", exception.getErrorCode() );
 		Assertions.assertEquals( "RUNTIME_INTERNAL_ERROR", exception.getErrorName() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatus() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getStatusCode() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), exception.getStatusName() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, exception.getHttpStatus() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getHttpStatusCode() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), exception.getHttpStatusName() );
 		Assertions.assertEquals( expected, message );
 	}
 
@@ -38,9 +38,9 @@ public class DimensinfinRuntimeExceptionTest {
 		// Assertions
 		Assertions.assertEquals( "dimensinfin.uncatalogued.runtime", exception.getErrorCode() );
 		Assertions.assertEquals( "RUNTIME_INTERNAL_ERROR", exception.getErrorName() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatus() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getStatusCode() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), exception.getStatusName() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, exception.getHttpStatus() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getHttpStatusCode() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), exception.getHttpStatusName() );
 		Assertions.assertEquals( expected, message );
 	}
 }

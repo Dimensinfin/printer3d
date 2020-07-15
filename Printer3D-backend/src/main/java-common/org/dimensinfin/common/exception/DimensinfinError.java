@@ -1,8 +1,6 @@
 package org.dimensinfin.common.exception;
 
 import java.util.Objects;
-import java.util.Optional;
-import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 import org.springframework.http.HttpStatus;
@@ -84,8 +82,8 @@ public class DimensinfinError {
 			return this.onConstruction;
 		}
 
-		public DimensinfinError.Builder withCause( final @NotNull Optional<String> causeOptional ) {
-			causeOptional.ifPresent( c -> this.onConstruction.message = Objects.requireNonNull( c ) );
+		public DimensinfinError.Builder withCause( final String cause ) {
+			if (null != cause) this.onConstruction.cause = cause;
 			return this;
 		}
 

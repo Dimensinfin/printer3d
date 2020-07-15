@@ -25,15 +25,15 @@ public class ApiError {
 	}
 
 	public String getHttpStatus() {
-		return this.dimensinfinRuntimeException.getStatus().toString();
+		return this.dimensinfinRuntimeException.getHttpStatus().toString();
 	}
 
 	public Integer getHttpStatusCode() {
-		return this.dimensinfinRuntimeException.getStatus().value();
+		return this.dimensinfinRuntimeException.getHttpStatus().value();
 	}
 
 	public String getHttpStatusName() {
-		return this.dimensinfinRuntimeException.getStatus().name();
+		return this.dimensinfinRuntimeException.getHttpStatus().name();
 	}
 
 	public String getMessage() {

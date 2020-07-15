@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.backend.production.domain.FinishingContainer;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.job.FinishingByCountComparator;
@@ -160,7 +160,7 @@ public class JobServiceV1 {
 			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 			final Optional<PartEntity> partOpt = this.partRepository.findById( partId );
 			if (partOpt.isEmpty())
-				throw new DimensinfinRuntimeException( Printer3DErrorInfo.PART_NOT_FOUND( partId ) );
+				throw new DimensinfinRuntimeException( PartServiceV1.PART_NOT_FOUND( partId ) );
 			for (int i = 0; i < jobCount; i++)
 				jobs.add( new Job.Builder().withPart( new PartEntityToPartConverter().convert(
 						partOpt.get()

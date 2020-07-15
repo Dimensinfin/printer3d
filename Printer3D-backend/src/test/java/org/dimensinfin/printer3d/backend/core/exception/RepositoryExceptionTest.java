@@ -20,9 +20,9 @@ public class RepositoryExceptionTest {
 		// Assertions
 		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error", exception.getErrorCode() );
 		Assertions.assertEquals( "INVENTORY_STORE_REPOSITORY_FAILURE", exception.getErrorName() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatus() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getStatusCode() );
-		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), exception.getStatusName() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, exception.getHttpStatus() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getHttpStatusCode() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), exception.getHttpStatusName() );
 		Assertions.assertEquals( expected, message );
 	}
 

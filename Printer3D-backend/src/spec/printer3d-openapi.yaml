@@ -140,16 +140,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Part'
+        404:
+          description: >
+            The Part selectec is not found at the persistence repository.
+            * **PART_NOT_FOUND** - Part with id [{0}] not found at the repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensinfinError'
         409:
           description: >
             There is a conflict on the repository related to this Part. There can be some causes.
-            * PART_ALREADY_EXISTS - The new Part identifier is already used by a repository Part. The record cannot be created.
-            * PART_REPOSITORY_CONFLICT - There is a constraint error detected. Probably that the key fields of the Part atch the contents of an
+            * **PART_ALREADY_EXISTS** - The new Part identifier is already used by a repository Part. The record cannot be created.
+            * **PART_REPOSITORY_CONFLICT** - There is a constraint error detected. Probably that the key fields of the Part atch the contents of an
             already existing part at the repository.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Part'
+                $ref: '#/components/schemas/DimensinfinError'
     patch:
       tags:
         - Inventory

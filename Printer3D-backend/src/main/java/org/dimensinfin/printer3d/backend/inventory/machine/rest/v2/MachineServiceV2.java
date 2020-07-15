@@ -24,6 +24,7 @@ import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.Machin
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
@@ -84,7 +85,7 @@ public class MachineServiceV2 {
 				throw new RepositoryConflictException( Printer3DErrorInfo.MACHINE_NOT_FOUND( machineId.toString() ) );
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( jobRequest.getPartId() );
 			if (jobPartOpt.isEmpty())
-				throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( machineOpt.get().getCurrentJobPartId() ) );
+				throw new RepositoryConflictException( PartServiceV1.PART_NOT_FOUND( machineOpt.get().getCurrentJobPartId() ) );
 			this.subtractPlasticFromCoil( jobPartOpt.get(), jobRequest.getCopies() );
 			final MachineEntity machineEntity = this.machineRepository.save( new MachineUpdaterV2( machineOpt.get() ).update( jobRequest ) );
 			final BuildRecord buildRecord = new BuildRecord.Builder()
@@ -103,7 +104,7 @@ public class MachineServiceV2 {
 		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 			if (jobPartOpt.isEmpty())
-				throw new RepositoryConflictException( Printer3DErrorInfo.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
+				throw new RepositoryConflictException( PartServiceV1.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
 			return new PartEntityToPartConverter().convert( jobPartOpt.get() );
 		} else return null;
 	}

@@ -26,7 +26,7 @@ public class ApiErrorTest {
 		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.toString(), apiError.getHttpStatus() );
 		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), apiError.getHttpStatusCode() );
 		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), apiError.getHttpStatusName() );
-		Assertions.assertEquals( "Runtime uncatalogued exception: -TEST_MESSAGE-", apiError.getMessage() );
+		Assertions.assertEquals( "Runtime uncatalogued exception: -TEST-MESSAGE-", apiError.getMessage() );
 		Assertions.assertNotNull( apiError.getTimestamp() );
 	}
 }

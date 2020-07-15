@@ -21,6 +21,6 @@ public class Printer3DErrorInfoTest {
 		Assertions.assertEquals( "REQUEST_NOT_FOUND", error.getErrorName() );
 		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".defined.repository.logic", error.getErrorCode() );
 		Assertions.assertEquals( messageExpected, error.getMessage() );
-		Assertions.assertEquals( HttpStatus.CONFLICT, error.getStatus() );
+		Assertions.assertEquals( HttpStatus.NOT_FOUND, error.getStatus() );
 	}
 }

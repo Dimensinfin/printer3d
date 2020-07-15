@@ -21,7 +21,7 @@ import org.dimensinfin.logging.LogWrapper;
 public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(DimensinfinRuntimeException.class)
 	protected ResponseEntity<ApiError> handleDimensinfinRuntimeException( final DimensinfinRuntimeException dimensinfinRuntimeException ) {
-		return new ResponseEntity<>( new ApiError( dimensinfinRuntimeException ), dimensinfinRuntimeException.getStatus() );
+		return new ResponseEntity<>( new ApiError( dimensinfinRuntimeException ), dimensinfinRuntimeException.getHttpStatus() );
 	}
 
 	@Override
