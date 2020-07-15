@@ -94,16 +94,25 @@ info:
     **COMPLETED**. If the user at the frontend delivers the request to the customer it can then close is and remove the items from the inventory. At
     this point the request moved to the final state of **CLOSED**.
 
+    ### ACCOUNTING UNIT
+
+    This special unit will add endpoints that will be used to mine repository data to extract useful trending information or historical data.
+    The first endpoint for this are the aggregated amounts billed when a Request is closed. The Request amounts are then added by week and sent to
+    the fromt end for display.
+
+    * **WeekAmount** - The aggregated amounts for all the Requests closed on a week. The proces used are the prices available when the Request was
+    closed so that information was saved on the database when clsing the Request. The week records have the year to be able to display data when
+    there are year change in between.
 
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.7.0
+  version: 0.11.0
 servers:
   - url: https://printer3d-backend-stage.herokuapp.com
-    description: OpenAPI 0.7.0 for 3D Printer Queue Management Backend Service. Stage environment
+    description: OpenAPI 0.11.0 for 3D Printer Queue Management Backend Service. Stage environment
   - url: https://printer3d-backend.herokuapp.com
-    description: OpenAPI 0.7.0 for 3D Printer Queue Management Backend Service. Production
+    description: OpenAPI 0.11.0 for 3D Printer Queue Management Backend Service. Production
 
 tags:
   # - R E P O S I T O R I E S
@@ -113,8 +122,46 @@ tags:
   - name: Production
     description: >
       The API information unit that manages the Production requirements and needs from the adjacent units of **Inventory** and **Market**.
+  - name: Accounting
+    description: >
+      The API information unit to manage historical, trending and aggregates data mining endpoints.
 
 paths:
+  # - A C C O U N T I N G
+  /api/v1/accounting/requests/amount/week/{weekCount}:
+    get:
+      tags:
+        - Accounting
+      summary: Get the aggregated request amounts for the requests closed during a week. Get the <weekCount> most recent records.
+      description: >
+        Get the aggregated request amounts for the requests closed during a week. Get the <weekCount> most recent records.
+      operationId: getRequestsAmountPerWeek
+      parameters:
+        - in: query
+          name: weekCount
+          required: false
+          style: form
+          explode: false
+          description: >
+            The number of weeks to send back on the result. The current week will be the first records and then the n-1 records for the previous
+            weeks.
+          schema:
+            type: number
+            format: int32
+            minimum: 1
+            maximum: 12
+            default: 6
+            example:
+              6
+      responses:
+        200:
+          description: >
+            The list of weekly aggregates request amounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekAmountList'
+
   # - P A R T S
   /api/v1/inventory/parts:
     post:
@@ -1791,24 +1838,39 @@ components:
             The number of copies of this Part that are requested. Parts of different colors have different identifiers and then different records.
           example:
             3
-#    RequestList:
-#      type: object
-#      required:
-#        - count
-#        - requests
-#      properties:
-#        count:
-#          type: number
-#          format: int32
-#          description: >
-#            The number of Requests that follow on the response.
-#          example:
-#            8
-#        requests:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/Request'
-
+    WeekAmountList:
+      type: array
+      items:
+        $ref: '#/components/schemas/WeekAmount'
+    WeekAmount:
+      type: object
+      properties:
+        year:
+          type: number
+          format: int32
+          minimum: 2019
+          default: 2020
+          description: >
+            Year of the week aggregation.
+          example:
+            2020
+        week:
+          type: number
+          format: int32
+          minimum: 1
+          maximum: 52
+          description: >
+            The year week for an aggregation.
+          example:
+            28
+        amount:
+          type: number
+          format: float
+          minimum: 0.0
+          description: >
+            The total amount for all the Requests closed during this week.
+          example:
+            48.10
 
     UUID:
       type: string
@@ -1834,6 +1896,7 @@ components:
             The number of records processed by the previous operation. Applies to deletions and also to updates.
           example:
             3
+
     DimensinfinError:
       type: object
       properties:
@@ -1891,12 +1954,3 @@ components:
             The string representation (from the current HTTP library) for the http error code.
           example:
             NOT FOUND
-
-
-#  private String errorName;
-#  private HttpStatus status;
-#  private String errorCode ;
-#  private String message;
-
-
-

@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_11_0_001_printer3d_add_amount_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: amount
+                  type: float
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_11_0_002_printer3d_add_amount_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnDataType: float
+            columnName: amount
+            defaultValueNumeric: 0.0
+  - changeSet:
+      id: 0_11_0_003_printer3d_add_amount_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: requestsv2
+                  value: 0.0
+  - changeSet:
+      id: 0_9_0_006_printer3d_add_weight_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: parts
+            columnDataType: int
+            columnName: weight
+            validate:  true
