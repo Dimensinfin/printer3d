@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
 public class DimensinfinRuntimeExceptionTest {
-	private static final String EXCEPTION_ERROR_NAME = "INTERNAL_SERVER_ERROR";
+	private static final String EXCEPTION_ERROR_NAME = "RUNTIME_INTERNAL_ERROR";
 	private static final String EXCEPTION_ERROR_CODE = "dimensinfin.uncatalogued.runtime";
 	private static final String EXCEPTION_ERROR_MESSAGE = "Runtime uncatalogued exception: -MESSAGE-";
 	private static final String EXCEPTION_ERROR_CAUSE = "-CAUSE-";

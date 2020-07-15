@@ -12,7 +12,7 @@ public class DimensinfinErrorInfoTest {
 		final DimensinfinError error = DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR( "-TEST_MESSAGE-" );
 		final String messageExpected = "Runtime uncatalogued exception: -TEST_MESSAGE-";
 		// Assertions
-		Assertions.assertEquals( "INTERNAL_SERVER_ERROR", error.getErrorName() );
+		Assertions.assertEquals( "RUNTIME_INTERNAL_ERROR", error.getErrorName() );
 		Assertions.assertEquals( "dimensinfin.uncatalogued.runtime", error.getErrorCode() );
 		Assertions.assertEquals( messageExpected, error.getMessage() );
 		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, error.getStatus() );

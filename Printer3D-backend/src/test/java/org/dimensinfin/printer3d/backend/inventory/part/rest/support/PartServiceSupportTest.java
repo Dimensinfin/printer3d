@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartListConstants.TEST_PARTLIST_COUNT;
@@ -42,7 +43,7 @@ public class PartServiceSupportTest {
 		// When
 		Mockito.doThrow( RuntimeException.class ).when( this.partRepository ).deleteAll();
 		// Exceptions
-		Assertions.assertThrows( RepositoryException.class, () -> {
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			final PartServiceSupport partServiceSupport = new PartServiceSupport( this.partRepository );
 			partServiceSupport.deleteAllParts();
 		} );

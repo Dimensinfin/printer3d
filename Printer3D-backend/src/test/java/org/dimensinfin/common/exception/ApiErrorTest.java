@@ -22,7 +22,7 @@ public class ApiErrorTest {
 		// Assertions
 		Assertions.assertNull( apiError.getCause() );
 		Assertions.assertEquals( "dimensinfin.uncatalogued.runtime", apiError.getErrorCode() );
-		Assertions.assertEquals( "INTERNAL_SERVER_ERROR", apiError.getErrorName() );
+		Assertions.assertEquals( "RUNTIME_INTERNAL_ERROR", apiError.getErrorName() );
 		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.toString(), apiError.getHttpStatus() );
 		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.value(), apiError.getHttpStatusCode() );
 		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR.name(), apiError.getHttpStatusName() );

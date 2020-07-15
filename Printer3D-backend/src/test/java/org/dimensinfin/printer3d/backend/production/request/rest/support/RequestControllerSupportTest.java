@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 
@@ -50,7 +51,7 @@ public class RequestControllerSupportTest {
 		Mockito.when( this.requestsRepositoryV1.count() ).thenReturn( 2L );
 		Mockito.doThrow( RuntimeException.class ).when( this.requestsRepositoryV1 ).deleteAll();
 		// Exceptions
-		Assertions.assertThrows( RepositoryException.class, () -> {
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
 					this.requestsRepositoryV1,
 					this.requestsRepositoryV2 );

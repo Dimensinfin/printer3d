@@ -8,7 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 public class DimensinfinErrorInfo {
 	public static DimensinfinError RUNTIME_INTERNAL_ERROR( final String message ) {
 		return new DimensinfinError.Builder()
-				.withErrorName( "INTERNAL_SERVER_ERROR" )
+				.withErrorName( "RUNTIME_INTERNAL_ERROR" )
 				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
 				.withErrorCode( "dimensinfin.uncatalogued.runtime" )
 				.withMessage( MessageFormat.format( "Runtime uncatalogued exception: {0}", message ) )

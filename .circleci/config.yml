@@ -104,6 +104,17 @@ jobs:
             SPRING_PROFILES_ACTIVE: test
           command: |
             ./gradlew test
+      - run:
+          name: BACKEND - Update SonarQube statistics
+          working_directory: Printer3D-backend
+          environment:
+            PORT: 5140
+            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
+            SPRING_PROFILES_ACTIVE: test
+          command: |
+            ./gradlew test jacocoTestReport sonarqube -Dcucumber.options="--tags @P3D00"
       - store_test_results:
           path: ~/project/Printer3D-backend/build/test-results
       - store_artifacts:  

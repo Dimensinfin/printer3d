@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 
 public class ModelControllerSupportTest {
@@ -45,7 +46,7 @@ public class ModelControllerSupportTest {
 		// When
 		Mockito.when( this.modelRepository.count() ).thenThrow( RuntimeException.class );
 		// Exceptions
-		Assertions.assertThrows( RepositoryException.class, () -> {
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			final ModelControllerSupport modelControllerSupport = new ModelControllerSupport( this.modelRepository );
 			modelControllerSupport.deleteAllModels();
 		} );

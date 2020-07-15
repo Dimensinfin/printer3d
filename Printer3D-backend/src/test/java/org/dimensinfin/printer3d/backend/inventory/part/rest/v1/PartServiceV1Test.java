@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
@@ -163,7 +162,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Exceptions
-		Assertions.assertThrows( RepositoryConflictException.class, () -> {
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
 			 serviceV1.newPart( part );
 		} );
@@ -205,7 +204,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		Mockito.when( this.partRepository.save( partEntity ) ).thenThrow( DataIntegrityViolationException.class );
 		// Exceptions
-		Assertions.assertThrows( RepositoryConflictException.class, () -> {
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
 			serviceV1.newPart( part );
 		} );

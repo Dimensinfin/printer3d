@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 
 public class CoilControllerSupportTest {
@@ -48,12 +49,8 @@ public class CoilControllerSupportTest {
 		// Test
 		final CoilControllerSupport coilControllerSupport = new CoilControllerSupport( this.coilRepository );
 		// Exceptions
-		Assertions.assertThrows( RepositoryException.class, () -> {
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			coilControllerSupport.deleteAllCoils();
 		} );
 	}
-
-	////	@Test
-	//	public void testDeleteAllRolls() {
-	//	}
 }
