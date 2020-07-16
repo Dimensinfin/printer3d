@@ -1,15 +1,17 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.support;
 
 import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,18 +28,25 @@ import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
+import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
+import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
-@Profile({ "local", "acceptance", "test" })
+//@Profile({ "local", "acceptance", "test" })
 @RestController
 @CrossOrigin
 @Validated
@@ -45,14 +55,25 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 public class RequestControllerSupport {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
-	private final RequestsRepository requestsRepository;
+	private final StockManager stockManager;
+	private final PartRepository partRepository;
+	private final ModelRepository modelRepository;
+	private final RequestServiceV2 requestServiceV2;
+	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
-	public RequestControllerSupport( final @NotNull RequestsRepository requestsRepository,
+	public RequestControllerSupport( final @NotNull PartRepository partRepository,
+	                                 final @NotNull ModelRepository modelRepository,
+	                                 final @NotNull RequestServiceV2 requestServiceV2,
+	                                 final @NotNull RequestsRepository requestsRepositoryV1,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
-		this.requestsRepository = Objects.requireNonNull( requestsRepository );
+		this.partRepository = partRepository;
+		this.modelRepository = modelRepository;
+		this.requestServiceV2 = requestServiceV2;
+		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
+		this.stockManager = new StockManager( this.partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -63,7 +84,7 @@ public class RequestControllerSupport {
 
 	private List<RequestV2> getRepositoryRequestsService() {
 		return Stream.concat(
-				this.requestsRepository.findAll()
+				this.requestsRepositoryV1.findAll()
 						.stream()
 						.map( requestV1ToV2Converter::convert ),
 				this.requestsRepositoryV2.findAll().stream() ) // Get all the Requests and convert them to V2
@@ -92,10 +113,20 @@ public class RequestControllerSupport {
 		return new ResponseEntity<>( this.newRequestService( request ), HttpStatus.CREATED );
 	}
 
+	@PutMapping("/production/requests/transform")
+	public ResponseEntity<List<CounterResponse>> transformRequestsV1() {
+		final int moveCount = (int) this.moveV1RequestsToV2();
+		final int recalculateCount = (int) this.recalculateRequestV2Amounts();
+		final List<CounterResponse> countList = new ArrayList<>();
+		countList.add( new CounterResponse.Builder().withRecords( moveCount ).build() );
+		countList.add( new CounterResponse.Builder().withRecords( recalculateCount ).build() );
+		return new ResponseEntity<>( countList, HttpStatus.OK );
+	}
+
 	protected CounterResponse deleteAllRequestsService() {
 		try {
-			final long recordCount = this.requestsRepository.count();
-			this.requestsRepository.deleteAll();
+			final long recordCount = this.requestsRepositoryV1.count();
+			this.requestsRepositoryV1.deleteAll();
 			return new CounterResponse.Builder()
 					.withRecords( (int) recordCount )
 					.build();
@@ -124,14 +155,78 @@ public class RequestControllerSupport {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
-			final Optional<RequestEntity> target = this.requestsRepository.findById( newRequest.getId() );
+			final Optional<RequestEntity> target = this.requestsRepositoryV1.findById( newRequest.getId() );
 			if (target.isPresent())
 				throw new DimensinfinRuntimeException( RequestServiceV2.REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
 			return new RequestEntityToRequestConverter().convert(
-					this.requestsRepository.save(
+					this.requestsRepositoryV1.save(
 							new RequestToRequestEntityConverter().convert( newRequest )
 					)
 			);
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	private float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
+		float amount = 0.0F;
+		this.stockManager.clean().startStock();
+		for (RequestItem item : requestEntityV2.getContents()) {
+			if (item.getType() == RequestContentType.PART) {
+				final float targetPartPrice = this.stockManager.getPrice( item.getItemId() );
+				amount = amount + item.getQuantity() * targetPartPrice;
+			}
+			if (item.getType() == RequestContentType.MODEL) {
+				final Optional<ModelEntity> model = this.modelRepository.findById( item.getItemId() );
+				if (model.isPresent()) {
+					for (UUID modelPartId : model.get().getPartIdList()) {
+						amount = amount + this.stockManager.getPrice( modelPartId ) * item.getQuantity();
+					}
+				}
+			}
+		}
+		return amount;
+	}
+
+	private long moveV1RequestsToV2() {
+		LogWrapper.enter();
+		try {
+			return this.requestsRepositoryV1.findAll()
+					.stream()
+					.map( repositoryEntity -> {
+						LogWrapper.info(
+								MessageFormat.format(
+										"Moving RequestV1: [{0}]-{1}",
+										repositoryEntity.getId(),
+										repositoryEntity.getLabel() )
+						);
+						this.requestsRepositoryV2.save( requestV1ToV2Converter.convert( repositoryEntity ) );
+						this.requestsRepositoryV1.delete( repositoryEntity );
+						return repositoryEntity;
+					} ).collect( Collectors.toList() ).size();
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	private long recalculateRequestV2Amounts() {
+		LogWrapper.enter();
+		try {
+			return this.requestsRepositoryV2.findAll()
+					.stream()
+					.map( requestEntityV2 -> {
+						final float amount = this.calculateRequestAmount( requestEntityV2 );
+						this.requestsRepositoryV2.save( requestEntityV2.setAmount( amount ) );
+						LogWrapper.info(
+								MessageFormat.format( "Recalculating amount for RequestV2: [{0}]-{1}",
+										requestEntityV2.getId(),
+										requestEntityV2.getLabel() )
+						);
+						LogWrapper.info(
+								MessageFormat.format( "New Amount: {0}", amount )
+						);
+						return requestEntityV2;
+					} ).collect( Collectors.toList() ).size();
 		} finally {
 			LogWrapper.exit();
 		}

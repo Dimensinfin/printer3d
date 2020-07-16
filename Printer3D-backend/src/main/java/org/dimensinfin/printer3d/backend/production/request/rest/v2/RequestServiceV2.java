@@ -231,7 +231,6 @@ public class RequestServiceV2 {
 			LogWrapper.exit();
 		}
 	}
-
 	private float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
 		float amount = 0.0F;
 		for (RequestItem item : requestEntityV2.getContents()) {

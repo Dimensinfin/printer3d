@@ -41,7 +41,7 @@ public class StockManager {
 	}
 
 	public float getPrice( final UUID partId ) {
-		if (this.stocks.containsKey( partId ))
+		if (this.prices.containsKey( partId ))
 			return this.prices.get( partId );
 		else return 0.0F;
 	}
@@ -62,14 +62,19 @@ public class StockManager {
 	}
 
 	public StockManager startStock() {
-		this.partRepository.findAll().forEach( part -> {
-			LogWrapperLocal.info( "id: " + part.getId().toString() + " stock: " + part.getStockLevel() + "/" + part.getStockAvailable() );
-			this.stocks.put( part.getId(), new StockLevel.Builder()
-					.withStock( part.getStockAvailable() )
-					.build() );
-			this.prices.put( part.getId(), part.getPrice() );
-		} );
-		return this;
+		LogWrapper.enter();
+		try {
+			this.partRepository.findAll().forEach( part -> {
+				LogWrapperLocal.info( "id: " + part.getId().toString() + " stock: " + part.getStockLevel() + "/" + part.getStockAvailable() );
+				this.stocks.put( part.getId(), new StockLevel.Builder()
+						.withStock( part.getStockAvailable() )
+						.build() );
+				this.prices.put( part.getId(), part.getPrice() );
+			} );
+			return this;
+		} finally {
+			LogWrapper.exit();
+		}
 	}
 
 	private static class StockLevel {

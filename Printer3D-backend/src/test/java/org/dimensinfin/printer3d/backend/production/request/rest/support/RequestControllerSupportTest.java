@@ -25,8 +25,8 @@ public class RequestControllerSupportTest {
 	@Test
 	public void constructorContract() {
 		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
-				this.requestsRepositoryV1,
-				this.requestsRepositoryV2 );
+				partRepository, modelRepository, requestServiceV2, this.requestsRepositoryV1,
+				this.requestsRepositoryV2, requestV1ToRequestV2Transformer );
 		Assertions.assertNotNull( requestControllerSupport );
 	}
 
@@ -36,8 +36,8 @@ public class RequestControllerSupportTest {
 		Mockito.when( this.requestsRepositoryV1.count() ).thenReturn( 2L );
 		// Test
 		final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
-				this.requestsRepositoryV1,
-				this.requestsRepositoryV2 );
+				partRepository, modelRepository, requestServiceV2, this.requestsRepositoryV1,
+				this.requestsRepositoryV2, requestV1ToRequestV2Transformer );
 		final ResponseEntity<CounterResponse> obtained = requestControllerSupport.deleteAllRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -53,8 +53,8 @@ public class RequestControllerSupportTest {
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			final RequestControllerSupport requestControllerSupport = new RequestControllerSupport(
-					this.requestsRepositoryV1,
-					this.requestsRepositoryV2 );
+					partRepository, modelRepository, requestServiceV2, this.requestsRepositoryV1,
+					this.requestsRepositoryV2, requestV1ToRequestV2Transformer );
 			requestControllerSupport.deleteAllRequests();
 		} );
 	}
