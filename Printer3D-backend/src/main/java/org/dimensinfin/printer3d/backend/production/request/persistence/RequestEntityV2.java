@@ -56,11 +56,22 @@ public class RequestEntityV2 {
 	@Type(type = "jsonb")
 	@Column(name = "contents", columnDefinition = "jsonb")
 	private List<RequestItem> contents = new ArrayList<>();
+	@Column(name = "amount", nullable = false)
+	private float amount = 0.0F;
 
 	// - C O N S T R U C T O R S
 	private RequestEntityV2() {}
 
 	// - G E T T E R S   &   S E T T E R S
+	public float getAmount() {
+		return this.amount;
+	}
+
+	public RequestEntityV2 setAmount( final float amount ) {
+		this.amount = amount;
+		return this;
+	}
+
 	public List<RequestItem> getContents() {
 		return this.contents;
 	}
@@ -109,6 +120,11 @@ public class RequestEntityV2 {
 			Objects.requireNonNull( this.onConstruction.requestDate );
 			Objects.requireNonNull( this.onConstruction.state );
 			return this.onConstruction;
+		}
+
+		public RequestEntityV2.Builder withAmount( final Float amount ) {
+			this.onConstruction.amount = Objects.requireNonNull( amount );
+			return this;
 		}
 
 		public RequestEntityV2.Builder withContents( final List<RequestItem> contents ) {

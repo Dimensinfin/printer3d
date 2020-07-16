@@ -19,6 +19,7 @@ public class AcceptanceFieldMapConstants {
 	public static final String ITEM_ID = "itemId";
 	public static final String TYPE = "type";
 	public static final String MISSING = "missing";
+	public static final String AMOUNT = "amount";
 
 	public static final String MACHINE_LABEL = "machine";
 	public static final String MACHINE_CURRENT_JOB_PART = "currentJobPartId";

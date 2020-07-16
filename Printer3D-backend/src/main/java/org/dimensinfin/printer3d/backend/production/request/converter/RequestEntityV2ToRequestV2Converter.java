@@ -18,6 +18,7 @@ public class RequestEntityV2ToRequestV2Converter implements Converter<RequestEnt
 				.withLabel( input.getLabel() )
 				.withRequestDate( input.getRequestDate().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME ) )
 				.withState( input.getState() )
+				.withAmount( input.getAmount() )
 				.withContents( input.getContents() )
 				.build();
 	}

@@ -126,7 +126,7 @@ public class RequestServiceV2 {
 							.stream()
 							.filter( RequestEntityV2::isOpen ) )
 					.map( requestEntityV2 -> {
-						if (!this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
+						if (this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
 						return requestConverterV2.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
@@ -143,17 +143,21 @@ public class RequestServiceV2 {
 	 * The close should be able to close requests on the old repository and also on the new repository. So the identifier should be searched on
 	 * both repositories to locate the right instance to be closed.
 	 *
+	 * When saving the data if the origin is the V1 request then the record is converted to a V2 request end then deleted from the V1 repository.
+	 *
+	 * Exceptions: 404 NOT FOUND - If the request searched by the request id is not found on neither of the v1 or v2 repositories then we should
+	 * raise this exception. This has to be reported to the system administrator because there can show a data corruption problem. Other
+	 * cause can
+	 * be that the Request has been closed before on another session and that frontend data is stale.
+	 *
 	 * @param requestId the request identifier for the Request being closed.
 	 * @return Returns the current state of the Request on the repository.
-	 * @throws 404 NOT FOUND - If the request searched by the request id is not found on neither of the v1 or v2 repositories then we should
-	 *             raise this exception. This has to be reported to the system administrator because there can show a data corruption problem. Other
-	 *             cause can
-	 *             be that the Request has been closed before on another session and that frontend data is stale.
 	 */
 	@Transactional
 	public RequestV2 closeRequest( final UUID requestId ) {
 		LogWrapper.enter();
 		try {
+			this.stockManager.clean().startStock(); // Initialize the stock manager to get the Part prices.
 			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 			if (targetV1.isEmpty() && targetV2.isEmpty())
@@ -161,40 +165,24 @@ public class RequestServiceV2 {
 						REQUEST_NOT_FOUND( requestId ),
 						"No Request found while trying to complete the Request." );
 			// Transform the targets to the common V2 structure.
-			RequestEntityV2 requestEntityV2 = null;
+			RequestEntityV2 requestIntermediateEntity = null;
 			if (targetV1.isPresent())
-				requestEntityV2 = new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );
+				requestIntermediateEntity = new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );
 			if (targetV2.isPresent())
-				requestEntityV2 = targetV2.get();
+				requestIntermediateEntity = targetV2.get();
+			final RequestEntityV2 requestEntityV2 = requestIntermediateEntity;
 			this.stockManager.clean().startStock();
-			if (!this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be closed now. Data on frontend may be obsolete.
-				// Update the parts stocks reducing the stock with the Request quantities.
-				for (RequestItem content : Objects.requireNonNull( requestEntityV2 ).getContents()) {
-					if (content.getType() == RequestContentType.PART) {
-						final Optional<PartEntity> partOpt = this.partRepository.findById( content.getItemId() );
-						partOpt.ifPresent( partEntity -> {
-							partEntity.decrementStock( content.getQuantity() );
-							this.partRepository.save( partEntity );
-						} );
-					}
-					if (content.getType() == RequestContentType.MODEL) {
-						final Optional<ModelEntity> modelEntityOpt = this.modelRepository.findById( content.getItemId() );
-						modelEntityOpt.ifPresent( modelEntity -> {
-							for (UUID partIdentifier : modelEntity.getPartIdList()) {
-								final Optional<PartEntity> partOpt = this.partRepository.findById( partIdentifier );
-								partOpt.ifPresent( partEntity -> {
-									partEntity.decrementStock( content.getQuantity() );
-									this.partRepository.save( partEntity );
-								} );
-							}
-						} );
-					}
-				}
-				targetV1.ifPresent( requestEntityV1lambda -> this.requestsRepositoryV1.save( requestEntityV1lambda.close() ) );
+			if (this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be closed now. Data on frontend may be obsolete.
+				this.removeRequestPartsFromStock( requestEntityV2 );
+				requestEntityV2.setAmount( this.calculateRequestAmount( requestEntityV2 ) );
+				// When closing V1 requests we can save the data into V2 requests and then remove the V1 copy.
+				targetV1.ifPresent( requestEntityV1lambda -> {
+					this.requestsRepositoryV2.save( requestEntityV2.close() );
+					this.requestsRepositoryV1.delete( requestEntityV1lambda );
+				} );
 				targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
 				return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
-			} else
-				throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED( requestEntityV2.getId() ) );
+			} else throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED( requestEntityV2.getId() ) );
 		} finally {
 			LogWrapper.exit();
 		}
@@ -244,6 +232,25 @@ public class RequestServiceV2 {
 		}
 	}
 
+	private float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
+		float amount = 0.0F;
+		for (RequestItem item : requestEntityV2.getContents()) {
+			if (item.getType() == RequestContentType.PART) {
+				final float targetPartPrice = this.stockManager.getPrice( item.getItemId() );
+				amount = amount + item.getQuantity() * targetPartPrice;
+			}
+			if (item.getType() == RequestContentType.MODEL) {
+				final Optional<ModelEntity> model = this.modelRepository.findById( item.getItemId() );
+				if (model.isPresent()) {
+					for (UUID modelPartId : model.get().getPartIdList()) {
+						amount = amount + this.stockManager.getPrice( modelPartId ) * item.getQuantity();
+					}
+				}
+			}
+		}
+		return amount;
+	}
+
 	/**
 	 * For each of the requests found get the contents and subtract the required number of items from the stock values. If any of the subtractions
 	 * results in a negative value then the Request should be kept open and this is signaled by the returned boolean.
@@ -268,15 +275,18 @@ public class RequestServiceV2 {
 					if (missing < 0) {// Subtract the request quantity from the stock.
 						underStocked = true;
 						content.setMissing(
-								Math.min( content.getQuantity(),
-										Math.max( modelContent.getMissing(),
-												(int) Math
-														.ceil( (float) Math.abs( missing ) / (float) modelContent.getQuantity() ) ) )
+								Math.min(
+										content.getQuantity(),
+										Math.max(
+												modelContent.getMissing(),
+												(int) Math.ceil( (float) Math.abs( missing ) / (float) modelContent.getQuantity() )
+										)
+								)
 						);
 					}
 				}
 		}
-		return underStocked;
+		return !underStocked;
 	}
 
 	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {
@@ -295,5 +305,30 @@ public class RequestServiceV2 {
 					.withQuantity( targetContent.getValue() * modelQuantity )
 					.withType( RequestContentType.PART ).build() );
 		return resultContents;
+	}
+
+	private void removeRequestPartsFromStock( final RequestEntityV2 requestEntityV2 ) {
+		// Update the parts stocks reducing the stock with the Request quantities.
+		for (RequestItem content : Objects.requireNonNull( requestEntityV2 ).getContents()) {
+			if (content.getType() == RequestContentType.PART) {
+				final Optional<PartEntity> partOpt = this.partRepository.findById( content.getItemId() );
+				partOpt.ifPresent( partEntity -> {
+					partEntity.decrementStock( content.getQuantity() );
+					this.partRepository.save( partEntity );
+				} );
+			}
+			if (content.getType() == RequestContentType.MODEL) {
+				final Optional<ModelEntity> modelEntityOpt = this.modelRepository.findById( content.getItemId() );
+				modelEntityOpt.ifPresent( modelEntity -> {
+					for (UUID partIdentifier : modelEntity.getPartIdList()) {
+						final Optional<PartEntity> partOpt = this.partRepository.findById( partIdentifier );
+						partOpt.ifPresent( partEntity -> {
+							partEntity.decrementStock( content.getQuantity() );
+							this.partRepository.save( partEntity );
+						} );
+					}
+				} );
+			}
+		}
 	}
 }

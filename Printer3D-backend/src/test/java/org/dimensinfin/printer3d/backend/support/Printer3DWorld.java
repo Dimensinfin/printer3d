@@ -55,7 +55,6 @@ public class Printer3DWorld extends CommonWorld {
 	private List<RequestItem> requestContents;
 	private RequestV2 requestV2;
 	private ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity;
-	private ResponseEntity<RequestV2> requestResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -262,15 +261,6 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setRequestId( final UUID requestId ) {
 		this.requestId = requestId;
-		return this;
-	}
-
-	public ResponseEntity<RequestV2> getRequestResponseEntity() {
-		return this.requestResponseEntity;
-	}
-
-	public Printer3DWorld setRequestResponseEntity( final ResponseEntity<RequestV2> requestResponseEntity ) {
-		this.requestResponseEntity = requestResponseEntity;
 		return this;
 	}
 

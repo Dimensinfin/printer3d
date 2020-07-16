@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.dimensinfin.acceptance.support.Validator;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.AMOUNT;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.REQUEST_DATE;
@@ -25,6 +26,7 @@ public class RequestV2Validator implements Validator<RequestV2> {
 				OffsetDateTime.parse( record.getRequestDate(), DateTimeFormatter.ISO_OFFSET_DATE_TIME )
 		);
 		if (null != rowData.get( STATE )) Assertions.assertEquals( rowData.get( STATE ), record.getState().name() );
+		if (null != rowData.get( AMOUNT )) Assertions.assertEquals( Float.parseFloat( rowData.get( AMOUNT )), record.getAmount() );
 		return true;
 	}
 }

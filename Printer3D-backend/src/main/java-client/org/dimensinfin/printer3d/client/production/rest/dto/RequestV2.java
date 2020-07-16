@@ -47,11 +47,21 @@ public class RequestV2 {
 	@NotNull(message = "The list of Contents is required on the request.")
 	@SerializedName("contents")
 	private List<RequestItem> contents = new ArrayList<>();
+	@SerializedName("amount")
+	private float amount;
 
 	// - C O N S T R U C T O R S
 	private RequestV2() {}
 
 	// - G E T T E R S   &   S E T T E R S
+	public float getAmount() {
+		return this.amount;
+	}
+
+	public List<RequestItem> getContents() {
+		return this.contents;
+	}
+
 	public UUID getId() {
 		return this.id;
 	}
@@ -62,10 +72,6 @@ public class RequestV2 {
 
 	public String getRequestDate() {
 		return this.requestDate;
-	}
-
-	public List<RequestItem> getContents() {
-		return this.contents;
 	}
 
 	public RequestState getState() {
@@ -83,6 +89,11 @@ public class RequestV2 {
 
 		public RequestV2 build() {
 			return this.onConstruction;
+		}
+
+		public RequestV2.Builder withAmount( final Float amount ) {
+			this.onConstruction.amount = Objects.requireNonNull( amount );
+			return this;
 		}
 
 		public RequestV2.Builder withContents( final List<RequestItem> contents ) {

@@ -1,8 +1,11 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.support;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -23,13 +26,15 @@ import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 @Profile({ "local", "acceptance", "test" })
 @RestController
@@ -38,30 +43,32 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 @RequestMapping("/api/v1")
 @Service
 public class RequestControllerSupport {
-	private static final RequestEntityToRequestConverter requestEntityToRequestConverter = new RequestEntityToRequestConverter();
+	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
+	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
 	private final RequestsRepository requestsRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
-	//	private final RequestServiceV1 requestServiceV1;
 
 	// - C O N S T R U C T O R S
 	public RequestControllerSupport( final @NotNull RequestsRepository requestsRepository,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
 		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
-		//		this.requestServiceV1 = requestServiceV1;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
 	@GetMapping("/production/requests/repository")
-	public ResponseEntity<RequestList> getRepositoryRequests() {
+	public ResponseEntity<List<RequestV2>> getRepositoryRequests() {
 		return new ResponseEntity<>( this.getRepositoryRequestsService(), HttpStatus.OK );
 	}
 
-	private RequestList getRepositoryRequestsService() {
-		final RequestList requestList = new RequestList.Builder().build();
-		this.requestsRepository.findAll().forEach( ( requestEntity ) -> requestList.addRequest(
-				requestEntityToRequestConverter.convert( requestEntity ) ) );
-		return requestList;
+	private List<RequestV2> getRepositoryRequestsService() {
+		return Stream.concat(
+				this.requestsRepository.findAll()
+						.stream()
+						.map( requestV1ToV2Converter::convert ),
+				this.requestsRepositoryV2.findAll().stream() ) // Get all the Requests and convert them to V2
+				.map( requestEntityV2ToRequestV2Converter::convert )
+				.collect( Collectors.toList() );
 	}
 
 	@GetMapping(path = "/production/requests/delete/all",

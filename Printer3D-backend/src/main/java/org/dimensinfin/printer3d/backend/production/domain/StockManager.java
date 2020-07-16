@@ -23,6 +23,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 public class StockManager {
 	private final PartRepository partRepository;
 	private final Map<UUID, StockLevel> stocks = new HashMap<>();
+	private final Map<UUID, Float> prices = new HashMap<>();
 
 	// - C O N S T R U C T O R S
 	public StockManager( final @NotNull PartRepository partRepository ) {
@@ -37,6 +38,12 @@ public class StockManager {
 	public StockManager clean() {
 		this.stocks.clear();
 		return this;
+	}
+
+	public float getPrice( final UUID partId ) {
+		if (this.stocks.containsKey( partId ))
+			return this.prices.get( partId );
+		else return 0.0F;
 	}
 
 	public int getStock( final UUID partId ) {
@@ -57,9 +64,10 @@ public class StockManager {
 	public StockManager startStock() {
 		this.partRepository.findAll().forEach( part -> {
 			LogWrapperLocal.info( "id: " + part.getId().toString() + " stock: " + part.getStockLevel() + "/" + part.getStockAvailable() );
-			stocks.put( part.getId(), new StockLevel.Builder()
+			this.stocks.put( part.getId(), new StockLevel.Builder()
 					.withStock( part.getStockAvailable() )
 					.build() );
+			this.prices.put( part.getId(), part.getPrice() );
 		} );
 		return this;
 	}

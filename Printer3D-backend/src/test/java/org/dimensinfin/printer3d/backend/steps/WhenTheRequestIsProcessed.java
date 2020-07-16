@@ -44,7 +44,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final MachineFeignClientV2 machineFeignClientV2;
 	private final JobFeignClientV1 jobFeignClientV1;
 	private final ModelFeignClientV1 modelFeignClientV1;
-//	private final RequestFeignClientV1 requestFeignClientV1;
 	private final RequestFeignClientV2 requestFeignClientV2;
 
 	// - C O N S T R U C T O R S
@@ -55,7 +54,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
 	                                  final @NotNull JobFeignClientV1 jobFeignClientV1,
 	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1,
-//	                                  final @NotNull RequestFeignClientV1 requestFeignClientV1,
 	                                  final @NotNull RequestFeignClientV2 requestFeignClientV2 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
@@ -64,7 +62,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.machineFeignClientV2 = Objects.requireNonNull( machineFeignClientV2 );
 		this.jobFeignClientV1 = Objects.requireNonNull( jobFeignClientV1 );
 		this.modelFeignClientV1 = Objects.requireNonNull( modelFeignClientV1 );
-//		this.requestFeignClientV1 = Objects.requireNonNull( requestFeignClientV1 );
 		this.requestFeignClientV2 = requestFeignClientV2;
 	}
 
@@ -269,20 +266,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				final ResponseEntity<RequestV2> newRequestV2ResponseEntity = this.requestFeignClientV2.newRequest(
 						this.printer3DWorld.getRequestV2() );
 				Assertions.assertNotNull( newRequestV2ResponseEntity );
-				this.printer3DWorld.setRequestResponseEntity( newRequestV2ResponseEntity );
+				this.printer3DWorld.setRequestV2ResponseEntity( newRequestV2ResponseEntity );
 				return newRequestV2ResponseEntity;
 			case GET_REQUESTSV2:
 				final ResponseEntity<List<RequestV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
 				Assertions.assertNotNull( getRequestsV2ResponseEntity );
 				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
 				return getRequestsV2ResponseEntity;
-			case CLOSE_REQUEST:
-				final ResponseEntity<RequestV2> closeRequestResponseEntity = this.requestFeignClientV2.closeRequest(
-						this.printer3DWorld.getRequestId()
-				);
-				Assertions.assertNotNull( closeRequestResponseEntity );
-				this.printer3DWorld.setRequestV2ResponseEntity( closeRequestResponseEntity );
-				return closeRequestResponseEntity;
 			case START_BUILDV2:
 				final ResponseEntity<Machine> startBuildV2ResponseEntity = this.machineFeignClientV2
 						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
@@ -304,6 +294,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( updateCoilResponseEntity );
 				this.printer3DWorld.setCoilResponseEntity( updateCoilResponseEntity );
 				return updateCoilResponseEntity;
+			case CLOSE_REQUEST:
+				final ResponseEntity<RequestV2> closeRequestResponseEntity = this.requestFeignClientV2.closeRequest(
+						this.printer3DWorld.getRequestId()
+				);
+				Assertions.assertNotNull( closeRequestResponseEntity );
+				this.printer3DWorld.setRequestV2ResponseEntity( closeRequestResponseEntity );
+				return closeRequestResponseEntity;
 			case DELETE_REQUEST:
 				Assertions.assertNotNull( this.printer3DWorld.getRequestId() );
 				final ResponseEntity<CounterResponse> deleteRequestResponseEntity = this.requestFeignClientV2.deleteRequest(

@@ -32,15 +32,5 @@ databaseChangeLog:
             tableName: requestsv2
             columns:
               - column:
-                  name: requestsv2
+                  name: amount
                   value: 0.0
-  - changeSet:
-      id: 0_9_0_006_printer3d_add_weight_column
-      author: Adam Antinoo (adamantinoo.git@gmail.com)
-      changes:
-        - addNotNullConstraint:
-            schemaName: printer3d
-            tableName: parts
-            columnDataType: int
-            columnName: weight
-            validate:  true

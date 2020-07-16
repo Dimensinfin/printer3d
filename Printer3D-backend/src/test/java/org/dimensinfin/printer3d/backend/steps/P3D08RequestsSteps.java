@@ -44,7 +44,11 @@ public class P3D08RequestsSteps extends StepSupport {
 		this.requestFeignClientV2 = Objects.requireNonNull( requestFeignClientV2 );
 		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
 	}
-
+	@Then("the request returned has the next data")
+	public void the_request_returned_has_the_next_data(final List<Map<String, String>> dataTable) {
+		final ResponseEntity<RequestV2> request = this.printer3DWorld.getRequestV2ResponseEntity();
+		Assertions.assertTrue( new RequestV2Validator().validate( dataTable.get( 0 ), request.getBody()) );
+	}
 	@Given("creating the next Request V2 with previous Contents")
 	public void creating_the_next_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
 		final RequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );

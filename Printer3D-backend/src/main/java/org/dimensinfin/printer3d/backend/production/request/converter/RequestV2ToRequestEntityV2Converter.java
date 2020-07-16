@@ -20,6 +20,7 @@ public class RequestV2ToRequestEntityV2Converter implements Converter<RequestV2,
 				.withLabel( input.getLabel() )
 				.withRequestDate( requestDate )
 				.withState( input.getState() )
+				.withAmount( input.getAmount() )
 				.withContents( input.getContents() )
 				.build();
 	}
