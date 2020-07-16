@@ -9,6 +9,7 @@ import org.dimensinfin.acceptance.support.CommonWorld;
 import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -55,6 +56,7 @@ public class Printer3DWorld extends CommonWorld {
 	private List<RequestItem> requestContents;
 	private RequestV2 requestV2;
 	private ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity;
+	private ResponseEntity<List<WeekAmount>> listWeekAmountResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -135,6 +137,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setListRequestV2ResponseEntity( final ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity ) {
 		this.listRequestV2ResponseEntity = listRequestV2ResponseEntity;
+		return this;
+	}
+
+	public ResponseEntity<List<WeekAmount>> getListWeekAmountResponseEntity() {
+		return this.listWeekAmountResponseEntity;
+	}
+
+	public Printer3DWorld setListWeekAmountResponseEntity( final ResponseEntity<List<WeekAmount>> listWeekAmountResponseEntity ) {
+		this.listWeekAmountResponseEntity = listWeekAmountResponseEntity;
 		return this;
 	}
 

@@ -19,7 +19,6 @@ public class AcceptanceFieldMapConstants {
 	public static final String ITEM_ID = "itemId";
 	public static final String TYPE = "type";
 	public static final String MISSING = "missing";
-	public static final String AMOUNT = "amount";
 
 	public static final String MACHINE_LABEL = "machine";
 	public static final String MACHINE_CURRENT_JOB_PART = "currentJobPartId";
@@ -29,6 +28,7 @@ public class AcceptanceFieldMapConstants {
 	public static final String PART_ID = "partId";
 	public static final String QUANTITY = "quantity";
 	public static final String REQUEST_DATE = "requestDate";
+	public static final String CLOSED_DATE = "dateClosed";
 	public static final String STATE = "state";
 	public static final String PART_REQUEST_LIST = "partRequestList";
 	public static final String PART_COPIES = "partCopies";
@@ -37,4 +37,8 @@ public class AcceptanceFieldMapConstants {
 	public static final String JOB_PART_ID = "part.id";
 	public static final String JOB_PART_LABEL = "part.label";
 	public static final String PRIORITY = "priority";
+
+	public static final String YEAR = "year";
+	public static final String WEEK = "week";
+	public static final String AMOUNT = "amount";
 }

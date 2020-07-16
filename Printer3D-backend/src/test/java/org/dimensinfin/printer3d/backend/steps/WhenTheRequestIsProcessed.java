@@ -16,6 +16,7 @@ import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
+import org.dimensinfin.printer3d.backend.support.accounting.rest.AccountFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.rest.CoilFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV2;
@@ -23,6 +24,7 @@ import org.dimensinfin.printer3d.backend.support.inventory.model.rest.ModelFeign
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
+import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -45,6 +47,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final JobFeignClientV1 jobFeignClientV1;
 	private final ModelFeignClientV1 modelFeignClientV1;
 	private final RequestFeignClientV2 requestFeignClientV2;
+	private final AccountFeignClientV1 accountFeignClientV1;
 
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
@@ -54,7 +57,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
 	                                  final @NotNull JobFeignClientV1 jobFeignClientV1,
 	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1,
-	                                  final @NotNull RequestFeignClientV2 requestFeignClientV2 ) {
+	                                  final @NotNull RequestFeignClientV2 requestFeignClientV2,
+	                                  final @NotNull AccountFeignClientV1 accountFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
@@ -63,6 +67,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.jobFeignClientV1 = Objects.requireNonNull( jobFeignClientV1 );
 		this.modelFeignClientV1 = Objects.requireNonNull( modelFeignClientV1 );
 		this.requestFeignClientV2 = requestFeignClientV2;
+		this.accountFeignClientV1 = accountFeignClientV1;
+	}
+
+	@When("the Accounting Week Income request is processed")
+	public void the_Accounting_Week_Income_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.ACCOUNTING_REQUEST_BY_WEEK );
 	}
 
 	@When("the Cancel Build for Machine {string} request is processed")
@@ -82,6 +92,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		Objects.requireNonNull( requestId );
 		this.printer3DWorld.setRequestId( UUID.fromString( requestId ) );
 		this.processRequestByType( RequestType.CLOSE_REQUEST );
+	}
+
+	@When("the Delete Request request for request {string} is processed")
+	public void the_Delete_Request_request_for_request_is_processed( final String requestId ) throws IOException {
+		this.printer3DWorld.setRequestId( UUID.fromString( requestId ) );
+		this.processRequestByType( RequestType.DELETE_REQUEST );
 	}
 
 	@When("the Get Coils request is processed")
@@ -118,6 +134,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_Get_Requests_V2_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_REQUESTSV2 );
 	}
+
 	@When("the New Coil request is processed")
 	public void the_New_Coil_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_COIL );
@@ -132,20 +149,17 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_New_Part_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_PART );
 	}
+
 	@When("the New Request V2 request is processed")
 	public void the_New_Request_V2_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.NEW_REQUESTV2);
+		this.processRequestByType( RequestType.NEW_REQUESTV2 );
 	}
+
 	@When("the Start Build V2 for Machine {string} request is processed")
 	public void the_Start_Build_V2_for_for_Machine_request_is_processed( final String machineId ) throws IOException {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );
 		Assertions.assertNotNull( this.printer3DWorld.getJobRequest() );
 		this.processRequestByType( RequestType.START_BUILDV2 );
-	}
-	@When("the Delete Request request for request {string} is processed")
-	public void the_Delete_Request_request_for_request_is_processed(final String requestId) throws IOException {
-		this.printer3DWorld.setRequestId( UUID.fromString( requestId) );
-		this.processRequestByType( RequestType.DELETE_REQUEST );
 	}
 
 	@When("the Update Coil request is processed")
@@ -308,6 +322,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( deleteRequestResponseEntity );
 				this.printer3DWorld.setCounterResponseResponseEntity( deleteRequestResponseEntity );
 				return deleteRequestResponseEntity;
+			case ACCOUNTING_REQUEST_BY_WEEK:
+				final ResponseEntity<List<WeekAmount>> accountingRequestWeekResponseEntity = this.accountFeignClientV1.getRequestsAmountPerWeek();
+				Assertions.assertNotNull( accountingRequestWeekResponseEntity );
+				this.printer3DWorld.setListWeekAmountResponseEntity( accountingRequestWeekResponseEntity );
+				return accountingRequestWeekResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
@@ -315,7 +334,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 
 	private void processRequestByType( final RequestType requestType ) throws IOException {
 		try {
-			final ResponseEntity response = this.processRequest( requestType );
+			final ResponseEntity<?> response = this.processRequest( requestType );
 			this.printer3DWorld.setHttpStatus( response.getStatusCode() );
 		} catch (final DimensinfinRuntimeException runtime) {
 			this.printer3DWorld.setHttpStatus( runtime.getHttpStatus() );
