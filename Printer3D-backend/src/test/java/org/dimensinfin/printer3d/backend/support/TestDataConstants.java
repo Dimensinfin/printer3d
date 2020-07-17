@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.support;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,8 @@ public class TestDataConstants {
 		public static final OffsetDateTime TEST_REQUEST_DATE = OffsetDateTime.parse( "2020-06-16T16:38:30.562806+02:00" );
 		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806+02:00";
 		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
+		public static final float TEST_REQUEST_AMOUNT = 45.67F;
+		public static final Instant TEST_REQUEST_CLOSED_DATE = Instant.now();
 	}
 
 	public static class JobConstants {

@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.backend.inventory.model.persistence;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 public class ModelUpdater {
 	private final ModelEntity modelEntity;
@@ -13,7 +13,7 @@ public class ModelUpdater {
 		this.modelEntity = Objects.requireNonNull( modelEntity );
 	}
 
-	public ModelEntity update( final @NotNull NewModelRequest updateData ) {
+	public ModelEntity update( final @NotNull ModelRequest updateData ) {
 		return new ModelEntity.Builder()
 				.withId( this.modelEntity.getId() )
 				.withLabel( updateData.getLabel() )

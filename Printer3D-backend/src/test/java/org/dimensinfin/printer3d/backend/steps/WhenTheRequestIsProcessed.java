@@ -265,18 +265,18 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setListJobResponseEntity( pendingJobsResponseEntity );
 				return pendingJobsResponseEntity;
 			case NEW_MODEL:
-				Assertions.assertNotNull( this.printer3DWorld.getNewModelRequest() );
+				Assertions.assertNotNull( this.printer3DWorld.getModelRequest() );
 				final ResponseEntity<Model> newModelResponseEntity = this.modelFeignClientV1.newModel(
 						this.printer3DWorld.getJwtAuthorizationToken(),
-						this.printer3DWorld.getNewModelRequest() );
+						this.printer3DWorld.getModelRequest() );
 				Assertions.assertNotNull( newModelResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( newModelResponseEntity );
 				return newModelResponseEntity;
 			case UPDATE_MODEL:
-				Assertions.assertNotNull( this.printer3DWorld.getNewModelRequest() );
+				Assertions.assertNotNull( this.printer3DWorld.getModelRequest() );
 				final ResponseEntity<Model> updateModelResponseEntity = this.modelFeignClientV1.updateModel(
 						this.printer3DWorld.getJwtAuthorizationToken(),
-						this.printer3DWorld.getNewModelRequest() );
+						this.printer3DWorld.getModelRequest() );
 				Assertions.assertNotNull( updateModelResponseEntity );
 				this.printer3DWorld.setModelResponseEntity( updateModelResponseEntity );
 				return updateModelResponseEntity;

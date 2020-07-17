@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 @RestController
 @CrossOrigin
@@ -42,7 +42,7 @@ public class ModelControllerV1 {
 	@PostMapping(path = "/inventory/models",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Model> newModel( final @RequestBody @Valid @NotNull NewModelRequest modelRequest ) {
+	public ResponseEntity<Model> newModel( final @RequestBody @Valid @NotNull ModelRequest modelRequest ) {
 		return new ResponseEntity<>( this.modelServiceV1.newModel( modelRequest ), HttpStatus.CREATED );
 	}
 
@@ -56,7 +56,7 @@ public class ModelControllerV1 {
 	@PatchMapping(path = "/inventory/models",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Model> updateModel( final @RequestBody @Valid @NotNull NewModelRequest modelRequest ) {
+	public ResponseEntity<Model> updateModel( final @RequestBody @Valid @NotNull ModelRequest modelRequest ) {
 		return new ResponseEntity<>( this.modelServiceV1.updateModel( modelRequest ), HttpStatus.OK );
 	}
 

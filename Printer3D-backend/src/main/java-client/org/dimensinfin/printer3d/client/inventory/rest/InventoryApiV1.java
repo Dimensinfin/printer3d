@@ -11,7 +11,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
@@ -130,14 +130,14 @@ public interface InventoryApiV1 {
 	 * Creates a new **Model**.
 	 * The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other Model fields.
 	 *
-	 * @param newModelRequest Contains the **Model** fields requested to the user on the frontend UI.
+	 * @param modelRequest Contains the **Model** fields requested to the user on the frontend UI.
 	 *                        (optional)
 	 * @return Call&lt;Model&gt;
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@POST("api/v1/inventory/models")
 	Call<Model> newModel( @Header("Authorization") final @NotNull String authorizationToken,
-	                      @Body NewModelRequest newModelRequest );
+	                      @Body ModelRequest modelRequest );
 
 	/**
 	 * Create a new Part from the data on the request.
@@ -188,7 +188,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@PATCH("api/v1/inventory/models")
-	Call<Model> updateModel( @Body final @NotNull NewModelRequest modelRequest );
+	Call<Model> updateModel( @Body final @NotNull ModelRequest modelRequest );
 
 	/**
 	 * Update a Part with some of the fields on the request.

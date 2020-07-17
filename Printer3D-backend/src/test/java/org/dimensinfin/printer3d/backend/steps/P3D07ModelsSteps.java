@@ -11,7 +11,7 @@ import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.model.CucumberTableToNewModelRequestConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.model.ModelValidator;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -36,16 +36,16 @@ public class P3D07ModelsSteps extends StepSupport {
 
 	@Given("the next New Model request")
 	public void the_next_New_Model_request( final List<Map<String, String>> dataTable ) {
-		final NewModelRequest modelRequest = new CucumberTableToNewModelRequestConverter().convert( dataTable.get( 0 ) );
+		final ModelRequest modelRequest = new CucumberTableToNewModelRequestConverter().convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( modelRequest );
-		this.printer3DWorld.setNewModelRequest( modelRequest );
+		this.printer3DWorld.setModelRequest( modelRequest );
 	}
 
 	@Given("the next Update Model request")
 	public void the_next_Update_Model_request( final List<Map<String, String>> dataTable) {
-		final NewModelRequest modelRequest = new CucumberTableToNewModelRequestConverter().convert( dataTable.get( 0 ) );
+		final ModelRequest modelRequest = new CucumberTableToNewModelRequestConverter().convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( modelRequest );
-		this.printer3DWorld.setNewModelRequest( modelRequest );
+		this.printer3DWorld.setModelRequest( modelRequest );
 	}
 
 	@Then("the number of Models is {string}")

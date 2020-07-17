@@ -12,7 +12,7 @@ import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -40,14 +40,14 @@ public class ModelFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<Model> newModel( final String authorizationToken, final NewModelRequest newModelRequest ) throws IOException {
+	public ResponseEntity<Model> newModel( final String authorizationToken, final ModelRequest modelRequest ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Model.";
 		final Response<Model> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( InventoryApiV1.class )
-				.newModel( authorizationToken, newModelRequest )
+				.newModel( authorizationToken, modelRequest )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );
@@ -55,14 +55,14 @@ public class ModelFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<Model> updateModel( final String authorizationToken, final NewModelRequest newModelRequest ) throws IOException {
+	public ResponseEntity<Model> updateModel( final String authorizationToken, final ModelRequest modelRequest ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Model.";
 		final Response<Model> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( InventoryApiV1.class )
-				.updateModel( newModelRequest )
+				.updateModel( modelRequest )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

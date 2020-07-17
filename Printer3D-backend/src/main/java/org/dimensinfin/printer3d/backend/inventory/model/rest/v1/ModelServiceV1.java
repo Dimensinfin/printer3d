@@ -22,7 +22,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 @Service
 public class ModelServiceV1 {
@@ -51,20 +51,20 @@ public class ModelServiceV1 {
 	 * After the <code>ModelEntity</code> creation the service will compose the Model to be returned to the frontend. On this conversion the
 	 * <code>partList</code> is scanned to read from the backend repository the Part instances that should be attached to the model.
 	 *
-	 * @param newModelRequest the model creation fields that are collected at the frontend UI.
+	 * @param modelRequest the model creation fields that are collected at the frontend UI.
 	 * @return an instance of <code>Model</code> with the Parts expanded con contain all the Part fields generated from the persisted partUI
 	 */
-	public Model newModel( final @NotNull NewModelRequest newModelRequest ) {
+	public Model newModel( final @NotNull ModelRequest modelRequest ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Model by id. If found reject the request because this should be a new creation.
-			final Optional<ModelEntity> target = this.modelRepository.findById( newModelRequest.getId() );
+			final Optional<ModelEntity> target = this.modelRepository.findById( modelRequest.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( Printer3DErrorInfo.MODEL_ALREADY_EXISTS( newModelRequest.getId() ) );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.MODEL_ALREADY_EXISTS( modelRequest.getId() ) );
 			LogWrapper.info( "ModelEntity: " + target.toString() );
 			// Save the entity to the repository.
 			final ModelEntity modelEntity = this.modelRepository.save(
-					new NewModelRequestToModelEntityConverter().convert( newModelRequest )
+					new NewModelRequestToModelEntityConverter().convert( modelRequest )
 			);
 			return this.constructModel( modelEntity );
 		} finally {
@@ -79,7 +79,7 @@ public class ModelServiceV1 {
 	 * @return the new Model contents
 	 * @since 0.8.0
 	 */
-	public Model updateModel( final @NotNull NewModelRequest modelRequest ) {
+	public Model updateModel( final @NotNull ModelRequest modelRequest ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Model by id. If not found reject the request because this should be an update.

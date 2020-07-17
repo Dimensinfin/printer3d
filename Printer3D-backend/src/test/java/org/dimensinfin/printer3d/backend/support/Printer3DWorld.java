@@ -17,7 +17,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
@@ -42,7 +42,7 @@ public class Printer3DWorld extends CommonWorld {
 	private UUID machineId;
 	private ResponseEntity<Machine> machineResponseEntity;
 	private ResponseEntity<List<Job>> listJobResponseEntity;
-	private NewModelRequest newModelRequest;
+	private ModelRequest modelRequest;
 	private ResponseEntity<Model> modelResponseEntity;
 	private ResponseEntity<ModelList> modelListResponseEntity;
 	private UUID modelId;
@@ -213,12 +213,12 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public NewModelRequest getNewModelRequest() {
-		return this.newModelRequest;
+	public ModelRequest getModelRequest() {
+		return this.modelRequest;
 	}
 
-	public Printer3DWorld setNewModelRequest( final NewModelRequest newModelRequest ) {
-		this.newModelRequest = newModelRequest;
+	public Printer3DWorld setModelRequest( final ModelRequest modelRequest ) {
+		this.modelRequest = modelRequest;
 		return this;
 	}
 

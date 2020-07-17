@@ -43,6 +43,7 @@ public class JobServiceV1 {
 	private final RequestsRepository requestsRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 	private final ModelRepository modelRepository;
+
 	private StockManager stockManager;
 
 	// - C O N S T R U C T O R S

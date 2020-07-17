@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_IMAGE_PATH;
@@ -12,12 +12,12 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelC
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_PRICE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_STOCK_LEVEL;
 
-public class NewModelRequestToModelEntityConverterTest {
+public class ModelRequestToModelEntityConverterTest {
 
 	@Test
 	public void convert() {
 		// Given
-		final NewModelRequest newModelRequest = new NewModelRequest.Builder()
+		final ModelRequest modelRequest = new ModelRequest.Builder()
 				.withId( TEST_MODEL_ID )
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
@@ -27,7 +27,7 @@ public class NewModelRequestToModelEntityConverterTest {
 				.build();
 		final NewModelRequestToModelEntityConverter newModelRequestToModelEntityConverter = new NewModelRequestToModelEntityConverter();
 		// Test
-		final ModelEntity obtained = newModelRequestToModelEntityConverter.convert( newModelRequest );
+		final ModelEntity obtained = newModelRequestToModelEntityConverter.convert( modelRequest );
 		// Assertions
 		Assertions.assertEquals( TEST_MODEL_ID.toString(), obtained.getId().toString() );
 		Assertions.assertEquals( TEST_MODEL_LABEL, obtained.getLabel() );

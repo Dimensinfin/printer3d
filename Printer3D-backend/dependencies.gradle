@@ -47,7 +47,7 @@ dependencies {
     // D A T A B A S E
     implementation 'com.vladmihalcea:hibernate-types-52:2.4.2'
     // D I M E N S I N F I N
-    implementation 'org.bitbucket.dimensinfin:core-lib:3.1.0'
+    implementation 'org.bitbucket.dimensinfin:core-lib:3.2.0'
     implementation 'org.bitbucket.dimensinfin:annotations:0.3.1'
 }
 

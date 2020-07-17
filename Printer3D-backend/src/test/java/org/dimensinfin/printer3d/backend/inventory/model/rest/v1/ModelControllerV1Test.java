@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ID;
 
@@ -50,14 +50,14 @@ public class ModelControllerV1Test {
 	@Test
 	public void newModel() {
 		// Given
-		final NewModelRequest newModelRequest = Mockito.mock( NewModelRequest.class );
+		final ModelRequest modelRequest = Mockito.mock( ModelRequest.class );
 		final Model model = Mockito.mock( Model.class );
 		// When
-		Mockito.when( this.modelServiceV1.newModel( Mockito.any( NewModelRequest.class ) ) ).thenReturn( model );
+		Mockito.when( this.modelServiceV1.newModel( Mockito.any( ModelRequest.class ) ) ).thenReturn( model );
 		Mockito.when( model.getId() ).thenReturn( TEST_MODEL_ID );
 		// Test
 		final ModelControllerV1 modelControllerV1 = new ModelControllerV1( this.modelServiceV1 );
-		final ResponseEntity<Model> obtained = modelControllerV1.newModel( newModelRequest );
+		final ResponseEntity<Model> obtained = modelControllerV1.newModel( modelRequest );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
@@ -67,7 +67,7 @@ public class ModelControllerV1Test {
 	@Test
 	public void updateModel() {
 		// Given
-		final NewModelRequest modelRequest = Mockito.mock( NewModelRequest.class );
+		final ModelRequest modelRequest = Mockito.mock( ModelRequest.class );
 		final Model model = Mockito.mock( Model.class );
 		// When
 		Mockito.when( this.modelServiceV1.updateModel( modelRequest ) ).thenReturn( model );

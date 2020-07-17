@@ -92,11 +92,13 @@ public class RequestV2 {
 		}
 
 		public RequestV2 build() {
+			Objects.requireNonNull( this.onConstruction.id );
+			Objects.requireNonNull( this.onConstruction.label );
 			return this.onConstruction;
 		}
 
 		public RequestV2.Builder withAmount( final Float amount ) {
-			this.onConstruction.amount = Objects.requireNonNull( amount );
+			if (null != amount) this.onConstruction.amount = amount;
 			return this;
 		}
 

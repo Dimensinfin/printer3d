@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.NewModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.IMAGE_PATH;
@@ -15,10 +15,10 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PRICE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STOCK_LEVEL;
 
-public class CucumberTableToNewModelRequestConverter extends CucumberTableConverter<NewModelRequest> {
+public class CucumberTableToNewModelRequestConverter extends CucumberTableConverter<ModelRequest> {
 	@Override
-	public NewModelRequest convert( final Map<String, String> cucumberRow ) {
-		NewModelRequest.Builder builder = new NewModelRequest.Builder();
+	public ModelRequest convert( final Map<String, String> cucumberRow ) {
+		ModelRequest.Builder builder = new ModelRequest.Builder();
 		if (null != cucumberRow.get( ID )) builder = builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
 		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( PRICE )) builder = builder.withPrice( Float.parseFloat( cucumberRow.get( PRICE ) ) );
