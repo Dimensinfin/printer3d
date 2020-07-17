@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
 /**
@@ -82,7 +81,7 @@ public class RequestItem implements Serializable {
 
 		public RequestItem.Builder withType( final RequestContentType type ) {
 			if (type == RequestContentType.UNIDENTIFIED)
-				throw new DimensinfinRuntimeException( DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR(
+				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
 					"Request content type found UNIDENTIFIED while constructing a RequestItem."
 			) );
 			this.onConstruction.type = type;

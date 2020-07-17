@@ -7,11 +7,10 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 
 import org.dimensinfin.common.exception.DimensinfinError;
-import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 
 import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
 
-public class Printer3DErrorInfo extends DimensinfinErrorInfo {
+public class Printer3DErrorInfo {
 	public static DimensinfinError INVENTORY_STORE_REPOSITORY_FAILURE( final SQLException sqle ) {
 		if (null != sqle.getCause())
 			return new DimensinfinError.Builder()
