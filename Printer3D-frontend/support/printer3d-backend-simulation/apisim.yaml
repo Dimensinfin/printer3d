@@ -489,3 +489,26 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/newpart.json"
+
+---
+
+simlet: accounting-report-amounts-per-week
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 2000
+  subsequent: 2000
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v1/accounting/requests/amount/week"
+
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/accounting.week.amounts.json"

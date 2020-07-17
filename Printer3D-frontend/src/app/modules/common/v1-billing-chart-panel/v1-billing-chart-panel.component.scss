@@ -1,0 +1,30 @@
+.bar-graph {
+    fill: white;
+}
+
+.graph-container {
+    border: 1px solid white;
+    padding: 2px;
+    width: 220px;
+    height: 80px;
+    color: blueviolet;
+    font-size: 9px;
+    font-family: 'Electrolize', sans-serif;
+    text-transform: uppercase;
+    margin: 0px;
+    padding: 0px;
+    line-height: 9px;
+}
+
+.no-chart-data {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "Electrolize", sans-serif;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 2px blueviolet, 0px 0px 1px blueviolet;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 80px;
+}

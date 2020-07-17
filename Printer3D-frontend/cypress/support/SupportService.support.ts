@@ -18,6 +18,7 @@ export class SupportService {
         this.translationTable['CoilsPage'] = 'v2-coil-list-page'
         this.translationTable['Delete Confirmation'] = 'delete-confirmation-dialog'
         // - PANELS
+        this.translationTable['app-component'] = 'app-root'
         this.translationTable['dock'] = 'v1-dock'
         this.translationTable['work-load'] = 'v1-work-load-panel'
         this.translationTable['coils'] = 'v1-coils-panel'
@@ -32,6 +33,7 @@ export class SupportService {
         this.translationTable['open-requests'] = 'v1-open-requests-panel'
         this.translationTable['request-detail'] = 'v1-request-detail-panel'
         this.translationTable['jobs-list'] = 'v1-pending-jobs-panel'
+        this.translationTable['billing-chart'] = 'v1-billing-chart-panel'
         // - RENDERS
         this.translationTable['feature'] = 'v2-feature'
         this.translationTable['job'] = 'v1-pending-job'

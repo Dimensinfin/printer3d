@@ -26,11 +26,11 @@ Given('the target the {string} with id {string}', function (symbolicName: string
 Then('the target has the title {string}', function (title: string) {
     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
 });
-Then('the target has {int} {string}', function (count: number, symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-    cy.get('@target').find(tag).should('have.length', count)
-});
+// Then('the target has {int} {string}', function (count: number, symbolicName: string) {
+//     const tag = supportService.translateTag(symbolicName) // Do name replacement
+//     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+//     cy.get('@target').find(tag).should('have.length', count)
+// });
 Then('field named {string} with label {string} and value {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target').within(($item) => {
@@ -62,13 +62,13 @@ Then('the target has no {string}', function (symbolicName: string) {
         cy.get('button').should('not.exist')
     })
 });
-Then('the target has {int} {string}', function (count: number, symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-    cy.get('@target').within(($item) => {
-        cy.get(tag).should('have.length', count)
-    })
-});
+// Then('the target has {int} {string}', function (count: number, symbolicName: string) {
+//     const tag = supportService.translateTag(symbolicName) // Do name replacement
+//     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+//     cy.get('@target').within(($item) => {
+//         cy.get(tag).should('have.length', count)
+//     })
+// });
 Then('the button with name {string} has a label {string} and is {string}', function (
     buttonName: string, buttonLabel: string, buttonState: string) {
     if (buttonState == 'disabled')

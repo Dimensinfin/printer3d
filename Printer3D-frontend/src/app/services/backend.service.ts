@@ -24,6 +24,7 @@ import { ModelForm } from '@domain/inventory/ModelForm.domain';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
 import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
+import { WeekAmount } from '@domain/dto/WeekAmount.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -275,6 +276,19 @@ export class BackendService {
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionDeleteRequest_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data);
+                return response;
+            }));
+    }
+
+    // - A C C O U N T I N G
+    public apiAccountingRequestAmountsPerWeek_v1(weeks: number, transformer: ResponseTransformer): Observable<WeekAmount[]> {
+        const request = this.APIV1 + '/accounting/requests/amount/week';
+        let headers = new HttpHeaders()
+            .set('xapp-name', environment.appName);
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiNewRequest_v1]> Transformation: " + transformer.description);
+                const response = transformer.transform(data) as WeekAmount[];
                 return response;
             }));
     }
