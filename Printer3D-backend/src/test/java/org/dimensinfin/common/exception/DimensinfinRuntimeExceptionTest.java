@@ -11,8 +11,21 @@ public class DimensinfinRuntimeExceptionTest {
 	private static final String EXCEPTION_ERROR_CAUSE = "-CAUSE-";
 
 	@Test
+	public void RUNTIME_INTERNAL_ERROR() {
+		// Test
+		final DimensinfinError error = DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-TEST_MESSAGE-" );
+		final String messageExpected = "Runtime uncatalogued exception: -TEST_MESSAGE-";
+		// Assertions
+		Assertions.assertEquals( "RUNTIME_INTERNAL_ERROR", error.getErrorName() );
+		Assertions.assertEquals( "dimensinfin.uncatalogued.runtime", error.getErrorCode() );
+		Assertions.assertEquals( messageExpected, error.getMessage() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, error.getStatus() );
+	}
+
+	@Test
 	public void constructorContractError() {
-		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException( DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ) );
+		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
+				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ) );
 		Assertions.assertNotNull( exception );
 	}
 
@@ -25,7 +38,8 @@ public class DimensinfinRuntimeExceptionTest {
 	@Test
 	public void gettersContractError() {
 		// Given
-		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException( DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ) );
+		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
+				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ) );
 		// Assertions
 		Assertions.assertNull( exception.getCause() );
 		Assertions.assertEquals( EXCEPTION_ERROR_CODE, exception.getErrorCode() );
@@ -60,7 +74,8 @@ public class DimensinfinRuntimeExceptionTest {
 	@Test
 	public void gettersContractWithCause() {
 		// Given
-		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException( DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ),
+		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
+				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ),
 				EXCEPTION_ERROR_CAUSE );
 		// Assertions
 		Assertions.assertEquals( EXCEPTION_ERROR_CAUSE, exception.getCauseMessage() );

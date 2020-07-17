@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
 public class DimensinfinRuntimeExceptionTest {
@@ -14,7 +13,7 @@ public class DimensinfinRuntimeExceptionTest {
 	public void constructorContractError() {
 		// Given
 		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
-				DimensinfinErrorInfo.RUNTIME_INTERNAL_ERROR( TEST_ERROR_MESSAGE ) );
+				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( TEST_ERROR_MESSAGE ) );
 		// Test
 		final String expected = "Runtime uncatalogued exception: " + TEST_ERROR_MESSAGE;
 		final String message = exception.getMessage();

@@ -12,7 +12,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import org.dimensinfin.common.exception.ApiError;
-import org.dimensinfin.common.exception.DimensinfinErrorInfo;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 
@@ -29,7 +28,16 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 		LogWrapper.info( "Exception: " + ex.toString() );
 		LogWrapper.info( "message: " + ex.getMessage() );
 		return new ResponseEntity<>(
-				new ApiError( new DimensinfinRuntimeException( DimensinfinErrorInfo.INVALID_REQUEST_STRUCTURE(ex ) ) ),
+				new ApiError( new DimensinfinRuntimeException( DimensinfinRuntimeException.INVALID_REQUEST_STRUCTURE( ex ) ) ),
 				HttpStatus.BAD_REQUEST );
+	}
+
+	@ExceptionHandler(RuntimeException.class)
+	protected ResponseEntity<ApiError> handleRuntimeException( final RuntimeException runtimeException ) {
+		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
+				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( runtimeException.getMessage() ),
+				"Intercepted RuntimeException at the ErrorHandler level because this was not expected."
+		);
+		return new ResponseEntity<>( new ApiError( exception ), exception.getHttpStatus() );
 	}
 }
