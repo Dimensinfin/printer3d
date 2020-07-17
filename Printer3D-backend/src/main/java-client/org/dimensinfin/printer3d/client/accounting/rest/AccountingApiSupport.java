@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.client.accounting.rest;
 import java.time.Instant;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Headers;

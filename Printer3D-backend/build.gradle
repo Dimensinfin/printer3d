@@ -47,11 +47,9 @@ def swaggerGenerated = "$buildDir/generated/"
 sourceSets {
     main.java {
         srcDirs += 'src/main/java-client'
-        srcDirs += "src/main/java-common"
     }
     test.java {
         srcDirs += "src/test/java-common"
-        srcDirs += "src/test/java-datamanagement"
     }
 }
 

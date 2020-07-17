@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 

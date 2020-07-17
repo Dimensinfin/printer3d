@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.backend.support.inventory.part.rest;
 import java.io.IOException;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;

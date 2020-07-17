@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.accounting.rest.AccountFeignClientSupport;
 import org.dimensinfin.printer3d.backend.support.accounting.rest.WeekAmountValidator;

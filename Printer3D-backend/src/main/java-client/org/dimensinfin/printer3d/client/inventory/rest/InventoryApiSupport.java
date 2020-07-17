@@ -3,7 +3,7 @@ package org.dimensinfin.printer3d.client.inventory.rest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 import retrofit2.Call;

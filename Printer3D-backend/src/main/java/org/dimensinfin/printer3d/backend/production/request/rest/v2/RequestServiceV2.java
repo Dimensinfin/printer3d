@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;

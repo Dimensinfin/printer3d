@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;

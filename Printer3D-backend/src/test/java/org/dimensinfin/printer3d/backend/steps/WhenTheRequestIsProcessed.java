@@ -10,7 +10,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;

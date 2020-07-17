@@ -2,7 +2,7 @@ package org.dimensinfin.printer3d.client.production.rest;
 
 import java.util.List;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 

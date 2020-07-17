@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;

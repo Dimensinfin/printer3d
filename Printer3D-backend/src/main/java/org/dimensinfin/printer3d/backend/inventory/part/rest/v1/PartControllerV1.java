@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.common.client.rest.CounterResponse;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;

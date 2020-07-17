@@ -1,4 +1,4 @@
-package org.dimensinfin.common.client.rest;
+package org.dimensinfin.printer3d.client.core.dto;
 
 import java.util.Objects;
 
