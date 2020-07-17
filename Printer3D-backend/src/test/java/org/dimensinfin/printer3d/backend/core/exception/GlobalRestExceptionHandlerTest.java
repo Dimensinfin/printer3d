@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.exception.ApiError;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 
 public class GlobalRestExceptionHandlerTest {
 	private static final String EXCEPTION_ERROR_NAME = "RUNTIME_INTERNAL_ERROR";

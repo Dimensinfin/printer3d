@@ -1,7 +1,7 @@
 package org.dimensinfin.printer3d.backend.support.core;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.common.exception.RestExceptionResponse;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.printer3d.client.core.dto.RestExceptionResponse;
 import org.dimensinfin.core.interfaces.Converter;
 
 public class RestExceptionMessageToDimensinfinRuntimeExceptionConverter implements Converter<RestExceptionResponse, DimensinfinRuntimeException> {

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 
 /**
  * Now a Request item can be of different types. So there is a need to use an isolation class that will contain the neutral data and be ale to

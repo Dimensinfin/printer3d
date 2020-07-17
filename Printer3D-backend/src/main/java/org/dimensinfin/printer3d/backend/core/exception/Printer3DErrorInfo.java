@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 
+import org.dimensinfin.core.exception.DimensinfinError;
+
 import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
 
 public class Printer3DErrorInfo {

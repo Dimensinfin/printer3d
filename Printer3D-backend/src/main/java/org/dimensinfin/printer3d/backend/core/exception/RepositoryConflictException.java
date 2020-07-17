@@ -2,7 +2,8 @@ package org.dimensinfin.printer3d.backend.core.exception;
 
 import org.springframework.http.HttpStatus;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.exception.DimensinfinError;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 
 /**
  * Used to report exceptions related to interactions with the repository that do not result on the expected result.

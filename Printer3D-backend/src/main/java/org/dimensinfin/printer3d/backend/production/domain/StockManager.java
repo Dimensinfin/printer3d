@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;

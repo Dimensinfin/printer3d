@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.core.exception;
+package org.dimensinfin.core.exception;
 
 import java.util.Objects;
 

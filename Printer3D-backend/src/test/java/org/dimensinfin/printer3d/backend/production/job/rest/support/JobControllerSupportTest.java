@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;

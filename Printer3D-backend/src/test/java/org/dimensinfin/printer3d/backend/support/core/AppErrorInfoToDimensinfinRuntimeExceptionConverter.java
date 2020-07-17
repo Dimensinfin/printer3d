@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.support.core;
 
-import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.core.interfaces.Converter;
 
 public class AppErrorInfoToDimensinfinRuntimeExceptionConverter implements Converter<AppErrorInfo, DimensinfinRuntimeException> {

@@ -1,11 +1,11 @@
-package org.dimensinfin.common.exception;
+package org.dimensinfin.core.exception;
 
 import java.text.MessageFormat;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import org.dimensinfin.printer3d.backend.core.exception.DimensinfinError;
+import org.dimensinfin.printer3d.client.core.dto.RestExceptionResponse;
 
 public class DimensinfinRuntimeException extends RuntimeException {
 	public static DimensinfinError RUNTIME_INTERNAL_ERROR( final String message ) {

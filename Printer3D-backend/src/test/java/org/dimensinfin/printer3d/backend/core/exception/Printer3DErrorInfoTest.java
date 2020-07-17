@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
+import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 
 import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
