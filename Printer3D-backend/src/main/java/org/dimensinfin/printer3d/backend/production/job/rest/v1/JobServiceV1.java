@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
@@ -115,7 +114,7 @@ public class JobServiceV1 {
 						}
 					} );
 		} catch (final RuntimeException rte) {
-			LogWrapperLocal.error( rte );
+			LogWrapper.error( rte );
 		} finally {
 			LogWrapper.exit();
 		}

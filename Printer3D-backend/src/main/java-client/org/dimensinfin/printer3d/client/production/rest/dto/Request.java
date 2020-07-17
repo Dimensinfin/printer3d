@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
+import org.dimensinfin.logging.LogWrapper;
 
 public class Request {
 	@NotNull(message = "Request unique UUID 'id' is a mandatory field and cannot be null.")
@@ -84,7 +84,7 @@ public class Request {
 		}
 
 		public Request.Builder withRequestDate( final String requestDate ) {
-			LogWrapperLocal.info( "RequestDate: " + requestDate );
+			LogWrapper.info( "RequestDate: " + requestDate );
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}

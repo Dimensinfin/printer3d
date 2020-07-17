@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
 @Service
@@ -31,7 +31,7 @@ public class PartServiceSupport {
 					.withRecords( (int) recordCount )
 					.build();
 		} catch (final RuntimeException sqle) {
-			LogWrapperLocal.error( sqle );
+			LogWrapper.error( sqle );
 			throw new DimensinfinRuntimeException( Printer3DErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Parts from the repository." );
 		}

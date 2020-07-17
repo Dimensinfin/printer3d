@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.datamanagement.support.rest.PartFeignClientData;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
 import org.dimensinfin.printer3d.backend.support.conf.IntegrationTargetConfig;
@@ -36,17 +35,17 @@ public class UpdatePartDescription {
 		this.partFeignClientData.getParts( this.printer3DWorld.getJwtAuthorizationToken() ).getBody().getParts()
 				.stream()
 				.filter( ( part ) -> {
-					LogWrapperLocal.info( "label: " + part.getLabel() );
+					LogWrapper.info( "label: " + part.getLabel() );
 					return part.getLabel().equalsIgnoreCase( "Covid-19 Key v1.0" );
 				} )
 				.forEach( ( part ) -> {
 					part.setDescription( NEW_DESCRIPTION );
 					try {
-						LogWrapperLocal.info( "Updating Part: " + part.getLabel() );
-						LogWrapperLocal.info( "Updating Description: " + part.getDescription() );
+						LogWrapper.info( "Updating Part: " + part.getLabel() );
+						LogWrapper.info( "Updating Description: " + part.getDescription() );
 						this.partFeignClientData.updatePart( this.printer3DWorld.getJwtAuthorizationToken(), part );
 					} catch (final IOException ioe) {
-						LogWrapperLocal.error( ioe );
+						LogWrapper.error( ioe );
 					}
 				} );
 	}
@@ -62,17 +61,17 @@ public class UpdatePartDescription {
 		this.partFeignClientData.getParts( this.printer3DWorld.getJwtAuthorizationToken() ).getBody().getParts()
 				.stream()
 				.filter( ( part ) -> {
-					LogWrapperLocal.info( "label: " + part.getLabel() );
+					LogWrapper.info( "label: " + part.getLabel() );
 					return part.getLabel().equalsIgnoreCase( TARGET_LABEL);
 				} )
 				.forEach( ( part ) -> {
 					part.setDescription( NEW_DESCRIPTION );
 					try {
-						LogWrapperLocal.info( "Updating Part: " + part.getLabel() );
-						LogWrapperLocal.info( "Updating Description: " + part.getDescription() );
+						LogWrapper.info( "Updating Part: " + part.getLabel() );
+						LogWrapper.info( "Updating Description: " + part.getDescription() );
 						this.partFeignClientData.updatePart( this.printer3DWorld.getJwtAuthorizationToken(), part );
 					} catch (final IOException ioe) {
-						LogWrapperLocal.error( ioe );
+						LogWrapper.error( ioe );
 					}
 				} );
 	}

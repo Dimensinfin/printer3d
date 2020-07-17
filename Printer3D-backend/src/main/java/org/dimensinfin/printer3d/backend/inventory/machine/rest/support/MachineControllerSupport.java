@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
@@ -46,7 +46,7 @@ public class MachineControllerSupport {
 		// Change the setup for the selected machine
 		final List<MachineEntity> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
 		for (MachineEntity machine : machines)
-			LogWrapperLocal.info( "Found Machine: " + machine.toString() );
+			LogWrapper.info( "Found Machine: " + machine.toString() );
 		if (machines.isEmpty())
 			throw new RepositoryConflictException( Printer3DErrorInfo.MACHINE_NOT_FOUND( setupRequest.getMachineLabel() ) );
 		for (MachineEntity machine : machines)

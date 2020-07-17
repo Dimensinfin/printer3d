@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.ModelEntityToModelConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.converter.NewModelRequestToModelEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
@@ -62,7 +61,7 @@ public class ModelServiceV1 {
 			final Optional<ModelEntity> target = this.modelRepository.findById( newModelRequest.getId() );
 			if (target.isPresent())
 				throw new DimensinfinRuntimeException( Printer3DErrorInfo.MODEL_ALREADY_EXISTS( newModelRequest.getId() ) );
-			LogWrapperLocal.info( "ModelEntity: " + target.toString() );
+			LogWrapper.info( "ModelEntity: " + target.toString() );
 			// Save the entity to the repository.
 			final ModelEntity modelEntity = this.modelRepository.save(
 					new NewModelRequestToModelEntityConverter().convert( newModelRequest )

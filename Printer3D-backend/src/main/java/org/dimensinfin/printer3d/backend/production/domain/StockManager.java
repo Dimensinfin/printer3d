@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.domain;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -10,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
 /**
@@ -65,7 +65,13 @@ public class StockManager {
 		LogWrapper.enter();
 		try {
 			this.partRepository.findAll().forEach( part -> {
-				LogWrapperLocal.info( "id: " + part.getId().toString() + " stock: " + part.getStockLevel() + "/" + part.getStockAvailable() );
+				LogWrapper.info(
+						MessageFormat.format( "id: {0} stock: {1}/{2}",
+								part.getId(),
+								part.getStockLevel(),
+								part.getStockAvailable()
+						)
+				);
 				this.stocks.put( part.getId(), new StockLevel.Builder()
 						.withStock( part.getStockAvailable() )
 						.build() );

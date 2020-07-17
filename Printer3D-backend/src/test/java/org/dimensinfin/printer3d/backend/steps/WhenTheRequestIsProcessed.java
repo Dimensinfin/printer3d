@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.client.rest.CounterResponse;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.RequestType;
@@ -345,7 +345,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		} catch (final DimensinfinRuntimeException runtime) {
 			this.printer3DWorld.setHttpStatus( runtime.getHttpStatus() );
 			this.printer3DWorld.setApplicationException( runtime );
-			LogWrapperLocal.error( runtime );
+			LogWrapper.error( runtime );
 		}
 	}
 }

@@ -11,6 +11,12 @@ import org.dimensinfin.common.exception.DimensinfinError;
 import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
 
 public class Printer3DErrorInfo {
+//	PART_REPOSITORY_CONFLICT( HttpStatus.CONFLICT,
+//	                          APPLICATION_ERROR_CODE_PREFIX + ".constraintviolation",
+//			"The Part [{0}] is rejected because constraint violation. {0}" ),
+//	REQUEST_PROCESSING_FAILURE( HttpStatus.INTERNAL_SERVER_ERROR,
+//	                            APPLICATION_ERROR_CODE_PREFIX + ".logic.exception",
+//			"The request [{0}] has assigned a Part with id [{1}] that does not exist on the Part repository." );
 	public static DimensinfinError INVENTORY_STORE_REPOSITORY_FAILURE( final SQLException sqle ) {
 		if (null != sqle.getCause())
 			return new DimensinfinError.Builder()
