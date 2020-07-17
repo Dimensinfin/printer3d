@@ -19,5 +19,4 @@
 * v1-pending-job-render
 * JobAggregator
 * Part4Request
-* v1-dock
 * Job

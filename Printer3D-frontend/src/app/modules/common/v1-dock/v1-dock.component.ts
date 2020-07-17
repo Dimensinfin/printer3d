@@ -11,16 +11,6 @@ import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { AppComponent } from '@app/app.component';
 
-const featureTransformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
-    .setTransformation((entrydata: any): Feature[] => {
-        let results: Feature[] = [];
-        if (entrydata instanceof Array) {
-            for (let key in entrydata)
-                results.push(new Feature(entrydata[key]));
-        }
-        return results;
-    });
-
 @Component({
     selector: 'v1-dock',
     templateUrl: './v1-dock.component.html',
@@ -29,15 +19,14 @@ const featureTransformer = new ResponseTransformer().setDescription('Do property
 export class V1DockComponent implements OnInit {
     private configuredFeatures: Feature[] = [];
 
-    constructor(
-        private dockService: DockService) {
-    }
-    
+    constructor(private dockService: DockService) { }
+
     public ngOnInit(): void {
-        console.log('><[V1DockComponent.ngOnInit]');
+        console.log('>[V1DockComponent.ngOnInit]');
         this.dockService.readDockConfiguration(
             new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
                 .setTransformation((entrydata: any): Feature[] => {
+                    console.log('<[V1DockComponent.ngOnInit.setTransformation]');
                     let results: Feature[] = [];
                     if (entrydata instanceof Array) {
                         for (let key in entrydata)
@@ -46,10 +35,12 @@ export class V1DockComponent implements OnInit {
                     return results;
                 }))
             .subscribe((featureList: Feature[]) => {
+                console.log('<[V1DockComponent.ngOnInit.subscribe]');
                 this.configuredFeatures = featureList
                 console.log('->[V1DockComponent.ngOnInit]> Feature count: ' + this.configuredFeatures.length)
                 this.dockService.clean()
             });
+        console.log('<[V1DockComponent.ngOnInit]');
     }
     // - I N T E R A C T I O N
     public getActiveFeatures(): Feature[] {
