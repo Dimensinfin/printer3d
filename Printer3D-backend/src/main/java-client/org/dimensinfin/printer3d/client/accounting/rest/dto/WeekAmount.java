@@ -5,7 +5,7 @@ import java.util.Objects;
 public class WeekAmount {
 	private Integer year = 2020;
 	private Integer week;
-	private Double amount;
+	private Float amount;
 
 	// - C O N S T R U C T O R S
 	private WeekAmount() {}
@@ -18,7 +18,7 @@ public class WeekAmount {
 		return this.week;
 	}
 
-	public Double getAmount() {
+	public Float getAmount() {
 		return this.amount;
 	}
 
@@ -38,7 +38,7 @@ public class WeekAmount {
 			return this.onConstruction;
 		}
 
-		public WeekAmount.Builder withAmount( final Double amount ) {
+		public WeekAmount.Builder withAmount( final Float amount ) {
 			this.onConstruction.amount = Objects.requireNonNull( amount );
 			return this;
 		}

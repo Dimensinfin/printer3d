@@ -128,7 +128,7 @@ tags:
 
 paths:
   # - A C C O U N T I N G
-  /api/v1/accounting/requests/amount/week/{weekCount}:
+  /api/v1/accounting/requests/amount/week:
     get:
       tags:
         - Accounting

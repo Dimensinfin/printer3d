@@ -72,7 +72,7 @@ public class RequestControllerV2Test {
 		final RequestV2 request = new RequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
-				.withRequestDate( TEST_REQUEST_DATE_STRING )
+				.withRequestDate( TEST_REQUEST_DATE_STRING)
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
 				.build();

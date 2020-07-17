@@ -56,24 +56,19 @@ public class RequestControllerSupport {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
 	private final StockManager stockManager;
-	private final PartRepository partRepository;
 	private final ModelRepository modelRepository;
-	private final RequestServiceV2 requestServiceV2;
 	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
 	public RequestControllerSupport( final @NotNull PartRepository partRepository,
 	                                 final @NotNull ModelRepository modelRepository,
-	                                 final @NotNull RequestServiceV2 requestServiceV2,
 	                                 final @NotNull RequestsRepository requestsRepositoryV1,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
-		this.partRepository = partRepository;
 		this.modelRepository = modelRepository;
-		this.requestServiceV2 = requestServiceV2;
 		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
-		this.stockManager = new StockManager( this.partRepository );
+		this.stockManager = new StockManager( partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S

@@ -214,7 +214,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | CLOSE | 31.00  |
 
     @P3D08.H @P3D08.09
-    Scenario: [P3D08.09] When a Request is closed the the request closed date is the current date and we can calculate the week fro aggregation.
+    Scenario: [P3D08.09] When a Request is closed the the request closed date is the current date and we can calculate the week for aggregation.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |

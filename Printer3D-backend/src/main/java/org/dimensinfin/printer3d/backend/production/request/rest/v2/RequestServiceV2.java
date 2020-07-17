@@ -171,7 +171,7 @@ public class RequestServiceV2 {
 			if (targetV2.isPresent())
 				requestIntermediateEntity = targetV2.get();
 			final RequestEntityV2 requestEntityV2 = requestIntermediateEntity;
-			this.stockManager.clean().startStock();
+//			this.stockManager.clean().startStock();
 			if (this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be closed now. Data on frontend may be obsolete.
 				this.removeRequestPartsFromStock( requestEntityV2 );
 				requestEntityV2.setAmount( this.calculateRequestAmount( requestEntityV2 ) );
@@ -231,6 +231,7 @@ public class RequestServiceV2 {
 			LogWrapper.exit();
 		}
 	}
+
 	private float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
 		float amount = 0.0F;
 		for (RequestItem item : requestEntityV2.getContents()) {

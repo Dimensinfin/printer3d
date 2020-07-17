@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.persistence;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,8 @@ public class RequestEntityV2 {
 	private String label;
 	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	private OffsetDateTime requestDate;
+	@Column(name = "date_closed", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Instant closedDate;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state", columnDefinition = "request_state", nullable = false)
 	@Type(type = "pgsql_enum")
@@ -72,6 +75,15 @@ public class RequestEntityV2 {
 		return this;
 	}
 
+	public Instant getClosedDate() {
+		return this.closedDate;
+	}
+
+//	public RequestEntityV2 setClosedDate( final Instant closedDate ) {
+//		this.closedDate = closedDate;
+//		return this;
+//	}
+
 	public List<RequestItem> getContents() {
 		return this.contents;
 	}
@@ -92,12 +104,17 @@ public class RequestEntityV2 {
 		return this.state;
 	}
 
+	public boolean isClosed() {
+		return (this.state == RequestState.CLOSE);
+	}
+
 	public boolean isOpen() {
 		return (this.state == RequestState.OPEN);
 	}
 
 	public RequestEntityV2 close() {
 		this.state = RequestState.CLOSE;
+		this.closedDate = Instant.now();
 		return this;
 	}
 
@@ -124,6 +141,11 @@ public class RequestEntityV2 {
 
 		public RequestEntityV2.Builder withAmount( final Float amount ) {
 			this.onConstruction.amount = Objects.requireNonNull( amount );
+			return this;
+		}
+
+		public RequestEntityV2.Builder withClosedDate( final Instant closedDate ) {
+			if (null != closedDate) this.onConstruction.closedDate = closedDate;
 			return this;
 		}
 

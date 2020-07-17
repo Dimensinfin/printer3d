@@ -9,8 +9,6 @@ import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.dimensinfin.printer3d.backend.exception.LogWrapperLocal;
-
 /**
  * This is the data structure that is received/sent over the HTTP interface. When the user creates or changes the Request the service will
  * receive a copy of this structure and then return an updated and persisted copy.
@@ -37,6 +35,8 @@ public class RequestV2 {
 	 */
 	@SerializedName("requestDate")
 	private String requestDate;
+	@SerializedName("closedDate")
+	private String closedDate;
 	@SerializedName("state")
 	private RequestState state = RequestState.OPEN;
 	/**
@@ -56,6 +56,10 @@ public class RequestV2 {
 	// - G E T T E R S   &   S E T T E R S
 	public float getAmount() {
 		return this.amount;
+	}
+
+	public String getClosedDate() {
+		return this.closedDate;
 	}
 
 	public List<RequestItem> getContents() {
@@ -96,6 +100,11 @@ public class RequestV2 {
 			return this;
 		}
 
+		public RequestV2.Builder withClosedDate( final String closedDate ) {
+			if (null != closedDate) this.onConstruction.closedDate = closedDate;
+			return this;
+		}
+
 		public RequestV2.Builder withContents( final List<RequestItem> contents ) {
 			this.onConstruction.contents = Objects.requireNonNull( contents );
 			return this;
@@ -112,7 +121,6 @@ public class RequestV2 {
 		}
 
 		public RequestV2.Builder withRequestDate( final String requestDate ) {
-			LogWrapperLocal.info( "RequestDate: " + requestDate );
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}

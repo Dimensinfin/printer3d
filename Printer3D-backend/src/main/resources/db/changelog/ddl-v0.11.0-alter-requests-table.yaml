@@ -34,3 +34,17 @@ databaseChangeLog:
               - column:
                   name: amount
                   value: 0.0
+  - changeSet:
+      id: 0_11_0_004_printer3d_add_date_cloed_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: date_closed
+                  type: timestamp
+                  constraints:
+                    nullable: true
+                    updatable: true
