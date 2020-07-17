@@ -10,6 +10,6 @@ public class WeekComparator implements Comparator<WeekAmount> {
 	 */
 	@Override
 	public int compare( final WeekAmount week1, final WeekAmount week2 ) {
-		return Integer.compare( week1.getYear() * 100 + week1.getWeek(), week2.getYear() * 100 + week1.getWeek() );
+		return Integer.compare( week1.getYear() * 100 + week1.getWeek(), week2.getYear() * 100 + week2.getWeek() );
 	}
 }
