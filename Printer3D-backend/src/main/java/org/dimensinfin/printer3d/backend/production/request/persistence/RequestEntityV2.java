@@ -79,10 +79,10 @@ public class RequestEntityV2 {
 		return this.closedDate;
 	}
 
-//	public RequestEntityV2 setClosedDate( final Instant closedDate ) {
-//		this.closedDate = closedDate;
-//		return this;
-//	}
+	public RequestEntityV2 setClosedDate( final Instant closedDate ) {
+		this.closedDate = closedDate;
+		return this;
+	}
 
 	public List<RequestItem> getContents() {
 		return this.contents;

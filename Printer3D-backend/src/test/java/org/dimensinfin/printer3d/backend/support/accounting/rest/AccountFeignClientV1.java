@@ -18,7 +18,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class AccountFeignClientV1 extends CommonFeignClient {
-
 	// - C O N S T R U C T O R S
 	public AccountFeignClientV1( final @NotNull ITargetConfiguration acceptanceTargetConfig ) {
 		super( acceptanceTargetConfig );

@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.accounting.request.rest.v1;
 
 import java.util.List;
-import java.util.Optional;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 
 @RestController
+//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class AccountingRequestControllerV1 {
@@ -30,9 +30,10 @@ public class AccountingRequestControllerV1 {
 	@GetMapping(path = "/accounting/requests/amount/week",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<List<WeekAmount>> getRequestsAmountPerWeek( final @RequestParam(name = "weekCount") Optional<Integer> weekCount ) {
+	public ResponseEntity<List<WeekAmount>> getRequestsAmountPerWeek(
+			final @RequestParam(name = "weekCount",required = false)Integer weekCount ) {
 		return new ResponseEntity<>( this.accountingRequestServiceV1.getRequestsAmountPerWeek(
-				(weekCount.isPresent()) ? weekCount.get() : DEFAULT_WEEK_COUNT
+				(null != weekCount) ? weekCount : DEFAULT_WEEK_COUNT
 		), HttpStatus.OK );
 	}
 }

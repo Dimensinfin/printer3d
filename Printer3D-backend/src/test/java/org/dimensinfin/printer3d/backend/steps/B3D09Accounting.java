@@ -31,8 +31,7 @@ public class B3D09Accounting extends StepSupport {
 	@When("moving back one week all closed dates")
 	public void moving_back_one_week_all_closed_dates() throws IOException {
 		final ResponseEntity<CounterResponse> counter = this.accountFeignClientSupport.moveBackCloseDates(
-				Instant.now().minus( 1,
-				ChronoUnit.WEEKS )
+				Instant.now().minus( 7, ChronoUnit.DAYS )
 		);
 		Assertions.assertNotNull( counter );
 		Assertions.assertNotNull( counter.getBody() );

@@ -17,7 +17,7 @@ public class RequestEntityV2ToRequestV2Converter implements Converter<RequestEnt
 				.withId( input.getId() )
 				.withLabel( input.getLabel() )
 				.withRequestDate( input.getRequestDate().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME ) )
-				.withClosedDate( input.getClosedDate().toString() )
+				.withClosedDate( (null != input.getClosedDate()) ? input.getClosedDate().toString() : null )
 				.withState( input.getState() )
 				.withAmount( input.getAmount() )
 				.withContents( input.getContents() )

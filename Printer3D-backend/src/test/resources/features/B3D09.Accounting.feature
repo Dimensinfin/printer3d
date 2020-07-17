@@ -113,3 +113,10 @@ Feature: [STORY] Create a new endpoint to aggregate the amounts for closed Reque
         # - Close another Request
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
         Then there is a valid response with return code of "200 OK"
+
+        When the Accounting Week Income request is processed
+        Then there is a valid response with return code of "200 OK"
+        And the week report has the next contents
+            | year | week | amount |
+            | 2020 | 28   | 4      |
+            | 2020 | 29   | 5      |
