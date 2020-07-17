@@ -1,4 +1,4 @@
-<div class="graph-container" style="position: relative;" (onclick)="refresh()">
+<div class="graph-container" style="position: relative;" (click)="refresh()">
     <div *ngIf="hasData(); else noChartData">
         <ngx-charts-bar-vertical class=" bar-graph" [view]="[220,80]" [results]="billingChartData" [yAxis]="true" [yAxisLabel]=" 'Ingresos'" [showYAxisLabel]="true" [showGridLines]="true" [yScaleMax]="yscale" [yAxisTicks]="yaxisTicks" [scheme]="colorScheme">
         </ngx-charts-bar-vertical>

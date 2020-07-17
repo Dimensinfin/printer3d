@@ -21,3 +21,7 @@ Then('graph chart has {int} columns', function (columnCount: number) {
 Then('there is a sign saying {string}', function (signText: string) {
     cy.get('@target').find('[cy-name="sign"]').contains(signText, { matchCase: false })
 });
+// - W A I T S   &   U T I L I T I E S
+When('waiting for {int} second', function (seconds: number) {
+    cy.wait(seconds * 1000)
+});

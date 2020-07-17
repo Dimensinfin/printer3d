@@ -1,8 +1,13 @@
 # Printer3DFrontend
 
 ## Unit Tests pending
-* v1-drop-part-panel
-* v1-new-model-panel
+* dock.service
+* new-part-dialog - update error and create test
+* v1-request-detail-panel
+* RequestItem
+* v3-inventory-page
+
+
 * v1-part-stack-render
 * v1-part-container-render
 * Part.domain
@@ -16,5 +21,3 @@
 * Part4Request
 * v1-dock
 * Job
-* new-part-dialog
-* v1-pending-jobs-panel

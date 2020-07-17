@@ -10,13 +10,14 @@ Feature: [F3D21]-[STORY] Add a panel to display a bar graph with the aggregated 
 
     # - H A P P Y   P A T H
     @F3D21.01
-    Scenario: [F3D21.01]-The bar chart shows the the dashboard page is loaded. While there is no data downloaded the char shows the NO DATA sign.
+    Scenario: [F3D21.01]-The bar chart shows when the dashboard page is loaded. While there is no data downloaded the char shows the NO DATA sign.
         Then the target has 1 "billing-chart"
         And target has a "blueviolet-mark" mark
         And there is a sign saying "NO HAY DATOS"
 
     @F3D21.01
-    Scenario: [F3D21.01]-The bar chart shows the the dashboard page is loaded. While there is no data downloaded the char shows the NO DATA sign.
+    Scenario: [F3D21.01]-After some time the bar char shows some accounting data. The bar char has 4 columns.
         Then the target has 1 "billing-chart"
         And target has a "blueviolet-mark" mark
+        When waiting for 1 second
         And graph chart has 4 columns

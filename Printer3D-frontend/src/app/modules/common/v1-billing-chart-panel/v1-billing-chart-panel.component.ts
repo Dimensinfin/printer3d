@@ -25,12 +25,12 @@ const DEFAULT_NUMBER_OF_WEEKS: number = 4;
     styleUrls: ['./v1-billing-chart-panel.component.scss']
 })
 export class V1BillingChartPanelComponent extends BackgroundEnabledComponent implements OnInit, Refreshable {
-    public yscale: number = 60
+    public yscale: number = 10
     public billingChartData: WeekData[] = [];
     public colorScheme = {
         domain: ['blueviolet']
     };
-    public yaxisTicks: any[] = [5, 10, 15, 20, 25]
+    public yaxisTicks: any[] = [10]
 
     constructor(protected backendService: BackendService) { super() }
 

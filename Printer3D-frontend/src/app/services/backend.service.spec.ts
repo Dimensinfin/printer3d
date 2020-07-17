@@ -297,4 +297,16 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 });
         });
     });
+    describe('Code Coverage Phase [ACCOUNTING]', () => {
+        it('apiNewRequest_v2.default: get the persisted part', async () => {
+            const request = new RequestRequest();
+            service.apiAccountingRequestAmountsPerWeek_v1(4, new ResponseTransformer().setDescription('Transforms data into WeekAmount.')
+                .setTransformation((entrydata: any): any => {
+                    return entrydata;
+                }))
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
+    });
 });

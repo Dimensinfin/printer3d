@@ -12,6 +12,7 @@ import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { WeekAmount } from '@domain/dto/WeekAmount.dto';
 
 export class SupportBackendService {
     private httpWrapper: SupportHttpClientWrapperService;
@@ -207,6 +208,15 @@ export class SupportBackendService {
                 observer.next(transformer.transform(data));
                 observer.complete();
             });
+    }
+
+    // - A C C O U N T I N G
+    public apiAccountingRequestAmountsPerWeek_v1(weeks: number, transformer: ResponseTransformer): Observable<WeekAmount[]> {
+        return Observable.create((observer) => {
+            const data = this.directAccessMockResource('accounting.week.amounts')
+            observer.next(transformer.transform(data));
+            observer.complete();
+        });
     }
 
     private directAccessMockResource(dataIdentifier: string): any {
