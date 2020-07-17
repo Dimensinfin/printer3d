@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.common.exception.ApiError;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
 public class GlobalRestExceptionHandlerTest {

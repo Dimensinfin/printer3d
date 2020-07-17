@@ -2,7 +2,6 @@ package org.dimensinfin.printer3d.backend.core.exception;
 
 import org.springframework.http.HttpStatus;
 
-import org.dimensinfin.common.exception.DimensinfinError;
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
 /**

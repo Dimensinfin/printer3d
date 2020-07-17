@@ -1,6 +1,4 @@
-package org.dimensinfin.common.exception;
-
-import java.util.Optional;
+package org.dimensinfin.printer3d.backend.core.exception;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,9 +1,11 @@
-package org.dimensinfin.common.exception;
+package org.dimensinfin.printer3d.backend.core.exception;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
+
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
 public class ApiErrorTest {
 	@Test

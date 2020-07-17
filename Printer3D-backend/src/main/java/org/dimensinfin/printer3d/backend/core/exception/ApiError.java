@@ -1,7 +1,9 @@
-package org.dimensinfin.common.exception;
+package org.dimensinfin.printer3d.backend.core.exception;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
+
+import org.dimensinfin.common.exception.DimensinfinRuntimeException;
 
 public class ApiError {
 	private final DimensinfinRuntimeException dimensinfinRuntimeException;

@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.common.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.exception.ErrorInfo;
+import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToPartRequestConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestItemConverter;
@@ -44,11 +45,7 @@ public class P3D08RequestsSteps extends StepSupport {
 		this.requestFeignClientV2 = Objects.requireNonNull( requestFeignClientV2 );
 		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
 	}
-	@Then("the request returned has the next data")
-	public void the_request_returned_has_the_next_data(final List<Map<String, String>> dataTable) {
-		final ResponseEntity<RequestV2> request = this.printer3DWorld.getRequestV2ResponseEntity();
-		Assertions.assertTrue( new RequestV2Validator().validate( dataTable.get( 0 ), request.getBody()) );
-	}
+
 	@Given("creating the next Request V2 with previous Contents")
 	public void creating_the_next_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
 		final RequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
@@ -98,6 +95,12 @@ public class P3D08RequestsSteps extends StepSupport {
 		Assertions.assertEquals( Integer.parseInt( recordCount ), this.printer3DWorld.getCounterResponseResponseEntity().getBody().getRecords() );
 	}
 
+	@Then("the request returned has the next data")
+	public void the_request_returned_has_the_next_data( final List<Map<String, String>> dataTable ) {
+		final ResponseEntity<RequestV2> request = this.printer3DWorld.getRequestV2ResponseEntity();
+		Assertions.assertTrue( new RequestV2Validator().validate( dataTable.get( 0 ), request.getBody() ) );
+	}
+
 	@Then("the resulting list of Requests has a request with id {string} with the next data")
 	public void the_resulting_list_of_Requests_has_a_request_with_id_with_the_next_data( final String requestId,
 	                                                                                     final List<Map<String, String>> dataTable ) {
@@ -114,6 +117,6 @@ public class P3D08RequestsSteps extends StepSupport {
 	private RequestV2 searchRequest( final String requestId, final List<RequestV2> requests ) {
 		for (RequestV2 request : requests)
 			if (request.getId().toString().equals( requestId )) return request;
-		throw new DimensinfinRuntimeException( ErrorInfo.REQUEST_NOT_FOUND.getErrorMessage( requestId ) );
+		throw new DimensinfinRuntimeException( RequestServiceV2.REQUEST_NOT_FOUND( UUID.fromString( requestId ) ) );
 	}
 }
