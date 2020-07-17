@@ -48,5 +48,4 @@ public class B3D09Accounting extends StepSupport {
 			Assertions.assertTrue( new WeekAmountValidator().validate( row, record ) );
 		}
 	}
-
 }

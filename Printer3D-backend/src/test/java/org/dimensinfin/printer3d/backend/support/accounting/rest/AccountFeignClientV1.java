@@ -24,14 +24,14 @@ public class AccountFeignClientV1 extends CommonFeignClient {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public ResponseEntity<List<WeekAmount>> getRequestsAmountPerWeek() throws IOException {
+	public ResponseEntity<List<WeekAmount>> getRequestsAmountPerWeek( final Integer weekCount ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the amounts aggregated per week rom Requests.";
 		final Response<List<WeekAmount>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( AccountingApiV1.class )
-				.getRequestsAmountPerWeek( 6 )
+				.getRequestsAmountPerWeek( (null == weekCount) ? 4 : weekCount )
 				.execute();
 		if (response.isSuccessful()) {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );

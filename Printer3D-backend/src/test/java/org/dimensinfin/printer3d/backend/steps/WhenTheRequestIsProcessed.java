@@ -74,6 +74,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_Accounting_Week_Income_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.ACCOUNTING_REQUEST_BY_WEEK );
 	}
+	@When("the Accounting Week Income request is processed with week count {int}")
+	public void the_Accounting_Week_Income_request_is_processed_with_week_count(final Integer weekCount) throws IOException {
+		this.printer3DWorld.setWeekCount( weekCount );
+		this.processRequestByType( RequestType.ACCOUNTING_REQUEST_BY_WEEK );
+	}
 
 	@When("the Cancel Build for Machine {string} request is processed")
 	public void the_Cancel_Build_for_Machine_request_is_processed( final String machineId ) throws IOException {
@@ -323,7 +328,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setCounterResponseResponseEntity( deleteRequestResponseEntity );
 				return deleteRequestResponseEntity;
 			case ACCOUNTING_REQUEST_BY_WEEK:
-				final ResponseEntity<List<WeekAmount>> accountingRequestWeekResponseEntity = this.accountFeignClientV1.getRequestsAmountPerWeek();
+				final Integer weekCount = this.printer3DWorld.getWeekCount();
+				final ResponseEntity<List<WeekAmount>> accountingRequestWeekResponseEntity = this.accountFeignClientV1.getRequestsAmountPerWeek(weekCount);
 				Assertions.assertNotNull( accountingRequestWeekResponseEntity );
 				this.printer3DWorld.setListWeekAmountResponseEntity( accountingRequestWeekResponseEntity );
 				return accountingRequestWeekResponseEntity;

@@ -57,6 +57,7 @@ public class Printer3DWorld extends CommonWorld {
 	private RequestV2 requestV2;
 	private ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity;
 	private ResponseEntity<List<WeekAmount>> listWeekAmountResponseEntity;
+	private Integer weekCount;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -317,6 +318,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setUpdateGroupPartRequest( final UpdateGroupPartRequest updateGroupPartRequest ) {
 		this.updateGroupPartRequest = updateGroupPartRequest;
+		return this;
+	}
+
+	public Integer getWeekCount() {
+		return this.weekCount;
+	}
+
+	public Printer3DWorld setWeekCount( final Integer weekCount ) {
+		this.weekCount = weekCount;
 		return this;
 	}
 }
