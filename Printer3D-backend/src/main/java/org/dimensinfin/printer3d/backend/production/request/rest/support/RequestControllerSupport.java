@@ -110,6 +110,7 @@ public class RequestControllerSupport {
 	@PutMapping("/production/requests/transform")
 	public ResponseEntity<List<CounterResponse>> transformRequestsV1() {
 		final int moveCount = (int) this.moveV1RequestsToV2();
+		final int closeCount = (int) this.updateClosed();
 		final int recalculateCount = (int) this.recalculateRequestV2Amounts();
 		final List<CounterResponse> countList = new ArrayList<>();
 		countList.add( new CounterResponse.Builder().withRecords( moveCount ).build() );
@@ -208,6 +209,7 @@ public class RequestControllerSupport {
 		try {
 			return this.requestsRepositoryV2.findAll()
 					.stream()
+					.filter( RequestEntityV2::isClosed )
 					.map( requestEntityV2 -> {
 						final float amount = this.calculateRequestAmount( requestEntityV2 );
 						this.requestsRepositoryV2.save( requestEntityV2.setAmount( amount ) );
@@ -220,7 +222,21 @@ public class RequestControllerSupport {
 								MessageFormat.format( "New Amount: {0}", amount )
 						);
 						return requestEntityV2;
-					} ).collect( Collectors.toList() ).size();
+					} )
+					.count();
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
+	private long updateClosed() {
+		LogWrapper.enter();
+		try {
+			return this.requestsRepositoryV2.findAll()
+					.stream()
+					.filter( RequestEntityV2::isClosed )
+					.map( requestEntityV2 -> this.requestsRepositoryV2.save( requestEntityV2.close() ) )
+					.count();
 		} finally {
 			LogWrapper.exit();
 		}
