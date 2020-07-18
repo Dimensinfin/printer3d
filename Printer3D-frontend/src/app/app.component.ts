@@ -18,6 +18,7 @@ import { environment } from '@env/environment';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { BackgroundEnabledComponent } from './modules/shared/core/background-enabled/background-enabled.component';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
+import { DockService } from './services/dock.service';
 
 @Component({
     selector: 'app-root',
@@ -29,9 +30,10 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     public appVersion: string = environment.appVersion;
     public backendVersion: string = 'backend';
     public self: AppComponent;
-    private routedComponent: Refreshable;
 
-    constructor(protected backendService: BackendService) {
+    constructor(
+        protected backendService: BackendService,
+        protected dockService : DockService) {
         super();
         this.self = this;
         this.appVersion = environment.appVersion + ' ' + process.env.NODE_ENV
@@ -57,16 +59,16 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     public getAppVersion(): string {
         return this.appVersion;
     }
+    /**
+     * This method is fired by any routing change. It is being used to report to the Dock service which page is being selected so the Dock can test if the user is navigating to the same route and then fire directly the refresh to the current active page detected through this method.
+     * @param componentRef  
+     */
     public setRoutedComponent(componentRef: Refreshable): void {
-        console.log('[AppComponent.setRoutedComponent]')
-        // if ( componentRef instanceof Refreshable )
-        this.routedComponent = componentRef;
+        console.log('-[AppComponent.setRoutedComponent]> Component: '+componentRef)
+        this.dockService.activatePage( componentRef)
     }
     public refresh(): void {
-        try {
-            if (null != this.routedComponent) this.routedComponent.refresh();
-        } catch (Exception) {
-            console.log('[AppComponent.refresh]> Component is not refreshable.')
-        }
+        console.log('WARNING. This method should not be being called')
+        this.dockService.refresh()
     }
 }

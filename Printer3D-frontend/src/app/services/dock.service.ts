@@ -26,6 +26,7 @@ import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
 import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 import { Feature } from '@domain/Feature.domain';
 import { Router } from '@angular/router';
+import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -33,6 +34,7 @@ import { Router } from '@angular/router';
 export class DockService {
     private activeFeature: Feature;
     private featureList: Feature[];
+    private routedComponent: Refreshable;
 
     constructor(
         protected router: Router,
@@ -92,12 +94,27 @@ export class DockService {
             feature.deactivate()
         }
     }
+
+    // - E V E N T S
+    public activatePage(pageRef: Refreshable): void {
+        this.routedComponent = pageRef
+    }
+    public refresh(): void {
+        try {
+            if (null != this.routedComponent) this.routedComponent.refresh();
+        } catch (Exception) {
+            console.log('[AppComponent.refresh]> Component is not refreshable.')
+        }
+    }
     /**
      * Save the new dock configuration so if the applciation is restarted this is the new default start point.
      * @param route the new route path to be set as destination.
      */
     private pageChange(route: string): void {
         console.log('><[DockService.pageChange]> Route: ' + route);
-        this.router.navigate([route]);
+        if (this.router.url == route)
+            this.refresh()
+        else
+            this.router.navigate([route]);
     }
 }
