@@ -17,6 +17,7 @@ import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToPartRequestConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestItemConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestV2Converter;
+import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestV2TestingConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.RequestContentValidator;
 import org.dimensinfin.printer3d.backend.support.production.request.RequestV2Validator;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientSupport;
@@ -49,6 +50,14 @@ public class P3D08RequestsSteps extends StepSupport {
 	@Given("creating the next Request V2 with previous Contents")
 	public void creating_the_next_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
 		final RequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( request );
+		this.printer3DWorld.setRequestV2( request );
+	}
+
+	@Given("creating the next incomplete Request V2 with previous Contents")
+	public void creating_the_next_incomplete_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
+		final RequestV2 request =
+				new CucumberTableToRequestV2TestingConverter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( request );
 		this.printer3DWorld.setRequestV2( request );
 	}

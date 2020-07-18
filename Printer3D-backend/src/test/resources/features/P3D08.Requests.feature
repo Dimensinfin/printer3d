@@ -283,7 +283,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
-        And creating the next Request V2 with previous Contents
+        And creating the next incomplete Request V2 with previous Contents
             | id                                   | requestDate                 | state |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | 2020-06-29T20:00:00.226181Z | OPEN  |
         When the New Request V2 request is processed

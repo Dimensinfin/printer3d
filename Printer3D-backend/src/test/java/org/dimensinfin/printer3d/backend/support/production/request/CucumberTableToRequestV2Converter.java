@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
-import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestV2Testing;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
@@ -24,8 +23,8 @@ public class CucumberTableToRequestV2Converter extends CucumberTableConverter<Re
 	public CucumberTableToRequestV2Converter( final List<RequestItem> requestContents ) {this.requestContents = requestContents;}
 
 	@Override
-	public RequestV2Testing convert( final Map<String, String> cucumberRow ) {
-		final RequestV2Testing.Builder builder = new RequestV2Testing.Builder();
+	public RequestV2 convert( final Map<String, String> cucumberRow ) {
+		final RequestV2.Builder builder = new RequestV2.Builder();
 		if (null != cucumberRow.get( ID )) builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
 		if (null != cucumberRow.get( LABEL )) builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( STATE )) builder.withState( RequestState.valueOf( cucumberRow.get( STATE ) ) );
