@@ -7,8 +7,11 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
+import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
@@ -49,7 +52,11 @@ public class MachineFeignClientV2 extends CommonFeignClient {
 				.startBuild( authorizationToken, machineId, jobRequest )
 				.execute();
 		if (response.isSuccessful()) {
+			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
+		} else {
+			LogWrapper.info( ENDPOINT_MESSAGE +" Failed.");
+			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
+		}
 	}
 }

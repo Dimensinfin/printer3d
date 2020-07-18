@@ -9,18 +9,20 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdaterV2;
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineV2Converter;
+import org.dimensinfin.printer3d.backend.inventory.machine.rest.v1.MachineServiceV1;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
@@ -31,14 +33,26 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
+import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
+
 @Service
 @Transactional
 public class MachineServiceV2 {
+	public static DimensinfinError MISSING_MATERIAL_TO_COMPLETE_JOB() {
+		return new DimensinfinError.Builder()
+				.withErrorName( "MISSING_MATERIAL_TO_COMPLETE_JOB" )
+				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
+				.withHttpStatus( HttpStatus.PRECONDITION_FAILED )
+				.withMessage( "Not enough Material or no coil available to start the job." )
+				.build();
+	}
+
 	public static <T> Collector<T, ?, T> toSingleton() {
 		return Collectors.collectingAndThen(
 				Collectors.toList(),
 				list -> {
-					if (list.isEmpty()) throw new DimensinfinRuntimeException( Printer3DErrorInfo.EXPECTED_COIL_NOT_FOUND() );
+					if (list.isEmpty()) throw new DimensinfinRuntimeException( MISSING_MATERIAL_TO_COMPLETE_JOB(),
+							"No enough material or no coil while performing the material use before starting a job." );
 					LogWrapper.info( "Located coil: " + list.get( 0 ).toString() );
 					return list.get( 0 );
 				}
@@ -76,24 +90,31 @@ public class MachineServiceV2 {
 		return new MachineListV2.Builder().withMachines( machines ).build();
 	}
 
+	/**
+	 * With this command the **Machine** will be active and building one new instance of the referenced Part model. The front end will not allow
+	 * setting new jobs until this ends or it is cancelled.
+	 * At this moment the plastic quantity that is required to build the Part is subtracted from a Coil with the same finishing. If there are more
+	 * than a single coil with the same finishing one of them is used indistinctly.
+	 *
+	 * @param machineId  the id of the machine where ot start the job.
+	 * @param jobRequest the job information record.
+	 */
 	public MachineV2 startBuild( final @NotNull UUID machineId, final @NotNull JobRequest jobRequest ) {
 		LogWrapper.enter();
 		try {
 			// Find the machine and update it.
-			final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
-			if (machineOpt.isEmpty())
-				throw new RepositoryConflictException( Printer3DErrorInfo.MACHINE_NOT_FOUND( machineId.toString() ) );
-			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( jobRequest.getPartId() );
-			if (jobPartOpt.isEmpty())
-				throw new RepositoryConflictException( PartServiceV1.PART_NOT_FOUND( machineOpt.get().getCurrentJobPartId() ) );
-			this.subtractPlasticFromCoil( jobPartOpt.get(), jobRequest.getCopies() );
-			final MachineEntity machineEntity = this.machineRepository.save( new MachineUpdaterV2( machineOpt.get() ).update( jobRequest ) );
+			final MachineEntity machineEntity = this.machineRepository.findById( machineId )
+					.orElseThrow( () -> new DimensinfinRuntimeException( MachineServiceV1.MACHINE_NOT_FOUND( machineId ) ) );
+			final PartEntity jobPartEntity = this.partRepository.findById( jobRequest.getPartId() )
+					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) ) );
+			this.subtractPlasticFromCoil( jobPartEntity, jobRequest.getCopies() );
+			final MachineEntity updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update( jobRequest ) );
 			final BuildRecord buildRecord = new BuildRecord.Builder()
-					.withPartCopies( machineEntity.getCurrentPartInstances() )
-					.withPart( this.getBuildPart( machineEntity ) )
-					.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
+					.withPartCopies( updatedMachineEntity.getCurrentPartInstances() )
+					.withPart( this.getBuildPart( updatedMachineEntity ) )
+					.withJobInstallmentDate( updatedMachineEntity.getJobInstallmentDate() )
 					.build();
-			return new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
+			return new MachineEntityToMachineV2Converter( buildRecord ).convert( updatedMachineEntity );
 		} finally {
 			LogWrapper.exit();
 		}

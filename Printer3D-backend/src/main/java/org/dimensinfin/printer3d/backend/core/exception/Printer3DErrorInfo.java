@@ -67,23 +67,6 @@ public class Printer3DErrorInfo {
 						requestId ) )
 				.build();
 	}
-	public static DimensinfinError MACHINE_NOT_FOUND( final String machineIdentification ) {
-		return new DimensinfinError.Builder()
-				.withErrorName( "MACHINE_NOT_FOUND" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".notfound" )
-				.withHttpStatus( HttpStatus.NOT_FOUND )
-				.withMessage( MessageFormat.format( "Machine with label or id [{0}] not found at the repository.", machineIdentification ) )
-				.build();
-	}
-
-	public static DimensinfinError EXPECTED_COIL_NOT_FOUND() {
-		return new DimensinfinError.Builder()
-				.withErrorName( "COIL_NOT_FOUND" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
-				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
-				.withMessage( "Coil not found when processing a new build job. Check database records for the selected Part." )
-				.build();
-	}
 
 	public static DimensinfinError MODEL_ALREADY_EXISTS( final UUID modelId ) {
 		return new DimensinfinError.Builder()

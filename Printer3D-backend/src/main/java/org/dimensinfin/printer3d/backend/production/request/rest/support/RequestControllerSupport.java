@@ -114,6 +114,7 @@ public class RequestControllerSupport {
 		final int recalculateCount = (int) this.recalculateRequestV2Amounts();
 		final List<CounterResponse> countList = new ArrayList<>();
 		countList.add( new CounterResponse.Builder().withRecords( moveCount ).build() );
+		countList.add( new CounterResponse.Builder().withRecords( closeCount ).build() );
 		countList.add( new CounterResponse.Builder().withRecords( recalculateCount ).build() );
 		return new ResponseEntity<>( countList, HttpStatus.OK );
 	}

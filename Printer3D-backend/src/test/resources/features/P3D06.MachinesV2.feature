@@ -47,7 +47,10 @@ Feature: Manage the information about the production 3D printer Machines.
         And the next setup for Machine "Ender 3 Pro - B"
             | currentJobPartId | jobInstallmentDate | currentPartInstances |
             |                  |                    | 1                    |
-        When the Start Build for Part "63fff2bc-a93f-4ee5-b753-185d83a13151" for Machine "e18aa442-19cd-4b08-8ed0-9f1917821fac" request is processed
+        And the next Job Request request
+            | jobId                                | partId                               | copies |
+            | ed36cdfb-e5ae-4275-a163-63b4be4d952c | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | 1      |
+        When the Start Build V2 for Machine "e18aa442-19cd-4b08-8ed0-9f1917821fac" request is processed
         Then there is a valid response with return code of "200 OK"
         When the Get Machines V2 request is processed
         Then there is a valid response with return code of "200 OK"
@@ -120,10 +123,14 @@ Feature: Manage the information about the production 3D printer Machines.
         And the next Job Request request
             | jobId                                | partId                               | copies |
             | ed36cdfb-e5ae-4275-a163-63b4be4d952c | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | 3      |
-        When the Start Build V2 for for Machine "e18aa442-19cd-4b08-8ed0-9f1917821fac" request is processed
+        When the Start Build V2 for Machine "e18aa442-19cd-4b08-8ed0-9f1917821fac" request is processed
         Then there is a valid response with return code of "200 OK"
+        # - Validate the machine state
         When the Get Machines V2 request is processed
         Then there is a valid response with return code of "200 OK"
         And the machine "Ender 3 Pro - A" has the next build information
             | state   | partId                               | partLabel    | partCopies | remainingTime |
             | RUNNING | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | 3          | 10800         |
+
+    @P3D06.H @P3D06.07
+    Scenario: [P3D06.07]

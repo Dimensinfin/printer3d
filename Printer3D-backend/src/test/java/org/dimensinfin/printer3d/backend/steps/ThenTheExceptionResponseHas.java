@@ -9,9 +9,9 @@ import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 
 import io.cucumber.java.en.Then;
 
-public class ThenTheExceptionResponseHasTheMessage extends StepSupport {
+public class ThenTheExceptionResponseHas extends StepSupport {
 	// - C O N S T R U C T O R S
-	public ThenTheExceptionResponseHasTheMessage( final @NotNull Printer3DWorld printer3DWorld ) {
+	public ThenTheExceptionResponseHas( final @NotNull Printer3DWorld printer3DWorld ) {
 		super( printer3DWorld );
 	}
 

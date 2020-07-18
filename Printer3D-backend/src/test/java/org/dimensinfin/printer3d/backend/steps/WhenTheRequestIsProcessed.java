@@ -10,7 +10,6 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
@@ -25,6 +24,7 @@ import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignCl
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -74,8 +74,9 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_Accounting_Week_Income_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.ACCOUNTING_REQUEST_BY_WEEK );
 	}
+
 	@When("the Accounting Week Income request is processed with week count {int}")
-	public void the_Accounting_Week_Income_request_is_processed_with_week_count(final Integer weekCount) throws IOException {
+	public void the_Accounting_Week_Income_request_is_processed_with_week_count( final Integer weekCount ) throws IOException {
 		this.printer3DWorld.setWeekCount( weekCount );
 		this.processRequestByType( RequestType.ACCOUNTING_REQUEST_BY_WEEK );
 	}
@@ -158,6 +159,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the New Request V2 request is processed")
 	public void the_New_Request_V2_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_REQUESTV2 );
+	}
+
+	@When("the Start Build V2 for Machine labeled {string} request is processed")
+	public void the_Start_Build_V2_for_Machine_labeled_request_is_processed( final String machineLabel ) throws IOException {
+		final UUID machineId = this.findMachineByLabel( machineLabel );
+		this.printer3DWorld.setMachineId( machineId );
+		Assertions.assertNotNull( this.printer3DWorld.getJobRequest() );
+		this.processRequestByType( RequestType.START_BUILDV2 );
 	}
 
 	@When("the Start Build V2 for Machine {string} request is processed")
@@ -329,7 +338,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return deleteRequestResponseEntity;
 			case ACCOUNTING_REQUEST_BY_WEEK:
 				final Integer weekCount = this.printer3DWorld.getWeekCount();
-				final ResponseEntity<List<WeekAmount>> accountingRequestWeekResponseEntity = this.accountFeignClientV1.getRequestsAmountPerWeek(weekCount);
+				final ResponseEntity<List<WeekAmount>> accountingRequestWeekResponseEntity = this.accountFeignClientV1
+						.getRequestsAmountPerWeek( weekCount );
 				Assertions.assertNotNull( accountingRequestWeekResponseEntity );
 				this.printer3DWorld.setListWeekAmountResponseEntity( accountingRequestWeekResponseEntity );
 				return accountingRequestWeekResponseEntity;

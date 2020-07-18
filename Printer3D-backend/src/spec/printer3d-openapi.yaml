@@ -508,6 +508,66 @@ paths:
                 $ref: '#/components/schemas/FinishingsResponse'
 
   # - M A C H I N E S
+  /api/v1/inventory/machines/{machineId}/cancelbuild:
+    put:
+      tags:
+        - Inventory
+      summary: Signals the cancellation of the current build.
+      description: >
+        With this command the **Machine** will be recorded as ready. This cancellation command has not to be related toa real cancellation at the
+        real 3D printer. Maybe used to correct the current job being performed by the real printer.
+      operationId: cancelBuild
+      parameters:
+        - in: path
+          name: machineId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Machine we are requesting to cancel the build job.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The registration of the build cancellation is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
+  /api/v1/inventory/machines/{machineId}/completeBuild:
+    put:
+      tags:
+        - Inventory
+      summary: Signals the completion of the current build.
+      description: >
+        With this command the **Machine** will complete the current job. This will change the Part stock levels adding to the current Part stock
+        the number of Parts already built. Then the Machine will return to the IDLE state.
+        The Job registered on the Machine is then persisted to a nee backend repository to create an analysis record to be able to perform
+        production statistics with the completed jobs.
+      operationId: completeBuild
+      parameters:
+        - in: path
+          name: machineId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Machine we are requesting to complete the build job.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The registration of the build cancellation is successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Machine'
   /api/v2/inventory/machines:
     get:
       tags:
@@ -561,129 +621,6 @@ paths:
         200:
           description: >
             The registration of the build start is successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Machine'
-
-  /api/v1/inventory/machines:
-    get:
-      tags:
-        - Inventory
-      summary: Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
-      description: >
-        Machines do not change frequently so there is no need to have their UI. The Machine records are created manually but anyway the system is
-        able to return their list form the repository.
-        When the list of Machine records is collected from the repository the fields for job installation time are checked. If the elapsed time
-        from this recorded time is less than the current time, then the job is expected to have finished. At this moment the machine is cleared and
-        the part count for the target **Part** job is increased in the number of instances built.
-      deprecated: true
-      operationId: getMachines
-      responses:
-        200:
-          description: >
-            The list of **Machines** persisted at the repository.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MachineList'
-  /api/v1/inventory/machines/{machineId}/startbuild/{partId}:
-    put:
-      tags:
-        - Inventory
-      summary: Signals the registration and start of a new build job.
-      description: >
-        With this command the **Machine** will be active and building one new instance of the referenced Part model. The front end will not allow
-        setting new jobs until this ends or it is cancelled.
-      operationId: startBuild
-      deprecated: true
-      parameters:
-        - in: path
-          name: machineId
-          required: true
-          style: simple
-          explode: false
-          description: The unique id (uuid) of the Machine that will execute the build job.
-          schema:
-            type: string
-            format: uuid
-          example:
-            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
-        - in: path
-          name: partId
-          required: true
-          style: simple
-          explode: false
-          description: The unique id (uuid) of the Part item to be built.
-          schema:
-            type: string
-            format: uuid
-          example:
-            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
-      responses:
-        200:
-          description: >
-            The registration of the build start is successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Machine'
-  /api/v1/inventory/machines/{machineId}/completeBuild:
-    put:
-      tags:
-        - Inventory
-      summary: Signals the completion of the current build.
-      description: >
-        With this command the **Machine** will complete the current job. This will change the Part stock levels adding to the current Part stock
-        the number of Parts already built. Then the Machine will return to the IDLE state.
-        The Job registered on the Machine is then persisted to a nee backend repository to create an analysis record to be able to perform
-        production statistics with the completed jobs.
-      operationId: completeBuild
-      parameters:
-        - in: path
-          name: machineId
-          required: true
-          style: simple
-          explode: false
-          description: The unique id (uuid) of the Machine we are requesting to complete the build job.
-          schema:
-            type: string
-            format: uuid
-          example:
-            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
-      responses:
-        200:
-          description: >
-            The registration of the build cancellation is successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Machine'
-  /api/v1/inventory/machines/{machineId}/cancelbuild:
-    put:
-      tags:
-        - Inventory
-      summary: Signals the cancellation of the current build.
-      description: >
-        With this command the **Machine** will be recorded as ready. This cancellation command has not to be related toa real cancellation at the
-        real 3D printer. Maybe used to correct the current job being performed by the real printer..
-      operationId: cancelBuild
-      parameters:
-        - in: path
-          name: machineId
-          required: true
-          style: simple
-          explode: false
-          description: The unique id (uuid) of the Machine we are requesting to cancel the build job.
-          schema:
-            type: string
-            format: uuid
-          example:
-            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
-      responses:
-        200:
-          description: >
-            The registration of the build cancellation is successful.
           content:
             application/json:
               schema:
