@@ -236,9 +236,14 @@ public class RequestControllerSupport {
 					.stream()
 					.filter( RequestEntityV2::isClosed )
 					.map( requestEntityV2 -> {
-						LogWrapper.info( MessageFormat.format( "Current close date: {0}", requestEntityV2.getClosedDate().toString() ) );
+						LogWrapper.info( MessageFormat.format(
+								"Current close date: {0}",
+								(null != requestEntityV2.getClosedDate()) ? requestEntityV2.getClosedDate().toString() : "null"
+						) );
 						final RequestEntityV2 updatedRequest = this.requestsRepositoryV2.save( requestEntityV2.close() );
-						LogWrapper.info( MessageFormat.format( "Updated close date: {0}", updatedRequest.getClosedDate().toString() ) );
+						LogWrapper.info( MessageFormat.format(
+								"Updated close date: {0}",
+								(null != requestEntityV2.getClosedDate()) ? updatedRequest.getClosedDate().toString() : "null" ) );
 						return updatedRequest;
 					} )
 					.count();
