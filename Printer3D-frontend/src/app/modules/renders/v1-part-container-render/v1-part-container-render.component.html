@@ -2,6 +2,12 @@
 <div *ngIf="getVariant() === '-CATALOG-'">
     <div id="{{getUniqueId()}}" (click)="toggleExpanded()">
         <div class="row part-container-panel">
+            <button cy-name="edit-button" class="edit-attributes button-enabled" (click)="toggleEdition($event)">
+                <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
+            </button>
+            <button cy-name="save-button" type="submit" class="save-attributes button-disabled">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
+            </button>
             <div cy-name="label" class="field label-width">
                 <span cy-field-label="label" class="label">ETIQUETA</span><br>
                 <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
@@ -19,9 +25,6 @@
                 <span cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</span>
             </div>
             <div class="left">
-                <div cy-name="edit-button" class="field edit-width" (click)="toggleEdition($event)">
-                    <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
-                </div>
                 <div cy-name="expand-button" class="arrow-box" *ngIf="node.isExpandable()">
                     <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
                 </div>
@@ -43,9 +46,12 @@
 <div *ngIf="getVariant() === '-EDITING-PART-GROUP-'">
     <form class="dsf-form" autocomplete="off">
         <div id="{{getUniqueId()}}" class="row part-container-panel">
-            <div cy-name="update-button" class="update-button" (click)="saveEditing()">
+            <button cy-name="edit-button" class="edit-attributes button-enabled" (click)="toggleEdition($event)">
+                <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
+            </button>
+            <button cy-name="save-button" class="save-attributes button-enabled" (click)="saveEditing()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
-            </div>
+            </button>
             <div class="field">
                 <span cy-field-label="label" class="label">ETIQUETA</span><br>
                 <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
@@ -89,9 +95,6 @@
                 </div>
             </div>
             <div class="left">
-                <div cy-name="edit-button" class="field edit-width" (click)="toggleEdition($event)">
-                    <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/></svg>
-                </div>
                 <div cy-name="expand-button" class="arrow-box" *ngIf="node.isExpandable()">
                     <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
                 </div>

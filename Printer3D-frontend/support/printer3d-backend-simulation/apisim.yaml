@@ -133,7 +133,7 @@ simlet: inventory-updatepart
 
 request:
   - method: PATCH
-  - uriPathPattern: "/api/v1/inventory/parts/group/{label}"
+  - uriPathPattern: "/api/v1/inventory/parts/group"
 
 response:
   from: stub

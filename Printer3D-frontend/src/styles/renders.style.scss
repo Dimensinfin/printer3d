@@ -76,3 +76,37 @@
 .arrow-expanded {
     transform: rotate(90deg);
 }
+
+// - EDIT BUTTON
+.edit-attributes {
+    width: 50px;
+    all: initial;
+}
+
+// - SAVE ICON
+.save-attributes {
+    width: 50px;
+    all: initial;
+}
+
+.save-icon {
+    margin-top: 6px;
+    height: 30px;
+}
+
+// - BUTTONS
+.button-enabled {
+    fill: white;
+}
+
+.button-enabled:hover {
+    fill: greenyellow;
+}
+
+.button-disabled {
+    fill: gray;
+}
+
+.button-disabled:hover {
+    fill: gray;
+}

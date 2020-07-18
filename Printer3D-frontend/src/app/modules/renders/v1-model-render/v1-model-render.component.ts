@@ -39,6 +39,9 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     }
 
     // - I N T E R A C T I O N S
+    public toggleDisplay(): void {
+        this.inside = !this.inside
+    }
     public mouseEnter(node: any): void {
         this.inside = true;
     }
