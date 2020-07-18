@@ -21,7 +21,7 @@ Given('one instance of Dock', function () {
 // - FEATURE SELECTION
 When('there is a click on Feature {string}', function (featureLabel: string) {
     cy.get('v1-dock')
-        .find('v2-feature-render')
+        .find('v2-feature')
         .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
         .click('center');
 });
@@ -221,7 +221,7 @@ Then('the target item button with name {string} has a label {string} and is {str
 // - R E V I E W
 When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, destination: string) {
     cy.get('v1-dock')
-        .find('v2-feature-render')
+        .find('v2-feature')
         .contains(label, { matchCase: false }).parent()
         .click('center');
     cy.wait(1200)
@@ -241,7 +241,7 @@ Then('there is a Notification panel', function () {
 });
 Then('there are no Features active', function () {
     cy.get('v1-dock')
-        .find('v2-feature-render').within(($panel) => {
+        .find('v2-feature').within(($panel) => {
             cy.get('.corner-mark').should('have.length', 0)
         });
 });

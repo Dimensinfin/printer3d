@@ -9,25 +9,25 @@ const INVENTORY_PART_LIST_PAGE_NAME = '/Inventory/Part List';
 
 // - F E A T U R E S
 Then('there is a Feature with label {string}', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render').find('.feature-label').contains(label, { matchCase: false })
+    cy.get('v1-dock').find('v2-feature').find('.feature-label').contains(label, { matchCase: false })
 });
 Then('there are {int} Features enabled', function (int) {
-    cy.get('v1-dock').find('v2-feature-render').within(($panel) => {
+    cy.get('v1-dock').find('v2-feature').within(($panel) => {
         cy.get('.feature-clip').should('not.have.class', 'disabled')
     });
 });
 Then('the Feature with label {string} opens a Dialog', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render')
+    cy.get('v1-dock').find('v2-feature')
         .contains(label, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').find('.corner-top').parent().find('.blue-mark').should('exist')
 });
 Then('the Feature with label {string} opens a Page', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render')
+    cy.get('v1-dock').find('v2-feature')
         .contains(label, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').find('.corner-top').should('not.exist')
 });
 Then('the Feature with label {string} opens a DropPage', function (label: string) {
-    cy.get('v1-dock').find('v2-feature-render')
+    cy.get('v1-dock').find('v2-feature')
         .contains(label, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').find('.corner-top').parent().find('.blueviolet-mark').should('exist')
 });
@@ -35,7 +35,7 @@ Then('the Feature with label {string} opens a DropPage', function (label: string
 // - F E A T U R E   S E L E C T I O N
 When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (featureLabel: string, destination: string) {
     cy.get('v1-dock')
-        .find('v2-feature-render').find('[cy-name="feature"]')
+        .find('v2-feature').find('[cy-name="feature"]')
         .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').click('center');
     cy.get('app-root')
@@ -63,7 +63,7 @@ When('there is a click on the {string} button of target dialog', function (butto
 
 
 Then('there are {int} Features enabled', function (int) {
-    cy.get('v1-dock').find('v2-feature-render').within(($panel) => {
+    cy.get('v1-dock').find('v2-feature').within(($panel) => {
         cy.get('.feature-clip').should('not.have.class', 'disabled')
     });
 });
@@ -121,7 +121,7 @@ Then('the target page is InventoryPartListPage', function () {
 
 Then('there are {int} Features', function (featureCount) {
     console.log('[THEN] there are {int} Features');
-    cy.get('app-root').find('v2-feature-render').should('have.length', featureCount)
+    cy.get('app-root').find('v2-feature').should('have.length', featureCount)
 });
 
 Then('there is a v1-feature-render with label {string}', function (label) {

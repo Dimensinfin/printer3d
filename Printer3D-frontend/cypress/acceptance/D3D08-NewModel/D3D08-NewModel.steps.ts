@@ -12,7 +12,7 @@ const supportService = new SupportService();
 When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('v1-dock')
-        .find('v2-feature-render')
+        .find('v2-feature')
         .contains(label, { matchCase: false }).parent()
         .click('center');
     cy.wait(500)
