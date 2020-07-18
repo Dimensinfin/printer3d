@@ -38,6 +38,7 @@ public class MachineV2SerializerTest {
 		this.objectMapper = new ObjectMapper();
 		SimpleModule module = new SimpleModule();
 		module.addSerializer( MachineV2.class, new MachineV2Serializer() );
+		module.addSerializer( BuildRecord.class, new BuildRecordSerializer() );
 		objectMapper.registerModule( module );
 	}
 
@@ -72,8 +73,7 @@ public class MachineV2SerializerTest {
 				.withBuildRecord( buildRecord )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_MACHINE_LABEL-\"," +
-				"\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"buildRecord\":{\"state\":\"RUNNING\",\"part\":{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false},\"partCopies\":8,\"jobInstallmentDate\":{\"offset\":{\"totalSeconds\":7200,\"id\":\"+02:00\",\"rules\":{\"fixedOffset\":true,\"transitions\":[],\"transitionRules\":[]}},\"nano\":226181000,\"year\":2020,\"monthValue\":6,\"dayOfMonth\":5,\"hour\":21,\"minute\":54,\"second\":0,\"dayOfWeek\":\"FRIDAY\",\"dayOfYear\":157,\"month\":\"JUNE\"},\"remainingTime\":0,\"running\":true}}";
+		final String expected = "{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_MACHINE_LABEL-\",\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"buildRecord\":{\"state\":\"RUNNING\",\"partCopies\":8,\"part\":{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false},\"jobInstallmentDate\":\"2020-06-05T21:54:00.226181+02:00\",\"remainingTime\":0}}";
 		final String obtained = objectMapper.writeValueAsString( machineV2 );
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

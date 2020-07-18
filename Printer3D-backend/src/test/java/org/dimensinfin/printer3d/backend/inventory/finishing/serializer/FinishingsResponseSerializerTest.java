@@ -23,6 +23,7 @@ public class FinishingsResponseSerializerTest {
 		this.objectMapper = new ObjectMapper();
 		SimpleModule module = new SimpleModule();
 		module.addSerializer( FinishingsResponse.class, new FinishingsResponseSerializer() );
+		module.addSerializer( Finishing.class, new FinishingSerializer() );
 		objectMapper.registerModule( module );
 	}
 

@@ -21,6 +21,7 @@ public class MachineListV2SerializerTest {
 		this.objectMapper = new ObjectMapper();
 		SimpleModule module = new SimpleModule();
 		module.addSerializer( MachineListV2.class, new MachineListV2Serializer() );
+		module.addSerializer( MachineV2.class, new MachineV2Serializer() );
 		objectMapper.registerModule( module );
 	}
 
