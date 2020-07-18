@@ -29,7 +29,7 @@ Then('the target item has a list named {string} with {int} {string}', function (
         .find(tag).should('have.length', itemCount)
 });
 Given('the target item is expandable', function () {
-    cy.get('@target-item').parents().closest('node-container').first()
+    cy.get('@target').parents().closest('node-container').first()
         .find('[cy-name="expand-button"]')
         .should('exist')
 });
@@ -185,7 +185,7 @@ When('the target Part Duplicate button is clicked', function () {
 });
 Then('the {string} dialog opens and blocks the display', function (pageName: string) {
     const tag = supportService.translateTag(pageName) // Do name replacement
-    cy.get('app-root').get('mat-dialog-container').get(tag).should('exist')
+    cy.get('app-root').get('mat-dialog-container').as('target-page').get(tag).should('exist')
 });
 // Given('the target panel is the panel named {string}', function (elementName: string) {
 //     cy.get('[cy-name="' + elementName + '"]').as('target-panel')

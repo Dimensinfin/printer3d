@@ -8,6 +8,11 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
+// - C O L U M N S
+Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
+});
+
 // - This should be moved to Common
 When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement

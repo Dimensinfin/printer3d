@@ -109,11 +109,10 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         When the drag source is dragged to the drop destination "dropParts"
 
         Given the target item the "part-stack" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        Then the target item has a field named "REQUERIDAS" with value "3"
-        Then the target item has a field named "ETIQUETA" with value "Boquilla Ganesha - Embocadura"
-        Then the target item has a field named "MATERIAL" with value "TPU"
-        Then the target item has a field named "COLOR" with value "AZUL"
-        Then the target item has a actionable image named "remove-button"
+        Then column named "quantity" has contents "3"
+        And column named "label" has contents "Boquilla Ganesha - Embocadura"
+        And column named "material" has contents "TPU/AZUL"
+        And the target has an actionable image named "remove-button"
 
     @D3D08 @D3D08.07
     Scenario: [D3D08.07]-The Part on the Model has a button that allows to remove parts from the Model. If the counter reaches 0 the Part is removed.
@@ -135,14 +134,13 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
 
         Given the target item the "part-stack" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
         And the target panel has 1 "part-stack"
-        Then the target item has a field named "REQUERIDAS" with value "3"
-        Then the target item has a field named "ETIQUETA" with value "Boquilla Ganesha - Embocadura"
-        Then the target item has a field named "MATERIAL" with value "TPU"
-        Then the target item has a field named "COLOR" with value "AZUL"
-        Then the target item has a actionable image named "remove-button"
+        Then column named "quantity" has contents "3"
+        And column named "label" has contents "Boquilla Ganesha - Embocadura"
+        And column named "material" has contents "TPU/AZUL"
+        And the target has an actionable image named "remove-button"
 
         When the target item has actionable image named "remove-button" is clicked
-        Then the target item has a field named "REQUERIDAS" with value "2"
+        Then column named "quantity" has contents "2"
         When the target item has actionable image named "remove-button" is clicked
         When the target item has actionable image named "remove-button" is clicked
         And the target panel has no "part-stack"

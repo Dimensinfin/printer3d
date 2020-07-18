@@ -50,7 +50,18 @@
         </div>
     </div>
     <div *ngIf="inside" cy-name="part-composition" class="field inside-panel">
-        <span cy-field-label="price" class="label">COMPOSICION</span><br>
+        <span cy-field-label="part-composition" class="label">COMPOSICION</span><br>
+        <div class="row">
+            <div class="field-no-margin part-stack-count-width">
+                <span class="label">CANTIDAD</span><br>
+            </div>
+            <div class="field-no-margin part-stack-label-width">
+                <span class="label">ETIQUETA</span><br>
+            </div>
+            <div class="field-no-margin part-stack-material-width">
+                <span class="label">MATERIAL/COLOR</span><br>
+            </div>
+        </div>
         <div *ngFor="let stack of getComposingParts()">
             <v1-part-stack [node]="stack" [variant]="'-MODEL-COMPOSITION-'"></v1-part-stack>
         </div>

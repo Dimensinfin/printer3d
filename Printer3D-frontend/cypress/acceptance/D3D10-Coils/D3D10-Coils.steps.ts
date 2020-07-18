@@ -50,23 +50,23 @@ Then('field named {string} with label {string} and value {string}',
                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
     });
-// - B U T T O N S
-Then('the target has a actionable image named {string}', function (buttonName: string) {
-    cy.get('@target').find('[cy-name="' + buttonName + '"]').should('exist')
-});
-When('the target item actionable image {string} is clicked', function (buttonName: string) {
-    cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
-        .click()
-});
-Then('the actionable image named {string} is {string}', function (buttonName: string, state: string) {
-    cy.log('actionable')
-    if (state == 'enabled')
-        cy.get('@target').find('[cy-name="' + buttonName + '"]')
-            .should('have.class', 'button-enabled')
-    if (state == 'disabled')
-        cy.get('@target').find('[cy-name="' + buttonName + '"]')
-            .should('have.class', 'button-disabled')
-});
+// // - I M A G E   B U T T O N S
+// Then('the target has a actionable image named {string}', function (buttonName: string) {
+//     cy.get('@target').find('[cy-name="' + buttonName + '"]').should('exist')
+// });
+// When('the target item actionable image {string} is clicked', function (buttonName: string) {
+//     cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
+//         .click()
+// });
+// Then('the actionable image named {string} is {string}', function (buttonName: string, state: string) {
+//     cy.log('actionable')
+//     if (state == 'enabled')
+//         cy.get('@target').find('[cy-name="' + buttonName + '"]')
+//             .should('have.class', 'button-enabled')
+//     if (state == 'disabled')
+//         cy.get('@target').find('[cy-name="' + buttonName + '"]')
+//             .should('have.class', 'button-disabled')
+// });
 
 // - F O R M S
 Then('form field named {string} with label {string} and contents {string}',

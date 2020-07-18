@@ -35,7 +35,7 @@ Given('the target panel is the panel of type {string}', function (renderName: st
 Given('the target item the {string} with id {string}', function (symbolicName: string, recordId: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item')
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target').as('target-item')
         .should('exist')
 });
 // - FORMS
@@ -136,9 +136,9 @@ Then('the target panel has a field named {string} with label {string} and conten
             .contains(fieldValue, { matchCase: false })
     });
 // - B U T T O N S
-Then('the target item has a actionable image named {string}', function (buttonName: string) {
-    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
-});
+// Then('the target item has a actionable image named {string}', function (buttonName: string) {
+//     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
+// });
 Then('the target item has a disabled image named {string}', function (buttonName: string) {
     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').should('exist')
     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]').invoke('attr', 'disabled').should('exist')
@@ -392,11 +392,6 @@ Then('the target item has a field named {string} with label {string} and value {
                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
     });
-Then('the target item has a column named {string} with value {string}', function (columnName: string, fieldValue: string) {
-    cy.get('@target-item').within(($item) => {
-        cy.get('[cy-name="' + columnName + '"]').contains(fieldValue, { matchCase: false })
-    })
-});
 
 // - DRAG & DROP
 When('the mouse enter the target item', function () {

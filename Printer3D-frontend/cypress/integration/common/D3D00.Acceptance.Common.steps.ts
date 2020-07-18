@@ -17,19 +17,56 @@ Given('the application Printer3DManager', function () {
     cy.get('app-root').as('target-page').as('target')
 });
 
-// - T A R G E T
+// - T A R G E T   S E L E C T I O N
 Given('the target is the panel of type {string}', function (renderName: string) {
     const tag = supportService.translateTag(renderName) // Do name replacement
     cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
     cy.get('@target-page').find(tag)
         .as('target-panel').as('target')
 });
+Given('the target the {string} with id {string}', function (symbolicName: string, recordId: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
+        .should('exist')
+});
+
+// - T A R G E T
+When('the target is clicked', function () {
+    cy.get('@target').click()
+});
 
 // - T A R G E T   C O N T E N T S
+Then('the target has the title {string}', function (title: string) {
+    cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
+});
 Then('the target has {int} {string}', function (count: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target').within(($item) => {
         cy.get(tag).should('have.length', count)
     })
+});
+// Then('the target item a column named {string} with value {string}', function (columnName: string, fieldValue: string) {
+//     cy.get('@target').within(($item) => {
+//         cy.get('[cy-name="' + columnName + '"]').contains(fieldValue, { matchCase: false })
+//     })
+// });
+
+// - I M A G E   B U T T O N S
+Then('the target has an actionable image named {string}', function (buttonName: string) {
+    cy.get('@target').find('[cy-name="' + buttonName + '"]').should('exist')
+});
+When('the target item actionable image {string} is clicked', function (buttonName: string) {
+    cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
+        .click()
+});
+Then('actionable image named {string} is {string}', function (buttonName: string, state: string) {
+    cy.log('actionable')
+    if (state == 'enabled')
+        cy.get('@target').find('[cy-name="' + buttonName + '"]')
+            .should('have.class', 'button-enabled')
+    if (state == 'disabled')
+        cy.get('@target').find('[cy-name="' + buttonName + '"]')
+            .should('have.class', 'button-disabled')
 });

@@ -29,8 +29,8 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         Then field named "material" with label "MATERIAL" and value "PLA"
         And field named "color" with label "COLOR" and value "MORADO TRANSPARENTE"
         And field named "weight" with label "PESO" and value "600 gr."
-        And the target has a actionable image named "edit-button"
-        And the target has a actionable image named "save-button"
+        And the target has an actionable image named "edit-button"
+        And the target has an actionable image named "save-button"
         And the actionable image named "edit-button" is "enabled"
         And the actionable image named "save-button" is "disabled"
 

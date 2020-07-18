@@ -24,23 +24,23 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     Then the target panel has 2 "model"
     #     Then the target panel has 6 "part-container"
 
-    @D3D07 @D3D07.02
-    Scenario: [D3D07.02]-Validate the contents of a Model. If the Model is hovered then the Model expands to show the contents.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
-        Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
-        Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Verde"
-        And the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "6"
-        And the target item has a field named "price" with label "PRECIO" and value "15 €"
+    # @D3D07 @D3D07.02
+    # Scenario: [D3D07.02]-Validate the contents of a Model. If the Model is hovered then the Model expands to show the contents.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     Given the target panel is the panel of type "catalog"
+    #     Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+    #     Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Verde"
+    #     And the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "6"
+    #     And the target item has a field named "price" with label "PRECIO" and value "15 €"
 
-        When the mouse enter the target item
-        Then the target item has a list named "part-composition" with 3 "part-stack"
-        Given the target item the "part-stack" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
-        Then the target item has a column named "REQUERIDAS" with value "x 1"
-        And the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
-        And the target item has a column named "MATERIAL" with value "PLA"
-        And the target item has a column named "COLOR" with value "BLANCO"
+    #     When the mouse enter the target item
+    #     Then the target item has a list named "part-composition" with 3 "part-stack"
+    #     Given the target item the "part-stack" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
+    #     Then the target item has a column named "REQUERIDAS" with value "x 1"
+    #     And the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
+    #     And the target item has a column named "MATERIAL" with value "PLA"
+    #     And the target item has a column named "COLOR" with value "BLANCO"
 
     @D3D07 @D3D07.03
     Scenario: [D3D07.03]-Validate the contents of a Part Container. If the Part container is clicked then it expands and shows the Parts with same label.
@@ -55,35 +55,35 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         When the target item is expanded
         Then the target panel has 6 "part"
 
-    @D3D07 @D3D07.04
-    Scenario: [D3D07.04]-Validate the contents of a Part.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        When the target item is expanded
+    # @D3D07 @D3D07.04
+    # Scenario: [D3D07.04]-Validate the contents of a Part.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     Given the target panel is the panel of type "catalog"
+    #     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     When the target item is expanded
 
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then the target item has a field named "material" with label "MATERIAL" and value "PLA"
-        And the target item has a field named "color" with label "COLOR" and value "ROSA"
-        And the target item has a field named "stock" with label "STOCK" and value "5"
-        And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "0"
-        And the target item has a field named "cost" with label "COSTE" and value "1 €"
-        And the target item has a field named "price" with label "PRECIO" and value "6 €"
-        And the target item has a field named "active" with label "ACTIVA" and value "ACTIVA"
+    #     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+    #     Then the target item has a field named "material" with label "MATERIAL" and value "PLA"
+    #     And the target item has a field named "color" with label "COLOR" and value "ROSA"
+    #     And the target item has a field named "stock" with label "STOCK" and value "5"
+    #     And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "0"
+    #     And the target item has a field named "cost" with label "COSTE" and value "1 €"
+    #     And the target item has a field named "price" with label "PRECIO" and value "6 €"
+    #     And the target item has a field named "active" with label "ACTIVA" and value "ACTIVA"
 
-    @D3D07 @D3D07.06
-    Scenario: [D3D07.06]-Active Parts show a green corner while inactive show it orange.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        Given the target item is expandable
-        When the target item is expanded
-        Then the target panel has 6 "part"
+    # @D3D07 @D3D07.06
+    # Scenario: [D3D07.06]-Active Parts show a green corner while inactive show it orange.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     Given the target panel is the panel of type "catalog"
+    #     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     Given the target item is expandable
+    #     When the target item is expanded
+    #     Then the target panel has 6 "part"
 
-        And active "part" shows a green corner
-        And inactive "part" shows an orange corner
+    #     And active "part" shows a green corner
+    #     And inactive "part" shows an orange corner
 
     @D3D07 @D3D07.07
     Scenario: [D3D07.07]-Active and inactive parts have a editor activation button at the left.
@@ -178,26 +178,3 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     Then the target Part field "stockAvailable" equals the stored value "DISPONIBLE-STORE"
     #     Then the target Part field "cost" equals the stored value "COSTE-STORE"
     #     Then the target Part field "price" equals the stored value "PRECIO-STORE"
-
-    @D3D07 @D3D07.13
-    Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
-        Given the target item the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
-        Then on the target panel there are none "part"
-        Then the target item is expandable
-        When the target item expand-collapse button is clicked
-        Then on the target panel there are "2" "part"
-        Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        When the target Part Duplicate button is clicked
-        Then the "New Part" dialog opens and blocks the display
-        Given the target panel is the panel of type "new-part-dialog"
-        Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
-        Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
-        # Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
-        Then the target panel has a input field named "cost" with label "COSTE FAB." and contents "0.45"
-        Then the target panel has a input field named "price" with label "PRECIO" and contents "1"
-        Then the target panel has a input field named "buildTime" with label "TIEMPO" and contents "20"
-        Then the target panel has a input field named "stockLevel" with label "STOCK DESEADO" and value "15"
-        Then the target panel has a input field named "stockAvailable" with label "STOCK ACTUAL" and value "0"
