@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.client.production.rest.dto;
+package org.dimensinfin.printer3d.backend.support.production.request.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.SerializedName;
+
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 /**
  * This is the data structure that is received/sent over the HTTP interface. When the user creates or changes the Request the service will
@@ -21,7 +25,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.8.0
  */
-public class RequestV2 {
+public class RequestV2Testing extends RequestV2 {
 	@NotNull(message = "Request unique UUID 'id' is a mandatory field and cannot be null.")
 	@SerializedName("id")
 	private UUID id;
@@ -51,7 +55,7 @@ public class RequestV2 {
 	private float amount;
 
 	// - C O N S T R U C T O R S
-	protected RequestV2() {}
+	private RequestV2Testing() {}
 
 	// - G E T T E R S   &   S E T T E R S
 	public float getAmount() {
@@ -84,50 +88,50 @@ public class RequestV2 {
 
 	// - B U I L D E R
 	public static class Builder {
-		private final RequestV2 onConstruction;
+		private final RequestV2Testing onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new RequestV2();
+			this.onConstruction = new RequestV2Testing();
 		}
 
-		public RequestV2 build() {
-			Objects.requireNonNull( this.onConstruction.id );
-			Objects.requireNonNull( this.onConstruction.label );
+		public RequestV2Testing build() {
+//			Objects.requireNonNull( this.onConstruction.id );
+//			Objects.requireNonNull( this.onConstruction.label );
 			return this.onConstruction;
 		}
 
-		public RequestV2.Builder withAmount( final Float amount ) {
+		public RequestV2Testing.Builder withAmount( final Float amount ) {
 			if (null != amount) this.onConstruction.amount = amount;
 			return this;
 		}
 
-		public RequestV2.Builder withClosedDate( final String closedDate ) {
+		public RequestV2Testing.Builder withClosedDate( final String closedDate ) {
 			if (null != closedDate) this.onConstruction.closedDate = closedDate;
 			return this;
 		}
 
-		public RequestV2.Builder withContents( final List<RequestItem> contents ) {
+		public RequestV2Testing.Builder withContents( final List<RequestItem> contents ) {
 			this.onConstruction.contents = Objects.requireNonNull( contents );
 			return this;
 		}
 
-		public RequestV2.Builder withId( final UUID id ) {
+		public RequestV2Testing.Builder withId( final UUID id ) {
 			this.onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
-		public RequestV2.Builder withLabel( final String label ) {
+		public RequestV2Testing.Builder withLabel( final String label ) {
 			this.onConstruction.label = Objects.requireNonNull( label );
 			return this;
 		}
 
-		public RequestV2.Builder withRequestDate( final String requestDate ) {
+		public RequestV2Testing.Builder withRequestDate( final String requestDate ) {
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}
 
-		public RequestV2.Builder withState( final RequestState state ) {
+		public RequestV2Testing.Builder withState( final RequestState state ) {
 			this.onConstruction.state = Objects.requireNonNull( state );
 			return this;
 		}
