@@ -12,10 +12,10 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Given the application Printer3DManager
 
     # - H A P P Y   P A T H
-    @D3D08 @D3D08.01
-    Scenario: [D3D08.01]-When the Feature is clicked the display open on the New Model page.
-        Given one instance of Dock
-        When the Feature with label "/NUEVO MODELO" is clicked the destination is the Page "NewModelPage"
+    # @D3D08 @D3D08.01
+    # Scenario: [D3D08.01]-When the Feature is clicked the display open on the New Model page.
+    #     Given one instance of Dock
+    #     When the Feature with label "/NUEVO MODELO" is clicked the destination is the Page "NewModelPage"
 
     @D3D08 @D3D08.02
     Scenario: [D3D08.02]-The New Model page has two panels. One contains the Parts (active) that can be used in the MOdel and the other panel contains the model being created.
@@ -59,22 +59,22 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Given there is a click on Feature "/NUEVO MODELO"
         Then the page "NewModelPage" is activated
         Given the target is the panel of type "new-model"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
         When "Modelo de prueba 1" is set on the target panel input field named "label"
-        Then the target panel input field named "label" is "valid"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then form field named "label" is "valid"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
         And "2" is set on the target panel input field named "price"
-        Then the target panel input field named "price" is "valid"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then form field named "price" is "valid"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
         And "8" is set on the target panel input field named "stock"
-        Then the target panel input field named "stock" is "valid"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then form field named "stock" is "valid"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
 
         Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
         Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
-        Then the target panel button with name "SAVE" has a label "Guardar" and is "enabled"
+        Then the button with name "save-button" has a label "Guardar" and is "enabled"
 
     @D3D08 @D3D08.06
     Scenario: [D3D08.06]-When one or more Parts are dropped on the Model the dropped Part information has some required fields.
@@ -112,7 +112,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Then column named "quantity" has contents "3"
         And column named "label" has contents "Boquilla Ganesha - Embocadura"
         And column named "material" has contents "TPU/AZUL"
-        And the target is the panel of type "remove-button"
+        And target has an actionable image named "remove-button"
 
     @D3D08 @D3D08.07
     Scenario: [D3D08.07]-The Part on the Model has a button that allows to remove parts from the Model. If the counter reaches 0 the Part is removed.
@@ -137,12 +137,12 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Then column named "quantity" has contents "3"
         And column named "label" has contents "Boquilla Ganesha - Embocadura"
         And column named "material" has contents "TPU/AZUL"
-        And the target is the panel of type "remove-button"
+        And target has an actionable image named "remove-button"
 
-        When the target item has actionable image named "remove-button" is clicked
+        When target actionable image "remove-button" is clicked
         Then column named "quantity" has contents "2"
-        When the target item has actionable image named "remove-button" is clicked
-        When the target item has actionable image named "remove-button" is clicked
+        When target actionable image "remove-button" is clicked
+        When target actionable image "remove-button" is clicked
         And the target panel has no "part-stack"
 
     @D3D08 @D3D08.08
@@ -150,24 +150,24 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Given there is a click on Feature "/NUEVO MODELO"
         Then the page "NewModelPage" is activated
         Given the target is the panel of type "new-model"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
         When "Modelo de prueba 1" is set on the target panel input field named "label"
-        Then the target panel input field named "label" is "valid"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then form field named "label" is "valid"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
         And "2" is set on the target panel input field named "price"
-        Then the target panel input field named "price" is "valid"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then form field named "price" is "valid"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
         And "8" is set on the target panel input field named "stock"
-        Then the target panel input field named "stock" is "valid"
-        And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
+        Then form field named "stock" is "valid"
+        Then the button with name "save-button" has a label "Guardar" and is "disabled"
 
         Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
         Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
-        Then the target panel button with name "SAVE" has a label "Guardar" and is "enabled"
+        Then the button with name "save-button" has a label "Guardar" and is "enabled"
 
-        When the target panel button with name "SAVE" is clicked
+        When the button with name "save-button" is clicked
         Then the Model is persisted at the backend
         And there is a Notification panel
         And the active page is set to Dashboard

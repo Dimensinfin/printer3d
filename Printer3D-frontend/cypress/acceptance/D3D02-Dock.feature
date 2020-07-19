@@ -71,7 +71,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then the Feature with label "/TRABAJOS PND." opens a Page
 
     @D3D02.08
-    Scenario: [D3D02.08]-Check that the New Request Features point to the right page components.
+    Scenario: [D3D02.08]-Check that the New Request feature points to the right page components.
         # - Validate the page structure and the loading sign
         Given the application Printer3DManager
         Given one instance of Dock
@@ -84,3 +84,15 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And the target has variant "-SELLABLE-ITEMS-"
         Given the target is the panel of type "new-request"
         Then  the target has the title "/NUEVO PEDIDO/DEFINICION"
+
+    @D3D02.09
+    Scenario: [D3D02.09]-Check that the New Model feature points to the right page.
+        # - Validate the page structure and the loading sign
+        Given the application Printer3DManager
+        Given one instance of Dock
+        When the Feature with label "/NUEVO MODELO" is clicked the destination is the Page "NewModelPage"
+        And the page "NewModelPage" has 2 panels
+        Given the target is the panel of type "available-parts"
+        Then  the target has the title "/PIEZAS/DISPONIBLES"
+        Given the target is the panel of type "new-model"
+        Then  the target has the title "/NUEVO MODELO/DEFINICION"
