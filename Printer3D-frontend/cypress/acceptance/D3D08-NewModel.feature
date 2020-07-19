@@ -30,7 +30,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     # Scenario: [D3D08.03]-The Parts panel has a simplified, one level list of Parts. The listing contains Parts with any number of copies on stock but that are active.
     #     Given there is a click on Feature "/NUEVO MODELO"
     #     Then the page "NewModelPage" is activated
-    #     Given the target panel is the panel of type "available-parts"
+    #     Given the target is the panel of type "available-parts"
     #     Then the target panel has a title "/PIEZAS/DISPONIBLES"
     #     And the target panel has 12 "part"
     #     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
@@ -44,7 +44,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     #     Given there is a click on Feature "/NUEVO MODELO"
     #     Then the page "NewModelPage" is activated
     #     Then the target panel has a title "/NUEVO MODELO/DEFINICION"
-    #     Given the target panel is the panel of type "new-model"
+    #     Given the target is the panel of type "new-model"
     #     Then the target panel has a input field named "label" with label "ETIQUETA" and empty
     #     Then the target panel has a input field named "price" with label "PRECIO" and empty
     #     Then the target panel has a input field named "stock" with label "NIVEL STOCK DESEADO" and empty
@@ -58,7 +58,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     Scenario: [D3D08.05]-The New Model panel has buttons to save the Model. The Save button is only active when all the constraints are validated.
         Given there is a click on Feature "/NUEVO MODELO"
         Then the page "NewModelPage" is activated
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
         When "Modelo de prueba 1" is set on the target panel input field named "label"
         Then the target panel input field named "label" is "valid"
@@ -70,9 +70,9 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Then the target panel input field named "stock" is "valid"
         And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
         Then the target panel button with name "SAVE" has a label "Guardar" and is "enabled"
 
@@ -80,32 +80,32 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     Scenario: [D3D08.06]-When one or more Parts are dropped on the Model the dropped Part information has some required fields.
         Given there is a click on Feature "/NUEVO MODELO"
         Then the page "NewModelPage" is activated
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When "Modelo de prueba 1" is set on the target panel input field named "label"
         And "2" is set on the target panel input field named "price"
         And "8" is set on the target panel input field named "stock"
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "cb3f7075-e364-4c41-8d4b-a31a8f2039fe"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
 
         Given the target item the "part-stack" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
@@ -119,17 +119,17 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Given there is a click on Feature "/NUEVO MODELO"
         Then the page "NewModelPage" is activated
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
 
         Given the target item the "part-stack" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
@@ -149,7 +149,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     Scenario: [D3D08.08]-If the Save button is active and it is clicked then the Model is persisted at the repository, there is a notification panel and the page is closed returning to the Dashboard.
         Given there is a click on Feature "/NUEVO MODELO"
         Then the page "NewModelPage" is activated
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
         When "Modelo de prueba 1" is set on the target panel input field named "label"
         Then the target panel input field named "label" is "valid"
@@ -161,9 +161,9 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Then the target panel input field named "stock" is "valid"
         And the target panel button with name "SAVE" has a label "Guardar" and is "disabled"
 
-        Given the target panel is the panel of type "available-parts"
+        Given the target is the panel of type "available-parts"
         And the drag source the "part" with id "754e6cc5-1a8a-435b-8c17-956b2a8391a7"
-        Given the target panel is the panel of type "new-model"
+        Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
         Then the target panel button with name "SAVE" has a label "Guardar" and is "enabled"
 

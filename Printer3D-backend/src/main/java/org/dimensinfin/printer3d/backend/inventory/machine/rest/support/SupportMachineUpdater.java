@@ -15,10 +15,11 @@ public class SupportMachineUpdater {
 	}
 
 	public MachineEntity update( final SetupRequest setupRequest ) {
-		if (null != setupRequest.getPartId()) this.machine.setCurrentJobPartId( setupRequest.getPartId() );
-		if (null != setupRequest.getJobInstallmentDate())
-			this.machine.setJobInstallmentDate( OffsetDateTime.parse(setupRequest.getJobInstallmentDate()) );
-		if (null != setupRequest.getPartInstancesCount()) this.machine.setCurrentPartInstances( setupRequest.getPartInstancesCount() );
+		this.machine.setCurrentJobPartId( setupRequest.getPartId() );
+		this.machine.setJobInstallmentDate(
+				(null != setupRequest.getJobInstallmentDate()) ? OffsetDateTime.parse( setupRequest.getJobInstallmentDate() ) : null
+		);
+		this.machine.setCurrentPartInstances( setupRequest.getPartInstancesCount() );
 		return this.machine;
 	}
 }

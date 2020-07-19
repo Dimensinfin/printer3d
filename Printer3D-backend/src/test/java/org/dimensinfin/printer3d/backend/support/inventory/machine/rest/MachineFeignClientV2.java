@@ -27,7 +27,7 @@ public class MachineFeignClientV2 extends CommonFeignClient {
 	}
 
 	public ResponseEntity<MachineListV2> getMachines( final String authorizationToken ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the list of all tth Machines.";
+		final String ENDPOINT_MESSAGE = "Request the list of all the Machines.";
 		final Response<MachineListV2> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )

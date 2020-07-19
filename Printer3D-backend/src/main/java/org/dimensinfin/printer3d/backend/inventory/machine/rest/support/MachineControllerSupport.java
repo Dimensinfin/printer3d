@@ -45,12 +45,13 @@ public class MachineControllerSupport {
 	public ResponseEntity<Boolean> setupMachine( final @RequestBody @Valid @NotNull SetupRequest setupRequest ) {
 		// Change the setup for the selected machine
 		final List<MachineEntity> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
-		for (MachineEntity machine : machines)
-			LogWrapper.info( "Found Machine: " + machine.toString() );
 		if (machines.isEmpty())
 			throw new RepositoryConflictException( MachineServiceV1.MACHINE_NOT_FOUND( setupRequest.getMachineLabel() ) );
-		for (MachineEntity machine : machines)
-			this.machineRepository.save( new SupportMachineUpdater( machine ).update( setupRequest ) );
+		for (MachineEntity machine : machines) {
+			LogWrapper.info( "Found Machine: " + machine.toString() );
+			final MachineEntity updatedMachine = this.machineRepository.save( new SupportMachineUpdater( machine ).update( setupRequest ) );
+			LogWrapper.info( "Updated Machine: " + updatedMachine.toString() );
+		}
 		return new ResponseEntity<>( true, HttpStatus.OK );
 	}
 }
