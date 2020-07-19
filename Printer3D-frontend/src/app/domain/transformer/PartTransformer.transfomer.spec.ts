@@ -1,7 +1,4 @@
 // - DOMAIN
-import { CoilTransformer } from './CoilTransformer.transformer';
-import { CoilRecord } from '@domain/CoilRecord.domain';
-import { Coil } from '@domain/Coil.domain';
 import { PartTransformer } from './PartTransformer.tranformer';
 import { PartRecord } from '@domain/PartRecord.domain';
 import { Part } from '@domain/Part.domain';

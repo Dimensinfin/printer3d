@@ -298,6 +298,7 @@ Then('actionable image named {string} is {string}', function (buttonName: string
         cy.get('@target').find('[cy-name="' + buttonName + '"]')
             .should('have.class', 'button-disabled')
 });
+
 // - A L T E R N A T E   B A C K E N D   R E S P O N S E S
 Given('response {string} for {string}', function (responseCode: string, endpoint: string) {
     const tag = supportService.translateTag(endpoint) // Do name replacement

@@ -44,15 +44,6 @@ When('the target item actionable image {string} is clicked', function (buttonNam
     cy.get('@target-item').find('[cy-name="' + buttonName + '"]').as('target-button')
         .click()
 });
-Then('the actionable image named {string} is {string}', function (buttonName: string, state: string) {
-    cy.log('actionable')
-    if (state == 'enabled')
-        cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
-            .should('have.class', 'save-button-enabled')
-    if (state == 'disabled')
-        cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
-            .should('have.class', 'save-button-disabled')
-});
 // - E D I T I N G
 Then('the target item has a form field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {

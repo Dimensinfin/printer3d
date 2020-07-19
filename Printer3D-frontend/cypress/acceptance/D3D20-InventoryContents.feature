@@ -100,7 +100,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And the target panel input field named "price" is "valid"
         # - Check that the save button is enabled
         Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        And the actionable image named "save-button" is "enabled"
+        And actionable image named "save-button" is "enabled"
 
     @D3D20.07
     Scenario: [D3D20.07]-If any of the editable fields is invalidated then check that the save button is disabled.
@@ -114,7 +114,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         # Then 1 is set on form field "stock"
         Then form field "stock" is cleared
         And the target panel input field named "stock" is "invalid"
-        And the actionable image named "save-button" is "disabled"
+        And actionable image named "save-button" is "disabled"
 
     @D3D20.08
     Scenario: [D3D20.08]-Validate the contents of a Model. If the Model is clicked then the Model expands to show the contents.
