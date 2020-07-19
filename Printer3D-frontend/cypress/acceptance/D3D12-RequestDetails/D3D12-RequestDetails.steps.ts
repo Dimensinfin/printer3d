@@ -80,12 +80,12 @@ Then('the panel {string} has no {string}', function (targetName: string, symboli
         cy.get('[cy-name="' + targetName + '"]').find(tag).should('not.exist')
     })
 });
-Then('the target has no {string}', function (symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.get('@target').within(($item) => {
-        cy.get('button').should('not.exist')
-    })
-});
+// Then('the target has no {string}', function (symbolicName: string) {
+//     const tag = supportService.translateTag(symbolicName) // Do name replacement
+//     cy.get('@target').within(($item) => {
+//         cy.get('button').should('not.exist')
+//     })
+// });
 // Then('the target has {int} {string}', function (count: number, symbolicName: string) {
 //     const tag = supportService.translateTag(symbolicName) // Do name replacement
 //     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)

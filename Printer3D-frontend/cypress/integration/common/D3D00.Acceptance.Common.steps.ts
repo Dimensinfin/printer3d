@@ -107,6 +107,12 @@ Then('the target has {int} {string}', function (count: number, symbolicName: str
         cy.get(tag).should('have.length', count)
     })
 });
+Then('the target has no {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target').within(($item) => {
+        cy.get(tag).should('not.exist')
+    })
+});
 Then('the target has variant {string}', function (variant: string) {
     cy.get('@target').find('viewer-panel').invoke('attr', 'ng-reflect-variant').should('equal', variant)
 });
@@ -263,7 +269,7 @@ Then('target has an actionable image named {string}', function (buttonName: stri
 });
 When('target actionable image {string} is clicked', function (buttonName: string) {
     cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
-        .click()
+        .scrollIntoView().click()
 });
 Then('actionable image named {string} is {string}', function (buttonName: string, state: string) {
     cy.log('actionable')
