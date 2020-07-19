@@ -80,7 +80,7 @@ registerLocaleData(localeEs);
         { provide: DialogFactoryService, useClass: DialogFactoryService },
         // { provide: AuthenticationService, useClass: AuthenticationService },
         // - ERROR INTERCEPTION
-        { provide: ErrorHandler, useClass: RollbarService }
+        // { provide: ErrorHandler, useClass: RollbarService }
         // { provide: ErrorHandler, useClass: AppErrorHandler },
         // { provide: RollbarService, useFactory: rollbarFactory },
         // - HTTP INTERCEPTION
