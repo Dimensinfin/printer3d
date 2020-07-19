@@ -26,7 +26,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Then field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
         And field named "partCount" with label "NUMERO PIEZAS" has contents "6"
         And field named "price" with label "PRECIO" has contents "15 €"
-        And the target has an actionable image named "edit-button"
+        And target has an actionable image named "edit-button"
         And actionable image named "edit-button" is "enabled"
 
     @D3D20.03
@@ -37,9 +37,9 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And field named "description" with label "DESCRIPCION" has contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
         And field named "buildTime" with label "TIEMPO" has contents "90 min."
         And field named "weight" with label "PLASTICO" has contents "8 gr."
-        And the target has an actionable image named "edit-button"
+        And target has an actionable image named "edit-button"
         And actionable image named "edit-button" is "enabled"
-        And the target has an actionable image named "expand-button"
+        And target has an actionable image named "expand-button"
 
     @D3D20.04
     Scenario: [D3D20.04]-Validate a part when it is not being edited.
@@ -54,8 +54,8 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And the target item has a field named "cost" with label "COSTE" and value "1 €"
         And the target item has a field named "price" with label "PRECIO" and value "6 €"
         And the target item has a field named "active" with label "ACTIVA" and value "ACTIVA"
-        And the target has an actionable image named "edit-button"
-        And the target has an actionable image named "duplicate-button"
+        And target has an actionable image named "edit-button"
+        And target has an actionable image named "duplicate-button"
         And the target item has a disabled image named "save-disabled"
         # - Check the Part contents for an CANCELED Part.
         Given the target item the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
@@ -65,8 +65,8 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And the target item has a field named "cost" with label "COSTE" and value "1 €"
         And the target item has a field named "price" with label "PRECIO" and value "6 €"
         And the target item has a field named "active" with label "ACTIVA" and value "FUERA PROD."
-        And the target has an actionable image named "edit-button"
-        And the target has an actionable image named "duplicate-button"
+        And target has an actionable image named "edit-button"
+        And target has an actionable image named "duplicate-button"
         And the target item has a disabled image named "save-disabled"
 
     @D3D20.05

@@ -7,6 +7,15 @@ import { IsolationService } from '../../support/IsolationService.support';
 
 const INVENTORY_PART_LIST_PAGE_NAME = '/Inventory/Part List';
 
+// - S P I N N E R
+Then('the loading panel shows {string}', function (loadingMessage: string) {
+    cy.get('@target-page').find('.index-loading')
+        .contains(loadingMessage)
+});
+When('the loading panel completes', function () {
+    cy.wait(500)
+});
+
 // - F E A T U R E S
 Then('there is a Feature with label {string}', function (label: string) {
     cy.get('v1-dock').find('v2-feature').find('.feature-label').contains(label, { matchCase: false })

@@ -30,12 +30,6 @@ Then('field named {string} with label {string} and value {string}',
 Then('the target has a drop place named {string}', function (dropName: string) {
     cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
 });
-Then('the target has a panel labeled {string} named {string}',
-    function (fieldLabel: string, fieldName: string) {
-        cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-panel')
-        cy.get('@target').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-    });
 Then('the panel {string} has no {string}', function (targetName: string, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target').within(($item) => {
@@ -55,15 +49,6 @@ Then('the target has no {string}', function (symbolicName: string) {
 //         cy.get(tag).should('have.length', count)
 //     })
 // });
-Then('the button with name {string} has a label {string} and is {string}', function (
-    buttonName: string, buttonLabel: string, buttonState: string) {
-    if (buttonState == 'disabled')
-        cy.get('@target').get('[disabled]')
-            .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
-    else
-        cy.get('@target').get('[cy-name="' + buttonName + '"]')
-            .contains(buttonLabel, { matchCase: false })
-});
 
 // - D R A G   &   D R O P
 Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
@@ -79,13 +64,6 @@ When('the drag source is dragged to the drop destination {string}', function (dr
 });
 
 // - B U T T O N S
-When('the button with name {string} is clicked', function (buttonName: string) {
-    cy.get('@target').within(($item) => {
-        cy.get('[cy-name="' + buttonName + '"]')
-            .scrollIntoView().click()
-    })
-    cy.wait(500)
-});
 
 // - F O R M S
 Then('form field named {string} with label {string} and contents {string}',

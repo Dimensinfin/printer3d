@@ -18,12 +18,6 @@ Then('field named {string} with label {string} has contents {string}',
                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
     });
-Then('the target has a panel labeled {string} named {string}',
-    function (fieldLabel: string, fieldName: string) {
-        cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-panel')
-        cy.get('@target-panel').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-    });
 // - C O L U M N S
 Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })

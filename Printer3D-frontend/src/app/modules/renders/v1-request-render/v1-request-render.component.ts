@@ -82,7 +82,7 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
     public completeRequest(): void {
         const request = this.node as Request
         this.backendConnections.push(
-            this.backendService.apiProductionRequestsClose_v1(request.getId(),
+            this.backendService.apiProductionRequestsClose_v2(request.getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
                     .setTransformation((entrydata: any): Request => {
                         const targetRequest: Request = new Request(entrydata);

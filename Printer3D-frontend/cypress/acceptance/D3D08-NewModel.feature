@@ -112,7 +112,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Then column named "quantity" has contents "3"
         And column named "label" has contents "Boquilla Ganesha - Embocadura"
         And column named "material" has contents "TPU/AZUL"
-        And the target has an actionable image named "remove-button"
+        And the target is the panel of type "remove-button"
 
     @D3D08 @D3D08.07
     Scenario: [D3D08.07]-The Part on the Model has a button that allows to remove parts from the Model. If the counter reaches 0 the Part is removed.
@@ -137,7 +137,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Then column named "quantity" has contents "3"
         And column named "label" has contents "Boquilla Ganesha - Embocadura"
         And column named "material" has contents "TPU/AZUL"
-        And the target has an actionable image named "remove-button"
+        And the target is the panel of type "remove-button"
 
         When the target item has actionable image named "remove-button" is clicked
         Then column named "quantity" has contents "2"

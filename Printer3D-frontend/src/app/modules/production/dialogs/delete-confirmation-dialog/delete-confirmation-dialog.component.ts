@@ -53,7 +53,7 @@ export class DeleteConfirmationDialogComponent extends BackgroundEnabledComponen
     }
     public deleteRequest(): void {
         this.backendConnections.push(
-            this.backendService.apiProductionDeleteRequest_v1(this.request.getId(),
+            this.backendService.apiProductionDeleteRequest_v2(this.request.getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
                     .setTransformation((entrydata: any): any => {
                         this.isolationService.infoNotification(

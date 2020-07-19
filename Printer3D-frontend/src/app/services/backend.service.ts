@@ -257,7 +257,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiProductionRequestsClose_v1(requestId: string, transformer: ResponseTransformer): Observable<Request> {
+    public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<Request> {
         const request = this.APIV2 + '/production/requests/' + requestId + '/close';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
@@ -268,7 +268,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiProductionDeleteRequest_v1(requestId: string, transformer: ResponseTransformer): Observable<any> {
+    public apiProductionDeleteRequest_v2(requestId: string, transformer: ResponseTransformer): Observable<any> {
         const request = this.APIV2 + '/production/requests/' + requestId;
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);

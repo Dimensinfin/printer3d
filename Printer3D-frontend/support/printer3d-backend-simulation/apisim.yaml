@@ -379,7 +379,7 @@ simlet: inventory-newrequest
 
 request:
   - method: POST
-  - uriPathPattern: "/api/v1/production/requests"
+  - uriPathPattern: "/api/v2/production/requests"
 
 response:
   from: stub
@@ -392,29 +392,12 @@ response:
 
 ---
 
-simlet: production-open-requests
-
-request:
-  - method: GET
-  - uriPathPattern: "/api/v1/production/requests"
-
-response:
-  from: stub
-  status: 200
-  headers:
-    - "Content-Type: application/json"
-  body:
-    type: text
-    file: "${sim.path}/responses/production.openrequests.json"
-
----
-
 simlet: production-request-close
 
 request:
   - method: PUT
   - where: uriPathPattern
-    matchesIgnoreCase: "/api/v1/production/requests/{requestId}/close"
+    matchesIgnoreCase: "/api/v2/production/requests/{requestId}/close"
   
 response:
   from: stub

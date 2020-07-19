@@ -278,7 +278,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         });
         it('apiProductionRequestsClose_v1.default: complete a request', async () => {
             const requestId: string = "-REQUEST-ID-"
-            service.apiProductionRequestsClose_v1(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
+            service.apiProductionRequestsClose_v2(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
                 .setTransformation((entrydata: any): Request => {
                     return new Request(entrydata);
                 }))
@@ -288,7 +288,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         });
         it('apiProductionDeleteRequest_v1.default: delete a request', async () => {
             const requestId: string = "-REQUEST-ID-"
-            service.apiProductionDeleteRequest_v1(requestId, new ResponseTransformer().setDescription('Transforms Request form backend.')
+            service.apiProductionDeleteRequest_v2(requestId, new ResponseTransformer().setDescription('Transforms Request form backend.')
                 .setTransformation((entrydata: any): Request => {
                     return new Request(entrydata);
                 }))

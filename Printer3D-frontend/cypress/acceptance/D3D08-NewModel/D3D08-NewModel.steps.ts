@@ -49,10 +49,10 @@ Then('the target panel has no {string}', function (renderName: string) {
     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
     cy.get('@target-panel').find(tag).should('not.exist')
 });
-When('the target panel button with name {string} is clicked', function (buttonName: string) {
-    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
-        .scrollIntoView().click('left', { force: true })
-});
+// When('the target panel button with name {string} is clicked', function (buttonName: string) {
+//     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
+//         .scrollIntoView().click('left', { force: true })
+// });
 Then('the Model is persisted at the backend', function () {
     cy.log('The Model is being persisted at the backend.')
 });

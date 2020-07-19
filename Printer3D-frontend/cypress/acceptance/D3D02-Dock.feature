@@ -76,7 +76,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given the application Printer3DManager
         Given one instance of Dock
         When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "NewRequestPage"
-        And the loading panels shows "Clasificando Elementos..."
+        And the loading panel shows "Clasificando Elementos..."
         When the loading panel completes
         And the page "NewRequestPage" has 2 panels
         Given the target is the panel of type "available-request-elements"

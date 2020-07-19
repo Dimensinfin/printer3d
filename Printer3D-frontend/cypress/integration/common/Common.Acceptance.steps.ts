@@ -361,10 +361,10 @@ Then('the target item has a field named {string} with label {string} and value {
 When('the mouse enter the target item', function () {
     cy.get('@target-item').trigger('mouseenter')
 });
-Given('the drag source the {string} with id {string}', function (renderName: string, recordId: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[translation]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('drag-source')
-        .should('have.prop', 'draggable')
-        .should('exist')
-});
+// Given('the drag source the {string} with id {string}', function (renderName: string, recordId: string) {
+//     const tag = supportService.translateTag(renderName) // Do name replacement
+//     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
+//     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('drag-source')
+//         .should('have.prop', 'draggable')
+//         .should('exist')
+// });

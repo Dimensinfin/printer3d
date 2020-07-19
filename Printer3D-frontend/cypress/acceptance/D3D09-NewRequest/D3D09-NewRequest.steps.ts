@@ -8,19 +8,40 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
-// - S P I N N E R
-Then('the loading panels shows {string}', function (loadingMessage: string) {
-    cy.get('@target-page').find('.index-loading')
-        .contains(loadingMessage)
-});
-When('the loading panel completes', function () {
-    cy.wait(500)
-});
 // - T A R G E T   C O N T E N T S
 Then('the target has a drop place named {string}', function (dropName: string) {
     cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
 });
-
+// - I N P U T   F I E L D S
+Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        switch (type) {
+            case 'input':
+                cy.get('@target-field').find('input').clear().type(fieldValue)
+                break
+            case 'textarea':
+                cy.get('@target-field').find('textarea').clear().type(fieldValue)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select').select(fieldValue)
+                break
+        }
+    })
+});
+// - D R A G   &   D R O P
+Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+    cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
+        .should('have.prop', 'draggable')
+        .should('exist')
+});
+When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
+    cy.get('@drag-source').trigger('dragstart')
+    cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
+});
 
 // - N E W E S T
 Then('the target panel has a drop place named {string}', function (symbolicName: string) {
@@ -148,23 +169,6 @@ Then('the target item has a named {string} button', function (buttonName: string
     cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
         .should('exist')
 });
-Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
-    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
-    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-        switch (type) {
-            case 'input':
-                cy.get('@target-field').find('input').clear().type(fieldValue)
-                break
-            case 'textarea':
-                cy.get('@target-field').find('textarea').clear().type(fieldValue)
-                break
-            case 'select':
-                cy.log('select')
-                cy.get('@target-field').find('select').select(fieldValue)
-                break
-        }
-    })
-});
 Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
     cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
@@ -289,10 +293,10 @@ Given('the form {string} be the target form', function (formName: string) {
 When('{string} is set on the target form field {string}', function (value: string, fieldName: string) {
     cy.get('@target-form').find('[name="' + fieldName + '"]').clear().type(value)
 });
-When('the target panel button with name {string} is clicked', function (buttonName: string) {
-    cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
-        .scrollIntoView().click('left', { force: true })
-});
+// When('the target panel button with name {string} is clicked', function (buttonName: string) {
+//     cy.get('@target-panel').find('[cy-name="' + buttonName + '"]')
+//         .scrollIntoView().click('left', { force: true })
+// });
 Then('the Request is persisted at the backend', function () {
     cy.log('The Request is being persisted at the backend.')
 });
@@ -318,27 +322,21 @@ Then('the target panel has one or more {string}', function (renderName: string) 
     cy.get('@target-panel').find(tag)
         .should('have.length.greaterThan', 0)
 });
-// Given('the drag source the {string} with id {string}', function (renderName: string, recordId: string) {
-//     const tag = supportService.translateTag(renderName) // Do name replacement
-//     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
-//     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('drag-source')
-//         .should('exist')
-// });
 When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
     cy.get('@drag-source').trigger('dragstart')
     cy.get('@target-panel').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
-Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
-    cy.get('@target-panel').within(($item) => {
-        cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-    })
-});
-When('the target item Remove button is clicked', function () {
-    cy.get('@target-item').find('[cy-name="remove-button"]')
-        .click()
-});
-Then('the target panel has no {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[translation]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-panel').find(tag).should('not.exist')
-});
+// Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
+//     cy.get('@target-panel').within(($item) => {
+//         cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+//     })
+// });
+// When('the target item Remove button is clicked', function () {
+//     cy.get('@target-item').find('[cy-name="remove-button"]')
+//         .click()
+// });
+// Then('the target panel has no {string}', function (renderName: string) {
+//     const tag = supportService.translateTag(renderName) // Do name replacement
+//     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
+//     cy.get('@target-panel').find(tag).should('not.exist')
+// });

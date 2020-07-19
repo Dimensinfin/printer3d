@@ -29,6 +29,8 @@ import { Request } from '@domain/Request.domain';
 import { Part4Request } from '@domain/Part4Request.domain';
 import { RequestItem } from '@domain/RequestItem.domain';
 import { Model } from '@domain/inventory/Model.domain';
+import { environment } from '@env/environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -95,6 +97,11 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
                 .subscribe((persistedRequest: Request) => {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
                     this.router.navigate(['/']);
+                }, (error) => {
+                    console.log('-[V3MachineRenderComponent.startBuild.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         )
     }

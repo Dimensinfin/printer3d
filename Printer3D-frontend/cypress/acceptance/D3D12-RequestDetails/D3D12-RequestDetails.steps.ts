@@ -74,12 +74,6 @@ Then('field named {string} with label {string} and value {string}',
 Then('the target has a drop place named {string}', function (dropName: string) {
     cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
 });
-Then('the target has a panel labeled {string} named {string}',
-    function (fieldLabel: string, fieldName: string) {
-        cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-panel')
-        cy.get('@target').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-    });
 Then('the panel {string} has no {string}', function (targetName: string, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target').within(($item) => {
@@ -122,14 +116,6 @@ When('the drag source is dragged to the drop destination {string}', function (dr
     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
 
-// - B U T T O N S
-When('the button with name {string} is clicked', function (buttonName: string) {
-    cy.get('@target').within(($item) => {
-        cy.get('[cy-name="' + buttonName + '"]')
-            .scrollIntoView().click()
-    })
-    cy.wait(500)
-});
 
 
 // -----------------------
