@@ -57,7 +57,7 @@ describe('COMPONENT V1WorkLoadPanelComponent [Module: SHARED]', () => {
             jasmine.clock().tick(1100);
             expect(componentAsAny.backendConnections.length).toBe(1)
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
-            expect(component.getWorkLoad()).toBe('18h0m')
+            expect(component.getWorkLoad()).toBe('17h0m')
             jasmine.clock().uninstall()
         });
     });

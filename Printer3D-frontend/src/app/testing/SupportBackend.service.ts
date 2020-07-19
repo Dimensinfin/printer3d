@@ -175,13 +175,6 @@ export class SupportBackendService {
             observer.complete();
         });
     }
-    public apiProductionGetOpenRequests_v1(transformer: ResponseTransformer): Observable<any> {
-        return Observable.create((observer) => {
-            const data = this.directAccessMockResource('production.openrequests')
-            observer.next(transformer.transform(data));
-            observer.complete();
-        });
-    }
     public apiProductionGetOpenRequests_v2(transformer: ResponseTransformer): Observable<any> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('production.openrequests.v2')
@@ -189,15 +182,15 @@ export class SupportBackendService {
             observer.complete();
         });
     }
-    public apiProductionRequestsClose_v1(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('newrequest')
             observer.next(transformer.transform(data));
             observer.complete();
         });
     }
-    public apiProductionDeleteRequest_v1(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
-        const failureHit = this.failuresList.get('apiProductionDeleteRequest_v1')
+    public apiProductionDeleteRequest_v2(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
+        const failureHit = this.failuresList.get('apiProductionDeleteRequest_v2')
         if (null != failureHit)
             return Observable.create((observer) => {
                 observer.error(new HttpErrorResponse({ error: failureHit }));
