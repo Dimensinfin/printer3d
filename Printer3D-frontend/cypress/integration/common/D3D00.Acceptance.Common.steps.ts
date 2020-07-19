@@ -54,9 +54,9 @@ Given('one instance of Dock', function () {
 });
 
 // - T A R G E T   S E L E C T I O N
-Given('the target is the panel of type {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
+Given('the target is the panel of type {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[tag replacement]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target-page').find(tag)
         .as('target-panel').as('target')
 });
@@ -66,12 +66,16 @@ Given('the target the {string} with id {string}', function (symbolicName: string
     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
         .should('exist')
 });
-Then('the target has a panel labeled {string} named {string}',
+Given('the target has a panel labeled {string} named {string}',
     function (fieldLabel: string, fieldName: string) {
-        cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-panel').as('target')
+        cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target')
         cy.get('@target').find('[cy-field-label="' + fieldName + '"]')
             .contains(fieldLabel, { matchCase: false })
     });
+Given('the target has a component ot type {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target').get(tag).as('target')
+});
 
 // - T A R G E T
 When('the target is clicked', function () {
@@ -152,6 +156,19 @@ Then('field named {string} with label {string} is not empty',
 // - C O L U M N S
 Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
+});
+
+// - D R A G   &   D R O P
+Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+    cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
+        .should('have.prop', 'draggable')
+        .should('exist')
+});
+When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
+    cy.get('@drag-source').trigger('dragstart')
+    cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
 
 // - I N P U T   F I E L D S

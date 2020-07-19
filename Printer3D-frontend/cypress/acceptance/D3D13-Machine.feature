@@ -156,7 +156,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And 2 is set on form field "quantity"
         When the mouse exits the target
         Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-        # Then the target has no "buttons"
+        # - Check th timer status
         Given the target is the panel of type "build-countdown-timer"
         Then column named "hours" has contents "1"
         Then column named "minutes" has contents "00"

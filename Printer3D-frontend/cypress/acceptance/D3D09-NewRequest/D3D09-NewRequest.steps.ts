@@ -30,18 +30,6 @@ Given('{string} is set on form field {string}', function (fieldValue: string, fi
         }
     })
 });
-// - D R A G   &   D R O P
-Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-    cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
-        .should('have.prop', 'draggable')
-        .should('exist')
-});
-When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
-    cy.get('@drag-source').trigger('dragstart')
-    cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
-});
 
 // - N E W E S T
 Then('the target panel has a drop place named {string}', function (symbolicName: string) {

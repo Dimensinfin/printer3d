@@ -50,18 +50,18 @@ Then('the panel {string} has no {string}', function (targetName: string, symboli
 //     })
 // });
 
-// - D R A G   &   D R O P
-Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-    cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
-        .should('have.prop', 'draggable')
-        .should('exist')
-});
-When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
-    cy.get('@drag-source').trigger('dragstart')
-    cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
-});
+// // - D R A G   &   D R O P
+// Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
+//     const tag = supportService.translateTag(symbolicName) // Do name replacement
+//     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
+//     cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
+//         .should('have.prop', 'draggable')
+//         .should('exist')
+// });
+// When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
+//     cy.get('@drag-source').trigger('dragstart')
+//     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
+// });
 
 // - B U T T O N S
 
@@ -131,16 +131,15 @@ When('the mouse exits the target', function () {
     cy.get('@target').find('[cy-focus="mouseleave"]').trigger('mouseleave')
 });
 
-// - T I M E   C O N T R O L
-Given('a timed application Printer3DManager', function () {
-    cy.viewport(1400, 900)
-    cy.clock()
-    cy.visit('/')
-});
-Then('advance time {string} minutes', function (minutes: number) {
-    cy.tick(minutes * 60 * 1000)
-    cy.wait(1000)
-});
+// Given('a timed application Printer3DManager', function () {
+//     cy.viewport(1400, 900)
+//     cy.clock()
+//     cy.visit('/')
+// });
+// Then('advance time {string} minutes', function (minutes: number) {
+//     cy.tick(minutes * 60 * 1000)
+//     cy.wait(1000)
+// });
 
 
 
