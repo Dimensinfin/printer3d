@@ -35,7 +35,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
         Given the target is the panel of type "jobs-list"
-        Then the target panel has 4 "job"
+        Then the target panel has 5 "job"
         Given the target item the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         Then the target item has a field named "quantity" with label "CANTIDAD" and value "x 2"
         And the target item has a field named "label" with label "ETIQUETA" and value "Covid-19 Key"
