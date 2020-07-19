@@ -47,6 +47,7 @@ public class MachineControllerSupportTest {
 				.build();
 		// When
 		Mockito.when( this.machineRepository.findByLabel( Mockito.anyString() ) ).thenReturn( machines );
+		Mockito.when( this.machineRepository.save( Mockito.any(MachineEntity.class) )).thenReturn( machine );
 		// Test
 		final MachineControllerSupport machineControllerSupport = new MachineControllerSupport( this.machineRepository );
 		final ResponseEntity<Boolean> obtained = machineControllerSupport.setupMachine( setupRequest );
