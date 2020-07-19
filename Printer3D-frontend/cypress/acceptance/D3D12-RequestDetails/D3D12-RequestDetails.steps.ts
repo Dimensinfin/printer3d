@@ -8,13 +8,6 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
-// - F E A T U R E   S E L E C T I O N
-When('there is a click on Feature {string}', function (featureLabel: string) {
-    cy.get('v1-dock')
-        .find('v2-feature')
-        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
-        .click('center');
-});
 // - L A T E S T   I M P L E M E N T A T I O N
 Given('a hover on the target', function () {
     cy.get('@target').trigger('mouseenter')
@@ -52,12 +45,6 @@ Then('the target page refreshes', function () {
 
 // --- FROM C13
 // - T A R G E T   S E L E C T I O N
-Given('the target is the panel of type {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-page').find(tag)
-        .as('target-panel').as('target')
-});
 Given('the target the {string} with id {string}', function (symbolicName: string, recordId: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)

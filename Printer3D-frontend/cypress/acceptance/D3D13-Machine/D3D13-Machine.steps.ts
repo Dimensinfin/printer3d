@@ -8,20 +8,6 @@ import { find } from 'cypress/types/lodash';
 
 const supportService = new SupportService();
 
-// // - T A R G E T   S E L E C T I O N
-// Given('the target is the panel of type {string}', function (renderName: string) {
-//     const tag = supportService.translateTag(renderName) // Do name replacement
-//     cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
-//     cy.get('@target-page').find(tag)
-//         .as('target-panel').as('target')
-// });
-// Given('the target the {string} with id {string}', function (symbolicName: string, recordId: string) {
-//     const tag = supportService.translateTag(symbolicName) // Do name replacement
-//     cy.log('>[the {string} is activated]> Translation: ' + tag)
-//     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
-//         .should('exist')
-// });
-
 // - T A R G E T   C O N T E N T S
 // Then('the target has the title {string}', function (title: string) {
 //     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })

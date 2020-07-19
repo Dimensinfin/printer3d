@@ -14,24 +14,7 @@ import { GridRow } from '../../support/page-objects/GridRow.panel';
 const supportService = new SupportService();
 
 // - N E W E S T   I M P L E M E N T A T I O N
-// - DOCK
-Given('one instance of Dock', function () {
-    cy.get('app-root').find('v1-dock').should('have.length', 1)
-});
-// - FEATURE SELECTION
-When('there is a click on Feature {string}', function (featureLabel: string) {
-    cy.get('v1-dock')
-        .find('v2-feature')
-        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
-        .click('center');
-});
 // - TARGET SELECTION
-Given('the target panel is the panel of type {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-page').find(tag)
-        .as('target-panel')
-});
 Given('the target item the {string} with id {string}', function (symbolicName: string, recordId: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
@@ -87,18 +70,18 @@ Then('the target panel has a textarea field named {string} with label {string} a
         cy.get('@target-field').find('textarea')
             .should('be.empty')
     });
-Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
-    if (state == 'invalid')
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-            .find('input').parent().within(($field) => {
-                cy.get('.ng-invalid').should('exist')
-            })
-    if (state == 'valid')
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-            .find('input').parent().within(($field) => {
-                cy.get('.ng-invalid').should('not.exist')
-            })
-});
+// Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
+//     if (state == 'invalid')
+//         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+//             .find('input').parent().within(($field) => {
+//                 cy.get('.ng-invalid').should('exist')
+//             })
+//     if (state == 'valid')
+//         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+//             .find('input').parent().within(($field) => {
+//                 cy.get('.ng-invalid').should('not.exist')
+//             })
+// });
 // - PANEL CONTENTS
 Then('the target dialog has a title {string}', function (title: string) {
     cy.get('@target-panel').find('.header-title').contains(title, { matchCase: false })
@@ -150,13 +133,12 @@ Then('the target item has a disabled image named {string}', function (buttonName
 
 
 
-Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('app-root').find(tag).find('.row').first()
-        .children()
-        .should('have.length', panelCount)
-});
+
+
+
+
+
+
 Given('the target panel has one or more {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
@@ -219,14 +201,9 @@ Then('the target item button with name {string} has a label {string} and is {str
 
 
 // - R E V I E W
-When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, destination: string) {
-    cy.get('v1-dock')
-        .find('v2-feature')
-        .contains(label, { matchCase: false }).parent()
-        .click('center');
-    cy.wait(1200)
-    cy.get('app-root').find(destination).should('exist')
-});
+
+
+
 // - C O M M O N   T O   S O M E   F E A T U R E S
 Given('the target panel is the panel with variant {string}', function (variant: string) {
     cy.get('@target-page').find('.row')
@@ -265,12 +242,6 @@ Given('one instance of PagePath', function () {
     cy.get('app-root').find('v1-page-path-panel').should('have.length', 1)
 });
 
-// Given('one instance of Dock', function () {
-//     console.log('[GIVEN] one instance of Dock');
-//     const dock: V1Dock = new V1Dock();
-//     expect(dock).to.not.be.null;
-//     cy.get('app-root').find('v1-dock').should('have.length', 1)
-// });
 
 // Given('one or more instances of Feature', function () {
 //     console.log('[GIVEN] one or more instances of Feature');
@@ -361,13 +332,6 @@ Given('the InventoryPartListPage at route {string}', function (route: string) {
 
 
 // - PAGE ACTIVATION & CONTENTS
-Then('the page {string} is activated', function (symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('app-root').find(tag).as('target-page')
-        .should('exist')
-    // cy.wait(500) // Now there is a delay on the Api Simulation so we need to add  delay
-});
 Then('the target page has one panel of type {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target-page').find(tag).should('exist')

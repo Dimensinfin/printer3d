@@ -10,7 +10,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Given the application Printer3DManager
         Given there is a click on Feature "/INVENTARIO"
         Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
+        Given the target is the panel of type "catalog"
 
     # - H A P P Y   P A T H
     @D3D20.01
@@ -132,7 +132,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     Scenario: [D3D20.09]-Validate the contents of a Part.
         # Given there is a click on Feature "/INVENTARIO"
         # Then the page "InventoryPage" is activated
-        # Given the target panel is the panel of type "catalog"
+        # Given the target is the panel of type "catalog"
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         # - Validate the fields of a Part inside a part group
@@ -155,26 +155,26 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And active "part" shows a green corner
         And inactive "part" shows an orange corner
 
-    # PENDING REVIEW AND UPDATE
-    # @D3D07 @D3D07.13
-    # Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
-    #     Given there is a click on Feature "/INVENTARIO"
-    #     Then the page "InventoryPage" is activated
-    #     Given the target panel is the panel of type "catalog"
-    #     Given the target item the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
-    #     Then on the target panel there are none "part"
-    #     Then the target item is expandable
-    #     When the target item expand-collapse button is clicked
-    #     Then on the target panel there are "2" "part"
-    #     Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-    #     When the target Part Duplicate button is clicked
-    #     Then the "New Part" dialog opens and blocks the display
-    #     Given the target panel is the panel of type "New Part"
-    #     Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
-    #     Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
-    #     # Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
-    #     Then the target panel has a input field named "cost" with label "COSTE FAB." and contents "0.45"
-    #     Then the target panel has a input field named "price" with label "PRECIO" and contents "1"
-    #     Then the target panel has a input field named "buildTime" with label "TIEMPO" and contents "20"
-    #     Then the target panel has a input field named "stockLevel" with label "STOCK DESEADO" and value "15"
-    #     Then the target panel has a input field named "stockAvailable" with label "STOCK ACTUAL" and value "0"
+# PENDING REVIEW AND UPDATE
+# @D3D07 @D3D07.13
+# Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
+#     Given there is a click on Feature "/INVENTARIO"
+#     Then the page "InventoryPage" is activated
+#     Given the target is the panel of type "catalog"
+#     Given the target item the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+#     Then on the target panel there are none "part"
+#     Then the target item is expandable
+#     When the target item expand-collapse button is clicked
+#     Then on the target panel there are "2" "part"
+#     Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+#     When the target Part Duplicate button is clicked
+#     Then the "New Part" dialog opens and blocks the display
+#     Given the target is the panel of type "New Part"
+#     Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
+#     Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
+#     # Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
+#     Then the target panel has a input field named "cost" with label "COSTE FAB." and contents "0.45"
+#     Then the target panel has a input field named "price" with label "PRECIO" and contents "1"
+#     Then the target panel has a input field named "buildTime" with label "TIEMPO" and contents "20"
+#     Then the target panel has a input field named "stockLevel" with label "STOCK DESEADO" and value "15"
+#     Then the target panel has a input field named "stockAvailable" with label "STOCK ACTUAL" and value "0"

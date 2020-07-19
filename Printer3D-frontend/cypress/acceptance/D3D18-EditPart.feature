@@ -13,7 +13,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
     Scenario: [D3D18.01]-There is a new field on the Part that is the weight of plastic that needs to be used to build an instance.
         Given there is a click on Feature "/INVENTARIO"
         Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
+        Given the target is the panel of type "catalog"
         Given the target item the "part-container" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
         Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
         And the target item has a field named "description" with label "DESCRIPCION" and value "Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot"
@@ -24,7 +24,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
     # Scenario: [D3D18.02]-The Part Container group now has an edit button that toggles the editing of some properties for a set of Parts. All the parts that share the label belong to the same Part Group and are edited at the same time.
     #     Given there is a click on Feature "/INVENTARIO"
     #     Then the page "InventoryPage" is activated
-    #     Given the target panel is the panel of type "catalog"
+    #     Given the target is the panel of type "catalog"
     #     Given the target item the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
     #     Then the target item has a actionable image named "edit-button"
     #     When the target item actionable image "edit-button" is clicked
@@ -45,7 +45,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
     Scenario: [D3D18.03]-Validate the contents of a Part Container. Now there are new fields and the Image and Model File should also be visible if not empty.
         Given there is a click on Feature "/INVENTARIO"
         Then the page "InventoryPage" is activated
-        Given the target panel is the panel of type "catalog"
+        Given the target is the panel of type "catalog"
         Given the target item the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
         Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Base"
         And the target item has a field named "description" with label "DESCRIPCION" and value "Base para la plataforma de slot cars."

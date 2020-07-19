@@ -13,7 +13,7 @@ Feature: [D3D19]-[STORY] There is a list of items that can be deployed inside a 
         # - Target the available list of items
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-request-elements"
+        Given the target is the panel of type "available-request-elements"
 
         # - Select a Model and validate its fields
         Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
@@ -26,7 +26,7 @@ Feature: [D3D19]-[STORY] There is a list of items that can be deployed inside a 
         # - Target the available list of items
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
-        Given the target panel is the panel of type "available-request-elements"
+        Given the target is the panel of type "available-request-elements"
 
         # - Select a Part and validate its fields
         Given the target item the "part" with id "52372bd9-76a3-4f65-926e-a50a896961c0"

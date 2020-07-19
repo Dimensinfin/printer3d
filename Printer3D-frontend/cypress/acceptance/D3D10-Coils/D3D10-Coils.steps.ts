@@ -7,21 +7,7 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
-// - PAGE ACTIVATION & CONTENTS
-Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.get('app-root').find(tag).find('.row').first()
-        .children()
-        .should('have.length', panelCount)
-});
-
 // - T A R G E T   S E L E C T I O N
-Given('the target is the panel of type {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.log('>[tag replacement]> ' + renderName + ' -> ' + tag)
-    cy.get('@target-page').find(tag)
-        .as('target-panel').as('target')
-});
 Given('the target the {string} with id {string}', function (symbolicName: string, recordId: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
@@ -31,9 +17,6 @@ Given('the target the {string} with id {string}', function (symbolicName: string
 // - T A R G E T   C O N T E N T S
 Then('the target has the title {string}', function (title: string) {
     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
-});
-Then('the target has variant {string}', function (variant: string) {
-    cy.get('@target').find('viewer-panel').invoke('attr', 'ng-reflect-variant').should('equal', variant)
 });
 Then('the target has {int} {string}', function (count: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement

@@ -11,9 +11,9 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
     Scenario: [D3D14.01]-Register a job on both the machines and await for job completion using test fast time forward.
         Given there is a click on Feature "/TRABAJOS PND."
         Then the page "Production Jobs Page" is activated
-        Given the target panel is the panel of type "jobs-list"
+        Given the target is the panel of type "jobs-list"
         Given the target job the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Given the target panel is the panel of type "machines"
+        Given the target is the panel of type "machines"
         Given the target machine the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Given the target item the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         When the target Job is dragged and dropped on the target Machine
@@ -29,8 +29,8 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         And the target item button with name "CANCEL" has a label "Cancelar" and is "enabled"
         When there is a click on the target item "COMPLETE" button
 
-# @D3D13.07
-#     Scenario: [D3D13.07]-When the job completes the number of copies continues not being editable.
+    # @D3D13.07
+    #     Scenario: [D3D13.07]-When the job completes the number of copies continues not being editable.
 
     @D3D13.09
     Scenario: [D3D13.09]-When the job completes the number of copies continues not being editable.

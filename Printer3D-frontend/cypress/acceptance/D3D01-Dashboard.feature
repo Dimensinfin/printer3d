@@ -39,5 +39,5 @@ Feature: [D3D01]-When the application starts show the dashboard page with the he
     Scenario: [D3D01.05]-The work load should report the total number of minutes of pending jobs.
         Given the application Printer3DManager
         When the application starts the default route is "/DASHBOARD"
-        Given the target panel is the panel of type "work-load"
+        Given the target is the panel of type "work-load"
         Then the target panel has a field named "work-load" with label "TOTAL MINUTOS" and contents "18H0M"

@@ -16,6 +16,43 @@ Given('the application Printer3DManager', function () {
     cy.title().should('eq', TITLE_VALIDATION);
     cy.get('app-root').as('target-page').as('target')
 });
+// - F E A T U R E   S E L E C T I O N
+When('there is a click on Feature {string}', function (featureLabel: string) {
+    const tag = supportService.translateTag('feature') // Do name replacement
+    cy.get('v1-dock')
+        .find(tag)
+        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
+        .scrollIntoView().click('center');
+});
+When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, destination: string) {
+    const tag = supportService.translateTag(destination) // Do name replacement
+    cy.get(supportService.translateTag('dock'))
+        .find(supportService.translateTag('feature'))
+        .contains(label, { matchCase: false }).parent()
+        .scrollIntoView().click();
+    // cy.wait(1000)
+    cy.get('app-root').find(tag).should('exist')
+});
+
+// - P A G E   A C T I V A T I O N
+Then('the page {string} is activated', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('app-root').find(tag).as('target-page').as('target')
+        .should('exist')
+});
+Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('app-root').find(tag).find('.row').first()
+        .children()
+        .should('have.length', panelCount)
+});
+
+// - D O C K
+Given('one instance of Dock', function () {
+    const tag = supportService.translateTag('dock') // Do name replacement
+    cy.get('app-root').find(tag).should('have.length', 1)
+});
 
 // - T A R G E T   S E L E C T I O N
 Given('the target is the panel of type {string}', function (renderName: string) {
@@ -46,6 +83,150 @@ Then('the target has {int} {string}', function (count: number, symbolicName: str
     cy.get('@target').within(($item) => {
         cy.get(tag).should('have.length', count)
     })
+});
+Then('the target has variant {string}', function (variant: string) {
+    cy.get('@target').find('viewer-panel').invoke('attr', 'ng-reflect-variant').should('equal', variant)
+});
+
+// - F I E L D S
+Then('field named {string} with label {string} has contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
+        })
+        cy.get('@target').within(($item) => {
+            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
+                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+        })
+    });
+Then('field named {string} with label {string} is empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
+        })
+        cy.get('@target').within(($item) => {
+            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
+                .find('[cy-field-value="' + fieldName + '"]').should('be.empty')
+        })
+    });
+Then('field named {string} with label {string} is not empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
+        })
+        cy.get('@target').within(($item) => {
+            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
+                .find('[cy-field-value="' + fieldName + '"]').should('not.be.empty')
+        })
+    });
+
+// - I N P U T   F I E L D S
+Then('form field named {string} with label {string} has contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            cy.log(type as string);
+            switch (type) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+                case 'textarea':
+                    cy.log('textarea')
+                    cy.get('@target-field').find('textarea')
+                        .invoke('val').should('equal', fieldValue)
+                    break
+            }
+        })
+    });
+Then('form field named {string} with label {string} is empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            switch (type) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .should('be.empty')
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .should('not.have.value')
+                    break
+                case 'textarea':
+                    cy.log('select')
+                    cy.get('@target-field').find('textarea')
+                        .should('be.empty')
+                    break
+            }
+        })
+    });
+Then('form field named {string} with label {string} is not empty',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+            switch (type) {
+                case 'input':
+                    cy.log('input')
+                    cy.get('@target-field').find('input')
+                        .should('not.be.empty')
+                    break
+                case 'select':
+                    cy.log('select')
+                    cy.get('@target-field').find('select')
+                        .should('have.value')
+                    break
+                case 'textarea':
+                    cy.log('select')
+                    cy.get('@target-field').find('textarea')
+                        .should('not.be.empty')
+                    break
+            }
+        })
+    });
+Then('form field named {string} is {string}', function (fieldName: string, state: string) {
+    cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+    let inputType: string = ''
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        cy.log(type as string);
+        inputType = type as string
+    })
+    let stateClass = 'ng-valid'
+    if (state == 'invalid') stateClass = 'ng-invalid'
+    if (state == 'valid') stateClass = 'ng-valid'
+    if (state == 'indiferent') stateClass = 'dsf-input'
+    if (inputType != '') {
+        switch (inputType) {
+            case 'input':
+                cy.log('input')
+                cy.get('@target-field').find('input')
+                    .should('have.class', stateClass)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select')
+                    .should('have.class', stateClass)
+                break
+            case 'textarea':
+                cy.log('textarea')
+                cy.get('@target-field').find('textarea')
+                    .should('have.class', stateClass)
+                break
+        }
+    }
 });
 
 // - I M A G E   B U T T O N S
