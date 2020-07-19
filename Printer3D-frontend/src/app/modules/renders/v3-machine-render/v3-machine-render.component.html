@@ -30,10 +30,11 @@
     <div class="column" style="flex-grow: 1;">
         <v1-build-countdown-timer [parent]="self"></v1-build-countdown-timer>
         <div class="column" *ngIf="target">
-            <div cy-name="start-button" class="start-width" *ngIf="state=='IDLE'">
+            <div cy-name="start-button" class="button-margins" *ngIf="state=='IDLE'">
                 <div style="position: relative;">
-                    <button cy-name="START-BUILD" class="button ok-button" (click)="startBuild()">
-                        <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Comenzar</span>
+                    <button class="button ok-button" (click)="startBuild()">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Comenzar
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
@@ -57,10 +58,11 @@
                     </div>
                 </div>
             </div>
-            <div cy-name="complete-button" class="start-width" *ngIf="state=='COMPLETED'">
+            <div cy-name="complete-button" class="button-margins" *ngIf="state=='COMPLETED'">
                 <div style="position: relative;">
-                    <button cy-name="COMPLETE" class="button ok-button" (click)="completeBuild()">
-                        <span><img class="button-icon"src="/assets/media/done-white-36dp.svg"></span><span class="button-label">Completar</span>
+                    <button class="button ok-button" (click)="completeBuild()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Completar
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
@@ -84,10 +86,11 @@
                     </div>
                 </div>
             </div>
-            <div cy-name="clear-button" class="start-width" *ngIf="state=='IDLE'">
+            <div cy-name="clear-button" class="button-margins" *ngIf="state=='IDLE'">
                 <div style="position: relative;">
-                    <button cy-name="CLEAR" class="button cancel-button" (click)="onClear()">
-                        <span><img class="button-icon"src="/assets/media/close-white-36dp.svg"></span><span class="button-label">Clear</span>
+                    <button class="button cancel-button" (click)="onClear()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Clear
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
@@ -102,19 +105,20 @@
                         <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
                     </svg>
                     <div>
-                        <svg class="button-right-mark orange-mark" viewBox="0 0 100 100">
+                        <svg class="button-right-mark ko-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
-                        <svg class="button-left-mark orange-mark" viewBox="0 0 100 100">
+                        <svg class="button-left-mark ko-mark" viewBox="0 0 100 100">
                             <path d="M0,0 L0,100 L100,0 L0,0" />
                         </svg>
                     </div>
                 </div>
             </div>
-            <div cy-name="cancel-button" class="start-width" *ngIf="state=='RUNNING' || state=='COMPLETED'">
+            <div cy-name="cancel-button" class="button-margins" *ngIf="state=='RUNNING' || state=='COMPLETED'">
                 <div style="position: relative;">
-                    <button cy-name="CANCEL" class="button clear-button" (click)="onClear()">
-                        <span><img class="button-icon"src="/assets/media/close-white-36dp.svg"></span><span class="button-label">Cancelar</span>
+                    <button class="button clear-button" (click)="onClear()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Cancelar
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
@@ -129,10 +133,10 @@
                         <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
                     </svg>
                     <div>
-                        <svg class="button-right-mark orange-mark" viewBox="0 0 100 100">
+                        <svg class="button-right-mark ko-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100"  />
                         </svg>
-                        <svg class="button-left-mark orange-mark" viewBox="0 0 100 100">
+                        <svg class="button-left-mark ko-mark" viewBox="0 0 100 100">
                             <path d="M0,0 L0,100 L100,0 L0,0"  />
                         </svg>
                     </div>

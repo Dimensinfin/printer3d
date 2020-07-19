@@ -1,3 +1,9 @@
+.button-margins {
+    margin-top: 10px;
+    margin-left: 8px;
+    margin-right: 20px;
+}
+
 // .cornered-panel {
 //     position: relative;
 //     margin-bottom: 5px;
@@ -89,11 +95,10 @@ $submit-button-color: #66FF66;
 $repeat-button-color: #47B347;
 $cancel-button-color: #FF7733;
 $clearform-button-color: #FF7733;
-.button {
-    margin: auto;
-    width: 170px;
-}
-
+// .button {
+//     margin: auto;
+//     width: 170px;
+// }
 // .start-button {
 //     height: 60px;
 //     flex-grow: 1;
