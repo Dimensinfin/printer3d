@@ -53,7 +53,7 @@ export class IsolationService {
     // - N O T I F I C A T I O N S
     private notifierConfiguration: any = {
         autoDismiss: false,
-        toastTimeout: 5000,
+        toastTimeout: 8000,
         newestOnTop: true,
         position: 'bottom-right',
         toastClass: 'notifier-box',

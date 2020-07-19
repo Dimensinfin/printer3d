@@ -68,9 +68,10 @@ Given('the target the {string} with id {string}', function (symbolicName: string
 });
 Given('the target has a panel labeled {string} named {string}',
     function (fieldLabel: string, fieldName: string) {
-        cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target')
-        cy.get('@target').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-name="' + fieldName + '"]').as('target')
+        })
+        cy.get('@target').contains(fieldLabel, { matchCase: false })
     });
 Given('the target has a component ot type {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement

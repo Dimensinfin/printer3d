@@ -9,6 +9,13 @@ import { find } from 'cypress/types/lodash';
 const supportService = new SupportService();
 
 // - T A R G E T   C O N T E N T S
+Then('the panel {string} has no {string}', function (targetName: string, symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target').within(($item) => {
+        cy.get(tag).should('not.exist')
+    })
+});
+
 // Then('the target has the title {string}', function (title: string) {
 //     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
 // });
@@ -29,12 +36,6 @@ Then('field named {string} with label {string} and value {string}',
     });
 Then('the target has a drop place named {string}', function (dropName: string) {
     cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
-});
-Then('the panel {string} has no {string}', function (targetName: string, symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.get('@target').within(($item) => {
-        cy.get('[cy-name="' + targetName + '"]').find(tag).should('not.exist')
-    })
 });
 // Then('the target has no {string}', function (symbolicName: string) {
 //     const tag = supportService.translateTag(symbolicName) // Do name replacement
