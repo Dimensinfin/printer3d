@@ -53,3 +53,73 @@ Feature: [STORY] Manage the endpoints and the relations that have effect to the 
         And the exception response name is "MISSING_MATERIAL_TO_COMPLETE_JOB"
         And the exception response has the message "Not enough Material or no coil available to start the job."
         And the exception response has the cause "No enough material or no coil while performing the material use before starting a job."
+
+    @B3D10.E @B3D10.E.02
+    Scenario: [B3D10.E.02] When a build start request is processed and during the process to subtract the material required to complete the job the
+    request founds that there is no more available material or this material is exhausted.
+        Given the following Parts in my service
+            | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 5      | 60        | 0.65 | 2.00  | 3          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        And the following Coils in my service
+            | id                                   | material | color  | weight |
+            | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ROJO   | 500    |
+            | 6aee8cff-6d33-43d9-99eb-4b86800fa0dd | TPU      | BLANCO | 500    |
+            | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | NEGRO  | 500    |
+            | 55ad0b77-dd63-4ea3-804d-2f384074def9 | PLA      | GRIS   | 500    |
+            | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | BLANCO | 5      |
+        And the next setup for Machine "Ender 3 Pro - A"
+            | currentJobPartId | jobInstallmentDate | currentPartInstances |
+            |                  |                    | 1                    |
+        And the next setup for Machine "Ender 3 Pro - B"
+            | currentJobPartId | jobInstallmentDate | currentPartInstances |
+            |                  |                    | 1                    |
+        And the next Job Request request
+            | jobId                                | partId                               | copies |
+            | ed36cdfb-e5ae-4275-a163-63b4be4d952c | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | 1      |
+        # - Process the request
+        When the Start Build V2 for Machine labeled "Ender 3 Pro - A" request is processed
+        Then there is a exception response with return code of "412 PRECONDITION_FAILED"
+        And the exception response name is "MISSING_MATERIAL_TO_COMPLETE_JOB"
+        And the exception response has the message "Not enough Material or no coil available to start the job."
+        And the exception response has the cause "No enough material or no coil while performing the material use before starting a job."
+
+    @B3D10.E @B3D10.E.03
+    Scenario: [B3D10.E.03] If there is enough material then the start request succeeds.
+        Given the following Parts in my service
+            | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 5      | 60        | 0.65 | 2.00  | 3          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        And the following Coils in my service
+            | id                                   | material | color  | weight |
+            | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ROJO   | 500    |
+            | 6aee8cff-6d33-43d9-99eb-4b86800fa0dd | TPU      | BLANCO | 500    |
+            | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | NEGRO  | 500    |
+            | 55ad0b77-dd63-4ea3-804d-2f384074def9 | PLA      | GRIS   | 500    |
+            | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | BLANCO | 11     |
+        And the next setup for Machine "Ender 3 Pro - A"
+            | currentJobPartId | jobInstallmentDate | currentPartInstances |
+            |                  |                    | 1                    |
+        And the next setup for Machine "Ender 3 Pro - B"
+            | currentJobPartId | jobInstallmentDate | currentPartInstances |
+            |                  |                    | 1                    |
+        And the next Job Request request
+            | jobId                                | partId                               | copies |
+            | ed36cdfb-e5ae-4275-a163-63b4be4d952c | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | 1      |
+        # - Process the request
+        When the Start Build V2 for Machine labeled "Ender 3 Pro - A" request is processed
+        Then there is a valid response with return code of "200 OK"
+        # - Validate the resulting weight on the used coil
+        When the Get Coils request is processed
+        And the item with id "2e5dd268-0940-454a-918b-58b4dfd1a308" of the list of Coils has the next fields
+            | id                                   | material | color  | weight |
+            | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | BLANCO | 6      |
+        # - The second job start should fail
+        And the next Job Request request
+            | jobId                                | partId                               | copies |
+            | ed36cdfb-e5ae-4275-a163-63b4be4d952c | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | 1      |
+        When the Start Build V2 for Machine labeled "Ender 3 Pro - B" request is processed
+        Then there is a exception response with return code of "412 PRECONDITION_FAILED"
+        And the exception response name is "MISSING_MATERIAL_TO_COMPLETE_JOB"
+        And the exception response has the message "Not enough Material or no coil available to start the job."
+        And the exception response has the cause "No enough material or no coil while performing the material use before starting a job."

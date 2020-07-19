@@ -53,6 +53,7 @@ export class SupportService {
         this.translationTable['buttons'] = 'button'   
         // - BACKEND REQUESTS
         this.translationTable['Get Open Requests'] = 'apiProductionGetOpenRequests_v2'           
+        this.translationTable['Start Build Job'] = 'apiMachinesStartBuild_v2'           
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.

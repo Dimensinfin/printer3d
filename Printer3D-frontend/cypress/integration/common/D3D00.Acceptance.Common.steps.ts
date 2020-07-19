@@ -47,11 +47,6 @@ Then('the target has {int} {string}', function (count: number, symbolicName: str
         cy.get(tag).should('have.length', count)
     })
 });
-// Then('the target item a column named {string} with value {string}', function (columnName: string, fieldValue: string) {
-//     cy.get('@target').within(($item) => {
-//         cy.get('[cy-name="' + columnName + '"]').contains(fieldValue, { matchCase: false })
-//     })
-// });
 
 // - I M A G E   B U T T O N S
 Then('the target has an actionable image named {string}', function (buttonName: string) {
@@ -69,4 +64,13 @@ Then('actionable image named {string} is {string}', function (buttonName: string
     if (state == 'disabled')
         cy.get('@target').find('[cy-name="' + buttonName + '"]')
             .should('have.class', 'button-disabled')
+});
+// - A L T E R N A T E   B A C K E N D   R E S P O N S E S
+Given('response {string} for {string}', function (responseCode: string, endpoint: string) {
+    const tag = supportService.translateTag(endpoint) // Do name replacement
+    cy.setCookie(tag, responseCode)
+});
+// - N O T I F I C A T I O N S
+Then('there is a {string} Notification panel', function (string) {
+    cy.get('#toast-container').should('exist')
 });

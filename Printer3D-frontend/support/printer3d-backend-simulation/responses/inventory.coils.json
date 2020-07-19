@@ -39,7 +39,7 @@
             "id": "6ac2ecdd-4365-4de7-8618-25b0f907cad4",
             "material": "PLA",
             "color": "AMARILLO",
-            "weight": 900
+            "weight": 10
         },
         {
             "id": "653abddd-290b-47f9-9e1c-941ff9df90dd",
@@ -57,7 +57,7 @@
             "id": "907a6d77-cb9b-4183-b437-f48362027d9b",
             "material": "PLA",
             "color": "PLATEADO",
-            "weight": 50
+            "weight": 10
         },
         {
             "id": "295caa4b-2a57-4ca2-b776-3bfd9513c942",

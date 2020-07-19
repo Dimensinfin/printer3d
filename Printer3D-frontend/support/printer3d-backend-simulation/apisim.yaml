@@ -86,6 +86,46 @@ responses:
 
 ---
 
+simlet: inventory-machines-start-build
+
+request:
+  - method: PUT
+  - where: uriPathPattern
+    matchesIgnoreCase: "/api/v1/inventory/machines/{machineId}/startbuild/{partId}"
+
+responses:
+- when:
+    request:
+    - where: cookie
+      named: apiMachinesStartBuild_v2
+      equals: "412-PRECONDITION_FAILED"
+  # then
+  from: stub
+  status: 412
+  headers:
+  - "Content-Type: application/json"
+  body: |+
+    {
+      "timestamp": "2020-07-14T07:41:22.117152Z",
+      "httpStatus": "412 PRECONDITION_FAILED",
+      "httpStatusCode": 412,
+      "httpStatusName": "PRECONDITION_FAILED",
+      "errorName": "MISSING_MATERIAL_TO_COMPLETE_JOB",
+      "errorCode": "dimensinfin.printer3d.logic.exception",
+      "cause": "No enough material or no coil while performing the material use before starting a job.",
+      "message": "Not enough Material or no coil available to start the job."
+    }
+  # otherwise
+- from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.machines.startbuild.json"
+
+---
+
 simlet: inventory-partlist
 
 delay:
@@ -281,24 +321,6 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.machines.cancelbuild.json"
-
----
-
-simlet: inventory-machines-start-build
-
-request:
-  - method: PUT
-  - where: uriPathPattern
-    matchesIgnoreCase: "/api/v1/inventory/machines/{machineId}/startbuild/{partId}"
-
-response:
-  from: stub
-  status: 200
-  headers:
-    - "Content-Type: application/json"
-  body:
-    type: text
-    file: "${sim.path}/responses/inventory.machines.startbuild.json"
 
 ---
 

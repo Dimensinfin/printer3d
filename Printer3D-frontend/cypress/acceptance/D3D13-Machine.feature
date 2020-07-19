@@ -11,20 +11,18 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
 
     Background: Application landing page
         Given the application Printer3DManager
-
-    # - H A P P Y   P A T H
-    @D3D13 @D3D13.01
-    Scenario: [D3D13.01]-The list of Machines is a fixed list at the right panel and should show some fields.
         Given there is a click on Feature "/TRABAJOS PND."
         Then the page "Production Jobs Page" is activated
+
+    # - H A P P Y   P A T H
+    @D3D13.01
+    Scenario: [D3D13.01]-The list of Machines is a fixed list at the right panel and should show some fields.
         Given the target is the panel of type "machines"
         Then the target has the title "/MAQUINAS"
         Then the target has 2 "machine"
 
-    @D3D13 @D3D13.02
+    @D3D13.02
     Scenario: [D3D13.02]-Any of the machines has a list of fields. If the Part is not assigned then there are no buttons.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the page "Production Jobs Page" is activated
         Given the target is the panel of type "machines"
         # - Validate the content for the Machine fields
         Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
@@ -38,10 +36,8 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         # - There are no buttons
         And the target has no "buttons"
 
-    @D3D13 @D3D13.03
+    @D3D13.03
     Scenario: [D3D13.03]-When one Part is dropped on the Part slot then the right panel activates with the time counter and the interaction buttons.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the page "Production Jobs Page" is activated
         # - Select a Job for drag
         Given the target is the panel of type "jobs-list"
         Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
@@ -54,10 +50,8 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And the button with name "start-button" has a label "Comenzar" and is "enabled"
         And the button with name "clear-button" has a label "Clear" and is "enabled"
 
-    @D3D13 @D3D13.04
+    @D3D13.04
     Scenario: [D3D13.04]-Once Part is dropped and the buttons are visible, if the user clicks the Clear button the job is cancelled and the Part is removed from the slot.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the page "Production Jobs Page" is activated
         # - Select a Job for drag
         Given the target is the panel of type "jobs-list"
         Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
@@ -73,10 +67,8 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         And the target has no "job"
         And the target has no "buttons"
 
-    @D3D13 @D3D13.05
+    @D3D13.05
     Scenario: [D3D13.05]-If the Start button is clicked then the Machine changes to RUNNING state, the job is submited for build to the backend and the timer starts to countdown.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the page "Production Jobs Page" is activated
         # - Select a Job for drag
         Given the target is the panel of type "jobs-list"
         Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
@@ -98,8 +90,6 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
 
     @D3D13.06
     Scenario: [D3D13.06]-If there is a Job running and the Cancel button is clicked the job is cancelled and the Machine returns to idle.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the page "Production Jobs Page" is activated
         # - Select a Job for drag
         Given the target is the panel of type "jobs-list"
         Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
@@ -121,8 +111,6 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
 
     @D3D13.07
     Scenario: [D3D13.07]-When a Part id dropped on the machine the Job block displays some job information and has the count of copies editable.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the page "Production Jobs Page" is activated
         # - Select a Job for drag
         Given the target is the panel of type "jobs-list"
         Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
@@ -140,8 +128,6 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
 
     @D3D13.08
     Scenario: [D3D13.08]-If the number of copies is invalidated then the Start button is disabled.
-        Given there is a click on Feature "/TRABAJOS PND."
-        Then the page "Production Jobs Page" is activated
         # - Select a Job for drag
         Given the target is the panel of type "jobs-list"
         Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
@@ -156,37 +142,56 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Then the target has no "buttons"
 
-    # WARNING - Jasmine clock is not working as expected. Until fixed this type of tests are disabled.
-    # @D3D13.09
-    # Scenario: [D3D13.09]-When the job completes the number of copies continues not being editable.
-    #     # - Use a visit initialization with time configured
-    #     Given a timed application Printer3DManager
-    #     Given there is a click on Feature "/TRABAJOS PND."
-    #     Then the page "Production Jobs Page" is activated
-    #     # - Select a Job for drag
-    #     Given the target is the panel of type "jobs-list"
-    #     Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-    #     # - Drag a part to the drop contents
-    #     Given the target is the panel of type "machines"
-    #     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-    #     When the drag source is dragged to the drop destination "dropJobs"
-    #     Then the target has 1 "job-timer"
-    #     # - Change the number of copies to 2
-    #     Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-    #     And 2 is set on form field "quantity"
-    #     # - Click the Start and advance the time to complete the job
-    #     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-    #     When the button with name "start-button" is clicked
-    #     Then advance time "1" minutes
-    #     Then advance time "5" minutes
-    #     Then advance time "30" minutes
-    #     Then advance time "30" minutes
-    #     # - Validate the new state for the Machine
-    #     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-    #     Then the field named "timer" contains "0H00M"
-    #     And the target has 2 "buttons"
-    #     And the button with name "complete-button" has a label "Completar" and is "enabled"
-    #     And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
-    #     # - Then validate that the quantity field is not editable
-    #     Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-    #     And field named "quantity-data" with label "CANTIDAD" and value "2"
+ @D3D13.09
+    Scenario: [D3D13.09]-If the copies counter is changed and the mouse leaves the field then the timer changes to reflect the new build time.
+
+    # - E X C E P T I O N S
+    @D3D13.E.01
+    Scenario: [D3D13.E.01]-When there is not enough material to complete a job the backend rejects the job start request and a notification is shown.
+        # - Select a Job for drag
+        Given the target is the panel of type "jobs-list"
+        Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        # - Drag a part to the drop contents
+        Given the target is the panel of type "machines"
+        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        When the drag source is dragged to the drop destination "dropJobs"
+        # - Change the api simulator behavior
+        Given response "412-PRECONDITION_FAILED" for "Start Build Job"
+        When the button with name "start-button" is clicked
+        Then there is a "Error" Notification panel
+
+
+# WARNING - Jasmine clock is not working as expected. Until fixed this type of tests are disabled.
+# @D3D13.09
+# Scenario: [D3D13.09]-When the job completes the number of copies continues not being editable.
+#     # - Use a visit initialization with time configured
+#     Given a timed application Printer3DManager
+#     Given there is a click on Feature "/TRABAJOS PND."
+#     Then the page "Production Jobs Page" is activated
+#     # - Select a Job for drag
+#     Given the target is the panel of type "jobs-list"
+#     Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+#     # - Drag a part to the drop contents
+#     Given the target is the panel of type "machines"
+#     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+#     When the drag source is dragged to the drop destination "dropJobs"
+#     Then the target has 1 "job-timer"
+#     # - Change the number of copies to 2
+#     Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+#     And 2 is set on form field "quantity"
+#     # - Click the Start and advance the time to complete the job
+#     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+#     When the button with name "start-button" is clicked
+#     Then advance time "1" minutes
+#     Then advance time "5" minutes
+#     Then advance time "30" minutes
+#     Then advance time "30" minutes
+#     # - Validate the new state for the Machine
+#     Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+#     Then the field named "timer" contains "0H00M"
+#     And the target has 2 "buttons"
+#     And the button with name "complete-button" has a label "Completar" and is "enabled"
+#     And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
+#     # - Then validate that the quantity field is not editable
+#     Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+#     And field named "quantity-data" with label "CANTIDAD" and value "2"

@@ -48,15 +48,6 @@ Then('the {string} dialog opens and blocks the display', function (dialogName: s
 Then('the dialog closes', function () {
     cy.get('@target-dialog').should('not.exist');
 });
-// - A L T E R N A T E   B A C K E N D   R E S P O N S E S
-Given('response {string} for {string}', function (responseCode: string, endpoint: string) {
-    const tag = supportService.translateTag(endpoint) // Do name replacement
-    cy.setCookie(endpoint, responseCode)
-});
-// - N O T I F I C A T I O N S
-Then('there is a {string} Notification panel', function (string) {
-    cy.get('#toast-container').should('exist')
-});
 // -  D O C K
 Then('the target page refreshes', function () {
     
