@@ -21,19 +21,14 @@ import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render
     templateUrl: './v1-build-countdown-timer-panel.component.html',
     styleUrls: ['./v1-build-countdown-timer-panel.component.scss']
 })
-export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
+export class V1BuildCountdownTimerPanelComponent implements OnDestroy {
     @Input() parent: V3MachineRenderComponent
-    @Input() time: number
+    public show: boolean = false
     public hours: number = 0
-    public minutes: number
-    private duration: number
+    public minutes: number = 0
+    private duration: number = 0
     private timerSubscription: Subscription;
 
-    public ngOnInit(): void {
-        console.log('>[V1BuildCountdownTimerPanelComponent.ngOnInit]')
-        this.setTimer(this.time);
-        if (null != this.parent) if (this.parent.isAutostart()) this.activate(this.time);
-    }
     public ngOnDestroy(): void {
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
@@ -43,24 +38,19 @@ export class V1BuildCountdownTimerPanelComponent implements OnInit, OnDestroy {
      * Interaction function to start the timer count down.
      * @param durationInSeconds the duration of the timing.
      */
-    public activate(durationInSeconds?: number): void {
-        console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Timer duration: ' + durationInSeconds);
-        if (null != durationInSeconds) {
-            this.duration = durationInSeconds;
+    public activate(): void {
+        console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Timer duration: ' + this.duration);
+        if (this.duration > 0) {
             const timer$ = timer(200, 1000);
             this.timerSubscription = timer$.subscribe(elapsed => {
                 // Calculate the number of secods left.
                 let left = this.duration - elapsed;
                 // Convert to hours/minutes.
-                this.hours = Math.floor(durationInSeconds / 3600);
-                this.minutes = Math.floor((durationInSeconds - this.hours * 3600) / 60)
+                this.hours = Math.floor(left / 3600);
+                this.minutes = Math.floor((left - this.hours * 3600) / 60)
                 if (left < 1) this.completeTimer();
-            });
-        } else {
-            // This can be a restart of the previous timer.
-            console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Restart: ' + this.duration);
-            if (this.duration > 0) this.activate(this.duration);
-        }
+            })
+        } else this.completeTimer();
     }
     /**
      * Stops the timer by disconnecting the subscription.

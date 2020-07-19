@@ -1,7 +1,7 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -33,8 +33,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     templateUrl: './v3-machine-render.component.html',
     styleUrls: ['./v3-machine-render.component.scss']
 })
-export class V3MachineRenderComponent extends NodeContainerRenderComponent implements OnInit {
-    @ViewChild(V1BuildCountdownTimerPanelComponent) private sessionTimer: V1BuildCountdownTimerPanelComponent;
+export class V3MachineRenderComponent extends NodeContainerRenderComponent implements AfterViewInit {
+    @ViewChild(V1BuildCountdownTimerPanelComponent) private buildTimeTimer: V1BuildCountdownTimerPanelComponent;
     // @Input() node: Machine;
     public self: V3MachineRenderComponent;
     public target: Job;
@@ -49,13 +49,19 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     }
 
     /**
-     * When the component is created check of the Machine has already a part associated. If so the load the target field so it will disable the drop and also will start the countdown timer.
+     * This lifecycle event is called when all the view and children are completed so now we found that the timer is available.
+     * Start setting the timer to the default state and then load the Job if exists and then check if still running.
      */
-    public ngOnInit(): void {
-        console.log('>[V3MachineRenderComponent.ngOnInit]')
-        this.self = this;
-        if (null != this.node) this.loadBuildPart();
-        console.log('<[V3MachineRenderComponent.ngOnInit]')
+    public ngAfterViewInit(): void {
+        console.log('>[V3MachineRenderComponent.ngAfterViewInit]> Timer reference: ' + this.buildTimeTimer)
+        this.setTimerToDefault()
+        this.loadBuildPart()
+        // Now the state is running so display the timer and restart it with the remaining time.
+        if (this.state == 'RUNNING') {
+            this.showTimer()
+            this.activateTimer()
+        } else
+            this.completeTime()
     }
 
     public getNode(): Machine {
@@ -74,17 +80,6 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     public getCharacteristics(): string {
         return this.getNode().characteristics
     }
-    /**
-     * Calculated the build time to setup on the Timer. If the Job was set by dragging the target then the time is the target 'buildTime'.
-     * If the target is filled but because the Machine has a running job then the time is the remaining time.
-     */
-    public getBuildTime(): number {
-        console.log('>[V2MachineRenderComponent.getBuildTime]')
-        return this.remainingTime;
-    }
-    public completeTime(): void {
-        this.state = 'COMPLETED'
-    }
     public getPartLabel(): string {
         return this.target.getPart().label;
     }
@@ -94,34 +89,32 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     }
 
     private loadBuildPart(): void {
-        console.log('>[V2MachineRenderComponent.loadBuildPart]> Running: ' + this.getNode().isRunning())
-        if (this.getNode().isRunning()) {
-            this.target = new Job({
-                id: uuidv4(),
-                part: this.getNode().buildRecord.part,
-                priority: 3,
-                partCount: this.getNode().buildRecord.partCopies
-            })
-            this.state = 'RUNNING'
-            this.remainingTime = this.getNode().buildRecord.remainingTime;
+        console.log('>[V3MachineRenderComponent.loadBuildPart]> Running: ' + this.getNode().isRunning())
+        if (null != this.node) {
+            if (this.getNode().isRunning()) {
+                this.target = new Job({
+                    id: uuidv4(),
+                    part: this.getNode().buildRecord.part,
+                    priority: 3,
+                    partCount: this.getNode().buildRecord.partCopies
+                })
+                this.state = 'RUNNING'
+                this.remainingTime = this.getNode().buildRecord.remainingTime;
+            }
         }
     }
 
-    // -  E V E N T S
-    /**
-    * Use this to report the child timer that the timer should be started automatically. Because the child can initialize later than the Machine render we should use this to report when the target build part is loaded manually or not.
-    */
-    public isAutostart(): boolean {
-        if (this.state == 'RUNNING') return true;
-        else return false;
-    }
-
     // - I N T E R A C T I O N S
+    public completeTime(): void {
+        this.state = 'COMPLETED'
+    }
     public onDrop(drop: any) {
         if (null != drop) {
             const job: Job = new Job(drop.dragData);
             this.target = job;
+            this.state = 'IDLE'
             this.remainingTime = job.getBuildSeconds();
+            this.showTimer()
         }
     }
     /**
@@ -133,13 +126,14 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         console.log('-[V3MachineRenderComponent.changePartCount]> Part count: ' + newCount)
         if (null == newCount)
             this.state = 'INVALID'
-        else
+        else {
             this.state = 'IDLE'
-        this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
-        this.sessionTimer.setTime(this.remainingTime)
+            this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
+            this.showTimer()
+        }
     }
     public startBuild(): void {
-        console.log('>[V2MachineRenderComponent.startBuild]')
+        console.log('>[V3MachineRenderComponent.startBuild]')
         const jobRequest: JobRequest = new JobToJobRequestConverter().convert(this.target)
         this.backendConnections.push(
             this.backendService.apiMachinesStartBuild_v2(this.getNode().getId(), jobRequest,
@@ -149,12 +143,13 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                             'Construccion de pieza [' + this.getPartLabel() + '] comenzada con éxito.',
                             '/COMENZAR CONSTRUCCCION'
                         )
-                        console.log('>[V2MachineRenderComponent.startBuild]> EntryData: ' + entrydata)
+                        console.log('>[V3MachineRenderComponent.startBuild]> EntryData: ' + entrydata)
                         return new Machine(entrydata);
                     }))
                 .subscribe((resultMachine: Machine) => {
-                    console.log('>[V2MachineRenderComponent.startBuild.subscription]')
-                    this.sessionTimer.activate(this.getBuildTime());
+                    console.log('>[V3MachineRenderComponent.startBuild.subscription]')
+                    this.showTimer()
+                    this.activateTimer()
                     this.state = 'RUNNING'
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.startBuild.exception]> Error message: ' + JSON.stringify(error.error))
@@ -163,7 +158,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                             this.isolationService.processException(error)
                 })
         );
-        console.log('<[V2MachineRenderComponent.startBuild]')
+        console.log('<[V3MachineRenderComponent.startBuild]')
     }
     public onClear(): void {
         console.log('>[V3MachineRenderComponent.onClear]')
@@ -171,7 +166,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
             this.backendService.apiMachinesCancelBuild_v1(this.getNode().getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine" on onClear.')
                     .setTransformation((entrydata: any): Machine => {
-                        console.log('>[V2MachineRenderComponent.onClear.setTransformation]> Part Label: ' + this.getPartLabel())
+                        console.log('>[V3MachineRenderComponent.onClear.setTransformation]> Part Label: ' + this.getPartLabel())
                         this.isolationService.warningNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] cancelada.',
                             '/CANCELAR CONSTRUCCION'
@@ -181,7 +176,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     }))
                 .subscribe((resultMachine: Machine) => {
                     console.log('-[V3MachineRenderComponent.onClear]')
-                    this.sessionTimer.deactivate();
+                    this.setTimerToDefault()
                     this.node = resultMachine;
                     this.target = undefined;
                     this.state = 'IDLE'
@@ -206,7 +201,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                         return new Machine(entrydata);
                     }))
                 .subscribe((resultMachine: Machine) => {
-                    this.sessionTimer.deactivate();
+                    this.setTimerToDefault()
                     this.node = resultMachine;
                     this.target = undefined;
                     this.state = 'IDLE'
@@ -217,5 +212,18 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                             this.isolationService.processException(error)
                 })
         );
+    }
+    private setTimerToDefault(): void {
+        this.buildTimeTimer.deactivate()
+        this.buildTimeTimer.show = false;
+        this.buildTimeTimer.hours = 0;
+        this.buildTimeTimer.minutes = 0;
+    }
+    private showTimer(): void {
+        this.buildTimeTimer.setTime(this.remainingTime)
+        this.buildTimeTimer.show = true
+    }
+    private activateTimer(): void {
+        this.buildTimeTimer.activate()
     }
 }
