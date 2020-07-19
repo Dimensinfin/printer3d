@@ -23,9 +23,9 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         And the target panel has a form field named "color" with label "COLOR" and empty
         And the target panel has a form field named "weight" with label "PESO" and empty
         # - Check the field state
-        And the target panel input field named "material" is "invalid"
-        And the target panel input field named "color" is "invalid"
-        And the target panel input field named "weight" is "invalid"
+        And form field named "material" is "invalid"
+        And form field named "color" is "invalid"
+        And form field named "weight" is "invalid"
 
     @D3D05.03
     Scenario: [D3D05.03]-If we enter enough characters the fields change to 'valid'.
