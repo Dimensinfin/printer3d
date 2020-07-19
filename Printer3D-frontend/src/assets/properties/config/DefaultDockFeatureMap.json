@@ -3,7 +3,7 @@
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
-        "route": "inventory/coillist"
+        "route": "/inventory/coillist"
     },
     {
         "label": "/Inventario",
@@ -24,7 +24,7 @@
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
-        "route": "production/pendingjobs"
+        "route": "/production/pendingjobs"
     },
     {
         "label": "/Nuevo Rollo",
@@ -46,7 +46,7 @@
         "active": false,
         "interaction": "PAGEROUTE",
         "modifier": "DROP",
-        "route": "inventory/newmodel"
+        "route": "/inventory/newmodel"
     },
     {
         "label": "/Nuevo Pedido",

@@ -14,7 +14,6 @@ import { V1RequestableElementsPanelComponent } from '../../panels/v1-requestable
 })
 export class V1NewRequestPageComponent implements Refreshable {
     @ViewChild(V1RequestableElementsPanelComponent) private sellableElements: V1RequestableElementsPanelComponent;
-    // @ViewChild(V1NewModelPanelComponent) private modelEditingPanel: V1NewModelPanelComponent;
     // - R E F R E S H A B L E
     public clean(): void {
     }
