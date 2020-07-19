@@ -19,7 +19,7 @@ import { Job } from '@domain/Job.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { environment } from '@env/environment';
-import { JobAggregator } from '@domain/transformer/JobAggregator.transformer';
+import { JobAggregator } from '@domain/JobAggregator.domain';
 
 @Component({
     selector: 'v1-pending-jobs-panel',
