@@ -17,7 +17,7 @@ export class JobAggregator {
         }
         this.reducedJobs.push(newJob)
     }
-    public getAggreagtedJobs(): Job[] {
+    public getAggregatedJobs(): Job[] {
         return this.reducedJobs
     }
 }

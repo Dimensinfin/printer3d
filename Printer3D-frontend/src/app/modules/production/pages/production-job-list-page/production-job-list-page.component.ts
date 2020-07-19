@@ -4,17 +4,8 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
-// - SERVICES
-import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-import { PartRecord } from '@domain/PartRecord.domain';
-import { GridColumn } from '@domain/GridColumn.domain';
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
-import { Subscription } from 'rxjs';
-import { PartTransformer } from '@domain/transformer/PartTransformer.tranformer';
-import { Part } from '@domain/Part.domain';
 import { V1PendingJobsPanelComponent } from '../../panels/v1-pending-jobs-panel/v1-pending-jobs-panel.component';
 import { V2MachinesPanelComponent } from '../../panels/v2-machines-panel/v2-machines-panel.component';
 

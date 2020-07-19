@@ -67,7 +67,7 @@ export class V1PendingJobsPanelComponent extends AppPanelComponent implements On
                     const aggregator = new JobAggregator()
                     for (let job of response) // Aggregate equal jobs into a single display element
                         aggregator.addJob(job)
-                    this.completeDowload(aggregator.getAggreagtedJobs()); // Notify the completion of the download.
+                    this.completeDowload(aggregator.getAggregatedJobs()); // Notify the completion of the download.
                 })
         );
     }
