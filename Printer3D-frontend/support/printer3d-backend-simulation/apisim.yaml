@@ -86,12 +86,12 @@ responses:
 
 ---
 
-simlet: inventory-machines-start-build
+simlet: inventory-machines-start-build-v2
 
 request:
-  - method: PUT
+  - method: POST
   - where: uriPathPattern
-    matchesIgnoreCase: "/api/v1/inventory/machines/{machineId}/startbuild/{partId}"
+    matchesIgnoreCase: "/api/v2/inventory/machines/{machineId}/startbuild"
 
 responses:
 - when:
@@ -321,24 +321,6 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.machines.cancelbuild.json"
-
----
-
-simlet: inventory-machines-start-build-v2
-
-request:
-  - method: POST
-  - where: uriPathPattern
-    matchesIgnoreCase: "/api/v2/inventory/machines/{machineId}/startbuild"
-
-response:
-  from: stub
-  status: 200
-  headers:
-    - "Content-Type: application/json"
-  body:
-    type: text
-    file: "${sim.path}/responses/inventory.machines.startbuild.json"
 
 ---
 

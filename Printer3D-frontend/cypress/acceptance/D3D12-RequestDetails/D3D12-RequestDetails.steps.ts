@@ -35,10 +35,6 @@ Then('target has a panel labeled {string} named {string}',
         cy.get('@target').find('[cy-field-label="' + fieldName + '"]')
             .contains(fieldLabel, { matchCase: false })
     });
-// - C O L U M N S
-Then('column named {string} with contents {string}', function (fieldName: string, fieldContents: string) {
-    cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
-});
 // - D I A L O G
 Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
     const tag = supportService.translateTag(dialogName) // Do name replacement

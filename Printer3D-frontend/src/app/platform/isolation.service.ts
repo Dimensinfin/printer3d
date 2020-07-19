@@ -20,10 +20,6 @@ export class IsolationService {
     ) { }
 
     // - E X C E P T I O N S
-    public exceptionMessageMap(exception: any): string {
-        const messageMapped: boolean = false
-        return 'Excepcion de tipo [' + exception.errorInfo + '] durante la ultima operacion.'
-    }
     public processException(error: HttpErrorResponse): void {
         if (error.error.status == 404) {
             this.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')

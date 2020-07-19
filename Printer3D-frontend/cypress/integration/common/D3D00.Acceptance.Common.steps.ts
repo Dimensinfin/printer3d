@@ -74,3 +74,17 @@ Given('response {string} for {string}', function (responseCode: string, endpoint
 Then('there is a {string} Notification panel', function (string) {
     cy.get('#toast-container').should('exist')
 });
+
+// - F O R M   F I E L D S
+Given('empty is set on form field {string}', function (fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear()
+});
+Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue + '')
+});
+// - C O L U M N S
+Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
+});

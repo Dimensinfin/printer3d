@@ -25,6 +25,8 @@ import { Job } from '@domain/Job.domain';
 import { Machine } from '@domain/Machine.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { JobToJobRequestConverter } from '@domain/converter/JobToJobRequest.converter';
+import { environment } from '@env/environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'v3-machine',
@@ -154,6 +156,11 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     console.log('>[V2MachineRenderComponent.startBuild.subscription]')
                     this.sessionTimer.activate(this.getBuildTime());
                     this.state = 'RUNNING'
+                }, (error) => {
+                    console.log('-[V3MachineRenderComponent.startBuild.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         );
         console.log('<[V2MachineRenderComponent.startBuild]')
@@ -178,6 +185,11 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     this.node = resultMachine;
                     this.target = undefined;
                     this.state = 'IDLE'
+                }, (error) => {
+                    console.log('-[V3MachineRenderComponent.onClear.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         );
     }
@@ -198,6 +210,11 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     this.node = resultMachine;
                     this.target = undefined;
                     this.state = 'IDLE'
+                }, (error) => {
+                    console.log('-[V3MachineRenderComponent.completeBuild.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         );
     }

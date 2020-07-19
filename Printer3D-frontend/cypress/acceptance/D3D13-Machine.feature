@@ -142,8 +142,24 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Then the target has no "buttons"
 
- @D3D13.09
+    @D3D13.09
     Scenario: [D3D13.09]-If the copies counter is changed and the mouse leaves the field then the timer changes to reflect the new build time.
+        # - Select a Job for drag
+        Given the target is the panel of type "jobs-list"
+        Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        # - Drag a part to the drop contents
+        Given the target is the panel of type "machines"
+        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        When the drag source is dragged to the drop destination "dropJobs"
+        # - Invalidate the contents of the copies
+        Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        And 2 is set on form field "quantity"
+        When the mouse exits the target
+        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        # Then the target has no "buttons"
+        Given the target is the panel of type "build-countdown-timer"
+        Then column named "hours" has contents "1"
+        Then column named "minutes" has contents "00"
 
     # - E X C E P T I O N S
     @D3D13.E.01

@@ -96,16 +96,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
                 }, (error) => {
                     console.log('-[V1RequestRenderComponent.completeRequest.exception]> Error message: ' + JSON.stringify(error.error))
                     if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse) {
-                            if (error.error.status == 404) {
-                                this.isolationService.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')
-                            } else {
-                                const errorInfo: string = error.error.errorInfo
-                                const httpStatus: string = error.error.httpStatus
-                                const message: string = this.isolationService.exceptionMessageMap(error.error)
-                                this.isolationService.errorNotification(message, errorInfo)
-                            }
-                        }
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         )
     }
