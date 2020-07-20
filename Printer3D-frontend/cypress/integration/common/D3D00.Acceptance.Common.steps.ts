@@ -16,6 +16,7 @@ Given('the application Printer3DManager', function () {
     cy.title().should('eq', TITLE_VALIDATION);
     cy.get('app-root').as('target-page').as('target')
 });
+
 // - F E A T U R E   S E L E C T I O N
 When('there is a click on Feature {string}', function (featureLabel: string) {
     const tag = supportService.translateTag('feature') // Do name replacement

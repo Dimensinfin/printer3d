@@ -31,7 +31,7 @@ export class SupportService {
         this.translationTable['catalog'] = 'v1-catalog-panel'
         this.translationTable['model-detail'] = 'v1-new-model-panel'
         this.translationTable['open-requests'] = 'v1-open-requests-panel'
-        this.translationTable['request-detail'] = 'v1-request-detail-panel'
+        this.translationTable['request-details'] = 'v1-request-detail-panel'
         this.translationTable['jobs-list'] = 'v1-pending-jobs-panel'
         this.translationTable['billing-chart'] = 'v1-billing-chart-panel'
         // - RENDERS
