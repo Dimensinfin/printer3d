@@ -1,7 +1,7 @@
 package org.dimensinfin.acceptance.support.converter;
 
+import java.time.Instant;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;

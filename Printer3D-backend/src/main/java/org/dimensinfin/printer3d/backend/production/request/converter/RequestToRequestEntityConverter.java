@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.converter;
 
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
 
 import org.springframework.stereotype.Component;
 
@@ -11,13 +11,13 @@ import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 
 @Component
 public class RequestToRequestEntityConverter implements Converter<Request, RequestEntity> {
-
+	@Deprecated
 	@Override
 	public RequestEntity convert( final Request input ) {
 		Instant requestDate = Instant.now();
 		if (null != input.getRequestDate())
-			requestDate = Instant.parse( input.getRequestDate());
-		LogWrapper.info( "> request data at entity " + requestDate.toString( ) );
+			requestDate = Instant.parse( input.getRequestDate() );
+		LogWrapper.info( "> request data at entity " + requestDate.toString() );
 		return new RequestEntity.Builder()
 				.withId( input.getId() )
 				.withLabel( input.getLabel() )

@@ -1,5 +1,6 @@
 package org.dimensinfin.core.exception;
 
+import java.time.Instant;
 import java.util.Objects;
 
 public class ApiError {
@@ -39,7 +40,7 @@ public class ApiError {
 		return this.dimensinfinRuntimeException.getMessage();
 	}
 
-	public Instant Timestamp() {
+	public Instant getTimestamp() {
 		return Instant.now();
 	}
 }

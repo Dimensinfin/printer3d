@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.job.persistence;
 
+import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;

@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
 
+import java.time.Instant;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 

@@ -1,7 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.request.converter;
 
-import java.time.format.DateTimeFormatter;
-
 import org.springframework.stereotype.Component;
 
 import org.dimensinfin.core.interfaces.Converter;
@@ -16,7 +14,7 @@ public class RequestEntityV2ToRequestV2Converter implements Converter<RequestEnt
 		return new RequestV2.Builder()
 				.withId( input.getId() )
 				.withLabel( input.getLabel() )
-				.withRequestDate( input.getRequestDate().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME ) )
+				.withRequestDate( input.getRequestDate().toString() )
 				.withClosedDate( (null != input.getClosedDate()) ? input.getClosedDate().toString() : null )
 				.withState( input.getState() )
 				.withAmount( input.getAmount() )

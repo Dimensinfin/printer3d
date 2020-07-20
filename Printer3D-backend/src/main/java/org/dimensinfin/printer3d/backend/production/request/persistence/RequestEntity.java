@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.persistence;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +36,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.6.0
  */
- @Deprecated
+@Deprecated
 @Entity
 @Table(name = "requests", schema = "printer3d")
 @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)

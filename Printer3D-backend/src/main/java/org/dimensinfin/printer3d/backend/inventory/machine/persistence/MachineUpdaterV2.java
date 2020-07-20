@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
 
+import java.time.Instant;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;

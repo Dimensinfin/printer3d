@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.request.converter;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -33,8 +32,8 @@ public class RequestV2ToRequestEntityV2ConverterTest {
 		// Assertions
 		Assertions.assertEquals( TEST_REQUEST_ID.toString(), obtained.getId().toString() );
 		Assertions.assertEquals( TEST_REQUEST_LABEL, obtained.getLabel() );
-		Assertions.assertEquals( TEST_REQUEST_DATE.format( DateTimeFormatter.ISO_DATE_TIME ),
-				obtained.getRequestDate().format( DateTimeFormatter.ISO_DATE_TIME ) );
+		Assertions.assertEquals( TEST_REQUEST_DATE.toString(),
+				obtained.getRequestDate().toString() );
 		Assertions.assertEquals( TEST_REQUEST_STATE, obtained.getState() );
 		Assertions.assertNotNull( obtained.getContents() );
 		Assertions.assertEquals( 0, obtained.getContents().size() );

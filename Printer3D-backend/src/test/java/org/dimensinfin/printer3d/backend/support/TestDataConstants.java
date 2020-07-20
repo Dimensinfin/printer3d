@@ -45,7 +45,7 @@ public class TestDataConstants {
 	public static class SetupRequest {
 		public static final String TEST_SETUPREQUEST_MACHINE_LABEL = "-TEST_MACHINE_LABEL-";
 		public static final UUID TEST_SETUPREQUEST_PART_ID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
-		public static final String TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE = "2020-06-06T21:54:00.226181+02:00";
+		public static final String TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE = "2020-06-06T21:54:00.226181Z";
 		public static final Integer TEST_SETUPREQUEST_PART_INSTANCES_COUNT = 2;
 	}
 
@@ -78,7 +78,7 @@ public class TestDataConstants {
 		public static final UUID TEST_REQUEST_ID = UUID.fromString( "98be9442-edbb-47fe-bc20-60b9e6f4a315" );
 		public static final String TEST_REQUEST_LABEL = "-TEST_REQUEST_LABEL-";
 		public static final Instant TEST_REQUEST_DATE = Instant.parse( "2020-06-16T16:38:30.562806Z" );
-		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806+02:00";
+		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806Z";
 		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
 		public static final float TEST_REQUEST_AMOUNT = 45.67F;
 		public static final Instant TEST_REQUEST_CLOSED_DATE = Instant.now();

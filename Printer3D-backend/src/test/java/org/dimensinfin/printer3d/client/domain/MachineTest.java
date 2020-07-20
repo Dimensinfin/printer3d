@@ -1,13 +1,14 @@
 package org.dimensinfin.printer3d.client.domain;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -45,10 +46,10 @@ public class MachineTest {
 		Assertions.assertNotNull( machine );
 	}
 
-		@Test
+	@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass( Machine.class )
-				.suppress( Warning.STRICT_INHERITANCE)
+				.suppress( Warning.STRICT_INHERITANCE )
 				.verify();
 	}
 
@@ -95,6 +96,7 @@ public class MachineTest {
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
 	}
+
 	@Test
 	public void toStringContractRunning() {
 		// Given
@@ -123,7 +125,7 @@ public class MachineTest {
 				.withInstances( TEST_MACHINE_CURRENTPARTINSTANCES )
 				.build();
 		// Test
-		final String expected = "";
+		final String expected = "{\"id\":\"85403a7a-4bf8-4e99-bbc1-8283ea91f99b\",\"label\":\"-TEST_MACHINE_LABEL-\",\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"currentJobPart\":\"{\\\"id\\\":\\\"85403a7a-4bf8-4e99-bbc1-8283ea91f99b\\\",\\\"label\\\":\\\"-TEST_PART_LABEL-\\\",\\\"description\\\":\\\"-TEST_PART_DESCRIPTION-\\\",\\\"material\\\":\\\"PLA\\\",\\\"color\\\":\\\"VERDE-T\\\",\\\"weight\\\":1,\\\"buildTime\\\":60,\\\"cost\\\":0.76,\\\"price\\\":2.0,\\\"stockLevel\\\":4,\\\"stockAvailable\\\":4,\\\"imagePath\\\":\\\"https:\\\\\\/\\\\\\/ibb.co\\\\\\/3dGbsRh\\\",\\\"modelPath\\\":\\\"pieza3.STL\\\",\\\"active\\\":false}\",\"currentPartInstances\":8,\"jobInstallmentDate\":\"2020-06-06T21:54:00.226181Z\"}";
 		final String obtained = machine.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

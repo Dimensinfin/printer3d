@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;

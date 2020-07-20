@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.time.Duration;
+import java.time.Instant;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
