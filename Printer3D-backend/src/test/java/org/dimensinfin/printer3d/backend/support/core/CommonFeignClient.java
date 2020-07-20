@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.support.core;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class CommonFeignClient {
 					new GsonBuilder()
 							.registerTypeAdapter( LocalDate.class, new GSONLocalDateDeserializer() )
 							.registerTypeAdapter( LocalDateTime.class, new GSONLocalDateTimeDeserializer() )
-						//	.registerTypeAdapter( OffsetDateTime.class, new GSONOffsetDateTimeDeserializer() )
+							.registerTypeAdapter( Instant.class, new GSONInstantDeserializer() )
 							.create() );
 	protected final ITargetConfiguration acceptanceTargetConfig;
 

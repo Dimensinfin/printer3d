@@ -18,7 +18,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 
 import io.cucumber.java.en.Then;
-import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PART_ID;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.JOB_PART_ID;
 
 public class P3D05JobsSteps extends StepSupport {
 	private final JobFeignClientSupport jobFeignClientSupport;
@@ -50,7 +50,7 @@ public class P3D05JobsSteps extends StepSupport {
 		for (int i = 0; i < dataTable.size(); i++) {
 			final Map<String, String> row = dataTable.get( i );
 			final Job record = this.printer3DWorld.getListJobResponseEntity().getBody().get( i );
-			LogWrapper.info( "i: " + i + " row id: " + row.get( PART_ID ) + " record id: " + record.getPart().getId() );
+			LogWrapper.info( "i: " + i + " row id: " + row.get( JOB_PART_ID ) + " record id: " + record.getPart().getId() );
 			Assertions.assertTrue( jobValidator.validate( row, record ) );
 		}
 	}
