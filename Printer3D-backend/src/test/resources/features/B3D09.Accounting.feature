@@ -60,8 +60,8 @@ Feature: [STORY] Create a new endpoint to aggregate the amounts for closed Reque
         When the Accounting Week Income request is processed
         Then there is a valid response with return code of "200 OK"
         And the week report has the next contents
-            | year | week | amount |
-            | 2020 | 29   | 4      |
+            | year | week   | amount |
+            | 2020 | <week> | 4      |
 
     @P3D09.H @P3D09.02
     Scenario: [P3D09.02] Validate that where there are more than a week and the list is trimmed the results are on the correct order and that
@@ -117,9 +117,9 @@ Feature: [STORY] Create a new endpoint to aggregate the amounts for closed Reque
         When the Accounting Week Income request is processed
         Then there is a valid response with return code of "200 OK"
         And the week report has the next contents
-            | year | week | amount |
-            | 2020 | 28   | 4      |
-            | 2020 | 29   | 5      |
+            | year | week     | amount |
+            | 2020 | <week-1> | 4      |
+            | 2020 | <week>   | 5      |
 
     @P3D09.H @P3D09.03
     Scenario: [P3D09.03] Check that the parameter limits the number of weeks returned.
@@ -174,5 +174,5 @@ Feature: [STORY] Create a new endpoint to aggregate the amounts for closed Reque
         When the Accounting Week Income request is processed with week count 1
         Then there is a valid response with return code of "200 OK"
         And the week report has the next contents
-            | year | week | amount |
-            | 2020 | 29   | 5      |
+            | year | week   | amount |
+            | 2020 | <week> | 5      |
