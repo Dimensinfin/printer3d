@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.request.converter;
 
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Component;
@@ -15,10 +14,10 @@ public class RequestToRequestEntityConverter implements Converter<Request, Reque
 
 	@Override
 	public RequestEntity convert( final Request input ) {
-		OffsetDateTime requestDate = OffsetDateTime.now();
+		Instant requestDate = Instant.now();
 		if (null != input.getRequestDate())
-			requestDate = OffsetDateTime.parse( input.getRequestDate(), DateTimeFormatter.ISO_OFFSET_DATE_TIME );
-		LogWrapper.info( "> request data at entity " + requestDate.format( DateTimeFormatter.ISO_OFFSET_DATE_TIME ) );
+			requestDate = Instant.parse( input.getRequestDate());
+		LogWrapper.info( "> request data at entity " + requestDate.toString( ) );
 		return new RequestEntity.Builder()
 				.withId( input.getId() )
 				.withLabel( input.getLabel() )

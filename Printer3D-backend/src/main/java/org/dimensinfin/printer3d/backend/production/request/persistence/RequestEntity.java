@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.request.persistence;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,6 +35,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.6.0
  */
+ @Deprecated
 @Entity
 @Table(name = "requests", schema = "printer3d")
 @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
@@ -47,8 +47,8 @@ public class RequestEntity {
 	@Size(min = 3, max = 50)
 	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
-	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
-	private OffsetDateTime requestDate;
+	@Column(name = "request_date", columnDefinition = "TIMESTAMP", nullable = false)
+	private Instant requestDate;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state", columnDefinition = "request_state", nullable = false)
 	@Type(type = "pgsql_enum")
@@ -73,7 +73,7 @@ public class RequestEntity {
 		return this.partList;
 	}
 
-	public OffsetDateTime getRequestDate() {
+	public Instant getRequestDate() {
 		return this.requestDate;
 	}
 
@@ -126,7 +126,7 @@ public class RequestEntity {
 			return this;
 		}
 
-		public RequestEntity.Builder withRequestDate( final OffsetDateTime requestDate ) {
+		public RequestEntity.Builder withRequestDate( final Instant requestDate ) {
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}

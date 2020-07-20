@@ -106,5 +106,5 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And the page "Open Requests Page" has 2 panels
         Given the target is the panel of type "open-requests"
         Then  the target has the title "/PEDIDOS/ABIERTOS"
-        Given the target is the panel of type "request-detail"
+        Given the target is the panel of type "request-details"
         Then  the target has the title "/PEDIDOS/DETALLE"

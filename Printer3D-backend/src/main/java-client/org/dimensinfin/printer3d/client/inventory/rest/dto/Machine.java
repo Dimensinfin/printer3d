@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import javax.annotation.concurrent.Immutable;
@@ -18,7 +17,7 @@ public class Machine {
 	private String characteristics;
 	private Part currentJobPart;
 	private int currentPartInstances = 1;
-	private OffsetDateTime jobInstallmentDate;
+	private Instant jobInstallmentDate;
 
 	// - G E T T E R S   &   S E T T E R S
 	public String getCharacteristics() {
@@ -37,7 +36,7 @@ public class Machine {
 		return this.id;
 	}
 
-	public OffsetDateTime getJobInstallmentDate() {
+	public Instant getJobInstallmentDate() {
 		return this.jobInstallmentDate;
 	}
 
@@ -115,7 +114,7 @@ public class Machine {
 			return this;
 		}
 
-		public Machine.Builder withInstallmentDate( final OffsetDateTime installmentDate ) {
+		public Machine.Builder withInstallmentDate( final Instant installmentDate ) {
 			this.onConstruction.jobInstallmentDate = installmentDate;
 			return this;
 		}

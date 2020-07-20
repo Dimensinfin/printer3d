@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.client.production.rest.dto;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -29,10 +28,10 @@ public class JobHistoric {
 	private Integer partCopies = 1;
 	@NotNull(message = "Job 'jobInstallmentDate' cannot be null.")
 	@SerializedName("jobInstallmentDate")
-	private OffsetDateTime jobInstallmentDate;
+	private Instant jobInstallmentDate;
 	@NotNull(message = "Job 'jobBuildDate' cannot be null.")
 	@SerializedName("jobBuildDate")
-	private OffsetDateTime jobBuildDate = OffsetDateTime.now();
+	private Instant jobBuildDate = Instant.now();
 
 	// - C O N S T R U C T O R S
 	private JobHistoric() {}
@@ -50,11 +49,11 @@ public class JobHistoric {
 		return this.id;
 	}
 
-	public OffsetDateTime getJobBuildDate() {
+	public Instant getJobBuildDate() {
 		return this.jobBuildDate;
 	}
 
-	public OffsetDateTime getJobInstallmentDate() {
+	public Instant getJobInstallmentDate() {
 		return this.jobInstallmentDate;
 	}
 
@@ -106,12 +105,12 @@ public class JobHistoric {
 			return this;
 		}
 
-		public JobHistoric.Builder withJobBuildDate( final OffsetDateTime buildDate ) {
+		public JobHistoric.Builder withJobBuildDate( final Instant buildDate ) {
 			this.onConstruction.jobBuildDate = Objects.requireNonNull( buildDate );
 			return this;
 		}
 
-		public JobHistoric.Builder withJobInstallmentDate( final OffsetDateTime installmentDate ) {
+		public JobHistoric.Builder withJobInstallmentDate( final Instant installmentDate ) {
 			this.onConstruction.jobInstallmentDate = Objects.requireNonNull( installmentDate );
 			return this;
 		}

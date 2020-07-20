@@ -2,10 +2,11 @@
 import { Given } from "cypress-cucumber-preprocessor/steps";
 import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
-// - SERVICES
+// - SERVICE
 import { IsolationService } from '../../support/IsolationService.support';
+import { SupportService } from '../../support/SupportService.support';
 
-const INVENTORY_PART_LIST_PAGE_NAME = '/Inventory/Part List';
+const supportService = new SupportService();
 
 // - S P I N N E R
 Then('the loading panel shows {string}', function (loadingMessage: string) {
@@ -44,7 +45,7 @@ Then('the Feature with label {string} opens a DropPage', function (label: string
 // - F E A T U R E   S E L E C T I O N
 When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (featureLabel: string, destination: string) {
     cy.get('v1-dock')
-        .find('v2-feature').find('[cy-name="feature"]')
+        .find(supportService.translateTag('feature')).find('[cy-name="feature"]')
         .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
     cy.get('@target-feature').click('center');
     cy.get('app-root')

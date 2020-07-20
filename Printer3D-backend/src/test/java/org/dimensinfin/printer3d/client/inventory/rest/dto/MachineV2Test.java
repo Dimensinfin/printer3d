@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.time.Duration;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
@@ -123,7 +122,7 @@ public class MachineV2Test {
 		final Part part = Mockito.mock( Part.class );
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
+				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
@@ -166,7 +165,7 @@ public class MachineV2Test {
 		// Given
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( null )
-				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
+				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
@@ -186,7 +185,7 @@ public class MachineV2Test {
 		final Part part = Mockito.mock( Part.class );
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 6 ) ) )
+				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
@@ -220,7 +219,7 @@ public class MachineV2Test {
 				.build();
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( OffsetDateTime.parse( "2020-06-06T21:54:00.226181+02:00" ) )
+				.withJobInstallmentDate( Instant.parse( "2020-06-06T21:54:00.226181Z" ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()

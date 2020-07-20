@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.persistence;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,9 +47,9 @@ public class RequestEntityV2 {
 	@Size(min = 3, max = 50)
 	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
-	@Column(name = "request_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
-	private OffsetDateTime requestDate;
-	@Column(name = "date_closed", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "request_date", columnDefinition = "TIMESTAMP", nullable = false)
+	private Instant requestDate;
+	@Column(name = "date_closed", columnDefinition = "TIMESTAMP")
 	private Instant closedDate;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state", columnDefinition = "request_state", nullable = false)
@@ -96,7 +95,7 @@ public class RequestEntityV2 {
 		return this.label;
 	}
 
-	public OffsetDateTime getRequestDate() {
+	public Instant getRequestDate() {
 		return this.requestDate;
 	}
 
@@ -164,7 +163,7 @@ public class RequestEntityV2 {
 			return this;
 		}
 
-		public RequestEntityV2.Builder withRequestDate( final OffsetDateTime requestDate ) {
+		public RequestEntityV2.Builder withRequestDate( final Instant requestDate ) {
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}

@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.client.domain;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
@@ -40,7 +39,7 @@ public class MachineTest {
 				.withModel( TEST_MACHINE_MODEL )
 				.withCharacteristics( TEST_MACHINE_CHARACTERISTICS )
 				.withPart( part )
-				.withInstallmentDate( OffsetDateTime.now() )
+				.withInstallmentDate( Instant.now() )
 				.withInstances( TEST_MACHINE_CURRENTPARTINSTANCES )
 				.build();
 		Assertions.assertNotNull( machine );
@@ -120,12 +119,11 @@ public class MachineTest {
 				.withModel( TEST_MACHINE_MODEL )
 				.withCharacteristics( TEST_MACHINE_CHARACTERISTICS )
 				.withPart( part )
-				.withInstallmentDate( OffsetDateTime.parse( "2020-06-06T21:54:00.226181+02:00" ) )
+				.withInstallmentDate( Instant.parse( "2020-06-06T21:54:00.226181Z" ) )
 				.withInstances( TEST_MACHINE_CURRENTPARTINSTANCES )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"85403a7a-4bf8-4e99-bbc1-8283ea91f99b\",\"label\":\"-TEST_MACHINE_LABEL-\"," +
-				"\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"currentJobPart\":\"{\\\"id\\\":\\\"85403a7a-4bf8-4e99-bbc1-8283ea91f99b\\\",\\\"label\\\":\\\"-TEST_PART_LABEL-\\\",\\\"description\\\":\\\"-TEST_PART_DESCRIPTION-\\\",\\\"material\\\":\\\"PLA\\\",\\\"color\\\":\\\"VERDE-T\\\",\\\"weight\\\":1,\\\"buildTime\\\":60,\\\"cost\\\":0.76,\\\"price\\\":2.0,\\\"stockLevel\\\":4,\\\"stockAvailable\\\":4,\\\"imagePath\\\":\\\"https:\\\\\\/\\\\\\/ibb.co\\\\\\/3dGbsRh\\\",\\\"modelPath\\\":\\\"pieza3.STL\\\",\\\"active\\\":false}\",\"currentPartInstances\":8,\"jobInstallmentDate\":\"2020-06-06T21:54:00.226181+02:00\"}";
+		final String expected = "";
 		final String obtained = machine.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

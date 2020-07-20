@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
@@ -15,7 +14,7 @@ public class MachineUpdaterV1 {
 	public MachineEntity update( final @NotNull UUID partId ) {
 		this.machine.setCurrentJobPartId( partId );
 		this.machine.setCurrentPartInstances( 1 );
-		this.machine.setJobInstallmentDate( OffsetDateTime.now() );
+		this.machine.setJobInstallmentDate( Instant.now() );
 		return this.machine;
 	}
 }

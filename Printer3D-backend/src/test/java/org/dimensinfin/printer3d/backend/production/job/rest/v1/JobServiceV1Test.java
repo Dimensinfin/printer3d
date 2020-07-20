@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.job.rest.v1;
 
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -183,13 +182,13 @@ public class JobServiceV1Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withPartList( request1PartList )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final List<RequestEntity> requestList = new ArrayList<>();
 		requestList.add( requestEntity1 );
 		final Request request1 = new Request.Builder()
 				.withId( UUID.randomUUID() )
-				.withRequestDate( OffsetDateTime.now().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME ) )
+				.withRequestDate( Instant.now().toString() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withPartList( request1PartList )

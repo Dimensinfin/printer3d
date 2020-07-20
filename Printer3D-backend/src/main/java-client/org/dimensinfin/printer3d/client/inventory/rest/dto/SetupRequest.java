@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
@@ -60,12 +59,8 @@ public class SetupRequest {
 		}
 
 		public SetupRequest.Builder withPartJobInstallmentDate( final String installmentDate ) {
-			this.onConstruction.jobInstallmentDate = this.convertToDate( Objects.requireNonNull( installmentDate ) ).toString();
+			this.onConstruction.jobInstallmentDate =  Objects.requireNonNull( installmentDate );
 			return this;
-		}
-
-		private OffsetDateTime convertToDate( final String source ) {
-			return OffsetDateTime.parse( source, DateTimeFormatter.ISO_OFFSET_DATE_TIME );
 		}
 	}
 }

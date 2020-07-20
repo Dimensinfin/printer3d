@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -93,21 +92,21 @@ public class RequestServiceV2Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withPartList( requestPartList )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntity requestEntity2 = new RequestEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withPartList( requestPartList2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntity requestEntityClosed = new RequestEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.CLOSE )
 				.withPartList( requestPartList2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final List<RequestEntity> requestList = new ArrayList<>();
 		requestList.add( requestEntity1 );
@@ -171,21 +170,21 @@ public class RequestServiceV2Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withContents( contents1 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntityV2 requestEntity2 = new RequestEntityV2.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withContents( contents2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntityV2 requestEntityClosed = new RequestEntityV2.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.CLOSE )
 				.withContents( contents2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final List<RequestEntityV2> requestv2List = new ArrayList<>();
 		requestv2List.add( requestEntity1 );
@@ -244,21 +243,21 @@ public class RequestServiceV2Test {
 				.withLabel( "Request Entity V1 01" )
 				.withState( RequestState.OPEN )
 				.withPartList( requestPartList1 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntity requestEntity2 = new RequestEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( "Request Entity V1 02" )
 				.withState( RequestState.OPEN )
 				.withPartList( requestPartList2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntity requestEntityClosed = new RequestEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( "Request Entity V1 03 CLOSED" )
 				.withState( RequestState.CLOSE )
 				.withPartList( requestPartList2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final List<RequestEntity> requestv1List = new ArrayList<>();
 		requestv1List.add( requestEntity1 );
@@ -297,21 +296,21 @@ public class RequestServiceV2Test {
 				.withLabel( "Request Entity V2 01" )
 				.withState( RequestState.OPEN )
 				.withContents( contents1 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntityV2 requestEntityV22 = new RequestEntityV2.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( "Request Entity V2 02" )
 				.withState( RequestState.OPEN )
 				.withContents( contents2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntityV2 requestEntityV2Closed = new RequestEntityV2.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( "Request Entity V2 03 CLOSED" )
 				.withState( RequestState.CLOSE )
 				.withContents( contents2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final List<RequestEntityV2> requestv2List = new ArrayList<>();
 		requestv2List.add( requestEntityV21 );
@@ -424,21 +423,21 @@ public class RequestServiceV2Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withPartList( requestPartList )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntity requestEntity2 = new RequestEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withPartList( requestPartList2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final RequestEntity requestEntityClosed = new RequestEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.CLOSE )
 				.withPartList( requestPartList2 )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 		final List<RequestEntity> requestList = new ArrayList<>();
 		requestList.add( requestEntity1 );
@@ -456,7 +455,7 @@ public class RequestServiceV2Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
 				.withContents( contentsWithModel )
-				.withRequestDate( OffsetDateTime.now() )
+				.withRequestDate( Instant.now() )
 				.build();
 
 		final List<RequestEntityV2> requestv2List = new ArrayList<>();

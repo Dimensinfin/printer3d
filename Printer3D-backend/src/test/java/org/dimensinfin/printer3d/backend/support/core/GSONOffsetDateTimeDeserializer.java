@@ -10,6 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 public class GSONOffsetDateTimeDeserializer implements JsonDeserializer<OffsetDateTime> {
+	@Deprecated
 	@Override
 	public OffsetDateTime deserialize(
 			JsonElement element,

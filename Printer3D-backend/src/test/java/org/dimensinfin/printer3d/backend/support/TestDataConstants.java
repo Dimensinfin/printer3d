@@ -2,7 +2,6 @@ package org.dimensinfin.printer3d.backend.support;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,11 +56,11 @@ public class TestDataConstants {
 		public static final String TEST_MACHINE_CHARACTERISTICS = "-TEST_MACHINE_CHARACTERISTICS-";
 		public static final UUID TEST_MACHINE_CURRENTJOBPARTID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
 		public static final Integer TEST_MACHINE_CURRENTPARTINSTANCES = 8;
-		public static final OffsetDateTime TEST_MACHINE_JOBINSTALLMENTDATE = OffsetDateTime.now();
+		public static final Instant TEST_MACHINE_JOBINSTALLMENTDATE = Instant.now();
 	}
 
 	public static class BuildRecordConstants {
-		public static final OffsetDateTime TEST_BUILDRECORD_JOBINSTALLMENTDATE = OffsetDateTime.now();
+		public static final Instant TEST_BUILDRECORD_JOBINSTALLMENTDATE = Instant.now();
 		public static final Integer TEST_BUILDRECORD_PARTCOPIES = 8;
 	}
 
@@ -78,7 +77,7 @@ public class TestDataConstants {
 	public static class RequestConstants {
 		public static final UUID TEST_REQUEST_ID = UUID.fromString( "98be9442-edbb-47fe-bc20-60b9e6f4a315" );
 		public static final String TEST_REQUEST_LABEL = "-TEST_REQUEST_LABEL-";
-		public static final OffsetDateTime TEST_REQUEST_DATE = OffsetDateTime.parse( "2020-06-16T16:38:30.562806+02:00" );
+		public static final Instant TEST_REQUEST_DATE = Instant.parse( "2020-06-16T16:38:30.562806Z" );
 		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806+02:00";
 		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
 		public static final float TEST_REQUEST_AMOUNT = 45.67F;
@@ -92,7 +91,7 @@ public class TestDataConstants {
 		public static final Float TEST_JOB_COST = 0.80F;
 		public static final Float TEST_JOB_PRICE = 3.00F;
 		public static final Integer TEST_JOB_PART_COPIES = 3;
-		public static final OffsetDateTime TEST_JOB_JOBINSTALLMENTDATE = OffsetDateTime.now();
-		public static final OffsetDateTime TEST_JOB_JOBCOMPLETIONDATE = OffsetDateTime.now().plus( Duration.ofMinutes( 90 ) );
+		public static final Instant TEST_JOB_JOBINSTALLMENTDATE = Instant.now();
+		public static final Instant TEST_JOB_JOBCOMPLETIONDATE = Instant.now().plus( Duration.ofMinutes( 90 ) );
 	}
 }

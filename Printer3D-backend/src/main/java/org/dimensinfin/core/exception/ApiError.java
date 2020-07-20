@@ -1,6 +1,5 @@
 package org.dimensinfin.core.exception;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
 
 public class ApiError {
@@ -40,7 +39,7 @@ public class ApiError {
 		return this.dimensinfinRuntimeException.getMessage();
 	}
 
-	public OffsetDateTime getTimestamp() {
-		return OffsetDateTime.now();
+	public Instant Timestamp() {
+		return Instant.now();
 	}
 }

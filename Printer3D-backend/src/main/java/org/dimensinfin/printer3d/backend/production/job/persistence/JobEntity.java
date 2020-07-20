@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.job.persistence;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -40,10 +39,10 @@ public class JobEntity {
 	private Integer partCopies = 1;
 	@NotNull(message = "Job 'jobInstallmentDate' cannot be null.")
 	@Column(name = "job_installment_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
-	private OffsetDateTime jobInstallmentDate;
+	private Instant jobInstallmentDate;
 	@NotNull(message = "Job 'jobBuildDate' cannot be null.")
 	@Column(name = "job_build_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
-	private OffsetDateTime jobBuildDate = OffsetDateTime.now();
+	private Instant jobBuildDate = Instant.now();
 
 	// - C O N S T R U C T O R S
 	private JobEntity() {}
@@ -61,11 +60,11 @@ public class JobEntity {
 		return this.id;
 	}
 
-	public OffsetDateTime getJobBuildDate() {
+	public Instant getJobBuildDate() {
 		return this.jobBuildDate;
 	}
 
-	public OffsetDateTime getJobInstallmentDate() {
+	public Instant getJobInstallmentDate() {
 		return this.jobInstallmentDate;
 	}
 
@@ -112,12 +111,12 @@ public class JobEntity {
 			return this;
 		}
 
-		public JobEntity.Builder withJobBuildDate( final OffsetDateTime buildDate ) {
+		public JobEntity.Builder withJobBuildDate( final Instant buildDate ) {
 			this.onConstruction.jobBuildDate = Objects.requireNonNull( buildDate );
 			return this;
 		}
 
-		public JobEntity.Builder withJobInstallmentDate( final OffsetDateTime installmentDate ) {
+		public JobEntity.Builder withJobInstallmentDate( final Instant installmentDate ) {
 			this.onConstruction.jobInstallmentDate = Objects.requireNonNull( installmentDate );
 			return this;
 		}

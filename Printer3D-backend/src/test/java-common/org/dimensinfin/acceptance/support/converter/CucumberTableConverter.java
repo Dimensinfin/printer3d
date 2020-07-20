@@ -1,6 +1,5 @@
 package org.dimensinfin.acceptance.support.converter;
 
-import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -53,9 +52,9 @@ public abstract class CucumberTableConverter<T> implements Converter<List<Map<St
 
 	protected String dynamicDateConversion( final String reference ) {
 		if (reference.equalsIgnoreCase( "<today>" ))
-			return OffsetDateTime.now().format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
+			return Instant.now().toString();
 		if (reference.equalsIgnoreCase( "<yesterday>" ))
-			return OffsetDateTime.now().minus( Period.ofDays( 1 ) ).format( DateTimeFormatter.ISO_OFFSET_DATE_TIME );
+			return Instant.now().minus( Period.ofDays( 1 ) ).toString();
 		return reference;
 	}
 

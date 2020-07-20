@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.converter;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.dimensinfin.core.interfaces.Converter;
@@ -16,8 +15,8 @@ public class RequestV2ToRequestEntityV2Converter implements Converter<RequestV2,
 				.withLabel( input.getLabel() )
 				.withRequestDate(
 						(null != input.getRequestDate()) ?
-								OffsetDateTime.parse( input.getRequestDate(), DateTimeFormatter.ISO_OFFSET_DATE_TIME ) :
-								OffsetDateTime.now()
+								Instant.parse( input.getRequestDate() ) :
+								Instant.now()
 				)
 				.withClosedDate(
 						(null != input.getClosedDate()) ?

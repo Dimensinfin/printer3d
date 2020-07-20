@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.support;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.Objects;
 
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
@@ -17,7 +17,7 @@ public class SupportMachineUpdater {
 	public MachineEntity update( final SetupRequest setupRequest ) {
 		this.machine.setCurrentJobPartId( setupRequest.getPartId() );
 		this.machine.setJobInstallmentDate(
-				(null != setupRequest.getJobInstallmentDate()) ? OffsetDateTime.parse( setupRequest.getJobInstallmentDate() ) : null
+				(null != setupRequest.getJobInstallmentDate()) ? Instant.parse( setupRequest.getJobInstallmentDate() ) : null
 		);
 		this.machine.setCurrentPartInstances( setupRequest.getPartInstancesCount() );
 		return this.machine;

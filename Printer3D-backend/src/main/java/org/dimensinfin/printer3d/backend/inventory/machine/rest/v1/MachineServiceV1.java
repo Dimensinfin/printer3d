@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.v1;
 
 import java.text.MessageFormat;
-import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -102,7 +101,7 @@ public class MachineServiceV1 {
 				.withPrice( jobPartOpt.get().getPrice() )
 				.withPartCopies( machineEntity.getCurrentPartInstances() )
 				.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
-				.withJobBuildDate( OffsetDateTime.now() )
+				.withJobBuildDate( Instant.now() )
 				.build();
 		this.jobRepository.save( job );
 	}

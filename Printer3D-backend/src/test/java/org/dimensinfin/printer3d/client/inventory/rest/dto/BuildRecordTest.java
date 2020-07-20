@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.time.Duration;
-import java.time.OffsetDateTime;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -90,7 +89,7 @@ public class BuildRecordTest {
 		final Part part = Mockito.mock( Part.class );
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( part )
-				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 3 ) ) )
+				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 3 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		// When
@@ -109,7 +108,7 @@ public class BuildRecordTest {
 		final Part part = Mockito.mock( Part.class );
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( null )
-				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 3 ) ) )
+				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 3 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		// When
@@ -143,7 +142,7 @@ public class BuildRecordTest {
 		final Part part = Mockito.mock( Part.class );
 		final BuildRecord buildRecord = new BuildRecord.Builder()
 				.withPart( null )
-				.withJobInstallmentDate( OffsetDateTime.now().minus( Duration.ofMinutes( 3 ) ) )
+				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 3 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		// Test

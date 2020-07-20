@@ -31,7 +31,7 @@ When('the Feature with label {string} is clicked the destination is the Page {st
         .find(supportService.translateTag('feature'))
         .contains(label, { matchCase: false }).parent()
         .scrollIntoView().click();
-    cy.get('app-root').find(tag).should('exist')
+    cy.get('app-root').find(tag).as('target-page').as('target').should('exist')
 });
 
 // - P A G E   A C T I V A T I O N
