@@ -21,9 +21,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/coils/delete/all",
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils/delete/all",
 							"host": [
-								"{{backendServer}}{{backendPort}}{{inventory}}"
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
 							],
 							"path": [
 								"coils",
@@ -94,7 +94,7 @@
 					"response": []
 				},
 				{
-					"name": "GetRepositoryRequest",
+					"name": "GetRepositoryRequests",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -173,6 +173,56 @@
 								"v2",
 								"delete",
 								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RequestsTransform",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/transform",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv1}}"
+							],
+							"path": [
+								"requests",
+								"transform"
+							]
+						},
+						"description": "Move Requests from V1 to V2 and then recalculate the Amount for all the closed requests."
+					},
+					"response": []
+				},
+				{
+					"name": "SetClosedDate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{accountingv1}}/requests/closedate/2020-06-17T10:15:31.000Z",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{accountingv1}}"
+							],
+							"path": [
+								"requests",
+								"closedate",
+								"2020-06-17T10:15:31.000Z"
 							]
 						}
 					},
@@ -346,7 +396,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"8328e3ff-1cee-42f1-bd1d-275353debb6d\",\n  \"weight\": 450\n}",
+							"raw": "{\n  \"id\": \"8328e3ff-1cee-42f1-bd1d-275353debb6d\",\n  \"weight\": 200\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -550,6 +600,91 @@
 						"description": "Version 2 of the lsit of Machines.\nThe build job information is now on a separate block of information."
 					},
 					"response": []
+				},
+				{
+					"name": "UpdatePart",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"label\": \"Covid-19 Key\",\n  \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n  \"material\": \"PLA\",\n  \"colorCode\": \"NARANJA-T\",\n  \"buildTime\": 30,\n  \"cost\": 0.85,\n  \"price\": 3,\n  \"stockLevel\": 5,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/{{partId}}",
+							"host": [
+								"{{backendServer}}{{backendPort}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"inventory",
+								"parts",
+								"{{partId}}"
+							]
+						},
+						"description": "Updated some of the fields of the Part on the persistence repository."
+					},
+					"response": []
+				},
+				{
+					"name": "Finishings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/finishings",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"finishings"
+							]
+						},
+						"description": "The list of materials and their color to be used to register new Parts."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMachines v1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"machines"
+							]
+						},
+						"description": "Get the list of machines registered on the system."
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -620,9 +755,9 @@
 					"response": []
 				},
 				{
-					"name": "GetRequests",
+					"name": "NewRequest V2-400 Bad Request",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -630,16 +765,23 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
 							"host": [
-								"{{backendServer}}{{backendPort}}{{productionv1}}"
+								"{{backendServer}}{{backendPort}}{{productionv2}}"
 							],
 							"path": [
 								"requests"
 							]
 						},
-						"description": "Get the complete list of **Requests** persisted at the Production repository and that are on an Open state. During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed."
+						"description": "If the request to create a new requst has not all the required fields or they do not pass the validations then we reject the request\n            with a bad format request exception. The response message should explain the cause for the rejection."
 					},
 					"response": []
 				},
@@ -664,6 +806,31 @@
 							]
 						},
 						"description": "        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state.\n        This method is compatible with the implementation of Requests V1 until the repository V1 is deprecated and defiled.\n        The process now extends to support Models that are packs of Parts. The new extension expands the list from the Model BOM to check agains\n        the current stock of Parts to check for run out of instances. Complete requests continue to be marked COMPLETED.\n        During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in\n        the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "CloseRequest",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests/d157d5dc-fa32-4054-bce8-0e72c02d49f0/close",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{productionv2}}"
+							],
+							"path": [
+								"requests",
+								"d157d5dc-fa32-4054-bce8-0e72c02d49f0",
+								"close"
+							]
+						}
 					},
 					"response": []
 				},
@@ -834,41 +1001,49 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "UpdatePart",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"id\": \"64c26e80-6b5f-4ce5-a77b-6a0c58f853ae\",\n  \"label\": \"Covid-19 Key\",\n  \"description\": \"This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.\",\n  \"material\": \"PLA\",\n  \"colorCode\": \"NARANJA-T\",\n  \"buildTime\": 30,\n  \"cost\": 0.85,\n  \"price\": 3,\n  \"stockLevel\": 5,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Accounting",
+			"item": [
+				{
+					"name": "GetWeekRequestAmounts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "01739d06-6407-4110-bfa1-5fc5181c7643",
+								"exec": [
+									"1"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}/api/v1/inventory/parts/{{partId}}",
-					"host": [
-						"{{backendServer}}{{backendPort}}"
 					],
-					"path": [
-						"api",
-						"v1",
-						"inventory",
-						"parts",
-						"{{partId}}"
-					]
-				},
-				"description": "Updated some of the fields of the Part on the persistence repository."
-			},
-			"response": []
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{accountingv1}}/requests/amount/week",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{accountingv1}}"
+							],
+							"path": [
+								"requests",
+								"amount",
+								"week"
+							]
+						},
+						"description": "Get the aggregated request amounts for the requests closed during a week. Get the <weekCount> most recent records."
+					},
+					"response": []
+				}
+			],
+			"description": "The API information unit to manage historical, trending and aggregates data mining endpoints.",
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "GetParts-filter active",
@@ -900,133 +1075,6 @@
 					]
 				},
 				"description": "Get the list of active Parts from the Inventory repository."
-			},
-			"response": []
-		},
-		{
-			"name": "AddModelPart",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models/{{modelId}}/addPart/{{partId}}",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-					],
-					"path": [
-						"models",
-						"{{modelId}}",
-						"addPart",
-						"{{partId}}"
-					]
-				},
-				"description": "The initial model has no parts associated because that is edited on a second UI. Add a new Part reference *partId* to the list of Parts that compose this model. If the Part is already at the model the part reference is added a second time."
-			},
-			"response": []
-		},
-		{
-			"name": "RemoveModelPart",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models/{{modelId}}/removePart/{{partId}}",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-					],
-					"path": [
-						"models",
-						"{{modelId}}",
-						"removePart",
-						"{{partId}}"
-					]
-				},
-				"description": "This is a best effort action. If the Part identifier is not found or the part list becomes empty it is not considered an error."
-			},
-			"response": []
-		},
-		{
-			"name": "GetMachines v1",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-					],
-					"path": [
-						"machines"
-					]
-				},
-				"description": "Get the list of machines registered on the system."
-			},
-			"response": []
-		},
-		{
-			"name": "Finishings",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/finishings",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-					],
-					"path": [
-						"finishings"
-					]
-				},
-				"description": "The list of materials and their color to be used to register new Parts."
-			},
-			"response": []
-		},
-		{
-			"name": "CloseRequest",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests/988bb790-2212-4c8a-bdbf-8a5a95199c91/close",
-					"host": [
-						"{{backendServer}}{{backendPort}}{{productionv2}}"
-					],
-					"path": [
-						"requests",
-						"988bb790-2212-4c8a-bdbf-8a5a95199c91",
-						"close"
-					]
-				}
 			},
 			"response": []
 		}

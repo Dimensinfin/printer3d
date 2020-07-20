@@ -155,6 +155,9 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And active "part" shows a green corner
         And inactive "part" shows an orange corner
 
+# @D3D20.11
+#     Scenario: [D3D20.11]-If after editing a Model the uses closes the editing session instead of saving changes, when the model is edited again it should have the original values.
+
 # PENDING REVIEW AND UPDATE
 # @D3D07 @D3D07.13
 # Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
