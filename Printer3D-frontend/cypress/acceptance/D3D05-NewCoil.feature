@@ -33,7 +33,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         # - Check the field contents size
         Then the target panel field "material" is tested for size constraints 2 and 16
         And the target panel field "color" is tested for size constraints 2 and 32
-    # And the target panel field "weight" is tested for value constraints 1 and 2000
+        And field named "weight" is tested for value constraints 1 to 2000
 
     @D3D05.04
     Scenario: [D3D05.04]-There are button to save and cancel the new coil. By default is any field is invalid the buttons are disabled.
@@ -84,10 +84,15 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         And the target panel has a form field named "weight" with label "PESO" and empty
 
     # - E X C E P T I O N S
-    @D3D05.E @D3D05.E.01
+    @D3D05.E.01
     Scenario: [D3D05.E.01]-If the user tryes to enter an string on the numeric fields it fails.
         Then the "New Coil" dialog opens and blocks the display
         And "800gr" is set on form field "weight"
         And the target panel has a form field named "weight" with label "PESO" and contents "800"
         And "gr800" is set on form field "weight"
         And the target panel has a form field named "weight" with label "PESO" and empty
+    @D3D05.E.02
+    Scenario: [D3D05.E.02]-The weight field does not accept negative values
+        Then the "New Coil" dialog opens and blocks the display
+        And "-801" is set on form field "weight"
+        And the target panel has a form field named "weight" with label "PESO" and contents "1"

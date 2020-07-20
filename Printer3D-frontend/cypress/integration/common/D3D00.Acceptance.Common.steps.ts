@@ -5,6 +5,7 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICE
 import { IsolationService } from '../../support/IsolationService.support';
 import { SupportService } from '../../support/SupportService.support';
+import { max } from 'cypress/types/lodash';
 
 const TITLE_VALIDATION = '3DPrinterManagement - UI';
 const supportService = new SupportService();
@@ -153,6 +154,35 @@ Then('field named {string} with label {string} is not empty',
             cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
                 .find('[cy-field-value="' + fieldName + '"]').should('not.be.empty')
         })
+    });
+// - F I E L D   V A L I D A T I O N
+Then('field named {string} is tested for size constraints {int} and {int}',
+    function (fieldName: string, minCharacters: number, maxCharacters: number) {
+        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters - 1))
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // invalid-one below limit
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters))
+        cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-low limit
+        cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(maxCharacters))
+        cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-high limit
+        let largerValue = supportService.generateRandomString(maxCharacters + 5)
+        cy.get('@target-field').find('input').clear().type(largerValue)
+        cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
+    });
+Then('field named {string} is tested for value constraints {int} to {int}',
+    function (fieldName: string, minValue: number, maxValue: number) {
+        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target-field').find('input').clear().should('have.class', 'ng-invalid') // validate invalid before starting test
+        const numberValue: number = supportService.generateRandomNum(minValue, maxValue)
+        cy.get('@target-field').find('input').clear().type(numberValue + '')
+        cy.get('@target-field').find('input').should('have.class', 'ng-valid') // validate invalid before starting test
+        cy.get('@target-field').find('input').clear().type((minValue - 1) + '')
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
+        cy.get('@target-field').find('input').clear().type((maxValue + 11) + '')
+        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
+        // cy.get('@target-field').find('input').clear().type((numberValue * -1) + '')
+        // cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
     });
 
 // - C O L U M N S

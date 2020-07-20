@@ -53,7 +53,7 @@
             <div cy-name="weight" class="field weight-width">
                 <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
                 <div class="dsf-input-container weight-width">
-                    <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editCoil.weight" required min="1" #weight="ngModel">
+                    <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editCoil.weight" required min="1" oninput="validity.valid||(value='');" #weight="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>

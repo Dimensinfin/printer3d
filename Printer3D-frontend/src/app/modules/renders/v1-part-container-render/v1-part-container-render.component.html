@@ -66,7 +66,7 @@
             <div class="field buildTime-width">
                 <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
                 <div class="dsf-input-container buildTime-width">
-                    <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.buildTime" required minlength="1" maxlength="4" #buildTime="ngModel">
+                    <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.buildTime" required min="1" oninput="validity.valid||(value='');" #buildTime="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
@@ -83,7 +83,7 @@
             <div class="field weight-width">
                 <span cy-field-label="weigth" class="label">PLASTICO</span><br>
                 <div class="dsf-input-container weight-width">
-                    <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.weight" required minlength="1" maxlength="4" #partWeight="ngModel">
+                    <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.weight" required min="1" oninput="validity.valid||(value='');" #partWeight="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>

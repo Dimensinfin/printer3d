@@ -36,7 +36,7 @@
             <div cy-name="quantity" class="field" *ngIf="isEditable()">
                 <span cy-field-label="quantity" cy-input-type="input" class="label">CANTIDAD</span><br>
                 <div class="dsf-input-container quantity-width">
-                    <input cy-focus="mouseleave" name="quantity" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="node['partCount']" (mouseleave)="onMouseLeave()" required min="1" max="100" #quantity="ngModel">
+                    <input cy-focus="mouseleave" name="quantity" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="node['partCount']" (mouseleave)="onMouseLeave()" required min="1" max="100" oninput="validity.valid||(value='');" #quantity="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
