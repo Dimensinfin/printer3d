@@ -99,6 +99,24 @@ When('the button with name {string} is clicked', function (buttonName: string) {
     cy.wait(100)
 });
 
+// - I M A G E   B U T T O N S
+Then('target has an actionable image named {string}', function (buttonName: string) {
+    cy.get('@target').find('[cy-name="' + buttonName + '"]').should('exist')
+});
+When('target actionable image {string} is clicked', function (buttonName: string) {
+    cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
+        .scrollIntoView().click()
+});
+Then('actionable image named {string} is {string}', function (buttonName: string, state: string) {
+    cy.log('actionable')
+    if (state == 'enabled')
+        cy.get('@target').find('[cy-name="' + buttonName + '"]')
+            .should('have.class', 'button-enabled')
+    if (state == 'disabled')
+        cy.get('@target').find('[cy-name="' + buttonName + '"]')
+            .should('have.class', 'button-disabled')
+});
+
 // - T A R G E T   I N T E R A C T I O N
 When('the target is clicked', function () {
     cy.get('@target').scrollIntoView().click()
@@ -182,11 +200,11 @@ Then('field named {string} is tested for max size of {int}',
                 case 'input':
                     cy.get('@target-field').find('input').clear().type(largerValue)
                     cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
-                                break
+                    break
                 case 'textarea':
                     cy.get('@target-field').find('textarea').clear().type(largerValue)
                     cy.get('@target-field').find('textarea').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
-                                break
+                    break
             }
         })
     });
@@ -239,7 +257,7 @@ When('the drag source is dragged to the drop destination {string}', function (dr
     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
 
-// - I N P U T   F I E L D S
+// - F O R M   F I E L D S
 Then('form field named {string} with label {string} has contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
@@ -348,24 +366,6 @@ Then('form field named {string} is {string}', function (fieldName: string, state
     }
 });
 
-// - I M A G E   B U T T O N S
-Then('target has an actionable image named {string}', function (buttonName: string) {
-    cy.get('@target').find('[cy-name="' + buttonName + '"]').should('exist')
-});
-When('target actionable image {string} is clicked', function (buttonName: string) {
-    cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
-        .scrollIntoView().click()
-});
-Then('actionable image named {string} is {string}', function (buttonName: string, state: string) {
-    cy.log('actionable')
-    if (state == 'enabled')
-        cy.get('@target').find('[cy-name="' + buttonName + '"]')
-            .should('have.class', 'button-enabled')
-    if (state == 'disabled')
-        cy.get('@target').find('[cy-name="' + buttonName + '"]')
-            .should('have.class', 'button-disabled')
-});
-
 // - A L T E R N A T E   B A C K E N D   R E S P O N S E S
 Given('response {string} for {string}', function (responseCode: string, endpoint: string) {
     const tag = supportService.translateTag(endpoint) // Do name replacement
@@ -384,4 +384,21 @@ Given('empty is set on form field {string}', function (fieldName: string) {
 Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('input').clear().type(fieldValue + '')
+});
+Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        switch (type) {
+            case 'input':
+                cy.get('@target-field').find('input').clear().type(fieldValue)
+                break
+            case 'textarea':
+                cy.get('@target-field').find('textarea').clear().type(fieldValue)
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select').select(fieldValue)
+                break
+        }
+    })
 });

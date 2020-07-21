@@ -93,15 +93,15 @@ Then('the panel {string} has no {string}', function (targetName: string, symboli
 //         cy.get(tag).should('have.length', count)
 //     })
 // });
-Then('the button with name {string} has a label {string} and is {string}', function (
-    buttonName: string, buttonLabel: string, buttonState: string) {
-    if (buttonState == 'disabled')
-        cy.get('@target').get('[disabled]')
-            .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
-    else
-        cy.get('@target').get('[cy-name="' + buttonName + '"]')
-            .contains(buttonLabel, { matchCase: false })
-});
+// Then('the button with name {string} has a label {string} and is {string}', function (
+//     buttonName: string, buttonLabel: string, buttonState: string) {
+//     if (buttonState == 'disabled')
+//         cy.get('@target').get('[disabled]')
+//             .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
+//     else
+//         cy.get('@target').get('[cy-name="' + buttonName + '"]')
+//             .contains(buttonLabel, { matchCase: false })
+// });
 
 // // - D R A G   &   D R O P
 // Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {

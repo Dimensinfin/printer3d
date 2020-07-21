@@ -9,6 +9,54 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
+// - S T E P S   M A C R O S 
+Given('a valid New Part', function () {
+    // Given "-ETIQUETA-" is set on form field "label"
+    cy.get('@target-panel').as('target')
+    let fieldName = 'label'
+    let fieldValue = '-ETIQUETA-'
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue)
+    // And "PLA" is set on form field "material"
+    fieldName = 'material'
+    fieldValue = 'PLA'
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('select').select(fieldValue)
+    //  And "AMARILLO" is set on form field "color"
+    fieldName = 'color'
+    fieldValue = 'AMARILLO'
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('select').select(fieldValue)
+    //  And 1 is set on form field "cost"
+    fieldName = 'cost'
+    fieldValue = '1'
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue)
+    //  And 2 is set on form field "price"
+    fieldName = 'price'
+    fieldValue = '2'
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue)
+    //  And 3 is set on form field "buildTime"
+    fieldName = 'buildTime'
+    fieldValue = '3'
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().type(fieldValue)
+})
+
+// - C O L O R   V A L I D A T I O N
+Then('the Color dropdown has {int} values', function (options) {
+    let fieldName = 'color'
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+        .find('select')
+        .find('option')
+        .should('have.length', options);
+});
+
+
+
+
+
 // - L A T E S T   I M P L E M E N T A T I O N
 Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
     const tag = supportService.translateTag(dialogName) // Do name replacement
@@ -173,23 +221,23 @@ Then('the target panel field {string} is tested for value constraints', function
 
 // - E X P E R I M E N T A L
 
-Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
-    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
-    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-        switch (type) {
-            case 'input':
-                cy.get('@target-field').find('input').clear().type(fieldValue)
-                break
-            case 'textarea':
-                cy.get('@target-field').find('textarea').clear().type(fieldValue)
-                break
-            case 'select':
-                cy.log('select')
-                cy.get('@target-field').find('select').select(fieldValue)
-                break
-        }
-    })
-});
+// Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
+//     cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+//     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+//         switch (type) {
+//             case 'input':
+//                 cy.get('@target-field').find('input').clear().type(fieldValue)
+//                 break
+//             case 'textarea':
+//                 cy.get('@target-field').find('textarea').clear().type(fieldValue)
+//                 break
+//             case 'select':
+//                 cy.log('select')
+//                 cy.get('@target-field').find('select').select(fieldValue)
+//                 break
+//         }
+//     })
+// });
 Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
     cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('input').clear().type(fieldValue + '')
@@ -285,12 +333,6 @@ Then('form fields have the next values', function (dataTable) {
     form.validateFields(row);
 });
 
-Then('the Color dropdown has {int} values', function (options) {
-    cy.get('new-part-dialog')
-        .find('select').get('#color')
-        .find('option')
-        .should('have.length', options);
-});
 
 
 Then('the New Part dialog input field {string} should be empty', function (fieldName: string) {

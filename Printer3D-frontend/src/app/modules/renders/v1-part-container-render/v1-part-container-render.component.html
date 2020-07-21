@@ -55,16 +55,16 @@
             <button cy-name="save-button" class="save-attributes button-enabled" (click)="saveEditing()">
                 <svg class="save-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
             </button>
-            <div class="field">
+            <div cy-name="label" class="field">
                 <span cy-field-label="label" class="label">ETIQUETA</span><br>
                 <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
             </div>
-            <div class="field">
-                <span cy-field-label="description description-width" class="label">DESCRIPCION</span><br>
+            <div cy-name="description" class="field description-widt">
+                <span cy-field-label="description" cy-input-type="textarea" class="labelh">DESCRIPCION</span><br>
                 <textarea name="description" cols="35" rows="3" class="dsf-input part-description" [(ngModel)]="editPart.description" minlength="5" maxlength="500"></textarea>
             </div>
-            <div class="field buildTime-width">
-                <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
+            <div cy-name="buildTime" class="field buildTime-width">
+                <span cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO</span><br>
                 <div class="dsf-input-container buildTime-width">
                     <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.buildTime" required min="1" oninput="validity.valid||(value='');" #buildTime="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -80,17 +80,17 @@
                     </div>
                 </div>
             </div>
-            <div class="field weight-width">
-                <span cy-field-label="weigth" class="label">PLASTICO</span><br>
+            <div cy-name="weigth" class="field weight-width">
+                <span cy-field-label="weigth" cy-input-type="input" class="label">PLASTICO</span><br>
                 <div class="dsf-input-container weight-width">
-                    <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.weight" required min="1" oninput="validity.valid||(value='');" #partWeight="ngModel">
+                    <input name="weigth" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.weight" required min="1" oninput="validity.valid||(value='');" #weigth="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div [ngClass]="{'ng-valid': !partWeight.invalid}">
+                    <div [ngClass]="{'ng-valid': !weigth.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -104,8 +104,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="field image-width">
-                <span cy-field-label="imagePath" class="label">IMAGEN</span><br>
+            <div cy-name="imagePath" class="field image-width">
+                <span cy-field-label="imagePath" cy-input-type="input" class="label">IMAGEN</span><br>
                 <div class="dsf-input-container label-width">
                     <input name="imagePath" type="text" class="dsf-input" [(ngModel)]="editPart.imagePath" required minlength="3" maxlength="50" #imagePath="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -121,8 +121,8 @@
                     </div>
                 </div>
             </div>
-            <div class="field model-file-width left">
-                <span cy-field-label="modelPath" class="label">FICHERO IMPR.</span><br>
+            <div cy-name="modelPath" class="field model-file-width left">
+                <span cy-field-label="modelPath" cy-input-type="input" class="label">FICHERO IMPR.</span><br>
                 <div class="dsf-input-container label-width">
                     <input name="modelPath" type="text" class="dsf-input" [(ngModel)]="editPart.modelPath" required minlength="3" maxlength="50" #modelPath="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
