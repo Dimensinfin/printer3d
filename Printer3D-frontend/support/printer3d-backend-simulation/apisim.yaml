@@ -1,3 +1,42 @@
+simlet: inventory-newpart
+
+request:
+  - uriPathPattern: "/api/v1/inventory/parts"
+  - method: POST
+
+responses:
+- when:
+    request:
+    - where: cookie
+      named: apiNewPart_v1
+      equals: "409-PART_REPOSITORY_CONFLICT"
+  # then
+  from: stub
+  status: 409
+  headers:
+  - "Content-Type: application/json"
+  body: |+
+    {
+      "timestamp": "2020-07-14T07:41:22.117152Z",
+      "httpStatus": "409 CONFLICT",
+      "httpStatusCode": 409,
+      "httpStatusName": "CONFLICT",
+      "errorName": "PART_REPOSITORY_CONFLICT",
+      "errorCode": "dimensinfin.printer3d..constraintviolation",
+      "cause": null,
+      "message": "The Part [{0}] is rejected because constraint violation. {1}"
+    }
+  # otherwise
+- from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/newpart.json"
+
+---
+
 simlet: inventory-deleterequest
 
 request:
@@ -459,23 +498,6 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.models.json"
-
----
-
-simlet: inventory-newpart
-
-request:
-  - method: POST
-  - uriPathPattern: "/api/v1/inventory/parts"
-
-response:
-  from: stub
-  status: 200
-  headers:
-    - "Content-Type: application/json"
-  body:
-    type: text
-    file: "${sim.path}/responses/newpart.json"
 
 ---
 

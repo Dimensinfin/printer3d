@@ -17,10 +17,12 @@ When('field named {string} is not editable', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
         .should('not.exist')
 });
-// When('field named {string} is editable', function (string) {
-//     // Write code here that turns the phrase above into concrete actions
-//     return 'pending';
-//   });
+
+// - D I A L O G
+Then('the dialog not closes', function () {
+    console.log('[THEN] the dialog closes');
+    cy.get('new-part-dialog').should('exist');
+});
 
 // - S T E P   M A C R O S
 Given('an editable Part Container with id {string}', function (recordId: string) {
@@ -69,6 +71,6 @@ Given('a duplicated New Part from Part id {string}', function (recordId: string)
         .scrollIntoView().click()
     // Then the "New Part" dialog opens and blocks the display
     tag = supportService.translateTag('New Part') // Do name replacement
-    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
+    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target')
         .should('exist')
 });
