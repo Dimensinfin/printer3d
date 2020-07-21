@@ -63,57 +63,63 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
     #     And field named "imagePath" with label "IMAGEN" has contents "https://ibb.co/3dGbsRh"
     #     And field named "modelPath" with label "FICHERO IMPR." has contents "pieza3.sft"
 
-    # @D3D04.03
-    # Scenario: [D3D04.03]-After a Part duplication when the new Part feature is clicked the form should be with the fields empty.
-    #     Given one instance of Dock
+    # @D3D18.05
+    # Scenario: [D3D18.05]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
+    #     # - Expand the Part Container
+    #     Given the target is the panel of type "catalog"
+    #     Then the target has no "part"
+    #     Given the target the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+    #     Then target has an actionable image named "expand-button"
+    #     # - Click the expand button
+    #     When target actionable image "expand-button" is clicked
+    #     Given the target is the panel of type "catalog"
+    #     Then the target has 2 "part"
+    #     Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+    #     Then target has an actionable image named "duplicate-button"
+    #     # - Click the duplicate and validate the New Part Dialog
+    #     When target actionable image "duplicate-button" is clicked
+    #     Then the "New Part" dialog opens and blocks the display
+    #     # - Validate the contents for the New Part dialog
+    #     And form field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Embocadura"
+    #     And form field named "description" with label "DESCRIPCION" has contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
+    #     And form field named "material" with label "MATERIAL" has contents "TPU"
+    #     And form field named "color" with label "COLOR" is empty
+    #     And form field named "weight" with label "PESO" has contents "8"
+    #     And form field named "cost" with label "COSTE FAB." has contents "0.45"
+    #     And form field named "price" with label "PRECIO" has contents "1"
+    #     And form field named "buildTime" with label "TIEMPO" has contents "20"
+    #     And form field named "stock" with label "STOCK DESEADO" has contents "15"
+    #     And form field named "stockAvailable" with label "STOCK ACTUAL" has contents "0"
+    #     And form field named "imagePath" with label "IMAGEN" is empty
+    #     And form field named "modelPath" with label "FICHERO MODELO" is empty
+    #     # - Check the state of the buttons
+    #     And the button with name "repeat-button" has a label "Guardar y Repetir" and is "disabled"
+    #     And the button with name "submit-button" has a label "Guardar" and is "disabled"
+    #     And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
 
-
-
-
-
-
-
-
-    # PENDING REVIEW AND UPDATE
-    @D3D18.05
-    Scenario: [D3D18.05]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
-        # - Expand the Part Container
-        Given the target is the panel of type "catalog"
-        Then the target has no "part"
-        Given the target the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
-        Then target has an actionable image named "expand-button"
-        # - Click the expand button
-        When target actionable image "expand-button" is clicked
-        Given the target is the panel of type "catalog"
-        Then the target has 2 "part"
-        Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
-        Then target has an actionable image named "duplicate-button"
-        # - Click the duplicate and validate the New Part Dialog
-        When target actionable image "duplicate-button" is clicked
-        Then the "New Part" dialog opens and blocks the display
-        # - Validate the contents for the New Part dialog
-        And form field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Embocadura"
-        And form field named "description" with label "DESCRIPCION" has contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
-        And form field named "material" with label "MATERIAL" has contents "TPU"
-        And form field named "color" with label "COLOR" is empty
-        And form field named "weight" with label "PESO" has contents "8"
-        And form field named "cost" with label "COSTE FAB." has contents "0.45"
-        And form field named "price" with label "PRECIO" has contents "1"
-        And form field named "buildTime" with label "TIEMPO" has contents "20"
-        And form field named "stock" with label "STOCK DESEADO" has contents "15"
-        And form field named "stockAvailable" with label "STOCK ACTUAL" has contents "0"
-        And form field named "imagePath" with label "IMAGEN" is empty
-        And form field named "modelPath" with label "FICHERO MODELO" is empty
+    @D3D18.06
+    Scenario: [D3D18.06]-When the duplicated New part disalog is open and the color fileld then the save buttons activate.
+        Given a duplicated New Part from Part id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        And "BLANCO" is set on form field "color"
         # - Check the state of the buttons
-        And the button with name "repeat-button" has a label "Guardar y Repetir" and is "disabled"
-        And the button with name "submit-button" has a label "Guardar" and is "disabled"
+        And the button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
+        And the button with name "submit-button" has a label "Guardar" and is "enabled"
         And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
 
-# @D3D18.05
-#     Scenario: [D3D18.05]-When the duplicated New part disalog is open and the color fileld then the save buttons activate.
-# Given a duplicated New Part from Part id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
 
 
+# @D3D04.03
+# Scenario: [D3D04.03]-After a Part duplication when the new Part feature is clicked the form should be with the fields empty.
+#     Given one instance of Dock
+
+
+
+
+
+
+
+
+# PENDING REVIEW AND UPDATE
 
 
 #     Given the target is the panel of type "New Part"
