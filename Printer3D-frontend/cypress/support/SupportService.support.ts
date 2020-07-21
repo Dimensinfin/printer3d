@@ -20,7 +20,7 @@ export class SupportService {
         // - PANELS
         this.translationTable['app-component'] = 'app-root'
         this.translationTable['dock'] = 'v1-dock'
-        this.translationTable['work-load'] = 'v1-work-load-panel'
+        this.translationTable['billing-chart'] = 'v1-billing-chart-panel'
         this.translationTable['coils'] = 'v1-coils-panel'
         this.translationTable['machines'] = 'v2-machines-panel'
         this.translationTable['available-parts'] = 'v1-available-parts-panel'
@@ -33,7 +33,7 @@ export class SupportService {
         this.translationTable['open-requests'] = 'v1-open-requests-panel'
         this.translationTable['request-details'] = 'v1-request-detail-panel'
         this.translationTable['jobs-list'] = 'v1-pending-jobs-panel'
-        this.translationTable['billing-chart'] = 'v1-billing-chart-panel'
+        this.translationTable['work-load'] = 'v1-work-load-panel'
         // - RENDERS
         this.translationTable['feature'] = 'v2-feature'
         this.translationTable['job'] = 'v1-pending-job'
@@ -50,10 +50,10 @@ export class SupportService {
         this.translationTable['request-content'] = 'v1-request-item'
         this.translationTable['job-timer'] = 'v1-build-countdown-timer'
         // - TAGS
-        this.translationTable['buttons'] = 'button'   
+        this.translationTable['buttons'] = 'button'
         // - BACKEND REQUESTS
-        this.translationTable['Get Open Requests'] = 'apiProductionGetOpenRequests_v2'           
-        this.translationTable['Start Build Job'] = 'apiMachinesStartBuild_v2'           
+        this.translationTable['Get Open Requests'] = 'apiProductionGetOpenRequests_v2'
+        this.translationTable['Start Build Job'] = 'apiMachinesStartBuild_v2'
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.

@@ -84,20 +84,20 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     @D3D20.06
     Scenario: [D3D20.06]-Validate the input fields that should be displayed when the Edit Part is activated.
         # - Activate the Part editing
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        When the target item actionable image "edit-button" is clicked
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        When target actionable image "edit-button" is clicked
         # - Validate edit part form fields
         Then the target item has a form field named "stock" with label "STOCK" and contents "5"
         And the target item has a form field named "stockAvailable" with label "DISPONIBLE" and contents "0"
         And the target item has a form field named "cost" with label "COSTE" and contents "1"
         And the target item has a form field named "price" with label "PRECIO" and contents "6"
         And the target item has a form field named "active" with label "ACTIVA" and contents "on"
-        And the target panel input field named "stock" is "valid"
-        And the target panel input field named "stockAvailable" is "valid"
-        And the target panel input field named "cost" is "valid"
-        And the target panel input field named "price" is "valid"
+        And form field named "stock" is "valid"
+        And form field named "stockAvailable" is "valid"
+        And form field named "cost" is "valid"
+        And form field named "price" is "valid"
         # - Check that the save button is enabled
         Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         And actionable image named "save-button" is "enabled"
@@ -105,15 +105,15 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     @D3D20.07
     Scenario: [D3D20.07]-If any of the editable fields is invalidated then check that the save button is disabled.
         # - Activate the Part editing
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        When the target item actionable image "edit-button" is clicked
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        When target actionable image "edit-button" is clicked
         # - Invalidated a field
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         # Then 1 is set on form field "stock"
         Then form field "stock" is cleared
-        And the target panel input field named "stock" is "invalid"
+        And form field named "stock" is "invalid"
         And actionable image named "save-button" is "disabled"
 
     @D3D20.08
@@ -155,29 +155,59 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And active "part" shows a green corner
         And inactive "part" shows an orange corner
 
-# @D3D20.11
-#     Scenario: [D3D20.11]-If after editing a Model the uses closes the editing session instead of saving changes, when the model is edited again it should have the original values.
+    # @D3D20.11
+    #     Scenario: [D3D20.11]-If after editing a Model the uses closes the editing session instead of saving changes, when the model is edited again it should have the original values.
 
-# PENDING REVIEW AND UPDATE
-# @D3D07 @D3D07.13
-# Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
-#     Given there is a click on Feature "/INVENTARIO"
-#     Then the page "InventoryPage" is activated
-#     Given the target is the panel of type "catalog"
-#     Given the target item the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
-#     Then on the target panel there are none "part"
-#     Then the target item is expandable
-#     When the target item expand-collapse button is clicked
-#     Then on the target panel there are "2" "part"
-#     Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-#     When the target Part Duplicate button is clicked
-#     Then the "New Part" dialog opens and blocks the display
-#     Given the target is the panel of type "New Part"
-#     Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
-#     Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
-#     # Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
-#     Then the target panel has a input field named "cost" with label "COSTE FAB." and contents "0.45"
-#     Then the target panel has a input field named "price" with label "PRECIO" and contents "1"
-#     Then the target panel has a input field named "buildTime" with label "TIEMPO" and contents "20"
-#     Then the target panel has a input field named "stockLevel" with label "STOCK DESEADO" and value "15"
-#     Then the target panel has a input field named "stockAvailable" with label "STOCK ACTUAL" and value "0"
+    # PENDING REVIEW AND UPDATE
+    # @D3D07 @D3D07.13
+    # Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
+    #     Given there is a click on Feature "/INVENTARIO"
+    #     Then the page "InventoryPage" is activated
+    #     Given the target is the panel of type "catalog"
+    #     Given the target item the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+    #     Then on the target panel there are none "part"
+    #     Then the target item is expandable
+    #     When the target item expand-collapse button is clicked
+    #     Then on the target panel there are "2" "part"
+    #     Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+    #     When the target Part Duplicate button is clicked
+    #     Then the "New Part" dialog opens and blocks the display
+    #     Given the target is the panel of type "New Part"
+    #     Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
+    #     Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
+    #     # Then the target panel has a select field named "material" with label "MATERIAL" and value "TPU"
+    #     Then the target panel has a input field named "cost" with label "COSTE FAB." and contents "0.45"
+    #     Then the target panel has a input field named "price" with label "PRECIO" and contents "1"
+    #     Then the target panel has a input field named "buildTime" with label "TIEMPO" and contents "20"
+    #     Then the target panel has a input field named "stockLevel" with label "STOCK DESEADO" and value "15"
+    #     Then the target panel has a input field named "stockAvailable" with label "STOCK ACTUAL" and value "0"
+
+    @D3D20.11
+    Scenario: [D3D20.11]-Validate the input fields limits and constraints
+        # - Activate the Part editing
+        Given editing state for Part "6939c6cc-297f-48ca-8f17-25fa18c3dbc7" on Part Container "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        # - Validate part fields for constraints
+        #         Then field named "label" is tested for size constraints 3 and 50
+        # And field named "weight" is tested for value constraints 1 to 100
+        Then field named "cost" is tested for value constraints 0.01
+        And field named "price" is tested for value constraints 0.01
+        # And field named "buildTime" is tested for value constraints 1
+        And field named "stock" is tested for value constraints 1 to 100
+        And field named "stockAvailable" is tested for value constraints 0
+# And field named "imagePath" is tested for max size of 100
+# And field named "modelPath" is tested for max size of 100
+# And field named "description" is tested for max size of 500
+
+
+# Then the target item has a form field named "stock" with label "STOCK" and contents "5"
+# And the target item has a form field named "stockAvailable" with label "DISPONIBLE" and contents "0"
+# And the target item has a form field named "cost" with label "COSTE" and contents "1"
+# And the target item has a form field named "price" with label "PRECIO" and contents "6"
+# And the target item has a form field named "active" with label "ACTIVA" and contents "on"
+# And form field named "stock" is "valid"
+# And form field named "stockAvailable" is "valid"
+# And form field named "cost" is "valid"
+# And form field named "price" is "valid"
+# # - Check that the save button is enabled
+# Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+# And actionable image named "save-button" is "enabled"

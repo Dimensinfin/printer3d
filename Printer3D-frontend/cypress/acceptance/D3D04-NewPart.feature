@@ -9,18 +9,12 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
     Background: Dock Default Configuration setup
         Given the application Printer3DManager
-
-    # - H A P P Y   P A T H
-    @D3D04.01
-    Scenario: [D3D04.01]-If the Feature New Part receives a click then we should show the New Part Dialog.
-        Given one instance of Dock
-        When there is a click on Feature "/NUEVA PIEZA"
-        Then the "New Part" dialog opens and blocks the display
-
-    @D3D04.02
-    Scenario: [D3D04.02]-A new part dialog should have most of the fields empty. There are predefined values for the stock, weight and material.
         Given there is a click on Feature "/NUEVA PIEZA"
         Then the "New Part" dialog opens and blocks the display
+
+    # - H A P P Y   P A T H
+    @D3D04.02
+    Scenario: [D3D04.02]-A new part dialog should have most of the fields empty. There are predefined values for the stock, weight and material.
         And the target dialog has a title "/INVENTARIO/NUEVA PIEZA"
         And the target panel has a form field named "label" with label "ETIQUETA" and empty
         And the target panel has a form field named "description" with label "DESCRIPCIÓN" and empty
@@ -37,8 +31,6 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
     @D3D04.03
     Scenario: [D3D04.03]-An empty Part dialog has some of the fields mandatory and invalid because they are empty. Also the Save buttons are disabled.
-        Given there is a click on Feature "/NUEVA PIEZA"
-        Then the "New Part" dialog opens and blocks the display
         # - Check the state of the fields
         Then the target panel input field named "label" is "invalid"
         And the target panel input field named "description" is "indiferent"
@@ -59,19 +51,21 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
     @D3D04.04
     Scenario: [D3D04.04]-If we enter enough characters the label field changes to 'valid'.
-        Given there is a click on Feature "/NUEVA PIEZA"
-        Then the "New Part" dialog opens and blocks the display
         # - Check the field contents size
-        Then the target panel field "label" is tested for size constraints 3 and 50
-        Then the target panel field "cost" is tested for value constraints
-        Then the target panel field "price" is tested for value constraints
-        Then the target panel field "buildTime" is tested for value constraints
+        Then field named "label" is tested for size constraints 3 and 50
+        And field named "weight" is tested for value constraints 1 to 100
+        And field named "cost" is tested for value constraints 0.01
+        And field named "price" is tested for value constraints 0.01
+        And field named "buildTime" is tested for value constraints 1
+        And field named "stock" is tested for value constraints 1 to 15
+        And field named "stockAvailable" is tested for value constraints 0
+        And field named "imagePath" is tested for max size of 100
+        And field named "modelPath" is tested for max size of 100
+        And field named "description" is tested for max size of 500
 
     @D3D04.05
     Scenario: [D3D04.05]-If all the mandatory fields are filled then the Save buttons activate.
-        Given there is a click on Feature "/NUEVA PIEZA"
-        Then the "New Part" dialog opens and blocks the display
-        # - Fill all the mandatory fields
+         # - Fill all the mandatory fields
         Given "-ETIQUETA-" is set on form field "label"
         And "AMARILLO" is set on form field "color"
         And 1 is set on form field "cost"

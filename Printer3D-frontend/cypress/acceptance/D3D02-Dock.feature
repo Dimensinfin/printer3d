@@ -46,8 +46,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
     Scenario: [D3D02.05] When the dialog closes the Feature that opens it should go back to inactive.
         Given the application Printer3DManager
         Given one instance of Dock
-        # When there is a click on Feature "/NUEVA PIEZA"
-        And the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "new-part-dialog"
+        And the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "New Part"
         And the target Feature "/NUEVA PIEZA" changes to state "active"
         When there is a click on the "cancel-button" button of target dialog
         And the target Feature "/NUEVA PIEZA" changes to state "inactive"
@@ -56,9 +55,9 @@ Feature: [D3D02]-Test the dock contents and configuration.
     Scenario: [D3D02.06]-Validate the elements that open a Dialog.
         Given the application Printer3DManager
         Given one instance of Dock
-        When the Feature with label "/NUEVO ROLLO" is clicked the destination is the Dialog "new-coil-dialog"
+        When the Feature with label "/NUEVO ROLLO" is clicked the destination is the Dialog "New Coil"
         And there is a click on the "cancel-button" button of target dialog
-        When the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "new-part-dialog"
+        When the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "New Part"
         When there is a click on the "cancel-button" button of target dialog
 
     @D3D02.07
@@ -103,8 +102,21 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given the application Printer3DManager
         Given one instance of Dock
         When the Feature with label "/PEDIDOS" is clicked the destination is the Page "Open Requests Page"
+        Then the Feature with label "/PEDIDOS" opens a Page
+        And the loading panel shows "Clasificando Pedidos..."
+        When the loading panel completes
+        Then the target Feature "/PEDIDOS" changes to state "active"
         And the page "Open Requests Page" has 2 panels
         Given the target is the panel of type "open-requests"
         Then  the target has the title "/PEDIDOS/ABIERTOS"
         Given the target is the panel of type "request-details"
         Then  the target has the title "/PEDIDOS/DETALLE"
+
+    @D3D020.11
+    Scenario: [D3D020.11]-Check the open of the New Part dialog.
+        Given the application Printer3DManager
+        Given one instance of Dock
+        Then the Feature with label "/NUEVA PIEZA" opens a Dialog
+        When the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "New Part"
+        And the target Feature "/NUEVA PIEZA" changes to state "active"
+        Then the dialog has the title "/INVENTARIO/NUEVA PIEZA"

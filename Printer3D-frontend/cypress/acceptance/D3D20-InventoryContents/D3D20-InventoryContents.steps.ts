@@ -39,11 +39,11 @@ Then('the target item has a {string} tag', function (tagColor: string) {
     cy.get('@target-item').find(colorTag).should('exist')
 });
 
-// - B U T T O N S
-When('the target item actionable image {string} is clicked', function (buttonName: string) {
-    cy.get('@target-item').find('[cy-name="' + buttonName + '"]').as('target-button')
-        .click()
-});
+// // - B U T T O N S
+// When('the target item actionable image {string} is clicked', function (buttonName: string) {
+//     cy.get('@target-item').find('[cy-name="' + buttonName + '"]').as('target-button')
+//         .click()
+// });
 // - E D I T I N G
 Then('the target item has a form field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
@@ -110,4 +110,30 @@ Then('form field {string} is cleared', function (fieldName: number) {
 Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
     cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('input').clear().type(fieldValue + '')
+});
+
+// - S T E P   M A C R O S
+/**
+Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+When the target item is expanded
+Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+When the target item actionable image "edit-button" is clicked
+ */
+Given('editing state for Part {string} on Part Container {string}', function (partId: string, containerId: string) {
+    // Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    let tag = supportService.translateTag('part-container')
+    cy.get('@target-panel').find(tag).find('[id="' + containerId + '"]').as('target')
+        .should('exist')
+    // When the target item is expanded
+    cy.get('@target').click()
+    cy.get('@target').parents().closest('node-container').first()
+        .find('.arrow-box').find('.arrow-expanded').should('exist')
+    // Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+    tag = supportService.translateTag('part')
+    cy.get('@target-panel').find(tag).find('[id="' + partId + '"]').as('target')
+        .should('exist')
+    // When the target item actionable image "edit-button" is clicked
+    const buttonName = 'edit-button'
+    cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
+        .scrollIntoView().click()
 });

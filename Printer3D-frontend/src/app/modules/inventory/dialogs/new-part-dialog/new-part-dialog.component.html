@@ -28,7 +28,7 @@
                 <div cy-name="description" class="field field-margins">
                     <span cy-field-label="description" cy-input-type="textarea" class="label">DESCRIPCIÓN</span><br>
                     <div class="dsf-input-container label-width">
-                        <textarea name="description" cols="38" rows="5" class="dsf-input part-description" [(ngModel)]="part.description" minlength="5" maxlength="500"></textarea>
+                        <textarea name="description" cols="38" rows="5" class="dsf-input part-description" [(ngModel)]="part.description" maxlength="500"></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -97,7 +97,7 @@
                     <div cy-name="cost" class="field field-margins">
                         <span cy-field-label="cost" cy-input-type="input" class="label">COSTE FAB.<span style="color: red;">&nbsp;*</span></span><br>
                         <div class="dsf-input-container weight-width">
-                            <input name="cost" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.cost" required min="0.01" oninput="validity.valid||(value='');" #cost="ngModel">
+                            <input name="cost" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.cost" required min="0.01" #cost="ngModel">
                             <svg class="corner-border" viewBox="0 0 100 100">
                                 <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                             </svg>
@@ -115,7 +115,7 @@
                     <div cy-name="price" class="field field-margins">
                         <span cy-field-label="price" cy-input-type="input" class="label">PRECIO<span style="color: red;">&nbsp;*</span></span><br>
                         <div class="dsf-input-container weight-width">
-                            <input name="price" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.price" required min="0.01" oninput="validity.valid||(value='');" #price="ngModel">
+                            <input name="price" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.price" required min="0.01" #price="ngModel">
                             <svg class="corner-border" viewBox="0 0 100 100">
                                 <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                             </svg>
