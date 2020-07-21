@@ -48,7 +48,7 @@ Given('a valid New Part', function () {
 Then('the Color dropdown has {int} values', function (options) {
     let fieldName = 'color'
     cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
-        .find('select')
+        .find('select').get('#color')
         .find('option')
         .should('have.length', options);
 });
@@ -58,11 +58,11 @@ Then('the Color dropdown has {int} values', function (options) {
 
 
 // - L A T E S T   I M P L E M E N T A T I O N
-Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
-    const tag = supportService.translateTag(dialogName) // Do name replacement
-    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
-        .should('exist')
-})
+// Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
+//     const tag = supportService.translateTag(dialogName) // Do name replacement
+//     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
+//         .should('exist')
+// })
 // - I N P U T   F I E L D S
 Then('the target panel has a form field named {string} with label {string} and empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {

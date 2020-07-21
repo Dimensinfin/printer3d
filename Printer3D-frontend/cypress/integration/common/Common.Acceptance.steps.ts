@@ -15,12 +15,12 @@ const supportService = new SupportService();
 
 // - N E W E S T   I M P L E M E N T A T I O N
 // - TARGET SELECTION
-Given('the target item the {string} with id {string}', function (symbolicName: string, recordId: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target').as('target-item')
-        .should('exist')
-});
+// Given('the target item the {string} with id {string}', function (symbolicName: string, recordId: string) {
+//     const tag = supportService.translateTag(symbolicName) // Do name replacement
+//     cy.log('>[the {string} is activated]> Translation: ' + tag)
+//     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target').as('target-item')
+//         .should('exist')
+// });
 // - FORMS
 Then('the target panel has a input field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {

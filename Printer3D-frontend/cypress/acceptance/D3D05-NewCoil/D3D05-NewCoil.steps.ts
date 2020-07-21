@@ -11,11 +11,11 @@ import { SupportService } from '../../support/SupportService.support';
 const supportService = new SupportService();
 
 // - L A T E S T   I M P L E M E N T A T I O N
-Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
-    const tag = supportService.translateTag(dialogName) // Do name replacement
-    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target-dialog')
-        .should('exist')
-})
+// Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
+//     const tag = supportService.translateTag(dialogName) // Do name replacement
+//     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target-dialog')
+//         .should('exist')
+// })
 Then('the coil is persisted at the backend', function () {
     cy.log('Coil persisted')
 });

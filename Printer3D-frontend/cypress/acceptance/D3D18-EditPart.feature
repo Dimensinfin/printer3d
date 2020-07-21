@@ -11,61 +11,57 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         Then the page "InventoryPage" is activated
 
     # - H A P P Y   P A T H
-    @D3D18.01
-    Scenario: [D3D18.01]-The Part Container has some fields and two buttons to activate the Edit In Place feature.
-        Given the target is the panel of type "catalog"
-        Given the target item the "part-container" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
-        Then target has an actionable image named "edit-button"
-        And actionable image named "edit-button" is "enabled"
-        And target has an actionable image named "save-button"
-        And actionable image named "save-button" is "disabled"
+    # @D3D18.01
+    # Scenario: [D3D18.01]-The Part Container has some fields and two buttons to activate the Edit In Place feature.
+    #     Given the target is the panel of type "catalog"
+    #     Given the target the "part-container" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
+    #     Then target has an actionable image named "edit-button"
+    #     And actionable image named "edit-button" is "enabled"
+    #     And target has an actionable image named "save-button"
+    #     And actionable image named "save-button" is "disabled"
 
-    @D3D18.02
-    Scenario: [D3D18.02]-The Part Container group now has an edit button that toggles the editing of some properties for a set of Parts. All the parts that share the label belong to the same Part Group and are edited at the same time.
-        Given the target is the panel of type "catalog"
-        Given the target item the "part-container" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
-        Then target has an actionable image named "edit-button"
-        And actionable image named "edit-button" is "enabled"
-        # - Click to activate edit state
-        When target actionable image "edit-button" is clicked
-        Then field named "description" is editable
-        And field named "buildTime" is editable
-        And field named "weight" is editable
-        And field named "imagePath" is editable
-        And field named "modelPath" is editable
-        # - Click to deactivate edit state
-        When target actionable image "edit-button" is clicked
-        Then field named "description" is not editable
-        And field named "buildTime" is not editable
-        And field named "weight" is not editable
-        And field named "imagePath" is not editable
-        And field named "modelPath" is not editable
+    # @D3D18.02
+    # Scenario: [D3D18.02]-The Part Container group now has an edit button that toggles the editing of some properties for a set of Parts. All the parts that share the label belong to the same Part Group and are edited at the same time.
+    #     Given the target is the panel of type "catalog"
+    #     Given the target the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
+    #     Then target has an actionable image named "edit-button"
+    #     And actionable image named "edit-button" is "enabled"
+    #     # - Click to activate edit state
+    #     When target actionable image "edit-button" is clicked
+    #     # Then field named "description" is editable
+    #     Given the target the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
+    #     And field named "buildTime" is editable
+    #     And field named "weight" is editable
+    #     And field named "imagePath" is editable
+    #     And field named "modelPath" is editable
+    #     # - Click to deactivate edit state
+    #     When target actionable image "edit-button" is clicked
+    #     Given the target the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
+    #     Then field named "description" is not editable
+    #     And field named "buildTime" is not editable
+    #     And field named "weight" is not editable
+    #     And field named "imagePath" is not editable
+    #     And field named "modelPath" is not editable
 
-        @D3D18.03
-    Scenario: [D3D18.03]-Validate the editable Part Container fields for constraints.
-        # Then field named "imagePath" is editable
-        # Then field named "modelPath" is editable
-        # And target has an actionable image named "update-button"
+    # @D3D18.03
+    # Scenario: [D3D18.03]-Validate the editable Part Container fields for constraints.
+    #     Given an editable Part Container with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
+    #     Then field named "buildTime" is tested for value constraints 1
+    #     And field named "weight" is tested for value constraints 1 to 100
+    #     And field named "imagePath" is tested for max size of 100
+    #     And field named "modelPath" is tested for max size of 100
+    #     And field named "description" is tested for max size of 500
 
-
-        # Then the target item has a actionable image named "update-button"
-
-
-        # Given there is a click on Feature "/INVENTARIO"
-        # Then the page "InventoryPage" is activated
-        # Given the target is the panel of type "catalog"
-        # Given the target item the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
-        # Then the target item has a actionable image named "edit-button"
-        # When the target item actionable image "edit-button" is clicked
-
-        # Then new the target item text field named "description" is editable
-        And the target panel has a input field named "description" with label "DESCRIPCION" and contents "Base para la plataforma de slot cars."
-        And the target panel has a input field named "buildTime" with label "TIEMPO" and contents "30 min."
-        And the target panel has a input field named "weight" with label "PESO" and contents "4 gr."
-        And the target panel has a input field named "imagePath" with label "IMAGEN" and contents "https://ibb.co/3dGbsRh"
-        And the target panel has a input field named "modelPath" with label "FICHERO IMPR." and contents "pieza3.sft"
-
-
+    # @D3D18.04
+    # Scenario: [D3D18.04]-Validate the contents of a Part Container. Now there are new fields and the Image and Model File should also be visible if not empty.
+    #     Given the target is the panel of type "catalog"
+    #     Given the target the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
+    #     Then field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
+    #     And field named "description" with label "DESCRIPCION" has contents "Base para la plataforma de slot cars."
+    #     And field named "buildTime" with label "TIEMPO" has contents "30 min."
+    #     And field named "weight" with label "PLASTICO" has contents "4 gr."
+    #     And field named "imagePath" with label "IMAGEN" has contents "https://ibb.co/3dGbsRh"
+    #     And field named "modelPath" with label "FICHERO IMPR." has contents "pieza3.sft"
 
     # @D3D04.03
     # Scenario: [D3D04.03]-After a Part duplication when the new Part feature is clicked the form should be with the fields empty.
@@ -77,42 +73,49 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
 
 
 
-    # DISABLED
-    # @D3D18.01
-    # Scenario: [D3D18.01]-There is a new field on the Part that is the weight of plastic that needs to be used to build an instance.
-    #     Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
-    #     And the target item has a field named "description" with label "DESCRIPCION" and value "Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot"
-    #     And the target item has a field named "buildTime" with label "TIEMPO" and value "45 min."
-    #     And the target item has a field named "weight" with label "PLASTICO" and value "6 gr."
 
-
-    @D3D18.03
-    Scenario: [D3D18.03]-Validate the contents of a Part Container. Now there are new fields and the Image and Model File should also be visible if not empty.
-        Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
+    # PENDING REVIEW AND UPDATE
+    @D3D18.05
+    Scenario: [D3D18.05]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
+        # - Expand the Part Container
         Given the target is the panel of type "catalog"
-        Given the target item the "part-container" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
-        Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Base"
-        And the target item has a field named "description" with label "DESCRIPCION" and value "Base para la plataforma de slot cars."
-        And the target item has a field named "buildTime" with label "TIEMPO" and value "30 min."
-        And the target item has a field named "weight" with label "PLASTICO" and value "4 gr."
-        And the target item has a field named "imagePath" with label "IMAGEN" and value "https://ibb.co/3dGbsRh"
-        And the target item has a field named "modelPath" with label "FICHERO IMPR." and value "pieza3.sft"
+        Then the target has no "part"
+        Given the target the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        Then target has an actionable image named "expand-button"
+        # - Click the expand button
+        When target actionable image "expand-button" is clicked
+        Given the target is the panel of type "catalog"
+        Then the target has 2 "part"
+        Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        Then target has an actionable image named "duplicate-button"
+        # - Click the duplicate and validate the New Part Dialog
+        When target actionable image "duplicate-button" is clicked
+        Then the "New Part" dialog opens and blocks the display
+        # - Validate the contents for the New Part dialog
+        And form field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Embocadura"
+        And form field named "description" with label "DESCRIPCION" has contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
+        And form field named "material" with label "MATERIAL" has contents "TPU"
+        And form field named "color" with label "COLOR" is empty
+        And form field named "weight" with label "PESO" has contents "8"
+        And form field named "cost" with label "COSTE FAB." has contents "0.45"
+        And form field named "price" with label "PRECIO" has contents "1"
+        And form field named "buildTime" with label "TIEMPO" has contents "20"
+        And form field named "stock" with label "STOCK DESEADO" has contents "15"
+        And form field named "stockAvailable" with label "STOCK ACTUAL" has contents "0"
+        And form field named "imagePath" with label "IMAGEN" is empty
+        And form field named "modelPath" with label "FICHERO MODELO" is empty
+        # - Check the state of the buttons
+        And the button with name "repeat-button" has a label "Guardar y Repetir" and is "disabled"
+        And the button with name "submit-button" has a label "Guardar" and is "disabled"
+        And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
 
-# PENDING REVIEW AND UPDATE
-# @D3D07 @D3D07.13
-# Scenario: [D3D07.13]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
-#     Given there is a click on Feature "/INVENTARIO"
-#     Then the page "InventoryPage" is activated
-#     Given the target is the panel of type "catalog"
-#     Given the target item the "part-container" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
-#     Then on the target panel there are none "part"
-#     Then the target item is expandable
-#     When the target item expand-collapse button is clicked
-#     Then on the target panel there are "2" "part"
-#     Given the target item the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
-#     When the target Part Duplicate button is clicked
-#     Then the "New Part" dialog opens and blocks the display
+# @D3D18.05
+#     Scenario: [D3D18.05]-When the duplicated New part disalog is open and the color fileld then the save buttons activate.
+# Given a duplicated New Part from Part id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+
+
+
+
 #     Given the target is the panel of type "New Part"
 #     Then the target panel has a input field named "label" with label "ETIQUETA" and contents "Boquilla Ganesha - Embocadura"
 #     Then the target panel has a textarea field named "description" with label "DESCRIPCIÓN" and contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."

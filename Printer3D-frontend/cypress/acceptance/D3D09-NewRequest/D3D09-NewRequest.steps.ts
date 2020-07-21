@@ -205,9 +205,9 @@ Then('the target panel field {string} is tested for size constraints {int} and {
 
 
 // - OLD
-Then('the New Request dialog opens and blocks the display', function () {
-    cy.get('app-root').get('mat-dialog-container').get('v1-new-request-dialog').should('exist')
-});
+// Then('the New Request dialog opens and blocks the display', function () {
+//     cy.get('app-root').get('mat-dialog-container').get('v1-new-request-dialog').should('exist')
+// });
 Then('the V1NewRequestPage is activated', function () {
     cy.get('app-root').find('v1-new-request-page').as('target-page')
         .should('exist')

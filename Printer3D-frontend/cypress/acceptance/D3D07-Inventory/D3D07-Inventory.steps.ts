@@ -177,10 +177,10 @@ When('the target Part Duplicate button is clicked', function () {
     cy.get('@target-item').find('[cy-name="duplicate-button"]')
         .click()
 });
-Then('the {string} dialog opens and blocks the display', function (pageName: string) {
-    const tag = supportService.translateTag(pageName) // Do name replacement
-    cy.get('app-root').get('mat-dialog-container').as('target-page').get(tag).should('exist')
-});
+// Then('the {string} dialog opens and blocks the display', function (pageName: string) {
+//     const tag = supportService.translateTag(pageName) // Do name replacement
+//     cy.get('app-root').get('mat-dialog-container').as('target-page').get(tag).should('exist')
+// });
 // Given('the target panel is the panel named {string}', function (elementName: string) {
 //     cy.get('[cy-name="' + elementName + '"]').as('target-panel')
 //         .should('exist')

@@ -49,6 +49,11 @@ Then('the page {string} has {int} panels', function (symbolicName: string, panel
         .children()
         .should('have.length', panelCount)
 });
+Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
+    const tag = supportService.translateTag(dialogName) // Do name replacement
+    cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel')
+        .should('exist')
+})
 
 // - D O C K
 Given('one instance of Dock', function () {
@@ -177,7 +182,7 @@ Then('field named {string} with label {string} is not empty',
 // - F I E L D   V A L I D A T I O N
 Then('field named {string} is tested for size constraints {int} and {int}',
     function (fieldName: string, minCharacters: number, maxCharacters: number) {
-        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters - 1))
         cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // invalid-one below limit
@@ -192,7 +197,7 @@ Then('field named {string} is tested for size constraints {int} and {int}',
 Then('field named {string} is tested for max size of {int}',
     function (fieldName: string, maxCharacters: number) {
         const minCharacters = 1
-        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
         let largerValue = supportService.generateRandomString(maxCharacters + 5)
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
             cy.log(type as string);
@@ -210,7 +215,7 @@ Then('field named {string} is tested for max size of {int}',
     });
 Then('field named {string} is tested for value constraints {int} to {int}',
     function (fieldName: string, minValue: number, maxValue: number) {
-        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('input').clear().should('have.class', 'ng-invalid') // validate invalid before starting test
         const numberValue: number = supportService.generateRandomNum(minValue, maxValue)
         cy.get('@target-field').find('input').clear().type(numberValue + '')
@@ -222,7 +227,7 @@ Then('field named {string} is tested for value constraints {int} to {int}',
     });
 Then('field named {string} is tested for value constraints {int}',
     function (fieldName: string, minValue: number) {
-        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('input').clear().should('have.class', 'ng-invalid') // validate invalid before starting test
         const numberValue: number = supportService.generateRandomNum(minValue, minValue + 100)
         cy.get('@target-field').find('input').clear().type(numberValue + '')
@@ -232,7 +237,7 @@ Then('field named {string} is tested for value constraints {int}',
     });
 Then('field named {string} is tested for value constraints {float}',
     function (fieldName: string, minValue: number) {
-        cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+        cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('input').clear().should('have.class', 'ng-invalid') // validate invalid before starting test
         const numberValue: number = supportService.generateRandomNum(minValue, minValue + 100)
         cy.get('@target-field').find('input').clear().type(numberValue + '').should('have.class', 'ng-valid')
