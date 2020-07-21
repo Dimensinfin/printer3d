@@ -14,7 +14,7 @@
                 <span cy-field-label="label" class="label">ETIQUETA</span><br>
                 <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
             </div>
-            <div cy-name="description" class="field">
+            <div cy-name="description" class="field description-width">
                 <span cy-field-label="description" class="label">DESCRIPCION</span><br>
                 <span cy-field-value="description" class="partcontainer-description">{{getDescription()}}</span>
             </div>
@@ -60,7 +60,7 @@
                 <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
             </div>
             <div class="field">
-                <span cy-field-label="description" class="label">DESCRIPCION</span><br>
+                <span cy-field-label="description description-width" class="label">DESCRIPCION</span><br>
                 <textarea name="description" cols="35" rows="3" class="dsf-input part-description" [(ngModel)]="editPart.description" minlength="5" maxlength="500"></textarea>
             </div>
             <div class="field buildTime-width">
