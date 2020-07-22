@@ -15,7 +15,7 @@ import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictExcept
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepositoryExtended;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
@@ -46,18 +46,17 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.Reques
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
 
 public class RequestServiceV2Test {
-	//	private StockManager stockManager;
 	private RequestsRepository requestsRepositoryV1;
 	private RequestsRepositoryV2 requestsRepositoryV2;
 	private ModelRepository modelRepository;
-	private PartRepositoryExtended partRepository;
+	private PartRepository partRepository;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.requestsRepositoryV1 = Mockito.mock( RequestsRepository.class );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 		this.modelRepository = Mockito.mock( ModelRepository.class );
-		this.partRepository = Mockito.mock( PartRepositoryExtended.class );
+		this.partRepository = Mockito.mock( PartRepository.class );
 	}
 
 	@Test

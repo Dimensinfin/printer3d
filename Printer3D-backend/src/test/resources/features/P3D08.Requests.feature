@@ -15,7 +15,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         Given a clean Parts repository
 
       # - H A P P Y   P A T H
-    @P3D08.H @P3D08.01
+    @P3D08.H1 @P3D08.01
     Scenario: [P3D08.01] Validate the creation of a new Request with the data received.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -46,7 +46,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        | 1       |
 
-    @P3D08.H @P3D08.02
+    @P3D08.H1 @P3D08.02
     Scenario: [P3D08.02] When a new Request is created the return state is always Open. This state changes to Completed if there are enough Parts at
     the Inventory stock and only when the Requests is processed during the frontend requesting the lists of Requests.
         And the following Parts in my service
@@ -92,7 +92,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | id                                   | label                          | requestDate                 | state     |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | COMPLETED |
 
-    @P3D08.H @P3D08.05
+    @P3D08.H1 @P3D08.05
     Scenario: [P3D08.05] When a new request cannot be completed because there are not enough Parts at the Inventory the jobs generated to complete the
     Request have priority 1.
         And the following Parts in my service
@@ -117,7 +117,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And there are "2" records of priority "1"
         And there are "11" records of priority "2"
 
-    @P3D08.H @P3D08.06
+    @P3D08.H2 @P3D08.06
     Scenario: [P3D08.06] When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -154,7 +154,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | id                                   | label                       | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                           |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars. |
 
-    @P3D08.H @P3D08.07
+    @P3D08.H2 @P3D08.07
     Scenario: [P3D08.07] There is an endpoint that allows to delete a Request from the repository. The request should be on OPEN state.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -176,7 +176,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         Then there is a valid response with return code of "200 OK"
         And the number of records processed is "1"
 
-    @P3D08.H @P3D08.08
+    @P3D08.H2 @P3D08.08
     Scenario: [P3D08.08] When a Request is closed the the request amount is calculated with the current price values for the parts contained on the
     Request.
         And the following Parts in my service
@@ -213,7 +213,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | id                                   | label                          | requestDate                 | state | amount |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | CLOSE | 31.00  |
 
-    @P3D08.H @P3D08.09
+    @P3D08.H2 @P3D08.09
     Scenario: [P3D08.09] When a Request is closed the the request closed date is the current date and we can calculate the week for aggregation.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |

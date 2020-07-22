@@ -38,6 +38,7 @@ import org.dimensinfin.printer3d.backend.production.request.persistence.RequestE
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
+import org.dimensinfin.printer3d.backend.production.request.rest.RequestServiceCore;
 import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
@@ -51,7 +52,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 @Validated
 @RequestMapping("/api/v1")
 @Service
-public class RequestControllerSupport {
+public class RequestControllerSupport  extends RequestServiceCore {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
 	private final StockManager stockManager;
@@ -64,6 +65,7 @@ public class RequestControllerSupport {
 	                                 final @NotNull ModelRepository modelRepository,
 	                                 final @NotNull RequestsRepository requestsRepositoryV1,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
+		super( partRepository );
 		this.modelRepository = modelRepository;
 		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;

@@ -6,5 +6,5 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PartRepository extends JpaRepository<PartEntity, UUID> {
-	List<PartEntity> findByLabel( final String label);
+	List<PartEntity> findByLabel( final String label );
 }
