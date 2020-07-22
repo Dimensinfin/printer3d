@@ -138,23 +138,24 @@ jobs:
             npm run cypress:run
       - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
-  # quality-sonarcloud:
-  #   docker:
-  #     - image: circleci/openjdk:11-jdk
-  #       environment:
-  #         _JAVA_OPTIONS: "-Xmx3g"
-  #         GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-  #         PORT: 5140
-  #         JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-  #         DB_USER: inno-user
-  #         DB_PASSWORD: inno-password
-  #         SPRING_PROFILES_ACTIVE: test
-  #     - image: circleci/postgres:11.1
-  #       environment:
-  #         POSTGRES_USER: inno-user
-  #         POSTGRES_DB: inno-password
-  #   steps:
-  #     - checkout
+  quality-sonarcloud:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - run:
+        name: BACKEND - Update SonarQube statistics
+        working_directory: Printer3D-backend
+        environment:
+          _JAVA_OPTIONS: "-Xmx3g"
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+          PORT: 5140
+          JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+          DB_USER: inno-user
+          DB_PASSWORD: inno-password
+          SPRING_PROFILES_ACTIVE: test
+        command: |
+          ./gradlew sonarqube -Dcucumber.options="--tags @P3D00"
 
   stage-to-heroku:
     docker:
@@ -258,17 +259,17 @@ workflows:
             branches:
               only:
                 - test
-      # - quality-sonarcloud:
-      #     requires:
-      #       - test-backend-job
-      #     filters:
-      #       # tags:
-      #       #   only: /.*/
-      #       branches:
-      #         only:
-      #           - test
-      #           - hotfix
-      #     context: sonarcloud
+      - quality-sonarcloud:
+          requires:
+            - test-backend-job
+          filters:
+            tags:
+              only: /.*/
+            # branches:
+            #   only:
+            #     - test
+            #     - hotfix
+          # context: sonarcloud
 
       - stage-to-heroku:
           requires:
