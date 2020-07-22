@@ -22,8 +22,8 @@
 #   we deploy the code to the Heroku server for restart on the Stage servers.
 #
 version: 2.1
-orbs:
-  sonarcloud: sonarsource/sonarcloud@1.0.1
+# orbs:
+#   sonarcloud: sonarsource/sonarcloud@1.0.1
 jobs:
   start-job:
     docker:
