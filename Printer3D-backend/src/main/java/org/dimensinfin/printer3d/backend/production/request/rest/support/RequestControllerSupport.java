@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.validation.Valid;
@@ -26,10 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
@@ -42,8 +39,6 @@ import org.dimensinfin.printer3d.backend.production.request.rest.RequestServiceC
 import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.Request;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 //@Profile({ "local", "acceptance", "test" })
@@ -55,8 +50,8 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 public class RequestControllerSupport  extends RequestServiceCore {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
-	private final StockManager stockManager;
-	private final ModelRepository modelRepository;
+//	private final StockManager stockManager;
+//	private final ModelRepository modelRepository;
 	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
@@ -65,11 +60,11 @@ public class RequestControllerSupport  extends RequestServiceCore {
 	                                 final @NotNull ModelRepository modelRepository,
 	                                 final @NotNull RequestsRepository requestsRepositoryV1,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
-		super( partRepository );
-		this.modelRepository = modelRepository;
+		super( partRepository , modelRepository);
+//		this.modelRepository = modelRepository;
 		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
-		this.stockManager = new StockManager( partRepository );
+//		this.stockManager = new StockManager( partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -165,27 +160,6 @@ public class RequestControllerSupport  extends RequestServiceCore {
 			LogWrapper.exit();
 		}
 	}
-
-	private float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
-		float amount = 0.0F;
-		this.stockManager.clean().startStock();
-		for (RequestItem item : requestEntityV2.getContents()) {
-			if (item.getType() == RequestContentType.PART) {
-				final float targetPartPrice = this.stockManager.getPrice( item.getItemId() );
-				amount = amount + item.getQuantity() * targetPartPrice;
-			}
-			if (item.getType() == RequestContentType.MODEL) {
-				final Optional<ModelEntity> model = this.modelRepository.findById( item.getItemId() );
-				if (model.isPresent()) {
-					for (UUID modelPartId : model.get().getPartIdList()) {
-						amount = amount + this.stockManager.getPrice( modelPartId ) * item.getQuantity();
-					}
-				}
-			}
-		}
-		return amount;
-	}
-
 	private long moveV1RequestsToV2() {
 		LogWrapper.enter();
 		try {

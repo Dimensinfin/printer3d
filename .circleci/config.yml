@@ -144,18 +144,18 @@ jobs:
     steps:
       - checkout
       - run:
-        name: BACKEND - Update SonarQube statistics
-        working_directory: Printer3D-backend
-        environment:
-          _JAVA_OPTIONS: "-Xmx3g"
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-          PORT: 5140
-          JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-          DB_USER: inno-user
-          DB_PASSWORD: inno-password
-          SPRING_PROFILES_ACTIVE: test
-        command: |
-          ./gradlew sonarqube -Dcucumber.options="--tags @P3D00"
+          name: BACKEND - Update SonarQube statistics
+          working_directory: Printer3D-backend
+          environment:
+            _JAVA_OPTIONS: "-Xmx3g"
+            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+            PORT: 5140
+            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
+            SPRING_PROFILES_ACTIVE: test
+          command: |
+            ./gradlew sonarqube -Dcucumber.options="--tags @P3D00"
 
   stage-to-heroku:
     docker:
