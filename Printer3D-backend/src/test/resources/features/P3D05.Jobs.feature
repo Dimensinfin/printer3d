@@ -41,7 +41,6 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
 
     @P3D05.H @P3D05.03
     Scenario: [P3D05.03] Jobs from Requests have a higher priority than stock level jobs.
-        Given a clean Parts repository
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                 |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                       |
