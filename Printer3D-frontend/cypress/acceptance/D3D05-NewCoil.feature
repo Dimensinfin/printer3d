@@ -59,7 +59,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         And "AMARILLO" is set on form field "color"
         And 800 is set on form field "weight"
         Then the target panel button with name "submit-button" has a label "Guardar" and is "enabled"
-        When there is a click on the "submit-button" button of target dialog
+        When  the button with name "submit-button" is clicked
         Then the coil is persisted at the backend
         And the dialog closes
 
@@ -67,17 +67,17 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.07]-If the New Coil Cancel button is clicked then dialog is closed.
         Then the "New Coil" dialog opens and blocks the display
         And the target panel button with name "cancel-button" has a label "Cancelar" and is "enabled"
-        When there is a click on the "cancel-button" button of target dialog
+        When  the button with name "cancel-button" is clicked
         Then the dialog closes
 
-    @D3D06.08
+    @D3D05.08
     Scenario: [D3D06.08]-If the New Coil Save and Continue button is clicked then coil is persisted but the dialog is kept open and the contents updated.
         Then the "New Coil" dialog opens and blocks the display
         Given "PLA" is set on form field "material"
         And "AMARILLO" is set on form field "color"
         And 800 is set on form field "weight"
         Then the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
-        When there is a click on the "repeat-button" button of target dialog
+        When the button with name "repeat-button" is clicked
         Then the coil is persisted at the backend
         And the target panel has a form field named "material" with label "MATERIAL" and contents "PLA"
         And the target panel has a form field named "color" with label "COLOR" and empty

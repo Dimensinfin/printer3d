@@ -210,9 +210,9 @@ Given('the target panel is the panel with variant {string}', function (variant: 
         .find('[ng-reflect-variant="' + variant + '"]')
         .as('target-panel')
 });
-When('there is a click on the {string} button of target dialog', function (buttonId: string) {
-    cy.get('@target-dialog').find('[id="' + buttonId + '"]').click('center')
-});
+// When('there is a click on the {string} button of target dialog', function (buttonId: string) {
+//     cy.get('@target-dialog').find('[id="' + buttonId + '"]').click('center')
+// });
 Then('there is a Notification panel', function () {
     cy.get('#toast-container').should('exist')
 });

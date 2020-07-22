@@ -19,9 +19,9 @@ Then('field named {string} with label {string} has contents {string}',
         })
     });
 // - C O L U M N S
-Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
-    cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
-});
+// Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
+//     cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
+// });
 
 // - C A T A L O G
 Given('the target item is expandable', function () {

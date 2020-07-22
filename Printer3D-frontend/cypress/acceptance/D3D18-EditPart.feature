@@ -89,7 +89,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         And form field named "price" with label "PRECIO" has contents "1"
         And form field named "buildTime" with label "TIEMPO" has contents "20"
         And form field named "stock" with label "STOCK DESEADO" has contents "15"
-        And form field named "stockAvailable" with label "STOCK ACTUAL" has contents "0"
+        And form field named "stockAvailable" with label "DISPONIBLES" has contents "0"
         And form field named "imagePath" with label "IMAGEN" is empty
         And form field named "modelPath" with label "FICHERO MODELO" is empty
         # - Check the state of the buttons
@@ -116,3 +116,8 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         When the button with name "submit-button" is clicked
         Then there is a "error" Notification panel
         And the dialog not closes
+
+    @D3D18.08
+    Scenario: [D3D18.08]-When a Part is duplicated the number of items on available stock should be initialized to 0
+        Given a duplicated New Part from Part id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        Then form field named "stockAvailable" with label "DISPONIBLES" has contents "0"

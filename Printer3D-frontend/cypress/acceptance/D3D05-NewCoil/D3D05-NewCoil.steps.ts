@@ -23,9 +23,9 @@ Then('the dialog closes', function () {
     console.log('Dialog closes');
     cy.get('new-coil-dialog').should('not.exist');
 });
-When('there is a click on the {string} button of target dialog', function (buttonName: string) {
-    cy.get('@target-dialog').find('[cy-name="' + buttonName + '"]').click('center')
-});
+// When('there is a click on the {string} button of target dialog', function (buttonName: string) {
+//     cy.get('@target-dialog').find('[cy-name="' + buttonName + '"]').click('center')
+// });
 
 // - I N P U T   F I E L D S
 Then('the target panel has a form field named {string} with label {string} and empty',

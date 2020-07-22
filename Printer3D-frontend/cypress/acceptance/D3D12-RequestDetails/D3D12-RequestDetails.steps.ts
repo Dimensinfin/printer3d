@@ -29,18 +29,12 @@ Then('target has a panel labeled {string} named {string}',
             .contains(fieldLabel, { matchCase: false })
     });
 // - D I A L O G
-// Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
-//     const tag = supportService.translateTag(dialogName) // Do name replacement
-//     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target-dialog').as('target')
-//         .should('exist')
-// })
 Then('the dialog closes', function () {
     cy.get('@target-dialog').should('not.exist');
 });
 // -  D O C K
 Then('the target page refreshes', function () {
-    
-  });
+});
 
 
 // --- FROM C13

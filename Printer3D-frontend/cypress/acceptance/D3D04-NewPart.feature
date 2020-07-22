@@ -118,7 +118,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         Then the dialog closes
 
     @D3D04.09
-    Scenario: [D3D04.09]-If the material selector is cahnged then the list of colors also changes.
+    Scenario: [D3D04.09]-If the material selector is changed then the list of colors also changes.
         # - Fields fields to validate the form.
         Given a valid New Part
         When "PLA" is set on form field "material"

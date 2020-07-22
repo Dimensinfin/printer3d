@@ -12,6 +12,11 @@ const supportService = new SupportService();
 Given('a hover on the target', function () {
     cy.get('@target').trigger('mouseenter')
 });
+// - T A R G E T   M A R K S
+Then('the target item has a mark {string}', function (markname: string) {
+    cy.get('@target').parent().find('[cy-field-mark="REQUEST"]').get('.' + markname).should('exist')
+});
+
 // - T A R G E T   S E L E C T I O N
 /** Add some time to the page activation */
 // Then('the page {string} is activated', function (symbolicName: string) {
@@ -34,9 +39,6 @@ Given('a hover on the target', function () {
 //         .children()
 //         .should('have.length', panelCount)
 // });
-Then('the target item has a mark {string}', function (markname: string) {
-    cy.get('@target-item').parent().find('[cy-field-mark="REQUEST"]').get('.' + markname).should('exist')
-});
 Then('on the target panel there is one {string}', function (renderName: string) {
     const tag = supportService.translateTag(renderName) // Do name replacement
     cy.get('@target-panel').find(tag).should('have.length', 1)
