@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class FinishingsControllerV1 {

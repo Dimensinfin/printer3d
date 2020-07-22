@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
@@ -24,8 +24,7 @@ import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepositoryExtended;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
@@ -34,6 +33,7 @@ import org.dimensinfin.printer3d.backend.production.request.persistence.RequestE
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
@@ -80,10 +80,10 @@ public class RequestServiceV2 {
 	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 	private final ModelRepository modelRepository;
-	private final PartRepository partRepository;
+	private final PartRepositoryExtended partRepository;
 
 	// - C O N S T R U C T O R S
-	public RequestServiceV2( final @NotNull PartRepository partRepository,
+	public RequestServiceV2( final @NotNull PartRepositoryExtended partRepository,
 	                         final @NotNull RequestsRepository requestsRepositoryV1,
 	                         final @NotNull RequestsRepositoryV2 requestsRepositoryV2,
 	                         final @NotNull ModelRepository modelRepository ) {
@@ -160,18 +160,17 @@ public class RequestServiceV2 {
 			this.stockManager.clean().startStock(); // Initialize the stock manager to get the Part prices.
 			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
-			if (targetV1.isEmpty() && targetV2.isEmpty())
-				throw new DimensinfinRuntimeException(
-						REQUEST_NOT_FOUND( requestId ),
-						"No Request found while trying to complete the Request." );
-			// Transform the targets to the common V2 structure.
-			RequestEntityV2 requestIntermediateEntity = null;
-			if (targetV1.isPresent())
-				requestIntermediateEntity = new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );
-			if (targetV2.isPresent())
-				requestIntermediateEntity = targetV2.get();
-			final RequestEntityV2 requestEntityV2 = requestIntermediateEntity;
-//			this.stockManager.clean().startStock();
+			//			if (targetV1.isEmpty() && targetV2.isEmpty())
+			//				throw new DimensinfinRuntimeException(
+			//						REQUEST_NOT_FOUND( requestId ),
+			//						"No Request found while trying to complete the Request." );
+			//			// Transform the targets to the common V2 structure.
+			//			RequestEntityV2 requestIntermediateEntity = null;
+			//			if (targetV1.isPresent())
+			//				requestIntermediateEntity = new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );
+			//			if (targetV2.isPresent())
+			//				requestIntermediateEntity = targetV2.get();
+			final RequestEntityV2 requestEntityV2 = this.selectRequestEntity( requestId );
 			if (this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be closed now. Data on frontend may be obsolete.
 				this.removeRequestPartsFromStock( requestEntityV2 );
 				requestEntityV2.setAmount( this.calculateRequestAmount( requestEntityV2 ) );
@@ -191,25 +190,22 @@ public class RequestServiceV2 {
 	public CounterResponse deleteRequest( final UUID requestId ) {
 		LogWrapper.enter();
 		try {
-			// Search for the Request by id. Search on both repositories
-			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
-			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
-			if (targetV1.isEmpty() && targetV2.isEmpty())
-				throw new DimensinfinRuntimeException( REQUEST_NOT_FOUND( requestId ),
-						"No Request found while trying to delete the request." );
-			targetV1.ifPresent( request -> {
-				if (request.isOpen())
+			final AtomicInteger deleteCounter = new AtomicInteger( 0 );
+			this.requestsRepositoryV1.findById( requestId ).ifPresent( request -> {
+				if (request.isOpen()) {
 					this.requestsRepositoryV1.delete( request );
-				else
+					deleteCounter.incrementAndGet();
+				} else
 					throw new RepositoryConflictException( REQUEST_NOT_IN_CORRECT_STATE( requestId ) );
 			} );
-			targetV2.ifPresent( request -> {
-				if (request.isOpen())
+			this.requestsRepositoryV2.findById( requestId ).ifPresent( request -> {
+				if (request.isOpen()) {
 					this.requestsRepositoryV2.delete( request );
-				else
+					deleteCounter.incrementAndGet();
+				} else
 					throw new RepositoryConflictException( REQUEST_NOT_IN_CORRECT_STATE( requestId ) );
 			} );
-			return new CounterResponse.Builder().withRecords( 1 ).build();
+			return new CounterResponse.Builder().withRecords( deleteCounter.get() ).build();
 		} finally {
 			LogWrapper.exit();
 		}
@@ -235,17 +231,13 @@ public class RequestServiceV2 {
 	private float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
 		float amount = 0.0F;
 		for (RequestItem item : requestEntityV2.getContents()) {
-			if (item.getType() == RequestContentType.PART) {
-				final float targetPartPrice = this.stockManager.getPrice( item.getItemId() );
-				amount = amount + item.getQuantity() * targetPartPrice;
-			}
+			if (item.getType() == RequestContentType.PART)
+				amount = amount + item.getQuantity() * this.stockManager.getPrice( item.getItemId() );
 			if (item.getType() == RequestContentType.MODEL) {
 				final Optional<ModelEntity> model = this.modelRepository.findById( item.getItemId() );
-				if (model.isPresent()) {
-					for (UUID modelPartId : model.get().getPartIdList()) {
+				if (model.isPresent())
+					for (UUID modelPartId : model.get().getPartIdList())
 						amount = amount + this.stockManager.getPrice( modelPartId ) * item.getQuantity();
-					}
-				}
 			}
 		}
 		return amount;
@@ -310,25 +302,47 @@ public class RequestServiceV2 {
 	private void removeRequestPartsFromStock( final RequestEntityV2 requestEntityV2 ) {
 		// Update the parts stocks reducing the stock with the Request quantities.
 		for (RequestItem content : Objects.requireNonNull( requestEntityV2 ).getContents()) {
-			if (content.getType() == RequestContentType.PART) {
-				final Optional<PartEntity> partOpt = this.partRepository.findById( content.getItemId() );
-				partOpt.ifPresent( partEntity -> {
-					partEntity.decrementStock( content.getQuantity() );
-					this.partRepository.save( partEntity );
-				} );
-			}
+			if (content.getType() == RequestContentType.PART)
+				this.partRepository.decrementStock( content.getItemId(), content.getQuantity() );
+			//			{
+			//				final Optional<PartEntity> partOpt = this.partRepository.findById( content.getItemId() );
+			//				partOpt.ifPresent( partEntity -> {
+			//					partEntity.decrementStock( content.getQuantity() );
+			//					this.partRepository.save( partEntity );
+			//				} );
+			//			}
 			if (content.getType() == RequestContentType.MODEL) {
 				final Optional<ModelEntity> modelEntityOpt = this.modelRepository.findById( content.getItemId() );
 				modelEntityOpt.ifPresent( modelEntity -> {
-					for (UUID partIdentifier : modelEntity.getPartIdList()) {
-						final Optional<PartEntity> partOpt = this.partRepository.findById( partIdentifier );
-						partOpt.ifPresent( partEntity -> {
-							partEntity.decrementStock( content.getQuantity() );
-							this.partRepository.save( partEntity );
-						} );
-					}
+					for (UUID partIdentifier : modelEntity.getPartIdList())
+						this.partRepository.decrementStock( partIdentifier, content.getQuantity() );
+					//						final Optional<PartEntity> partOpt = this.partRepository.findById( partIdentifier );
+					//						partOpt.ifPresent( partEntity -> {
+					//							partEntity.decrementStock( content.getQuantity() );
+					//							this.partRepository.save( partEntity );
+					//						} );
+					//					}
 				} );
 			}
 		}
+	}
+
+	private RequestEntityV2 selectRequestEntity( final UUID requestId ) {
+		final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
+		final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
+		if (targetV1.isEmpty() && targetV2.isEmpty())
+			throw new DimensinfinRuntimeException(
+					REQUEST_NOT_FOUND( requestId ),
+					"No Request found while trying to complete the Request." );
+		// Transform the targets to the common V2 structure.
+		//		RequestEntityV2 requestIntermediateEntity = null;
+		if (targetV1.isPresent())
+			return new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );
+		else
+			return targetV2.get();
+		//		final RequestEntityV2 requestEntityV2 = requestIntermediateEntity;
+		//		throw new DimensinfinRuntimeException(
+		//				REQUEST_NOT_FOUND( requestId ),
+		//				"No Request found while trying to complete the Request." );
 	}
 }

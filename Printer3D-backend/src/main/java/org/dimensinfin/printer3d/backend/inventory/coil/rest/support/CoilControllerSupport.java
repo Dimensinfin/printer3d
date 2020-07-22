@@ -20,7 +20,7 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilReposito
 
 @Profile({ "local", "acceptance", "test" })
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class CoilControllerSupport {

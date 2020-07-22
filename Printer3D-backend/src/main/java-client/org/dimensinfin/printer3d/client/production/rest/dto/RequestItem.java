@@ -66,6 +66,11 @@ public class RequestItem implements Serializable {
 		}
 
 		public RequestItem build() {
+			Objects.requireNonNull( this.onConstruction.itemId );
+			if (this.onConstruction.type == RequestContentType.UNIDENTIFIED)
+				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
+						"Request content type found UNIDENTIFIED while constructing a RequestItem."
+				) );
 			return this.onConstruction;
 		}
 
@@ -80,11 +85,7 @@ public class RequestItem implements Serializable {
 		}
 
 		public RequestItem.Builder withType( final RequestContentType type ) {
-			if (type == RequestContentType.UNIDENTIFIED)
-				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
-					"Request content type found UNIDENTIFIED while constructing a RequestItem."
-			) );
-			this.onConstruction.type = type;
+			this.onConstruction.type = Objects.requireNonNull( type );
 			return this;
 		}
 	}

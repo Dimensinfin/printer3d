@@ -26,7 +26,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 @Profile({ "local", "acceptance", "test" })
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 @Service

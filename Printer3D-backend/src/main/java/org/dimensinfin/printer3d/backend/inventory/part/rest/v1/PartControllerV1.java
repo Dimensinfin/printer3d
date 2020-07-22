@@ -23,7 +23,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class PartControllerV1 {

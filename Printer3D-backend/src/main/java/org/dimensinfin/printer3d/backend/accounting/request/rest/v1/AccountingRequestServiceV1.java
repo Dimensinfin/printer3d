@@ -23,7 +23,7 @@ public class AccountingRequestServiceV1 {
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	private AccountingRequestServiceV1( final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {this.requestsRepositoryV2 = requestsRepositoryV2;}
+	public AccountingRequestServiceV1( final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {this.requestsRepositoryV2 = requestsRepositoryV2;}
 
 	// - G E T T E R S   &   S E T T E R S
 

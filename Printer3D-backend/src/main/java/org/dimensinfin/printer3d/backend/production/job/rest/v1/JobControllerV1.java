@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class JobControllerV1 {

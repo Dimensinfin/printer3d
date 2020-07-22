@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class MachineControllerV1 {

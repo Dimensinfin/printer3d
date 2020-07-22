@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.10.0
  */
+@Immutable
 public class UpdateCoilRequest {
 	@NotNull(message = "Coil 'id' is a mandatory field used to locate the target and caanot be null.")
 	@SerializedName("id")
