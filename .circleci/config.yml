@@ -22,6 +22,8 @@
 #   we deploy the code to the Heroku server for restart on the Stage servers.
 #
 version: 2.1
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.1
 jobs:
   start-job:
     docker:
@@ -104,17 +106,6 @@ jobs:
             SPRING_PROFILES_ACTIVE: test
           command: |
             ./gradlew test
-      - run:
-          name: BACKEND - Update SonarQube statistics
-          working_directory: Printer3D-backend
-          environment:
-            PORT: 5140
-            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-            DB_USER: inno-user
-            DB_PASSWORD: inno-password
-            SPRING_PROFILES_ACTIVE: test
-          command: |
-            ./gradlew test jacocoTestReport sonarqube -Dcucumber.options="--tags @P3D00"
       - store_test_results:
           path: ~/project/Printer3D-backend/build/test-results
       - store_artifacts:  
@@ -147,137 +138,23 @@ jobs:
             npm run cypress:run
       - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
-
-  old-test-backend-job:
+  quality-sonarcloud:
     docker:
       - image: circleci/openjdk:11-jdk
         environment:
           _JAVA_OPTIONS: "-Xmx3g"
           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-      - image: circleci/postgres:11.2
+          PORT: 5140
+          JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+          DB_USER: inno-user
+          DB_PASSWORD: inno-password
+          SPRING_PROFILES_ACTIVE: test
+      - image: circleci/postgres:11.1
         environment:
           POSTGRES_USER: inno-user
           POSTGRES_DB: inno-password
     steps:
       - checkout
-      - run:
-          name: BACKEND - Start the application in local profile
-          working_directory: Printer3D-backend
-          environment:
-            PORT: 5140 # This is the port configured on the AcceptancetargetConfig
-            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-            DB_USER: inno-user
-            DB_PASSWORD: inno-password
-            SPRING_PROFILES_ACTIVE: acceptance
-          command: |
-            ./gradlew bootRun
-          background: true
-      - run:
-          name: BACKEND - Waiting for application start
-          environment:
-            PORT: 5140
-          working_directory: Printer3D-backend
-          command: |
-            dockerize -wait tcp://localhost:${PORT}/actuator/health -timeout 3m
-      - run:
-          name: BACKEND - Run acceptance tests Phase 1
-          working_directory: Printer3D-backend
-          environment:
-            PORT: 5140
-            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-            DB_USER: inno-user
-            DB_PASSWORD: inno-password
-            SPRING_PROFILES_ACTIVE: test
-          command: |
-            ./gradlew test -Dcucumber.options="--tags @P3D01"
-            ./gradlew test -Dcucumber.options="--tags @P3D02"
-            # ./gradlew test -Dcucumber.options="--tags @P3D03"
-      - run:
-          name: BACKEND - Run acceptance tests Phase 2
-          working_directory: Printer3D-backend
-          environment:
-            PORT: 5140
-            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-            DB_USER: inno-user
-            DB_PASSWORD: inno-password
-            SPRING_PROFILES_ACTIVE: test
-          command: |
-            ./gradlew test -Dcucumber.options="--tags @P3D04"
-            ./gradlew test -Dcucumber.options="--tags @P3D05"
-      - run:
-          name: BACKEND - Run acceptance tests Phase 3
-          working_directory: Printer3D-backend
-          environment:
-            PORT: 5140
-            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-            DB_USER: inno-user
-            DB_PASSWORD: inno-password
-            SPRING_PROFILES_ACTIVE: test
-          command: |
-            ./gradlew test -Dcucumber.options="--tags @P3D06"
-            ./gradlew test -Dcucumber.options="--tags @P3D07"
-            ./gradlew test -Dcucumber.options="--tags @P3D08"
-      - store_test_results:
-          path: ~/project/Printer3D-backend/build/test-results
-      - store_artifacts:  
-          path: ~/project/Printer3D-backend/build/libs
-  old-test-frontend-job:
-    docker:
-      - image: circleci/node:12.16.3-browsers
-    environment:
-      PORT: 5100
-      CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
-    steps:
-      - checkout
-      - run:
-          name: FRONTEND - Install the framework
-          working_directory: Printer3D-frontend
-          command: |
-            node -v
-            npm install
-    #   - run:
-    #       name: FRONTEND - Run unit tests
-    #       working_directory: Printer3D-frontend
-    #       command: |
-    #         npm run test:prod
-      - run:
-          name: FRONTEND - Build optimized Production dist
-          working_directory: Printer3D-frontend
-          command: |
-            npm run build:dev
-      - run:
-          name: FRONTEND - Start backend simulator & Run acceptance D01 & D04
-          working_directory: Printer3D-frontend
-          command: |
-            npm run acceptance:simulator
-            npm run acceptance:ready
-            npm run acceptance:cypress:D01
-            npm run acceptance:cypress:D04
-      - run:
-          name: FRONTEND - Start backend simulator & Run acceptance D06 & D07
-          working_directory: Printer3D-frontend
-          command: |
-            npm run acceptance:simulator
-            npm run acceptance:ready
-            npm run acceptance:cypress:D06
-            npm run acceptance:cypress:D07
-      - run:
-          name: FRONTEND - Start backend simulator & Run acceptance D08 & D09 & D10
-          working_directory: Printer3D-frontend
-          command: |
-            npm run acceptance:simulator
-            npm run acceptance:ready
-            npm run acceptance:cypress:D08
-            npm run acceptance:cypress:D09
-            npm run acceptance:cypress:D10
-      - run:
-          name: FRONTEND - Run integration tests batch A
-          working_directory: Printer3D-frontend
-          command: |
-            npm run acceptance:simulator
-            npm run integration:cypress:batchA
-      - store_test_results:
-          path: ~/project/Printer3D-frontend/cypress/cucumber-json
 
   stage-to-heroku:
     docker:
@@ -333,7 +210,6 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_FRONTEND_API_KEY@git.heroku.com/$HEROKU_FRONTEND_APP_NAME.git master --force
  
-
 workflows:
   version: 2
   printer3d-deploy:
@@ -382,7 +258,15 @@ workflows:
             branches:
               only:
                 - test
+      - quality-sonarcloud:
+          requires:
+            - test-backend-job
+          filters:
+            branches:
+              only:
+                - test
                 - hotfix
+          context: sonarcloud
 
       - stage-to-heroku:
           requires:
