@@ -41,7 +41,7 @@ public class CoilServiceV1 {
 			// Search for the Roll by id. If found reject the request because this should be a new creation.
 			final Optional<Coil> target = this.coilRepository.findById( newCoil.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( Printer3DErrorInfo.COIL_ALREADY_EXISTS( newCoil.getId() ) );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorCOILALREADYEXISTS( newCoil.getId() ) );
 			return this.coilRepository.save( newCoil );
 		} finally {
 			LogWrapper.exit();
@@ -59,7 +59,7 @@ public class CoilServiceV1 {
 			// Search for the Model by id. If not found reject the request because this should be an update.
 			final Optional<Coil> target = this.coilRepository.findById( updateCoilRequest.getId() );
 			if (target.isEmpty())
-				throw new DimensinfinRuntimeException( Printer3DErrorInfo.COIL_NOT_FOUND( updateCoilRequest.getId() ) );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorCOILNOTFOUND( updateCoilRequest.getId() ) );
 			final Coil coilEntity = new CoilUpdater( target.get() ).update( updateCoilRequest );
 			return this.coilRepository.save( coilEntity );
 		} finally {

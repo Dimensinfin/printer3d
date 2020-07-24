@@ -49,7 +49,7 @@ public class StockManager {
 	public int getStock( final UUID partId ) {
 		if (this.stocks.containsKey( partId ))
 			return this.stocks.get( partId ).getStock();
-		else throw new DimensinfinRuntimeException( Printer3DErrorInfo.STOCK_PROCESSING_FAILURE( partId ) );
+		else throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorSTOCKPROCESSINGFAILURE( partId ) );
 	}
 
 	public int minus( final UUID partId, final int quantity ) {
@@ -58,7 +58,7 @@ public class StockManager {
 		if (this.stocks.containsKey( partId )) {
 			this.stocks.computeIfPresent( partId, ( UUID key, StockLevel stockLevel ) -> stockLevel.reduceStock( quantity ) );
 			return this.stocks.get( partId ).getStock();
-		} else throw new DimensinfinRuntimeException( Printer3DErrorInfo.STOCK_PROCESSING_FAILURE( partId ) );
+		} else throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorSTOCKPROCESSINGFAILURE( partId ) );
 	}
 
 	public StockManager startStock() {

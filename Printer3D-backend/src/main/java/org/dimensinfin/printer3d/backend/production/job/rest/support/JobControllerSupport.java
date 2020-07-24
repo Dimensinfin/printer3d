@@ -73,7 +73,7 @@ public class JobControllerSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new DimensinfinRuntimeException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTSTOREREPOSITORYFAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Jobs from the repository." );
 		}
 	}

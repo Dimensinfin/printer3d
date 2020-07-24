@@ -29,7 +29,7 @@ import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION
 @Service
 @Transactional
 public class MachineServiceV1 {
-	public static DimensinfinError MACHINE_NOT_FOUND( final UUID machineId ) {
+	public static DimensinfinError errorMACHINENOTFOUND( final UUID machineId ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "MACHINE_NOT_FOUND" )
 				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".notfound" )
@@ -38,7 +38,7 @@ public class MachineServiceV1 {
 				.build();
 	}
 
-	public static DimensinfinError MACHINE_NOT_FOUND( final String machineLabel ) {
+	public static DimensinfinError errorMACHINENOTFOUND( final String machineLabel ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "MACHINE_NOT_FOUND" )
 				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".notfound" )
@@ -72,7 +72,7 @@ public class MachineServiceV1 {
 	public Machine cancelBuild( final @NotNull UUID machineId ) {
 		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
 		if (machineOpt.isEmpty())
-			throw new DimensinfinRuntimeException( MACHINE_NOT_FOUND( machineId ) );
+			throw new DimensinfinRuntimeException( errorMACHINENOTFOUND( machineId ) );
 		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
 	}
 
@@ -87,7 +87,7 @@ public class MachineServiceV1 {
 	public Machine completeBuild( final UUID machineId ) {
 		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
 		if (machineOpt.isEmpty())
-			throw new DimensinfinRuntimeException( MACHINE_NOT_FOUND( machineId ) );
+			throw new DimensinfinRuntimeException( errorMACHINENOTFOUND( machineId ) );
 		final MachineEntity machineEntity = machineOpt.get();
 		this.storeBuiltParts( machineEntity.getCurrentJobPartId(), machineEntity.getCurrentPartInstances() );
 		this.recordJob( machineEntity );
@@ -97,7 +97,7 @@ public class MachineServiceV1 {
 	private void recordJob( final MachineEntity machineEntity ) {
 		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 		if (jobPartOpt.isEmpty())
-			throw new DimensinfinRuntimeException( PartServiceV1.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
+			throw new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) );
 		final JobEntity job = new JobEntity.Builder()
 				.withPartId( machineEntity.getCurrentJobPartId() )
 				.withBuildTime( jobPartOpt.get().getBuildTime() * machineEntity.getCurrentPartInstances() ) // Multiple copies take longer to build.
@@ -113,7 +113,7 @@ public class MachineServiceV1 {
 	private void storeBuiltParts( final UUID currentJobPartId, final int currentPartInstances ) {
 		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( currentJobPartId );
 		if (jobPartOpt.isEmpty())
-			throw new DimensinfinRuntimeException( PartServiceV1.PART_NOT_FOUND( currentJobPartId ) );
+			throw new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( currentJobPartId ) );
 		final PartEntity targetPart = jobPartOpt.get();
 		targetPart.incrementStock( currentPartInstances );
 		this.partRepository.save( targetPart );

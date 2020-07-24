@@ -104,9 +104,9 @@ public class MachineServiceV2 {
 		try {
 			// Find the machine and update it.
 			final MachineEntity machineEntity = this.machineRepository.findById( machineId )
-					.orElseThrow( () -> new DimensinfinRuntimeException( MachineServiceV1.MACHINE_NOT_FOUND( machineId ) ) );
+					.orElseThrow( () -> new DimensinfinRuntimeException( MachineServiceV1.errorMACHINENOTFOUND( machineId ) ) );
 			final PartEntity jobPartEntity = this.partRepository.findById( jobRequest.getPartId() )
-					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) ) );
+					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) );
 			this.subtractPlasticFromCoil( jobPartEntity, jobRequest.getCopies() );
 			final MachineEntity updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update( jobRequest ) );
 			final BuildRecord buildRecord = new BuildRecord.Builder()
@@ -125,7 +125,7 @@ public class MachineServiceV2 {
 		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 			if (jobPartOpt.isEmpty())
-				throw new RepositoryConflictException( PartServiceV1.PART_NOT_FOUND( machineEntity.getCurrentJobPartId() ) );
+				throw new RepositoryConflictException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) );
 			return new PartEntityToPartConverter().convert( jobPartOpt.get() );
 		} else return null;
 	}

@@ -32,7 +32,7 @@ public class PartServiceSupport {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new DimensinfinRuntimeException( Printer3DErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorINVENTORYSTOREREPOSITORYFAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Parts from the repository." );
 		}
 	}

@@ -160,7 +160,7 @@ public class JobServiceV1 {
 			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 			final Optional<PartEntity> partOpt = this.partRepository.findById( partId );
 			if (partOpt.isEmpty())
-				throw new DimensinfinRuntimeException( PartServiceV1.PART_NOT_FOUND( partId ) );
+				throw new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( partId ) );
 			for (int i = 0; i < jobCount; i++)
 				jobs.add( new Job.Builder().withPart( new PartEntityToPartConverter().convert(
 						partOpt.get()
@@ -217,10 +217,10 @@ public class JobServiceV1 {
 	private void reserveModels() {
 		this.modelRepository.findAll()
 				.stream()
-				.filter( modelEntity -> modelEntity.isActive() )
+				.filter( ModelEntity::isActive )
 				.forEach( modelEntity -> {
 					for (UUID partId : modelEntity.getPartIdList())
-						this.stockManager.minus( partId, modelEntity.getStockLevel() ); // Subtract the part instance required for the model					}
+						this.stockManager.minus( partId, modelEntity.getStockLevel() ); // Subtract the part instance required for the model
 				} );
 	}
 

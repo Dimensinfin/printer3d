@@ -126,6 +126,6 @@ public class P3D08RequestsSteps extends StepSupport {
 	private RequestV2 searchRequest( final String requestId, final List<RequestV2> requests ) {
 		for (RequestV2 request : requests)
 			if (request.getId().toString().equals( requestId )) return request;
-		throw new DimensinfinRuntimeException( RequestServiceV2.REQUEST_NOT_FOUND( UUID.fromString( requestId ) ) );
+		throw new DimensinfinRuntimeException( RequestServiceV2.errorREQUESTNOTFOUND( UUID.fromString( requestId ) ) );
 	}
 }

@@ -12,7 +12,13 @@ import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 @JsonComponent
 @Deprecated
 public class PartRequestSerializer extends JsonSerializer<PartRequest> {
-
+	/**
+	 * @deprecated
+	 * @param value
+	 * @param jgen
+	 * @param serializers
+	 * @throws IOException
+	 */
 	@Override
 	@Deprecated
 	public void serialize( final PartRequest value, final JsonGenerator jgen, final SerializerProvider serializers ) throws IOException {

@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,10 +12,6 @@ public class SetupRequest {
 	// - C O N S T R U C T O R S
 	private SetupRequest() {}
 
-	public Integer getPartInstancesCount() {
-		return this.partInstancesCount;
-	}
-
 	// - G E T T E R S   &   S E T T E R S
 	public String getJobInstallmentDate() {
 		return this.jobInstallmentDate;
@@ -28,6 +23,10 @@ public class SetupRequest {
 
 	public UUID getPartId() {
 		return this.partId;
+	}
+
+	public Integer getPartInstancesCount() {
+		return this.partInstancesCount;
 	}
 
 	// - B U I L D E R
@@ -59,7 +58,7 @@ public class SetupRequest {
 		}
 
 		public SetupRequest.Builder withPartJobInstallmentDate( final String installmentDate ) {
-			this.onConstruction.jobInstallmentDate =  Objects.requireNonNull( installmentDate );
+			this.onConstruction.jobInstallmentDate = Objects.requireNonNull( installmentDate );
 			return this;
 		}
 	}

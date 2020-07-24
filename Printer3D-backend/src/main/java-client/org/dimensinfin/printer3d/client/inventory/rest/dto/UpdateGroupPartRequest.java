@@ -54,7 +54,7 @@ public class UpdateGroupPartRequest {
 		}
 
 		public UpdateGroupPartRequest.Builder withBuildTime( final Integer buildTime ) {
-			this.onConstruction.buildTime = Objects.requireNonNull( buildTime );
+			if (null != buildTime) this.onConstruction.buildTime = Objects.requireNonNull( buildTime );
 			return this;
 		}
 

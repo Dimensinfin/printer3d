@@ -60,7 +60,7 @@ public class ModelServiceV1 {
 			// Search for the Model by id. If found reject the request because this should be a new creation.
 			final Optional<ModelEntity> target = this.modelRepository.findById( modelRequest.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( Printer3DErrorInfo.MODEL_ALREADY_EXISTS( modelRequest.getId() ) );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorMODELALREADYEXISTS( modelRequest.getId() ) );
 			LogWrapper.info( "ModelEntity: " + target.toString() );
 			// Save the entity to the repository.
 			final ModelEntity modelEntity = this.modelRepository.save(
@@ -85,7 +85,7 @@ public class ModelServiceV1 {
 			// Search for the Model by id. If not found reject the request because this should be an update.
 			final Optional<ModelEntity> target = this.modelRepository.findById( modelRequest.getId() );
 			if (target.isEmpty())
-				throw new DimensinfinRuntimeException( Printer3DErrorInfo.MODEL_NOT_FOUND( modelRequest.getId() ) );
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorMODELNOTFOUND( modelRequest.getId() ) );
 			ModelEntity updatedEntity = new ModelUpdater( target.get() ).update( modelRequest );
 			updatedEntity = this.modelRepository.save( updatedEntity );
 			return new ModelEntityToModelConverter().convert( updatedEntity );

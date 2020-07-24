@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +42,7 @@ public class CoilControllerSupport {
 					.build(), HttpStatus.OK );
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new DimensinfinRuntimeException( Printer3DErrorInfo.INVENTORY_STORE_REPOSITORY_FAILURE(new SQLException( sqle ) ),
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorINVENTORYSTOREREPOSITORYFAILURE(new SQLException( sqle ) ),
 					"Detected exception while deleting all coils on repository.");
 		}
 	}

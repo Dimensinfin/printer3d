@@ -50,8 +50,6 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 public class RequestControllerSupport  extends RequestServiceCore {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
-//	private final StockManager stockManager;
-//	private final ModelRepository modelRepository;
 	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
@@ -61,10 +59,8 @@ public class RequestControllerSupport  extends RequestServiceCore {
 	                                 final @NotNull RequestsRepository requestsRepositoryV1,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
 		super( partRepository , modelRepository);
-//		this.modelRepository = modelRepository;
 		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
-//		this.stockManager = new StockManager( partRepository );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -125,7 +121,7 @@ public class RequestControllerSupport  extends RequestServiceCore {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new DimensinfinRuntimeException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTSTOREREPOSITORYFAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Requests from the repository." );
 		}
 	}
@@ -139,7 +135,7 @@ public class RequestControllerSupport  extends RequestServiceCore {
 					.build();
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new DimensinfinRuntimeException( Printer3DErrorInfo.REQUEST_STORE_REPOSITORY_FAILURE( new SQLException( sqle ) ),
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTSTOREREPOSITORYFAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Requests from the repository." );
 		}
 	}
@@ -150,7 +146,7 @@ public class RequestControllerSupport  extends RequestServiceCore {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntity> target = this.requestsRepositoryV1.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new DimensinfinRuntimeException( RequestServiceV2.REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
+				throw new DimensinfinRuntimeException( RequestServiceV2.errorREQUESTALREADYEXISTS( newRequest.getId() ) );
 			return new RequestEntityToRequestConverter().convert(
 					this.requestsRepositoryV1.save(
 							new RequestToRequestEntityConverter().convert( newRequest )

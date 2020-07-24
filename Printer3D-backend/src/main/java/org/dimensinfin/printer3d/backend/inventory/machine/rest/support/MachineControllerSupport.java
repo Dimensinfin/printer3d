@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +45,7 @@ public class MachineControllerSupport {
 		// Change the setup for the selected machine
 		final List<MachineEntity> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
 		if (machines.isEmpty())
-			throw new RepositoryConflictException( MachineServiceV1.MACHINE_NOT_FOUND( setupRequest.getMachineLabel() ) );
+			throw new RepositoryConflictException( MachineServiceV1.errorMACHINENOTFOUND( setupRequest.getMachineLabel() ) );
 		for (MachineEntity machine : machines) {
 			LogWrapper.info( "Found Machine: " + machine.toString() );
 			final MachineEntity updatedMachine = this.machineRepository.save( new SupportMachineUpdater( machine ).update( setupRequest ) );

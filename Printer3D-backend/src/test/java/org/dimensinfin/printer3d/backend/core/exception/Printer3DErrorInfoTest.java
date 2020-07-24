@@ -15,7 +15,7 @@ public class Printer3DErrorInfoTest {
 	@Test
 	public void REQUEST_NOT_FOUND() {
 		// Test
-		final DimensinfinError error = RequestServiceV2.REQUEST_NOT_FOUND( UUID.fromString( "aed625aa-8999-4227-b0ad-cbfbd3966771" ) );
+		final DimensinfinError error = RequestServiceV2.errorREQUESTNOTFOUND( UUID.fromString( "aed625aa-8999-4227-b0ad-cbfbd3966771" ) );
 		final String messageExpected = "Request record with id [aed625aa-8999-4227-b0ad-cbfbd3966771] not found at the repository.";
 		// Assertions
 		Assertions.assertEquals( "REQUEST_NOT_FOUND", error.getErrorName() );

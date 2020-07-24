@@ -43,7 +43,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestConverterV2 = new RequestEntityV2ToRequestV2Converter();
 
-	public static DimensinfinError REQUEST_NOT_FOUND( final UUID requestId ) {
+	public static DimensinfinError errorREQUESTNOTFOUND( final UUID requestId ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "REQUEST_NOT_FOUND" )
 				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".defined.repository.logic" )
@@ -52,7 +52,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 				.build();
 	}
 
-	public static DimensinfinError REQUEST_NOT_IN_CORRECT_STATE( final UUID requestId ) {
+	public static DimensinfinError errorREQUESTNOTINCORRECTSTATE( final UUID requestId ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "REQUEST_NOT_IN_CORRECT_STATE" )
 				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
@@ -62,7 +62,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 				.build();
 	}
 
-	public static DimensinfinError REQUEST_ALREADY_EXISTS( final UUID requestId ) {
+	public static DimensinfinError errorREQUESTALREADYEXISTS( final UUID requestId ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "REQUEST_ALREADY_EXISTS" )
 				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
@@ -163,7 +163,9 @@ public class RequestServiceV2 extends RequestServiceCore {
 				} );
 				targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
 				return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
-			} else throw new RepositoryConflictException( Printer3DErrorInfo.REQUEST_CANNOT_BE_FULFILLED( requestEntityV2.getId() ) );
+			}
+			else
+				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTCANNOTBEFULFILLED( requestEntityV2.getId() ) );
 		} finally {
 			LogWrapper.exit();
 		}
@@ -177,16 +179,20 @@ public class RequestServiceV2 extends RequestServiceCore {
 				if (request.isOpen()) {
 					this.requestsRepositoryV1.delete( request );
 					deleteCounter.incrementAndGet();
-				} else
-					throw new RepositoryConflictException( REQUEST_NOT_IN_CORRECT_STATE( requestId ) );
+				}
+				else
+					throw new RepositoryConflictException( errorREQUESTNOTINCORRECTSTATE( requestId ) );
 			} );
 			this.requestsRepositoryV2.findById( requestId ).ifPresent( request -> {
 				if (request.isOpen()) {
 					this.requestsRepositoryV2.delete( request );
 					deleteCounter.incrementAndGet();
-				} else
-					throw new RepositoryConflictException( REQUEST_NOT_IN_CORRECT_STATE( requestId ) );
+				}
+				else
+					throw new RepositoryConflictException( errorREQUESTNOTINCORRECTSTATE( requestId ) );
 			} );
+			if (deleteCounter.get() == 0) throw new DimensinfinRuntimeException( errorREQUESTNOTFOUND( requestId ),
+					"No Request found while trying to delete a request." );
 			return new CounterResponse.Builder().withRecords( deleteCounter.get() ).build();
 		} finally {
 			LogWrapper.exit();
@@ -199,7 +205,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntityV2> target = this.requestsRepositoryV2.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( REQUEST_ALREADY_EXISTS( newRequest.getId() ) );
+				throw new RepositoryConflictException( errorREQUESTALREADYEXISTS( newRequest.getId() ) );
 			return new RequestEntityV2ToRequestV2Converter().convert(
 					this.requestsRepositoryV2.save(
 							new RequestV2ToRequestEntityV2Converter().convert( newRequest )
@@ -268,7 +274,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 		final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 		if (targetV1.isEmpty() && targetV2.isEmpty())
 			throw new DimensinfinRuntimeException(
-					REQUEST_NOT_FOUND( requestId ),
+					errorREQUESTNOTFOUND( requestId ),
 					"No Request found while trying to complete the Request." );
 		if (targetV1.isPresent())
 			return new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );

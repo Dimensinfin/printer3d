@@ -329,7 +329,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         Then there is a exception response with return code of "404 NOT_FOUND"
         And the exception response name is "REQUEST_NOT_FOUND"
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa] not found at the repository."
-        And the exception response has the cause "No Request found while trying to delete the Request."
+        And the exception response has the cause "No Request found while trying to delete a Request."
 
     @P3D08.E @P3D08.E.06
     Scenario: [P3D08.E.06] If when creating a request we found another Request with the same identifier then report that the action should use the
