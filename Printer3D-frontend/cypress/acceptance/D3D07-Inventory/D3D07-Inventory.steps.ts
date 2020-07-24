@@ -28,8 +28,8 @@ Given('the target item is expandable', function () {
         .should('exist')
 });
 When('the target item is expanded', function () {
-    cy.get('@target-item').click()
-    cy.get('@target-item').parents().closest('node-container').first()
+    cy.get('@target').click()
+    cy.get('@target').parents().closest('node-container').first()
         .find('.arrow-box').find('.arrow-expanded').should('exist')
 });
 Then('active {string} shows a green corner', function (symbolicName: string) {

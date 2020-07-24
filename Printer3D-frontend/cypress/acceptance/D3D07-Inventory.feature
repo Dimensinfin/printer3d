@@ -29,14 +29,14 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     Given there is a click on Feature "/INVENTARIO"
     #     Then the page "InventoryPage" is activated
     #     Given the target is the panel of type "catalog"
-    #     Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+    #     Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
     #     Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Verde"
     #     And the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "6"
     #     And the target item has a field named "price" with label "PRECIO" and value "15 €"
 
     #     When the mouse enter the target item
     #     Then the target item has a list named "part-composition" with 3 "part-stack"
-    #     Given the target item the "part-stack" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
+    #     Given the target the "part-stack" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
     #     Then the target item has a column named "REQUERIDAS" with value "x 1"
     #     And the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
     #     And the target item has a column named "MATERIAL" with value "PLA"
@@ -47,10 +47,10 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         Given there is a click on Feature "/INVENTARIO"
         Then the page "InventoryPage" is activated
         Given the target is the panel of type "catalog"
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        Then the target item has a field named "label" with label "ETIQUETA" and value "Boquilla Ganesha - Figura"
-        And the target item has a field named "description" with label "DESCRIPCION" and value "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
-        And the target item has a field named "buildTime" with label "TIEMPO" and value "90 min."
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Then field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Figura"
+        And field named "description" with label "DESCRIPCION" has contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
+        And field named "buildTime" with label "TIEMPO" has contents "90 min."
         Given the target item is expandable
         When the target item is expanded
         Then the target panel has 6 "part"
@@ -60,10 +60,10 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     Given there is a click on Feature "/INVENTARIO"
     #     Then the page "InventoryPage" is activated
     #     Given the target is the panel of type "catalog"
-    #     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
     #     When the target item is expanded
 
-    #     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+    #     Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
     #     Then the target item has a field named "material" with label "MATERIAL" and value "PLA"
     #     And the target item has a field named "color" with label "COLOR" and value "ROSA"
     #     And the target item has a field named "stock" with label "STOCK" and value "5"
@@ -77,7 +77,7 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     #     Given there is a click on Feature "/INVENTARIO"
     #     Then the page "InventoryPage" is activated
     #     Given the target is the panel of type "catalog"
-    #     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    #     Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
     #     Given the target item is expandable
     #     When the target item is expanded
     #     Then the target panel has 6 "part"
@@ -90,19 +90,19 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         Given there is a click on Feature "/INVENTARIO"
         Then the page "InventoryPage" is activated
         Given the target is the panel of type "catalog"
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then the target item has a named "edit-button" button
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Then target has an actionable image named "edit-button"
 # PENDING RECONSTRUCTION OF EDITABLES
 # @D3D07 @D3D07.08
 # Scenario: [D3D07.08]-When the Edit Attributes button is clicked the Part display changes and some fields are now editable.
 #     Given there is a click on Feature "/INVENTARIO"
 #     Then the page "InventoryPage" is activated
 #     Given the target is the panel of type "catalog"
-#     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+#     Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
 #     When the target item is expanded
-#     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+#     Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
 #     Then the target item has a named "edit-button" button
 
 #     Given the target item named button "edit-button" is clicked
@@ -120,9 +120,9 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
 #     Given there is a click on Feature "/INVENTARIO"
 #     Then the page "InventoryPage" is activated
 #     Given the target is the panel of type "catalog"
-#     Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+#     Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
 #     When the target item is expanded
-#     Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+#     Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
 #     Then the field "stock" stores the current value into "STOCK-STORE"
 #     Then the field "stockAvailable" stores the current value into "DISPONIBLE-STORE"
 #     Then the field "cost" stores the current value into "COSTE-STORE"
