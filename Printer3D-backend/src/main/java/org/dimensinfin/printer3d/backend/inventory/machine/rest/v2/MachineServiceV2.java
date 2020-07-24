@@ -28,7 +28,6 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
@@ -38,7 +37,7 @@ import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION
 @Service
 @Transactional
 public class MachineServiceV2 {
-	public static DimensinfinError MISSING_MATERIAL_TO_COMPLETE_JOB() {
+	public static DimensinfinError errorMISSINGMATERIALTOCOMPLETEJOB() {
 		return new DimensinfinError.Builder()
 				.withErrorName( "MISSING_MATERIAL_TO_COMPLETE_JOB" )
 				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
@@ -51,7 +50,7 @@ public class MachineServiceV2 {
 		return Collectors.collectingAndThen(
 				Collectors.toList(),
 				list -> {
-					if (list.isEmpty()) throw new DimensinfinRuntimeException( MISSING_MATERIAL_TO_COMPLETE_JOB(),
+					if (list.isEmpty()) throw new DimensinfinRuntimeException( errorMISSINGMATERIALTOCOMPLETEJOB(),
 							"No enough material or no coil while performing the material use before starting a job." );
 					LogWrapper.info( "Located coil: " + list.get( 0 ).toString() );
 					return list.get( 0 );
@@ -74,8 +73,8 @@ public class MachineServiceV2 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public MachineListV2 getMachines() {
-		final List<MachineV2> machines = this.machineRepository.findAll()
+	public List<MachineV2> getMachines() {
+		return this.machineRepository.findAll()
 				.stream()
 				.map( machineEntity -> {
 					// Convert the entity to the api domain
@@ -87,7 +86,6 @@ public class MachineServiceV2 {
 					return new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
 				} )
 				.collect( Collectors.toList() );
-		return new MachineListV2.Builder().withMachines( machines ).build();
 	}
 
 	/**

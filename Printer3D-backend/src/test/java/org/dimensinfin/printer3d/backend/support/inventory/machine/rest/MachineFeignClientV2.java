@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.support.inventory.machine.rest;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +15,7 @@ import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
 import retrofit2.Response;
@@ -26,9 +27,9 @@ public class MachineFeignClientV2 extends CommonFeignClient {
 		super( acceptanceTargetConfig );
 	}
 
-	public ResponseEntity<MachineListV2> getMachines( final String authorizationToken ) throws IOException {
+	public ResponseEntity<List<MachineV2>> getMachines( final String authorizationToken ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the list of all the Machines.";
-		final Response<MachineListV2> response = new Retrofit.Builder()
+		final Response<List<MachineV2>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
@@ -55,7 +56,7 @@ public class MachineFeignClientV2 extends CommonFeignClient {
 			LogWrapper.info( ENDPOINT_MESSAGE );
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
 		} else {
-			LogWrapper.info( ENDPOINT_MESSAGE +" Failed.");
+			LogWrapper.info( ENDPOINT_MESSAGE + " Failed." );
 			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 		}
 	}

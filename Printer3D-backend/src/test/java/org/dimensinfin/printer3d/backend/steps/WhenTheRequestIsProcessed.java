@@ -28,7 +28,7 @@ import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
@@ -250,11 +250,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setFinishingsResponseEntity( finishingsResponseEntity );
 				return finishingsResponseEntity;
 			case GET_MACHINES_V2:
-				final ResponseEntity<MachineListV2> machinesv2ResponseEntity = this.machineFeignClientV2
+				final ResponseEntity<List<MachineV2>> machinesV2ResponseEntity = this.machineFeignClientV2
 						.getMachines( this.printer3DWorld.getJwtAuthorizationToken() );
-				Assertions.assertNotNull( machinesv2ResponseEntity );
-				this.printer3DWorld.setMachineListv2ResponseEntity( machinesv2ResponseEntity );
-				return machinesv2ResponseEntity;
+				Assertions.assertNotNull( machinesV2ResponseEntity );
+				this.printer3DWorld.setListMachineV2ResponseEntity( machinesV2ResponseEntity );
+				return machinesV2ResponseEntity;
 			case CANCEL_BUILD:
 				final ResponseEntity<Machine> cancelBuildResponseEntity = this.machineFeignClientV1
 						.cancelBuild( this.printer3DWorld.getJwtAuthorizationToken(), this.printer3DWorld.getMachineId() );

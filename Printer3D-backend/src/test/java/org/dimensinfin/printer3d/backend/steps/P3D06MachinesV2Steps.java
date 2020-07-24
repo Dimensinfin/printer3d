@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.BuildRecordValidator;
 import org.dimensinfin.printer3d.backend.support.inventory.machine.CucumberTableToJobRequestConverter;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
@@ -25,10 +24,10 @@ public class P3D06MachinesV2Steps extends StepSupport {
 
 	@Then("the machine {string} has the next build information")
 	public void the_machine_has_the_next_build_information( final String machineLabel, final List<Map<String, String>> dataTable ) {
-		final ResponseEntity<MachineListV2> machinesResponse = this.printer3DWorld.getMachineListv2ResponseEntity();
+		final ResponseEntity<List<MachineV2>> machinesResponse = this.printer3DWorld.getListMachineV2ResponseEntity();
 		Assertions.assertNotNull( machinesResponse );
 		Assertions.assertNotNull( machinesResponse.getBody() );
-		for (MachineV2 machine : machinesResponse.getBody().getMachines()) {
+		for (MachineV2 machine : machinesResponse.getBody()) {
 			if (machine.getLabel().equalsIgnoreCase( machineLabel )) {
 				Assertions.assertTrue( new BuildRecordValidator().validate( dataTable.get( 0 ), machine.getBuildRecord() ) );
 			}

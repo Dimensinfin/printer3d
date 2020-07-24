@@ -6,15 +6,14 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineList;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
@@ -36,8 +35,7 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<Coil> coilResponseEntity;
 	private ResponseEntity<CoilList> coilListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
-	private ResponseEntity<MachineList> machineListResponseEntity;
-	private ResponseEntity<MachineListV2> machineListv2ResponseEntity;
+	private ResponseEntity<List<MachineV2>> listMachineV2ResponseEntity;
 	private UUID partId;
 	private UUID machineId;
 	private ResponseEntity<Machine> machineResponseEntity;
@@ -132,6 +130,15 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
+	public ResponseEntity<List<MachineV2>> getListMachineV2ResponseEntity() {
+		return this.listMachineV2ResponseEntity;
+	}
+
+	public Printer3DWorld setListMachineV2ResponseEntity( final ResponseEntity<List<MachineV2>> listMachineV2ResponseEntity ) {
+		this.listMachineV2ResponseEntity = listMachineV2ResponseEntity;
+		return this;
+	}
+
 	public ResponseEntity<List<RequestV2>> getListRequestV2ResponseEntity() {
 		return this.listRequestV2ResponseEntity;
 	}
@@ -156,24 +163,6 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setMachineId( final UUID machineId ) {
 		this.machineId = machineId;
-		return this;
-	}
-
-	public ResponseEntity<MachineList> getMachineListResponseEntity() {
-		return this.machineListResponseEntity;
-	}
-
-	public Printer3DWorld setMachineListResponseEntity( final ResponseEntity<MachineList> machineListResponseEntity ) {
-		this.machineListResponseEntity = machineListResponseEntity;
-		return this;
-	}
-
-	public ResponseEntity<MachineListV2> getMachineListv2ResponseEntity() {
-		return this.machineListv2ResponseEntity;
-	}
-
-	public Printer3DWorld setMachineListv2ResponseEntity( final ResponseEntity<MachineListV2> machineListv2ResponseEntity ) {
-		this.machineListv2ResponseEntity = machineListv2ResponseEntity;
 		return this;
 	}
 
@@ -204,21 +193,21 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<Model> getModelResponseEntity() {
-		return this.modelResponseEntity;
-	}
-
-	public Printer3DWorld setModelResponseEntity( final ResponseEntity<Model> modelResponseEntity ) {
-		this.modelResponseEntity = modelResponseEntity;
-		return this;
-	}
-
 	public ModelRequest getModelRequest() {
 		return this.modelRequest;
 	}
 
 	public Printer3DWorld setModelRequest( final ModelRequest modelRequest ) {
 		this.modelRequest = modelRequest;
+		return this;
+	}
+
+	public ResponseEntity<Model> getModelResponseEntity() {
+		return this.modelResponseEntity;
+	}
+
+	public Printer3DWorld setModelResponseEntity( final ResponseEntity<Model> modelResponseEntity ) {
+		this.modelResponseEntity = modelResponseEntity;
 		return this;
 	}
 

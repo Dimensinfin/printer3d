@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.v2;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import javax.validation.Valid;
@@ -8,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
@@ -37,10 +35,8 @@ public class MachineControllerV2 {
 	@GetMapping(path = "/inventory/machines",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<MachineListV2> getMachines() {
-		final MachineListV2 data = this.machineServiceV2.getMachines();
-		LogWrapper.info( data.toString() );
-		return new ResponseEntity<>( data, HttpStatus.OK );
+	public ResponseEntity<List<MachineV2>> getMachines() {
+		return new ResponseEntity<>( this.machineServiceV2.getMachines(), HttpStatus.OK );
 	}
 
 	@PostMapping(path = "/inventory/machines/{machineId}/startbuild",

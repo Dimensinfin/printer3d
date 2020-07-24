@@ -585,7 +585,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MachineListV2'
+                $ref: '#/components/schemas/MachineList'
   /api/v2/inventory/machines/{machineId}/startbuild:
     post:
       tags:
@@ -1091,40 +1091,27 @@ components:
             occupied by this job. If the current time is greater that this point it is expected that the job has finished.
           example:
             2020-06-01T22:05:00Z
+#    MachineList:
+#      type: object
+#      required:
+#        - count
+#        - machines
+#      properties:
+#        count:
+#          type: number
+#          format: int32
+#          description: >
+#            The number of machines that follow on the response.
+#          example:
+#            8
+#        machines:
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/Machine'
     MachineList:
-      type: object
-      required:
-        - count
-        - machines
-      properties:
-        count:
-          type: number
-          format: int32
-          description: >
-            The number of machines that follow on the response.
-          example:
-            8
-        machines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Machine'
-    MachineListV2:
-      type: object
-      required:
-        - count
-        - machines
-      properties:
-        count:
-          type: number
-          format: int32
-          description: >
-            The number of machines that follow on the response.
-          example:
-            2
-        machines:
-          type: array
-          items:
-            $ref: '#/components/schemas/MachineV2'
+      type: array
+      items:
+        $ref: '#/components/schemas/MachineV2'
     MachineV2:
       type: object
       description: >
@@ -1696,85 +1683,6 @@ components:
           example:
             3
 
-    Request:
-      type: object
-      description: >
-        This is the data structure that is received/sent over the HTTP interface. When the user creates or changes the Request the service will
-        receive a copy of this structure and then return an updated and persisted copy.
-      required:
-        - id
-        - requestDate
-        - label
-        - partList
-        - state
-      properties:
-        id:
-          type: string
-          format: uuid
-          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-          description: >
-            The unique identifier for a single Request. Once a request is closed cannot be edited so the user will need to create a new instance.
-            This field is used for primary keying the requests.
-          example:
-            009ab011-03ad-4e84-9a88-25708d1cfd64
-        requestDate:
-          type: string
-          format: date-time
-          description: >
-            The date and time when the Request is submitted to the backend. Used for request ordering on the FIFO request list.
-          example:
-            2020-06-01T22:05:00Z
-        label:
-          type: string
-          format: string
-          minLength: 3
-          maxLength: 50
-          description: >
-            The user readable label to be assigned to a single Machine. Can be used instead of the unique identifier UUID.
-          example:
-            'Machine A'
-        partList:
-          type: array
-          items:
-            $ref: '#/components/schemas/PartRequest'
-        state:
-          type: string
-          enum:
-            - OPEN
-            - COMPLETED
-            - CLOSED
-          default: OPEN
-          description: >
-            Requests that should be sent to the customer but that still have missing Parts should stay at the OPEN state until the Request is
-            completed and it is served. When the transaction completes then the requests moves to the CLOSED state and then cannot be changed.
-            State descriptions:
-            * **OPEN** - The Requests are created on this state. This is the value stored at the database while the Request is not closed. Open
-            requests are listed to the frontend and at that moment they can change to COMPLETED if there are enough Parts.
-            * **COMPLETED** - This is the state refected when the Request is listed to the frontend. This state is not stored at the repository.
-            Means that the Request can be served to the customer and then closed.
-            * **CLOSED** - The Request has been sent to the customer and the Parts removed from the inventory stock. This is the final state for
-            the Request.
-
-    PartRequest:
-      deprecated: true
-      type: object
-      description: >
-        *Deprecated*: Stores the Part identifier along with a part quantity that is the target quantity to ber served.
-      required:
-        - partId
-        - quantity
-      properties:
-        partId:
-          $ref: '#/components/schemas/UUID'
-        quantity:
-          type: number
-          format: int32
-          default: 1
-          minimum: 1
-          description: >
-            The number of copies of this Part that are requested. Parts of different colors have different identifiers and then different records.
-          example:
-            3
     WeekAmountList:
       type: array
       items:

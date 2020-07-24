@@ -1,10 +1,11 @@
 package org.dimensinfin.printer3d.client.inventory.rest;
 
+import java.util.List;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineListV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
 import retrofit2.Call;
@@ -27,7 +28,7 @@ public interface InventoryApiV2 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v2/inventory/machines")
-	Call<MachineListV2> getMachines();
+	Call<List<MachineV2>> getMachines();
 
 	/**
 	 * Signals the registration and start of a new build job.
