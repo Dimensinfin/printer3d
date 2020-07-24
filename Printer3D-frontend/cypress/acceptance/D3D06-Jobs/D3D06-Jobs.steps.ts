@@ -14,16 +14,16 @@ Then('there is a Feature with label {string}', function (label: string) {
 });
 Then('the target item is draggable and with the contraint {string}', function (constraintName: string) {
     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
-    cy.get('@target-item').get('[draggable="true"]').first()
+    cy.get('@target').get('[draggable="true"]').first()
         .should('exist')
-    cy.get('@target-item').get('[draggable="true"]').first()
+    cy.get('@target').get('[draggable="true"]').first()
         .get(constraint).should('exist')
 });
 Then('the target item is droppable and with the contraint {string}', function (constraintName: string) {
     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
-    cy.get('@target-item').get('[droppable]').first()
+    cy.get('@target').get('[droppable]').first()
         .should('exist')
-    cy.get('@target-item').get('[droppable]').first()
+    cy.get('@target').get('[droppable]').first()
         .get(constraint).should('exist')
 });
 
