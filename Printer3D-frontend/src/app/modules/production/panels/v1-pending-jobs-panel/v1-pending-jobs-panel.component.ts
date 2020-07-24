@@ -7,14 +7,7 @@ import { Subscription } from 'rxjs';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { IsolationService } from '@app/platform/isolation.service';
-import { platformconstants } from '@app/platform/platform-constants';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
-import { Machine } from '@domain/Machine.domain';
-import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Job } from '@domain/Job.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';

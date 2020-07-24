@@ -13,7 +13,6 @@ import { Part } from '@domain/Part.domain';
 import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
@@ -164,7 +163,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<MachineListResponse> {
+    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<Machine[]> {
         const request = this.APIV2 + '/inventory/machines';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName)
@@ -172,7 +171,7 @@ export class BackendService {
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as MachineListResponse;
+                const response = transformer.transform(data) as Machine[];
                 return response;
             }));
     }

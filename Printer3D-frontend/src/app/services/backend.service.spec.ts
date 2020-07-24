@@ -21,15 +21,11 @@ import { BackendService } from './backend.service';
 import { HttpClientWrapperService } from './httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '../testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from './support/ResponseTransformer';
-import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/Part.domain';
 import { Coil } from '@domain/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { MachineListResponse } from '@domain/dto/MachineListResponse.dto';
-import { PendingJobListResponse } from '@domain/dto/PendingJobListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
 import { Job } from '@domain/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
@@ -192,14 +188,16 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         it('apiInventoryMachines_v2.default: get the list of Machines', async () => {
             console.log('apiInventoryMachines_v2.default: get the list of Coils')
             await service.apiInventoryGetMachines_v2(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
-                .setTransformation((entrydata: any): MachineListResponse => {
-                    return new MachineListResponse(entrydata);
+                .setTransformation((entrydata: any): Machine[] => {
+                    const recordList: Machine[] = [];
+                    for (let entry of entrydata)
+                        recordList.push(new Machine(entry));
+                    return recordList;
                 }))
-                .subscribe((response: MachineListResponse) => {
+                .subscribe((response: Machine[]) => {
                     console.log(response)
                     expect(response).toBeDefined();
-                    expect(response.count).toBe(2, 'Number of Machines do not match.');
-                    expect(response.machines.length).toBe(2, 'Number of Machines do not match.');
+                    expect(response.length).toBe(2, 'Number of Machines do not match.');
                 });
         });
         it('apiMachinesStartBuild_v2.default: start a build jot on a Machine', async () => {

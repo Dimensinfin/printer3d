@@ -12,10 +12,6 @@ export class Machine extends Node {
     public model: string;
     public characteristics: string;
     public buildRecord: any;
-    // Deprecated. Machine version 1
-    // public currentJobPart: Part;
-    // public currentPartInstances: number = 1;
-    // public jobInstallmentDate: string;
 
     constructor(values: Object = {}) {
         super()

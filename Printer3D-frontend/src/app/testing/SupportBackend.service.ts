@@ -128,14 +128,11 @@ export class SupportBackendService {
                 })
         });
     }
-    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<CoilListResponse> {
-        console.log('>[SupportBackendService.apiInventoryGetMachines_v2]')
+    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<Machine[]> {
         return Observable.create((observer) => {
-            this.httpWrapper.wrapHttpGETCall('/api/v2/inventory/machines')
-                .subscribe(data => {
-                    observer.next(transformer.transform(data));
-                    observer.complete();
-                })
+            const data = this.directAccessMockResource('inventory.machines.v2')
+            observer.next(transformer.transform(data));
+            observer.complete();
         });
     }
     public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {
