@@ -1,6 +1,5 @@
 // cypress/plugins/config/{prod|qa|local}.js
 module.exports = {
-    baseUrl: 'http://localhost:5100',
     env: {
         code: "b__Y5_Btn0ens8j_QviKFQ",
         state: "LU5FT0NPTS5JTkZJTklUWS1ERVZFTE9QTUVOVC1WQUxJRCBTVEFURSBTVFJJTkct",

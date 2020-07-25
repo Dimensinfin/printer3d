@@ -1,3 +1,7 @@
+.field {
+    font-size: 14px;
+}
+
 .part-missed-count {
     color: red;
 }
@@ -29,6 +33,10 @@
 
 .remove-icon:hover {
     fill: orange;
+}
+
+.remove-width {
+    margin-right: 0px;
 }
 
 .count-width {

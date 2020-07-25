@@ -34,16 +34,16 @@
     </header>
     <section>
         <div cy-name="label" class="field left-margin">
-            <span cy-field-label="label" class="label">ETIQUETA</span><br>
+            <span cy-field-label="label" cy-input-type="input" class="label">ETIQUETA</span><br>
             <div class="dsf-input-container label-width">
-                <input id="modelLabel" name="modelLabel" type="text" class="dsf-input" required [(ngModel)]="model.label" minlength="3" maxlength="50" #modelLabel="ngModel">
+                <input id="label" name="modelLabel" type="text" class="dsf-input" required [(ngModel)]="model.label" minlength="3" maxlength="50" #label="ngModel">
                 <svg class="corner-border" viewBox="0 0 100 100">
                     <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                 </svg>
                 <svg class="corner-clear" viewBox="0 0 100 100">
                     <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                 </svg>
-                <div [ngClass]="{'ng-valid': !modelLabel.invalid}">
+                <div class="orangered-mark" [ngClass]="{'ng-valid': !label.invalid}">
                     <svg class="corner-mark" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" />
                     </svg>
@@ -52,7 +52,7 @@
         </div>
         <div class="row">
             <div cy-name="price" class="field left-margin">
-                <span cy-field-label="price" class="label">PRECIO</span><br>
+                <span cy-field-label="price" cy-input-type="input" class="label">PRECIO</span><br>
                 <div class="dsf-input-container price-width">
                     <input name="modelPrice" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.price" min="0" oninput="validity.valid||(value='');" #modelPrice="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -61,7 +61,7 @@
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div [ngClass]="{'ng-valid': !modelPrice.invalid}">
+                    <div class="orangered-mark" [ngClass]="{'ng-valid': !modelPrice.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div cy-name="stock" class="field left-margin">
-                <span cy-field-label="stock" class="label">NIVEL STOCK DESEADO</span><br>
+                <span cy-field-label="stock" cy-input-type="input" class="label">NIVEL STOCK DESEADO</span><br>
                 <div class="dsf-input-container price-width">
                     <input name="modelStock" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.stockLevel" min="0" oninput="validity.valid||(value='');" #modelStock="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -78,7 +78,7 @@
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div [ngClass]="{'ng-valid': !modelStock.invalid}">
+                    <div class="orangered-mark" [ngClass]="{'ng-valid': !modelStock.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -96,8 +96,8 @@
         <svg class="corner-clear" viewBox="0 0 100 100">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
         </svg>
-        <svg class="corner-mark" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="blue" />
+        <svg class="corner-mark blue-mark" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" />
         </svg>
     </footer>
 </form>
