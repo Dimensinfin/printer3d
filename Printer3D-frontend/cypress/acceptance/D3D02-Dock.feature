@@ -121,3 +121,19 @@ Feature: [D3D02]-Test the dock contents and configuration.
         When the Feature with label "/NUEVA PIEZA" is clicked the destination is the Dialog "New Part"
         And the target Feature "/NUEVA PIEZA" changes to state "active"
         Then the dialog has the title "/INVENTARIO/NUEVA PIEZA"
+
+    @D3D02.12
+    Scenario: [D3D02.12]-Check that the Pending Jobs Feature opens the right page and shows the required titles.
+        # - Validate the page structure and the loading sign
+        Given the application Printer3DManager
+        Given one instance of Dock
+        When the Feature with label "/TRABAJOS PND." is clicked the destination is the Page "Production Jobs Page"
+        Then the Feature with label "/TRABAJOS PND." opens a Page
+        # And the loading panel shows "Clasificando Pedidos..."
+        # When the loading panel completes
+        Then the target Feature "/TRABAJOS PND." changes to state "active"
+        And the page "Production Jobs Page" has 2 panels
+        Given the target is the panel of type "jobs-list"
+        Then  the target has the title "/TRABAJOS/PENDIENTES"
+        Given the target is the panel of type "machines"
+        Then  the target has the title "/MAQUINAS"

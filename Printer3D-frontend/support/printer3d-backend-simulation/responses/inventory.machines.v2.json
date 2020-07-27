@@ -4,19 +4,6 @@
         "model": "Creality 3D Ender 3 Pro",
         "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
         "buildRecord": {
-            "state": "IDLE",
-            "partCopies": 1,
-            "part": null,
-            "jobInstallmentDate": null,
-            "remainingTime": 0
-        }
-    },
-    {
-        "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
-        "label": "Ender 3 Pro - A",
-        "model": "Creality 3D Ender 3 Pro",
-        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
-        "buildRecord": {
             "state": "RUNNING",
             "partCopies": 1,
             "part": {
@@ -37,6 +24,19 @@
             },
             "jobInstallmentDate": "2020-07-24T10:48:52.391425Z",
             "remainingTime": 2800
+        }
+    },
+    {
+        "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
+        "label": "Ender 3 Pro - A",
+        "model": "Creality 3D Ender 3 Pro",
+        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+        "buildRecord": {
+            "state": "IDLE",
+            "partCopies": 1,
+            "part": null,
+            "jobInstallmentDate": null,
+            "remainingTime": 0
         }
     }
 ]

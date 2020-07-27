@@ -1,6 +1,6 @@
 [{
         "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
-        "label": "Ender 3 Pro - B",
+        "label": "Ender 3 Pro - A",
         "model": "Creality 3D Ender 3 Pro",
         "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
         "buildRecord": {
@@ -11,9 +11,10 @@
             "remainingTime": 0
         }
     },
+
     {
         "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
-        "label": "Ender 3 Pro - A",
+        "label": "Ender 3 Pro - B",
         "model": "Creality 3D Ender 3 Pro",
         "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
         "buildRecord": {
