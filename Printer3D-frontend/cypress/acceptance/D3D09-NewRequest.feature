@@ -95,7 +95,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target item the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
         Then column named "CANTIDAD" has contents "1"
         And column named "PRECIO" has contents "5 €"
         And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
@@ -110,7 +110,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target item the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
         Then column named "CANTIDAD" has contents "2"
         And column named "PRECIO" has contents "10 €"
         And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
@@ -211,7 +211,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target item the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
         Then column named "CANTIDAD" has contents "1"
         And column named "PRECIO" has contents "5 €"
         And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
@@ -226,7 +226,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target item the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
         Then column named "CANTIDAD" has contents "2"
         And column named "PRECIO" has contents "10 €"
         And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
@@ -237,7 +237,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And target has an actionable image named "remove-button"
         When target actionable image "remove-button" is clicked
         # - Validate the contents columns
-        Given the target item the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
         Then column named "CANTIDAD" has contents "1"
         And column named "PRECIO" has contents "5 €"
         And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
