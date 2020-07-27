@@ -260,11 +260,11 @@ workflows:
               only:
                 - test
       - quality-sonarcloud:
-          requires:
-            - test-backend-job
+          # requires:
+          #   - test-backend-job
           filters:
             tags:
-              only: /.*/
+              only: /0.*/
             # branches:
             #   only:
             #     - test
@@ -279,3 +279,5 @@ workflows:
               only:
                 - test
                 - hotfix
+            tags:
+              only: /0.*/

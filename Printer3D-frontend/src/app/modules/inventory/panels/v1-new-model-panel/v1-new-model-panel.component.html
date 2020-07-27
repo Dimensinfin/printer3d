@@ -54,14 +54,14 @@
             <div cy-name="price" class="field left-margin">
                 <span cy-field-label="price" cy-input-type="input" class="label">PRECIO</span><br>
                 <div class="dsf-input-container price-width">
-                    <input name="modelPrice" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.price" min="0" oninput="validity.valid||(value='');" #modelPrice="ngModel">
+                    <input name="price" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.price" min="0" oninput="validity.valid||(value='');" #price="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div class="orangered-mark" [ngClass]="{'ng-valid': !modelPrice.invalid}">
+                    <div class="orangered-mark" [ngClass]="{'ng-valid': !price.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -71,14 +71,14 @@
             <div cy-name="stock" class="field left-margin">
                 <span cy-field-label="stock" cy-input-type="input" class="label">NIVEL STOCK DESEADO</span><br>
                 <div class="dsf-input-container price-width">
-                    <input name="modelStock" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.stockLevel" min="0" oninput="validity.valid||(value='');" #modelStock="ngModel">
+                    <input name="stock" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="model.stockLevel" min="0" oninput="validity.valid||(value='');" #stock="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div class="orangered-mark" [ngClass]="{'ng-valid': !modelStock.invalid}">
+                    <div class="orangered-mark" [ngClass]="{'ng-valid': !stock.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>

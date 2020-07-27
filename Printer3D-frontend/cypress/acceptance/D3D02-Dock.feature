@@ -93,6 +93,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And the page "NewModelPage" has 2 panels
         Given the target is the panel of type "available-parts"
         Then  the target has the title "/PIEZAS/DISPONIBLES"
+        And the target has 16 "part"
         Given the target is the panel of type "new-model"
         Then  the target has the title "/NUEVO MODELO/DEFINICION"
 

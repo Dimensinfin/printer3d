@@ -36,6 +36,15 @@ When('the Feature with label {string} is clicked the destination is the Page {st
     cy.get('app-root').find(tag).as('target-page').as('target').should('exist')
 });
 
+// - S P I N N E R
+Then('the loading panel shows {string}', function (loadingMessage: string) {
+    cy.get('@target-page').find('.index-loading')
+        .contains(loadingMessage)
+});
+When('the loading panel completes', function () {
+    cy.wait(500)
+});
+
 // - P A G E   A C T I V A T I O N
 Then('the page {string} is activated', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
@@ -258,7 +267,7 @@ Given('the drag source the {string} with id {string}', function (symbolicName: s
         .should('exist')
 });
 When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
-    cy.get('@drag-source').trigger('dragstart')
+    cy.get('@drag-source').scrollIntoView().trigger('dragstart')
     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
 
