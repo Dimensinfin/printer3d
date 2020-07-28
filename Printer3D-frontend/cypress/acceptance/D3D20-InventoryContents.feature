@@ -170,20 +170,45 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         # And field named "buildTime" is tested for value constraints 1
         And field named "stock" is tested for value constraints 1 to 100
         And field named "stockAvailable" is tested for value constraints 0
-# And field named "imagePath" is tested for max size of 100
-# And field named "modelPath" is tested for max size of 100
-# And field named "description" is tested for max size of 500
+    # And field named "imagePath" is tested for max size of 100
+    # And field named "modelPath" is tested for max size of 100
+    # And field named "description" is tested for max size of 500
 
 
-# Then the target item has a form field named "stock" with label "STOCK" and contents "5"
-# And the target item has a form field named "stockAvailable" with label "DISPONIBLE" and contents "0"
-# And the target item has a form field named "cost" with label "COSTE" and contents "1"
-# And the target item has a form field named "price" with label "PRECIO" and contents "6"
-# And the target item has a form field named "active" with label "ACTIVA" and contents "on"
-# And form field named "stock" is "valid"
-# And form field named "stockAvailable" is "valid"
-# And form field named "cost" is "valid"
-# And form field named "price" is "valid"
-# # - Check that the save button is enabled
-# Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-# And actionable image named "save-button" is "enabled"
+    # Then the target item has a form field named "stock" with label "STOCK" and contents "5"
+    # And the target item has a form field named "stockAvailable" with label "DISPONIBLE" and contents "0"
+    # And the target item has a form field named "cost" with label "COSTE" and contents "1"
+    # And the target item has a form field named "price" with label "PRECIO" and contents "6"
+    # And the target item has a form field named "active" with label "ACTIVA" and contents "on"
+    # And form field named "stock" is "valid"
+    # And form field named "stockAvailable" is "valid"
+    # And form field named "cost" is "valid"
+    # And form field named "price" is "valid"
+    # # - Check that the save button is enabled
+    # Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+    # And actionable image named "save-button" is "enabled"
+
+    @D3D20.12
+    Scenario: [D3D20.12]-There is an edit button on the Model render. If clicked then there is a new panel with the Model fields.
+        # - Select a Model for editing
+        Given the target is the panel of type "catalog"
+        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        And target has an actionable image named "edit-button"
+        And actionable image named "edit-button" is "enabled"
+        When target actionable image "edit-button" is clicked
+        # - Validate the contents of the Model Details
+        Given the target item named button "edit-button" is clicked
+        Given the target is the panel of type "model-detail"
+        Then form field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
+        Then form field named "price" with label "PRECIO" has contents "15"
+        Then form field named "stock" with label "NIVEL STOCK DESEADO" has contents "3"
+
+        Given the target is the panel of type "drop-part-location"
+        Then the target panel has 3 "part-stack"
+
+        Given the target the "part-stack" with id "8128a07b-b270-4097-99f6-7a6960122f6c"
+        Then the target item has a column named "REQUERIDAS" with value "1"
+        Then the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Base"
+        Then the target item has a column named "MATERIAL" with value "PLA"
+        Then the target item has a column named "COLOR" with value "VERDE TRANSPARENTE"
+        Then the target item has a actionable image named "remove-button"

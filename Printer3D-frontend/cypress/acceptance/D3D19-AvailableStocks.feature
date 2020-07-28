@@ -16,10 +16,10 @@ Feature: [D3D19]-[STORY] There is a list of items that can be deployed inside a 
         Given the target is the panel of type "available-request-elements"
 
         # - Select a Model and validate its fields
-        Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
-        Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Verde"
-        And the target item has a field named "partCount" with label "NUMERO PIEZAS" and value "6"
-        And the target item has a field named "price" with label "PRECIO" and value "15 €"
+        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        Then field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
+        And field named "partCount" with label "NUMERO PIEZAS" has contents "6"
+        And field named "price" with label "PRECIO" has contents "15 €"
 
     @D3D19.02
     Scenario: [D3D19.02]-The other type of item is a Part. Check their fields.
@@ -29,8 +29,8 @@ Feature: [D3D19]-[STORY] There is a list of items that can be deployed inside a 
         Given the target is the panel of type "available-request-elements"
 
         # - Select a Part and validate its fields
-        Given the target item the "part" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
-        Then the target item has a field named "label" with label "ETIQUETA" and value "PLATAFORMA SLOT 1/32 - Base"
-        And the target item has a field named "material" with label "MATERIAL/COLOR" and value "PLA/MORADO TRANSPARENTE"
-        And the target item has a field named "partCount" with label "DISPONIBLE" and value "0"
-        And the target item has a field named "price" with label "PRECIO" and value "5 €"
+        Given the target the "part" with id "52372bd9-76a3-4f65-926e-a50a896961c0"
+        Then field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
+        And field named "material" with label "MATERIAL/COLOR" has contents "PLA/MORADO TRANSPARENTE"
+        And field named "partCount" with label "DISPONIBLE" has contents "0"
+        And field named "price" with label "PRECIO" has contents "5 €"
