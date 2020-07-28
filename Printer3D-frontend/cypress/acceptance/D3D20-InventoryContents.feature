@@ -48,26 +48,26 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         When the target item is expanded
         # - Check the Part contents for an ACTIVE Part.
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then the target item has a field named "material" with label "MATERIAL/COLOR" and value "PLA/ROSA"
-        And the target item has a field named "stock" with label "STOCK" and value "5"
-        And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "0"
-        And the target item has a field named "cost" with label "COSTE" and value "1 €"
-        And the target item has a field named "price" with label "PRECIO" and value "6 €"
-        And the target item has a field named "active" with label "ACTIVA" and value "ACTIVA"
+        Then field named "material" with label "MATERIAL/COLOR" has contents "PLA/ROSA"
+        And field named "stock" with label "STOCK" has contents "5"
+        And field named "stockAvailable" with label "DISPONIBLE" has contents "0"
+        And field named "cost" with label "COSTE" has contents "1 €"
+        And field named "price" with label "PRECIO" has contents "6 €"
+        And field named "active" with label "ACTIVA" has contents "ACTIVA"
         And target has an actionable image named "edit-button"
         And target has an actionable image named "duplicate-button"
-        And the target item has a disabled image named "save-disabled"
+        And target has an actionable image named "save-disabled"
         # - Check the Part contents for an CANCELED Part.
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
-        Then the target item has a field named "material" with label "MATERIAL/COLOR" and value "PLA/VERDE TRANSPARENTE"
-        And the target item has a field named "stock" with label "STOCK" and value "5"
-        And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "4"
-        And the target item has a field named "cost" with label "COSTE" and value "1 €"
-        And the target item has a field named "price" with label "PRECIO" and value "6 €"
-        And the target item has a field named "active" with label "ACTIVA" and value "FUERA PROD."
+        Then field named "material" with label "MATERIAL/COLOR" has contents "PLA/VERDE TRANSPARENTE"
+        And field named "stock" with label "STOCK" has contents "5"
+        And field named "stockAvailable" with label "DISPONIBLE" has contents "4"
+        And field named "cost" with label "COSTE" has contents "1 €"
+        And field named "price" with label "PRECIO" has contents "6 €"
+        And field named "active" with label "ACTIVA" has contents "FUERA PROD."
         And target has an actionable image named "edit-button"
         And target has an actionable image named "duplicate-button"
-        And the target item has a disabled image named "save-disabled"
+        And target has an actionable image named "save-disabled"
 
     @D3D20.05
     Scenario: [D3D20.05]-Validate the different color tagging for the Model and Parts states.
@@ -150,43 +150,23 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         Given the target item is expandable
         When the target item is expanded
-        Then the target panel has 6 "part"
-
+        # - Count the Parts on the panel because they are not contained on the Part Container
+        Given the target is the panel of type "catalog"
+        Then the target has 6 "part"
+        # - Validate Part corners
         And active "part" shows a green corner
         And inactive "part" shows an orange corner
-
-    # @D3D20.11
-    #     Scenario: [D3D20.11]-If after editing a Model the uses closes the editing session instead of saving changes, when the model is edited again it should have the original values.
 
     @D3D20.11
     Scenario: [D3D20.11]-Validate the input fields limits and constraints
         # - Activate the Part editing
         Given editing state for Part "6939c6cc-297f-48ca-8f17-25fa18c3dbc7" on Part Container "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         # - Validate part fields for constraints
-        #         Then field named "label" is tested for size constraints 3 and 50
-        # And field named "weight" is tested for value constraints 1 to 100
-        Then field named "cost" is tested for value constraints 0.01
-        And field named "price" is tested for value constraints 0.01
-        # And field named "buildTime" is tested for value constraints 1
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Then field named "cost" is tested for numeric constraints 0.01
+        And field named "price" is tested for numeric constraints 0.01
         And field named "stock" is tested for value constraints 1 to 100
         And field named "stockAvailable" is tested for value constraints 0
-    # And field named "imagePath" is tested for max size of 100
-    # And field named "modelPath" is tested for max size of 100
-    # And field named "description" is tested for max size of 500
-
-
-    # Then the target item has a form field named "stock" with label "STOCK" and contents "5"
-    # And the target item has a form field named "stockAvailable" with label "DISPONIBLE" and contents "0"
-    # And the target item has a form field named "cost" with label "COSTE" and contents "1"
-    # And the target item has a form field named "price" with label "PRECIO" and contents "6"
-    # And the target item has a form field named "active" with label "ACTIVA" and contents "on"
-    # And form field named "stock" is "valid"
-    # And form field named "stockAvailable" is "valid"
-    # And form field named "cost" is "valid"
-    # And form field named "price" is "valid"
-    # # - Check that the save button is enabled
-    # Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-    # And actionable image named "save-button" is "enabled"
 
     @D3D20.12
     Scenario: [D3D20.12]-There is an edit button on the Model render. If clicked then there is a new panel with the Model fields.
@@ -195,20 +175,20 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         And target has an actionable image named "edit-button"
         And actionable image named "edit-button" is "enabled"
-        When target actionable image "edit-button" is clicked
         # - Validate the contents of the Model Details
-        Given the target item named button "edit-button" is clicked
+        When target actionable image "edit-button" is clicked
         Given the target is the panel of type "model-detail"
         Then form field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
         Then form field named "price" with label "PRECIO" has contents "15"
         Then form field named "stock" with label "NIVEL STOCK DESEADO" has contents "3"
-
         Given the target is the panel of type "drop-part-location"
-        Then the target panel has 3 "part-stack"
-
+        Then the target has 3 "part-stack"
+        # - Validate the Model part selected
         Given the target the "part-stack" with id "8128a07b-b270-4097-99f6-7a6960122f6c"
-        Then the target item has a column named "REQUERIDAS" with value "1"
-        Then the target item has a column named "ETIQUETA" with value "PLATAFORMA SLOT 1/32 - Base"
-        Then the target item has a column named "MATERIAL" with value "PLA"
-        Then the target item has a column named "COLOR" with value "VERDE TRANSPARENTE"
-        Then the target item has a actionable image named "remove-button"
+        Then column named "quantity" has contents "1"
+        Then column named "label" has contents "PLATAFORMA SLOT 1/32 - Base"
+        Then column named "material" has contents "PLA/VERDE TRANSPARENTE"
+        Then target has an actionable image named "remove-button"
+
+# @D3D20.13
+#     Scenario: [D3D20.13]-If after editing a Model the uses closes the editing session instead of saving changes, when the model is edited again it should have the original values.

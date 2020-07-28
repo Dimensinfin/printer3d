@@ -153,10 +153,6 @@ Then('the target panel has a panel labeled {string} named {string}',
         cy.get('@target-panel').find('[cy-field-label="' + fieldName + '"]')
             .contains(fieldLabel, { matchCase: false })
     });
-Then('the target item has a named {string} button', function (buttonName: string) {
-    cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
-        .should('exist')
-});
 Then('the target panel input field named {string} is {string}', function (fieldName: string, state: string) {
     cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {

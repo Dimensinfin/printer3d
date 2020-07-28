@@ -244,7 +244,7 @@ Then('field named {string} is tested for value constraints {int}',
         cy.get('@target-field').find('input').clear().type((minValue - 1) + '')
         cy.get('@target-field').find('input').should('have.class', 'ng-invalid')
     });
-Then('field named {string} is tested for value constraints {float}',
+Then('field named {string} is tested for numeric constraints {float}',
     function (fieldName: string, minValue: number) {
         cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
         cy.get('@target-field').find('input').clear().should('have.class', 'ng-invalid') // validate invalid before starting test

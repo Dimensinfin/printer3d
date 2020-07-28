@@ -7,22 +7,6 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
-// - T A R G E T
-Then('field named {string} with label {string} has contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target').within(($item) => {
-            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
-        })
-        cy.get('@target').within(($item) => {
-            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
-                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-        })
-    });
-// - C O L U M N S
-// Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
-//     cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
-// });
-
 // - C A T A L O G
 Given('the target item is expandable', function () {
     cy.get('@target').parents().closest('node-container').first()
@@ -36,14 +20,9 @@ When('the target item is expanded', function () {
 });
 Then('the target item has a {string} tag', function (tagColor: string) {
     const colorTag = '.' + tagColor + '-mark'
-    cy.get('@target-item').find(colorTag).should('exist')
+    cy.get('@target').find(colorTag).should('exist')
 });
 
-// // - B U T T O N S
-// When('the target item actionable image {string} is clicked', function (buttonName: string) {
-//     cy.get('@target-item').find('[cy-name="' + buttonName + '"]').as('target-button')
-//         .click()
-// });
 // - E D I T I N G
 Then('the target item has a form field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
@@ -120,7 +99,7 @@ Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
 When the target item actionable image "edit-button" is clicked
  */
 Given('editing state for Part {string} on Part Container {string}', function (partId: string, containerId: string) {
-    // Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+    // Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
     let tag = supportService.translateTag('part-container')
     cy.get('@target-panel').find(tag).find('[id="' + containerId + '"]').as('target')
         .should('exist')
@@ -136,4 +115,14 @@ Given('editing state for Part {string} on Part Container {string}', function (pa
     const buttonName = 'edit-button'
     cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
         .scrollIntoView().click()
+});
+
+// - C O N S T R A I N T   V A L I D A T I O N S
+Then('field named {string} is tested for numeric constraints {float}', function (fieldName, minValue) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear().should('have.class', 'ng-invalid') // validate invalid before starting test
+    cy.get('@target-field').find('input').clear().type(minValue+'').should('have.class', 'ng-valid')
+    const numberValue: number = supportService.generateRandomNum(minValue, minValue + 100)
+    cy.get('@target-field').find('input').clear().type(numberValue + '').should('have.class', 'ng-valid')
+    if ((minValue - 1) > 0) cy.get('@target-field').find('input').clear().type((minValue - 1) + '').should('have.class', 'ng-invalid')
 });
