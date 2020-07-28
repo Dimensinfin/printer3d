@@ -59,15 +59,15 @@
 <!-- R E Q U E S T A B L E   I T E M S   V A R I A N T -->
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'REQUEST-CONTENT'" [dragClass]="'part-selected'">
     <div class="row">
-        <div class="field label-width">
+        <div cy-name="label" class="field label-width">
             <span cy-field-label="label" class="label">ETIQUETA</span><br>
             <span cy-field-value="label" class="field-height part-material">{{getLabel()}}</span>
         </div>
-        <div class="field left material-width">
+        <div cy-name="material" class="field left material-width">
             <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
             <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
         </div>
-        <div class="field stock-width">
+        <div cy-name="partCount" class="field stock-width">
             <span cy-field-label="partCount" class="label">DISPONIBLE</span><br>
             <span cy-field-value="partCount" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
         </div>

@@ -314,17 +314,3 @@ When('the drag source is dragged to the drop destination {string}', function (dr
     cy.get('@drag-source').trigger('dragstart')
     cy.get('@target-panel').find('[cy-name="' + dropDestination + '"]').trigger('drop')
 });
-// Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
-//     cy.get('@target-panel').within(($item) => {
-//         cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-//     })
-// });
-// When('the target item Remove button is clicked', function () {
-//     cy.get('@target-item').find('[cy-name="remove-button"]')
-//         .click()
-// });
-// Then('the target panel has no {string}', function (renderName: string) {
-//     const tag = supportService.translateTag(renderName) // Do name replacement
-//     cy.log('>[translation]> ' + renderName + ' -> ' + tag)
-//     cy.get('@target-panel').find(tag).should('not.exist')
-// });

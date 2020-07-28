@@ -44,10 +44,10 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     @D3D20.04
     Scenario: [D3D20.04]-Validate a part when it is not being edited.
         # - Expand a Part Group to see the Parts
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         # - Check the Part contents for an ACTIVE Part.
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then the target item has a field named "material" with label "MATERIAL/COLOR" and value "PLA/ROSA"
         And the target item has a field named "stock" with label "STOCK" and value "5"
         And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "0"
@@ -58,7 +58,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And target has an actionable image named "duplicate-button"
         And the target item has a disabled image named "save-disabled"
         # - Check the Part contents for an CANCELED Part.
-        Given the target item the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
+        Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
         Then the target item has a field named "material" with label "MATERIAL/COLOR" and value "PLA/VERDE TRANSPARENTE"
         And the target item has a field named "stock" with label "STOCK" and value "5"
         And the target item has a field named "stockAvailable" with label "DISPONIBLE" and value "4"
@@ -71,14 +71,14 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.05
     Scenario: [D3D20.05]-Validate the different color tagging for the Model and Parts states.
-        Given the target item the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then the target item has a "blueviolet" tag
         # - Expand a Part Group to see the Parts
-        Given the target item the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then the target item has a "greenyellow" tag
-        Given the target item the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
+        Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
         Then the target item has a "orangered" tag
 
     @D3D20.06
@@ -99,7 +99,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And form field named "cost" is "valid"
         And form field named "price" is "valid"
         # - Check that the save button is enabled
-        Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         And actionable image named "save-button" is "enabled"
 
     @D3D20.07
@@ -185,5 +185,5 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 # And form field named "cost" is "valid"
 # And form field named "price" is "valid"
 # # - Check that the save button is enabled
-# Given the target item the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+# Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
 # And actionable image named "save-button" is "enabled"

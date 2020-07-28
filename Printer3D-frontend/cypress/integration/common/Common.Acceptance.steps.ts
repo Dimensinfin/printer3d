@@ -346,16 +346,6 @@ Then('the target page has one panel of type {string} with variant {string}', fun
 
 
 // - ITEMS
-Then('the target item has a field named {string} with label {string} and value {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-item').within(($item) => {
-            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
-        })
-        cy.get('@target-item').within(($item) => {
-            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
-                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-        })
-    });
 
 // - DRAG & DROP
 When('the mouse enter the target item', function () {

@@ -9,15 +9,6 @@ import { SupportService } from '../../support/SupportService.support';
 const supportService = new SupportService();
 
 // - C O L U M N S
-// Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
-//     cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
-// });
-
-Then('the target item has a field named {string} with value {string}', function (fieldName: string, fieldValue: string) {
-    cy.get('@target-panel').within(($item) => {
-        cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-    })
-});
 Then('the target panel has a drop place named {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target-panel').find(tag).should('exist')
