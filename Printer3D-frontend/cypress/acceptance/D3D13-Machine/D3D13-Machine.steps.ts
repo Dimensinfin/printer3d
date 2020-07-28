@@ -132,17 +132,6 @@ When('the mouse exits the target', function () {
     cy.get('@target').find('[cy-focus="mouseleave"]').trigger('mouseleave')
 });
 
-// Given('a timed application Printer3DManager', function () {
-//     cy.viewport(1400, 900)
-//     cy.clock()
-//     cy.visit('/')
-// });
-// Then('advance time {string} minutes', function (minutes: number) {
-//     cy.tick(minutes * 60 * 1000)
-//     cy.wait(1000)
-// });
-
-
 
 //--------------------------------------
 Then('the target machine has no Job assigned', function () {

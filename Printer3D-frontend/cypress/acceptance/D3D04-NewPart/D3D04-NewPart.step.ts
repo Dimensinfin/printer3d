@@ -335,32 +335,32 @@ Then('form fields have the next values', function (dataTable) {
 
 
 
-Then('the New Part dialog input field {string} should be empty', function (fieldName: string) {
-    cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
-        .find('[name="' + fieldName + '"]')
-        .should('to.be.empty')
-});
+// Then('the New Part dialog input field {string} should be empty', function (fieldName: string) {
+//     cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
+//         .find('[name="' + fieldName + '"]')
+//         .should('to.be.empty')
+// });
 
-Then('the New Part dialog input field {string} should not be empty', function (fieldName: string) {
-    cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
-        .find('[name="' + fieldName + '"]')
-        .should('not.to.be.empty')
-});
+// Then('the New Part dialog input field {string} should not be empty', function (fieldName: string) {
+//     cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
+//         .find('[name="' + fieldName + '"]')
+//         .should('not.to.be.empty')
+// });
 
-Then('the New Part dialog input field {string} should be {string}', function (fieldName: string, fieldValue: string) {
-    cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
-        .find('[name="' + fieldName + '"]')
-        .should('have.value', fieldValue + ''.trim())
-});
+// Then('the New Part dialog input field {string} should be {string}', function (fieldName: string, fieldValue: string) {
+//     cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
+//         .find('[name="' + fieldName + '"]')
+//         .should('have.value', fieldValue + ''.trim())
+// });
 
-Then('{string} is set on the New Part dialog input field {string}', function (fieldValue: string, fieldName: string) {
-    cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
-        .find('[name="' + fieldName + '"]')
-        .clear().type(fieldValue)
-});
+// Then('{string} is set on the New Part dialog input field {string}', function (fieldValue: string, fieldName: string) {
+//     cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
+//         .find('[name="' + fieldName + '"]')
+//         .clear().type(fieldValue)
+// });
 
-Then('{string} is set on the New Part dialog dropdown field {string}', function (fieldValue: string, fieldName: string) {
-    cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
-        .find('[name="' + fieldName + '"]')
-        .select(fieldValue)
-});
+// Then('{string} is set on the New Part dialog dropdown field {string}', function (fieldValue: string, fieldName: string) {
+//     cy.get('app-root').get('new-part-dialog').find('.column').as('target-field')
+//         .find('[name="' + fieldName + '"]')
+//         .select(fieldValue)
+// });

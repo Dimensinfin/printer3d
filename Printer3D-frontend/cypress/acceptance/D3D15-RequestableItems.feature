@@ -15,9 +15,9 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
     @D3D15.01
     Scenario: [D3D15.01]-When the New Request page open then we can see a panel with Models and Parts.
         Given the target is the panel of type "available-request-elements"
-        Then the target panel has a title "/STOCKS DISPONIBLES"
-        Then the target panel has 2 "model"
-        Then the target panel has 16 "part"
+        Then the target has the title "/STOCKS DISPONIBLES"
+        Then the target has 2 "model"
+        Then the target has 16 "part"
 
     @D3D15.02
     Scenario: [D3D15.02]-Validate the fields shown by the Model and the data rendered by the Part.

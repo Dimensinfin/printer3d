@@ -2,11 +2,6 @@
 import { environment } from '../../src/environments/environment';
 
 export class IsolationService {
-    public doLandingPage() {
-        let urlRequest = '/';
-        cy.log('-[IsolationService.doLandingPage]> urlRequest=' + urlRequest);
-        cy.visit(urlRequest);
-    }
     // - C U C U M B E R   D E C O D I N G
     public decodeDataTableRow(row: any, columnIdentifier: string): string {
         console.log('-[decodeDataTableRow]>row=' + JSON.stringify(row));

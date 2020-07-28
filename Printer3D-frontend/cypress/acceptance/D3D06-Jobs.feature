@@ -26,16 +26,16 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         When the page "ProductionJobListPage" is activated
         Then the page "ProductionJobListPage" has 2 panels
         Given the target is the panel of type "jobs-list"
-        Then the target panel has a title "/TRABAJOS/PENDIENTES"
+        Then the target has the title "/TRABAJOS/PENDIENTES"
         Given the target is the panel of type "machines"
-        Then the target panel has a title "/MAQUINAS"
+        Then the target has the title "/MAQUINAS"
 
     @D3D06 @D3D06.05
     Scenario: [D3D06.05]-The pending job list at the left panel shows the job records and they have the next list of required fields.
         Given there is a click on Feature "/TRABAJOS PND."
         When the page "ProductionJobListPage" is activated
         Given the target is the panel of type "jobs-list"
-        Then the target panel has 5 "job"
+        Then the target has 5 "job"
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         Then field named "quantity" with label "CANTIDAD" has contents "x 2"
         And field named "label" with label "ETIQUETA" has contents "Covid-19 Key"
@@ -64,6 +64,6 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
         When the page "ProductionJobListPage" is activated
         Given the target is the panel of type "jobs-list"
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        Then the target item has a field named "PRIORIDAD" with value "1"
+        Then hidden field named "PRIORIDAD" has contents "1"
         Given the target the "job" with id "1682544c-364b-4e30-b097-fd181bcc50a5"
-        Then the target item has a field named "PRIORIDAD" with value "2"
+        Then hidden field named "PRIORIDAD" has contents "2"

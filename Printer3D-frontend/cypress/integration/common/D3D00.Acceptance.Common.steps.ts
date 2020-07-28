@@ -14,7 +14,7 @@ const supportService = new SupportService();
 // - A P P L I C A T I O N
 Given('the application Printer3DManager', function () {
     cy.viewport(1400, 900)
-    new IsolationService().doLandingPage(); // Load the landing page.
+    cy.visit('/')
     cy.title().should('eq', TITLE_VALIDATION);
     cy.get('app-root').as('target-page').as('target')
 });

@@ -18,7 +18,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.02]-A new coil dialog should have all the fields empty and invalid.
         Then the "New Coil" dialog opens and blocks the display
         # - Check the empty dialog contents and field states
-        And the target dialog has a title "/INVENTARIO/NUEVO ROLLO"
+        And the target has the title "/INVENTARIO/NUEVO ROLLO"
         And the target panel has a form field named "material" with label "MATERIAL" and empty
         And the target panel has a form field named "color" with label "COLOR" and empty
         And the target panel has a form field named "weight" with label "PESO" and empty

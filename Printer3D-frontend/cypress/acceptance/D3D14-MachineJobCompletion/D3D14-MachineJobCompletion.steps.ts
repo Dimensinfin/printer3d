@@ -10,8 +10,8 @@ const supportService = new SupportService();
 
 // - T I M E   C O N T R O L
 Given('a timed application Printer3DManager', function () {
-    cy.viewport(1400, 900)
     cy.clock()
+    cy.viewport(1400, 900)
     cy.visit('/')
 });
 Then('advance time {string} minutes', function (minutes: number) {

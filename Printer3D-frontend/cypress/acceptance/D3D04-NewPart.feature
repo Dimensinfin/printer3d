@@ -15,7 +15,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
     # - H A P P Y   P A T H
     @D3D04.02
     Scenario: [D3D04.02]-A new part dialog should have most of the fields empty. There are predefined values for the stock, weight and material.
-        And the target dialog has a title "/INVENTARIO/NUEVA PIEZA"
+        And the target has the title "/INVENTARIO/NUEVA PIEZA"
         And form field named "label" with label "ETIQUETA" is empty
         And form field named "description" with label "DESCRIPCIÓN" is empty
         And form field named "material" with label "MATERIAL" has contents "PLA"
@@ -54,8 +54,8 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         # - Check the field contents size
         Then field named "label" is tested for size constraints 3 and 50
         And field named "weight" is tested for value constraints 1 to 100
-        And field named "cost" is tested for value constraints 0.01
-        And field named "price" is tested for value constraints 0.01
+        And field named "cost" is tested for numeric constraints 0.01
+        And field named "price" is tested for numeric constraints 0.01
         And field named "buildTime" is tested for value constraints 1
         And field named "stock" is tested for value constraints 1 to 15
         And field named "stockAvailable" is tested for value constraints 0

@@ -19,8 +19,8 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     @D3D08 @D3D08.03
     Scenario: [D3D08.03]-The Parts panel has a simplified, one level list of Parts. The listing contains Parts with any number of copies on stock but that are active.
         Given the target is the panel of type "available-parts"
-        Then the target panel has a title "/PIEZAS/DISPONIBLES"
-        And the target panel has 16 "part"
+        Then the target has the title "/PIEZAS/DISPONIBLES"
+        And the target has 16 "part"
         # - Validate the Part contents
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then field named "ETIQUETA" with label "ETIQUETA" has contents "Boquilla Ganesha - Figura"
@@ -30,7 +30,7 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     @D3D08 @D3D08.04
     Scenario: [D3D08.04]-The New Model panel has some input fields and a place to drop the Parts that are to be used on the Model.
         Given the target is the panel of type "new-model"
-        Then the target panel has a title "/NUEVO MODELO/DEFINICION"
+        Then the target has the title "/NUEVO MODELO/DEFINICION"
         Then form field named "label" with label "ETIQUETA" is empty
         Then form field named "price" with label "PRECIO" is empty
         Then form field named "stock" with label "NIVEL STOCK DESEADO" is empty

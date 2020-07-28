@@ -9,6 +9,15 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
+// - F I E L D S
+Then('hidden field named {string} has contents {string}',
+    function (fieldName: string, fieldValue: string) {
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+        })
+    });
+
+
 Then('there is a Feature with label {string}', function (label: string) {
     cy.get('v1-dock').find('v2-feature').find('.feature-label').contains(label, { matchCase: false })
 });
@@ -55,47 +64,47 @@ Then('the target item is droppable and with the contraint {string}', function (c
 //     cy.get('app-root').find('v1-dock').find('v1-feature-render').contains(label, { matchCase: false })
 // });
 
-Then('one instance of v1-pending-jobs-panel', function () {
-    // const dock: V1PendingJob = new V1PendingJob();
-    // expect(dock).to.not.be.null;
-    cy.get('app-root').find('production-job-list-page')
-        .find('v1-pending-jobs-panel').should('have.length', 1)
-});
+// Then('one instance of v1-pending-jobs-panel', function () {
+//     // const dock: V1PendingJob = new V1PendingJob();
+//     // expect(dock).to.not.be.null;
+//     cy.get('app-root').find('production-job-list-page')
+//         .find('v1-pending-jobs-panel').should('have.length', 1)
+// });
 
-Then('one instance of v2-machines-panel', function () {
-    cy.get('app-root').find('production-job-list-page')
-        .find('v2-machines-panel').should('have.length', 1)
-});
+// Then('one instance of v2-machines-panel', function () {
+//     cy.get('app-root').find('production-job-list-page')
+//         .find('v2-machines-panel').should('have.length', 1)
+// });
 
-Then('one or more instances of v1-pending-job-render', function () {
-    // const dock: V1PendingJob = new V1PendingJob();
-    // expect(dock).to.not.be.null;
-    cy.get('app-root').find('production-job-list-page')
-        // .find('v1-pending-jobs-panel')
-        .find('v1-pending-job-render').should('have.length.gt', 1)
-});
+// Then('one or more instances of v1-pending-job-render', function () {
+//     // const dock: V1PendingJob = new V1PendingJob();
+//     // expect(dock).to.not.be.null;
+//     cy.get('app-root').find('production-job-list-page')
+//         // .find('v1-pending-jobs-panel')
+//         .find('v1-pending-job-render').should('have.length.gt', 1)
+// });
 
-Then('one or more instances of v3-machine-render', function () {
-    cy.get('app-root').find('production-job-list-page')
-        .find('v2-machines-panel')
-        .find('v3-machine-render').should('exist')
-});
+// Then('one or more instances of v3-machine-render', function () {
+//     cy.get('app-root').find('production-job-list-page')
+//         .find('v2-machines-panel')
+//         .find('v3-machine-render').should('exist')
+// });
 
-Then('on the v3-machine-render component there is a field named {string}', function (fieldName: string) {
-    const columnIdentifer = '[name="' + fieldName + '"]'
-    cy.get('app-root').find('production-job-list-page')
-        .find('v2-machines-panel')
-        .find('v3-machine-render')
-        .find(columnIdentifer).should('exist')
-});
+// Then('on the v3-machine-render component there is a field named {string}', function (fieldName: string) {
+//     const columnIdentifer = '[name="' + fieldName + '"]'
+//     cy.get('app-root').find('production-job-list-page')
+//         .find('v2-machines-panel')
+//         .find('v3-machine-render')
+//         .find(columnIdentifer).should('exist')
+// });
 
-Then('on the v1-pending-job-render component there is a field named {string}', function (fieldName: string) {
-    const columnIdentifer = '[name="' + fieldName + '"]'
-    cy.get('app-root').find('production-job-list-page')
-        .find('v1-pending-jobs-panel')
-        .find('v1-pending-job-render')
-        .find(columnIdentifer).should('have.length.greaterThan', 1)
-});
+// Then('on the v1-pending-job-render component there is a field named {string}', function (fieldName: string) {
+//     const columnIdentifer = '[name="' + fieldName + '"]'
+//     cy.get('app-root').find('production-job-list-page')
+//         .find('v1-pending-jobs-panel')
+//         .find('v1-pending-job-render')
+//         .find(columnIdentifer).should('have.length.greaterThan', 1)
+// });
 // Then('there is a constraint named {string}', function (constraintName: string) {
 //     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
 //     cy.get('app-root').find('production-job-list-page')

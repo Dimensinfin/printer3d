@@ -53,7 +53,8 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
         And field named "buildTime" with label "TIEMPO" has contents "90 min."
         Given the target item is expandable
         When the target item is expanded
-        Then the target panel has 6 "part"
+        Given the target is the panel of type "catalog"
+        Then the target has 6 "part"
 
     # @D3D07 @D3D07.04
     # Scenario: [D3D07.04]-Validate the contents of a Part.

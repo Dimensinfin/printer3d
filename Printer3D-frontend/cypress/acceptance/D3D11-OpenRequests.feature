@@ -23,8 +23,8 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         # - Hover over a Request to diaply the details panel
         Given a hover on the target
         Given the target is the panel of type "request-details"
-        Then the target panel has a title "/PEDIDOS/DETALLE"
-        Then the target panel has 1 "request"
+        Then the target has the title "/PEDIDOS/DETALLE"
+        Then the target has 1 "request"
 
     @D3D11 @D3D11.03
     Scenario: [D3D11.03]-There are two types of Requests. The COMPLETED and the OPEN.
@@ -49,7 +49,7 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
         Given a hover on the target
         Then the target is the panel of type "request-details"
-        Then the target panel has 1 "request"
+        Then the target has 1 "request"
         Given the target the "request-item" with id "ed36cdfb-e5ae-4275-a163-63b4be4d952c"
         Then column named "missing" has contents "1"
         And column named "quantity" has contents "2"
@@ -60,7 +60,7 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
     Scenario: [D3D11.06]-During the Request processing when downloaded convert RequestV1 to RequestV2 for rendering. There is no difference on rendering except for Parts and Models on the Request Details.
         Then the page "OpenRequestsPage" is activated
         Given the target is the panel of type "open-requests"
-        Then the target panel has 2 "request"
+        Then the target has 2 "request"
         Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
         And field named "FECHA" with label "FECHA" has contents "Jun 29, 2020"
         And field named "ETIQUETA" with label "ETIQUETA" has contents "Complete Slot Car Platform P02"
@@ -69,7 +69,7 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
 
         Given a hover on the target
         Then the target is the panel of type "request-details"
-        Then the target panel has 1 "request"
+        Then the target has 1 "request"
         Given the target the "request-item" with id "ed36cdfb-e5ae-4275-a163-63b4be4d952c"
         Then column named "missing" has contents "1"
         And column named "quantity" has contents "2"
