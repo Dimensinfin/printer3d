@@ -264,22 +264,28 @@ workflows:
   printer3d-deploy:
     jobs:
       - test-backend-job:
-        filters:
-          tags:
-            only: /0.*/
+          filters:
+            tags:
+              only: /0.*/
+            branches:
+              ignore: /.*/
       - test-frontend-job:
           requires:
             - test-backend-job
           filters:
             tags:
               only: /0.*/
-      - quality-sonarcloud:
+            branches:
+              ignore: /.*/
+        - quality-sonarcloud:
           requires:
             - test-backend-job
           filters:
             tags:
               only: /0.*/
-      - stage-to-heroku:
+            branches:
+              ignore: /.*/
+        - stage-to-heroku:
           requires:
             - test-backend-job
             - test-frontend-job
@@ -287,3 +293,6 @@ workflows:
           filters:
             tags:
               only: /0.*/
+            branches:
+              ignore: /.*/
+  
