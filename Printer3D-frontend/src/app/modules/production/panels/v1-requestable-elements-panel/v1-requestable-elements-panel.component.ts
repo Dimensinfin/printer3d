@@ -77,7 +77,7 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
                 .setDescription('Transforms response into a list of Models.')
                 .setTransformation((entrydata: any): Model[] => {
                     // For each of the Models expand the Parts from the part provider.
-                    const modelList : Model[]=[]
+                    const modelList: Model[] = []
                     for (const entry of entrydata.models) {
                         const model: Model = new Model(entry)
                         for (let index = 0; index < entry.partIdList.length; index++) {
@@ -90,16 +90,19 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
                 }))
                 .subscribe((response: Model[]) => {
                     this.models = response
-                    // Join the lsit of Parts and the list of Models in order
-                    this.items =[]
-                    for (const item of this.models) {
-                        this.items.push(item)
-                    }
-                    for (const item of this.parts) {
-                        this.items.push(item)
-                    }
-                    this.completeDowload(this.items)
+                    this.generateItems()
                 })
         )
+    }
+    protected generateItems(): void {
+        // Join the lsit of Parts and the list of Models in order
+        this.items = []
+        for (const item of this.models) {
+            if (item.isActive()) this.items.push(item)
+        }
+        for (const item of this.parts) {
+            if (item.isActive()) this.items.push(item)
+        }
+        this.completeDowload(this.items)
     }
 }
