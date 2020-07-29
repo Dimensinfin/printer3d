@@ -67,6 +67,10 @@ $form-item-invalid: #A94442; // Red
 }
 
 // - F O R M   V A L I D A T I O N S
+.dsf-not-required {
+    fill: yellowgreen;
+}
+
 .ng-valid {
     fill: green
 }

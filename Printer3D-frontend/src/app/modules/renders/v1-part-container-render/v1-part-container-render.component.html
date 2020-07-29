@@ -73,7 +73,7 @@
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div class="orangered-mark" [ngClass]="{'ng-valid': !buildTime.invalid}">
+                    <div [ngClass]="{'ng-valid': !buildTime.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -98,9 +98,9 @@
                 </div>
             </div>
             <div class="left">
-                <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;" *ngIf="node.isExpandable()">
+                <!-- <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;" *ngIf="node.isExpandable()">
                     <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row">
@@ -114,7 +114,7 @@
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div [ngClass]="{'ng-valid': !imagePath.invalid}">
+                    <div class="dsf-not-required">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
@@ -131,7 +131,7 @@
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div class="orangered-mark" [ngClass]="{'ng-valid': !modelPath.invalid}">
+                    <div class="dsf-not-required">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
