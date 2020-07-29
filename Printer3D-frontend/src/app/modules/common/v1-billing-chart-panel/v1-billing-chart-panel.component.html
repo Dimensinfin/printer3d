@@ -1,4 +1,4 @@
-<div class="graph-container" style="position: relative;" (click)="refresh()">
+<div class="graph-container" (click)="refresh()">
     <div *ngIf="hasData(); else noChartData">
         <ngx-charts-bar-vertical class=" bar-graph" [view]="[220,80]" [results]="billingChartData" [yAxis]="true" [yAxisLabel]=" 'Ingresos'" [showYAxisLabel]="true" [showGridLines]="true" [yScaleMax]="yscale" [yAxisTicks]="yaxisTicks" [scheme]="colorScheme">
         </ngx-charts-bar-vertical>
@@ -7,7 +7,7 @@
         <div cy-name="sign" class="no-chart-data">NO HAY DATOS</div>
     </ng-template>
     <svg class="corner-border" viewBox="0 0 100 100">
-        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        <path d="M100,100 L0,100 L100,0 L100,100" fill="darkviolet" />
     </svg>
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
