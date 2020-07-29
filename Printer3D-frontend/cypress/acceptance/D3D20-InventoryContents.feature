@@ -167,28 +167,3 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And field named "price" is tested for numeric constraints 0.01
         And field named "stock" is tested for value constraints 1 to 100
         And field named "stockAvailable" is tested for value constraints 0
-
-    @D3D20.12
-    Scenario: [D3D20.12]-There is an edit button on the Model render. If clicked then there is a new panel with the Model fields.
-        # - Select a Model for editing
-        Given the target is the panel of type "catalog"
-        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
-        And target has an actionable image named "edit-button"
-        And actionable image named "edit-button" is "enabled"
-        # - Validate the contents of the Model Details
-        When target actionable image "edit-button" is clicked
-        Given the target is the panel of type "model-detail"
-        Then form field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
-        Then form field named "price" with label "PRECIO" has contents "15"
-        Then form field named "stock" with label "NIVEL STOCK DESEADO" has contents "3"
-        Given the target is the panel of type "drop-part-location"
-        Then the target has 3 "part-stack"
-        # - Validate the Model part selected
-        Given the target the "part-stack" with id "8128a07b-b270-4097-99f6-7a6960122f6c"
-        Then column named "quantity" has contents "1"
-        Then column named "label" has contents "PLATAFORMA SLOT 1/32 - Base"
-        Then column named "material" has contents "PLA/VERDE TRANSPARENTE"
-        Then target has an actionable image named "remove-button"
-
-# @D3D20.13
-#     Scenario: [D3D20.13]-If after editing a Model the uses closes the editing session instead of saving changes, when the model is edited again it should have the original values.

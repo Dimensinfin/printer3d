@@ -10,17 +10,7 @@ import { BackendService } from '@app/services/backend.service';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
-import { PartListResponse } from '@domain/dto/PartListResponse.dto';
-import { environment } from '@env/environment';
-import { Part } from '@domain/Part.domain';
-import { Request } from '@domain/Request.domain';
-import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
-import { Model } from '@domain/inventory/Model.domain';
-import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter';
-import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
-import { IContent } from '@domain/interfaces/IContent.interface';
 import { Job } from '@domain/Job.domain';
-import { toLength } from 'cypress/types/lodash';
 
 /**
  * This panel aggregates all the pending jobs time and displays all that time on the HM format.
@@ -39,7 +29,6 @@ export class V1WorkLoadPanelComponent extends AppPanelComponent implements OnIni
 
     public ngOnInit(): void {
         console.log(">[V1WorkLoadPanelComponent.ngOnInit]");
-        this.startDownloading();
         this.refresh();
         console.log("<[V1WorkLoadPanelComponent.ngOnInit]");
     }

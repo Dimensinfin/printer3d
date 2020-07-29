@@ -14,6 +14,7 @@ import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     public inside: boolean = false
     private editing: boolean = false
+    private nodeBackup: Model;
 
     public getNode(): Model {
         return this.node as Model
@@ -56,7 +57,11 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
         this.editing = !this.editing
         if (this.editing) {
             const container = this.container as IViewer
+            this.nodeBackup = this.getNode()
             this.container.enterSelected(this.getNode())
-        } else this.container.enterSelected(undefined)
+        } else {
+            this.container.enterSelected(undefined)
+            this.node = this.nodeBackup
+        }
     }
 }
