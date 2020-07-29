@@ -28,6 +28,8 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And field named "price" with label "PRECIO" has contents "15 €"
         And target has an actionable image named "edit-button"
         And actionable image named "edit-button" is "enabled"
+        And active Model shows a violet corner
+        And inactive Model shows a red corner
 
     @D3D20.03
     Scenario: [D3D20.03]-Validate the contents for the Part Group.

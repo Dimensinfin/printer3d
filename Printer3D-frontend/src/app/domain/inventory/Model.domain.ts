@@ -25,6 +25,10 @@ export class Model extends Node implements IContent {
     public getParts(): PartStack[] {
         return this.partList
     }
+    public isActive(): boolean {
+        return this.active
+    }
+
     public addPart(newPart: Part): void {
         for (let part of this.partList) {
             if (newPart.getId() == part.getId()) { // If the part is on the list increment the stack

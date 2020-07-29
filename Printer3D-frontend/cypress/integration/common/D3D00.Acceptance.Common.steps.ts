@@ -295,6 +295,11 @@ Then('form field named {string} with label {string} has contents {string}',
                     cy.get('@target-field').find('textarea')
                         .invoke('val').should('equal', fieldValue)
                     break
+                case 'checkbox':
+                    cy.log('chekbox')
+                    cy.get('@target-field').find('input')
+                        .invoke('val').should('equal', fieldValue)
+                    break
             }
         })
     });

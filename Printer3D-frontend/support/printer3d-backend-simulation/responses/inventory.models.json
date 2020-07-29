@@ -29,7 +29,7 @@
             "price": 15.0,
             "stockLevel": 2,
             "imagePath": null,
-            "active": true,
+            "active": false,
             "partList": []
         }
     ],

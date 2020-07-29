@@ -72,7 +72,7 @@
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
     </svg>
-    <svg class="corner-mark blueviolet-mark" viewBox="0 0 100 100">
+    <svg class="corner-mark" [ngClass]="{'red-mark': !isActive(), 'blueviolet-mark': isActive()}" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>

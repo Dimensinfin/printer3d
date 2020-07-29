@@ -77,6 +77,15 @@ Then('inactive {string} shows an orange corner', function (symbolicName: string)
             cy.get('.corner-mark').should('have.class', 'orangered-mark')
         })
 });
+// - A C T I V E   M O D E L   T A G G I N G
+Then('active Model shows a violet corner', function () {
+    const tag = supportService.translateTag('model') // Do name replacement
+    cy.get('@target-panel').find(tag).find('.corner-mark').should('have.class', 'blueviolet-mark')
+});
+Then('inactive Model shows a red corner', function () {
+    const tag = supportService.translateTag('model') // Do name replacement
+    cy.get('@target-panel').find(tag).find('.corner-mark').should('have.class', 'red-mark')
+});
 
 
 

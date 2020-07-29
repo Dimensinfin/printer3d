@@ -449,7 +449,6 @@ response:
 
 ---
 
-
 simlet: inventory-newmodel
 
 request:
@@ -467,7 +466,7 @@ response:
 
 ---
 
-simlet: inventory-newmodel
+simlet: inventory-updatemodel
 
 request:
   - method: PATCH

@@ -38,6 +38,9 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     public getComposingParts(): PartStack[] {
         return this.getNode().getParts()
     }
+    public isActive():boolean{
+        return this.getNode().isActive()
+    }
 
     // - I N T E R A C T I O N S
     public toggleDisplay(): void {

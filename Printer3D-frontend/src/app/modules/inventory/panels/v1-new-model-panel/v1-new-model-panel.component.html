@@ -85,6 +85,12 @@
                     </div>
                 </div>
             </div>
+            <div cy-name="active" class="field">
+                <span cy-field-label="active" cy-input-type="checkbox" class="label">ACTIVO</span><br>
+                <div class="dsf-input-container stock-width">
+                    <input name="active" type="checkbox" class="dsf-input checkbox-input" [(ngModel)]="model.active" #active="ngModel">
+                </div>
+            </div>
         </div>
         <!-- D R O P   P A N E L  -->
         <v1-drop-part-panel></v1-drop-part-panel>

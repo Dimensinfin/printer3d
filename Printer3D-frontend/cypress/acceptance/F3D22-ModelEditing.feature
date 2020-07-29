@@ -22,6 +22,7 @@ Feature: [F3D22]-[STORY] From the Inventory the Models can be edited.
         Then form field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
         Then form field named "price" with label "PRECIO" has contents "15"
         Then form field named "stock" with label "NIVEL STOCK DESEADO" has contents "3"
+        Then form field named "active" with label "ACTIVO" has contents "on"
         Given the target is the panel of type "drop-part-location"
         Then the target has 3 "part-stack"
         # - Validate the Model part selected
