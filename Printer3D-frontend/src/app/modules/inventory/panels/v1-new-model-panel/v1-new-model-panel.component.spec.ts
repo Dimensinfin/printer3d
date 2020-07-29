@@ -1,17 +1,10 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { platformconstants } from '../../../../platform/platform-constants';
 // - TESTING
-import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/testing';
-import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
 import { routes } from '@app/testing/RouteMockUp.component';
 import { Location } from "@angular/common";
 // - PROVIDERS
@@ -22,9 +15,6 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
-import { EVariant } from '@domain/interfaces/EPack.enumerated';
-import { RequestForm } from '@domain/RequestForm.domain';
-import { Part } from '@domain/Part.domain';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { V1NewModelPanelComponent } from './v1-new-model-panel.component';
 import { Model } from '@domain/inventory/Model.domain';

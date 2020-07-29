@@ -9,7 +9,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     Background: Application landing page
         Given the application Printer3DManager
         Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
+        Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
 
     # - H A P P Y   P A T H
@@ -130,9 +130,6 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.09
     Scenario: [D3D20.09]-Validate the contents of a Part.
-        # Given there is a click on Feature "/INVENTARIO"
-        # Then the page "InventoryPage" is activated
-        # Given the target is the panel of type "catalog"
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         # - Validate the fields of a Part inside a part group
@@ -156,14 +153,3 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         # - Validate Part corners
         And active "part" shows a green corner
         And inactive "part" shows an orange corner
-
-    @D3D20.11
-    Scenario: [D3D20.11]-Validate the input fields limits and constraints
-        # - Activate the Part editing
-        Given editing state for Part "6939c6cc-297f-48ca-8f17-25fa18c3dbc7" on Part Container "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        # - Validate part fields for constraints
-        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then field named "cost" is tested for numeric constraints 0.01
-        And field named "price" is tested for numeric constraints 0.01
-        And field named "stock" is tested for value constraints 1 to 100
-        And field named "stockAvailable" is tested for value constraints 0

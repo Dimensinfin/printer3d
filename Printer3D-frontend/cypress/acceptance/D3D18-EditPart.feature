@@ -8,7 +8,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
     Background: Application landing page
         Given the application Printer3DManager
         Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
+        Then the page "Inventory Page" is activated
 
     # - H A P P Y   P A T H
     @D3D18.01

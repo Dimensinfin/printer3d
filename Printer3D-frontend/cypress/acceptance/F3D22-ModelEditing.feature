@@ -10,7 +10,7 @@ Feature: [F3D22]-[STORY] From the Inventory the Models can be edited.
     Background: Application landing page
         Given the application Printer3DManager
         Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
+        Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
 
     # - H A P P Y   P A T H
@@ -43,3 +43,18 @@ Feature: [F3D22]-[STORY] From the Inventory the Models can be edited.
         Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         When target actionable image "edit-button" is clicked
         Then column named "label" has contents "PLATAFORMA SLOT 1/32 - Base"
+
+    @F3D22.03
+    Scenario: [F3D22.03]-Validate the input fields limits and constraints
+        # - Select a Model for editing
+        Given activate model "0f789845-cdc6-48ce-a0ce-cbaf63cffab5" for editing
+        # - Validate editable field constraints
+        Then field named "label" is tested for size constraints 3 and 50
+        And field named "price" is tested for numeric constraints 0.01
+        And field named "stock" is tested for value constraints 1 to 100
+
+    @F3D22.04
+    Scenario: [F3D22.04]-Validate the title for the Model editing panel when active.
+        # - Select a Model for editing
+        Given activate model "0f789845-cdc6-48ce-a0ce-cbaf63cffab5" for editing
+        Then the target has the title "/CAMBIO MODELO/EDICION"

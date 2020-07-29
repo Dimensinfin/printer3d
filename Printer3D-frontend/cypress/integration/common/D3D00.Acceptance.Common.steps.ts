@@ -192,7 +192,7 @@ Then('field named {string} with label {string} is not empty',
 Then('field named {string} is tested for size constraints {int} and {int}',
     function (fieldName: string, minCharacters: number, maxCharacters: number) {
         cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
+        cy.get('@target-field').find('input').clear().should('have.class', 'ng-invalid') // validate invalid before starting test
         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters - 1))
         cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // invalid-one below limit
         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters))

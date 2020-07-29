@@ -14,7 +14,7 @@ export class SupportService {
         this.translationTable['OpenRequestsPage'] = 'v1-open-requests-page'
         this.translationTable['Open Requests Page'] = 'v1-open-requests-page'
         this.translationTable['NewModelPage'] = 'v1-new-model-page'
-        this.translationTable['InventoryPage'] = 'v3-inventory-page'
+        this.translationTable['Inventory Page'] = 'v3-inventory-page'
         this.translationTable['CoilsPage'] = 'v2-coil-list-page'
         this.translationTable['Delete Confirmation'] = 'delete-confirmation-dialog'
         // - PANELS

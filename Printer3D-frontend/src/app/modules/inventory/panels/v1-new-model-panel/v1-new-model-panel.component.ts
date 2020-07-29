@@ -26,6 +26,7 @@ import { Model } from '@domain/inventory/Model.domain';
     styleUrls: ['./v1-new-model-panel.component.scss']
 })
 export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
+    @Input() panelTitle:string='/NUEVO MODELO/DEFINICION'
     @Input() visible: boolean
     @ViewChild(V1DropPartPanelComponent) public partContainer: V1DropPartPanelComponent;
     public model: ModelForm = new ModelForm().generateNewId();

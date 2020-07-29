@@ -137,3 +137,18 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then  the target has the title "/TRABAJOS/PENDIENTES"
         Given the target is the panel of type "machines"
         Then  the target has the title "/MAQUINAS"
+
+    @D3D02.13
+    Scenario: [D3D02.13]-Check that the Inventory Feature opens the right page and shows the required titles.
+        Given the application Printer3DManager
+        Given one instance of Dock
+        When the Feature with label "/INVENTARIO" is clicked the destination is the Page "Inventory Page"
+        Then the Feature with label "/INVENTARIO" opens a Page
+        And the loading panel shows "Clasificando Piezas..."
+        When the loading panel completes
+        Then the target Feature "/INVENTARIO" changes to state "active"
+        And the page "Inventory Page" has 2 panels
+        Given the target is the panel of type "catalog"
+        Then the target has the title "/CATALOGO PIEZAS Y MODELOS"
+        Then the target has 2 "model"
+        Then the target has 6 "part-container"

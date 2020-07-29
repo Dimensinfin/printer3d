@@ -196,27 +196,6 @@ Then('the target panel button with name {string} has a label {string} and is {st
             .should('not.exist')
     }
 });
-// Then('the target panel field {string} is tested for size constraints {int} and {int}',
-//     function (fieldName: string, minCharacters: number, maxCharacters: number) {
-//         cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
-//         cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
-//         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters - 1))
-//         cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // invalid-one below limit
-//         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters))
-//         cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-low limit
-//         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(maxCharacters))
-//         cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-high limit
-//         let largerValue = supportService.generateRandomString(maxCharacters + 5)
-//         cy.get('@target-field').find('input').clear().type(largerValue)
-//         cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
-//     });
-// Then('the target panel field {string} is tested for value constraints', function (fieldName: string) {
-//     cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
-//     cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
-//     const numberValue: string = supportService.generateRandomNum(1, 15) + ''
-//     cy.get('@target-field').find('input').clear().type(numberValue)
-//     cy.get('@target-field').find('input').should('have.class', 'ng-valid') // validate invalid before starting test
-// });
 
 
 // - E X P E R I M E N T A L
