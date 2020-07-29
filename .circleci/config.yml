@@ -213,7 +213,7 @@ jobs:
  
 workflows:
   version: 2
-  printer3d-deploy:
+  printer3d-test:
     jobs:
       - start-job:
           filters:
@@ -259,25 +259,31 @@ workflows:
             branches:
               only:
                 - test
-      - quality-sonarcloud:
-          # requires:
-          #   - test-backend-job
+                - hotfix
+
+  printer3d-deploy:
+    jobs:
+      - test-backend-job:
+        filters:
+          tags:
+            only: /0.*/
+      - test-frontend-job:
+          requires:
+            - test-backend-job
           filters:
             tags:
               only: /0.*/
-            # branches:
-            #   only:
-            #     - test
-            #     - hotfix
-          # context: sonarcloud
-
+      - quality-sonarcloud:
+          requires:
+            - test-backend-job
+          filters:
+            tags:
+              only: /0.*/
       - stage-to-heroku:
           requires:
-            - start-job
+            - test-backend-job
+            - test-frontend-job
+            - quality-sonarcloud
           filters:
-            branches:
-              only:
-                - test
-                - hotfix
             tags:
               only: /0.*/
