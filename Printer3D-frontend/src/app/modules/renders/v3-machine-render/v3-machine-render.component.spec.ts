@@ -1,34 +1,24 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
 // - TESTING
-import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
-import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
-// - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { BackendService } from '@app/services/backend.service';
+import { SupportBackendService } from '@app/testing/SupportBackend.service';
+// - DOMAIN
 import { Machine } from '@domain/Machine.domain';
 import { Part } from '@domain/Part.domain';
-import { TIMEOUT } from 'dns';
 import { V3MachineRenderComponent } from './v3-machine-render.component';
 import { Job } from '@domain/Job.domain';
+import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 
 const TEST_TIME: number = 12 * 60;
 
-xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
+fdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
     let component: V3MachineRenderComponent;
     let fixture: ComponentFixture<V3MachineRenderComponent>;
     let isolationService: SupportIsolationService;
@@ -40,6 +30,7 @@ xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             ],
             declarations: [
                 V3MachineRenderComponent,
+                V1BuildCountdownTimerPanelComponent
             ],
             providers: [
                 { provide: IsolationService, useClass: SupportIsolationService },
@@ -57,8 +48,7 @@ xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
         it('constructor.none: validate initial state without constructor', () => {
             expect(component).toBeDefined('component has not been created.');
             const componentAsAny = component as any;
-            expect(componentAsAny.sessionTimer).toBeUndefined();
-            expect(componentAsAny.node).toBeUndefined();
+            expect(componentAsAny.buildTimeTimer).toBeUndefined();
             expect(component.self).toBeDefined()
             expect(componentAsAny.target).toBeUndefined();
             expect(componentAsAny.state).toBe('IDLE');
@@ -67,109 +57,177 @@ xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
     });
 
     // - O N I N I A T I Z A T I O N   P H A S E
-    // describe('On Initialization Phase', () => {
-    //     it('ngOnInit.empty: validate initialization flow', async () => {
-    //         await component.ngOnInit();
-    //         const componentAsAny = component as any;
-    //         expect(component.self).toBeDefined();
-    //     });
-    //     it('ngOnInit.idle: validate initialization flow', async () => {
-    //         const componentAsAny = component as any;
-    //         componentAsAny.node = new Machine();
-    //         await component.ngOnInit();
-    //         expect(component.self).toBeDefined();
-    //         expect(component.isRunning()).toBeFalse();
-    //     });
-    //     it('ngOnInit.running: validate initialization flow', async () => {
-    //         jasmine.clock().install();
-    //         const componentAsAny = component as any;
-    //         componentAsAny.node = new Machine({
-    //             currentJobPartId: new Part(),
-    //             buildTime: TEST_TIME,
-    //             jobInstallmentDate: Date.now().toString,
-    //             buildRecord: {
-    //                 part: new Part(),
-    //                 remainingTime: 587
-    //             },
-    //             isRunning: () => { return true }
-    //         });
-    //         await component.ngOnInit();
-    //         jasmine.clock().tick(500);
-    //         expect(component.self).toBeDefined();
-    //         expect(componentAsAny.node).toBeDefined();
-    //         expect(componentAsAny.node.currentJobPartId).toBeDefined();
-    //         expect(component.target).toBeDefined();
-    //         expect(component.isRunning()).toBeTrue();
-    //         expect(component.getBuildTime()).toBe(587);
-    //         jasmine.clock().uninstall()
-    //     });
-    // });
+    describe('On Initialization Phase', () => {
+        it('ngAfterViewInit.idle: validate initialization flow', async () => {
+            jasmine.clock().install();
+            const componentAsAny = component as any;
+            componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
+            componentAsAny.node = new Machine()
+            await component.ngAfterViewInit();
+            jasmine.clock().tick(500);
+            expect(component.self).toBeDefined();
+            jasmine.clock().uninstall()
+        });
+        it('ngAfterViewInit.running: validate initialization flow', async () => {
+            jasmine.clock().install();
+            const componentAsAny = component as any;
+            componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
+            componentAsAny.node = new Machine({
+                "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
+                "label": "Ender 3 Pro - B",
+                "model": "Creality 3D Ender 3 Pro",
+                "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
+                "buildRecord": {
+                    "state": "RUNNING",
+                    "partCopies": 1,
+                    "part": {
+                        "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                        "label": "Covid-19 Key",
+                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                        "material": "PLA",
+                        "color": "BLANCO",
+                        "weight": 5,
+                        "buildTime": 60,
+                        "cost": 0.65,
+                        "price": 2.0,
+                        "stockLevel": 3,
+                        "stockAvailable": 0,
+                        "imagePath": "https://ibb.co/3dGbsRh",
+                        "modelPath": "pieza3.STL",
+                        "active": true
+                    },
+                    "jobInstallmentDate": "2020-07-24T10:48:52.391425Z",
+                    "remainingTime": 2800
+                }
+            })
+            await component.ngAfterViewInit();
+            jasmine.clock().tick(500);
+            expect(component.self).toBeDefined();
+            expect(componentAsAny.node).toBeDefined();
+            expect(component.target).toBeDefined();
+            expect(component.isRunning()).toBeTrue();
+            expect(componentAsAny.remainingTime).toBe(2800);
+            jasmine.clock().uninstall()
+        });
+    });
 
     // - C O D E   C O V E R A G E   P H A S E
+    describe('Code Coverage Phase [Getters]', () => {
+        it('getters contract: check all getters', () => {
+            component.node = new Machine({
+                id: "0913f2bc-6feb-4c80-9093-4372ec630044",
+                label: '-MACHINE-LABEL-',
+                model: '-MACHINE-MODEL-',
+                characteristics: '-MACHINE-CHARACTERISTICS-',
+                buildRecord: {
+                    "state": "IDLE",
+                    "partCopies": 1,
+                    "part": null,
+                    "jobInstallmentDate": null,
+                    "remainingTime": 0
+                }
+            })
+            component.target = new Job({
+                id: "0913f2bc-6feb-4c80-9093-4372ec630044",
+                part: new Part({
+                    id: "0913f2bc-6feb-4c80-9093-4372ec630044",
+                    label: '-PART-LABEL-'
+                })
+            })
+            expect(component.getUniqueId()).toBe("0913f2bc-6feb-4c80-9093-4372ec630044")
+            expect(component.getLabel()).toBe('-MACHINE-LABEL-')
+            expect(component.getModel()).toBe('-MACHINE-MODEL-')
+            expect(component.getCharacteristics()).toBe('-MACHINE-CHARACTERISTICS-')
+            expect(component.getPartLabel()).toBe('-PART-LABEL-')
+            expect(component.isRunning()).toBeFalse()
+            component.node = new Machine({
+                id: "0913f2bc-6feb-4c80-9093-4372ec630044",
+                label: '-MACHINE-LABEL-',
+                model: '-MACHINE-MODEL-',
+                characteristics: '-MACHINE-CHARACTERISTICS-',
+                buildRecord: {
+                    "state": "RUNNING",
+                    "partCopies": 1,
+                    "part": null,
+                    "jobInstallmentDate": null,
+                    "remainingTime": 0
+                }
+            })
+            expect(component.isRunning()).toBeTrue()
+        });
+    });
     describe('Code Coverage Phase [Methods]', () => {
-        // it('isAutostart.false: true if the part is loaded from a running machine', () => {
-        //     expect(component.isAutostart()).toBeFalse();
-        // });
-        // it('isAutostart:true true if the part is loaded from a running machine', () => {
-        //     const componentAsAny = component as any;
-        //     componentAsAny.state = 'RUNNING'
-        //     expect(component.isAutostart()).toBeTrue();
-        // });
-        // it('getBuildTime: get the time left to build', async () => {
-        //     expect(component.getBuildTime()).toBe(0);
-        //     const componentAsAny = component as any;
-        //     componentAsAny.node = new Machine({
-        //         currentJobPartId: new Part(),
-        //         buildTime: TEST_TIME,
-        //         jobInstallmentDate: Date.now().toString,
-        //         buildRecord: {
-        //             part: new Part(),
-        //             remainingTime: 876
-        //         },
-        //         isRunning: () => { return true }
-        //     });
-        //     await component.ngOnInit()
-        //     expect(component.getBuildTime()).toBe(876);
-        // });
+        it('completeTime: receive the signal to complete the job', () => {
+            const componentAsAny = component as any;
+            component.completeTime();
+            expect(componentAsAny.state).toBe('COMPLETED');
+        });
         it('onDrop.empty: drop an empty element', () => {
             component.onDrop(null);
             expect(component.target).toBeUndefined();
         });
-        it('onDrop.job: drop an empty element', () => {
+        it('onDrop.job: drop an element', () => {
+            const componentAsAny = component as any;
             expect(component.target).toBeUndefined()
-            // expect(component.getBuildTime()).toBe(0);
+            componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
             component.onDrop({
                 dragData: {
+                    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
                     part: new Part({
-                        buildTime: 97
+                        "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                        "label": "Covid-19 Key",
+                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                        "material": "PLA",
+                        "color": "BLANCO",
+                        "weight": 5,
+                        "buildTime": 60,
+                        "cost": 0.65,
+                        "price": 2.0,
+                        "stockLevel": 3,
+                        "stockAvailable": 0,
+                        "imagePath": "https://ibb.co/3dGbsRh",
+                        "modelPath": "pieza3.STL",
+                        "active": true
                     })
                 }
             });
-            expect(component.target).toBeDefined();
-            // expect(component.getBuildTime()).toBe(97 * 60);
+            expect(component.target).toBeDefined()
+            expect(component.isRunning()).toBeFalse()
+            expect(componentAsAny.remainingTime).toBe(3600)
         });
-        it('getUniqueId: get the machine unique identifier for html identification', () => {
+        it('changePartCount: change the number of copies', () => {
             const componentAsAny = component as any;
-            componentAsAny.node = new Machine({
-                id: "9903926b-e786-4fb2-8e8e-68960ebebb7a"
+            componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
+            component.onDrop({
+                dragData: {
+                    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                    part: new Part({
+                        "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                        "label": "Covid-19 Key",
+                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                        "material": "PLA",
+                        "color": "BLANCO",
+                        "weight": 5,
+                        "buildTime": 60,
+                        "cost": 0.65,
+                        "price": 2.0,
+                        "stockLevel": 3,
+                        "stockAvailable": 0,
+                        "imagePath": "https://ibb.co/3dGbsRh",
+                        "modelPath": "pieza3.STL",
+                        "active": true
+                    })
+                }
             });
-            expect(component.getUniqueId()).toBe("9903926b-e786-4fb2-8e8e-68960ebebb7a")
-        });
-        it('completeTime: singnal from the timer that the time has completed', () => {
-            const componentAsAny = component as any;
+            expect(componentAsAny.remainingTime).toBe(3600)
+            component.changePartCount()
             expect(component.state).toBe('IDLE')
-            component.completeTime()
-            expect(component.state).toBe('COMPLETED')
+            expect(componentAsAny.remainingTime).toBe(3600)
         });
         it('startBuild: start the job', async () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
-            componentAsAny.sessionTimer = {
-                activate: (seconds: number) => {
-                    expect(seconds).toBe(30 * 60)
-                }
-            }
-            spyOn(componentAsAny.sessionTimer, 'activate')
+            componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
             const testPart: Part = new Part({
                 id: "9cc43545-3221-4a24-bd0c-04b429d11df4",
                 buildTime: 30
@@ -182,21 +240,38 @@ xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                 id: "85403a7a-4bf8-4e99-bbc1-8283ea91f99b",
                 part: testPart
             })
+            component.onDrop({
+                dragData: {
+                    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                    part: new Part({
+                        "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+                        "label": "Covid-19 Key",
+                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
+                        "material": "PLA",
+                        "color": "BLANCO",
+                        "weight": 5,
+                        "buildTime": 60,
+                        "cost": 0.65,
+                        "price": 2.0,
+                        "stockLevel": 3,
+                        "stockAvailable": 0,
+                        "imagePath": "https://ibb.co/3dGbsRh",
+                        "modelPath": "pieza3.STL",
+                        "active": true
+                    })
+                }
+            });
             expect(componentAsAny.backendConnections.length).toBe(0);
             await component.startBuild();
             jasmine.clock().tick(500);
             expect(componentAsAny.backendConnections.length).toBe(1);
-            expect(componentAsAny.sessionTimer.activate).toHaveBeenCalled()
             expect(component.isRunning()).toBeTrue();
             jasmine.clock().uninstall()
         });
         it('onClear: cancel/clear the job', async () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
-            componentAsAny.sessionTimer = {
-                deactivate: () => { }
-            }
-            spyOn(componentAsAny.sessionTimer, 'deactivate')
+            componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
             componentAsAny.node = new Machine({
                 "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
                 "label": "Machine B",
@@ -242,7 +317,7 @@ xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             expect(componentAsAny.backendConnections.length).toBe(0);
             await component.onClear();
             jasmine.clock().tick(500);
-            expect(componentAsAny.sessionTimer.deactivate).toHaveBeenCalled()
+            // expect(componentAsAny.sessionTimer.deactivate).toHaveBeenCalled()
             expect(component.node).toBeDefined()
             expect(component.target).toBeUndefined('The clear should clear this reference')
             expect(component.isRunning()).toBeFalse();
@@ -252,10 +327,7 @@ xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
         it('completeBuild: start the job', async () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
-            componentAsAny.sessionTimer = {
-                deactivate: () => { }
-            }
-            spyOn(componentAsAny.sessionTimer, 'deactivate')
+            componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
             const testPart: Part = new Part({
                 id: "9cc43545-3221-4a24-bd0c-04b429d11df4",
                 buildTime: 30

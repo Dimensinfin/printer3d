@@ -31,8 +31,8 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.03]-If we enter enough characters the fields change to 'valid'.
         Then the "New Coil" dialog opens and blocks the display
         # - Check the field contents size
-        Then the target panel field "material" is tested for size constraints 2 and 16
-        And the target panel field "color" is tested for size constraints 2 and 32
+        Then field named "material" is tested for size constraints 2 and 16
+        And field named "color" is tested for size constraints 2 and 32
         And field named "weight" is tested for value constraints 1 to 2000
 
     @D3D05.04

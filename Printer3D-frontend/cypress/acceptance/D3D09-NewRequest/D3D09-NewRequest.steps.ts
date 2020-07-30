@@ -180,39 +180,9 @@ Then('the target panel input field named {string} is {string}', function (fieldN
         }
     })
 });
-// Then('the target panel field {string} is tested for size constraints {int} and {int}',
-//     function (fieldName: string, minCharacters: number, maxCharacters: number) {
-//         cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
-//         cy.get('@target-field').find('input').clear() // Clear the field before starting
-//         cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // validate invalid before starting test
-//         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters - 1))
-//         cy.get('@target-field').find('input').should('have.class', 'ng-invalid') // invalid-one below limit
-//         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(minCharacters))
-//         cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-low limit
-//         cy.get('@target-field').find('input').clear().type(supportService.generateRandomString(maxCharacters))
-//         cy.get('@target-field').find('input').should('have.class', 'ng-valid') // valid-high limit
-//         let largerValue = supportService.generateRandomString(maxCharacters + 5)
-//         cy.get('@target-field').find('input').clear().type(largerValue)
-//         cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
-//     });
-
-
-
 
 
 // - OLD
-// Then('the New Request dialog opens and blocks the display', function () {
-//     cy.get('app-root').get('mat-dialog-container').get('v1-new-request-dialog').should('exist')
-// });
-Then('the V1NewRequestPage is activated', function () {
-    cy.get('app-root').find('v1-new-request-page').as('target-page')
-        .should('exist')
-});
-Then('the V1NewRequestPage has {int} panels', function (panelCount: number) {
-    cy.get('app-root').find('v1-new-request-page').find('.row').first()
-        .children()
-        .should('have.length', panelCount)
-});
 Then('the left panel on page V1NewRequestPage is a {string}', function (panelType: string) {
     cy.get('app-root').find('v1-new-request-page').find('.row').children().eq(0)
         .find(panelType)

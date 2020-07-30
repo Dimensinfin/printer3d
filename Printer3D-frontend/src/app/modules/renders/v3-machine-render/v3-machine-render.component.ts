@@ -35,7 +35,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class V3MachineRenderComponent extends NodeContainerRenderComponent implements AfterViewInit {
     @ViewChild(V1BuildCountdownTimerPanelComponent) private buildTimeTimer: V1BuildCountdownTimerPanelComponent;
-    // @Input() node: Machine;
     public self: V3MachineRenderComponent;
     public target: Job;
     public state: string = 'IDLE'
@@ -62,6 +61,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
             this.activateTimer()
         } else
             this.completeTime()
+        console.log('<[V3MachineRenderComponent.ngAfterViewInit]')
     }
 
     public getNode(): Machine {
@@ -89,8 +89,8 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     }
 
     private loadBuildPart(): void {
-        console.log('>[V3MachineRenderComponent.loadBuildPart]> Running: ' + this.getNode().isRunning())
         if (null != this.node) {
+            console.log('>[V3MachineRenderComponent.loadBuildPart]> Running: ' + this.getNode().isRunning())
             if (this.getNode().isRunning()) {
                 this.target = new Job({
                     id: uuidv4(),
@@ -122,15 +122,11 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
      * If the number of copies is 'null' then this means the copies field is invalid and that the start job button should be disabled. This can be controlled by the state of the machine. The new state INVALID will disable the buttons.
      * @param newCount the new number of copies set for this job
      */
-    public changePartCount(newCount: number): void {
-        console.log('-[V3MachineRenderComponent.changePartCount]> Part count: ' + newCount)
-        if (null == newCount)
-            this.state = 'INVALID'
-        else {
-            this.state = 'IDLE'
-            this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
-            this.showTimer()
-        }
+    public changePartCount(): void {
+        this.state = 'IDLE'
+        if ( null == this.target.getCopies()) this.state='INVALID'
+        this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
+        this.showTimer()
     }
     public startBuild(): void {
         console.log('>[V3MachineRenderComponent.startBuild]')

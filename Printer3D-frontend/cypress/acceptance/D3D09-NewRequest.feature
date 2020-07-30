@@ -130,7 +130,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Given the target is the panel of type "new-request"
         # - Validate the label field
         And the target panel input field named "label" is "invalid"
-        When the target panel field "label" is tested for size constraints 3 and 50
+        When field named "label" is tested for size constraints 3 and 50
         And "Pedido de Prueba P01" is set on form field "label"
         And the target panel input field named "label" is "valid"
         # - Check the state of the buttons

@@ -35,7 +35,7 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     @D3D07 @D3D07.03
     Scenario: [D3D07.03]-Validate the contents of a Part Container. If the Part container is clicked then it expands and shows the Parts with same label.
         Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
+        Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         Then field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Figura"
@@ -79,7 +79,7 @@ Feature: [D3D07]-Validate the Inventory version 2 features and page contents.
     @D3D07 @D3D07.07
     Scenario: [D3D07.07]-Active and inactive parts have a editor activation button at the left.
         Given there is a click on Feature "/INVENTARIO"
-        Then the page "InventoryPage" is activated
+        Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
