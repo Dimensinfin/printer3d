@@ -277,7 +277,7 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-        - quality-sonarcloud:
+      - quality-sonarcloud:
           requires:
             - test-backend-job
           filters:
@@ -285,7 +285,7 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-        - stage-to-heroku:
+      - stage-to-heroku:
           requires:
             - test-backend-job
             - test-frontend-job
@@ -295,4 +295,3 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-  
