@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_12_0_001_printer3d_alter_machines_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: job_part_build_time
+                  type: int
+                  constraints:
+                    nullable: true
+                    updatable: true
+                  remarks: >
+                    This part field can be changed and when the Machine is read the value can affect a running job. Fix it by copying the value.
+  - changeSet:
+      id: 0_12_0_002_printer3d_machines_defaults
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: machines
+            columnDataType: int
+            columnName: job_part_build_time
+            defaultValueNumeric: 0
+            remarks: >
+              The default value is 0 for an unused build slot.
+  - changeSet:
+      id: 0_12_0_003_printer3d_fix_job_part_build_time
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: job_part_build_time
+                  value: 0
+                remarks: Update the new field value to a valid value and not null.

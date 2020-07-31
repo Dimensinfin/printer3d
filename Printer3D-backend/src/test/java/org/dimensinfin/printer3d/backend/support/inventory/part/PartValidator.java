@@ -8,6 +8,7 @@ import org.dimensinfin.acceptance.support.Validator;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ACTIVE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COST;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.DESCRIPTION;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
@@ -22,6 +23,7 @@ public class PartValidator implements Validator<Part> {
 		Assertions.assertEquals( rowData.get( DESCRIPTION ), record.getDescription() );
 		Assertions.assertEquals( Float.parseFloat( rowData.get( COST ) ), record.getCost() );
 		Assertions.assertEquals( Float.parseFloat( rowData.get( PRICE ) ), record.getPrice() );
+		Assertions.assertEquals( Integer.parseInt( rowData.get( BUILD_TIME ) ), record.getBuildTime() );
 		if (null != rowData.get( WEIGHT )) Assertions.assertEquals( Float.parseFloat( rowData.get( WEIGHT ) ), record.getWeight() );
 		Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.isActive() );
 		return true;

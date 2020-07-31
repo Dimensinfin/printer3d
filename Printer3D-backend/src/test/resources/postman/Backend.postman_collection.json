@@ -77,12 +77,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"machineLabel\": \"Ender 3 Pro - B\",\n\t\"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\",\n\t\"jobInstallmentDate\": \"2020-06-03T02:50:00.000000\",\n\t\"partInstancesCount\": 3\n}"
+							"raw": "{\n\t\"machineLabel\": \"Ender 3 Pro - B\",\n\t\"partId\": \"9fd4337d-6a4d-47b3-a7ac-a61bd51fad39\",\n\t\"jobInstallmentDate\": \"2020-06-03T02:50:00.0Z\",\n\t\"partInstancesCount\": 3\n}"
 						},
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/setup",
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines/setup",
 							"host": [
-								"{{backendServer}}{{backendPort}}{{inventory}}"
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
 							],
 							"path": [
 								"machines",
@@ -578,30 +578,6 @@
 					"response": []
 				},
 				{
-					"name": "GetMachines v2",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv2}}"
-							],
-							"path": [
-								"machines"
-							]
-						},
-						"description": "Version 2 of the lsit of Machines.\nThe build job information is now on a separate block of information."
-					},
-					"response": []
-				},
-				{
 					"name": "UpdatePart",
 					"request": {
 						"method": "PATCH",
@@ -663,26 +639,106 @@
 					"response": []
 				},
 				{
-					"name": "GetMachines v1",
+					"name": "GetMachines v2",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines",
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines",
 							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+								"{{backendServer}}{{backendPort}}{{inventoryv2}}"
 							],
 							"path": [
 								"machines"
 							]
 						},
-						"description": "Get the list of machines registered on the system."
+						"description": "Version 2 of the lsit of Machines.\nThe build job information is now on a separate block of information."
+					},
+					"response": []
+				},
+				{
+					"name": "StartBuild v2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"partCount\": 2,\n  \"jsonClass\": \"Job\",\n  \"expanded\": false,\n  \"selected\": false,\n  \"themeColor\": \"WHITE\",\n  \"priority\": 2,\n  \"aggregatedCount\": 5,\n  \"id\": \"4401940f-41c9-4941-851c-9bcd3a27f951\",\n  \"part\": {\n    \"jsonClass\": \"Part\",\n    \"expanded\": false,\n    \"selected\": false,\n    \"themeColor\": \"WHITE\",\n    \"id\": \"96d71bb4-e081-4d09-8162-f705803d9efe\",\n    \"label\": \"Pieza pequeña\",\n    \"description\": null,\n    \"material\": \"PLA\",\n    \"color\": \"ROJO\",\n    \"buildTime\": 2,\n    \"cost\": 1,\n    \"price\": 2,\n    \"stockLevel\": 5,\n    \"stockAvailable\": 0,\n    \"imagePath\": null,\n    \"modelPath\": null,\n    \"active\": true\n  },\n  \"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\"\n}"
+						},
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines/{{machineId}}/startbuild",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv2}}"
+							],
+							"path": [
+								"machines",
+								"{{machineId}}",
+								"startbuild"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompleteBuild",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines/{{machineId}}/completebuild",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"machines",
+								"{{machineId}}",
+								"completebuild"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelBuild",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines/{{machineId}}/cancelbuild",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+							],
+							"path": [
+								"machines",
+								"{{machineId}}",
+								"cancelbuild"
+							]
+						},
+						"description": "Requests to clear the Machine data representing the current build Job."
 					},
 					"response": []
 				}
@@ -835,35 +891,6 @@
 					"response": []
 				},
 				{
-					"name": "StartBuild v2",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"partCount\": 2,\n  \"jsonClass\": \"Job\",\n  \"expanded\": false,\n  \"selected\": false,\n  \"themeColor\": \"WHITE\",\n  \"priority\": 2,\n  \"aggregatedCount\": 5,\n  \"id\": \"4401940f-41c9-4941-851c-9bcd3a27f951\",\n  \"part\": {\n    \"jsonClass\": \"Part\",\n    \"expanded\": false,\n    \"selected\": false,\n    \"themeColor\": \"WHITE\",\n    \"id\": \"96d71bb4-e081-4d09-8162-f705803d9efe\",\n    \"label\": \"Pieza pequeña\",\n    \"description\": null,\n    \"material\": \"PLA\",\n    \"color\": \"ROJO\",\n    \"buildTime\": 2,\n    \"cost\": 1,\n    \"price\": 2,\n    \"stockLevel\": 5,\n    \"stockAvailable\": 0,\n    \"imagePath\": null,\n    \"modelPath\": null,\n    \"active\": true\n  },\n  \"partId\": \"4e7001ee-6bf5-40b4-9c15-61802e4c59ea\"\n}"
-						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/machines/{{machineId}}/startbuild",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv2}}"
-							],
-							"path": [
-								"machines",
-								"{{machineId}}",
-								"startbuild"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "StartBuild",
 					"request": {
 						"method": "PUT",
@@ -887,57 +914,6 @@
 							]
 						},
 						"description": "Requests to start counting the time to build a new Part. This means the Machine is in use and that it should be working."
-					},
-					"response": []
-				},
-				{
-					"name": "CompleteBuild",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/machines/{{machineId}}/completebuild",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"machines",
-								"{{machineId}}",
-								"completebuild"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CancelBuild",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventory}}/machines/{{machineId}}/cancelbuild",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventory}}"
-							],
-							"path": [
-								"machines",
-								"{{machineId}}",
-								"cancelbuild"
-							]
-						},
-						"description": "Requests to clear the Machine data representing the current build Job."
 					},
 					"response": []
 				},

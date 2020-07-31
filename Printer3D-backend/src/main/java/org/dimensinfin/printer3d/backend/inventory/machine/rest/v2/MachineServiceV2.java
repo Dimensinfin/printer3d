@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
@@ -73,6 +72,17 @@ public class MachineServiceV2 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
+
+	/**
+	 * Gets the list of Machines defined on the system and persisted on the Inventory unit.
+	 *
+	 * Gets the Machine entity and then searches for the current running job if it exists.
+	 * If the <code>getCurrentJobPartId()</code> does not return a Part then the <code>BuildRecord</code> is cleared and then the machine entity
+	 * converted to the return record.
+	 *
+	 * Parts can change while the Part is being used on the job and this can affect the job build time. So the code should isolate from this change
+	 * by storing the build time onto the Machine BuildRecord for later retrieval so this data is not affected by Part changes.
+	 */
 	public List<MachineV2> getMachines() {
 		return this.machineRepository.findAll()
 				.stream()
@@ -80,7 +90,8 @@ public class MachineServiceV2 {
 					// Convert the entity to the api domain
 					final BuildRecord buildRecord = new BuildRecord.Builder()
 							.withPartCopies( machineEntity.getCurrentPartInstances() )
-							.withPart( this.getBuildPart( machineEntity ) )
+							.withPartBuildTime( machineEntity.getCurrentJobPartBuildTime() )
+							.withPart( this.getBuildPart( machineEntity ) ) // Search for the Part instance at the repository.
 							.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
 							.build();
 					return new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
@@ -106,9 +117,13 @@ public class MachineServiceV2 {
 			final PartEntity jobPartEntity = this.partRepository.findById( jobRequest.getPartId() )
 					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) );
 			this.subtractPlasticFromCoil( jobPartEntity, jobRequest.getCopies() );
-			final MachineEntity updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update( jobRequest ) );
+			final MachineEntity updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update(
+					jobRequest,
+					jobPartEntity.getBuildTime()
+			) );
 			final BuildRecord buildRecord = new BuildRecord.Builder()
 					.withPartCopies( updatedMachineEntity.getCurrentPartInstances() )
+					.withPartBuildTime( jobPartEntity.getBuildTime() )
 					.withPart( this.getBuildPart( updatedMachineEntity ) )
 					.withJobInstallmentDate( updatedMachineEntity.getJobInstallmentDate() )
 					.build();
@@ -123,7 +138,7 @@ public class MachineServiceV2 {
 		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
 			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
 			if (jobPartOpt.isEmpty())
-				throw new RepositoryConflictException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) );
+				throw new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) );
 			return new PartEntityToPartConverter().convert( jobPartOpt.get() );
 		} else return null;
 	}

@@ -14,12 +14,13 @@ public class SupportMachineUpdater {
 		this.machine = Objects.requireNonNull( machine );
 	}
 
-	public MachineEntity update( final SetupRequest setupRequest ) {
+	public MachineEntity update( final SetupRequest setupRequest, final int buildTime ) {
 		this.machine.setCurrentJobPartId( setupRequest.getPartId() );
 		this.machine.setJobInstallmentDate(
 				(null != setupRequest.getJobInstallmentDate()) ? Instant.parse( setupRequest.getJobInstallmentDate() ) : null
 		);
 		this.machine.setCurrentPartInstances( setupRequest.getPartInstancesCount() );
+		this.machine.setCurrentJobPartBuildTime( buildTime );
 		return this.machine;
 	}
 }

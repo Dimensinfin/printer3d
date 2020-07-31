@@ -13,9 +13,10 @@ public class MachineUpdaterV2 {
 		this.machine = machine;
 	}
 
-	public MachineEntity update( final @NotNull JobRequest jobRequest ) {
+	public MachineEntity update( final @NotNull JobRequest jobRequest, final int buildTime ) {
 		this.machine.setCurrentJobPartId( jobRequest.getPartId() );
 		this.machine.setCurrentPartInstances( jobRequest.getCopies() );
+		this.machine.setCurrentJobPartBuildTime( buildTime );
 		this.machine.setJobInstallmentDate( Instant.now() );
 		return this.machine;
 	}

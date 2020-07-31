@@ -44,6 +44,8 @@ public class MachineEntity {
 	private UUID currentJobPartId;
 	@Column(name = "current_part_instances")
 	private int currentPartInstances = 1;
+	@Column(name = "job_part_build_time")
+	private int currentJobPartBuildTime = 0;
 	@Column(name = "job_installment_date", columnDefinition = "TIMESTAMP")
 	private Instant jobInstallmentDate;
 
@@ -70,6 +72,11 @@ public class MachineEntity {
 		return this;
 	}
 
+	public MachineEntity setCurrentJobPartBuildTime( final int currentJobPartBuildTime ) {
+		this.currentJobPartBuildTime = currentJobPartBuildTime;
+		return this;
+	}
+
 	public UUID getId() {
 		return this.id;
 	}
@@ -81,6 +88,10 @@ public class MachineEntity {
 	public MachineEntity setJobInstallmentDate( final Instant jobInstallmentDate ) {
 		this.jobInstallmentDate = jobInstallmentDate;
 		return this;
+	}
+
+	public int getCurrentJobPartBuildTime() {
+		return this.currentJobPartBuildTime;
 	}
 
 	public String getLabel() {
@@ -95,6 +106,7 @@ public class MachineEntity {
 		this.currentJobPartId = null;
 		this.jobInstallmentDate = null;
 		this.currentPartInstances = 1;
+		this.currentJobPartBuildTime = 0;
 		return this;
 	}
 
@@ -107,6 +119,7 @@ public class MachineEntity {
 				.append( this.characteristics )
 				.append( this.currentJobPartId )
 				.append( this.currentPartInstances )
+				.append( this.currentJobPartBuildTime )
 				.append( this.jobInstallmentDate )
 				.toHashCode();
 	}
@@ -117,11 +130,12 @@ public class MachineEntity {
 		if (!(o instanceof MachineEntity)) return false;
 		final MachineEntity machine = (MachineEntity) o;
 		return new EqualsBuilder()
-				.append( this.currentPartInstances, machine.currentPartInstances )
 				.append( this.label, machine.label )
 				.append( this.model, machine.model )
 				.append( this.characteristics, machine.characteristics )
 				.append( this.currentJobPartId, machine.currentJobPartId )
+				.append( this.currentPartInstances, machine.currentPartInstances )
+				.append( this.currentJobPartBuildTime, machine.currentJobPartBuildTime )
 				.append( this.jobInstallmentDate, machine.jobInstallmentDate )
 				.isEquals();
 	}
@@ -135,6 +149,7 @@ public class MachineEntity {
 				.append( "characteristics", this.characteristics )
 				.append( "currentJobPartId", this.currentJobPartId )
 				.append( "currentPartInstances", this.currentPartInstances )
+				.append( "currentJobPartBuildTime", this.currentJobPartBuildTime )
 				.append( "jobInstallmentDate", this.jobInstallmentDate )
 				.toString();
 	}

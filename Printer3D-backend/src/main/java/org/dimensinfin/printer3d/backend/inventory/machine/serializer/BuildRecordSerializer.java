@@ -17,6 +17,7 @@ public class BuildRecordSerializer extends JsonSerializer<BuildRecord> {
 
 		jgen.writeStringField( "state", value.getState().toString() );
 		jgen.writeNumberField( "partCopies", value.getPartCopies() );
+		jgen.writeNumberField( "buildTime", value.getJobBuildTime() );
 		jgen.writeObjectField( "part", value.getPart() );
 		if (null != value.getJobInstallmentDate())
 			jgen.writeStringField( "jobInstallmentDate", value.getJobInstallmentDate().toString() );

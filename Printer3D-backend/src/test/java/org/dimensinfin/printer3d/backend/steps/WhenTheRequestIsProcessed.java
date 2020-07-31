@@ -81,6 +81,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.ACCOUNTING_REQUEST_BY_WEEK );
 	}
 
+	@When("the Cancel Build for Machine labeled {string} request is processed")
+	public void the_Cancel_Build_for_Machine_labeled_request_is_processed( final String machineName ) throws IOException {
+		final UUID machineId = this.findMachineByLabel( machineName );
+		this.printer3DWorld.setMachineId( machineId );
+		this.processRequestByType( RequestType.CANCEL_BUILD );
+	}
+
 	@When("the Cancel Build for Machine {string} request is processed")
 	public void the_Cancel_Build_for_Machine_request_is_processed( final String machineId ) throws IOException {
 		this.printer3DWorld.setMachineId( UUID.fromString( machineId ) );

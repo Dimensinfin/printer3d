@@ -1,4 +1,4 @@
-# Classes to create Unit Test
+# Classes pending Unit Test completion
 * MachineEntity
 * SupportMachineUpdater
 * MachineControllerSupport

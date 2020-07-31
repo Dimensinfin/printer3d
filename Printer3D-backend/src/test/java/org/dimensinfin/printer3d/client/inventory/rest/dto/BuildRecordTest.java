@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_JOBINSTALLMENTDATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_PARTCOPIES;
 
@@ -18,8 +19,21 @@ public class BuildRecordTest {
 				.withPart( part )
 				.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		Assertions.assertNotNull( buildRecord );
+	}
+
+	@Test
+	public void buildFailure() {
+		final Part part = Mockito.mock( Part.class );
+		Assertions.assertThrows( NullPointerException.class, () -> {
+			BuildRecord buildRecord = new BuildRecord.Builder()
+					.withPart( part )
+					.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
+					.withPartCopies( null )
+					.build();
+		} );
 	}
 
 	@Test
@@ -29,12 +43,15 @@ public class BuildRecordTest {
 				.withPart( null )
 				.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( 0 )
 				.build();
 		// Assertions
 		Assertions.assertEquals( BuildState.IDLE, buildRecord.getState() );
 		Assertions.assertNull( buildRecord.getPart() );
 		Assertions.assertNull( buildRecord.getJobInstallmentDate() );
 		Assertions.assertEquals( TEST_BUILDRECORD_PARTCOPIES, buildRecord.getPartCopies() );
+		Assertions.assertEquals( 0, buildRecord.getJobBuildTime() );
+		Assertions.assertEquals( 0, buildRecord.getRemainingTime() );
 	}
 
 	@Test
@@ -45,20 +62,24 @@ public class BuildRecordTest {
 				.withPart( part )
 				.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
 				.withPartCopies( null )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		// Assertions
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertEquals( TEST_BUILDRECORD_JOBINSTALLMENTDATE, buildRecord.getJobInstallmentDate() );
 		Assertions.assertEquals( 1, buildRecord.getPartCopies() );
+		Assertions.assertEquals( TEST_BUILDRECORD_BUILD_TIME * 60, buildRecord.getRemainingTime() );
 
 		buildRecord = new BuildRecord.Builder()
 				.withPart( part )
 				.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		// Assertions
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertEquals( TEST_BUILDRECORD_JOBINSTALLMENTDATE, buildRecord.getJobInstallmentDate() );
 		Assertions.assertEquals( 1, buildRecord.getPartCopies() );
+		Assertions.assertEquals( TEST_BUILDRECORD_BUILD_TIME * 60, buildRecord.getRemainingTime() );
 	}
 
 	@Test

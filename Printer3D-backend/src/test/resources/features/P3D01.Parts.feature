@@ -1,9 +1,11 @@
 @P3D01 @Parts
 Feature: [STORY] Manage the Parts on the Inventory repository
 
-    The Parts inventory service should allow to create new parts. Some of the part fields can be edited and there should be an endpoint for that.
+    The Parts inventory service should allow to create new parts.
+    Some of the part fields can be edited and there should be an endpoint for that.
     Parts can not be deleted so there is no provisioning for that endpoint on production.
     There is duplicate detection where the system should reject Parts that have some key fields identical to an already stored Part.
+    Some part fields are editable but for a set of Parts using an additional endpoint.
 
     Background:
         Given a clean Parts repository
@@ -19,7 +21,6 @@ Feature: [STORY] Manage the Parts on the Inventory repository
         And the response for new Part has the next fields
             | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-
 
     @P3D01.H @P3D01.02
     Scenario: [P3D01.02] Validate the update of the Part data and check the resulting records contents.
@@ -82,6 +83,26 @@ Feature: [STORY] Manage the Parts on the Inventory repository
         And the response for new Part has the next fields
             | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 1      | 60        | 0.65 | 2.00  | 1          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+
+    @P3D01.H @P3D01.07
+    Scenario: [P3D01.07] Validate the update of the Part Group data and check the resulting records contents.
+        And the following Parts in my service
+            | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        And the next Update Group Part request
+            | label                  | buildTime | weight | imagePath              | modelPath    | description                    |
+            | Covid-19 Key - UPDATED | 30        | 12     | https://ibb.co/changed | pieza101.STL | This is a changed description. |
+        When the Update Group Parts with label "Covid-19 Key" request is processed
+        Then there is a valid response with return code of "200 OK"
+        When the Get Parts request is processed
+        And we have the next list of Parts at the repository
+            | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath    | active | description                                                                                                   |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 30        | 12     | 0.65 | 2.00  | 3          | 2              | https://ibb.co/changed | pieza101.STL | true   | This is a changed description.                                                                                |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 30        | 12     | 0.65 | 2.00  | 3          | 2              | https://ibb.co/changed | pieza101.STL | true   | This is a changed description.                                                                                |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL   | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+
 
     # - E X C E P T I O N S
     @P3D01.E @P3D01.E.01
