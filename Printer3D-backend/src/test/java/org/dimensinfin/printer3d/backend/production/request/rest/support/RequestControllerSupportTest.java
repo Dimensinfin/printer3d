@@ -97,6 +97,6 @@ public class RequestControllerSupportTest {
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
-		Assertions.assertEquals( 2, obtained.getBody().size() );
+		Assertions.assertEquals( 1, obtained.getBody().size() );
 	}
 }
