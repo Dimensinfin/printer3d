@@ -1,9 +1,4 @@
 # Classes pending Unit Test completion
-* MachineEntity
-* SupportMachineUpdater
-* MachineControllerSupport
-* MachineServiceV2
-* BuildRecordSerializer
 
 
 * MachineServiceV1 - requires long development

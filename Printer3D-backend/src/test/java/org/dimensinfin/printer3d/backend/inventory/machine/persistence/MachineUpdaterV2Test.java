@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_PART_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 
 public class MachineUpdaterV2Test {
 	@Test
@@ -28,11 +29,13 @@ public class MachineUpdaterV2Test {
 				.withPartId( TEST_JOB_PART_ID )
 				.withCopies( 3 )
 				.build();
+		final int buildTime = TEST_PART_BUILD_TIME;
 		// Test
-		final MachineEntity obtained = new MachineUpdaterV2( machineEntity ).update( jobRequest );
+		final MachineEntity obtained = new MachineUpdaterV2( machineEntity ).update( jobRequest , buildTime);
 		// Assertions
 		Assertions.assertEquals( TEST_JOB_PART_ID.toString(), obtained.getCurrentJobPartId().toString() );
 		Assertions.assertNotNull(  obtained.getJobInstallmentDate() );
 		Assertions.assertEquals( 3, obtained.getCurrentPartInstances() );
+		Assertions.assertEquals( TEST_PART_BUILD_TIME, obtained.getCurrentJobPartBuildTime() );
 	}
 }

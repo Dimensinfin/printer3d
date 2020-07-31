@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_MACHINE_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_PART_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.SetupRequest.TEST_SETUPREQUEST_PART_INSTANCES_COUNT;
 
-public class SupportMachineUpdaterV1Test {
+public class SupportMachineUpdaterTest {
 
 	@Test
 	public void update() {
@@ -23,11 +24,13 @@ public class SupportMachineUpdaterV1Test {
 				.withPartJobInstallmentDate( TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE )
 				.withPartInstancesCount( TEST_SETUPREQUEST_PART_INSTANCES_COUNT )
 				.build();
+		final int buildTime = TEST_PART_BUILD_TIME;
 		// Test
-		final MachineEntity obtained = new SupportMachineUpdater( machine ).update( setupRequest );
+		final MachineEntity obtained = new SupportMachineUpdater( machine ).update( setupRequest, buildTime );
 		// Assertions
 		Assertions.assertEquals( TEST_SETUPREQUEST_PART_ID.toString(), obtained.getCurrentJobPartId().toString() );
 		Assertions.assertEquals( TEST_SETUPREQUEST_JOB_INSTALLMENT_DATE, obtained.getJobInstallmentDate().toString() );
 		Assertions.assertEquals( TEST_SETUPREQUEST_PART_INSTANCES_COUNT, obtained.getCurrentPartInstances() );
+		Assertions.assertEquals( TEST_PART_BUILD_TIME, obtained.getCurrentJobPartBuildTime() );
 	}
 }

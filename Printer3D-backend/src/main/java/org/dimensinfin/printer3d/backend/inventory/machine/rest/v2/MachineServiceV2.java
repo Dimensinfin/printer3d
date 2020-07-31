@@ -2,7 +2,6 @@ package org.dimensinfin.printer3d.backend.inventory.machine.rest.v2;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -136,10 +135,11 @@ public class MachineServiceV2 {
 	private Part getBuildPart( final MachineEntity machineEntity ) {
 		// Check for completed jobs.
 		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
-			final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
-			if (jobPartOpt.isEmpty())
-				throw new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) );
-			return new PartEntityToPartConverter().convert( jobPartOpt.get() );
+			return new PartEntityToPartConverter().convert(
+					this.partRepository.findById( machineEntity.getCurrentJobPartId() )
+							.orElseThrow(
+									() -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) )
+			);
 		} else return null;
 	}
 

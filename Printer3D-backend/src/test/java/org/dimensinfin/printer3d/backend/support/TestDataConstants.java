@@ -56,12 +56,14 @@ public class TestDataConstants {
 		public static final String TEST_MACHINE_CHARACTERISTICS = "-TEST_MACHINE_CHARACTERISTICS-";
 		public static final UUID TEST_MACHINE_CURRENTJOBPARTID = UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" );
 		public static final Integer TEST_MACHINE_CURRENTPARTINSTANCES = 8;
+		public static final Integer TEST_MACHINE_CURRENTPARTBUILDTIME = 45;
 		public static final Instant TEST_MACHINE_JOBINSTALLMENTDATE = Instant.now();
 	}
 
 	public static class BuildRecordConstants {
 		public static final Instant TEST_BUILDRECORD_JOBINSTALLMENTDATE = Instant.now();
 		public static final Integer TEST_BUILDRECORD_PARTCOPIES = 8;
+		public static final Integer TEST_BUILDRECORD_BUILD_TIME = 30;
 	}
 
 	public static class ModelConstants {

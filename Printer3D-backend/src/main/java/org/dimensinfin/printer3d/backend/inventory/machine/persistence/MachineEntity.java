@@ -54,6 +54,15 @@ public class MachineEntity {
 		return this.characteristics;
 	}
 
+	public int getCurrentJobPartBuildTime() {
+		return this.currentJobPartBuildTime;
+	}
+
+	public MachineEntity setCurrentJobPartBuildTime( final int currentJobPartBuildTime ) {
+		this.currentJobPartBuildTime = currentJobPartBuildTime;
+		return this;
+	}
+
 	public UUID getCurrentJobPartId() {
 		return this.currentJobPartId;
 	}
@@ -72,11 +81,6 @@ public class MachineEntity {
 		return this;
 	}
 
-	public MachineEntity setCurrentJobPartBuildTime( final int currentJobPartBuildTime ) {
-		this.currentJobPartBuildTime = currentJobPartBuildTime;
-		return this;
-	}
-
 	public UUID getId() {
 		return this.id;
 	}
@@ -88,10 +92,6 @@ public class MachineEntity {
 	public MachineEntity setJobInstallmentDate( final Instant jobInstallmentDate ) {
 		this.jobInstallmentDate = jobInstallmentDate;
 		return this;
-	}
-
-	public int getCurrentJobPartBuildTime() {
-		return this.currentJobPartBuildTime;
 	}
 
 	public String getLabel() {
