@@ -19,25 +19,6 @@ public class RequestFeignClientSupport extends CommonFeignClient {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public Integer deleteAllRequests() {
-		final String ENDPOINT_MESSAGE = "Request to delete all Request records.";
-		try {
-			final Response<CounterResponse> response = new Retrofit.Builder()
-					.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
-					.addConverterFactory( GSON_CONVERTER_FACTORY )
-					.build()
-					.create( ProductionApiSupport.class )
-					.deleteAllRequests()
-					.execute();
-			if (response.isSuccessful()) {
-				LogWrapper.info( ENDPOINT_MESSAGE );
-				return response.body().getRecords();
-			} else throw new RuntimeException( "Error information" );
-		} catch (final IOException ioe) {
-			throw new RuntimeException( ioe.getMessage() );
-		}
-	}
-
 	public Integer deleteAllRequestsV2() {
 		final String ENDPOINT_MESSAGE = "Request to delete all Request v2 records.";
 		try {

@@ -20,7 +20,6 @@ import org.dimensinfin.printer3d.backend.support.production.request.CucumberTabl
 import org.dimensinfin.printer3d.backend.support.production.request.RequestContentValidator;
 import org.dimensinfin.printer3d.backend.support.production.request.RequestV2Validator;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientSupport;
-import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
@@ -30,17 +29,14 @@ import io.cucumber.java.en.Then;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ITEM_ID;
 
 public class P3D08RequestsSteps extends StepSupport {
-	private final RequestFeignClientV1 requestFeignClientV1;
 	private final RequestFeignClientV2 requestFeignClientV2;
 	private final RequestFeignClientSupport requestFeignClientSupport;
 
 	// - C O N S T R U C T O R S
 	public P3D08RequestsSteps( final @NotNull Printer3DWorld printer3DWorld,
-	                           final @NotNull RequestFeignClientV1 requestFeignClientV1,
 	                           final @NotNull RequestFeignClientV2 requestFeignClientV2,
 	                           final @NotNull RequestFeignClientSupport requestFeignClientSupport ) {
 		super( printer3DWorld );
-		this.requestFeignClientV1 = Objects.requireNonNull( requestFeignClientV1 );
 		this.requestFeignClientV2 = Objects.requireNonNull( requestFeignClientV2 );
 		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
 	}

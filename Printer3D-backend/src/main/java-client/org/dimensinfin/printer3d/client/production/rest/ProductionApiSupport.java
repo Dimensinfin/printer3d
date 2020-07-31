@@ -20,10 +20,6 @@ public interface ProductionApiSupport {
 	Call<CounterResponse> deleteAllJobs();
 
 	@Headers({ "Content-Type:application/json" })
-	@GET("/api/v1/production/requests/delete/all")
-	Call<CounterResponse> deleteAllRequests();
-
-	@Headers({ "Content-Type:application/json" })
-	@GET("/api/v1/production/requests/v2/delete/all")
+	@GET("/api/v2/production/requests/delete/all")
 	Call<CounterResponse> deleteAllRequestsV2();
 }

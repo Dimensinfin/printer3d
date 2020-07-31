@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
@@ -26,7 +25,6 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 @RestController
 @Validated
-@RequestMapping("/api/v1")
 @Service
 public class RequestControllerSupport  extends RequestServiceCore {
 	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
@@ -41,7 +39,7 @@ public class RequestControllerSupport  extends RequestServiceCore {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	@GetMapping("/production/requests/repository")
+	@GetMapping("/api/v1/production/requests/repository")
 	public ResponseEntity<List<RequestV2>> getRepositoryRequests() {
 		return new ResponseEntity<>( this.getRepositoryRequestsService(), HttpStatus.OK );
 	}
@@ -53,7 +51,7 @@ public class RequestControllerSupport  extends RequestServiceCore {
 				.collect( Collectors.toList() );
 	}
 
-	@GetMapping(path = "/production/requests/v2/delete/all",
+	@GetMapping(path = "/api/v2/production/requests/delete/all",
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<CounterResponse> deleteAllRequestsV2() {
