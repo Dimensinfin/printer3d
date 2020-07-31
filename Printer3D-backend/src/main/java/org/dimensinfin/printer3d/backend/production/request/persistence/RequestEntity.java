@@ -18,7 +18,6 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
 /**
@@ -56,7 +55,7 @@ public class RequestEntity {
 	private RequestState state = RequestState.OPEN;
 	@Type(type = "jsonb")
 	@Column(name = "part_list", columnDefinition = "jsonb")
-	private List<PartRequest> partList = new ArrayList<>();
+	private List<String> partList = new ArrayList<>();
 
 	// - C O N S T R U C T O R S
 	private RequestEntity() {}
@@ -70,7 +69,7 @@ public class RequestEntity {
 		return this.label;
 	}
 
-	public List<PartRequest> getPartList() {
+	public List<String> getPartList() {
 		return this.partList;
 	}
 
@@ -122,7 +121,7 @@ public class RequestEntity {
 			return this;
 		}
 
-		public RequestEntity.Builder withPartList( final List<PartRequest> partList ) {
+		public RequestEntity.Builder withPartList( final List<String> partList ) {
 			if (null != partList) this.onConstruction.partList = partList;
 			return this;
 		}

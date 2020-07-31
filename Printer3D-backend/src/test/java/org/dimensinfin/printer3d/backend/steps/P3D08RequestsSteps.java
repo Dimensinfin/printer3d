@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
-import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToPartRequestConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestItemConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestV2TestingConverter;
@@ -31,7 +30,6 @@ import io.cucumber.java.en.Then;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ITEM_ID;
 
 public class P3D08RequestsSteps extends StepSupport {
-	private static final CucumberTableToPartRequestConverter cucumberTableToPartRequestConverter = new CucumberTableToPartRequestConverter();
 	private final RequestFeignClientV1 requestFeignClientV1;
 	private final RequestFeignClientV2 requestFeignClientV2;
 	private final RequestFeignClientSupport requestFeignClientSupport;

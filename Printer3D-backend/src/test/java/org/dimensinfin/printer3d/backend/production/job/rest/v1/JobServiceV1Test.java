@@ -17,7 +17,6 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
-import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
@@ -155,19 +154,6 @@ public class JobServiceV1Test {
 	@Test
 	public void getPendingJobsOnlyRequestJobs() {
 		// Given
-		final List<PartRequest> request1PartList = new ArrayList<>();
-		request1PartList.add( new PartRequest.Builder()
-				.withPartId( UUID.fromString( "467ea75a-108d-42f6-a3c6-70484704c49b" ) )
-				.withQuantity( 2 )
-				.build() );
-		request1PartList.add( new PartRequest.Builder()
-				.withPartId( UUID.fromString( "b031f097-6f69-4f72-8564-20cb4597d30a" ) )
-				.withQuantity( 3 )
-				.build() );
-		request1PartList.add( new PartRequest.Builder()
-				.withPartId( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ) )
-				.withQuantity( 3 )
-				.build() );
 		final PartEntity part = new PartEntity.Builder()
 				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
 				.withLabel( TEST_PART_LABEL )
