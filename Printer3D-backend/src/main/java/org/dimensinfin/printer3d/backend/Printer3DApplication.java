@@ -23,7 +23,6 @@ import org.dimensinfin.logging.LogWrapper;
 @EnableAutoConfiguration
 public class Printer3DApplication {
 	public static final String APPLICATION_ERROR_CODE_PREFIX = "dimensinfin.printer3d";
-	private static LogoPrinter printer;
 
 	public static void main( String[] args ) {
 		LogWrapper.enter();
@@ -32,24 +31,18 @@ public class Printer3DApplication {
 		LogWrapper.exit();
 	}
 
-	public static boolean hasPrinter() {
-		return null != printer;
-	}
-
 	private static final class LogoPrinter {
-		private final String banner = "app-banner.txt";
-
 		public void print() {
-			this.printVersion( this.readAllBytes( this.banner ) );
+			this.printVersion( this.readAllBytes( ) );
 		}
 
 		private void printVersion( final String bannerData ) {
 			LogWrapper.info( "\n\n" + bannerData + "\n" );
 		}
 
-		private String readAllBytes( final String resourceName ) {
+		private String readAllBytes() {
 			try {
-				File resource = new File ("./app-banner.txt");
+				File resource = new File( "./app-banner.txt" );
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final IOException ioe) {
 				LogWrapper.error( ioe );

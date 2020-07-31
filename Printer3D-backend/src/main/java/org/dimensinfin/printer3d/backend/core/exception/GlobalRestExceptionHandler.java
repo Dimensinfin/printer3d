@@ -32,12 +32,12 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 				HttpStatus.BAD_REQUEST );
 	}
 
-//	@ExceptionHandler(RuntimeException.class)
-//	protected ResponseEntity<ApiError> handleRuntimeException( final RuntimeException runtimeException ) {
-//		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
-//				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( runtimeException.getMessage() ),
-//				"Intercepted RuntimeException at the ErrorHandler level because this was not expected."
-//		);
-//		return new ResponseEntity<>( new ApiError( exception ), exception.getHttpStatus() );
-//	}
+	@ExceptionHandler(RuntimeException.class)
+	protected ResponseEntity<ApiError> handleRuntimeException( final RuntimeException runtimeException ) {
+		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
+				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( runtimeException.getMessage() ),
+				"Intercepted RuntimeException at the ErrorHandler level because this was not expected."
+		);
+		return new ResponseEntity<>( new ApiError( exception ), exception.getHttpStatus() );
+	}
 }

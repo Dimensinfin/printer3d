@@ -155,7 +155,7 @@ jobs:
             DB_PASSWORD: inno-password
             SPRING_PROFILES_ACTIVE: test
           command: |
-            ./gradlew sonarqube -Dcucumber.options="--tags @P3D00"
+            ./gradlew build sonarqube -Dcucumber.options="--tags @P3D00"
 
   stage-to-heroku:
     docker:
@@ -278,6 +278,7 @@ workflows:
             branches:
               ignore: /.*/
       - quality-sonarcloud:
+          context: SonarCloud
           requires:
             - test-backend-job
           filters:

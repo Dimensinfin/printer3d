@@ -5,6 +5,7 @@
     <option name="fileExclusions">
       <list>
         <option value="DIRECTORY:src/test" />
+        <option value="DIRECTORY:coverage" />
       </list>
     </option>
     <option name="projectKey" value="dimensinfin3d_dimensinfin3d" />

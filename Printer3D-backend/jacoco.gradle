@@ -32,5 +32,6 @@ sonarqube {
         property "sonar.organization", "dimensinfin3d"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", "c352a5eb3b19729f303b8e54eef7754364a6b9c7"
+        property "sonar.sources", "src/main/java, src/main/java-client"
     }
 }
