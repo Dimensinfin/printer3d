@@ -5,10 +5,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -16,9 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,23 +23,16 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestToRequestEntityConverter;
-import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestServiceCore;
-import org.dimensinfin.printer3d.backend.production.request.rest.v2.RequestServiceV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
-//@Profile({ "local", "acceptance", "test" })
 @RestController
-//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 @Service
@@ -93,13 +82,6 @@ public class RequestControllerSupport  extends RequestServiceCore {
 		return new ResponseEntity<>( this.deleteAllRequestsServiceV2(), HttpStatus.OK );
 	}
 
-	@PostMapping(path = "/production/requests",
-			consumes = "application/json",
-			produces = "application/json")
-	public ResponseEntity<Request> newRequestV1( final @RequestBody @Valid @NotNull Request request ) {
-		return new ResponseEntity<>( this.newRequestService( request ), HttpStatus.CREATED );
-	}
-
 	@PutMapping("/production/requests/transform")
 	public ResponseEntity<List<CounterResponse>> transformRequestsV1() {
 		final int moveCount = (int) this.moveV1RequestsToV2();
@@ -140,22 +122,6 @@ public class RequestControllerSupport  extends RequestServiceCore {
 		}
 	}
 
-	protected Request newRequestService( final Request newRequest ) {
-		LogWrapper.enter();
-		try {
-			// Search for the Part by id. If found reject the request because this should be a new creation.
-			final Optional<RequestEntity> target = this.requestsRepositoryV1.findById( newRequest.getId() );
-			if (target.isPresent())
-				throw new DimensinfinRuntimeException( RequestServiceV2.errorREQUESTALREADYEXISTS( newRequest.getId() ) );
-			return new RequestEntityToRequestConverter().convert(
-					this.requestsRepositoryV1.save(
-							new RequestToRequestEntityConverter().convert( newRequest )
-					)
-			);
-		} finally {
-			LogWrapper.exit();
-		}
-	}
 	private long moveV1RequestsToV2() {
 		LogWrapper.enter();
 		try {

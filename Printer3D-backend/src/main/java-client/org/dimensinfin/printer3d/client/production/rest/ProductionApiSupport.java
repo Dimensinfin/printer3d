@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,10 +14,6 @@ public interface ProductionApiSupport {
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/production/jobs/completed")
 	Call<List<JobHistoric>> getCompletedJobs();
-
-	@Headers({ "Content-Type:application/json" })
-	@GET("/api/v1/production/requests/repository")
-	Call<RequestList> getRepositoryRequests();
 
 	@Headers({ "Content-Type:application/json" })
 	@GET("/api/v1/production/jobs/delete/all")
