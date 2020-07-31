@@ -124,8 +124,8 @@ public class RestExceptionResponse {
 		return this;
 	}
 
-	public RestExceptionResponse withErrorInfo( String errorInfo ) {
-		this.errorName = errorInfo;
+	public RestExceptionResponse withErrorName( String errorName ) {
+		this.errorName = errorName;
 		return this;
 	}
 

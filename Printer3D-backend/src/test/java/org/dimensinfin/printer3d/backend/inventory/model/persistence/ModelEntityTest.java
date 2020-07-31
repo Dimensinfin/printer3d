@@ -22,7 +22,6 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
@@ -44,7 +43,6 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
@@ -58,7 +56,6 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -68,7 +65,6 @@ public class ModelEntityTest {
 					.withId( TEST_MODEL_ID )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -78,8 +74,7 @@ public class ModelEntityTest {
 					.withId( TEST_MODEL_ID )
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( null )
-					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
+					.withStockLevel( TEST_MODEL_STOCK_LEVEL )//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -94,7 +89,6 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -105,7 +99,6 @@ public class ModelEntityTest {
 					.withLabel( null )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -116,7 +109,6 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( null )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -127,7 +119,6 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( null )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( TEST_MODEL_ACTIVE )
 					.build();
@@ -138,7 +129,6 @@ public class ModelEntityTest {
 					.withLabel( TEST_MODEL_LABEL )
 					.withPrice( TEST_MODEL_PRICE )
 					.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//					.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 					.withImagePath( TEST_MODEL_IMAGE_PATH )
 					.withActive( null )
 					.build();
@@ -159,7 +149,6 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();
@@ -169,7 +158,6 @@ public class ModelEntityTest {
 		Assertions.assertEquals( TEST_MODEL_IMAGE_PATH, modelEntity.getImagePath() );
 		Assertions.assertEquals( TEST_MODEL_PRICE, modelEntity.getPrice(), 0.1 );
 		Assertions.assertEquals( TEST_MODEL_STOCK_LEVEL, modelEntity.getStockLevel() );
-//		Assertions.assertEquals( TEST_MODEL_STOCK_AVAILABLE, modelEntity.getStockAvailable() );
 		Assertions.assertEquals( TEST_MODEL_ACTIVE, modelEntity.isActive() );
 	}
 
@@ -181,7 +169,6 @@ public class ModelEntityTest {
 				.withLabel( TEST_MODEL_LABEL )
 				.withPrice( TEST_MODEL_PRICE )
 				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
-//				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.withActive( TEST_MODEL_ACTIVE )
 				.build();

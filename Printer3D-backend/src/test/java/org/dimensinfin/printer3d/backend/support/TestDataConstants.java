@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
@@ -75,12 +77,12 @@ public class TestDataConstants {
 		public static final String TEST_MODEL_IMAGE_PATH = "-TEST_MODEL_IMAGE_PATH-";
 		public static final Boolean TEST_MODEL_ACTIVE = true;
 	}
+
 	public static class ModelRequestConstants {
 		public static final UUID TEST_MODELREQUEST_ID = UUID.fromString( "e58c678a-24b3-464f-b61a-7eeba6d25399" );
 		public static final String TEST_MODELREQUEST_LABEL = "-TEST_MODELREQUEST_LABEL-";
 		public static final Float TEST_MODELREQUEST_PRICE = 12.0F;
 		public static final Integer TEST_MODELREQUEST_STOCK_LEVEL = 4;
-//		public static final Integer TEST_MODELREQUEST_STOCK_AVAILABLE = 3;
 		public static final String TEST_MODELREQUEST_IMAGE_PATH = "-TEST_MODELREQUEST_IMAGE_PATH-";
 		public static final Boolean TEST_MODELREQUEST_ACTIVE = false;
 	}
@@ -92,7 +94,7 @@ public class TestDataConstants {
 		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806Z";
 		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
 		public static final float TEST_REQUEST_AMOUNT = 45.67F;
-		public static final Instant TEST_REQUEST_CLOSED_DATE = Instant.parse("2020-06-06T21:54:00.226181Z");
+		public static final Instant TEST_REQUEST_CLOSED_DATE = Instant.parse( "2020-06-06T21:54:00.226181Z" );
 	}
 
 	public static class JobConstants {
@@ -104,5 +106,16 @@ public class TestDataConstants {
 		public static final Integer TEST_JOB_PART_COPIES = 3;
 		public static final Instant TEST_JOB_JOBINSTALLMENTDATE = Instant.now();
 		public static final Instant TEST_JOB_JOBCOMPLETIONDATE = Instant.now().plus( Duration.ofMinutes( 90 ) );
+	}
+
+	public static class RestExceptionResponseConstants {
+		public static final String TEST_REST_EXCEPTION_RESPONSE_TIMESTAMP = "2020-06-16T16:38:30.562806Z";
+		public static final HttpStatus TEST_REST_EXCEPTION_RESPONSE_HTTPSTATUS = HttpStatus.INTERNAL_SERVER_ERROR;
+		public static final String TEST_REST_EXCEPTION_RESPONSE_HTTPSTATUS_NAME = "INTERNAL_SERVER_ERROR";
+		public static final Integer TEST_REST_EXCEPTION_RESPONSE_HTTPSTATUS_CODE = 500;
+		public static final String TEST_REST_EXCEPTION_RESPONSE_ERROR_CODE = "dimensinfin.uncatalogued.runtime";
+		public static final String TEST_REST_EXCEPTION_RESPONSE_ERROR_NAME = "RUNTIME_INTERNAL_ERROR";
+		public static final String TEST_REST_EXCEPTION_RESPONSE_MESSAGE = "Runtime uncatalogued exception: -EXCEPTION-";
+		public static final String TEST_REST_EXCEPTION_RESPONSE_CAUSE = "-REST-EXCEPTION-RESPONSE-CAUSE-";
 	}
 }
