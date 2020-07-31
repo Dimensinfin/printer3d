@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.persistence;
 
+import java.time.Instant;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_AMOUNT;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_CLOSED_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
@@ -21,6 +24,7 @@ public class RequestEntityV2Test {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
+				.withAmount( TEST_REQUEST_AMOUNT )
 				.build();
 		Assertions.assertNotNull( requestEntityV2 );
 	}
@@ -107,6 +111,35 @@ public class RequestEntityV2Test {
 		requestEntityV2.close();
 		// Assertions
 		Assertions.assertEquals( RequestState.CLOSE, requestEntityV2.getState() );
+	}
+
+	@Test
+	public void getterContract() {
+		// Given
+		final RequestEntityV2 requestEntityV2 = new RequestEntityV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withRequestDate( TEST_REQUEST_DATE )
+				.withState( TEST_REQUEST_STATE )
+				.withContents( new ArrayList<>() )
+				.withAmount( TEST_REQUEST_AMOUNT )
+				.withClosedDate( TEST_REQUEST_CLOSED_DATE )
+				.build();
+		// Assertions
+		Assertions.assertEquals( TEST_REQUEST_AMOUNT, requestEntityV2.getAmount() );
+		requestEntityV2.setAmount( 123.0F );
+		Assertions.assertEquals( 123.0F, requestEntityV2.getAmount() );
+		Assertions.assertEquals( TEST_REQUEST_CLOSED_DATE.toString(), requestEntityV2.getClosedDate().toString() );
+		requestEntityV2.setClosedDate( Instant.parse( "2020-07-31T10:54:00.0Z" ) );
+		Assertions.assertEquals( Instant.parse( "2020-07-31T10:54:00.0Z" ).toString(), requestEntityV2.getClosedDate().toString() );
+		Assertions.assertNotNull( requestEntityV2.getContents() );
+		Assertions.assertEquals( 0, requestEntityV2.getContents().size() );
+		Assertions.assertEquals( TEST_REQUEST_ID.toString(), requestEntityV2.getId().toString() );
+		Assertions.assertEquals( TEST_REQUEST_LABEL, requestEntityV2.getLabel() );
+		Assertions.assertEquals( TEST_REQUEST_DATE.toString(), requestEntityV2.getRequestDate().toString() );
+		Assertions.assertEquals( TEST_REQUEST_STATE, requestEntityV2.getState() );
+		Assertions.assertFalse( requestEntityV2.isClosed() );
+		Assertions.assertTrue( requestEntityV2.isOpen() );
 	}
 
 	@Test

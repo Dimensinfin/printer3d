@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_PARTCOPIES;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_CHARACTERISTICS;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_ID;
@@ -125,6 +127,7 @@ public class MachineV2Test {
 				.withPart( part )
 				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
 				.withId( UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" ) )
@@ -138,8 +141,8 @@ public class MachineV2Test {
 		// Test
 		final int obtained = machineV2.getRemainingTime();
 		// Assertions
-		final int newBuildTime = (10 * 60 * TEST_BUILDRECORD_PARTCOPIES) - 6 * 60;
-		Assertions.assertEquals( newBuildTime, obtained );
+		final int newBuildTime = (TEST_BUILDRECORD_BUILD_TIME * 60 * TEST_BUILDRECORD_PARTCOPIES) - 6 * 60;
+		assertThat( obtained ).isBetween( newBuildTime- 5, newBuildTime );
 	}
 
 	@Test
@@ -188,6 +191,7 @@ public class MachineV2Test {
 				.withPart( part )
 				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 6 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
 				.withId( UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" ) )
@@ -222,6 +226,7 @@ public class MachineV2Test {
 				.withPart( part )
 				.withJobInstallmentDate( Instant.parse( "2020-06-06T21:54:00.226181Z" ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		final MachineV2 machineV2 = new MachineV2.Builder()
 				.withId( UUID.fromString( "27c021cc-1b58-49db-870f-98d291041952" ) )
@@ -231,7 +236,7 @@ public class MachineV2Test {
 				.withBuildRecord( buildRecord )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"27c021cc-1b58-49db-870f-98d291041952\",\"label\":\"-TEST_MACHINE_LABEL-\",\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"buildRecord\":\"{\\\"state\\\":\\\"RUNNING\\\",\\\"part\\\":{\\\"id\\\":\\\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\\\",\\\"label\\\":\\\"-TEST_PART_LABEL-\\\",\\\"description\\\":\\\"-TEST_PART_DESCRIPTION-\\\",\\\"material\\\":\\\"PLA\\\",\\\"color\\\":\\\"VERDE-T\\\",\\\"weight\\\":1,\\\"buildTime\\\":60,\\\"cost\\\":0.76,\\\"price\\\":2.0,\\\"stockLevel\\\":4,\\\"stockAvailable\\\":4,\\\"imagePath\\\":\\\"https:\\\\\\/\\\\\\/ibb.co\\\\\\/3dGbsRh\\\",\\\"modelPath\\\":\\\"pieza3.STL\\\",\\\"active\\\":false},\\\"partCopies\\\":8,\\\"jobInstallmentDate\\\":\\\"2020-06-06T21:54:00.226181Z\\\"}\"}";
+		final String expected = "{\"id\":\"27c021cc-1b58-49db-870f-98d291041952\",\"label\":\"-TEST_MACHINE_LABEL-\",\"model\":\"-TEST_MACHINE_MODEL-\",\"characteristics\":\"-TEST_MACHINE_CHARACTERISTICS-\",\"buildRecord\":\"{\\\"state\\\":\\\"RUNNING\\\",\\\"part\\\":{\\\"id\\\":\\\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\\\",\\\"label\\\":\\\"-TEST_PART_LABEL-\\\",\\\"description\\\":\\\"-TEST_PART_DESCRIPTION-\\\",\\\"material\\\":\\\"PLA\\\",\\\"color\\\":\\\"VERDE-T\\\",\\\"weight\\\":1,\\\"buildTime\\\":60,\\\"cost\\\":0.76,\\\"price\\\":2.0,\\\"stockLevel\\\":4,\\\"stockAvailable\\\":4,\\\"imagePath\\\":\\\"https:\\\\\\/\\\\\\/ibb.co\\\\\\/3dGbsRh\\\",\\\"modelPath\\\":\\\"pieza3.STL\\\",\\\"active\\\":false},\\\"partCopies\\\":8,\\\"buildTime\\\":30,\\\"jobInstallmentDate\\\":\\\"2020-06-06T21:54:00.226181Z\\\"}\"}";
 		final String obtained = machineV2.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

@@ -25,9 +25,9 @@ public class ModelRequestToModelEntityConverterTest {
 //				.withStockAvailable( TEST_MODEL_STOCK_AVAILABLE )
 				.withImagePath( TEST_MODEL_IMAGE_PATH )
 				.build();
-		final NewModelRequestToModelEntityConverter newModelRequestToModelEntityConverter = new NewModelRequestToModelEntityConverter();
+		final ModelRequestToModelEntityConverter modelRequestToModelEntityConverter = new ModelRequestToModelEntityConverter();
 		// Test
-		final ModelEntity obtained = newModelRequestToModelEntityConverter.convert( modelRequest );
+		final ModelEntity obtained = modelRequestToModelEntityConverter.convert( modelRequest );
 		// Assertions
 		Assertions.assertEquals( TEST_MODEL_ID.toString(), obtained.getId().toString() );
 		Assertions.assertEquals( TEST_MODEL_LABEL, obtained.getLabel() );

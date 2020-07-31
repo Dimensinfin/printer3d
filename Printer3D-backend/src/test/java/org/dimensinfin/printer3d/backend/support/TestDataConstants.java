@@ -67,13 +67,22 @@ public class TestDataConstants {
 	}
 
 	public static class ModelConstants {
-		public static final UUID TEST_MODEL_ID = UUID.randomUUID();
+		public static final UUID TEST_MODEL_ID = UUID.fromString( "a2d2e8bc-ff65-4b61-9c60-57a3ad5e4230" );
 		public static final String TEST_MODEL_LABEL = "-TEST_MODEL_LABEL-";
 		public static final Float TEST_MODEL_PRICE = 6.0F;
 		public static final Integer TEST_MODEL_STOCK_LEVEL = 2;
 		public static final Integer TEST_MODEL_STOCK_AVAILABLE = 1;
 		public static final String TEST_MODEL_IMAGE_PATH = "-TEST_MODEL_IMAGE_PATH-";
 		public static final Boolean TEST_MODEL_ACTIVE = true;
+	}
+	public static class ModelRequestConstants {
+		public static final UUID TEST_MODELREQUEST_ID = UUID.fromString( "e58c678a-24b3-464f-b61a-7eeba6d25399" );
+		public static final String TEST_MODELREQUEST_LABEL = "-TEST_MODELREQUEST_LABEL-";
+		public static final Float TEST_MODELREQUEST_PRICE = 12.0F;
+		public static final Integer TEST_MODELREQUEST_STOCK_LEVEL = 4;
+//		public static final Integer TEST_MODELREQUEST_STOCK_AVAILABLE = 3;
+		public static final String TEST_MODELREQUEST_IMAGE_PATH = "-TEST_MODELREQUEST_IMAGE_PATH-";
+		public static final Boolean TEST_MODELREQUEST_ACTIVE = false;
 	}
 
 	public static class RequestConstants {
@@ -83,7 +92,7 @@ public class TestDataConstants {
 		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806Z";
 		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
 		public static final float TEST_REQUEST_AMOUNT = 45.67F;
-		public static final Instant TEST_REQUEST_CLOSED_DATE = Instant.now();
+		public static final Instant TEST_REQUEST_CLOSED_DATE = Instant.parse("2020-06-06T21:54:00.226181Z");
 	}
 
 	public static class JobConstants {

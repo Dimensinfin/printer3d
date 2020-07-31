@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
+import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelUpdater;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
@@ -25,6 +26,12 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelC
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_PRICE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_STOCK_LEVEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelRequestConstants.TEST_MODELREQUEST_ACTIVE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelRequestConstants.TEST_MODELREQUEST_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelRequestConstants.TEST_MODELREQUEST_IMAGE_PATH;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelRequestConstants.TEST_MODELREQUEST_LABEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelRequestConstants.TEST_MODELREQUEST_PRICE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelRequestConstants.TEST_MODELREQUEST_STOCK_LEVEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COST;
@@ -182,5 +189,39 @@ public class ModelServiceV1Test {
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			modelServiceV1.newModel( modelRequest );
 		} );
+	}
+
+	@Test
+	public void updateModel() {
+		// Given
+		final ModelRequest modelRequest = new ModelRequest.Builder()
+				.withId( TEST_MODELREQUEST_ID )
+				.withLabel( TEST_MODELREQUEST_LABEL )
+				.withPrice( TEST_MODELREQUEST_PRICE )
+				.withStockLevel( TEST_MODELREQUEST_STOCK_LEVEL )
+				.withImagePath( TEST_MODELREQUEST_IMAGE_PATH )
+				.withActive( TEST_MODELREQUEST_ACTIVE )
+				.build();
+		final ModelEntity modelEntity = new ModelEntity.Builder()
+				.withId( TEST_MODEL_ID )
+				.withLabel( TEST_MODEL_LABEL )
+				.withPrice( TEST_MODEL_PRICE )
+				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
+				.withImagePath( TEST_MODEL_IMAGE_PATH )
+				.withActive( TEST_MODEL_ACTIVE )
+				.build();
+		// When
+		Mockito.when( this.modelRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( modelEntity ) );
+		Mockito.when( this.modelRepository.save( Mockito.any(ModelEntity.class) ) ).thenReturn( new ModelUpdater( modelEntity ).update( modelRequest ) );
+		// Test
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
+		final Model obtained = modelServiceV1.updateModel( modelRequest );
+		// Assertions
+		Assertions.assertEquals( TEST_MODEL_ID.toString(), obtained.getId().toString() );
+		Assertions.assertEquals( TEST_MODELREQUEST_LABEL, obtained.getLabel() );
+		Assertions.assertEquals( TEST_MODELREQUEST_PRICE, obtained.getPrice(), 0.01 );
+		Assertions.assertEquals( TEST_MODELREQUEST_STOCK_LEVEL, obtained.getStockLevel() );
+		Assertions.assertEquals( TEST_MODELREQUEST_IMAGE_PATH, obtained.getImagePath() );
+		Assertions.assertFalse( obtained.isActive() );
 	}
 }

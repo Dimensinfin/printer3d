@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_JOBINSTALLMENTDATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.BuildRecordConstants.TEST_BUILDRECORD_PARTCOPIES;
@@ -68,7 +69,7 @@ public class BuildRecordTest {
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertEquals( TEST_BUILDRECORD_JOBINSTALLMENTDATE, buildRecord.getJobInstallmentDate() );
 		Assertions.assertEquals( 1, buildRecord.getPartCopies() );
-		Assertions.assertEquals( TEST_BUILDRECORD_BUILD_TIME * 60, buildRecord.getRemainingTime() );
+		assertThat( buildRecord.getRemainingTime() ).isBetween( TEST_BUILDRECORD_BUILD_TIME * 60 - 20, TEST_BUILDRECORD_BUILD_TIME * 60 );
 
 		buildRecord = new BuildRecord.Builder()
 				.withPart( part )
@@ -79,7 +80,7 @@ public class BuildRecordTest {
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertEquals( TEST_BUILDRECORD_JOBINSTALLMENTDATE, buildRecord.getJobInstallmentDate() );
 		Assertions.assertEquals( 1, buildRecord.getPartCopies() );
-		Assertions.assertEquals( TEST_BUILDRECORD_BUILD_TIME * 60, buildRecord.getRemainingTime() );
+		assertThat( buildRecord.getRemainingTime() ).isBetween( TEST_BUILDRECORD_BUILD_TIME * 60 - 20, TEST_BUILDRECORD_BUILD_TIME * 60 );
 	}
 
 	@Test
@@ -90,6 +91,7 @@ public class BuildRecordTest {
 				.withPart( part )
 				.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		// Assertions
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
@@ -113,6 +115,7 @@ public class BuildRecordTest {
 				.withPart( part )
 				.withJobInstallmentDate( Instant.now().minus( Duration.ofMinutes( 3 ) ) )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		// When
 		Mockito.when( part.getBuildTime() ).thenReturn( 15 );
@@ -120,7 +123,7 @@ public class BuildRecordTest {
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertNotNull( buildRecord.getPart() );
 		Assertions.assertEquals( TEST_BUILDRECORD_PARTCOPIES, buildRecord.getPartCopies() );
-		final int newBuildTime = (15 * 60 * TEST_BUILDRECORD_PARTCOPIES) - 3 * 60;
+		final int newBuildTime = (TEST_BUILDRECORD_BUILD_TIME * 60 * TEST_BUILDRECORD_PARTCOPIES) - 3 * 60;
 		Assertions.assertEquals( newBuildTime, buildRecord.getRemainingTime() );
 	}
 
@@ -150,6 +153,7 @@ public class BuildRecordTest {
 				.withPart( part )
 				.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
+				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		// Assertions
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
@@ -168,7 +172,7 @@ public class BuildRecordTest {
 				.withPartCopies( TEST_BUILDRECORD_PARTCOPIES )
 				.build();
 		// Test
-		final String expected = "{\"state\":\"IDLE\",\"part\":null,\"partCopies\":8,\"jobInstallmentDate\":\"null\"}";
+		final String expected = "{\"state\":\"IDLE\",\"part\":null,\"partCopies\":8,\"buildTime\":0,\"jobInstallmentDate\":\"null\"}";
 		final String obtained = buildRecord.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
