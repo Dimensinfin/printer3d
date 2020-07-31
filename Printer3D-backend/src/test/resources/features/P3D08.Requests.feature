@@ -8,7 +8,6 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
     inventory leveling.
 
     Background:
-        Given a clean Requests repository
         Given a clean RequestsV2 repository
         Given a clean Jobs repository
         Given a clean Models repository
