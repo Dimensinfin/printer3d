@@ -1,6 +1,12 @@
 # Classes to create Unit Test
-* MachineServiceV1 - requires long development
+* MachineEntity
+* SupportMachineUpdater
+* MachineControllerSupport
 * MachineServiceV2
+* BuildRecordSerializer
+
+
+* MachineServiceV1 - requires long development
 * RequestEntityV2
 * RequestV2
 

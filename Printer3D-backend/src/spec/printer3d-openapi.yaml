@@ -107,12 +107,12 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.11.2
+  version: 0.12.0
 servers:
   - url: https://printer3d-backend-stage.herokuapp.com
-    description: OpenAPI 0.11.2 for 3D Printer Queue Management Backend Service. Stage environment
+    description: OpenAPI 0.12.0 for 3D Printer Queue Management Backend Service. Stage environment
   - url: https://printer3d-backend.herokuapp.com
-    description: OpenAPI 0.11.2 for 3D Printer Queue Management Backend Service. Production
+    description: OpenAPI 0.12.0 for 3D Printer Queue Management Backend Service. Production
 
 tags:
   # - R E P O S I T O R I E S
@@ -574,8 +574,11 @@ paths:
         - Inventory
       summary: Gets the list of Machines defined on the system and persisted on the Inventory unit.
       description: >
-        This version changes the contents so it is not compatible with previous versions. The build job information is collected into a new data
-        structure and there are more fields added to the build record.
+        Gets the Machine entity and then searches for the current running job if it exists. If the **getCurrentJobPartId()** does not
+        return a Part then the **BuildRecord** is cleared and then the machine entity converted to the return record.
+
+        Parts can change while the Part is being used on the job and this can affect the job build time. So the code should isolate from this
+        change by storing the build time onto the Machine BuildRecord for later retrieval so this data is not affected by Part changes.
       operationId: getMachinesv2
       responses:
         200:
@@ -759,8 +762,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DimensinfinError'
-
-
 
   /api/v2/production/requests/{requestId}/close:
     put:
@@ -1091,23 +1092,6 @@ components:
             occupied by this job. If the current time is greater that this point it is expected that the job has finished.
           example:
             2020-06-01T22:05:00Z
-#    MachineList:
-#      type: object
-#      required:
-#        - count
-#        - machines
-#      properties:
-#        count:
-#          type: number
-#          format: int32
-#          description: >
-#            The number of machines that follow on the response.
-#          example:
-#            8
-#        machines:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/Machine'
     MachineList:
       type: array
       items:
