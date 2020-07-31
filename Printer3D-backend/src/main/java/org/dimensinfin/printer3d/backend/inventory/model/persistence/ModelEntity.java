@@ -154,8 +154,6 @@ public class ModelEntity {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
 			Objects.requireNonNull( this.onConstruction.price );
-			Objects.requireNonNull( this.onConstruction.stockLevel );
-			Objects.requireNonNull( this.onConstruction.active );
 			return this.onConstruction;
 		}
 

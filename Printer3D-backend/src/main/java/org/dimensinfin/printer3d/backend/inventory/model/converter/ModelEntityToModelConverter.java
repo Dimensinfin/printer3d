@@ -17,7 +17,7 @@ public class ModelEntityToModelConverter implements Converter<ModelEntity, Model
 				.withPrice( input.getPrice() )
 				.withStockLevel( input.getStockLevel() )
 				.withImagePath( input.getImagePath() )
-				.withActive( true )
+				.withActive( input.isActive() )
 				.build();
 	}
 }

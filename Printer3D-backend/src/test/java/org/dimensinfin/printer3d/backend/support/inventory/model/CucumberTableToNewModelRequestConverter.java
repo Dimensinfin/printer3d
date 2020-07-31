@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
@@ -23,9 +24,8 @@ public class CucumberTableToNewModelRequestConverter extends CucumberTableConver
 		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( PRICE )) builder = builder.withPrice( Float.parseFloat( cucumberRow.get( PRICE ) ) );
 		if (null != cucumberRow.get( STOCK_LEVEL )) builder = builder.withStockLevel( Integer.parseInt( cucumberRow.get( STOCK_LEVEL ) ) );
-//		if (null != cucumberRow.get( STOCK_AVAILABLE ))
-//			builder = builder.withStockAvailable( Integer.parseInt( cucumberRow.get( STOCK_AVAILABLE ) ) );
 		if (null != cucumberRow.get( IMAGE_PATH )) builder = builder.withImagePath( cucumberRow.get( IMAGE_PATH ) );
+		if (null != cucumberRow.get( ACTIVE )) builder = builder.withActive( Boolean.parseBoolean( cucumberRow.get( ACTIVE ) ) );
 		if (null != cucumberRow.get( PART_ID_LIST )) builder = builder.withPartIdList(
 				this.decodeCucumberUUIDList( cucumberRow.get( PART_ID_LIST ) )
 		);

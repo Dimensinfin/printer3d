@@ -25,6 +25,8 @@ public class ModelRequest {
 	private int stockLevel = 1;
 	@SerializedName("imagePath")
 	private String imagePath;
+	@SerializedName("active")
+	private boolean active = true;
 
 	// - C O N S T R U C T O R S
 	private ModelRequest() {}
@@ -50,6 +52,10 @@ public class ModelRequest {
 		return this.price;
 	}
 
+	public boolean isActive() {
+		return this.active;
+	}
+
 	public int getStockLevel() {
 		return this.stockLevel;
 	}
@@ -69,6 +75,11 @@ public class ModelRequest {
 			Objects.requireNonNull( this.onConstruction.label );
 			Objects.requireNonNull( this.onConstruction.price );
 			return this.onConstruction;
+		}
+
+		public ModelRequest.Builder withActive( final Boolean active ) {
+			if (null != active) this.onConstruction.active = active;
+			return this;
 		}
 
 		public ModelRequest.Builder withId( final UUID id ) {

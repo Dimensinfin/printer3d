@@ -21,7 +21,7 @@ public class ModelUpdater {
 				.withStockLevel( updateData.getStockLevel() )
 				.withImagePath( updateData.getImagePath() )
 				.withPartIdList( updateData.getPartIdList() )
-				.withActive( true )
+				.withActive( updateData.isActive() )
 				.build();
 	}
 }

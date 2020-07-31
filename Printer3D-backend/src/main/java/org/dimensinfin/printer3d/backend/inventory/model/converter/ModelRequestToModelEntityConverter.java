@@ -7,7 +7,7 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 @Component
-public class NewModelRequestToModelEntityConverter implements Converter<ModelRequest, ModelEntity> {
+public class ModelRequestToModelEntityConverter implements Converter<ModelRequest, ModelEntity> {
 	@Override
 	public ModelEntity convert( final ModelRequest input ) {
 		return new ModelEntity.Builder()
@@ -17,7 +17,7 @@ public class NewModelRequestToModelEntityConverter implements Converter<ModelReq
 				.withStockLevel( input.getStockLevel() )
 				.withPartIdList( input.getPartIdList() )
 				.withImagePath( input.getImagePath() )
-				.withActive( true )
+				.withActive( input.isActive() )
 				.build();
 	}
 }

@@ -22,7 +22,6 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelReposi
 
 @Profile({ "local", "acceptance", "test" })
 @RestController
-//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 @Service
