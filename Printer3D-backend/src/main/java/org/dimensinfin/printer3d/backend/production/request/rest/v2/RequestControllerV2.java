@@ -21,7 +21,6 @@ import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 @RestController
-//@CrossOrigin
 @Validated
 @RequestMapping("/api/v2")
 public class RequestControllerV2 {

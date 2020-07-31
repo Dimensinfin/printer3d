@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.production.job.rest.v1;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,16 +14,12 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
-import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.PartRequest;
-import org.dimensinfin.printer3d.client.production.rest.dto.Request;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_IMAGE_PATH;
@@ -49,14 +44,12 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.Reques
 
 public class JobServiceV1Test {
 	private PartRepository partRepository;
-	private RequestsRepository requestsRepository;
 	private RequestsRepositoryV2 requestsRepositoryV2;
 	private ModelRepository modelRepository;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.partRepository = Mockito.mock( PartRepository.class );
-		this.requestsRepository = Mockito.mock( RequestsRepository.class );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 		this.modelRepository = Mockito.mock( ModelRepository.class );
 	}
@@ -65,7 +58,6 @@ public class JobServiceV1Test {
 	public void constructorContract() {
 		final JobServiceV1 jobServiceV1 = new JobServiceV1(
 				this.partRepository,
-				this.requestsRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
 		Assertions.assertNotNull( jobServiceV1 );
@@ -143,7 +135,6 @@ public class JobServiceV1Test {
 		final List<ModelEntity> modelEntityList = new ArrayList<>();
 		modelEntityList.add( modelEntity );
 		// When
-		Mockito.when( this.requestsRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.requestsRepositoryV2.findAll() ).thenReturn( requestEntityV2List );
 		Mockito.when( this.modelRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( modelEntity ) );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partEntityList );
@@ -153,7 +144,7 @@ public class JobServiceV1Test {
 				.thenReturn( Optional.of( partEntity02 ) );
 		Mockito.when( this.modelRepository.findAll() ).thenReturn( modelEntityList );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepositoryV2,
 				this.modelRepository );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
@@ -177,22 +168,6 @@ public class JobServiceV1Test {
 				.withPartId( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ) )
 				.withQuantity( 3 )
 				.build() );
-		final RequestEntity requestEntity1 = new RequestEntity.Builder()
-				.withId( UUID.randomUUID() )
-				.withLabel( TEST_REQUEST_LABEL )
-				.withState( RequestState.OPEN )
-				.withPartList( request1PartList )
-				.withRequestDate( Instant.now() )
-				.build();
-		final List<RequestEntity> requestList = new ArrayList<>();
-		requestList.add( requestEntity1 );
-		final Request request1 = new Request.Builder()
-				.withId( UUID.randomUUID() )
-				.withRequestDate( Instant.now().toString() )
-				.withLabel( TEST_REQUEST_LABEL )
-				.withState( RequestState.OPEN )
-				.withPartList( request1PartList )
-				.build();
 		final PartEntity part = new PartEntity.Builder()
 				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
 				.withLabel( TEST_PART_LABEL )
@@ -209,17 +184,10 @@ public class JobServiceV1Test {
 				.withActive( false )
 				.build();
 		// When
-		Mockito.when( this.requestsRepository.findAll() ).thenReturn( requestList );
-		//		Mockito.when( this.stockManager.getStock( UUID.fromString( "467ea75a-108d-42f6-a3c6-70484704c49b" ) ) )
-		//				.thenReturn( 2 );
-		//		Mockito.when( this.stockManager.getStock( UUID.fromString( "b031f097-6f69-4f72-8564-20cb4597d30a" ) ) )
-		//				.thenReturn( 0 );
-		//		Mockito.when( this.stockManager.getStock( UUID.fromString( "266ef180-fd8c-46ae-a5a7-83056cf0f656" ) ) )
-		//				.thenReturn( -1 );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepositoryV2,
 				this.modelRepository );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
@@ -264,10 +232,9 @@ public class JobServiceV1Test {
 		partList.add( part1 );
 		partList.add( part2 );
 		// When
-		Mockito.when( this.requestsRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository,  this.requestsRepositoryV2,
 				this.modelRepository );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions
@@ -312,10 +279,9 @@ public class JobServiceV1Test {
 		partList.add( part1 );
 		partList.add( part2 );
 		// When
-		Mockito.when( this.requestsRepository.findAll() ).thenReturn( new ArrayList<>() );
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository, this.requestsRepository, this.requestsRepositoryV2,
+		final JobServiceV1 jobServiceV1 = new JobServiceV1( this.partRepository,  this.requestsRepositoryV2,
 				this.modelRepository );
 		final List<Job> obtained = jobServiceV1.getPendingJobs();
 		// Assertions

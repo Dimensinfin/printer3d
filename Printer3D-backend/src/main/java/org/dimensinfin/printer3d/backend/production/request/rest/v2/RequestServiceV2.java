@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -23,12 +22,9 @@ import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictExcept
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestV2ToRequestEntityV2Converter;
-import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
-import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestServiceCore;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
@@ -40,7 +36,6 @@ import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION
 
 @Service
 public class RequestServiceV2 extends RequestServiceCore {
-	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final RequestEntityV2ToRequestV2Converter requestConverterV2 = new RequestEntityV2ToRequestV2Converter();
 
 	public static DimensinfinError errorREQUESTNOTFOUND( final UUID requestId ) {
@@ -73,18 +68,14 @@ public class RequestServiceV2 extends RequestServiceCore {
 				.build();
 	}
 
-	private final RequestsRepository requestsRepositoryV1;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
 	public RequestServiceV2( final @NotNull PartRepository partRepository,
-	                         final @NotNull RequestsRepository requestsRepositoryV1,
 	                         final @NotNull RequestsRepositoryV2 requestsRepositoryV2,
 	                         final @NotNull ModelRepository modelRepository ) {
 		super( partRepository, modelRepository );
-		this.requestsRepositoryV1 = Objects.requireNonNull( requestsRepositoryV1 );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
-
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -109,14 +100,9 @@ public class RequestServiceV2 extends RequestServiceCore {
 		try {
 			this.stockManager.startStock(); // Initialize the stock with the current Part stock data
 			// Get the list of OPEN Requests for processing. Join the old V1 to the new V2 requests after tranformation.
-			return Stream.concat(
-					this.requestsRepositoryV1.findAll()
-							.stream()
-							.filter( RequestEntity::isOpen )
-							.map( requestV1ToV2Converter::convert ),
-					this.requestsRepositoryV2.findAll()
-							.stream()
-							.filter( RequestEntityV2::isOpen ) )
+			return this.requestsRepositoryV2.findAll()
+					.stream()
+					.filter( RequestEntityV2::isOpen )
 					.map( requestEntityV2 -> {
 						if (this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
 						return requestConverterV2.convert( requestEntityV2 );
@@ -150,21 +136,14 @@ public class RequestServiceV2 extends RequestServiceCore {
 		LogWrapper.enter();
 		try {
 			this.stockManager.clean().startStock(); // Initialize the stock manager to get the Part prices.
-			final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
 			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
 			final RequestEntityV2 requestEntityV2 = this.selectRequestEntity( requestId );
 			if (this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be closed now. Data on frontend may be obsolete.
 				this.removeRequestPartsFromStock( requestEntityV2 );
 				requestEntityV2.setAmount( this.calculateRequestAmount( requestEntityV2 ) );
-				// When closing V1 requests we can save the data into V2 requests and then remove the V1 copy.
-				targetV1.ifPresent( requestEntityV1lambda -> {
-					this.requestsRepositoryV2.save( requestEntityV2.close() );
-					this.requestsRepositoryV1.delete( requestEntityV1lambda );
-				} );
 				targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
 				return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
-			}
-			else
+			} else
 				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTCANNOTBEFULFILLED( requestEntityV2.getId() ) );
 		} finally {
 			LogWrapper.exit();
@@ -175,20 +154,11 @@ public class RequestServiceV2 extends RequestServiceCore {
 		LogWrapper.enter();
 		try {
 			final AtomicInteger deleteCounter = new AtomicInteger( 0 );
-			this.requestsRepositoryV1.findById( requestId ).ifPresent( request -> {
-				if (request.isOpen()) {
-					this.requestsRepositoryV1.delete( request );
-					deleteCounter.incrementAndGet();
-				}
-				else
-					throw new RepositoryConflictException( errorREQUESTNOTINCORRECTSTATE( requestId ) );
-			} );
 			this.requestsRepositoryV2.findById( requestId ).ifPresent( request -> {
 				if (request.isOpen()) {
 					this.requestsRepositoryV2.delete( request );
 					deleteCounter.incrementAndGet();
-				}
-				else
+				} else
 					throw new RepositoryConflictException( errorREQUESTNOTINCORRECTSTATE( requestId ) );
 			} );
 			if (deleteCounter.get() == 0) throw new DimensinfinRuntimeException( errorREQUESTNOTFOUND( requestId ),
@@ -270,15 +240,8 @@ public class RequestServiceV2 extends RequestServiceCore {
 	}
 
 	private RequestEntityV2 selectRequestEntity( final UUID requestId ) {
-		final Optional<RequestEntity> targetV1 = this.requestsRepositoryV1.findById( requestId );
-		final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
-		if (targetV1.isEmpty() && targetV2.isEmpty())
-			throw new DimensinfinRuntimeException(
-					errorREQUESTNOTFOUND( requestId ),
-					"No Request found while trying to complete the Request." );
-		if (targetV1.isPresent())
-			return new RequestEntityToRequestEntityV2Converter().convert( targetV1.get() );
-		else
-			return targetV2.get();
+		return this.requestsRepositoryV2.findById( requestId )
+				.orElseThrow( () -> new DimensinfinRuntimeException( errorREQUESTNOTFOUND( requestId ),
+						"No Request found while trying to complete the Request." ) );
 	}
 }

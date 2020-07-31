@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.job.rest.v1;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
@@ -24,10 +22,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.backend.production.domain.FinishingContainer;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.job.FinishingByCountComparator;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityToRequestEntityV2Converter;
-import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
-import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
@@ -36,11 +31,9 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 @Service
 public class JobServiceV1 {
-	private static final RequestEntityToRequestEntityV2Converter requestV1ToV2Converter = new RequestEntityToRequestEntityV2Converter();
 	private static final int REQUEST_PRIORITY = 1;
 	private static final int STOCK_LEVEL_PRIORITY = 2;
 	private final PartRepository partRepository;
-	private final RequestsRepository requestsRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 	private final ModelRepository modelRepository;
 
@@ -48,11 +41,9 @@ public class JobServiceV1 {
 
 	// - C O N S T R U C T O R S
 	public JobServiceV1( final PartRepository partRepository,
-	                     final RequestsRepository requestsRepository,
 	                     final RequestsRepositoryV2 requestsRepositoryV2,
 	                     final ModelRepository modelRepository ) {
 		this.partRepository = Objects.requireNonNull( partRepository );
-		this.requestsRepository = Objects.requireNonNull( requestsRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.modelRepository = modelRepository;
 	}
@@ -92,12 +83,7 @@ public class JobServiceV1 {
 	private void collectRequestPartsFromRepository() {
 		LogWrapper.enter();
 		try {
-			Stream.concat(
-					this.requestsRepository.findAll()
-							.stream()
-							.filter( RequestEntity::isOpen )
-							.map( requestV1ToV2Converter::convert ),
-					this.requestsRepositoryV2.findAll().stream() )
+			this.requestsRepositoryV2.findAll().stream()
 					.filter( RequestEntityV2::isOpen )
 					.forEach( requestEntityV2 -> {
 						// Subtract the Parts from the inventory
@@ -226,7 +212,7 @@ public class JobServiceV1 {
 
 	private List<Job> sortByFinishingCount( final List<Job> inputList ) {
 		final List<FinishingContainer> finishings = this.generateFinishingList( inputList );
-		Collections.sort( finishings, new FinishingByCountComparator() );
+		finishings.sort( new FinishingByCountComparator() );
 		return finishings
 				.stream()
 				.flatMap( finishingContainer -> finishingContainer.getJobs().stream() )
