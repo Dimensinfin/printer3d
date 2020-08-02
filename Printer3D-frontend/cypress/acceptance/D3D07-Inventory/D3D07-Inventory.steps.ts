@@ -14,9 +14,6 @@ Then('the loading panels shows {string}', function (loadingMessage: string) {
     cy.get('@target-page').find('.index-loading')
         .contains(loadingMessage)
 });
-When('the loading panel completes', function () {
-    cy.wait(1000)
-});
 Then('the target item has a list named {string} with {int} {string}', function (panelName: string, itemCount: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target-item').find('[cy-name="' + panelName + '"]').as('target-list')

@@ -22,25 +22,13 @@ When('the mouse exits the target', function () {
     cy.get('@target').find('[cy-focus="mouseleave"]').trigger('mouseleave')
 });
 
-
-// Given('the target job the {string} with id {string}', function (renderName: string, recordId: string) {
-//     const tag = supportService.translateTag(renderName) // Do name replacement
-//     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').first().as('target-item').as('target-job')
-//         .should('exist')
-// });
-// Given('the target machine the {string} with id {string}', function (renderName: string, recordId: string) {
-//     const tag = supportService.translateTag(renderName) // Do name replacement
-//     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item').as('target-machine')
-//         .should('exist')
-// });
-// When('the target Job is dragged and dropped on the target Machine', function () {
-//     cy.get('@target-job').trigger('dragstart')
-//     cy.get('@target-machine').find('[cy-name="drop-job"]').trigger('drop')
-// });
-// When('there is a click on the target item {string} button', function (buttonName: string) {
-//     cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
-//         .click('center')
-// });
-// Then('the target Machine has {string} instances of {string}', function (elementCount: string, elementType: string) {
-//     cy.get('@target-machine').find(elementType).should('have.length', elementCount)
-// });
+// - S T E P   M A C R O S
+Given('a timed application Printer3DManager', function () {
+    // Given the target is the panel of type "jobs-list"
+    // Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    // # - Drag a part to the drop contents
+    // Given the target is the panel of type "machines"
+    // Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    // When the drag source is dragged to the drop destination "dropJobs"
+    // Then the button with name "start-button" has a label "Comenzar" and is "enabled"
+});

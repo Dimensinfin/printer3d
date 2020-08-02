@@ -34,7 +34,6 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         Then column named "hours" has contents "0"
         Then column named "minutes" has contents "10"
 
-
     @D3D14.02
     Scenario: [D3D14.02]-Register a job a machine and wait for time completion. When the job completes the buttons change.
         # - Select a Job for drag
@@ -64,21 +63,6 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         Then the button with name "complete-button" has a label "Completar" and is "enabled"
         Then the button with name "cancel-button" has a label "Cancelar" and is "enabled"
 
-
-    # Then advance time "5" minutes
-    # Then advance time "15" minutes
-    # Then there is a click on the target item "CANCEL" button
-
-    # Given the target machine the "machine" with id "d55a5ca6-b1f5-423c-9a47-007439534744"
-    # Given the target item the "machine" with id "d55a5ca6-b1f5-423c-9a47-007439534744"
-    # And the target Machine has "2" instances of "button"
-    # And the target item button with name "COMPLETE" has a label "Completar" and is "enabled"
-    # And the target item button with name "CANCEL" has a label "Cancelar" and is "enabled"
-    # When there is a click on the target item "COMPLETE" button
-
-    # @D3D13.07
-    #     Scenario: [D3D13.07]-When the job completes the number of copies continues not being editable.
-
     @D3D14.03
     Scenario: [D3D14.03]-When the job completes the number of copies continues not being editable.
         # - Select a Job for drag
@@ -91,7 +75,7 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         Then the button with name "start-button" has a label "Comenzar" and is "enabled"
         When 2 is set on form field "quantity"
         And the mouse exits the target
-        # - Check th timer status
+        # - Check the timer status
         Given the target has a component ot type "build-countdown-timer"
         Then column named "hours" has contents "1"
         Then column named "minutes" has contents "00"
@@ -115,3 +99,6 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         # - Then validate that the quantity field is not editable
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         And field named "quantity-data" with label "CANTIDAD" has contents "2"
+
+@D3D14.04
+    Scenario: [D3D14.04]-When the build job enters the last minute then the timer color changes.

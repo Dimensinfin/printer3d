@@ -16,6 +16,11 @@ Then('hidden field named {string} has contents {string}',
             cy.get('[cy-name="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
     });
+// - T A R G E T   C O N T E N T S
+Then('the target panel has one or more {string}', function (symbolicName: string) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('@target-panel').find(tag).should('have.length.greaterThan', 0)
+});
 
 
 Then('there is a Feature with label {string}', function (label: string) {

@@ -10,6 +10,7 @@ Feature: [F3D22]-[STORY] From the Inventory the Models can be edited.
     Background: Application landing page
         Given the application Printer3DManager
         Given there is a click on Feature "/INVENTARIO"
+        When the loading panel completes
         Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
 

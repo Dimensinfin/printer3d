@@ -14,11 +14,6 @@ import { GridRow } from '../../support/page-objects/GridRow.panel';
 const supportService = new SupportService();
 
 // - N E W E S T   I M P L E M E N T A T I O N
-Given('the target panel has one or more {string}', function (symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('@target-panel').find(tag).should('have.length.greaterThan', 0)
-});
 
 
 
@@ -84,11 +79,6 @@ Then('there are no Features active', function () {
             cy.get('.corner-mark').should('have.length', 0)
         });
 });
-Then('the target panel has one or more {string}', function (panelType: string) {
-    cy.get('@target-panel').find(panelType)
-        .should('have.length.greaterThan', 0)
-});
-
 
 
 
