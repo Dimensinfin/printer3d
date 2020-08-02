@@ -100,5 +100,5 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         And field named "quantity-data" with label "CANTIDAD" has contents "2"
 
-@D3D14.04
-    Scenario: [D3D14.04]-When the build job enters the last minute then the timer color changes.
+# @D3D14.04
+#     Scenario: [D3D14.04]-When the build job enters the last minute then the timer color changes.
