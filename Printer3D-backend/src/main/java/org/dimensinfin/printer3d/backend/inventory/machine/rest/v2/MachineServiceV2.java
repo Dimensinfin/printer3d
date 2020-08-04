@@ -87,13 +87,25 @@ public class MachineServiceV2 {
 				.stream()
 				.map( machineEntity -> {
 					// Convert the entity to the api domain
-					final BuildRecord buildRecord = new BuildRecord.Builder()
-							.withPartCopies( machineEntity.getCurrentPartInstances() )
-							.withPartBuildTime( machineEntity.getCurrentJobPartBuildTime() )
-							.withPart( this.getBuildPart( machineEntity ) ) // Search for the Part instance at the repository.
-							.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
-							.build();
-					return new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
+					try {
+						final BuildRecord buildRecord = new BuildRecord.Builder()
+								.withPartCopies( machineEntity.getCurrentPartInstances() )
+								.withPartBuildTime( machineEntity.getCurrentJobPartBuildTime() )
+								.withPart( this.getBuildPart( machineEntity ) ) // Search for the Part instance at the repository.
+								.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
+								.build();
+						return new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
+					} catch (final RuntimeException rte) {
+						LogWrapper.error( rte );
+						if (rte instanceof NullPointerException)
+							throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
+									"Null pointer found while building a BuildRecord" )
+							);
+						else
+							throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
+									rte.getMessage() )
+							);
+					}
 				} )
 				.collect( Collectors.toList() );
 	}
