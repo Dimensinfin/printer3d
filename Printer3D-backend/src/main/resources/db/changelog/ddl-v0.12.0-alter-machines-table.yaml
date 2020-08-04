@@ -39,3 +39,15 @@ databaseChangeLog:
                   name: job_part_build_time
                   value: 0
                 remarks: Update the new field value to a valid value and not null.
+  - changeSet:
+      id: 0_12_0_004_printer3d_job_part_build_time
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: job_part_build_time
+                  value: 15
+                remarks: The 0 value is not valid and needs to be updated to a valid value.
