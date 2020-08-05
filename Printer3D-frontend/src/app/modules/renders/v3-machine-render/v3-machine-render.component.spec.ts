@@ -18,7 +18,7 @@ import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer
 
 const TEST_TIME: number = 12 * 60;
 
-fdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
+xdescribe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
     let component: V3MachineRenderComponent;
     let fixture: ComponentFixture<V3MachineRenderComponent>;
     let isolationService: SupportIsolationService;

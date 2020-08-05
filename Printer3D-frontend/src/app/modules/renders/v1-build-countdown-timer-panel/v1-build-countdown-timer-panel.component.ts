@@ -28,9 +28,18 @@ export class V1BuildCountdownTimerPanelComponent implements OnDestroy {
     public minutes: number = 0
     private duration: number = 0
     private timerSubscription: Subscription;
+    private lastMinute: boolean = false
+    private timerCompleted: boolean = false
 
     public ngOnDestroy(): void {
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
+    }
+
+    public isLastMinute(): boolean {
+        return this.lastMinute
+    }
+    public isCompleted(): boolean {
+        return this.timerCompleted
     }
 
     // - V I E W   I N T E R A C T I O N
@@ -40,11 +49,14 @@ export class V1BuildCountdownTimerPanelComponent implements OnDestroy {
      */
     public activate(): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.activate]> Timer duration: ' + this.duration);
+        this.timerCompleted = false
         if (this.duration > 0) {
             const timer$ = timer(200, 1000);
             this.timerSubscription = timer$.subscribe(elapsed => {
                 // Calculate the number of secods left.
                 let left = this.duration - elapsed;
+                if (left < 60) this.lastMinute = true
+                else this.lastMinute = false
                 // Convert to hours/minutes.
                 this.hours = Math.floor(left / 3600);
                 this.minutes = Math.floor((left - this.hours * 3600) / 60)
@@ -65,6 +77,7 @@ export class V1BuildCountdownTimerPanelComponent implements OnDestroy {
     private completeTimer(): void {
         console.log('>[V1BuildCountdownTimerPanelComponent.completeTimer]> Timer completed');
         this.parent.completeTime();
+        this.timerCompleted = true
         if (null != this.timerSubscription) this.timerSubscription.unsubscribe();
     }
     /**

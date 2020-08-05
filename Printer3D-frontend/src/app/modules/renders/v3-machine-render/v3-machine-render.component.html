@@ -61,7 +61,7 @@
             <div cy-name="complete-button" class="button-margins" *ngIf="state=='COMPLETED'">
                 <div style="position: relative;">
                     <button class="button ok-button" (click)="completeBuild()">
-                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <i class="fa fa-check" aria-hidden="true"></i>
                         &nbsp;&nbsp;Completar
                     </button>
                     <svg class="button-right-border" viewBox="0 0 100 100">
@@ -150,7 +150,7 @@
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
     </svg>
-    <svg cy-field-mark="REQUEST" class="corner-mark" [ngClass]="{'completed-request':state=='COMPLETED'}" viewBox="0 0 100 100">
+    <svg cy-field-mark="REQUEST" class="corner-mark" [ngClass]="{'completed-request':isCompleted()}" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>

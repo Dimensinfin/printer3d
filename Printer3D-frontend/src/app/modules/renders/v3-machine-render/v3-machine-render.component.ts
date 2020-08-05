@@ -57,7 +57,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         this.loadBuildPart()
         // Now the state is running so display the timer and restart it with the remaining time.
         if (this.state == 'RUNNING') {
-            this.showTimer()
+            this.showTimer(this.remainingTime)
             this.activateTimer()
         } else
             this.completeTime()
@@ -84,8 +84,10 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         return this.target.getPart().label;
     }
     public isRunning(): boolean {
-        if (this.state == 'RUNNING') return true;
-        else return false
+        return (this.state == 'RUNNING')
+    }
+    public isCompleted(): boolean {
+        return (this.state == 'COMPLETED')
     }
 
     private loadBuildPart(): void {
@@ -114,7 +116,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
             this.target = job;
             this.state = 'IDLE'
             this.remainingTime = job.getBuildSeconds();
-            this.showTimer()
+            this.showTimer(this.remainingTime)
         }
     }
     /**
@@ -124,9 +126,9 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
      */
     public changePartCount(): void {
         this.state = 'IDLE'
-        if ( null == this.target.getCopies()) this.state='INVALID'
+        if (null == this.target.getCopies()) this.state = 'INVALID'
         this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
-        this.showTimer()
+        this.showTimer(this.remainingTime)
     }
     public startBuild(): void {
         console.log('>[V3MachineRenderComponent.startBuild]')
@@ -144,7 +146,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     }))
                 .subscribe((resultMachine: Machine) => {
                     console.log('>[V3MachineRenderComponent.startBuild.subscription]')
-                    this.showTimer()
+                    this.showTimer(this.remainingTime)
                     this.activateTimer()
                     this.state = 'RUNNING'
                 }, (error) => {
@@ -215,8 +217,8 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         this.buildTimeTimer.hours = 0;
         this.buildTimeTimer.minutes = 0;
     }
-    private showTimer(): void {
-        this.buildTimeTimer.setTime(this.remainingTime)
+    private showTimer(timeToRun: number): void {
+        this.buildTimeTimer.setTime(timeToRun)
         this.buildTimeTimer.show = true
     }
     private activateTimer(): void {

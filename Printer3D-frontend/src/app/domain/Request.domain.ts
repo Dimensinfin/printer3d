@@ -8,7 +8,6 @@ export class Request extends Node {
     private label: string;
     private requestDate: string;
     private state: RequestState = RequestState.OPEN;
-    // V2 comapibility fields
     protected contents: RequestItem[] = []
 
     constructor(values: Object = {}) {
