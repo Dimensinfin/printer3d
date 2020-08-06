@@ -3,19 +3,16 @@ package org.dimensinfin.printer3d.backend.inventory.machine.rest.v2;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
+import org.dimensinfin.printer3d.backend.inventory.machine.domain.PlasticConsumerManager;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdaterV2;
@@ -30,44 +27,21 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
-import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
-
 @Service
 @Transactional
 public class MachineServiceV2 {
-	public static DimensinfinError errorMISSINGMATERIALTOCOMPLETEJOB() {
-		return new DimensinfinError.Builder()
-				.withErrorName( "MISSING_MATERIAL_TO_COMPLETE_JOB" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
-				.withHttpStatus( HttpStatus.PRECONDITION_FAILED )
-				.withMessage( "Not enough Material or no coil available to start the job." )
-				.build();
-	}
-
-	public static <T> Collector<T, ?, T> toSingleton() {
-		return Collectors.collectingAndThen(
-				Collectors.toList(),
-				list -> {
-					if (list.isEmpty()) throw new DimensinfinRuntimeException( errorMISSINGMATERIALTOCOMPLETEJOB(),
-							"No enough material or no coil while performing the material use before starting a job." );
-					LogWrapper.info( "Located coil: " + list.get( 0 ).toString() );
-					return list.get( 0 );
-				}
-		);
-	}
-
 	private final MachineRepository machineRepository;
 	private final PartRepository partRepository;
-	private final CoilRepository coilRepository;
+	private final PlasticConsumerManager plasticConsumerManager;
 
 	// - C O N S T R U C T O R S
 	@Autowired
 	public MachineServiceV2( final @NotNull MachineRepository machineRepository,
 	                         final @NotNull PartRepository partRepository,
-	                         final @NotNull CoilRepository coilRepository ) {
+	                         final @NotNull PlasticConsumerManager plasticConsumerManager ) {
 		this.machineRepository = Objects.requireNonNull( machineRepository );
 		this.partRepository = Objects.requireNonNull( partRepository );
-		this.coilRepository = coilRepository;
+		this.plasticConsumerManager = plasticConsumerManager;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -127,7 +101,7 @@ public class MachineServiceV2 {
 					.orElseThrow( () -> new DimensinfinRuntimeException( MachineServiceV1.errorMACHINENOTFOUND( machineId ) ) );
 			final PartEntity jobPartEntity = this.partRepository.findById( jobRequest.getPartId() )
 					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) );
-			this.subtractPlasticFromCoil( jobPartEntity, jobRequest.getCopies() );
+			this.plasticConsumerManager.subtractPlasticFromCoil( jobPartEntity, jobRequest.getCopies() );
 			final MachineEntity updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update(
 					jobRequest,
 					jobPartEntity.getBuildTime()
@@ -153,24 +127,5 @@ public class MachineServiceV2 {
 									() -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) )
 			);
 		} else return null;
-	}
-
-	/**
-	 * Search for a coil with th same finishing than the part on the build job. There can be a single coil or multiple coils. Using streams filter
-	 * out all the matching coils and then select the first that has at least double weight left.
-	 *
-	 * @param partEntity the Part to be build
-	 * @param copies     the number of copies to build on this job.
-	 */
-	private void subtractPlasticFromCoil( final PartEntity partEntity, final int copies ) {
-		this.coilRepository.save(
-				this.coilRepository.findAll()
-						.stream()
-						.filter( coilEntity -> partEntity.getMaterial().equals( coilEntity.getMaterial() ) )
-						.filter( coilEntity -> partEntity.getColor().equals( coilEntity.getColor() ) )
-						.filter( coilEntity -> coilEntity.getWeight() > 2 * partEntity.getWeight() * copies )
-						.collect( toSingleton() ) // Gt the first coil on the list or fire an exception if there is no material left on inventory.
-						.subtractMaterial( partEntity.getWeight() * copies )
-		);
 	}
 }
