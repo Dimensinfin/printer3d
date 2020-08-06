@@ -2,7 +2,7 @@ package org.dimensinfin.printer3d.backend.inventory.machine.domain;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -43,17 +43,22 @@ public class PlasticConsumerManager {
 				list -> {
 					if (list.isEmpty()) throw new DimensinfinRuntimeException( errorMISSINGMATERIALTOCOMPLETEJOB(),
 							"No enough material or no coil while performing the material use before starting a job." );
-					return processCoilList( new ArrayList<Coil>( (Collection<? extends Coil>) list ) );
+					return processCoilList( list );
 				}
 		);
 	}
 
-	private static <T> T processCoilList( final ArrayList<Coil> coils ) {
-		coils.sort( new CoilWeightComparator() );
-		final Coil target = (Coil) coils.get( 0 );
+	private static <T> T processCoilList( final List<T> coils ) {
+		// Copy the original list to a Coil list.
+		final List<Coil> coilList = new ArrayList<>();
+		for (T coil : coils)
+			coilList.add( (Coil) coil );
+		coilList.sort( new CoilWeightComparator() );
+		final Coil target = coilList.get( 0 );
 		LogWrapper.info( MessageFormat.format( "Located coil: {0}", target.toString() ) );
 		return (T) target;
 	}
+
 	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
