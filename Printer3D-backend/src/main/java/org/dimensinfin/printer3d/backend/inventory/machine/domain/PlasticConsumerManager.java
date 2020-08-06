@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.domain;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class PlasticConsumerManager {
 	 * @param <T> Coil stream collector
 	 * @return the selected coil to be used on the job.
 	 */
-	public static <T> Collector<T, ?, T> toSingleton() {
+	public static <T extends Coil> Collector<T, ?, T> toSingleton() {
 		return Collectors.collectingAndThen(
 				Collectors.toList(),
 				list -> {
@@ -48,15 +47,11 @@ public class PlasticConsumerManager {
 		);
 	}
 
-	private static <T> T processCoilList( final List<T> coils ) {
-		// Copy the original list to a Coil list.
-		final List<Coil> coilList = new ArrayList<>();
-		for (T coil : coils)
-			coilList.add( (Coil) coil );
-		coilList.sort( new CoilWeightComparator() );
-		final Coil target = coilList.get( 0 );
+	private static <T extends Coil> T processCoilList( final List<T> coils ) {
+		coils.sort( new CoilWeightComparator() );
+		final T target = coils.get( 0 );
 		LogWrapper.info( MessageFormat.format( "Located coil: {0}", target.toString() ) );
-		return (T) target;
+		return target;
 	}
 
 	private final CoilRepository coilRepository;
