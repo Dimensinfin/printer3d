@@ -405,7 +405,7 @@ Feature: [STORY] Manage the endpoints and the relations that have effect to the 
             | 6aee8cff-6d33-43d9-99eb-4b86800fa0dd | TPU      | BLANCO | 500    |
             | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | NEGRO  | 500    |
             | 55ad0b77-dd63-4ea3-804d-2f384074def9 | PLA      | GRIS   | 500    |
-            | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | BLANCO | 11     |
+            | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | BLANCO | 6      |
         And the next setup for Machine "Ender 3 Pro - A"
             | currentJobPartId | jobInstallmentDate | currentPartInstances |
             |                  |                    | 1                    |
@@ -422,7 +422,7 @@ Feature: [STORY] Manage the endpoints and the relations that have effect to the 
         When the Get Coils request is processed
         And the item with id "2e5dd268-0940-454a-918b-58b4dfd1a308" of the list of Coils has the next fields
             | id                                   | material | color  | weight |
-            | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | BLANCO | 6      |
+            | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | BLANCO | 1      |
         # - The second job start should fail
         And the next Job Request request
             | jobId                                | partId                               | copies |
