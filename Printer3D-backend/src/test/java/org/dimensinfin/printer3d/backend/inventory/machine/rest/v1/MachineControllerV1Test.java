@@ -22,6 +22,20 @@ public class MachineControllerV1Test {
 	}
 
 	@Test
+	public void completeBuild() {
+		// Given
+		final Machine machine = Mockito.mock( Machine.class );
+		// When
+		Mockito.when( this.machineServiceV1.cancelBuild( Mockito.any( UUID.class ) ) ).thenReturn( machine );
+		// Test
+		final MachineControllerV1 machineControllerV1 = new MachineControllerV1( this.machineServiceV1 );
+		final ResponseEntity<Machine> obtained = machineControllerV1.completeBuild( TEST_MACHINE_ID );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertNotNull( obtained.getBody() );
+	}
+
+	@Test
 	public void cancelBuild() {
 		// Given
 		final Machine machine = Mockito.mock( Machine.class );

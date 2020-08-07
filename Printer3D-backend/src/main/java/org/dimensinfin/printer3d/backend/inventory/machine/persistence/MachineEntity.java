@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.persistence;
 
 import java.time.Instant;
+import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -152,5 +153,36 @@ public class MachineEntity {
 				.append( "currentJobPartBuildTime", this.currentJobPartBuildTime )
 				.append( "jobInstallmentDate", this.jobInstallmentDate )
 				.toString();
+	}
+
+	// - B U I L D E R
+	public static class Builder {
+		private final MachineEntity onConstruction;
+
+		// - C O N S T R U C T O R S
+		public Builder() {
+			this.onConstruction = new MachineEntity();
+		}
+
+		public MachineEntity build() {
+			Objects.requireNonNull( this.onConstruction.id );
+			Objects.requireNonNull( this.onConstruction.label );
+			Objects.requireNonNull( this.onConstruction.model );
+			return this.onConstruction;
+		}
+		public MachineEntity.Builder withId( final UUID id ) {
+			this.onConstruction.id = Objects.requireNonNull( id );
+			return this;
+		}
+
+		public MachineEntity.Builder withLabel( final String label ) {
+			this.onConstruction.label = Objects.requireNonNull( label );
+			return this;
+		}
+
+		public MachineEntity.Builder withModel( final String model ) {
+			this.onConstruction.model = Objects.requireNonNull( model );
+			return this;
+		}
 	}
 }

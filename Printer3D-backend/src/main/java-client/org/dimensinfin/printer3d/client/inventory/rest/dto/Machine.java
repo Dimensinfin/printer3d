@@ -106,7 +106,7 @@ public class Machine {
 		}
 
 		public Machine.Builder withCharacteristics( final String characteristics ) {
-			this.onConstruction.characteristics = Objects.requireNonNull( characteristics );
+			if (null != characteristics) this.onConstruction.characteristics = characteristics;
 			return this;
 		}
 

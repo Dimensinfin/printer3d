@@ -85,24 +85,21 @@ public class MachineServiceV1 {
 	 * @param machineId the machine identifier that has the job to complete.
 	 */
 	public Machine completeBuild( final UUID machineId ) {
-		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
-		if (machineOpt.isEmpty())
-			throw new DimensinfinRuntimeException( errorMACHINENOTFOUND( machineId ) );
-		final MachineEntity machineEntity = machineOpt.get();
+		final MachineEntity machineEntity = this.machineRepository.findById( machineId )
+				.orElseThrow( () -> new DimensinfinRuntimeException( errorMACHINENOTFOUND( machineId ) ) );
 		this.storeBuiltParts( machineEntity.getCurrentJobPartId(), machineEntity.getCurrentPartInstances() );
 		this.recordJob( machineEntity );
-		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
+		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineEntity.clearJob() ) );
 	}
 
 	private void recordJob( final MachineEntity machineEntity ) {
-		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( machineEntity.getCurrentJobPartId() );
-		if (jobPartOpt.isEmpty())
-			throw new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) );
+		final PartEntity jobPartEntity = this.partRepository.findById( machineEntity.getCurrentJobPartId() )
+				.orElseThrow(()->new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ));
 		final JobEntity job = new JobEntity.Builder()
 				.withPartId( machineEntity.getCurrentJobPartId() )
-				.withBuildTime( jobPartOpt.get().getBuildTime() * machineEntity.getCurrentPartInstances() ) // Multiple copies take longer to build.
-				.withCost( jobPartOpt.get().getCost() )
-				.withPrice( jobPartOpt.get().getPrice() )
+				.withBuildTime( jobPartEntity.getBuildTime() * machineEntity.getCurrentPartInstances() ) // Multiple copies take longer to build.
+				.withCost( jobPartEntity.getCost() )
+				.withPrice( jobPartEntity.getPrice() )
 				.withPartCopies( machineEntity.getCurrentPartInstances() )
 				.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
 				.withJobBuildDate( Instant.now() )
@@ -111,11 +108,9 @@ public class MachineServiceV1 {
 	}
 
 	private void storeBuiltParts( final UUID currentJobPartId, final int currentPartInstances ) {
-		final Optional<PartEntity> jobPartOpt = this.partRepository.findById( currentJobPartId );
-		if (jobPartOpt.isEmpty())
-			throw new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( currentJobPartId ) );
-		final PartEntity targetPart = jobPartOpt.get();
-		targetPart.incrementStock( currentPartInstances );
-		this.partRepository.save( targetPart );
+		this.partRepository.save( this.partRepository.findById( currentJobPartId )
+				.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( currentJobPartId ) ) )
+				.incrementStock( currentPartInstances )
+		);
 	}
 }
