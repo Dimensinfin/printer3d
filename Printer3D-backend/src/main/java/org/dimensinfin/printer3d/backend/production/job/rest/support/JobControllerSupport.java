@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.production.job.converter.JobEntityToJobConverter;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 
 @Profile({ "local", "acceptance", "test" })
@@ -50,7 +50,7 @@ public class JobControllerSupport {
 		try {
 			return this.jobRepository.findAll()
 					.stream()
-					.map( ( jobEntity ) -> new JobEntityToJobConverter().convert( jobEntity ) )
+					.map( jobEntity -> new JobEntityToJobConverter().convert( jobEntity ) )
 					.collect( Collectors.toList() );
 		} finally {
 			LogWrapper.exit();

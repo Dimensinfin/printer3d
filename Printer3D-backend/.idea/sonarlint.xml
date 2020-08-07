@@ -4,7 +4,7 @@
     <option name="bindingEnabled" value="true" />
     <option name="fileExclusions">
       <list>
-        <option value="DIRECTORY:coverage" />
+        <option value="GLOB:src/test/**" />
       </list>
     </option>
     <option name="projectKey" value="dimensinfin3d_dimensinfin3d" />

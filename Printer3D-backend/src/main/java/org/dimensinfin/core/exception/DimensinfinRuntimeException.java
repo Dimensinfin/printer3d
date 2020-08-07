@@ -8,7 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.dimensinfin.printer3d.client.core.dto.RestExceptionResponse;
 
 public class DimensinfinRuntimeException extends RuntimeException {
-	public static DimensinfinError RUNTIME_INTERNAL_ERROR( final String message ) {
+	public static DimensinfinError errorRUNTIMEINTERNALERROR( final String message ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "RUNTIME_INTERNAL_ERROR" )
 				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
@@ -17,7 +17,7 @@ public class DimensinfinRuntimeException extends RuntimeException {
 				.build();
 	}
 
-	public static DimensinfinError INVALID_REQUEST_STRUCTURE( final MethodArgumentNotValidException restException ) {
+	public static DimensinfinError errorINVALIDREQUESTSTRUCTURE( final MethodArgumentNotValidException restException ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "INVALID_REQUEST_STRUCTURE" )
 				.withHttpStatus( HttpStatus.BAD_REQUEST )
@@ -34,7 +34,7 @@ public class DimensinfinRuntimeException extends RuntimeException {
 
 	// - C O N S T R U C T O R S
 	public DimensinfinRuntimeException( final String errorMessage ) {
-		this( RUNTIME_INTERNAL_ERROR( errorMessage ) );
+		this( errorRUNTIMEINTERNALERROR( errorMessage ) );
 	}
 
 	public DimensinfinRuntimeException( final DimensinfinError error ) {

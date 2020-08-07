@@ -13,7 +13,7 @@ public class DimensinfinRuntimeExceptionTest {
 	public void constructorContractError() {
 		// Given
 		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
-				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( TEST_ERROR_MESSAGE ) );
+				DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR( TEST_ERROR_MESSAGE ) );
 		// Test
 		final String expected = "Runtime uncatalogued exception: " + TEST_ERROR_MESSAGE;
 		final String message = exception.getMessage();

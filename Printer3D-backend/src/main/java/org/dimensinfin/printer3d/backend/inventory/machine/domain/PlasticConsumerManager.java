@@ -27,33 +27,6 @@ public class PlasticConsumerManager {
 				.withMessage( "Not enough Material or no coil available to start the job." )
 				.build();
 	}
-
-	/**
-	 * Order the list of possible target coils by weight left. So the material should be used from the most used coil.
-	 *
-	 * If there are no coils matching the request then raise an exception informing about this.
-	 *
-	 * @param <T> Coil stream collector
-	 * @return the selected coil to be used on the job.
-	 */
-	public static <T extends Coil> Collector<T, ?, T> toSingleton() {
-		return Collectors.collectingAndThen(
-				Collectors.toList(),
-				list -> {
-					if (list.isEmpty()) throw new DimensinfinRuntimeException( errorMISSINGMATERIALTOCOMPLETEJOB(),
-							"No enough material or no coil while performing the material use before starting a job." );
-					return processCoilList( list );
-				}
-		);
-	}
-
-	private static <T extends Coil> T processCoilList( final List<T> coils ) {
-		coils.sort( new CoilWeightComparator() );
-		final T target = coils.get( 0 );
-		LogWrapper.info( MessageFormat.format( "Located coil: {0}", target.toString() ) );
-		return target;
-	}
-
 	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
@@ -73,8 +46,32 @@ public class PlasticConsumerManager {
 						.filter( coilEntity -> partEntity.getMaterial().equals( coilEntity.getMaterial() ) )
 						.filter( coilEntity -> partEntity.getColor().equals( coilEntity.getColor() ) )
 						.filter( coilEntity -> coilEntity.getWeight() > partEntity.getWeight() * copies )
-						.collect( toSingleton() ) // Get the most used coil on the list or fire an exception if there is no material left.
+						.collect( this.toSingleton() ) // Get the most used coil on the list or fire an exception if there is no material left.
 						.subtractMaterial( partEntity.getWeight() * copies )
 		);
+	}
+
+	protected <T extends Coil> T processCoilList( final List<T> coils ) {
+		coils.sort( new CoilWeightComparator() );
+		final T target = coils.get( 0 );
+		LogWrapper.info( MessageFormat.format( "Located coil: {0}", target ) );
+		return target;
+	}
+
+	/**
+	 * Order the list of possible target coils by weight left. So the material should be used from the most used coil.
+	 *
+	 * If there are no coils matching the request then raise an exception informing about this.
+	 *
+	 * @param <T> Coil stream collector
+	 * @return the selected coil to be used on the job.
+	 */
+	protected <T extends Coil> Collector<T, ?, T> toSingleton() {
+		return Collectors.collectingAndThen(
+				Collectors.toList(), list -> {
+					if (list.isEmpty()) throw new DimensinfinRuntimeException( errorMISSINGMATERIALTOCOMPLETEJOB(),
+							"No enough material or no coil while performing the material use before starting a job." );
+					return this.processCoilList( list );
+				} );
 	}
 }

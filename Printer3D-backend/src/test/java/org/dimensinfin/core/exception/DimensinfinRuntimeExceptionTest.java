@@ -15,7 +15,7 @@ public class DimensinfinRuntimeExceptionTest {
 	@Test
 	public void RUNTIME_INTERNAL_ERROR() {
 		// Test
-		final DimensinfinError error = DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-TEST_MESSAGE-" );
+		final DimensinfinError error = DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR( "-TEST_MESSAGE-" );
 		final String messageExpected = "Runtime uncatalogued exception: -TEST_MESSAGE-";
 		// Assertions
 		Assertions.assertEquals( "RUNTIME_INTERNAL_ERROR", error.getErrorName() );
@@ -27,7 +27,7 @@ public class DimensinfinRuntimeExceptionTest {
 	@Test
 	public void constructorContractError() {
 		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
-				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ) );
+				DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR( "-MESSAGE-" ) );
 		Assertions.assertNotNull( exception );
 	}
 
@@ -41,7 +41,7 @@ public class DimensinfinRuntimeExceptionTest {
 	public void gettersContractError() {
 		// Given
 		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
-				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ) );
+				DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR( "-MESSAGE-" ) );
 		// Assertions
 		Assertions.assertNull( exception.getCause() );
 		Assertions.assertEquals( EXCEPTION_ERROR_CODE, exception.getErrorCode() );
@@ -77,7 +77,7 @@ public class DimensinfinRuntimeExceptionTest {
 	public void gettersContractWithCause() {
 		// Given
 		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
-				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-MESSAGE-" ),
+				DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR( "-MESSAGE-" ),
 				EXCEPTION_ERROR_CAUSE );
 		// Assertions
 		Assertions.assertEquals( EXCEPTION_ERROR_CAUSE, exception.getCauseMessage() );

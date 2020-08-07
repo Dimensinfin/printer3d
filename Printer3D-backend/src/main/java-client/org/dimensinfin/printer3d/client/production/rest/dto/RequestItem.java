@@ -68,7 +68,7 @@ public class RequestItem implements Serializable {
 		public RequestItem build() {
 			Objects.requireNonNull( this.onConstruction.itemId );
 			if (this.onConstruction.type == RequestContentType.UNIDENTIFIED)
-				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
+				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
 						"Request content type found UNIDENTIFIED while constructing a RequestItem."
 				) );
 			return this.onConstruction;

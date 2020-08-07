@@ -28,16 +28,7 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 		LogWrapper.info( "Exception: " + ex.toString() );
 		LogWrapper.info( "message: " + ex.getMessage() );
 		return new ResponseEntity<>(
-				new ApiError( new DimensinfinRuntimeException( DimensinfinRuntimeException.INVALID_REQUEST_STRUCTURE( ex ) ) ),
+				new ApiError( new DimensinfinRuntimeException( DimensinfinRuntimeException.errorINVALIDREQUESTSTRUCTURE( ex ) ) ),
 				HttpStatus.BAD_REQUEST );
 	}
-
-//	@ExceptionHandler(RuntimeException.class)
-//	protected ResponseEntity<ApiError> handleRuntimeException( final RuntimeException runtimeException ) {
-//		final DimensinfinRuntimeException exception = new DimensinfinRuntimeException(
-//				DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( runtimeException.getMessage() ),
-//				"Intercepted RuntimeException at the ErrorHandler level because this was not expected."
-//		);
-//		return new ResponseEntity<>( new ApiError( exception ), exception.getHttpStatus() );
-//	}
 }

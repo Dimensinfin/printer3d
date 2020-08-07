@@ -104,12 +104,10 @@ Feature: [STORY] Manage the endpoints and the relations that have effect to the 
 
     @B3D10.H1 @B3D10.04
     Scenario: [B3D10.04] When a build start request is processed the plastic weight consumed by the Part is removed from the Coil.
-        Given a clean Parts repository
         Given the following Parts in my service
             | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
             | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-        Given a clean Coil repository table
         And the following Coils in my service
             | id                                   | material | color    | weight |
             | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ROJO     | 500    |
@@ -308,6 +306,31 @@ Feature: [STORY] Manage the endpoints and the relations that have effect to the 
             | state   | partId                               | partLabel    | partCopies | remainingTime |
             | RUNNING | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | 1          | 3600          |
 
+    @B3D10.H4 @B3D10.11
+    Scenario: [B3D10.11] When a build start request is processed the plastic weight consumed by the Part is removed from the most used Coil.
+        Given the following Parts in my service
+            | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        And the following Coils in my service
+            | id                                   | material | color | weight |
+            | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | PLA      | VERDE | 100    |
+            | 6aee8cff-6d33-43d9-99eb-4b86800fa0dd | PLA      | VERDE | 200    |
+            | 49f72da1-051c-437c-b9d1-b81e298b156d | PLA      | VERDE | 50     |
+        And the next setup for Machine "Ender 3 Pro - A"
+            | currentJobPartId | jobInstallmentDate | currentPartInstances |
+            |                  |                    | 1                    |
+        And the next Job Request request
+            | jobId                                | partId                               | copies |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | 63fff2bc-a93f-4ee5-b753-185d83a13151 | 2      |
+        When the Start Build V2 for Machine "e18aa442-19cd-4b08-8ed0-9f1917821fac" request is processed
+        Then there is a valid response with return code of "200 OK"
+        When the Get Coils request is processed
+        Then there is a valid response with return code of "200 OK"
+        And the list of Coils has "3" items
+        And the coil with id "49f72da1-051c-437c-b9d1-b81e298b156d" has the next data
+            | id                                   | material | color | weight |
+            | 49f72da1-051c-437c-b9d1-b81e298b156d | PLA      | VERDE | 40     |
 
         # - E X C E P T I O N S
     @B3D10.E @B3D10.E.01

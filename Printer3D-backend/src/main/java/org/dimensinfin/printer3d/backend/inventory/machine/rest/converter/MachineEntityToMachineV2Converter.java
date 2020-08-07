@@ -31,16 +31,16 @@ public class MachineEntityToMachineV2Converter implements Converter<MachineEntit
 					.withCharacteristics( input.getCharacteristics() )
 					.withBuildRecord( this.buildRecord )
 					.build();
-		} catch ( final RuntimeException rte){
+		} catch (final NullPointerException npe) {
+			LogWrapper.error( npe );
+			throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
+					"Null pointer found while converting a Machine entity into a MachineV2." )
+			);
+		} catch (final RuntimeException rte) {
 			LogWrapper.error( rte );
-			if (rte instanceof NullPointerException)
-				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
-						"Null pointer found while converting a Machine entity into a MachineV2." )
-				);
-			else
-				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
-						rte.getMessage() )
-				);
+			throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
+					rte.getMessage() )
+			);
 		}
 	}
 }

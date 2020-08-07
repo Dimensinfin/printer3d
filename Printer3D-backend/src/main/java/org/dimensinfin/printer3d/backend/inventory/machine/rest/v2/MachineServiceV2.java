@@ -69,16 +69,15 @@ public class MachineServiceV2 {
 								.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
 								.build();
 						return new MachineEntityToMachineV2Converter( buildRecord ).convert( machineEntity );
+					} catch (final NullPointerException npe) {
+						LogWrapper.error( npe );
+						throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
+								"Null pointer found while building a BuildRecord" ) );
 					} catch (final RuntimeException rte) {
 						LogWrapper.error( rte );
-						if (rte instanceof NullPointerException)
-							throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
-									"Null pointer found while building a BuildRecord" )
-							);
-						else
-							throw new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR(
-									rte.getMessage() )
-							);
+						throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
+								rte.getMessage() )
+						);
 					}
 				} )
 				.collect( Collectors.toList() );

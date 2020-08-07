@@ -17,7 +17,7 @@ public class ApiErrorTest {
 	public void gettersContract() {
 		// Given
 		final DimensinfinRuntimeException exception =
-				new DimensinfinRuntimeException( DimensinfinRuntimeException.RUNTIME_INTERNAL_ERROR( "-TEST-MESSAGE-" ) );
+				new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR( "-TEST-MESSAGE-" ) );
 		final ApiError apiError = new ApiError( exception );
 		// Assertions
 		Assertions.assertNull( apiError.getCause() );
