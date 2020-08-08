@@ -12,7 +12,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
@@ -22,6 +21,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartGroupUpdater;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartUpdater;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
@@ -117,6 +117,10 @@ public class PartServiceV1 {
 			final List<PartEntity> targets = this.partRepository.findByLabel( updateData.getLabel() );
 			int counter = 0;
 			for (PartEntity partEntity : targets) {
+				LogWrapper.info( MessageFormat.format( "Updating part [{0}] with label: {1}",
+						partEntity.getId(),
+						partEntity.getLabel() )
+				);
 				this.partRepository.save( new PartGroupUpdater( partEntity ).update( updateData ) );
 				counter++;
 			}

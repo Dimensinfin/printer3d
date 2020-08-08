@@ -15,8 +15,10 @@ import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR;
@@ -123,7 +125,7 @@ public class PartServiceV1Test {
 		final Part obtained = serviceV1.newPart( part );
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertTrue( part.equals( obtained ) );
+		Assertions.assertEquals( obtained, part );
 	}
 
 	@Test
@@ -161,12 +163,53 @@ public class PartServiceV1Test {
 				.build();
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
+		// Tests
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
 		// Exceptions
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
-			 serviceV1.newPart( part );
-		} );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
 	}
+
+	@Test
+	public void newPartException() {
+		// Given
+		final Part part = Mockito.mock( Part.class );
+		final PartEntity partEntity = Mockito.mock( PartEntity.class );
+		// When
+		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
+		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
+		// Tests
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
+	}
+
+	@Test
+	public void newPartExceptionDataIntegrityViolatio() {
+		// Given
+		final Part part = new Part.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		// When
+		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
+		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenThrow( DataIntegrityViolationException.class );
+		// Tests
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		// Exceptions
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ));
+	}
+
 	@Test
 	public void newPartKeyFieldsAlreadyUsed() {
 		// Given
@@ -209,21 +252,6 @@ public class PartServiceV1Test {
 			serviceV1.newPart( part );
 		} );
 	}
-	@Test
-	public void newPartException() {
-		// Given
-		final Part part = Mockito.mock( Part.class );
-		final PartEntity partEntity = Mockito.mock( PartEntity.class );
-		// When
-		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
-		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
-		// Exceptions
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			// Test
-			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
-			serviceV1.newPart( part );
-		} );
-	}
 
 	@Test
 	public void partsListActivesOnly() {
@@ -257,6 +285,46 @@ public class PartServiceV1Test {
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.getCount() );
 		Assertions.assertEquals( 2, obtained.getParts().size() );
+	}
+
+	@Test
+	public void updateGroupPart() {
+		// Given
+		final String MODIFIED = "MODIFIED";
+		final UpdateGroupPartRequest updateData = new UpdateGroupPartRequest.Builder()
+				.withLabel( TEST_PART_LABEL + MODIFIED )
+				.withDescription( TEST_PART_DESCRIPTION + MODIFIED )
+				.withBuildTime( TEST_PART_BUILD_TIME + 10 )
+				.withWeight( TEST_PART_WEIGHT + 10 )
+				.withImagePath( TEST_PART_IMAGE_PATH + MODIFIED )
+				.withModelPath( TEST_PART_MODEL_PATH + MODIFIED )
+				.build();
+		final PartEntity partEntity = new PartEntity.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		final List<PartEntity> partList = new ArrayList<>();
+		partList.add( partEntity );
+		partList.add( partEntity );
+		// When
+		Mockito.when( this.partRepository.findByLabel( Mockito.anyString() ) ).thenReturn( partList );
+		// Tests
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final CounterResponse obtained = serviceV1.updateGroupPart( updateData );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 2, obtained.getRecords() );
 	}
 
 	@Test
@@ -303,7 +371,7 @@ public class PartServiceV1Test {
 		final Part obtained = serviceV1.updatePart( part );
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertTrue( part.equals( obtained ) );
+		Assertions.assertEquals( obtained, part );
 	}
 
 	@Test

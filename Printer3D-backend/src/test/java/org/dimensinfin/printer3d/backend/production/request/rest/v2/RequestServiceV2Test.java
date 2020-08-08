@@ -143,23 +143,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			requestServiceV2.closeRequest( TEST_REQUEST_ID );
-		} );
-	}
-
-	@Test
-	public void closedRequestFailureSelectRequestEntity() {
-		// When
-		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
-		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
-				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			requestServiceV2.closeRequest( TEST_REQUEST_ID );
-		} );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> requestServiceV2.closeRequest( TEST_REQUEST_ID ) );
 	}
 
 	@Test
@@ -218,6 +202,19 @@ public class RequestServiceV2Test {
 		Assertions.assertEquals( RequestState.CLOSE, obtained.getState() );
 		Assertions.assertTrue( Instant.now().toString().startsWith( obtained.getClosedDate().substring( 0, 15 ) ) );
 	}
+
+	@Test
+	public void closedRequestFailureSelectRequestEntity() {
+		// When
+		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
+		// Test
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
+				this.requestsRepositoryV2,
+				this.modelRepository );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> requestServiceV2.closeRequest( TEST_REQUEST_ID ) );
+	}
+
 	@Test
 	public void constructorContract() {
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
@@ -226,6 +223,7 @@ public class RequestServiceV2Test {
 				this.modelRepository );
 		Assertions.assertNotNull( requestServiceV2 );
 	}
+
 	@Test
 	public void deleteRequestV2() {
 		// Given
@@ -256,15 +254,11 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		Assertions.assertThrows( RepositoryConflictException.class, () -> {
-			requestServiceV2.deleteRequest( TEST_REQUEST_ID );
-		} );
+		Assertions.assertThrows( RepositoryConflictException.class, () -> requestServiceV2.deleteRequest( TEST_REQUEST_ID ) );
 	}
 
 	@Test
 	public void deleteRequestV2NotFound() {
-		// Given
-		final RequestEntityV2 requestEntityV2 = Mockito.mock( RequestEntityV2.class );
 		// When
 		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		// Test
@@ -273,9 +267,57 @@ public class RequestServiceV2Test {
 				this.requestsRepositoryV2,
 				this.modelRepository );
 		// Exceptions
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			requestServiceV2.deleteRequest( TEST_REQUEST_ID );
-		} );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> requestServiceV2.deleteRequest( TEST_REQUEST_ID ) );
+	}
+
+	@Test
+	public void getOpenRequests() {
+		// Given
+		final RequestEntityV2 requestEntityV2Open = new RequestEntityV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withRequestDate( TEST_REQUEST_DATE )
+				.withState( TEST_REQUEST_STATE )
+				.withContents( new ArrayList<>() )
+				.withAmount( TEST_REQUEST_AMOUNT )
+				.build();
+		final RequestEntityV2 requestEntityV2Closed = new RequestEntityV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withRequestDate( TEST_REQUEST_DATE )
+				.withState( RequestState.CLOSE )
+				.withContents( new ArrayList<>() )
+				.withAmount( TEST_REQUEST_AMOUNT )
+				.build();
+		final List<RequestEntityV2> requestList = new ArrayList<>();
+		requestList.add( requestEntityV2Open );
+		requestList.add( requestEntityV2Closed );
+		// When
+		Mockito.when( this.requestsRepositoryV2.findAll() ).thenReturn( requestList );
+		// Tests
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
+				this.requestsRepositoryV2,
+				this.modelRepository );
+		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 1, obtained.size() );
+	}
+
+	@Test
+	public void getOpenRequestsException() {
+		// When
+		Mockito.when( this.requestsRepositoryV2.findAll() ).thenThrow( RuntimeException.class );
+		// Tests
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
+				this.requestsRepositoryV2,
+				this.modelRepository );
+		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 0, obtained.size() );
 	}
 
 	@Test
@@ -325,8 +367,6 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		Assertions.assertThrows( RepositoryConflictException.class, () -> {
-			requestServiceV2.newRequest( request );
-		} );
+		Assertions.assertThrows( RepositoryConflictException.class, () -> requestServiceV2.newRequest( request ) );
 	}
 }

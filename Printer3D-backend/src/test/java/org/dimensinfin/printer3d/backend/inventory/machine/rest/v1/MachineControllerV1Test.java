@@ -26,7 +26,7 @@ public class MachineControllerV1Test {
 		// Given
 		final Machine machine = Mockito.mock( Machine.class );
 		// When
-		Mockito.when( this.machineServiceV1.cancelBuild( Mockito.any( UUID.class ) ) ).thenReturn( machine );
+		Mockito.when( this.machineServiceV1.completeBuild( Mockito.any( UUID.class ) ) ).thenReturn( machine );
 		// Test
 		final MachineControllerV1 machineControllerV1 = new MachineControllerV1( this.machineServiceV1 );
 		final ResponseEntity<Machine> obtained = machineControllerV1.completeBuild( TEST_MACHINE_ID );

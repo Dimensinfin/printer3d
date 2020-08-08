@@ -36,7 +36,7 @@ import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION
 
 @Service
 public class RequestServiceV2 extends RequestServiceCore {
-	private static final RequestEntityV2ToRequestV2Converter requestConverterV2 = new RequestEntityV2ToRequestV2Converter();
+	private static final RequestEntityV2ToRequestV2Converter requestEntityToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
 
 	public static DimensinfinError errorREQUESTNOTFOUND( final UUID requestId ) {
 		return new DimensinfinError.Builder()
@@ -105,7 +105,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 					.filter( RequestEntityV2::isOpen )
 					.map( requestEntityV2 -> {
 						if (this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
-						return requestConverterV2.convert( requestEntityV2 );
+						return requestEntityToRequestV2Converter.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
 		} catch (final RuntimeException rte) {
