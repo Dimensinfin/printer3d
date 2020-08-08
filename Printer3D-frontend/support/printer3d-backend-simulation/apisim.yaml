@@ -312,6 +312,12 @@ response:
 
 simlet: production-pendingjobs
 
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 2000
+  subsequent: 2000
+
 request:
   - method: GET
   - uriPathPattern: "/api/v1/production/jobs/pending"
@@ -381,6 +387,12 @@ response:
 ---
 
 simlet: inventory-machines-v2
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 2000
+  subsequent: 2000
 
 request:
   - method: GET

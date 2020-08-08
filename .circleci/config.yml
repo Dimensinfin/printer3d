@@ -290,7 +290,7 @@ workflows:
           requires:
             - test-backend-job
             - test-frontend-job
-            # - quality-sonarcloud
+            - quality-sonarcloud
           filters:
             tags:
               only: /0.*/

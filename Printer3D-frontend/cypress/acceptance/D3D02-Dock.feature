@@ -98,7 +98,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then  the target has the title "/NUEVO MODELO/DEFINICION"
 
     @D3D02.10
-    Scenario: [D3D02.10]-Check that the Feature open the right page and shows the required components.
+    Scenario: [D3D02.10]-Check that the Open Requests feature open the right page and shows the required components.
         # - Validate the page structure and the loading sign
         Given the application Printer3DManager
         Given one instance of Dock
@@ -129,8 +129,8 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given one instance of Dock
         When the Feature with label "/TRABAJOS PND." is clicked the destination is the Page "Production Jobs Page"
         Then the Feature with label "/TRABAJOS PND." opens a Page
-        # And the loading panel shows "Clasificando Pedidos..."
-        # When the loading panel completes
+        And the loading panel shows "Clasificando Trabajos..."
+        When the loading panel completes
         Then the target Feature "/TRABAJOS PND." changes to state "active"
         And the page "Production Jobs Page" has 2 panels
         Given the target is the panel of type "jobs-list"
