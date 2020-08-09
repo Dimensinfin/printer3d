@@ -50,6 +50,12 @@ public class StockManager {
 		else throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorSTOCKPROCESSINGFAILURE( partId ) );
 	}
 
+	public int getStockLevel( final UUID partId ) {
+		if (this.stocks.containsKey( partId ))
+			return this.stocks.get( partId ).getStockLevel();
+		else throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorSTOCKPROCESSINGFAILURE( partId ) );
+	}
+
 	public int minus( final UUID partId, final int quantity ) {
 		LogWrapper.info( MessageFormat.format( "Subtracting {0} from id [{1}]", quantity, partId ) );
 		if (this.stocks.containsKey( partId )) {
@@ -70,6 +76,7 @@ public class StockManager {
 						)
 				);
 				this.stocks.put( part.getId(), new StockLevel.Builder()
+						.withStockLevel( part.getStockLevel() )
 						.withStock( part.getStockAvailable() )
 						.build() );
 				this.prices.put( part.getId(), part.getPrice() );
@@ -81,6 +88,7 @@ public class StockManager {
 	}
 
 	private static class StockLevel {
+		private int level = 1;
 		private int stock = 0;
 
 		// - C O N S T R U C T O R S
@@ -89,6 +97,10 @@ public class StockManager {
 		// - G E T T E R S   &   S E T T E R S
 		public int getStock() {
 			return stock;
+		}
+
+		public int getStockLevel() {
+			return this.level;
 		}
 
 		public StockLevel reduceStock( final int minus ) {
@@ -111,6 +123,11 @@ public class StockManager {
 
 			public StockLevel.Builder withStock( final Integer stock ) {
 				this.onConstruction.stock = Objects.requireNonNull( stock );
+				return this;
+			}
+
+			public StockLevel.Builder withStockLevel( final Integer stockLevel ) {
+				this.onConstruction.level = Objects.requireNonNull( stockLevel );
 				return this;
 			}
 		}

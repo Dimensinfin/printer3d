@@ -61,17 +61,18 @@ public class JobServiceV1 {
 			final List<Job> jobs = new ArrayList<>();
 			// Add the jobs required for Requests.
 			jobs.addAll( this.requestJobGenerator.generateMissingRequestJobs(
-					this.requestPartCollector.collectRequestPartsFromRepository(new StockManager( this.partRepository ))
+					this.requestPartCollector.collectRequestPartsFromRepository( new StockManager( this.partRepository ).startStock() )
 			) );
 			// Add the jobs required to level the stocks after reserving models.
 			jobs.addAll( this.stockLevelJobGenerator.generateStockLevelJobs(
-					this.reserveModels( new StockManager( this.partRepository ) )
+					this.reserveModels( new StockManager( this.partRepository ).startStock() )
 			) );
 			return jobs;
 		} finally {
 			LogWrapper.exit();
 		}
 	}
+
 	private StockManager reserveModels( final StockManager stockManager ) {
 		this.modelRepository.findAll()
 				.stream()

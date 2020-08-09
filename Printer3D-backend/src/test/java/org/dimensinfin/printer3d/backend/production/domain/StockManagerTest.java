@@ -13,7 +13,9 @@ import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PRICE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_AVAILABLE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 
 public class StockManagerTest {
 
@@ -25,9 +27,40 @@ public class StockManagerTest {
 	}
 
 	@Test
+	public void clean() {
+		// Given
+		final UUID partId = UUID.fromString( "dad58f5e-af01-45da-819f-97ca3f354fa1" );
+		// Test
+		final StockManager stockManager = new StockManager( this.partRepository );
+		stockManager.clean();
+		final float obtained = stockManager.getPrice( partId );
+		// Assertions
+		Assertions.assertEquals( 0.0, obtained, 0.01 );
+	}
+
+	@Test
 	public void constructorContract() {
 		final StockManager stockManager = new StockManager( this.partRepository );
 		Assertions.assertNotNull( stockManager );
+	}
+
+	@Test
+	public void getPrice() {
+		// Given
+		final UUID partId = UUID.fromString( "dad58f5e-af01-45da-819f-97ca3f354fa1" );
+		final PartEntity partEntity = Mockito.mock( PartEntity.class );
+		final List<PartEntity> testPartList = new ArrayList<>();
+		testPartList.add( partEntity );
+		// When
+		Mockito.when( this.partRepository.findAll() ).thenReturn( testPartList );
+		Mockito.when( partEntity.getId() ).thenReturn( partId );
+		Mockito.when( partEntity.getPrice() ).thenReturn( TEST_PART_PRICE );
+		// Test
+		final StockManager stockManager = new StockManager( this.partRepository );
+		stockManager.startStock();
+		final float obtained = stockManager.getPrice( partId );
+		// Assertions
+		Assertions.assertEquals( TEST_PART_PRICE, obtained, 0.01 );
 	}
 
 	@Test
@@ -56,9 +89,41 @@ public class StockManagerTest {
 		// Test
 		final StockManager stockManager = new StockManager( this.partRepository );
 		stockManager.startStock();
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			stockManager.getStock( partId );
-		} );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> stockManager.getStock( partId ) );
+	}
+
+	@Test
+	public void getStockIterator() {
+		Assertions.assertNotNull( new StockManager( this.partRepository ).getStockIterator() );
+	}
+
+	@Test
+	public void getStockLevel() {
+		// Given
+		final UUID partId = UUID.fromString( "dad58f5e-af01-45da-819f-97ca3f354fa1" );
+		final PartEntity partEntity = Mockito.mock( PartEntity.class );
+		final List<PartEntity> testPartList = new ArrayList<>();
+		testPartList.add( partEntity );
+		// When
+		Mockito.when( this.partRepository.findAll() ).thenReturn( testPartList );
+		Mockito.when( partEntity.getId() ).thenReturn( partId );
+		Mockito.when( partEntity.getStockLevel() ).thenReturn( TEST_PART_STOCK_LEVEL );
+		// Test
+		final StockManager stockManager = new StockManager( this.partRepository );
+		stockManager.startStock();
+		final int obtained = stockManager.getStockLevel( partId );
+		// Assertions
+		Assertions.assertEquals( TEST_PART_STOCK_LEVEL, obtained );
+	}
+
+	@Test
+	public void getStockLevelException() {
+		// Given
+		final UUID partId = UUID.fromString( "dad58f5e-af01-45da-819f-97ca3f354fa1" );
+		// Test
+		final StockManager stockManager = new StockManager( this.partRepository );
+		stockManager.startStock();
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> stockManager.getStockLevel( partId ) );
 	}
 
 	@Test
@@ -90,9 +155,7 @@ public class StockManagerTest {
 		// Test
 		final StockManager stockManager = new StockManager( this.partRepository );
 		stockManager.startStock();
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			stockManager.minus( partId, 1 );
-		} );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> stockManager.minus( partId, 1 ) );
 	}
 
 	@Test
