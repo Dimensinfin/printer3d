@@ -16,6 +16,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
+
 @Component
 public class RequestJobGenerator {
 	private static final int REQUEST_PRIORITY = 1;
@@ -26,11 +27,10 @@ public class RequestJobGenerator {
 	public RequestJobGenerator( final @NotNull PartRepository partRepository ) {this.partRepository = partRepository;}
 
 	/**
-	 * Generate the list of jobs required to complete all open Requests. The list should be ordered by the number of copies requires being the Part
+	 * Generate the list of jobs required to complete all open Requests. The list should be ordered by the number of copies required being the Part
 	 * with more missing copies the first on the list and so on.
-	 * The method requires an already processed stock where all the parts required for the Requests have been already removed.
-	 * THe Part count included the already missing copies before the Requests are processed so the final number of copies should also be the count
-	 * required to level all the stocks levels.
+	 * The method requires an already processed stock where all the parts required for the Requests have been already removed from the stock.
+	 * The Part count will account for negative values on the stock counts so all already present Parts will be used while building Requests.
 	 *
 	 * @param stockManager the stock list to be used for the job generation.
 	 * @return the ordered list of jobs to generate the parts required by all the open requests.
@@ -46,7 +46,7 @@ public class RequestJobGenerator {
 				} else
 					LogWrapper.info( MessageFormat.format( "Processing stock [{0}] OK", stockId ) );
 			}
-			return jobs;
+			return new JobSorter().sortByFinishingCount( jobs );
 		} finally {
 			LogWrapper.exit( MessageFormat.format( "RequestJobList count: {0}", jobs.size() ) );
 		}

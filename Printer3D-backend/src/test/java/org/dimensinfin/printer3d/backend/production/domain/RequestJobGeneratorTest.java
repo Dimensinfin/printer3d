@@ -128,6 +128,6 @@ public class RequestJobGeneratorTest {
 		final List<Job> obtained = requestJobGenerator.generateMissingRequestJobs( stockManager.clean().startStock() );
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( 2, obtained.size() );
+		Assertions.assertEquals( 0, obtained.size() );
 	}
 }

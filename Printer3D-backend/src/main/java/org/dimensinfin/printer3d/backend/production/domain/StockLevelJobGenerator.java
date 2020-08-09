@@ -2,26 +2,25 @@ package org.dimensinfin.printer3d.backend.production.domain;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.stereotype.Component;
 
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.production.job.FinishingByCountComparator;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
+@Component
 public class StockLevelJobGenerator {
 	private static final int STOCK_LEVEL_PRIORITY = 2;
 	private final PartRepository partRepository;
 
 	// - C O N S T R U C T O R S
-	public StockLevelJobGenerator( final @NotNull PartRepository partRepository ) {this.partRepository = partRepository;}
+	public StockLevelJobGenerator( final @NotNull PartRepository partRepository ) {
+		this.partRepository = partRepository;
+	}
 
 	/**
 	 * Generate the jobs to level the stocks to the user set level demands. The stocks received may have been processed to comply with other user
@@ -47,33 +46,9 @@ public class StockLevelJobGenerator {
 							.build()
 					);
 			} );
-			return this.sortByFinishingCount( jobs );
+			return new JobSorter().sortByFinishingCount( jobs );
 		} finally {
 			LogWrapper.exit( MessageFormat.format( "Job count: {0}", jobs.size() ) );
 		}
-	}
-
-	private String generateFinishingKey( final Part target ) {
-		return target.getMaterial() + ":" + target.getColor();
-	}
-
-	private List<FinishingContainer> generateFinishingList( final List<Job> inputJobs ) {
-		final Map<String, FinishingContainer> finishings = new HashMap<>(); // Initialize the result list
-		for (Job job : inputJobs) {
-			final String key = this.generateFinishingKey( job.getPart() );
-			finishings.computeIfAbsent( key, finishingContainer -> new FinishingContainer.Builder().build() );
-			finishings.compute( key, ( String targetKey, FinishingContainer container ) -> Objects.requireNonNull( container ).addJob( job ) );
-		}
-		LogWrapper.info( "Finishings: " + finishings.values().toString() );
-		return new ArrayList<>( finishings.values() );
-	}
-
-	private List<Job> sortByFinishingCount( final List<Job> inputList ) {
-		final List<FinishingContainer> finishings = this.generateFinishingList( inputList );
-		finishings.sort( new FinishingByCountComparator() );
-		return finishings
-				.stream()
-				.flatMap( finishingContainer -> finishingContainer.getJobs().stream() )
-				.collect( Collectors.toList() );
 	}
 }

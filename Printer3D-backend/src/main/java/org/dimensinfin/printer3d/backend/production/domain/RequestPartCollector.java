@@ -77,7 +77,6 @@ public class RequestPartCollector {
 		final Map<UUID, Integer> contents = new HashMap<>();
 		final ModelEntity model = this.modelRepository.findById( modelId )
 				.orElseThrow( () -> new DimensinfinRuntimeException( Printer3DErrorInfo.errorMODELNOTFOUND( modelId ) ) );
-		Integer hit;
 		for (UUID contentId : model.getPartIdList()) {
 			contents.putIfAbsent( contentId, 0 );
 			contents.put( contentId, contents.get( contentId ) + 1 );

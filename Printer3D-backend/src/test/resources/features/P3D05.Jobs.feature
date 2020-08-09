@@ -3,9 +3,9 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
 
     The stock requirements will require to optimize the build order so all requests are fulfilled on time. From the simplest unordered list to the
     special time prioritized lists.
+    Jobs are ordered by priority and then by the number of parts missing. More missing parts come first.
 
     Background:
-        Given a clean Requests repository
         Given a clean RequestsV2 repository
         Given a clean Jobs repository
         Given a clean Models repository
@@ -82,13 +82,13 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
 
     @P3D05.H @P3D05.04
     Scenario: [P3D05.04] When calculating the Model requirements from stock using the preferred stock level the list of jobs for leveling grows.
@@ -123,14 +123,14 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |

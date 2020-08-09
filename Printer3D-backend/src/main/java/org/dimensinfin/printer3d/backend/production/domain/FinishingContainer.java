@@ -30,8 +30,9 @@ public class FinishingContainer {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
-				.append( "jobs", jobs )
+		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
+				.append( "jobPartId", (this.jobs.isEmpty()) ? "-" : this.jobs.get( 0 ).getPart().getId().toString() )
+				.append( "count", this.getJobCount() )
 				.toString();
 	}
 
