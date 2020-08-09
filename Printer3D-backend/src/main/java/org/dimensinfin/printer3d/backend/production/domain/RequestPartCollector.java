@@ -24,7 +24,7 @@ public class RequestPartCollector {
 	private final ModelRepository modelRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
-	private StockManager stockManager; // Get one instance for this helper that is not a singleton component. Share it with other methods.
+//	private StockManager stockManager; // Get one instance for this helper that is not a singleton component. Share it with other methods.
 
 	// - C O N S T R U C T O R S
 	@Autowired
@@ -41,9 +41,9 @@ public class RequestPartCollector {
 	 * The stocks are updated and the results are returned for missing parts evaluation and then pending job generation.
 	 * @return the final state for the stocks.
 	 */
-	public StockManager collectRequestPartsFromRepository() {
+	public StockManager collectRequestPartsFromRepository(final StockManager stockManager) {
 		// Initialize the stock with the current repository values.
-		this.stockManager = new StockManager( this.partRepository ).clean().startStock();
+//		this.stockManager = new StockManager( this.partRepository ).clean().startStock();
 		LogWrapper.enter();
 		try {
 			this.requestsRepositoryV2.findAll().stream()
@@ -54,16 +54,16 @@ public class RequestPartCollector {
 						for (RequestItem content : requestEntityV2.getContents()) {
 							LogWrapper.info( "Processing Content: " + content.getItemId().toString() );
 							if (content.getType() == RequestContentType.PART) {
-								this.stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
+								stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
 							}
 							if (content.getType() == RequestContentType.MODEL) {
 								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
-									this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
+									stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
 								}
 							}
 						}
 					} );
-			return this.stockManager;
+			return stockManager;
 		} finally {
 			LogWrapper.exit();
 		}

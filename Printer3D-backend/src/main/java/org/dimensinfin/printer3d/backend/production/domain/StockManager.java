@@ -41,9 +41,7 @@ public class StockManager {
 	}
 
 	public float getPrice( final UUID partId ) {
-		if (this.prices.containsKey( partId ))
-			return this.prices.get( partId );
-		else return 0.0F;
+		return this.prices.getOrDefault( partId, 0.0F );
 	}
 
 	public int getStock( final UUID partId ) {
