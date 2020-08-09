@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 
 /**
@@ -54,6 +57,17 @@ public class RequestItem implements Serializable {
 
 	public RequestContentType getType() {
 		return this.type;
+	}
+
+	// - C O R E
+	@Override
+	public String toString() {
+		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
+				.append( "itemId", this.itemId )
+				.append( "type", this.type )
+				.append( "quantity", this.quantity )
+				.append( "missing", this.missing )
+				.toString();
 	}
 
 	// - B U I L D E R

@@ -51,8 +51,7 @@ public class StockManager {
 	}
 
 	public int minus( final UUID partId, final int quantity ) {
-		LogWrapper.info( "Subtracting id: " + partId.toString() );
-		LogWrapper.info( "Quantity: " + quantity );
+		LogWrapper.info( MessageFormat.format( "Subtracting {0} from id [{1}]", quantity, partId ) );
 		if (this.stocks.containsKey( partId )) {
 			this.stocks.computeIfPresent( partId, ( UUID key, StockLevel stockLevel ) -> stockLevel.reduceStock( quantity ) );
 			return this.stocks.get( partId ).getStock();

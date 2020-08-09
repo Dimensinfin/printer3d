@@ -20,26 +20,19 @@ import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 @Service
 public class JobServiceV1 {
-	//	private static final int REQUEST_PRIORITY = 1;
-	//	private static final int STOCK_LEVEL_PRIORITY = 2;
 	private final PartRepository partRepository;
-//	private final RequestsRepositoryV2 requestsRepositoryV2;
 	private final ModelRepository modelRepository;
 	private final RequestPartCollector requestPartCollector;
 	private final RequestJobGenerator requestJobGenerator;
 	private final StockLevelJobGenerator stockLevelJobGenerator;
 
-	//	private StockManager stockManager; // Get one instance for this helper that is not a singleton component. Share it with other methods.
-
 	// - C O N S T R U C T O R S
 	public JobServiceV1( final @NotNull PartRepository partRepository,
-//	                     final RequestsRepositoryV2 requestsRepositoryV2,
 	                     final @NotNull ModelRepository modelRepository,
 	                     final @NotNull RequestPartCollector requestPartCollector,
 	                     final @NotNull RequestJobGenerator requestJobGenerator,
 	                     final @NotNull StockLevelJobGenerator stockLevelJobGenerator ) {
 		this.partRepository = Objects.requireNonNull( partRepository );
-//		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.modelRepository = modelRepository;
 		this.requestPartCollector = requestPartCollector;
 		this.requestJobGenerator = requestJobGenerator;
@@ -79,133 +72,6 @@ public class JobServiceV1 {
 			LogWrapper.exit();
 		}
 	}
-
-	//	private void collectRequestPartsFromRepository() {
-	//		LogWrapper.enter();
-	//		try {
-	//			this.requestsRepositoryV2.findAll().stream()
-	//					.filter( RequestEntityV2::isOpen )
-	//					.forEach( requestEntityV2 -> {
-	//						// Subtract the Parts from the inventory
-	//						LogWrapper.info( "Processing Request: " + requestEntityV2.getId().toString() );
-	//						for (RequestItem content : requestEntityV2.getContents()) {
-	//							LogWrapper.info( "Processing Content: " + content.getItemId().toString() );
-	//							if (content.getType() == RequestContentType.PART) {
-	//								this.stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
-	//							}
-	//							if (content.getType() == RequestContentType.MODEL) {
-	//								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
-	//									this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
-	//								}
-	//							}
-	//						}
-	//					} );
-	//		} catch (final RuntimeException rte) {
-	//			LogWrapper.error( rte );
-	//		} finally {
-	//			LogWrapper.exit();
-	//		}
-	//	}
-
-	//	private String generateFinishingKey( final Part target ) {
-	//		return target.getMaterial() + ":" + target.getColor();
-	//	}
-	//
-	//	private List<FinishingContainer> generateFinishingList( final List<Job> inputJobs ) {
-	//		final Map<String, FinishingContainer> finishings = new HashMap<>(); // Initialize the result list
-	//		for (Job job : inputJobs) {
-	//			final String key = this.generateFinishingKey( job.getPart() );
-	//			finishings.computeIfAbsent( key, finishingContainer -> new FinishingContainer.Builder().build() );
-	//			finishings.compute( key, ( String targetKey, FinishingContainer container ) -> Objects.requireNonNull( container ).addJob( job ) );
-	//		}
-	//		LogWrapper.info( "Finishings: " + finishings.values().toString() );
-	//		return new ArrayList<>( finishings.values() );
-	//	}
-
-	//	private List<Job> generateMissingRequestJobs( final StockManager stockManager ) {
-	//		LogWrapper.enter();
-	//		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-	//		try {
-	//			for (UUID stockId : stockManager.getStockIterator()) { // Generate jobs to reach the required stock level.
-	//				if (stockManager.getStock( stockId ) < 0) {
-	//					LogWrapper.info( MessageFormat.format( "Missing stock [{0}]", stockId ) );
-	//					jobs.addAll( this.generateRequestJobs( stockId, Math.abs( stockManager.getStock( stockId ) ) ) );
-	//				} else
-	//					LogWrapper.info( MessageFormat.format( "Processing stock [{0}] OK", stockId ) );
-	//			}
-	//			return jobs;
-	//		} finally {
-	//			LogWrapper.exit( MessageFormat.format( "RequestJobList count: {0}", jobs.size() ) );
-	//		}
-	//	}
-
-	//	/**
-	//	 * Generates a list of identical jobs for the number of copies as parameter. The jobs generated are the required jobs to complete open requests
-	//	 * so their priority is set accordingly.
-	//	 *
-	//	 * @param partId   the part to build on the job.
-	//	 * @param jobCount the number of job copies.
-	//	 * @return the new list of jobs.
-	//	 */
-	//	private List<Job> generateRequestJobs( final UUID partId, final int jobCount ) {
-	//		LogWrapper.enter( "partId: " + partId.toString() + " jobcount: " + jobCount + "" );
-	//		try {
-	//			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-	//			final PartEntity partOpt = this.partRepository.findById( partId )
-	//					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( partId ) ) );
-	//			for (int i = 0; i < jobCount; i++)
-	//				jobs.add( new Job.Builder().withPart(
-	//						new PartEntityToPartConverter().convert( partOpt )
-	//				).withPriority( REQUEST_PRIORITY ).build() );
-	//			return jobs;
-	//		} finally {
-	//			LogWrapper.exit();
-	//		}
-	//	}
-
-	//	/**
-	//	 * This processing step does not have into account the new stock levels that can be set after Request processing. The new data leveling uses
-	//	 * the current repository information that does not include the Requests demands. This is correct from the standpoint of the current timeline.
-	//	 * If the system wants to look ahead and be prepared for new demand while keeping the stocks levels then the process should have on account the
-	//	 * expected new values for the stock levels.
-	//	 */
-	//	private List<Job> generateStockLevelJobs() {
-	//		LogWrapper.enter();
-	//		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
-	//		try {
-	//			this.partRepository.findAll().forEach( part -> {
-	//				final int missingParts = part.getStockLevel() - this.stockManager.getStock( part.getId() ); // Account for model requirements.
-	//				LogWrapper.info( "Stock: " + part.getStockLevel() + " count: " + this.stockManager.getStock( part.getId() ) );
-	//				LogWrapper.info( "Missing: " + missingParts );
-	//				for (int count = 0; count < missingParts; count++)
-	//					jobs.add( new Job.Builder().withPart(
-	//							new PartEntityToPartConverter().convert( part )
-	//					).withPriority( STOCK_LEVEL_PRIORITY ).build() );
-	//			} );
-	//			return jobs;
-	//		} finally {
-	//			LogWrapper.exit( "Job count: " + jobs.size() );
-	//		}
-	//	}
-
-	//	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {
-	//		final Map<UUID, Integer> contents = new HashMap<>();
-	//		final ModelEntity model = this.modelRepository.findById( modelId ).orElseThrow();
-	//		Integer hit;
-	//		for (UUID contentId : model.getPartIdList()) {
-	//			contents.putIfAbsent( contentId, 0 );
-	//			hit = contents.get( contentId );
-	//			contents.put( contentId, ++hit );
-	//		}
-	//		final List<RequestItem> resultContents = new ArrayList<>();
-	//		for (Map.Entry<UUID, Integer> targetContent : contents.entrySet())
-	//			resultContents.add( new RequestItem.Builder()
-	//					.withItemId( targetContent.getKey() )
-	//					.withQuantity( targetContent.getValue() * modelQuantity )
-	//					.withType( RequestContentType.PART ).build() );
-	//		return resultContents;
-	//	}
-
 	private StockManager reserveModels( final StockManager stockManager ) {
 		this.modelRepository.findAll()
 				.stream()
@@ -216,13 +82,4 @@ public class JobServiceV1 {
 				} );
 		return stockManager;
 	}
-
-	//	private List<Job> sortByFinishingCount( final List<Job> inputList ) {
-	//		final List<FinishingContainer> finishings = this.generateFinishingList( inputList );
-	//		finishings.sort( new FinishingByCountComparator() );
-	//		return finishings
-	//				.stream()
-	//				.flatMap( finishingContainer -> finishingContainer.getJobs().stream() )
-	//				.collect( Collectors.toList() );
-	//	}
 }

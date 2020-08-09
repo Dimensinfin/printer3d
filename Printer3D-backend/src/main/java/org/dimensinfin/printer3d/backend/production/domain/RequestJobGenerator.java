@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
@@ -13,12 +16,13 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
-
+@Component
 public class RequestJobGenerator {
 	private static final int REQUEST_PRIORITY = 1;
 	private final PartRepository partRepository;
 
 	// - C O N S T R U C T O R S
+	@Autowired
 	public RequestJobGenerator( final @NotNull PartRepository partRepository ) {this.partRepository = partRepository;}
 
 	/**

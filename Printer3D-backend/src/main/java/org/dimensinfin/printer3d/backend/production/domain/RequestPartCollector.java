@@ -10,28 +10,25 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
-import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
+
 @Component
 public class RequestPartCollector {
-	private final PartRepository partRepository;
 	private final ModelRepository modelRepository;
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
-//	private StockManager stockManager; // Get one instance for this helper that is not a singleton component. Share it with other methods.
-
 	// - C O N S T R U C T O R S
 	@Autowired
-	public RequestPartCollector( final @NotNull PartRepository partRepository,
-	                             final @NotNull ModelRepository modelRepository,
+	public RequestPartCollector( final @NotNull ModelRepository modelRepository,
 	                             final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
-		this.partRepository = partRepository;
 		this.modelRepository = modelRepository;
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 	}
@@ -39,14 +36,14 @@ public class RequestPartCollector {
 	/**
 	 * Read all requests open and then subtract the request associated parts from the current stock counts.
 	 * The stocks are updated and the results are returned for missing parts evaluation and then pending job generation.
+	 *
 	 * @return the final state for the stocks.
 	 */
-	public StockManager collectRequestPartsFromRepository(final StockManager stockManager) {
-		// Initialize the stock with the current repository values.
-//		this.stockManager = new StockManager( this.partRepository ).clean().startStock();
+	public StockManager collectRequestPartsFromRepository( final StockManager stockManager ) {
 		LogWrapper.enter();
 		try {
-			this.requestsRepositoryV2.findAll().stream()
+			this.requestsRepositoryV2.findAll()
+					.stream()
 					.filter( RequestEntityV2::isOpen )
 					.forEach( requestEntityV2 -> {
 						// Subtract the Parts from the inventory
@@ -78,12 +75,12 @@ public class RequestPartCollector {
 	 */
 	private List<RequestItem> modelBOM( final UUID modelId, final int modelQuantity ) {
 		final Map<UUID, Integer> contents = new HashMap<>();
-		final ModelEntity model = this.modelRepository.findById( modelId ).orElseThrow();
+		final ModelEntity model = this.modelRepository.findById( modelId )
+				.orElseThrow( () -> new DimensinfinRuntimeException( Printer3DErrorInfo.errorMODELNOTFOUND( modelId ) ) );
 		Integer hit;
 		for (UUID contentId : model.getPartIdList()) {
 			contents.putIfAbsent( contentId, 0 );
-			hit = contents.get( contentId );
-			contents.put( contentId, ++hit );
+			contents.put( contentId, contents.get( contentId ) + 1 );
 		}
 		final List<RequestItem> resultContents = new ArrayList<>();
 		for (Map.Entry<UUID, Integer> targetContent : contents.entrySet())
@@ -91,6 +88,7 @@ public class RequestPartCollector {
 					.withItemId( targetContent.getKey() )
 					.withQuantity( targetContent.getValue() * modelQuantity )
 					.withType( RequestContentType.PART ).build() );
+		LogWrapper.info( "Model BOM: " + resultContents.toString() );
 		return resultContents;
 	}
 }
