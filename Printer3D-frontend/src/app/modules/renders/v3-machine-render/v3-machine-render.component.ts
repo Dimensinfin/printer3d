@@ -6,6 +6,7 @@ import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
@@ -38,6 +39,9 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     public self: V3MachineRenderComponent;
     public target: Job;
     public state: string = 'IDLE'
+    private stateSub: Observable<boolean> = Observable.create((observer) => {
+        observer.next(false)
+    });
     private remainingTime: number = 0; // The time to run to complete the job in seconds.
 
     constructor(
@@ -54,13 +58,13 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     public ngAfterViewInit(): void {
         console.log('>[V3MachineRenderComponent.ngAfterViewInit]> Timer reference: ' + this.buildTimeTimer)
         this.setTimerToDefault()
-        this.loadBuildPart()
-        // Now the state is running so display the timer and restart it with the remaining time.
-        if (this.state == 'RUNNING') {
-            this.showTimer(this.remainingTime)
-            this.activateTimer()
-        } else
-            this.completeTime()
+        setTimeout(() => { // BUGFIX: https://github.com/angular/angular/issues/6005#issuecomment-165911194
+            if (this.loadBuildPart() == 'RUNNING') {
+                this.showTimer(this.remainingTime)
+                this.activateTimer()
+            } else
+                this.completeTime()
+        }, 100)
         console.log('<[V3MachineRenderComponent.ngAfterViewInit]')
     }
 
@@ -90,25 +94,29 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         return (this.state == 'COMPLETED')
     }
 
-    private loadBuildPart(): void {
+    private loadBuildPart(): string {
         if (null != this.node) {
             console.log('>[V3MachineRenderComponent.loadBuildPart]> Running: ' + this.getNode().isRunning())
             if (this.getNode().isRunning()) {
-                this.target = new Job({
-                    id: uuidv4(),
-                    part: this.getNode().buildRecord.part,
-                    priority: 3,
-                    partCount: this.getNode().buildRecord.partCopies
-                })
-                this.state = 'RUNNING'
+                setTimeout(() => {
+                    this.target = new Job({
+                        id: uuidv4(),
+                        part: this.getNode().buildRecord.part,
+                        priority: 3,
+                        partCount: this.getNode().buildRecord.partCopies
+                    })
+                }, 100);
                 this.remainingTime = this.getNode().buildRecord.remainingTime;
-            }
+                return 'RUNNING'
+            } else return 'IDLE'
         }
     }
 
     // - I N T E R A C T I O N S
     public completeTime(): void {
+        console.log('>[V3MachineRenderComponent.completeTime]')
         this.state = 'COMPLETED'
+        console.log('<[V3MachineRenderComponent.completeTime]')
     }
     public onDrop(drop: any) {
         if (null != drop) {
@@ -222,6 +230,9 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         this.buildTimeTimer.show = true
     }
     private activateTimer(): void {
+        console.log('>[V3MachineRenderComponent.activateTimer]')
         this.buildTimeTimer.activate()
+        this.state = 'RUNNING'
+        console.log('<[V3MachineRenderComponent.activateTimer]')
     }
 }
