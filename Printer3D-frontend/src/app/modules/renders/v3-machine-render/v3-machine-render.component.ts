@@ -1,26 +1,13 @@
 // - CORE
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
-import { Part } from '@domain/Part.domain';
-import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { BackendService } from '@app/services/backend.service';
-import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
-import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
-import { platformconstants } from '@app/platform/platform-constants';
-import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { Feature } from '@domain/Feature.domain';
 import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 import { Job } from '@domain/Job.domain';
 import { Machine } from '@domain/Machine.domain';
@@ -39,9 +26,6 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     public self: V3MachineRenderComponent;
     public target: Job;
     public state: string = 'IDLE'
-    private stateSub: Observable<boolean> = Observable.create((observer) => {
-        observer.next(false)
-    });
     private remainingTime: number = 0; // The time to run to complete the job in seconds.
 
     constructor(
