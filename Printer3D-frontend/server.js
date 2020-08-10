@@ -2,7 +2,6 @@
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
-const request = require('request');
 const config = require('config');
 const proxy = require('express-http-proxy');
 const fs = require('fs')
@@ -28,7 +27,7 @@ var options = {
 };
 // - S E R V E R   C O N F I G U R A T I O N
 app.locals.appname = config.get('settings.appname');
-app.locals.version = config.get('settings.version');
+app.locals.version = require('./package.json').version;
 app.locals.port = process.env.PORT || config.get('settings.port');
 app.locals.applicationhome = config.get('settings.applicationhome');
 app.locals.backendproxy = config.get('settings.backendproxy');

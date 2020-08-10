@@ -1,8 +1,8 @@
 {
     "settings": {
         "appname": "3DPrinterManagement - UI",
-        "version": "v0.11.1 dev",
-        "port": 5150,
+        "version": "v0.12.0",
+        "port": 5100,
         "applicationhome": "/dist/Printer3D-frontend",
         "backendproxy": "http://localhost:5110/",
         "apppath": "/app",

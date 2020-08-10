@@ -94,6 +94,10 @@ public class RequestJobGeneratorTest {
 		Assertions.assertEquals( 6, obtained.size() );
 		Assertions.assertEquals(
 				UUID.fromString( "49f536a4-9086-42d5-b61c-35adc73b3e58" ).toString(),
+				obtained.get( 3 ).getPart().getId().toString()
+		);
+		Assertions.assertEquals(
+				UUID.fromString( PART_IDENTIFIER ).toString(),
 				obtained.get( 4 ).getPart().getId().toString()
 		);
 	}
