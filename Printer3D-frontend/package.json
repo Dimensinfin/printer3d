@@ -1,6 +1,6 @@
 {
     "name": "printer3d-frontend",
-    "version": "v0.12.0",
+    "version": "v0.13.0",
     "backversion": "<0.6.0",
     "scripts": {
         "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D20.11",
@@ -96,7 +96,7 @@
         "chromedriver": "81.0.0",
         "codelyzer": "5.1.2",
         "cucumber": "6.0.5",
-        "cypress": "^4.11.0",
+        "cypress": "^4.12.1",
         "cypress-cucumber-preprocessor": "2.3.1",
         "jasmine-core": "3.5.0",
         "jasmine-spec-reporter": "4.2.1",
