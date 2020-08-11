@@ -1,9 +1,3 @@
-// - DOMAIN
-import { Converter } from '@domain/interfaces/Converter.interface';
-import { Coil } from '@domain/inventory/Coil.domain';
-import { CoilRecord } from '@domain/CoilRecord.domain';
-import { RequestForm } from '@domain/RequestForm.domain';
-
 export class PartRequest {
     private partId: string;
     private quantity: number = 1;

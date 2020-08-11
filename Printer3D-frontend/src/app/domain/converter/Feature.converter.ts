@@ -1,4 +1,4 @@
-import { EInteraction } from './interfaces/EPack.enumerated';
+import { EInteraction } from '../interfaces/EPack.enumerated';
 
 export class FeatureConverter {
     public convertInstance(values: any): object {

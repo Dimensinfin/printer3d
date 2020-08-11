@@ -1,7 +1,7 @@
 // - DOMAIN
 import { Node } from './Node.domain';
 import { EInteraction } from './interfaces/EPack.enumerated';
-import { FeatureConverter } from './Feature.converter';
+import { FeatureConverter } from './converter/Feature.converter';
 
 export class Feature extends Node {
     public label: string = '/';
