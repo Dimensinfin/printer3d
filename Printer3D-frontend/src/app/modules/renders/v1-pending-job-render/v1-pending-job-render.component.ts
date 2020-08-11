@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 // - DOMAIN
-import { Job } from '@domain/Job.domain';
+import { Job } from '@domain/production/Job.domain';
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
 import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render.component';
 

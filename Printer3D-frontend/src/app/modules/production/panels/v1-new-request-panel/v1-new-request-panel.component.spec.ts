@@ -24,7 +24,7 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 // - DOMAIN
 import { V1NewRequestPanelComponent } from './v1-new-request-panel.component';
 import { RequestForm } from '@domain/RequestForm.domain';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Model } from '@domain/inventory/Model.domain';
 import { RequestItem } from '@domain/RequestItem.domain';

@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Machine } from '@domain/Machine.domain';
+import { Machine } from '@domain/production/Machine.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 

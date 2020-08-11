@@ -10,10 +10,10 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 // - DOMAIN
-import { Machine } from '@domain/Machine.domain';
-import { Part } from '@domain/Part.domain';
+import { Machine } from '@domain/production/Machine.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { V3MachineRenderComponent } from './v3-machine-render.component';
-import { Job } from '@domain/Job.domain';
+import { Job } from '@domain/production/Job.domain';
 import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 
 const TEST_TIME: number = 12 * 60;

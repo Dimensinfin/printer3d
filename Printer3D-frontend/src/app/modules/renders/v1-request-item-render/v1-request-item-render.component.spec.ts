@@ -29,7 +29,7 @@ import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-
 import { Coil } from '@domain/inventory/Coil.domain';
 import { V1RequestItemRenderComponent } from './v1-request-item-render.component';
 import { RequestItem } from '@domain/RequestItem.domain';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
 import { Model } from '@domain/inventory/Model.domain';
 

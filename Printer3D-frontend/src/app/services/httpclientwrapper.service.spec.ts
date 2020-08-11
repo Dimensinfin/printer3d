@@ -16,7 +16,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { HttpClientWrapperService } from './httpclientwrapper.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 
 describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
     let service: HttpClientWrapperService;

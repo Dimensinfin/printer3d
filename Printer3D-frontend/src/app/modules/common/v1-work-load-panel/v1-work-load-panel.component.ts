@@ -10,7 +10,7 @@ import { BackendService } from '@app/services/backend.service';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
-import { Job } from '@domain/Job.domain';
+import { Job } from '@domain/production/Job.domain';
 
 /**
  * This panel aggregates all the pending jobs time and displays all that time on the HM format.

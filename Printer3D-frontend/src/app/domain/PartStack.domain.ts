@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Part } from './Part.domain';
+import { Part } from './inventory/Part.domain';
 
 export class PartStack extends Part {
     private stackCount: number = 1

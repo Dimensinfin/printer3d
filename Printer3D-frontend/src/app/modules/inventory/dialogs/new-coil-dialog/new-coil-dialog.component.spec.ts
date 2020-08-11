@@ -30,7 +30,7 @@ import { Feature } from '@domain/Feature.domain';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { NewCoilDialogComponent } from './new-coil-dialog.component';
 import { Coil } from '@domain/inventory/Coil.domain';
 

@@ -1,7 +1,7 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { Part4Request } from './Part4Request.domain';
 import { RequestItem } from './RequestItem.domain';
 import { IContent } from './interfaces/IContent.interface';

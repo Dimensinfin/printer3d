@@ -22,12 +22,12 @@ import { HttpClientWrapperService } from './httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '../testing/SupportHttpClientWrapperService.service';
 // - DOMAIN
 import { ResponseTransformer } from './support/ResponseTransformer';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { Machine } from '@domain/Machine.domain';
-import { Job } from '@domain/Job.domain';
+import { Machine } from '@domain/production/Machine.domain';
+import { Job } from '@domain/production/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { Request } from '@domain/Request.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';

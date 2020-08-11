@@ -1,8 +1,8 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { Node } from './Node.domain';
-import { Part } from './Part.domain';
+import { Node } from '../Node.domain';
+import { Part } from '../inventory/Part.domain';
 
 export class Job extends Node {
     public id: string;

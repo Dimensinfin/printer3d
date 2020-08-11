@@ -5,7 +5,7 @@ import { IsolationService } from '../platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
-import { Part } from './Part.domain';
+import { Part } from './inventory/Part.domain';
 import { PartContainer } from './PartContainer.domain';
 
 describe('CLASS PartContainer [Module: DOMAIN]', () => {

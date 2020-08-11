@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
 import { Model } from '@domain/inventory/Model.domain';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
 import { V1CatalogPanelComponent } from '@app/modules/inventory/panels/v1-catalog-panel/v1-catalog-panel.component';
 import { IViewer } from '@domain/interfaces/core/IViewer.interface';

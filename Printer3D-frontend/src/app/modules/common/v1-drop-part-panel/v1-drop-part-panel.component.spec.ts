@@ -24,7 +24,7 @@ import { HttpClientWrapperService } from '@app/services/httpclientwrapper.servic
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { Request } from '@domain/Request.domain';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { V1DropPartPanelComponent } from './v1-drop-part-panel.component';
 import { PartStack } from '@domain/PartStack.domain';
 

@@ -1,6 +1,6 @@
 // - DOMAIN
 import { RequestForm } from './RequestForm.domain';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 
 describe('CLASS RequestForm [Module: DTO]', () => {
     const requestFormData = {

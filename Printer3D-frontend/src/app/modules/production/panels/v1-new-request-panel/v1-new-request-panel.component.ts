@@ -11,7 +11,7 @@ import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { IsolationService } from '@app/platform/isolation.service';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { RequestForm } from '@domain/RequestForm.domain';
 import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';

@@ -28,7 +28,7 @@ import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 // - DOMAIN
 import { NewPartDialogComponent } from './new-part-dialog.component';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 
 describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
     let component: NewPartDialogComponent;

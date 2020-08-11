@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Job } from '@domain/Job.domain';
+import { Job } from '@domain/production/Job.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { environment } from '@env/environment';

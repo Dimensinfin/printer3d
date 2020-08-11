@@ -15,7 +15,7 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { platformconstants } from '@app/platform/platform-constants';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { environment } from '@env/environment';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { Request } from '@domain/Request.domain';
 import { MatDialog } from '@angular/material/dialog';

@@ -12,7 +12,7 @@ import { BackendService } from '@app/services/backend.service';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
 // - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { Coil } from '@domain/inventory/Coil.domain';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';

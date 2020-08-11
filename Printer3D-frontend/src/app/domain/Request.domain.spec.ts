@@ -1,7 +1,7 @@
 // - DOMAIN
 import { Request } from '@domain/Request.domain';
 import { RequestState } from './interfaces/EPack.enumerated';
-import { Part } from './Part.domain';
+import { Part } from './inventory/Part.domain';
 import { RequestItem } from './RequestItem.domain';
 
 describe('CLASS Request [Module: DOMAIN]', () => {

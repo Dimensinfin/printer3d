@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IsolationService } from '@app/platform/isolation.service';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
