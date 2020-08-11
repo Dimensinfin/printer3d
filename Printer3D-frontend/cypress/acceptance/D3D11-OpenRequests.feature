@@ -13,15 +13,16 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
 
     # - H A P P Y   P A T H
     @D3D11 @D3D11.02
-    Scenario: [D3D11.02]-If the cursor hovers over a Request on the left panel then the Request details is shown on the right.
+    Scenario: [D3D11.02]-If the cursor clicks on a Request on the left panel then the Request details is shown on the right.
         And the page "Open Requests Page" has 2 panels
         # - Validate the structure for the Requests panel
         Given the target is the panel of type "open-requests"
         Then the target has the title "/PEDIDOS/ABIERTOS"
         And the target has 2 "request"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        # - Hover over a Request to diaply the details panel
-        Given a hover on the target
+        # - Click on a Request to display the details panel
+        Given the target is clicked
+        Then target is "selected"
         Given the target is the panel of type "request-details"
         Then the target has the title "/PEDIDOS/DETALLE"
         Then the target has 1 "request"
@@ -44,10 +45,12 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         And field named "IMPORTE" with label "IMPORTE" has contents "42 €"
 
     @D3D11 @D3D11.05
-    Scenario: [D3D11.05]-If the user selects a Request by hovering on it then the detailed Request information is shown on the right panel.
+    Scenario: [D3D11.05]-If the user selects a Request by clicking on it then the detailed Request information is shown on the right panel.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
-        Given a hover on the target
+        # - Click on a Request to display the details panel
+        Given the target is clicked
+        Then target is "selected"
         Then the target is the panel of type "request-details"
         Then the target has 1 "request"
         Given the target the "request-item" with id "ed36cdfb-e5ae-4275-a163-63b4be4d952c"
@@ -66,8 +69,9 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         And field named "ETIQUETA" with label "ETIQUETA" has contents "Complete Slot Car Platform P02"
         And field named "PIEZAS" with label "NRO. PIEZAS" has contents "4"
         And field named "IMPORTE" with label "IMPORTE" has contents "42 €"
-
-        Given a hover on the target
+        # - Click on a Request to display the details panel
+        Given the target is clicked
+        Then target is "selected"
         Then the target is the panel of type "request-details"
         Then the target has 1 "request"
         Given the target the "request-item" with id "ed36cdfb-e5ae-4275-a163-63b4be4d952c"

@@ -27,12 +27,12 @@ const supportService = new SupportService();
 Then('on the target panel there is one {string}', function (panelType: string) {
     cy.get('@target-panel').find(panelType).should('have.length', 1)
 });
-Then('on the target panel there are one {string}', function (panelType: string) {
-    cy.get('@target-panel').find(panelType).should('have.length', 1)
-});
-Then('on the target panel there are one or more {string}', function (panelType: string) {
-    cy.get('@target-panel').find(panelType).should('have.length.greaterThan', 0)
-});
+// Then('on the target panel there are one {string}', function (panelType: string) {
+//     cy.get('@target-panel').find(panelType).should('have.length', 1)
+// });
+// Then('on the target panel there are one or more {string}', function (panelType: string) {
+//     cy.get('@target-panel').find(panelType).should('have.length.greaterThan', 0)
+// });
 Then('the target Machine has no instances of {string}', function (panelName: string) {
     cy.get('@target-machine').find(panelName).should('not.exist')
 });

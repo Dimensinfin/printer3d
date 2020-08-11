@@ -47,8 +47,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
 
     // - I V I E W E R
     public fireSelectionChanged(): void {
-        const request = this.target as Request;
-        this.page.selectRequest(request);
+        this.page.selectRequest(this.selection.getFirstSelected() as Request);
     }
     // - E V E N T S
     public selectRequest(request: Request): void {

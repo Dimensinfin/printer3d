@@ -1,6 +1,6 @@
 <!-- O P E N   R E Q U E S T S -->
 <div #requestInstance *ngIf="getVariant() === '-OPEN-REQUESTS-'">
-    <div id="{{getUniqueId()}}" class="row cornered-panel">
+    <div id="{{getUniqueId()}}" class="row cornered-clickable-panel" (click)="selectRequest()" [ngClass]="{'selected': isSelected()}">
         <div class="field date-width">
             <span cy-field-label="FECHA" class="label">FECHA</span><br>
             <span cy-field-value="FECHA" cy-name="request-date" class="field-height request-date">{{getRequestDate() | date}}</span>
@@ -18,7 +18,7 @@
             <span cy-field-value="IMPORTE" cy-name="amount" class="field-height request-amount">{{getAmount()}}</span>
         </div>
         <svg class="corner-border" viewBox="0 0 100 100">
-            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="blueviolet" />
         </svg>
         <svg class="corner-clear" viewBox="0 0 100 100">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />

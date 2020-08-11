@@ -62,19 +62,23 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         const request = this.node as Request
         return (request.getState() == RequestState.OPEN)
     }
-    public selectRequest(): void {
-        console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
-        this.container.enterSelected(this.node)
-    }
     public isCompleted(): boolean {
         const request = this.node as Request
         return (request.getState() == RequestState.COMPLETED)
+    }
+    public isSelected(): boolean {
+        if (null != this.getNode()) return this.getNode().isSelected()
+        else return false
     }
 
     // - I N T E R A C T I O N S
     public getContents(): ICollaboration[] {
         const request = this.node as Request
         return request.getContents()
+    }
+    public selectRequest(): void {
+        console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
+        this.select()
     }
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
@@ -115,8 +119,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         dialogRef.afterClosed()
             .subscribe(result => {
                 console.log('[V1RequestRenderComponent.deleteRequest]> Close detected');
-                if ( result=='DELETED')
-                this.router.navigate(['/production/requestlist']);
+                if (result == 'DELETED')
+                    this.router.navigate(['/production/requestlist']);
             });
     }
 }

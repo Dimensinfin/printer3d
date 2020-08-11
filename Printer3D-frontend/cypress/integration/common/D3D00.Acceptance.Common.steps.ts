@@ -94,6 +94,12 @@ Given('the target has a component ot type {string}', function (symbolicName: str
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target').get(tag).as('target')
 });
+Given('target is {string}', function (selecState: string) {
+    if (selecState == 'selected')
+        cy.get('@target').should('have.class', 'selected')
+    else
+        cy.get('@target').should('not.have.class', 'selected')
+});
 
 // - B U T T O N S
 Then('the button with name {string} has a label {string} and is {string}', function (

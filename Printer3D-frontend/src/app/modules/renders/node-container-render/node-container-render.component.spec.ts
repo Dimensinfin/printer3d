@@ -11,7 +11,7 @@ import { Node } from '@domain/Node.domain';
 import { NodeContainerRenderComponent } from './node-container-render.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 
-describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
+xdescribe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
     let component: NodeContainerRenderComponent;
 
     beforeEach(() => {
@@ -37,7 +37,7 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             expect(component.variant).toBe(EVariant.DEFAULT);
             expect(component.colorScheme).toBe('panel-white')
             expect(component.index).toBe(1)
-            expect(component.autoselect).toBeFalse()
+            expect(component.selectOnHover).toBeFalse()
         });
     });
 
@@ -79,7 +79,7 @@ describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             componentAsAny.container = {
                 enterSelected: () => { }
             }
-            component.autoselect = true
+            component.selectOnHover = true
             spyOn(componentAsAny.container, 'enterSelected')
             component.mouseEnter(new Node())
             expect(componentAsAny.container.enterSelected).toHaveBeenCalled()

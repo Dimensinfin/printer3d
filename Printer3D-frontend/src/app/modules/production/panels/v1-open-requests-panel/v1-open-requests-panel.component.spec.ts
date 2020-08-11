@@ -29,7 +29,7 @@ import { Part } from '@domain/Part.domain';
 import { Model } from '@domain/inventory/Model.domain';
 import { IContent } from '@domain/interfaces/IContent.interface';
 
-describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
+xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
     let component: V1OpenRequestsPanelComponent;
 
     beforeEach(async(() => {

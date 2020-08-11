@@ -8,6 +8,7 @@ import { IViewer } from '@app/domain/interfaces/core/IViewer.interface';
 import { Node } from '@domain/Node.domain';
 import { IColorTheme } from '@domain/interfaces/core/IColorTheme.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
+import { ISelectable } from '@domain/interfaces/core/ISelectable.interface';
 
 @Component({
     selector: 'node-container',
@@ -20,7 +21,7 @@ export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
     @Input() variant: EVariant = EVariant.DEFAULT;
     @Input() colorScheme: string = 'panel-white';  // The name of the panel style to be rendered.
     @Input() index: number = 1;
-    @Input() autoselect: boolean = false
+    @Input() selectOnHover: boolean = false
 
     public getNode(): Node {
         return this.node;
@@ -32,8 +33,8 @@ export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
      * Pass the container panel the node that is being entered so if there is additional data it can be exported to another panel.
      * @param target target node that is being entered by the cursor.
      */
-    public mouseEnter(target: ICollaboration) {
-        if (this.autoselect) this.container.enterSelected(target);
+    public mouseEnter(target: any) {
+        if (this.selectOnHover) this.container.addSelection(target as ISelectable);
     }
     public toggleExpanded(): void {
         if (null != this.node) {
@@ -42,6 +43,14 @@ export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
                 this.container.notifyDataChanged();
             }
         }
+    }
+    public select(): void {
+        this.node.select()
+        this.container.addSelection(this.node)
+    }
+    public unselect(): void {
+        this.node.unselect()
+        this.container.addSelection(this.node)
     }
     public isExpanded(): boolean {
         if (null != this.node)
