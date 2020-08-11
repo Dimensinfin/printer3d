@@ -1,8 +1,9 @@
 // - DOMAIN
-import { ICollaboration } from './ICollaboration.interface';
+import { ISelectable } from './ISelectable.interface';
 
 export interface IViewer {
-    enterSelected(node: ICollaboration): void;
+    addSelection(node: ISelectable): void;
+    subtractSelection(node: ISelectable): void;
     fireSelectionChanged(): void;
     notifyDataChanged(): void;
     redirectPage(route: any): void;

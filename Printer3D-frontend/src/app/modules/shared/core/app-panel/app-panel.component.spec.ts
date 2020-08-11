@@ -12,7 +12,7 @@ import { AppPanelComponent } from './app-panel.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { Node } from '@domain/Node.domain';
 
-describe('PANEL AppPanelComponent [Module: CORE]', () => {
+xdescribe('PANEL AppPanelComponent [Module: CORE]', () => {
     let component: AppPanelComponent;
 
     beforeEach(() => {
@@ -93,7 +93,7 @@ describe('PANEL AppPanelComponent [Module: CORE]', () => {
         it('enterSelected.success: check that nodes get processed when the root load completes', () => {
             const componentAsAny = component as any;
             expect(componentAsAny.target).toBeUndefined();
-            component.enterSelected(new Node())
+            component.addSelection(new Node())
             expect(componentAsAny.target).toBeDefined();
         });
         it('notifyDataChanged.success: check that nodes get processed when the root load completes', () => {

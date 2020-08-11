@@ -61,9 +61,9 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
         if (this.editing) {
             const container = this.container as IViewer
             this.nodeBackup = this.getNode()
-            this.container.enterSelected(this.getNode())
+            this.container.addSelection(this.getNode())
         } else {
-            this.container.enterSelected(undefined)
+            this.container.addSelection(undefined)
             this.node = this.nodeBackup
         }
     }

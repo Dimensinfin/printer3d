@@ -8,7 +8,7 @@ import { Node } from '@domain/Node.domain';
 import { Machine } from './Machine.domain';
 import { ESeparator } from './interfaces/EPack.enumerated';
 
-describe('CLASS Node Module: DOMAIN]', () => {
+xdescribe('CLASS Node Module: DOMAIN]', () => {
 
     beforeEach(() => {
     });

@@ -1,20 +1,21 @@
+// - CORE
+import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { INode } from './interfaces/INode.interface';
 import { ICollaboration } from './interfaces/core/ICollaboration.interface';
 import { IExpandable } from './interfaces/core/IExpandable.interface';
 import { ISelectable } from './interfaces/core/ISelectable.interface';
-import { IColorTheme } from './interfaces/core/IColorTheme.interface';
-import { ESeparator } from './interfaces/EPack.enumerated';
 
-export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, IColorTheme*/ {
+export class Node implements INode, ICollaboration, IExpandable, ISelectable {
+    private uniqueIdentifier: string = uuidv4();
     protected jsonClass: string = 'Node';
     protected expanded: boolean = false;
     protected selected: boolean = false;
-    protected themeColor: ESeparator = ESeparator.WHITE;
 
     constructor(values: Object = {}) {
-        Object.assign(this, values);
-        this.jsonClass = 'Node';
+        Object.assign(this, values)
+        this.jsonClass = 'Node'
+        this.uniqueIdentifier = uuidv4()
     }
 
     protected isEmpty(target?: any): boolean {
@@ -70,14 +71,24 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable/*, 
     public unselect(): void {
         this.selected = false;
     }
+    /**
+     * Tests if two nodes are the same using the node unique identifier to detect equality.
+     * @param target the other node to be tested for equeality
+     */
+    public equalRef(target: ISelectable): boolean {
+        return (this.uniqueIdentifier === target.getUniqueId())
+    }
+    /**
+     * Returns the unique identifier and generates a new one of not found. This unique identifier is used to detect identical nodes during selection.
+     */
+    public getUniqueId(): string {
+        if (null == this.uniqueIdentifier)
+            this.uniqueIdentifier = uuidv4()
+        return this.uniqueIdentifier
+    }
 
     // - I M E N U
-    public hasMenu(): boolean {
-        return false;
-    }
-
-    // - I C O L O R
-    public getThemeColor(): ESeparator {
-        return this.themeColor;
-    }
+    // public hasMenu(): boolean {
+    //     return false;
+    // }
 }

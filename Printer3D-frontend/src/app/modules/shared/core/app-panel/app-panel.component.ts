@@ -5,8 +5,9 @@ import { Input } from '@angular/core';
 import { EVariant } from '@app/domain/interfaces/EPack.enumerated';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
 import { IViewer } from '@domain/interfaces/core/IViewer.interface';
-import { BackendService } from '@app/services/backend.service';
 import { BackgroundEnabledComponent } from '../background-enabled/background-enabled.component';
+import { SingleSelection } from '../../domain/SingleSelection.domain';
+import { ISelectable } from '@domain/interfaces/core/ISelectable.interface';
 @Component({
     selector: 'app-panel',
     templateUrl: './app-panel.component.html',
@@ -15,10 +16,10 @@ import { BackgroundEnabledComponent } from '../background-enabled/background-ena
 export class AppPanelComponent extends BackgroundEnabledComponent implements IViewer {
     @Input() self: IViewer;
     @Input() variant: EVariant = EVariant.DEFAULT;
-    protected downloading: boolean = true;
-    protected dataModelRoot: ICollaboration[] = [];
+    private downloading: boolean = true;
+    private dataModelRoot: ICollaboration[] = [];
     private renderNodeList: ICollaboration[] = [];
-    protected target: ICollaboration;
+    protected selection: SingleSelection = new SingleSelection();
 
     constructor() {
         super()
@@ -50,10 +51,17 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
         console.log('<[AppPanelComponent.completeDowload]> Nodes processed: ' + this.dataModelRoot.length)
     }
     // - I V I E W E R
-    public enterSelected(node: ICollaboration): void {
-        this.target = node;
+    public addSelection(node: ISelectable): void {
+        this.selection.addSelection(node)
         this.fireSelectionChanged();
     }
+    public subtractSelection(node: ISelectable): void {
+        if (this.selection.subtractSelection(node))
+            this.fireSelectionChanged
+    }
+    /**
+     * This is an abstract methods that should be implemented by panels that require to support selections.
+     */
     public fireSelectionChanged(): void { }
     /**
       Reconstructs the list of nodes to be rendered from the current DataRoot and their collaborations to the view.

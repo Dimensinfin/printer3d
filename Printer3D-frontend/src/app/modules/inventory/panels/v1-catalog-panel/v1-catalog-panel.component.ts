@@ -11,7 +11,6 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
-import { environment } from '@env/environment';
 import { Part } from '@domain/Part.domain';
 import { Request } from '@domain/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
@@ -58,13 +57,13 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
      */
     public fireSelectionChanged(): void {
         if (null != this.page)
-            if (this.target instanceof Model)
-                this.page.setSelected(this.target as Model)
+            if (this.selection.getFirstSelected() instanceof Model)
+                this.page.setSelected(this.selection.getFirstSelected() as Model)
             else this.page.closeEditor()
     }
     // - R E F R E S H A B L E
     public clean(): void {
-        this.target = undefined // Clear the selection
+        this.selection.clearSelection() // Clear the selection
         this.parts = []
         this.models = []
         this.partContainers = new Map<string, PartContainer>()

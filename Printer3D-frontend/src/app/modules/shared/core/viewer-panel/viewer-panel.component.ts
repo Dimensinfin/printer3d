@@ -18,7 +18,7 @@ export class ViewerPanelComponent {
     @Input() downloadtitle: string;
     @Input() downloader: AppPanelComponent;
     @Input() variant: EVariant = EVariant.DEFAULT;
-    @Input() autoselect: boolean = false
+    @Input() selectOnHover: boolean = false // If true hovered node becomes the selected node.
     public index: number = 1;
 
     public isDownloading(): boolean {
