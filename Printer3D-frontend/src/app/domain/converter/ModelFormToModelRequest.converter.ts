@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { Converter } from '@domain/interfaces/Converter.interface';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 import { CoilRecord } from '@domain/CoilRecord.domain';
 import { ModelForm } from '@domain/inventory/ModelForm.domain';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';

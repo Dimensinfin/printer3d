@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Coil } from './Coil.domain';
+import { Coil } from './inventory/Coil.domain';
 
 describe('CLASS Coil [Module: DOMAIN]', () => {
     beforeEach(() => {

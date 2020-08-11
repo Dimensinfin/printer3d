@@ -1,6 +1,6 @@
 // - DOMAIN
 import { Converter } from '@domain/interfaces/Converter.interface';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 import { CoilRecord } from '@domain/CoilRecord.domain';
 import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 

@@ -1,7 +1,7 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { Node } from './Node.domain';
+import { Node } from '../Node.domain';
 
 export class Coil extends Node {
     public id: string;

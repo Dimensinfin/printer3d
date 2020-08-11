@@ -10,7 +10,7 @@ import { ResponseTransformer } from './support/ResponseTransformer';
 import { environment } from '@env/environment';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/Part.domain';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/Machine.domain';

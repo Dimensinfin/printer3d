@@ -33,7 +33,7 @@ import { Part } from '@domain/Part.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { FormsModule } from '@angular/forms';
 import { V1CoilRenderComponent } from './v1-coil-render.component';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 
 describe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
     let component: V1CoilRenderComponent;

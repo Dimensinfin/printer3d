@@ -22,7 +22,7 @@ import { forIn } from 'cypress/types/lodash';
 import { PartContainer } from '@domain/PartContainer.domain';
 import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 
 @Component({

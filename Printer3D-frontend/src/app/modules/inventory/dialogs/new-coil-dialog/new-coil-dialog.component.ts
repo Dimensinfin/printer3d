@@ -15,7 +15,7 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 
 @Component({
     selector: 'new-coil-dialog',

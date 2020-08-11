@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 
 export class CoilListResponse {
     public count: number = 0;

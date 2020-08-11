@@ -32,7 +32,7 @@ import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { Part } from '@domain/Part.domain';
 import { NewCoilDialogComponent } from './new-coil-dialog.component';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 
 describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
     let component: NewCoilDialogComponent;

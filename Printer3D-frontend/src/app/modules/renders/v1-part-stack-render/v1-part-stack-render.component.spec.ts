@@ -26,7 +26,7 @@ import { BackendService } from '@app/services/backend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 import { V1PartStackRenderComponent } from './v1-part-stack-render.component';
 import { PartStack } from '@domain/PartStack.domain';
 

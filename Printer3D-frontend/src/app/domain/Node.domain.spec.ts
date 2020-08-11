@@ -113,18 +113,18 @@ xdescribe('CLASS Node Module: DOMAIN]', () => {
             expect(node.isSelected()).toBeFalsy();
         });
     });
-    describe('Validate Interface compliance [IMenu]', () => {
-        it('hasMenu: check the menu avilabillity', () => {
-            const node = new Node()
-            expect(node.hasMenu()).toBeFalsy();
-        });
-    });
-    describe('Validate Interface compliance [IColor]', () => {
-        it('getThemeColor: check the cplor theming', () => {
-            const node = new Node()
-            expect(node.getThemeColor()).toBe(ESeparator.WHITE);
-        });
-    });
+    // describe('Validate Interface compliance [IMenu]', () => {
+    //     it('hasMenu: check the menu avilabillity', () => {
+    //         const node = new Node()
+    //         expect(node.hasMenu()).toBeFalsy();
+    //     });
+    // });
+    // describe('Validate Interface compliance [IColor]', () => {
+    //     it('getThemeColor: check the cplor theming', () => {
+    //         const node = new Node()
+    //         expect(node.getThemeColor()).toBe(ESeparator.WHITE);
+    //     });
+    // });
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [getters]', () => {

@@ -23,7 +23,7 @@ import { SupportHttpClientWrapperService } from '../testing/SupportHttpClientWra
 // - DOMAIN
 import { ResponseTransformer } from './support/ResponseTransformer';
 import { Part } from '@domain/Part.domain';
-import { Coil } from '@domain/Coil.domain';
+import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/Machine.domain';
