@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 
 export class PartListResponse {
     public count: number = 0;

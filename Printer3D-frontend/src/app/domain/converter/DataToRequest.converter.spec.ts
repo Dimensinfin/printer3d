@@ -4,7 +4,7 @@ import { DataToRequestConverter } from './DataToRequest.converter';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { Model } from '@domain/inventory/Model.domain';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 
 describe('CLASS DataToRequestConverter [Module: CONVERTERS]', () => {
     // - C O V E R A G E   P H A S E

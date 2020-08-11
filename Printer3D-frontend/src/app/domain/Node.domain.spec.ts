@@ -5,7 +5,6 @@ import { IsolationService } from '../platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Node } from '@domain/Node.domain';
-import { Machine } from './Machine.domain';
 import { ESeparator } from './interfaces/EPack.enumerated';
 
 xdescribe('CLASS Node Module: DOMAIN]', () => {

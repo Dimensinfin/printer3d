@@ -1,6 +1,6 @@
 // - DOMAIN
 import { JobRequest } from '@domain/dto/JobRequest.dto';
-import { Job } from '@domain/Job.domain';
+import { Job } from '@domain/production/Job.domain';
 import { Converter } from '@domain/interfaces/Converter.interface';
 
 export class JobToJobRequestConverter implements Converter<Job,JobRequest> {

@@ -5,7 +5,7 @@ import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 // - DOMAIN
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
 
 @Component({

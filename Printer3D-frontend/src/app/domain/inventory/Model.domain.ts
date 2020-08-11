@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { Node } from '../Node.domain';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
 import { IContent } from '@domain/interfaces/IContent.interface';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';

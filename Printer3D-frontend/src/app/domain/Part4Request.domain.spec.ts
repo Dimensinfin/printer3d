@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Part } from './Part.domain';
+import { Part } from './inventory/Part.domain';
 import { Part4Request } from './Part4Request.domain';
 
 describe('CLASS Part4Request [Module: DOMAIN]', () => {

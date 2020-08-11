@@ -1,10 +1,9 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { ICollaboration } from './interfaces/core/ICollaboration.interface';
-import { Node } from './Node.domain';
-import { IContent } from './interfaces/IContent.interface';
-import { RequestContentType } from './interfaces/EPack.enumerated';
+import { Node } from '../Node.domain';
+import { IContent } from '@domain/interfaces/IContent.interface';
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 
 export class Part extends Node implements IContent {
     public id: string;

@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { RequestContentType } from './EPack.enumerated';
 import { IContent } from './IContent.interface';
 

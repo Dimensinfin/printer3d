@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { ICollaboration } from './interfaces/core/ICollaboration.interface';
 import { Node } from './Node.domain';
-import { Part } from './Part.domain';
+import { Part } from './inventory/Part.domain';
 
 export class Part4Request extends Part {
     private required: number = 0;

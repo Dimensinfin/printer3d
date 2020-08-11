@@ -1,6 +1,6 @@
 // - DOMAIN
 import { PartToPartRecordConverter } from './PartToPartRecord.converter';
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { PartRecord } from '@domain/PartRecord.domain';
 
 describe('CLASS PartToPartRecordConverter [Module: DOMAIN]', () => {

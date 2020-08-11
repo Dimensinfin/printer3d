@@ -1,10 +1,10 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { ICollaboration } from './interfaces/core/ICollaboration.interface';
-import { Node } from './Node.domain';
-import { IContent } from './interfaces/IContent.interface';
-import { RequestContentType } from './interfaces/EPack.enumerated';
+import { ICollaboration } from '../interfaces/core/ICollaboration.interface';
+import { Node } from '../Node.domain';
+import { IContent } from '../interfaces/IContent.interface';
+import { RequestContentType } from '../interfaces/EPack.enumerated';
 
 export class Machine extends Node {
     private id: string;

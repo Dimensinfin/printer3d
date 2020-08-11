@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Part } from '@domain/Part.domain';
+import { Part } from '@domain/inventory/Part.domain';
 import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
 import { Converter } from '@domain/interfaces/Converter.interface';
 

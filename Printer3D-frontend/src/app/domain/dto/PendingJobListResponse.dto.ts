@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Job } from '@domain/Job.domain';
+import { Job } from '@domain/production/Job.domain';
 
 export class PendingJobListResponse {
     public count: number = 0;

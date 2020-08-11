@@ -1,7 +1,6 @@
 // - DOMAIN
-import { FeatureConverter } from './converter/Feature.converter';
-import { Feature } from './Feature.domain';
-import { EInteraction } from './interfaces/EPack.enumerated';
+import { FeatureConverter } from "./Feature.converter";
+import { EInteraction } from '@domain/interfaces/EPack.enumerated';
 
 describe('CLASS FeatureConverter [Module: DOMAIN]', () => {
 
