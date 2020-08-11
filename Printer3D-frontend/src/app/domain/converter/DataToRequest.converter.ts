@@ -2,7 +2,7 @@
 import { PartRecord } from '@domain/PartRecord.domain';
 import { Constructor } from '@domain/interfaces/Constructor.interface';
 import { Part } from '@domain/inventory/Part.domain';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { IContent } from '@domain/interfaces/IContent.interface';
 import { RequestItem } from '@domain/RequestItem.domain';

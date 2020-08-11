@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 // - DOMAIN
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 
 @Component({
     selector: 'v1-request-detail-panel',

@@ -11,7 +11,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 // - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { BackendService } from '@app/services/backend.service';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';

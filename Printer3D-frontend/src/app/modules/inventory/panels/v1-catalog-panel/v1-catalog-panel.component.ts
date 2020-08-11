@@ -12,7 +12,7 @@ import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/inventory/Part.domain';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { INode } from '@domain/interfaces/INode.interface';
 import { Model } from '@domain/inventory/Model.domain';

@@ -24,7 +24,7 @@ import { HttpClientWrapperService } from '@app/services/httpclientwrapper.servic
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { V1OpenRequestsPanelComponent } from './v1-open-requests-panel.component';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { Part } from '@domain/inventory/Part.domain';
 import { Model } from '@domain/inventory/Model.domain';
 import { IContent } from '@domain/interfaces/IContent.interface';

@@ -26,7 +26,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';

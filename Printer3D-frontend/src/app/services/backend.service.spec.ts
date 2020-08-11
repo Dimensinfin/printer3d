@@ -29,7 +29,7 @@ import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/production/Machine.domain';
 import { Job } from '@domain/production/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { Model } from '@domain/inventory/Model.domain';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';

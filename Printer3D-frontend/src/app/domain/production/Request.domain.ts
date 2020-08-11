@@ -1,7 +1,7 @@
 // - DOMAIN
-import { Node } from './Node.domain';
+import { Node } from '../Node.domain';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
-import { RequestItem } from './RequestItem.domain';
+import { RequestItem } from '../RequestItem.domain';
 
 export class Request extends Node {
     private id: string;

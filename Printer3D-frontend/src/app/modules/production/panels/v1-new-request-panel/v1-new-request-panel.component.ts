@@ -17,7 +17,7 @@ import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { Part4Request } from '@domain/Part4Request.domain';
 import { RequestItem } from '@domain/RequestItem.domain';
 import { Model } from '@domain/inventory/Model.domain';

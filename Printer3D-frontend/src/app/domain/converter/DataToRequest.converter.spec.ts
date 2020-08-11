@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Request } from '../Request.domain';
+import { Request } from '../production/Request.domain';
 import { DataToRequestConverter } from './DataToRequest.converter';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';

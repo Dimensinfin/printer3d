@@ -23,7 +23,7 @@ import { BackendService } from '@app/services/backend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { Part } from '@domain/inventory/Part.domain';
 import { V1CatalogPanelComponent } from './v1-catalog-panel.component';
 import { Model } from '@domain/inventory/Model.domain';

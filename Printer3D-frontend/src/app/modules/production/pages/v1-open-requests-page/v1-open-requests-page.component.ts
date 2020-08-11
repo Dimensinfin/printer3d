@@ -4,7 +4,7 @@ import { ViewChild } from '@angular/core';
 // - DOMAIN
 import { V1OpenRequestsPanelComponent } from '../../panels/v1-open-requests-panel/v1-open-requests-panel.component';
 import { V1RequestDetailPanelComponent } from '../../panels/v1-request-detail-panel/v1-request-detail-panel.component';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
 @Component({

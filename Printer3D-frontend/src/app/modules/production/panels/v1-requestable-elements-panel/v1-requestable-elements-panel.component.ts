@@ -13,7 +13,7 @@ import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { environment } from '@env/environment';
 import { Part } from '@domain/inventory/Part.domain';
-import { Request } from '@domain/Request.domain';
+import { Request } from '@domain/production/Request.domain';
 import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
 import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
 import { INode } from '@domain/interfaces/INode.interface';

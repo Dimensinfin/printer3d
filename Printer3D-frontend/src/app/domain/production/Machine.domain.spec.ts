@@ -1,12 +1,4 @@
-// - TESTING
-import { TestBed } from '@angular/core/testing';
-// - PROVIDERS
-import { IsolationService } from '../../platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { Part } from '../Part.domain';
-import { PartContainer } from '../PartContainer.domain';
 import { Machine } from './Machine.domain';
 
 describe('CLASS Machine [Module: DOMAIN]', () => {
