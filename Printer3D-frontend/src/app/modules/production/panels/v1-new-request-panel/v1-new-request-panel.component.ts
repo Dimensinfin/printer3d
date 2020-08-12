@@ -1,9 +1,5 @@
 // - CORE
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
 // - ROUTER
 import { Router } from '@angular/router';
 // - SERVICES
@@ -13,13 +9,10 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Part } from '@domain/inventory/Part.domain';
 import { RequestForm } from '@domain/RequestForm.domain';
-import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
 import { Request } from '@domain/production/Request.domain';
-import { Part4Request } from '@domain/Part4Request.domain';
-import { RequestItem } from '@domain/RequestItem.domain';
+import { RequestItem } from '@domain/production/RequestItem.domain';
 import { Model } from '@domain/inventory/Model.domain';
 import { environment } from '@env/environment';
 import { HttpErrorResponse } from '@angular/common/http';

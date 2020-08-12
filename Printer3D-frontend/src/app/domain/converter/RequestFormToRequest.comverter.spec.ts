@@ -3,7 +3,7 @@ import { RequestFormToRequestConverter } from './RequestFormToRequest.converter'
 import { RequestForm } from '@domain/RequestForm.domain';
 import { RequestState, RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
-import { RequestItem } from '@domain/RequestItem.domain';
+import { RequestItem } from '@domain/production/RequestItem.domain';
 
 describe('CLASS RequestFormToRequestConverter [Module: CONVERTER]', () => {
     // - C O V E R A G E   P H A S E

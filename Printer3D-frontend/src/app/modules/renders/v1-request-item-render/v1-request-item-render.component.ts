@@ -1,22 +1,11 @@
 // - CORE
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs';
 // - DOMAIN
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
 import { Part } from '@domain/inventory/Part.domain';
-import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerated';
-import { BackendService } from '@app/services/backend.service';
-import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { IsolationService } from '@app/platform/isolation.service';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
-import { Part4Request } from '@domain/Part4Request.domain';
-import { RequestItem } from '@domain/RequestItem.domain';
+import { RequestItem } from '@domain/production/RequestItem.domain';
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 
 @Component({
     selector: 'v1-request-item',

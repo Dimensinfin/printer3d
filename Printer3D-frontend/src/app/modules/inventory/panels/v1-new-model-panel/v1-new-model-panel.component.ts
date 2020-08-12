@@ -14,7 +14,6 @@ import { BackendService } from '@app/services/backend.service';
 import { V1DropPartPanelComponent } from '@app/modules/common/v1-drop-part-panel/v1-drop-part-panel.component';
 import { ModelForm } from '@domain/inventory/ModelForm.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { ModelFormToModelRequestConverter } from '@domain/converter/ModelFormToModelRequest.converter';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';

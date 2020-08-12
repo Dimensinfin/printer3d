@@ -2,7 +2,7 @@
 import { Request } from '@domain/production/Request.domain';
 import { RequestState } from '../interfaces/EPack.enumerated';
 import { Part } from '../inventory/Part.domain';
-import { RequestItem } from '../RequestItem.domain';
+import { RequestItem } from '@domain/production/RequestItem.domain';
 
 describe('CLASS Request [Module: DOMAIN]', () => {
     // - C O N S T R U C T I O N   P H A S E

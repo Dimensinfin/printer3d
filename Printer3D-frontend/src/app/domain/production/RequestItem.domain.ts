@@ -1,9 +1,9 @@
 // - CORE
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { Node } from './Node.domain';
-import { RequestContentType } from './interfaces/EPack.enumerated';
-import { IContent } from './interfaces/IContent.interface';
+import { Node } from '../Node.domain';
+import { RequestContentType } from '../interfaces/EPack.enumerated';
+import { IContent } from '../interfaces/IContent.interface';
 
 /**
  * Request items can be of different classes so we need a container that can export the common element interface and make manipulation of different items easy and feasible.
@@ -23,7 +23,7 @@ export class RequestItem extends Node implements IContent {
     constructor(values: Object = {}) {
         super()
         Object.assign(this, values);
-        this.jsonClass='RequestItem'
+        this.jsonClass = 'RequestItem'
     }
 
     public getQuantity(): number {
@@ -48,6 +48,9 @@ export class RequestItem extends Node implements IContent {
         this.content = content
         return this
     }
+    public getRequired(): number {
+        return this.required
+    }
     public setRequired(required: number): RequestItem {
         this.required = required
         return this
@@ -65,7 +68,7 @@ export class RequestItem extends Node implements IContent {
     public getId(): string {
         return this.itemId
     }
-    public getLabel() : string {
+    public getLabel(): string {
         return this.content.getLabel()
     }
     public getType(): RequestContentType {

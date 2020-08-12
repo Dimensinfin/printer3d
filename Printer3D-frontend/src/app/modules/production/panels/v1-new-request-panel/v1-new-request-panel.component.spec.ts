@@ -27,7 +27,7 @@ import { RequestForm } from '@domain/RequestForm.domain';
 import { Part } from '@domain/inventory/Part.domain';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Model } from '@domain/inventory/Model.domain';
-import { RequestItem } from '@domain/RequestItem.domain';
+import { RequestItem } from '@domain/production/RequestItem.domain';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 
 describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
