@@ -15,9 +15,9 @@ Feature: [F3D21]-[STORY] Add a panel to display a bar graph with the aggregated 
         And target has a "blueviolet-mark" mark
         And there is a sign saying "NO HAY DATOS"
 
-    @F3D21.01
-    Scenario: [F3D21.01]-After some time the bar char shows some accounting data. The bar char has 4 columns.
+    @F3D21.02
+    Scenario: [F3D21.02]-After some time the bar chart shows some accounting data. The bar char has 4 columns.
         Then the target has 1 "billing-chart"
         And target has a "blueviolet-mark" mark
-        When waiting for 1 second
+        When waiting for 5 second
         And graph chart has 4 columns
