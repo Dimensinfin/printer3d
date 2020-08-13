@@ -2,12 +2,29 @@
 import { Injectable } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
 import { Observable } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SupportIsolationService {
     private storage = new Map();
+
+    // - E X C E P T I O N S
+    public processException(error: HttpErrorResponse): void {
+        if (error.error.status == 404) {
+            this.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')
+        } else {
+            const errorName: string = error.error.errorName
+            const httpStatus: string = error.error.httpStatus
+            const message: string = error.error.message
+            const cause: string = error.error.cause
+            if (null != cause)
+                this.errorNotification(message + '\nCausa: ' + cause, '[' + httpStatus + ']/' + errorName)
+            else
+                this.errorNotification(message, '[' + httpStatus + ']/' + errorName)
+        }
+    }
 
     // - M O C K   D A T A   A C C E S S
     public directAccessMockResource(dataIdentifier: string): any {
@@ -100,9 +117,9 @@ export class SupportIsolationService {
     public errorNotification(message: string, title?: string, options?: any): void {
     }
     public warningNotification(message: string, title?: string, options?: any): void {
-        console.log('>[SupportIsolationService.warningNotification]> Title: '+title)
+        console.log('>[SupportIsolationService.warningNotification]> Title: ' + title)
     }
     public infoNotification(message: string, title?: string, options?: any): void {
-        console.log('>[SupportIsolationService.infoNotification]> Title: '+title)
+        console.log('>[SupportIsolationService.infoNotification]> Title: ' + title)
     }
 }

@@ -171,12 +171,26 @@ export class SupportHttpClientWrapperService {
                 return this.directAccessMockResource('newcoil');
             if (request.includes('/production/requests'))
                 return this.directAccessMockResource('newrequest');
+            if (request.includes('/inventory/machines/')) {
+                if (request.includes('startbuild'))
+                    return this.directAccessMockResource('inventory.machines.startbuild');
+            }
         }
         if (request.includes('GET')) {
             if (request.includes('/api/v2/inventory/parts/update'))
                 return this.directAccessMockResource('newpart');
-            if (request.includes('/api/v2/inventory/machines/cancelbuild'))
-                return this.directAccessMockResource('inventory.machines.cancelbuild');
+            if (request.includes('/api/v2/inventory/part'))
+                return this.directAccessMockResource('inventory.parts');
+            if (request.includes('/inventory/machines'))
+                return this.directAccessMockResource('inventory.machines.v2');
+        }
+        if (request.includes('PUT')) {
+            if (request.includes('/inventory/machines/')) {
+                if (request.includes('cancelbuild'))
+                    return this.directAccessMockResource('inventory.machines.cancelbuild');
+                if (request.includes('completebuild'))
+                    return this.directAccessMockResource('inventory.machines.cancelbuild');
+            }
         }
         if (request.includes('/inventory/parts'))
             return this.directAccessMockResource('inventory.parts');
@@ -187,15 +201,7 @@ export class SupportHttpClientWrapperService {
         if (request.includes('/production/jobs/pending'))
             return this.directAccessMockResource('production.pendingjobs');
 
-        if (request.includes('/api/v1/inventory/machines')) keyword = 'INVENTORY-MACHINES';
-        if (request.includes('/api/v2/inventory/machines')) keyword = 'INVENTORY-MACHINESV2';
-        if (request.includes('/inventory/machines/')) {
-            if (request.includes('startbuild')) keyword = 'MACHINE-STARTBUILD';
-            if (request.includes('cancelbuild')) keyword = 'MACHINE-CANCELBUILD';
-        }
-        // if (request.includes('/production/jobs/pending')) keyword = 'PRODUCTION-JOBS';
         if (request.includes('/inventory/finishings')) keyword = 'INVENTORY-FINISHINGS';
-        // if (request.includes('/api/v2/inventory/parts/update')) keyword = 'INVENTORY-UPDATEPART';
 
         console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> keyword: " + keyword);
         switch (keyword) {
@@ -228,119 +234,6 @@ export class SupportHttpClientWrapperService {
             case 'INVENTORY-COILS':
                 console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
                 return this.directAccessMockResource('inventory.coils');
-            case 'INVENTORY-MACHINES':
-                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                const inventoryMachinesResponseJson = {
-                    "count": 2,
-                    "machines": [{
-                        "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
-                        "label": "Machine A",
-                        "model": "Creality 3D Ender 3 Pro",
-                        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament."
-                    },
-                    {
-                        "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
-                        "label": "Machine B",
-                        "model": "Creality 3D Ender 3 Pro",
-                        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
-                        "currentPart": {
-                            "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                            "label": "Covid-19 Key",
-                            "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                            "material": "PLA",
-                            "color": "NARANJA-T",
-                            "buildTime": 30,
-                            "cost": 0.85,
-                            "price": 3.0,
-                            "stockLevel": 5,
-                            "stockAvailable": 0,
-                            "imagePath": "https://ibb.co/3dGbsRh",
-                            "modelPath": "pieza3.sft",
-                            "active": true
-                        },
-                        "jobInstallmentDate": "2020-06-01T22:05:00Z"
-                    }
-                    ]
-                }
-                return inventoryMachinesResponseJson;
-            case 'INVENTORY-MACHINESV2':
-                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                const inventoryMachinesv2ResponseJson = {
-                    "machines": [{
-                        "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
-                        "label": "Ender 3 Pro - B",
-                        "model": "Creality 3D Ender 3 Pro",
-                        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
-                        "buildRecord": {
-                            "state": "IDLE",
-                            "part": null,
-                            "partCopies": 1,
-                            "jobInstallmentDate": null,
-                            "remainingTime": 0
-                        },
-                        "remainingTime": 0,
-                        "running": false
-                    },
-                    {
-                        "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
-                        "label": "Ender 3 Pro - A",
-                        "model": "Creality 3D Ender 3 Pro",
-                        "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.\n",
-                        "buildRecord": {
-                            "state": "IDLE",
-                            "part": null,
-                            "partCopies": 1,
-                            "jobInstallmentDate": null,
-                            "remainingTime": 0
-                        },
-                        "remainingTime": 0,
-                        "running": false
-                    }
-                    ],
-                    "count": 2
-                }
-                return inventoryMachinesv2ResponseJson;
-            // case 'PRODUCTION-JOBS':
-            //     console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-            //     return this.directAccessMockResource('production.pendingjobs');
-            case 'MACHINE-STARTBUILD':
-                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                const machineStartBuildResponseJson = {
-                    "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
-                    "label": "Machine B",
-                    "model": "Creality 3D Ender 3 Pro",
-                    "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
-                    "currentJobPart": {
-                        "id": "64c26e80-6b5f-4ce5-a77b-6a0c58f853ae",
-                        "label": "Covid-19 Key",
-                        "description": "This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons.",
-                        "material": "PLA",
-                        "color": "NARANJA-T",
-                        "buildTime": 30,
-                        "cost": 0.85,
-                        "price": 3.0,
-                        "stockLevel": 5,
-                        "stockAvailable": 0,
-                        "imagePath": "https://ibb.co/3dGbsRh",
-                        "modelPath": "pieza3.sft",
-                        "active": true
-                    },
-                    "currentPartInstances": 1,
-                    "jobInstallmentDate": "2020-06-01T22:05:00Z"
-                };
-                return machineStartBuildResponseJson;
-            case 'MACHINE-CANCELBUILD':
-                console.log("><[SupportHttpClientWrapperService.decodeRequestPath]> match: " + keyword);
-                const machineCancelBuildResponseJson = {
-                    "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
-                    "label": "Machine B",
-                    "model": "Creality 3D Ender 3 Pro",
-                    "characteristics": "Max size set to 200mm. Has adaptor for flexible plastic filament.",
-                    "currentJobPart": null,
-                    "currentPartInstances": 1,
-                    "jobInstallmentDate": null
-                };
-                return machineCancelBuildResponseJson;
             default:
                 return {};
         }

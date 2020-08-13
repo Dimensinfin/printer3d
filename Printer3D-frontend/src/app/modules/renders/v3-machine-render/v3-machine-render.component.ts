@@ -52,6 +52,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         console.log('<[V3MachineRenderComponent.ngAfterViewInit]')
     }
 
+    // - G E T T E R S
     public getNode(): Machine {
         return this.node as Machine
     }
@@ -118,7 +119,6 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
      */
     public changePartCount(): void {
         this.state = 'IDLE'
-        if (null == this.target.getCopies()) this.state = 'INVALID'
         this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
         this.showTimer(this.remainingTime)
     }
@@ -143,6 +143,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     this.state = 'RUNNING'
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.startBuild.exception]> Error message: ' + JSON.stringify(error.error))
+                    this.state = 'EXCEPTION'
                     if (environment.showexceptions)
                         if (error instanceof HttpErrorResponse)
                             this.isolationService.processException(error)
@@ -172,6 +173,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     this.state = 'IDLE'
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.onClear.exception]> Error message: ' + JSON.stringify(error.error))
+                    this.state = 'EXCEPTION'
                     if (environment.showexceptions)
                         if (error instanceof HttpErrorResponse)
                             this.isolationService.processException(error)
@@ -197,6 +199,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     this.state = 'IDLE'
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.completeBuild.exception]> Error message: ' + JSON.stringify(error.error))
+                    this.state = 'EXCEPTION'
                     if (environment.showexceptions)
                         if (error instanceof HttpErrorResponse)
                             this.isolationService.processException(error)

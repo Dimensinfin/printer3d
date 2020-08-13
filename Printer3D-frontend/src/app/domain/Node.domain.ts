@@ -86,9 +86,4 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable {
             this.uniqueIdentifier = uuidv4()
         return this.uniqueIdentifier
     }
-
-    // - I M E N U
-    // public hasMenu(): boolean {
-    //     return false;
-    // }
 }

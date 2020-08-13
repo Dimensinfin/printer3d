@@ -1,12 +1,9 @@
-// - TESTING
-import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { RequestItem } from './RequestItem.domain';
 import { RequestContentType } from '../interfaces/EPack.enumerated';
 import { Part } from '../inventory/Part.domain';
 
 describe('CLASS RequestItem [Module: DOMAIN]', () => {
-
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {

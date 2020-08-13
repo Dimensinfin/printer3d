@@ -30,7 +30,8 @@ export class Job extends Node {
     public getPriority(): number {
         return this.priority
     }
-    public getCopies() : number {
+    public getCopies(): number {
+        if (null == this.partCount) return 1
         return this.partCount
     }
     public getAggregated(): number {

@@ -1,27 +1,14 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
 // - TESTING
-import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/testing';
-import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
-import { routes } from '@app/testing/RouteMockUp.component';
 // - PROVIDERS
-import { IsolationService } from '@app/platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
-// - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { BackendService } from '@app/services/backend.service';
+import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
+// - DOMAIN
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { Request } from '@domain/production/Request.domain';
 import { Part } from '@domain/inventory/Part.domain';
@@ -63,8 +50,6 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             expect(componentAsAny.partContainers.size).toBe(0);
             expect(componentAsAny.items).toBeDefined();
             expect(componentAsAny.items.length).toBe(0);
-            expect(componentAsAny.backendConnections).toBeDefined();
-            expect(componentAsAny.backendConnections.length).toBe(0);
         });
     });
 
@@ -93,9 +78,14 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
                 }
             }
             spyOn(component.page, 'setSelected')
-            componentAsAny.target = new Model()
+            componentAsAny.selection.addSelection(new Model())
             component.fireSelectionChanged()
             expect(component.page.setSelected).toHaveBeenCalled()
+        });
+        it('fireSelectionChanged.null: this method is called when the mouse enters a generic node render', () => {
+            const componentAsAny = component as any;
+            componentAsAny.page = null
+            componentAsAny.selection.addSelection(new Model())
         });
         it('fireSelectionChanged.any: this method is called when the mouse enters a generic node render', () => {
             const componentAsAny = component as any;
@@ -107,7 +97,7 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             }
             spyOn(component.page, 'setSelected')
             spyOn(component.page, 'closeEditor')
-            componentAsAny.target = new Request()
+            componentAsAny.selection.addSelection(new Request())
             component.fireSelectionChanged()
             expect(component.page.setSelected).not.toHaveBeenCalled()
             expect(component.page.closeEditor).toHaveBeenCalled()

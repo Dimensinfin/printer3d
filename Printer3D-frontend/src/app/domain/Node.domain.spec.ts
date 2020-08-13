@@ -1,41 +1,29 @@
-// - TESTING
-import { TestBed } from '@angular/core/testing';
-// - PROVIDERS
-import { IsolationService } from '../platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Node } from '@domain/Node.domain';
-import { ESeparator } from './interfaces/EPack.enumerated';
 
-xdescribe('CLASS Node Module: DOMAIN]', () => {
-
-    beforeEach(() => {
-    });
-
+describe('CLASS Node Module: DOMAIN]', () => {
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
             const instance = new Node();
             const nodeAsAny = instance as any;
             expect(instance).toBeDefined();
+            expect(nodeAsAny.uniqueIdentifier).toBeDefined()
             expect(nodeAsAny.jsonClass).toBe('Node')
             expect(nodeAsAny.expanded).toBeFalse()
             expect(nodeAsAny.selected).toBeFalse()
-            expect(nodeAsAny.themeColor).toBe(ESeparator.WHITE)
         });
         it('constructor.data: validate initial state with object data', () => {
             const instance = new Node({
-                "jsonClass": "Node",
                 "expanded": true,
-                "selected": true,
-                "themeColor": ESeparator.EMPTY
+                "selected": true
             });
             const nodeAsAny = instance as any;
             expect(instance).toBeDefined();
+            expect(nodeAsAny.uniqueIdentifier).toBeDefined()
             expect(nodeAsAny.jsonClass).toBe('Node')
             expect(nodeAsAny.expanded).toBeTrue()
             expect(nodeAsAny.selected).toBeTrue()
-            expect(nodeAsAny.themeColor).toBe(ESeparator.EMPTY)
         });
     });
 
@@ -111,19 +99,20 @@ xdescribe('CLASS Node Module: DOMAIN]', () => {
             node.unselect();
             expect(node.isSelected()).toBeFalsy();
         });
+        it('equalRef: validate that two nodes are the same or not', () => {
+            const node1 = new Node()
+            const node2 = new Node()
+            expect(node1.equalRef(node2)).toBeFalse();
+            expect(node1.equalRef(node1)).toBeTrue();
+        });
+        it('getUniqueId: get the unique node identifier', () => {
+            const node = new Node()
+            expect(node.getUniqueId()).toBeDefined()
+            const nodeAsAny = node as any
+            nodeAsAny.uniqueIdentifier=null
+            expect(node.getUniqueId()).toBeDefined()
+       });
     });
-    // describe('Validate Interface compliance [IMenu]', () => {
-    //     it('hasMenu: check the menu avilabillity', () => {
-    //         const node = new Node()
-    //         expect(node.hasMenu()).toBeFalsy();
-    //     });
-    // });
-    // describe('Validate Interface compliance [IColor]', () => {
-    //     it('getThemeColor: check the cplor theming', () => {
-    //         const node = new Node()
-    //         expect(node.getThemeColor()).toBe(ESeparator.WHITE);
-    //     });
-    // });
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [getters]', () => {

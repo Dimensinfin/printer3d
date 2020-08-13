@@ -51,6 +51,9 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
 
     // - R E F R E S H A B L E
     public clean(): void {
+        this.parts=[]
+        this.models=[]
+        this.items=[]
     }
     public refresh(): void {
         this.clean()
@@ -95,7 +98,7 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
         )
     }
     protected generateItems(): void {
-        // Join the lsit of Parts and the list of Models in order
+        // Join the list of Parts and the list of Models in order
         this.items = []
         for (const item of this.models) {
             if (item.isActive()) this.items.push(item)

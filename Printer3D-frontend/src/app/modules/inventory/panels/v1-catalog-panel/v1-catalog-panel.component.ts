@@ -73,6 +73,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         this.clean()
         this.downloadParts()
     }
+
     // - B A C K E N D
     protected downloadParts(): void {
         this.backendConnections.push(
@@ -135,7 +136,6 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
     }
     private sortPartsByActive(parts: Part[]): Part[] {
         return parts.sort((part1, part2) => {
-            if (part1.active == part2.active) return 0;
             if (part1.active && !part2.active) return -1;
             if (!part1.active && part2.active) return 1;
             return 0;

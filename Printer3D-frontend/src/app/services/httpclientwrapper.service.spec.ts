@@ -18,7 +18,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Part } from '@domain/inventory/Part.domain';
 
-describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
+xdescribe('SERVICE HttpClientWrapperService [Module: APP]', () => {
     let service: HttpClientWrapperService;
 
     beforeEach(() => {
