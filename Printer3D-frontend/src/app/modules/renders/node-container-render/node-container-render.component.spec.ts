@@ -11,7 +11,7 @@ import { Node } from '@domain/Node.domain';
 import { NodeContainerRenderComponent } from './node-container-render.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 
-xdescribe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
+describe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
     let component: NodeContainerRenderComponent;
 
     beforeEach(() => {
@@ -35,7 +35,7 @@ xdescribe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             expect(component.container).toBeUndefined()
             expect(component.node).toBeUndefined()
             expect(component.variant).toBe(EVariant.DEFAULT);
-            expect(component.colorScheme).toBe('panel-white')
+            // expect(component.colorScheme).toBe('panel-white')
             expect(component.index).toBe(1)
             expect(component.selectOnHover).toBeFalse()
         });
@@ -68,21 +68,21 @@ xdescribe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
         it('mouseEnter.notauto: pass the hovered node to the parent view container', () => {
             const componentAsAny = component as any;
             componentAsAny.container = {
-                enterSelected: () => { }
+                addSelection: () => { }
             }
-            spyOn(componentAsAny.container, 'enterSelected')
+            spyOn(componentAsAny.container, 'addSelection')
             component.mouseEnter(new Node())
-            expect(componentAsAny.container.enterSelected).not.toHaveBeenCalled()
+            expect(componentAsAny.container.addSelection).not.toHaveBeenCalled()
         });
         it('mouseEnter.auto: pass the hovered node to the parent view container', () => {
             const componentAsAny = component as any;
             componentAsAny.container = {
-                enterSelected: () => { }
+                addSelection: () => { }
             }
             component.selectOnHover = true
-            spyOn(componentAsAny.container, 'enterSelected')
+            spyOn(componentAsAny.container, 'addSelection')
             component.mouseEnter(new Node())
-            expect(componentAsAny.container.enterSelected).toHaveBeenCalled()
+            expect(componentAsAny.container.addSelection).toHaveBeenCalled()
         });
         it('toggleExpanded.notExpandable: toggle the expand property for the node', () => {
             const componentAsAny = component as any;
@@ -168,6 +168,45 @@ xdescribe('PANEL NodeContainerRenderComponent [Module: RENDER]', () => {
             expect(component.isActive()).toBeTrue();
             component.toggleExpanded();
             expect(component.isActive()).toBeTrue();
+        });
+        it('select: select this node on the selection', () => {
+            const componentAsAny = component as any;
+            componentAsAny.container = {
+                addSelection: () => { }
+            }
+            componentAsAny.node = {
+                select: () => { }
+            }
+            spyOn(componentAsAny.container, 'addSelection')
+            spyOn(componentAsAny.node, 'select')
+            component.select()
+            expect(componentAsAny.container.addSelection).toHaveBeenCalled()
+            expect(componentAsAny.node.select).toHaveBeenCalled()
+        });
+        it('unselect: unselect this node on the selection', () => {
+            const componentAsAny = component as any;
+            componentAsAny.container = {
+                subtractSelection: () => { }
+            }
+            componentAsAny.node = {
+                unselect: () => { }
+            }
+            spyOn(componentAsAny.container, 'subtractSelection')
+            spyOn(componentAsAny.node, 'unselect')
+            component.unselect()
+            expect(componentAsAny.container.subtractSelection).toHaveBeenCalled()
+            expect(componentAsAny.node.unselect).toHaveBeenCalled()
+        });
+        it('isEmpty: check if a node reference is is valid', () => {
+            expect(component.isEmpty()).toBeTrue()
+            expect(component.isEmpty(null)).toBeTrue()
+            expect(component.isEmpty(undefined)).toBeTrue()
+            expect(component.isEmpty("")).toBeTrue()
+            expect(component.isEmpty([])).toBeTrue()
+            expect(component.isEmpty(0)).toBeTrue()
+            expect(component.isEmpty(" ")).toBeFalse()
+            expect(component.isEmpty(new Node)).toBeFalse()
+            expect(component.isEmpty([new Node])).toBeFalse()
         });
     });
 });

@@ -12,7 +12,7 @@ import { AppPanelComponent } from './app-panel.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { Node } from '@domain/Node.domain';
 
-xdescribe('PANEL AppPanelComponent [Module: CORE]', () => {
+describe('PANEL AppPanelComponent [Module: CORE]', () => {
     let component: AppPanelComponent;
 
     beforeEach(() => {
@@ -42,7 +42,8 @@ xdescribe('PANEL AppPanelComponent [Module: CORE]', () => {
             expect(componentAsAny.dataModelRoot.length).toBe(0)
             expect(componentAsAny.renderNodeList).toBeDefined()
             expect(componentAsAny.renderNodeList.length).toBe(0)
-            expect(componentAsAny.target).toBeUndefined();
+            expect(componentAsAny.selection).toBeDefined()
+            expect(componentAsAny.selection.getFirstSelected()).toBeUndefined()
         });
     });
 
@@ -64,10 +65,16 @@ xdescribe('PANEL AppPanelComponent [Module: CORE]', () => {
         it('getNodes2Render.success: check the nodes to be rendered', () => {
             let componentAny = component as any;
             componentAny.renderNodeList.push(new Node());
-            // component.completeDowload();
             let obtained = component.getNodes2Render();
             expect(obtained).toBeDefined();
             expect(obtained.length).toBe(1);
+        });
+        it('startDownloading: signal the start for the downloading', () => {
+            const componentAsAny = component as any;
+            componentAsAny.downloading = false
+            expect(component.isDownloading()).toBeFalse()
+            component.startDownloading()
+            expect(component.isDownloading()).toBeTrue()
         });
     });
     describe('Code Coverage Phase [setters]', () => {
@@ -84,17 +91,34 @@ xdescribe('PANEL AppPanelComponent [Module: CORE]', () => {
             const componentAsAny = component as any;
             expect(componentAsAny.renderNodeList).toBeDefined();
             expect(componentAsAny.renderNodeList.length).toBe(0);
-            // componentAsAny.dataModelRoot.push(new Node())
             component.completeDowload([new Node()]);
             expect(componentAsAny.renderNodeList.length).toBe(1);
         });
     });
     describe('Validating interfaces [IViewer]', () => {
-        it('enterSelected.success: check that nodes get processed when the root load completes', () => {
+        it('addSelection.success: add a node to the selection', () => {
             const componentAsAny = component as any;
-            expect(componentAsAny.target).toBeUndefined();
+            expect(componentAsAny.selection.getFirstSelected()).toBeUndefined()
             component.addSelection(new Node())
-            expect(componentAsAny.target).toBeDefined();
+            expect(componentAsAny.selection.getFirstSelected()).toBeDefined()
+        });
+        it('subtractSelection.true: add a node to the selection', () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.selection.getFirstSelected()).toBeUndefined()
+            const node = new Node()
+            component.addSelection(node)
+            expect(componentAsAny.selection.getFirstSelected()).toBeDefined()
+            component.subtractSelection(node)
+            expect(componentAsAny.selection.getFirstSelected()).toBeNull()
+        });
+        it('subtractSelection.false: add a node to the selection', () => {
+            const componentAsAny = component as any;
+            expect(componentAsAny.selection.getFirstSelected()).toBeUndefined()
+            const node = new Node()
+            component.addSelection(node)
+            expect(componentAsAny.selection.getFirstSelected()).toBeDefined()
+            component.subtractSelection(new Node())
+            expect(componentAsAny.selection.getFirstSelected()).toBeDefined()
         });
         it('notifyDataChanged.success: check that nodes get processed when the root load completes', () => {
             const expected = new Node();

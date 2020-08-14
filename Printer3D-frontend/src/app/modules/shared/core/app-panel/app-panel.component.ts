@@ -26,7 +26,7 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
         this.self = this;
     }
 
-    // - GETTERS & SETTERS
+    // - G E T T E R S
     public getVariant(): EVariant {
         return this.variant;
     }

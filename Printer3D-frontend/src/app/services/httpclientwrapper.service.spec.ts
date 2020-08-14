@@ -4,8 +4,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpTestingController } from '@angular/common/http/testing';
 // - TESTING
-import { async } from '@angular/core/testing';
-import { inject } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
@@ -16,9 +14,8 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { HttpClientWrapperService } from './httpclientwrapper.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Part } from '@domain/inventory/Part.domain';
 
-xdescribe('SERVICE HttpClientWrapperService [Module: APP]', () => {
+describe('SERVICE HttpClientWrapperService [Module: APP]', () => {
     let service: HttpClientWrapperService;
 
     beforeEach(() => {
@@ -36,6 +33,12 @@ xdescribe('SERVICE HttpClientWrapperService [Module: APP]', () => {
                 {
                     provide: HttpClient, useValue: {
                         get: (request: string, headers?: object) => {
+                            return Observable.create((observer) => {
+                                observer.next({});
+                                observer.complete();
+                            });
+                        },
+                        delete: (request: string, headers?: object) => {
                             return Observable.create((observer) => {
                                 observer.next({});
                                 observer.complete();
@@ -78,13 +81,13 @@ xdescribe('SERVICE HttpClientWrapperService [Module: APP]', () => {
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Http Wrappers]', () => {
         it('wrapHttpGETCall.success: make a GET request', async () => {
-            service.wrapHttpGETCall('request')
+            await service.wrapHttpGETCall('request')
                 .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });
         });
         it('wrapHttpPUTCall.success: make a PUT request', async () => {
-            service.wrapHttpPUTCall('request')
+            await service.wrapHttpPUTCall('request')
                 .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });
@@ -95,14 +98,20 @@ xdescribe('SERVICE HttpClientWrapperService [Module: APP]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('wrapHttpRESOURCECall.success: make a RESOURCE request', async () => {
-            service.wrapHttpRESOURCECall('request')
+        it('wrapHttpDELETECall.success: make a PATCH request', async () => {
+            await service.wrapHttpDELETECall('request')
                 .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });
         });
-        it('wrapHttpPOSTCall.success: make a POST request', () => {
-            service.wrapHttpPOSTCall('request', '-DATA-')
+        it('wrapHttpRESOURCECall.success: make a RESOURCE request', async () => {
+            await service.wrapHttpRESOURCECall('request')
+                .subscribe((response: any) => {
+                    expect(response).toBeDefined();
+                });
+        });
+        it('wrapHttpPOSTCall.success: make a POST request', async () => {
+            await service.wrapHttpPOSTCall('request', '-DATA-')
                 .subscribe((response: any) => {
                     expect(response).toBeDefined();
                 });

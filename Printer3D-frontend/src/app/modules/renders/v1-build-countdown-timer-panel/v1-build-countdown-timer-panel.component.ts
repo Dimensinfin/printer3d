@@ -1,18 +1,9 @@
 // - CORE
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
-import { Observable } from "rxjs";
 import { Subscription } from "rxjs";
 import { timer } from 'rxjs';
-import { NEVER } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
-import { takeWhile } from 'rxjs/operators';
-import { startWith } from 'rxjs/operators';
-import { take } from 'rxjs/operators';
 // - DOMAIN
 import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render.component';
 

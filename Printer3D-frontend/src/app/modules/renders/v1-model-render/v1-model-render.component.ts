@@ -16,6 +16,7 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     private editing: boolean = false
     private nodeBackup: Model;
 
+    // - G E T T E R S
     public getNode(): Model {
         return this.node as Model
     }

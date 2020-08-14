@@ -30,12 +30,16 @@ describe('COMPONENT V1ModelRenderComponent [Module: RENDER]', () => {
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
+            const componentAsAny = component as any
             expect(component).toBeDefined('component has not been created.');
+            expect(component.inside).toBeFalse()
+            expect(componentAsAny.editing).toBeFalse()
+            expect(componentAsAny.nodeBackup).toBeUndefined()
         });
     });
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Getters]', () => {
-        it('getters: validate getter contract for Part', () => {
+        it('getters: validate getter contract', () => {
             const model = new Model({
                 id: "9903926b-e786-4fb2-8e8e-68960ebebb7a",
                 label: '-TEST-LABEL-',
@@ -49,7 +53,7 @@ describe('COMPONENT V1ModelRenderComponent [Module: RENDER]', () => {
                     })
                 ]
             })
-            const coilAsAny = model as any
+            // const modelAsAny = model as any
             component.node = model
             expect(component).toBeDefined();
             expect(component.getNode()).toBeDefined()
@@ -59,10 +63,18 @@ describe('COMPONENT V1ModelRenderComponent [Module: RENDER]', () => {
             expect(component.getPrice()).toBe('4 €')
             expect(component.getComposingParts()).toBeDefined()
             expect(component.getComposingParts().length).toBe(1)
+            expect(component.isActive()).toBeTrue()
         });
     });
     describe('Coverage Phase [Interactions]', () => {
         it('mouseEnter: control the mouse enter/exit', () => {
+            expect(component.inside).toBeFalse()
+            component.mouseEnter({})
+            expect(component.inside).toBeTrue()
+            component.mouseLeave({})
+            expect(component.inside).toBeFalse()
+        });
+        it('mouseLeave: control the mouse enter/exit', () => {
             expect(component.inside).toBeFalse()
             component.mouseEnter({})
             expect(component.inside).toBeTrue()
@@ -80,16 +92,16 @@ describe('COMPONENT V1ModelRenderComponent [Module: RENDER]', () => {
         it('toggleEdition: change the model edit state', () => {
             const componentAsAny = component as any
             componentAsAny.container = {
-                enterSelected: () => { }
+                addSelection: () => { }
             }
-            spyOn(componentAsAny.container, 'enterSelected')
+            spyOn(componentAsAny.container, 'addSelection')
             expect(componentAsAny.editing).toBeFalse()
             component.toggleEdition()
             expect(componentAsAny.editing).toBeTrue()
-            expect(componentAsAny.container.enterSelected).toHaveBeenCalledTimes(1)
+            expect(componentAsAny.container.addSelection).toHaveBeenCalledTimes(1)
             component.toggleEdition()
             expect(component.inside).toBeFalse()
-            expect(componentAsAny.container.enterSelected).toHaveBeenCalledTimes(2)
+            expect(componentAsAny.container.addSelection).toHaveBeenCalledTimes(2)
         });
     });
 });

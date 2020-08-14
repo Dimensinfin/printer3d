@@ -19,10 +19,11 @@ export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
     @Input() container: IViewer;
     @Input() node: Node;
     @Input() variant: EVariant = EVariant.DEFAULT;
-    @Input() colorScheme: string = 'panel-white';  // The name of the panel style to be rendered.
+    // @Input() colorScheme: string = 'panel-white';  // The name of the panel style to be rendered.
     @Input() index: number = 1;
     @Input() selectOnHover: boolean = false
 
+    // - G E T T E R S
     public getNode(): Node {
         return this.node;
     }
@@ -50,7 +51,7 @@ export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
     }
     public unselect(): void {
         this.node.unselect()
-        this.container.addSelection(this.node)
+        this.container.subtractSelection(this.node)
     }
     public isExpanded(): boolean {
         if (null != this.node)

@@ -29,10 +29,10 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
     }
 
     public ngOnInit(): void {
-        console.log(">[V2InventoryPartListPageComponent.ngOnInit]");
+        console.log(">[V1AvailablePartsPanelComponent.ngOnInit]");
         this.startDownloading();
         this.refresh();
-        console.log("<[V2InventoryPartListPageComponent.ngOnInit]");
+        console.log("<[V1AvailablePartsPanelComponent.ngOnInit]");
     }
 
     protected generatePartListing(): void {
