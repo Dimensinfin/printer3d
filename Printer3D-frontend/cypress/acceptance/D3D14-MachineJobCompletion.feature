@@ -7,8 +7,10 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
     Background: Application landing page
         # - Use a visit initialization with time configured
         Given a timed application Printer3DManager
+        Given one instance of Dock
         Given there is a click on Feature "/TRABAJOS PND."
         Then the page "Production Jobs Page" is activated
+        When the loading panel completes
 
     @D3D14.01
     Scenario: [D3D14.01]-Register a job on one machine and advance the time to see that the timer is running.
