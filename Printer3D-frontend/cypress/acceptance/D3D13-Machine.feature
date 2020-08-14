@@ -13,6 +13,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given the application Printer3DManager
         Given there is a click on Feature "/TRABAJOS PND."
         Then the page "Production Jobs Page" is activated
+        When the loading panel completes
 
     # - H A P P Y   P A T H
     @D3D13.01
