@@ -42,7 +42,7 @@ Then('the loading panel shows {string}', function (loadingMessage: string) {
         .contains(loadingMessage)
 });
 When('the loading panel completes', function () {
-    cy.wait(1000)
+    cy.wait(2000)
 });
 
 // - P A G E   A C T I V A T I O N
