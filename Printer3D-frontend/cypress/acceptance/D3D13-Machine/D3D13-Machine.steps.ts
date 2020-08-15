@@ -4,9 +4,36 @@ import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICE
 import { SupportService } from '../../support/SupportService.support';
-import { find } from 'cypress/types/lodash';
 
 const supportService = new SupportService();
+
+// - S T E P   M A C R O S
+Given('a job on a Machine', function () {
+    // Given the target is the panel of type "jobs-list"
+    let tag = supportService.translateTag('jobs-list') // Do name replacement
+    cy.get('@target-page').find(tag)
+        .as('target-panel').as('target')
+    // Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    tag = supportService.translateTag('job') // Do name replacement
+    let recordId = "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
+        .should('have.prop', 'draggable')
+        .should('exist')
+    // Given the target is the panel of type "machines"
+    tag = supportService.translateTag('machines') // Do name replacement
+    cy.get('@target-page').find(tag)
+        .as('target-panel').as('target')
+    // Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    tag = supportService.translateTag('machine') // Do name replacement
+    recordId = "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
+        .should('exist')
+    // When the drag source is dragged to the drop destination "dropJobs"
+    const dropDestination = "dropJobs"
+    cy.get('@drag-source').scrollIntoView().trigger('dragstart')
+    cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
+});
+
 
 // - T A R G E T   C O N T E N T S
 Then('the panel {string} has no {string}', function (targetName: string, symbolicName: string) {
@@ -15,15 +42,6 @@ Then('the panel {string} has no {string}', function (targetName: string, symboli
         cy.get(tag).should('not.exist')
     })
 });
-
-// Then('the target has the title {string}', function (title: string) {
-//     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
-// });
-// Then('the target has {int} {string}', function (count: number, symbolicName: string) {
-//     const tag = supportService.translateTag(symbolicName) // Do name replacement
-//     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-//     cy.get('@target').find(tag).should('have.length', count)
-// });
 Then('field named {string} with label {string} and value {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target').within(($item) => {
@@ -37,95 +55,69 @@ Then('field named {string} with label {string} and value {string}',
 Then('the target has a drop place named {string}', function (dropName: string) {
     cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
 });
-// Then('the target has no {string}', function (symbolicName: string) {
-//     const tag = supportService.translateTag(symbolicName) // Do name replacement
-//     cy.get('@target').within(($item) => {
-//         cy.get('button').should('not.exist')
-//     })
-// });
-// Then('the target has {int} {string}', function (count: number, symbolicName: string) {
-//     const tag = supportService.translateTag(symbolicName) // Do name replacement
-//     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-//     cy.get('@target').within(($item) => {
-//         cy.get(tag).should('have.length', count)
-//     })
-// });
-
-// // - D R A G   &   D R O P
-// Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
-//     const tag = supportService.translateTag(symbolicName) // Do name replacement
-//     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
-//     cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
-//         .should('have.prop', 'draggable')
-//         .should('exist')
-// });
-// When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
-//     cy.get('@drag-source').trigger('dragstart')
-//     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
-// });
 
 // - B U T T O N S
 
 // - F O R M S
-Then('form field named {string} with label {string} and contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target').within(($item) => {
-            cy.get('[cy-name="' + fieldName + '"]')
-            cy.get('[cy-field-label="' + fieldName + '"]')
-                .contains(fieldLabel, { matchCase: false })
-            cy.get('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-                cy.log(type as string);
-                switch (type) {
-                    case 'input':
-                        cy.log('input')
-                        cy.get('input')
-                            .invoke('val').should('equal', fieldValue)
-                        break
-                    case 'select':
-                        cy.log('select')
-                        cy.get('select')
-                            .invoke('val').should('equal', fieldValue)
-                        break
-                    case 'textarea':
-                        cy.log('textarea')
-                        cy.get('textarea')
-                            .invoke('val').should('equal', fieldValue)
-                        break
-                }
-            })
-        })
-    });
-Then('form field named {string} is {string}', function (fieldName: string, state: string) {
-    cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-field')
-    let inputType: string = ''
-    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-        cy.log(type as string);
-        inputType = type as string
-    })
-    let stateClass = 'ng-valid'
-    if (state == 'invalid') stateClass = 'ng-invalid'
-    if (state == 'valid') stateClass = 'ng-valid'
-    if (state == 'indiferent') stateClass = 'dsf-input'
-    if (inputType != '') {
-        switch (inputType) {
-            case 'input':
-                cy.log('input')
-                cy.get('@target-field').find('input')
-                    .should('have.class', stateClass)
-                break
-            case 'select':
-                cy.log('select')
-                cy.get('@target-field').find('select')
-                    .should('have.class', stateClass)
-                break
-            case 'textarea':
-                cy.log('textarea')
-                cy.get('@target-field').find('textarea')
-                    .should('have.class', stateClass)
-                break
-        }
-    }
-});
+// Then('form field named {string} with label {string} and contents {string}',
+//     function (fieldName: string, fieldLabel: string, fieldValue: string) {
+//         cy.get('@target').within(($item) => {
+//             cy.get('[cy-name="' + fieldName + '"]')
+//             cy.get('[cy-field-label="' + fieldName + '"]')
+//                 .contains(fieldLabel, { matchCase: false })
+//             cy.get('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+//                 cy.log(type as string);
+//                 switch (type) {
+//                     case 'input':
+//                         cy.log('input')
+//                         cy.get('input')
+//                             .invoke('val').should('equal', fieldValue)
+//                         break
+//                     case 'select':
+//                         cy.log('select')
+//                         cy.get('select')
+//                             .invoke('val').should('equal', fieldValue)
+//                         break
+//                     case 'textarea':
+//                         cy.log('textarea')
+//                         cy.get('textarea')
+//                             .invoke('val').should('equal', fieldValue)
+//                         break
+//                 }
+//             })
+//         })
+//     });
+// Then('form field named {string} is {string}', function (fieldName: string, state: string) {
+//     cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-field')
+//     let inputType: string = ''
+//     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+//         cy.log(type as string);
+//         inputType = type as string
+//     })
+//     let stateClass = 'ng-valid'
+//     if (state == 'invalid') stateClass = 'ng-invalid'
+//     if (state == 'valid') stateClass = 'ng-valid'
+//     if (state == 'indiferent') stateClass = 'dsf-input'
+//     if (inputType != '') {
+//         switch (inputType) {
+//             case 'input':
+//                 cy.log('input')
+//                 cy.get('@target-field').find('input')
+//                     .should('have.class', stateClass)
+//                 break
+//             case 'select':
+//                 cy.log('select')
+//                 cy.get('@target-field').find('select')
+//                     .should('have.class', stateClass)
+//                 break
+//             case 'textarea':
+//                 cy.log('textarea')
+//                 cy.get('@target-field').find('textarea')
+//                     .should('have.class', stateClass)
+//                 break
+//         }
+//     }
+// });
 
 // - M O V E M E N T
 When('the mouse exits the target', function () {

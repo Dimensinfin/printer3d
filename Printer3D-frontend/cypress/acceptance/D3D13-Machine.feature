@@ -127,13 +127,14 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
 
     @D3D13.08
     Scenario: [D3D13.08]-If the number of copies is invalidated then the Start button is disabled.
-        # - Select a Job for drag
-        Given the target is the panel of type "jobs-list"
-        Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "machines"
-        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-        When the drag source is dragged to the drop destination "dropJobs"
+        # # - Select a Job for drag
+        # Given the target is the panel of type "jobs-list"
+        # Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        # # - Drag a part to the drop contents
+        # Given the target is the panel of type "machines"
+        # Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        # When the drag source is dragged to the drop destination "dropJobs"
+        Given a job on a Machine
         # - Invalidate the contents of the copies
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         And empty is set on form field "quantity"

@@ -25,7 +25,6 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
         # - Check the buttons and states
         And the target has 1 "buttons"
-        And the target has no "complete-button" button
         And the button with name "delete-button" has a label "Borrar" and is "enabled"
 
     @D3D12.02

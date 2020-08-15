@@ -119,8 +119,11 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
      */
     public changePartCount(): void {
         this.state = 'IDLE'
-        this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
-        this.showTimer(this.remainingTime)
+        if (this.target.getCopies() > 0) {
+            this.remainingTime = this.target.getBuildSeconds() * this.target.getCopies();
+            this.showTimer(this.remainingTime)
+        } else
+            this.state = 'EXCEPTION'
     }
     public startBuild(): void {
         console.log('>[V3MachineRenderComponent.startBuild]')

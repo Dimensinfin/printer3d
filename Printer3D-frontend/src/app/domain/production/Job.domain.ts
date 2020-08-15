@@ -31,7 +31,7 @@ export class Job extends Node {
         return this.priority
     }
     public getCopies(): number {
-        if (null == this.partCount) return 1
+        if (null == this.partCount) return 0
         return this.partCount
     }
     public getAggregated(): number {
