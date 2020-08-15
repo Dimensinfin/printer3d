@@ -22,7 +22,7 @@ Given('the application Printer3DManager', function () {
 // - F E A T U R E   S E L E C T I O N
 When('there is a click on Feature {string}', function (featureLabel: string) {
     const tag = supportService.translateTag('feature') // Do name replacement
-    cy.get('v1-dock')
+    cy.get(supportService.translateTag('dock'))
         .find(tag)
         .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
         .scrollIntoView().click('center');

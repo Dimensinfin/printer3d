@@ -69,7 +69,7 @@ export class DockService {
         if (null != this.activeFeature) this.pageChange(this.activeFeature.getRoute());
     }
     public clean(): void {
-        console.log('><[DockService.clean]> ActiveFeature: ' + this.activeFeature.label);
+        if (null != this.activeFeature) console.log('><[DockService.clean]> ActiveFeature: ' + this.activeFeature.label);
         this.activeFeature = undefined;
         this.deactivateAllFeatures()
     }

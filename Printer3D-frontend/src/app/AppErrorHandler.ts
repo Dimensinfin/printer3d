@@ -11,12 +11,8 @@ import { IsolationService } from './platform/isolation.service';
 
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {
-    private  notifier  : ToastrService
-    constructor(
-        private rollbar: RollbarService,
-        private injector:Injector) { 
-            setTimeout(() => this.notifier = injector.get(ToastrService));
-        }
+    private notifier: ToastrService
+    constructor(private rollbar: RollbarService) { }
     /**
      * Process all errors reported by the application, being them typos, syntactic or functional errors.
      * The method should filter them and report on console what is expected for development fixing and registering onto Rollbar for application production
@@ -31,36 +27,28 @@ export class AppErrorHandler implements ErrorHandler {
             console.log('>[Exception]> Message: ' + error.message)
         }
         if (error instanceof HttpErrorResponse) {
-            const errorName: string = error.error.errorName
-            const httpStatus: string = error.error.httpStatus
-            const message: string = error.error.message
-            const cause: string = error.error.cause
-            if (null != cause)
-                this.errorNotification(message + '\nCausa: ' + cause, '[' + httpStatus + ']/' + errorName)
-            else
-                this.errorNotification(message, '[' + httpStatus + ']/' + errorName)
-            console.log('>[Exception]> ErrorName: ' + errorName)
-            console.log('>[Exception]> HttpStatus: ' + httpStatus)
-            console.log('>[Exception]> Message: ' + message)
-            if (null != cause) console.log('>[Exception]> Cause: ' + cause)
+            if (null != error.error) {
+                if (null != error.error.errorName) {
+                    const errorName: string = error.error.errorName
+                    const httpStatus: string = error.error.httpStatus
+                    const message: string = error.error.message
+                    const cause: string = error.error.cause
+                    console.log('>[Exception]> ErrorName: ' + errorName)
+                    console.log('>[Exception]> HttpStatus: ' + httpStatus)
+                    console.log('>[Exception]> Message: ' + message)
+                    if (null != cause) console.log('>[Exception]> Cause: ' + cause)
+                }
+            }
+            else {
+                const errorName: string = error.statusText
+                const httpStatus: number = error.status
+                const message: string = error.message
+                const cause: string = error.url
+                console.log('>[Exception]> ErrorName: ' + errorName)
+                console.log('>[Exception]> HttpStatus: ' + httpStatus)
+                console.log('>[Exception]> Message: ' + message)
+                if (null != cause) console.log('>[Exception]> Cause: ' + cause)
+            }
         }
-    }
-    private notifierConfiguration: any = {
-        autoDismiss: false,
-        toastTimeout: 8000,
-        newestOnTop: true,
-        position: 'bottom-right',
-        toastClass: 'notifier-box',
-        titleClass: 'notifier-title',
-        messageClass: 'notifier-message',
-        animate: 'slideFromLeft'
-    };
-    public errorNotification(message: string, title?: string, options?: any): void {
-        // Join options configuration.
-        let notConf;
-        if (null != options) notConf = { ...this.notifierConfiguration, ...options };
-        else notConf = this.notifierConfiguration;
-        notConf.toastTimeout = 15000;
-        this.notifier.error(message, title, notConf);
     }
 }
