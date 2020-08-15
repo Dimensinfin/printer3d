@@ -119,11 +119,11 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         When the drag source is dragged to the drop destination "dropJobs"
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         # - Validate the fields of the job displayed
-        And form field named "quantity" with label "CANTIDAD" and contents "1"
+        And form field named "quantity" with label "CANTIDAD" has contents "1"
         And form field named "quantity" is "valid"
-        And field named "label" with label "ETIQUETA" and value "Covid-19 Key"
-        And field named "material" with label "MATERIAL/COLOR" and value "PLA/NARANJA-T"
-        And field named "buildTime" with label "TIEMPO" and value "30"
+        And field named "label" with label "ETIQUETA" has contents "Covid-19 Key"
+        And field named "material" with label "MATERIAL/COLOR" has contents "PLA/NARANJA-T"
+        And field named "buildTime" with label "TIEMPO" has contents "30"
 
     @D3D13.08
     Scenario: [D3D13.08]-If the number of copies is invalidated then the Start button is disabled.
