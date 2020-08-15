@@ -35,6 +35,12 @@ When('the Feature with label {string} is clicked the destination is the Page {st
         .scrollIntoView().click();
     cy.get('app-root').find(tag).as('target-page').as('target').should('exist')
 });
+Then('there are no Features active', function () {
+    cy.get('v1-dock')
+        .find('v2-feature').within(($panel) => {
+            cy.get('.corner-mark').should('have.length', 0)
+        });
+});
 
 // - S P I N N E R
 Then('the loading panel shows {string}', function (loadingMessage: string) {

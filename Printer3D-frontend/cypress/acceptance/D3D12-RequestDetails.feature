@@ -18,7 +18,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
-        Given a hover on the target
+        Given the target is clicked
         # - Check the Request details and should not be Close button
         Given the target is the panel of type "request-details"
         And the target has 1 "request"
@@ -33,7 +33,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Given a hover on the target
+        Given the target is clicked
         # - Check the buttons and states
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -46,7 +46,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Given a hover on the target
+        Given the target is clicked
         # - Click on the Complete button
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -62,7 +62,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Given a hover on the target
+        Given the target is clicked
         # - Check the Request details
         Given the target is the panel of type "request-details"
         And the target has 1 "request"
@@ -86,7 +86,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
-        Given a hover on the target
+        Given the target is clicked
         # - Check the Request details
         Given the target is the panel of type "request-details"
         And the target has 1 "request"
@@ -103,7 +103,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Given a hover on the target
+        Given the target is clicked
         # - Click on the Delete button
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -122,7 +122,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Given a hover on the target
+        Given the target is clicked
         # - Click on the Delete button
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -141,7 +141,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         Given the target is the panel of type "open-requests"
         Then the target has 2 "request"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Given a hover on the target
+        Given the target is clicked
         # - Click on the Delete button
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -162,7 +162,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Given a hover on the target
+        Given the target is clicked
         # - Click on the Delete button
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"

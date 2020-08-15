@@ -16,6 +16,7 @@ import { RequestItem } from '@domain/production/RequestItem.domain';
 import { Model } from '@domain/inventory/Model.domain';
 import { environment } from '@env/environment';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DockService } from '@app/services/dock.service';
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -29,7 +30,8 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
     constructor(
         protected router: Router,
         protected isolationService: IsolationService,
-        protected backendService: BackendService) {
+        protected backendService: BackendService,
+        protected dockService: DockService) {
         super();
         this.self = this;
     }
@@ -81,6 +83,7 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
                     }))
                 .subscribe((persistedRequest: Request) => {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
+                    this.dockService.clean() // Clean the selection from any feature
                     this.router.navigate(['/']);
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.startBuild.exception]> Error message: ' + JSON.stringify(error.error))
@@ -91,6 +94,7 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         )
     }
     public cancelRequest(): void {
+        this.dockService.clean() // Clean the selection from any feature
         this.router.navigate(['/']);
     }
 }

@@ -20,6 +20,7 @@ import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface
 import { environment } from '@env/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DeleteConfirmationDialogComponent } from '@app/modules/production/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { DockService } from '@app/services/dock.service';
 
 @Component({
     selector: 'v1-request',
@@ -33,7 +34,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         protected router: Router,
         protected isolationService: IsolationService,
         protected backendService: BackendService,
-        protected matDialog: MatDialog) {
+        protected matDialog: MatDialog,
+        protected dockService: DockService) {
         super();
         this.self = this
     }
@@ -96,6 +98,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
                         return targetRequest;
                     }))
                 .subscribe((request: Request) => {
+                    console.log('-[V1RequestRenderComponent.completeRequest.subscribe]> Label: ' + request.getLabel())
+                    this.dockService.clean() // Clean the selection from any feature
                     this.router.navigate(['/']);
                 }, (error) => {
                     console.log('-[V1RequestRenderComponent.completeRequest.exception]> Error message: ' + JSON.stringify(error.error))

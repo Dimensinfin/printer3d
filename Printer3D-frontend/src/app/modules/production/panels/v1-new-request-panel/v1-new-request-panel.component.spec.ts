@@ -30,7 +30,7 @@ import { Model } from '@domain/inventory/Model.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 
-describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
+xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
     let fixture: ComponentFixture<V1NewRequestPanelComponent>
     let component: V1NewRequestPanelComponent;
     let isolationService: SupportIsolationService;

@@ -262,7 +262,7 @@ export class BackendService {
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPUTCall(request, headers)
             .pipe(map((data: any) => {
-                console.log(">[BackendService.apiRequestsClose_v1]> Transformation: " + transformer.description);
+                console.log(">[BackendService.apiProductionRequestsClose_v2]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as Request;
                 return response;
             }));

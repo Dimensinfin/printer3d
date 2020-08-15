@@ -67,25 +67,10 @@ Given('the target panel is the panel with variant {string}', function (variant: 
         .find('[ng-reflect-variant="' + variant + '"]')
         .as('target-panel')
 });
-// When('there is a click on the {string} button of target dialog', function (buttonId: string) {
-//     cy.get('@target-dialog').find('[id="' + buttonId + '"]').click('center')
-// });
 Then('there is a Notification panel', function () {
     cy.get('#toast-container').should('exist')
 });
-Then('there are no Features active', function () {
-    cy.get('v1-dock')
-        .find('v2-feature').within(($panel) => {
-            cy.get('.corner-mark').should('have.length', 0)
-        });
-});
 
-
-
-// Given('the DashboardPage is activated', function () {
-//     console.log('[GIVEN] the DashboardPage is activated');
-//     new IsolationService().doLandingPage(); // Start the application to a known point.
-// });
 // - O B S O L E T E
 Given('one instance of PagePath', function () {
     console.log('[GIVEN] one instance of PageTitle');
