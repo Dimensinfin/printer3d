@@ -78,6 +78,11 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')
                     this.part.createNewId();
                     this.part.color = undefined;
+                }, (error) => {
+                    console.log('-[NewPartDialogComponent.savePart.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         );
     }

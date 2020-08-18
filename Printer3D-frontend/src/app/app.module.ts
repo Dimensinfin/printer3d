@@ -35,6 +35,7 @@ import { ProductionModule } from './modules/production/production.module';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { AppErrorHandler } from './AppErrorHandler';
+import { HttpErrorInterceptor } from './HttpErrorInterceptor';
 registerLocaleData(localeEs);
 
 // - ERROR INTERCEPTION
@@ -78,14 +79,10 @@ registerLocaleData(localeEs);
         { provide: IsolationService, useClass: IsolationService },
         { provide: BackendService, useClass: BackendService },
         { provide: DialogFactoryService, useClass: DialogFactoryService },
-        // { provide: AuthenticationService, useClass: AuthenticationService },
         // - ERROR INTERCEPTION
-        // { provide: ErrorHandler, useClass: RollbarService }
-        // { provide: ErrorHandler, useClass: AppErrorHandler },
-        // { provide: RollbarService, useFactory: rollbarFactory },
+        { provide: ErrorHandler, useClass: AppErrorHandler },
         // - HTTP INTERCEPTION
-        // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
-        // { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
     ],
     bootstrap: [AppComponent],
 })

@@ -3,7 +3,6 @@
 ## Unit Tests pending
 * dock.service
 * new-part-dialog - update error and create test
-* v1-request-detail-panel
 * RequestItem
 * v3-inventory-page
 

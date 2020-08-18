@@ -18,7 +18,17 @@ module.exports = function(config) {
         coverageIstanbulReporter: {
             dir: require('path').join(__dirname, './coverage/Printer3D-frontend'),
             reports: ['html', 'lcovonly', 'text-summary'],
-            fixWebpackSourcePaths: true
+            fixWebpackSourcePaths: true,
+            thresholds: {
+                emitWarning: false,
+                global: {
+                    statements: 90,
+                    branches: 75,
+                    functions: 90,
+                    lines: 90
+                }
+            },
+            verbose: false
         },
         customLaunchers: {
             ChromeHeadlessCI: {

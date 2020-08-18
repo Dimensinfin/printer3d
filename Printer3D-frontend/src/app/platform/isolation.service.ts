@@ -59,7 +59,7 @@ export class IsolationService {
         titleClass: 'notifier-title',
         messageClass: 'notifier-message',
         animate: 'slideFromLeft'
-    };
+    }
     public successNotification(message: string, title?: string, options?: any): void {
         // Join options configuration.
         let notConf;

@@ -13,6 +13,9 @@ import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Coil } from '@domain/inventory/Coil.domain';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
+import { environment } from '@env/environment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { IsolationService } from '@app/platform/isolation.service';
 
 @Component({
     selector: 'v1-coils-panel',
@@ -20,7 +23,9 @@ import { EVariant } from '@domain/interfaces/EPack.enumerated';
     styleUrls: ['./v1-coils-panel.component.scss']
 })
 export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
-    constructor(protected backendService: BackendService) {
+    constructor(
+        protected isolationService: IsolationService , 
+        protected backendService: BackendService) {
         super();
     }
 
@@ -50,6 +55,11 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
                     const coilList = this.sortCoildByMaterialColor(response.getCoils());
                     console.log('-[V1CoilsPanelComponent.downloadCoils]> Nodes downloaded: ' + coilList.length);
                     this.completeDowload(coilList); // Notify the completion of the download.
+                }, (error) => {
+                    console.log('-[V1CoilsPanelComponent.downloadCoils.exception]> Error message: ' + JSON.stringify(error.error))
+                    if (environment.showexceptions)
+                        if (error instanceof HttpErrorResponse)
+                            this.isolationService.processException(error)
                 })
         )
         console.log("<[V1CoilsPanelComponent.downloadCoils]");
