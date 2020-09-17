@@ -1,9 +1,6 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
@@ -11,22 +8,17 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
-import { environment } from '@env/environment';
 import { Part } from '@domain/inventory/Part.domain';
-import { Request } from '@domain/production/Request.domain';
-import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
-import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
-import { INode } from '@domain/interfaces/INode.interface';
 import { Model } from '@domain/inventory/Model.domain';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
-import { forIn } from 'cypress/types/lodash';
+import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 
 @Component({
     selector: 'v1-requestable-elements-panel',
     templateUrl: './v1-requestable-elements-panel.component.html',
     styleUrls: ['./v1-requestable-elements-panel.component.scss']
 })
-export class V1RequestableElementsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IPartProvider {
+export class V1RequestableElementsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IContentProvider {
     private parts: Part[] = []
     private models: Model[] = []
     private items: ICollaboration[] = []
@@ -42,8 +34,8 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
         console.log("<[V1OpenRequestsPanelComponent.ngOnInit]");
     }
 
-    // - I P A R T P R O V I D E R
-    public findById(id: string): Part {
+    // - I C O N T E N T P R O V I D E R
+    public findById(id: string, type: string): Part {
         for (let part of this.parts)
             if (part.getId() == id) return part;
         return undefined;
@@ -51,9 +43,9 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
 
     // - R E F R E S H A B L E
     public clean(): void {
-        this.parts=[]
-        this.models=[]
-        this.items=[]
+        this.parts = []
+        this.models = []
+        this.items = []
     }
     public refresh(): void {
         this.clean()
@@ -84,7 +76,7 @@ export class V1RequestableElementsPanelComponent extends AppPanelComponent imple
                     for (const entry of entrydata) {
                         const model: Model = new Model(entry)
                         for (let index = 0; index < entry.partIdList.length; index++) {
-                            const partFound = this.findById(entry.partIdList[index])
+                            const partFound = this.findById(entry.partIdList[index], 'PART')
                             if (undefined != partFound) model.addPart(partFound)
                         }
                         modelList.push(model)

@@ -1,9 +1,7 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
@@ -12,12 +10,8 @@ import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/inventory/Part.domain';
-import { Request } from '@domain/production/Request.domain';
-import { IPartProvider } from '@domain/interfaces/IPartProvider.interface';
-import { INode } from '@domain/interfaces/INode.interface';
 import { Model } from '@domain/inventory/Model.domain';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
-import { forIn } from 'cypress/types/lodash';
 import { PartContainer } from '@domain/PartContainer.domain';
 import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
