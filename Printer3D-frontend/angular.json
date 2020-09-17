@@ -114,7 +114,8 @@
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "codeCoverageExclude": [
-                            "src/app/testing/**/*"
+                            "src/app/testing/**/*",
+                            "src/app/services/docker*.ts"
                         ],
                         "assets": [
                             "src/favicon.ico",

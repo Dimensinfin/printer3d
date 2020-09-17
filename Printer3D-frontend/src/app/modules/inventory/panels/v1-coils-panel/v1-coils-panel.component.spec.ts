@@ -26,6 +26,7 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
                 V1CoilsPanelComponent
             ],
             providers: [
+                { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: BackendService, useClass: SupportBackendService },
             ]
         }).compileComponents();
@@ -43,7 +44,7 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
 
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
-        it('ngOnInit.before: validate initialization flow', async () => {
+        it('ngOnInit.before: validate initialization flow', () => {
             const componentAsAny = component as any;
             expect(componentAsAny.backendConnections.length).toBe(0);
             expect(component.isDownloading()).toBeTrue();

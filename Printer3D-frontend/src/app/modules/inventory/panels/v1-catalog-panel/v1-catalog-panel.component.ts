@@ -105,7 +105,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                 .setTransformation((entrydata: any): Model[] => {
                     // For each of the Models expand the Parts from the part provider.
                     const modelList: Model[] = []
-                    for (const entry of entrydata.models) {
+                    for (const entry of entrydata) {
                         const model: Model = new Model(entry)
                         for (let index = 0; index < entry.partIdList.length; index++) {
                             const partFound = this.findById(entry.partIdList[index])

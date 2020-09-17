@@ -101,7 +101,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
                     console.log('-[V1OpenRequestsPanelComponent.downloadModels]> Processing Models')
                     // For each of the Models expand the Parts from the part provider.
                     const modelList: Model[] = []
-                    for (const entry of entrydata.models) {
+                    for (const entry of entrydata) {
                         const model: Model = new Model(entry)
                         for (let index = 0; index < entry.partIdList.length; index++) {
                             const partFound = this.findById(entry.partIdList[index], RequestContentType.PART)

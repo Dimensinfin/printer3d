@@ -24,7 +24,7 @@ import { IsolationService } from '@app/platform/isolation.service';
 })
 export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
     constructor(
-        protected isolationService: IsolationService , 
+        protected isolationService: IsolationService,
         protected backendService: BackendService) {
         super();
     }
