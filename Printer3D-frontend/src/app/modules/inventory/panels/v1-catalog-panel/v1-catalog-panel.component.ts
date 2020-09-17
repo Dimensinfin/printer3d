@@ -20,13 +20,14 @@ import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface
 import { forIn } from 'cypress/types/lodash';
 import { PartContainer } from '@domain/PartContainer.domain';
 import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component';
+import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 
 @Component({
     selector: 'v1-catalog-panel',
     templateUrl: './v1-catalog-panel.component.html',
     styleUrls: ['./v1-catalog-panel.component.scss']
 })
-export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IPartProvider {
+export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IContentProvider {
     @Input() page: V3InventoryPageComponent  // Pointer to the page that contains this panel. Uset as a way to connect to siblings
     private parts: Part[] = []
     private models: Model[] = []
@@ -44,8 +45,8 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         console.log("<[V3InventoryPageComponent.ngOnInit]");
     }
 
-    // - I P A R T P R O V I D E R
-    public findById(id: string): Part {
+    // - I C O N T E N T P R O V I D E R
+    public findById(id: string, type:string): Part {
         for (let part of this.parts)
             if (part.getId() == id) return part;
         return undefined;
@@ -108,7 +109,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                     for (const entry of entrydata) {
                         const model: Model = new Model(entry)
                         for (let index = 0; index < entry.partIdList.length; index++) {
-                            const partFound = this.findById(entry.partIdList[index])
+                            const partFound = this.findById(entry.partIdList[index], 'PART')
                             if (undefined != partFound) model.addPart(partFound)
                         }
                         modelList.push(model)

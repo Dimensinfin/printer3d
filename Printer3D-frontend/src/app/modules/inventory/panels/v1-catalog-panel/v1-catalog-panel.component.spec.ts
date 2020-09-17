@@ -110,7 +110,7 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             partList.push(new Part({ id: 'FOUND' }))
             partList.push(new Part({ id: 'NOTFOUND' }))
             componentAsAny.parts = partList
-            expect(component.findById('FOUND')).toBeDefined();
+            expect(component.findById('FOUND', 'PART')).toBeDefined();
         });
         it('findById.notfound: as a Part storage export a function to search for Parts', () => {
             const componentAsAny = component as any;
@@ -118,7 +118,7 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             partList.push(new Part({ id: 'FOUND' }))
             partList.push(new Part({ id: 'FOUND' }))
             componentAsAny.parts = partList
-            expect(component.findById('NOTFOUND')).toBeUndefined()
+            expect(component.findById('NOTFOUND', 'PART')).toBeUndefined()
         });
     });
 });
