@@ -20,6 +20,7 @@ import { Model } from '@domain/inventory/Model.domain';
 import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { IContent } from '@domain/interfaces/IContent.interface';
+import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 /**
  * To display some of the Request details we should have access to the list of Parts because the Request List from the backend will not have the Part details but only the Part identifier.
  * The Process should lookup on the Parts list for the Part instance.
@@ -29,7 +30,7 @@ import { IContent } from '@domain/interfaces/IContent.interface';
     templateUrl: './v1-open-requests-panel.component.html',
     styleUrls: ['./v1-open-requests-panel.component.scss']
 })
-export class V1OpenRequestsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IPartProvider {
+export class V1OpenRequestsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IContentProvider {
     @Input() page: V1OpenRequestsPageComponent;
     private parts: Part[] = []
     private models: Model[] = []
@@ -63,12 +64,12 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
         this.clean()
         this.downloadParts()
     }
-    // - I P A R T P R O V I D E R
+    // - I C O N T E N T P R O V I D E R
     /**
      * Now identifier can belong to Parts or Models, the second parameter determined the type for the search.
      * @param id The item identifier to search
      */
-    public findById(id: string, type: RequestContentType): IContent {
+    public findById(id: string, type: string): IContent {
         if (type == RequestContentType.PART)
             for (let part of this.parts)
                 if (part.getId() == id) return part;
