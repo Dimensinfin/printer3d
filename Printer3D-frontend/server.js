@@ -5,6 +5,7 @@ const compression = require('compression');
 const config = require('config');
 const proxy = require('express-http-proxy');
 const fs = require('fs')
+const exec = require('child_process').exec;
 
 // - S E R V E R   O P T I O N S
 const app = express();
@@ -88,19 +89,30 @@ const START_GREEN = "\x1b[32m\x1b[1m"
 const END_BOLD = "\x1b[0m"
     // - L I S T E N
 app.listen(process.env.PORT || app.locals.port || 3000, function() {
-    console.log("Node Express server version: v12.16.3");
-    console.log("Listening on port: " + START_YELLOW + app.locals.port + END_BOLD);
-    console.log("Serving application: " + app.locals.appname);
-    console.log("Serving application version: " + START_YELLOW + app.locals.version + END_BOLD);
-    console.log("Application URL path: " + START_GREEN + "http://localhost:" + app.locals.port + END_BOLD);
-    console.log("Backend URL path: " + START_GREEN + app.locals.backendproxy + END_BOLD);
-    console.log("Proxy redirection for /actuator: " + 'Backend: ' + app.locals.backendproxy);
-    console.log("Proxy redirection for /api: " + 'Backend: ' + app.locals.backendproxy);
-    console.log("Proxy redirection for /: " + 'Local: ' + app.locals.applicationhome);
-    const filename = 'app-banner.txt'
-    fs.readFile(filename, 'utf8', function(err, data) {
-        if (err) throw err;
-        console.log(data)
-        console.log("Server Ready for Connections");
-    });
+    exec('git describe --tags', (err, stdout, stderr) => {
+        console.log("Node Express server version: v12.16.3");
+        console.log("Running environment: " + START_YELLOW + process.env.NODE_ENV + END_BOLD);
+        console.log("Current build: " + START_YELLOW + stdout.replace("\n", "") + END_BOLD)
+        console.log("Listening on port: " + START_YELLOW + app.locals.port + END_BOLD);
+        console.log("Serving application: " + START_YELLOW + app.locals.appname + END_BOLD);
+        console.log("Serving application version: " + START_YELLOW + app.locals.version + END_BOLD);
+        console.log("Application URL path: " + START_GREEN + "http://localhost:" + app.locals.port + '/' + END_BOLD);
+        console.log("Backend URL path: " + START_GREEN + app.locals.backendproxy + END_BOLD);
+        console.log("Proxy redirection for " + START_YELLOW + "/actuator" + END_BOLD + ": " +
+            'Backend: ' + START_GREEN + app.locals.backendproxy + 'actuator' + END_BOLD)
+        console.log("Proxy redirection for " + START_YELLOW + "/api" + END_BOLD + ": " +
+            'Backend: ' + START_GREEN + app.locals.backendproxy + 'api' + END_BOLD);
+        console.log("Proxy redirection for " + START_YELLOW + "/" + END_BOLD + ": " +
+            'Local: ' + START_GREEN + app.locals.applicationhome + END_BOLD);
+        const filename = 'app-banner.txt'
+        fs.readFile(filename, 'utf8', function(err, data) {
+            if (err) throw err;
+            console.log(data)
+            console.log("Server Ready for Connections");
+        });
+    })
 });
+
+function execute(command, callback) {
+    exec(command, function(error, stdout, stderr) { callback(stdout); });
+};
