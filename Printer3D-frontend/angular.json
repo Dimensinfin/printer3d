@@ -115,7 +115,7 @@
                         "karmaConfig": "karma.conf.js",
                         "codeCoverageExclude": [
                             "src/app/testing/**/*",
-                            "src/app/services/docker*.ts"
+                            "src/app/services/dock.service.ts"
                         ],
                         "assets": [
                             "src/favicon.ico",

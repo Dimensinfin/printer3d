@@ -69,8 +69,8 @@ describe('COMPONENT V1RequestableElementsPanelComponent [Module: PRODUCTION]', (
         it('findById: serach element', () => {
             const componentAsAny = component as any;
             componentAsAny.parts = [new Part({ id: "6801b340-a572-4043-85d4-a9e10634e916" })]
-            expect(component.findById("-not-found-")).toBeUndefined()
-            expect(component.findById("6801b340-a572-4043-85d4-a9e10634e916")).toBeDefined()
+            expect(component.findById("-not-found-", 'PART')).toBeUndefined()
+            expect(component.findById("6801b340-a572-4043-85d4-a9e10634e916", 'PART')).toBeDefined()
         });
     });
 });
