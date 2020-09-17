@@ -2,6 +2,6 @@
     "settings": {
         "port": 8080,
         "applicationhome": "/dist/Printer3D-frontend",
-        "backendproxy": "https://printer3d-backend-stage.herokuapp.com/",
+        "backendproxy": "https://printer3d-backend-stage.herokuapp.com/"
     }
 }
