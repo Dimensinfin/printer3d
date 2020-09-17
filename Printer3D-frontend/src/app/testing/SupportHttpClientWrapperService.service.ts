@@ -71,7 +71,7 @@ export class SupportHttpClientWrapperService {
         console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
         return Observable.create((observer) => {
             try {
-                let data = this.decodeRequestPath(_request);
+                let data = this.decodeRequestPath('GET:' +_request);
                 if (null == data)
                     observer.next('');
                 else
@@ -87,7 +87,7 @@ export class SupportHttpClientWrapperService {
         console.log("><[SupportHttpClientWrapperService.wrapHttpPUTCall]> request: " + _request);
         return Observable.create((observer) => {
             try {
-                let data = this.decodeRequestPath(_request);
+                let data = this.decodeRequestPath('PUT:' +_request);
                 if (null == data)
                     observer.next('');
                 else
@@ -103,7 +103,7 @@ export class SupportHttpClientWrapperService {
         console.log("><[SupportHttpClientWrapperService.wrapHttpDELETECall]> request: " + _request);
         return Observable.create((observer) => {
             try {
-                let data = this.decodeRequestPath(_request);
+                let data = this.decodeRequestPath('DELETE:' +_request);
                 if (null == data)
                     observer.next('');
                 else

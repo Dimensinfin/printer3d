@@ -23,12 +23,13 @@ import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { V1DockComponent } from '../../common/v1-dock/v1-dock.component';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { BackendService } from '@app/services/backend.service';
-import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 import { DockService } from '@app/services/dock.service';
 import { V1RequestRenderComponent } from './v1-request-render.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SupportDockService } from '@app/testing/SupportDock.service';
 
-xdescribe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
+describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
     let component: V1RequestRenderComponent;
     let dockService: DockService
     let dialogRef = {
@@ -53,21 +54,24 @@ xdescribe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
             ],
             providers: [
                 { provide: DialogFactoryService, useValue: dialogFactoryService },
-                { provide: DockService, useClass: DockService },
-                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
+                { provide: IsolationService, useClass: SupportIsolationService },
+                { provide: MatDialog, useValue: {} },
+                { provide: BackendService, useClass: SupportBackendService },
+                { provide: DockService, useClass: SupportDockService },
+                // { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]
         }).compileComponents();
 
         const fixture = TestBed.createComponent(V1RequestRenderComponent);
         component = fixture.componentInstance;
-        dockService = TestBed.get(DockService)
+        dockService = TestBed.inject(DockService)
     }));
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
             expect(component).toBeDefined('component has not been created.')
-            expect(component.node).toBeUndefined()
+            expect(component.self).toBeDefined()
         });
     });
 });

@@ -17,6 +17,7 @@ import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WeekAmount } from '@domain/dto/WeekAmount.dto';
+import { Model } from '@domain/inventory/Model.domain';
 
 export class SupportBackendService {
     public type: string = 'SUPPORT'
@@ -161,7 +162,7 @@ export class SupportBackendService {
             observer.complete();
         });
     }
-    public apiInventoryGetModels_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
+    public apiInventoryGetModels_v1(transformer: ResponseTransformer): Observable<Model[]> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.models')
             observer.next(transformer.transform(data));

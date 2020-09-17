@@ -54,8 +54,8 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
             ]
         }).compileComponents();
-        service = TestBed.get(BackendService);
-        isolationService = TestBed.get(IsolationService);
+        service = TestBed.inject(BackendService);
+        isolationService = TestBed.inject(IsolationService);
     });
 
     // - C O N S T R U C T I O N   P H A S E
@@ -186,9 +186,10 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 });
         });
         it('apiInventoryMachines_v2.default: get the list of Machines', async () => {
-            console.log('apiInventoryMachines_v2.default: get the list of Coils')
+            console.log('apiInventoryMachines_v2.default: get the list of Machines')
             await service.apiInventoryGetMachines_v2(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
                 .setTransformation((entrydata: any): Machine[] => {
+                    console.log('apiInventoryMachines_v2.entrydata: ' + JSON.stringify(entrydata))
                     const recordList: Machine[] = [];
                     for (let entry of entrydata)
                         recordList.push(new Machine(entry));
@@ -203,7 +204,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         it('apiMachinesStartBuild_v2.default: start a build jot on a Machine', async () => {
             const machineId: string = "-MACHINE-ID-"
             const jobRequest: JobRequest = new JobRequest({ part: { id: "-ID-" } })
-            service.apiMachinesStartBuild_v2(machineId, jobRequest, new ResponseTransformer().setDescription('Transforms response to a Machine.')
+            await service.apiMachinesStartBuild_v2(machineId, jobRequest, new ResponseTransformer().setDescription('Transforms response to a Machine.')
                 .setTransformation((entrydata: any): Machine => {
                     return new Machine(entrydata);
                 }))
