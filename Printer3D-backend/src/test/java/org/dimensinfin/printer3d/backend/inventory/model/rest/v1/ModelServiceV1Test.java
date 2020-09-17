@@ -17,7 +17,6 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelUpdate
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ACTIVE;
@@ -87,11 +86,10 @@ public class ModelServiceV1Test {
 		Mockito.when( this.modelRepository.findAll() ).thenReturn( modelEntityList );
 		// Test
 		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
-		final ModelList obtained = modelServiceV1.getModels();
+		final List<Model> obtained = modelServiceV1.getModels();
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( 2, obtained.getCount() );
-		Assertions.assertEquals( 2, obtained.getModels().size() );
+		Assertions.assertEquals( 2, obtained.size() );
 	}
 
 	@Test
@@ -186,9 +184,7 @@ public class ModelServiceV1Test {
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Test
 		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			modelServiceV1.newModel( modelRequest );
-		} );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> modelServiceV1.newModel( modelRequest ) );
 	}
 
 	@Test

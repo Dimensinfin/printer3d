@@ -1258,22 +1258,25 @@ components:
           example:
             'https://ibb.co/3dGbsRh'
     ModelList:
-      type: object
-      required:
-        - count
-        - models
-      properties:
-        count:
-          type: number
-          format: int32
-          description: >
-            The number of Models that follow on the response.
-          example:
-            8
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/Model'
+      type: array
+      items:
+#        $ref: '#/components/schemas/WeekAmount'
+#      type: object
+#      required:
+#        - count
+#        - models
+#      properties:
+#        count:
+#          type: number
+#          format: int32
+#          description: >
+#            The number of Models that follow on the response.
+#          example:
+#            8
+#        models:
+#          type: array
+#          items:
+        $ref: '#/components/schemas/Model'
     Model:
       type: object
       required:

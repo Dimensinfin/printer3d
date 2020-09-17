@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.model.rest.v1;
 
+import java.util.List;
 import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 @RestController
@@ -33,7 +33,7 @@ public class ModelControllerV1 {
 	@GetMapping(path = "/inventory/models",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<ModelList> getModels() {
+	public ResponseEntity<List<Model>> getModels() {
 		return new ResponseEntity<>( this.modelServiceV1.getModels(), HttpStatus.OK );
 	}
 

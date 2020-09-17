@@ -21,7 +21,6 @@ import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPa
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 @Service
@@ -37,14 +36,16 @@ public class ModelServiceV1 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public ModelList getModels() {
-		final List<Model> models = this.modelRepository.findAll()
+
+	/**
+	 * The complete list of models stored on the backend repository.
+	 * @return the complete list of models.
+	 */
+	public List<Model> getModels() {
+		return this.modelRepository.findAll()
 				.stream()
 				.map( modelEntity -> new ModelEntityToModelConverter().convert( modelEntity ) )
 				.collect( Collectors.toList() );
-		return new ModelList.Builder()
-				.withPartList( models )
-				.build();
 	}
 
 	/**

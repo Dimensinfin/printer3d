@@ -1,11 +1,12 @@
 package org.dimensinfin.printer3d.client.inventory.rest;
 
+import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
@@ -39,7 +40,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/models")
-	Call<ModelList> getModels();
+	Call<List<Model>> getModels();
 
 	/**
 	 * Signals the cancellation of the current build.

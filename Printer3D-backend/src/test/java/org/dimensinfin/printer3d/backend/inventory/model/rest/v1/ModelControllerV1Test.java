@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.inventory.model.rest.v1;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,6 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ID;
@@ -32,19 +32,19 @@ public class ModelControllerV1Test {
 	@Test
 	public void getModels() {
 		// Given
-		final ModelList models = Mockito.mock( ModelList.class );
+		final Model model = Mockito.mock( Model.class );
+		final List<Model> models = new ArrayList<>();
+		models.add( model );
+		models.add( model );
 		// When
 		Mockito.when( this.modelServiceV1.getModels() ).thenReturn( models );
-		Mockito.when( models.getModels() ).thenReturn( new ArrayList<>() );
-		Mockito.when( models.getCount() ).thenReturn( 2 );
 		// Test
 		final ModelControllerV1 modelControllerV1 = new ModelControllerV1( this.modelServiceV1 );
-		final ResponseEntity<ModelList> obtained = modelControllerV1.getModels();
+		final ResponseEntity<List<Model>> obtained = modelControllerV1.getModels();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
-		Assertions.assertNotNull( obtained.getBody().getModels() );
-		Assertions.assertEquals( 2, obtained.getBody().getCount() );
+		Assertions.assertEquals( 2, obtained.getBody().size() );
 	}
 
 	@Test

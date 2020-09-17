@@ -30,7 +30,6 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
@@ -317,7 +316,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setMachineResponseEntity( startBuildV2ResponseEntity );
 				return startBuildV2ResponseEntity;
 			case GET_MODELS:
-				final ResponseEntity<ModelList> modelListResponseEntity = this.modelFeignClientV1
+				final ResponseEntity<List<Model>> modelListResponseEntity = this.modelFeignClientV1
 						.getModels();
 				Assertions.assertNotNull( modelListResponseEntity );
 				this.printer3DWorld.setModelListResponseEntity( modelListResponseEntity );

@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.support.inventory.model.rest;
 
 import java.io.IOException;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
 import retrofit2.Response;
@@ -25,9 +25,9 @@ public class ModelFeignClientV1 extends CommonFeignClient {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public ResponseEntity<ModelList> getModels() throws IOException {
+	public ResponseEntity<List<Model>> getModels() throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Model.";
-		final Response<ModelList> response = new Retrofit.Builder()
+		final Response<List<Model>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()

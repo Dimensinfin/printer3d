@@ -15,7 +15,6 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
@@ -42,7 +41,7 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<List<Job>> listJobResponseEntity;
 	private ModelRequest modelRequest;
 	private ResponseEntity<Model> modelResponseEntity;
-	private ResponseEntity<ModelList> modelListResponseEntity;
+	private ResponseEntity<List<Model>> modelListResponseEntity;
 	private UUID modelId;
 	private UUID requestId;
 	private ResponseEntity<RequestV2> requestV2ResponseEntity;
@@ -184,11 +183,11 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<ModelList> getModelListResponseEntity() {
+	public ResponseEntity<List<Model>> getModelListResponseEntity() {
 		return this.modelListResponseEntity;
 	}
 
-	public Printer3DWorld setModelListResponseEntity( final ResponseEntity<ModelList> modelListResponseEntity ) {
+	public Printer3DWorld setModelListResponseEntity( final ResponseEntity<List<Model>> modelListResponseEntity ) {
 		this.modelListResponseEntity = modelListResponseEntity;
 		return this;
 	}

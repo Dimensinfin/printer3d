@@ -24,7 +24,7 @@ public class P3D07ModelsSteps extends StepSupport {
 
 	@Then("the model with id {string} has the next fields")
 	public void the_model_with_id_has_the_next_fields( final String modelId, final List<Map<String, String>> dataTable ) {
-		final List<Model> models = this.printer3DWorld.getModelListResponseEntity().getBody().getModels();
+		final List<Model> models = this.printer3DWorld.getModelListResponseEntity().getBody();
 		Assertions.assertNotNull( models );
 		for (Model model : models) {
 			if (model.getId().toString().equalsIgnoreCase( modelId ))
@@ -52,8 +52,7 @@ public class P3D07ModelsSteps extends StepSupport {
 	public void the_number_of_Models_is( final String modelCount ) {
 		Assertions.assertNotNull( this.printer3DWorld.getModelListResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getModelListResponseEntity().getBody() );
-		Assertions.assertEquals( Integer.parseInt( modelCount ), this.printer3DWorld.getModelListResponseEntity().getBody().getCount() );
-		Assertions.assertEquals( Integer.parseInt( modelCount ), this.printer3DWorld.getModelListResponseEntity().getBody().getModels().size() );
+		Assertions.assertEquals( Integer.parseInt( modelCount ), this.printer3DWorld.getModelListResponseEntity().getBody().size() );
 	}
 
 	@Then("the response for Model requests has the next fields")
