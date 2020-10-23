@@ -221,8 +221,8 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     }
     private activateTimer(): void {
         console.log('>[V3MachineRenderComponent.activateTimer]')
-        this.buildTimeTimer.activate()
         this.state = 'RUNNING'
+        this.buildTimeTimer.activate()
         console.log('<[V3MachineRenderComponent.activateTimer]')
     }
 }
