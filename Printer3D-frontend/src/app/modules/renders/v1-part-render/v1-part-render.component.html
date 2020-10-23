@@ -155,7 +155,7 @@
             <div cy-name="stock" class="field">
                 <span cy-field-label="stock" cy-input-type="input" class="label">STOCK</span><br>
                 <div class="dsf-input-container stock-width">
-                    <input name="stock" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.stockLevel" required min="1" max="100" oninput="validity.valid||(value='');" #stock="ngModel">
+                    <input name="stock" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.stockLevel" required min="0" max="100" oninput="validity.valid||(value='');" #stock="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
