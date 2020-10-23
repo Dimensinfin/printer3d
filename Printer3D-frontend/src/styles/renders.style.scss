@@ -59,6 +59,27 @@
     width: 10px;
 }
 
+.left-corner-border {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 15px;
+}
+
+.left-corner-clear {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 15px;
+}
+
+.left-mark {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 11px;
+}
+
 .orangered-mark {
     fill: orangered;
 }
