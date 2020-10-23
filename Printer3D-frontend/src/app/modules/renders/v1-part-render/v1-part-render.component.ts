@@ -92,6 +92,9 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
     }
     public saveEditing(): void {
         console.log('>[V1PartRenderComponent.saveEditing]');
+        // Update values that depend on Part final state. [D3D20.11]-When a part is deactivated then the stock count should be set to 0.
+        if (!this.editPart.isActive())
+            this.editPart.stockLevel = 0
         this.node = new Part(this.editPart);
         this.backendConnections.push(
             this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)

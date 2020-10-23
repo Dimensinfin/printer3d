@@ -10,6 +10,10 @@
     min-width: 44%;
 }
 
+.tiempo-const-width {
+    min-width: 94px;
+}
+
 .job-priority-high {
     background-color: #330011;
 }
@@ -42,4 +46,8 @@
 
 .building-label-width {
     min-width: 35%;
+}
+
+.last-field {
+    margin-right: 4px;
 }
