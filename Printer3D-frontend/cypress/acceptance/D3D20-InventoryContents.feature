@@ -12,15 +12,16 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
 
-    # - H A P P Y   P A T H
+    # -  I N V E N T O R Y   P A G E
     @D3D20.01
     Scenario: [D3D20.01]-The inventory contents has some Models and some Parts
         Then the target has the title "/CATALOGO PIEZAS Y MODELOS"
         Then the target has 2 "model"
         Then the target has 6 "part-container"
 
+    # - M O D E L
     @D3D20.02
-    Scenario: [D3D20.02]-Validate the contents of a Model.
+    Scenario: [D3D20.02.1]-Validate the contents of a Model.
         # - Check the model contents visible on the catalog
         Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
@@ -31,8 +32,26 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And active Model shows a violet corner
         And inactive Model shows a red corner
 
+    @D3D20.02
+    Scenario: [D3D20.02.2]-Validate the different color tagging for the Model.
+        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        Then the target item has a "blueviolet" tag
+
+    @D3D20.08
+    Scenario: [D3D20.08]-Validate the contents of a Model. If the Model is clicked then the Model expands to show the contents.
+        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        When the target is clicked
+        # - Check the model contents shown when expanded
+        Then the target has a panel labeled "COMPOSICION" named "part-composition"
+        Then the target has 3 "part-stack"
+        Given the target the "part-stack" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
+        Then column named "quantity" has contents "x 1"
+        And column named "label" has contents "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
+        And column named "material" has contents "PLA/BLANCO"
+
+    # - P A R T   G R O U P
     @D3D20.03
-    Scenario: [D3D20.03]-Validate the contents for the Part Group.
+    Scenario: [D3D20.03.1]-Validate the contents for the Part Group.
         # - Check the Part Group contents
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         Then field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Figura"
@@ -43,6 +62,20 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And actionable image named "edit-button" is "enabled"
         And target has an actionable image named "expand-button"
 
+    @D3D20.03
+    Scenario: [D3D20.03.2]-If a Part Container is expanded the number of Part on the Catalog changes.
+        # - The initial count should be zero.
+        Given the target is the panel of type "catalog"
+        Then the target has no "part"
+        # - Expand a container
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target item is expandable
+        When the target item is expanded
+        # - Count the Parts on the panel because they are not contained on the Part Container
+        Given the target is the panel of type "catalog"
+        Then the target has 6 "part"
+
+    # - P A R T
     @D3D20.04
     Scenario: [D3D20.04]-Validate a part when it is not being edited.
         # - Expand a Part Group to see the Parts
@@ -72,63 +105,16 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And target has an actionable image named "save-disabled"
 
     @D3D20.05
-    Scenario: [D3D20.05]-Validate the different color tagging for the Model and Parts states.
-        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
-        Then the target item has a "blueviolet" tag
+    Scenario: [D3D20.05]-Validate the different color tagging for the Parts states.
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then the target item has a "greenyellow" tag
+        And active "part" shows a green corner
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
         Then the target item has a "orangered" tag
-
-    @D3D20.06
-    Scenario: [D3D20.06]-Validate the input fields that should be displayed when the Edit Part is activated.
-        # - Activate the Part editing
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        When the target item is expanded
-        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        When target actionable image "edit-button" is clicked
-        # - Validate edit part form fields
-        Then the target item has a form field named "stock" with label "STOCK" and contents "5"
-        And the target item has a form field named "stockAvailable" with label "DISPONIBLE" and contents "0"
-        And the target item has a form field named "cost" with label "COSTE" and contents "1"
-        And the target item has a form field named "price" with label "PRECIO" and contents "6"
-        And the target item has a form field named "active" with label "ACTIVA" and contents "on"
-        And form field named "stock" is "valid"
-        And form field named "stockAvailable" is "valid"
-        And form field named "cost" is "valid"
-        And form field named "price" is "valid"
-        # - Check that the save button is enabled
-        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        And actionable image named "save-button" is "enabled"
-
-    @D3D20.07
-    Scenario: [D3D20.07]-If any of the editable fields is invalidated then check that the save button is disabled.
-        # - Activate the Part editing
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        When the target item is expanded
-        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        When target actionable image "edit-button" is clicked
-        # - Invalidated a field
-        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        # Then 1 is set on form field "stock"
-        Then form field "stock" is cleared
-        And form field named "stock" is "invalid"
-        And actionable image named "save-button" is "disabled"
-
-    @D3D20.08
-    Scenario: [D3D20.08]-Validate the contents of a Model. If the Model is clicked then the Model expands to show the contents.
-        Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
-        When the target is clicked
-        # - Check the model contents shown when expanded
-        Then the target has a panel labeled "COMPOSICION" named "part-composition"
-        Then the target has 3 "part-stack"
-        Given the target the "part-stack" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
-        Then column named "quantity" has contents "x 1"
-        And column named "label" has contents "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
-        And column named "material" has contents "PLA/BLANCO"
+        And inactive "part" shows an orange corner
 
     @D3D20.09
     Scenario: [D3D20.09]-Validate the contents of a Part.
@@ -136,22 +122,9 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         When the target item is expanded
         # - Validate the fields of a Part inside a part group
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then field named "material" with label "MATERIAL" has contents "PLA/ROSA"
-        # And field named "color" with label "COLOR" has contents "ROSA"
+        Then field named "material" with label "MATERIAL/COLOR" has contents "PLA/ROSA"
         And field named "stock" with label "STOCK" has contents "5"
         And field named "stockAvailable" with label "DISPONIBLE" has contents "0"
         And field named "cost" with label "COSTE" has contents "1 €"
         And field named "price" with label "PRECIO" has contents "6 €"
         And field named "active" with label "ACTIVA" has contents "ACTIVA"
-
-    @D3D20.10
-    Scenario: [D3D20.10]-Active Parts show a green corner while inactive show it orange.
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
-        Given the target item is expandable
-        When the target item is expanded
-        # - Count the Parts on the panel because they are not contained on the Part Container
-        Given the target is the panel of type "catalog"
-        Then the target has 6 "part"
-        # - Validate Part corners
-        And active "part" shows a green corner
-        And inactive "part" shows an orange corner

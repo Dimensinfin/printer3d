@@ -30,7 +30,7 @@ Given('an editable Part Container with id {string}', function (recordId: string)
     let tag = supportService.translateTag('catalog') // Do name replacement
     cy.get('@target-page').find(tag)
         .as('target-panel').as('target')
-    // Given the target item the "part-container" with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
+    // Given the target item the "part-container" with id "<parameter>"
     tag = supportService.translateTag('part-container') // Do name replacement
     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
         .should('exist')
@@ -73,4 +73,23 @@ Given('a duplicated New Part from Part id {string}', function (recordId: string)
     tag = supportService.translateTag('New Part') // Do name replacement
     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target')
         .should('exist')
-});
+})
+Given('a Part with id {string}', function (recordId: string) {
+    // Given the target is the panel of type "catalog"
+    let tag = supportService.translateTag('catalog') // Do name replacement
+    cy.get('@target-page').find(tag)
+        .as('target-panel').as('target')
+    // Given the target item the "part-container" with id "<parameter>"
+    tag = supportService.translateTag('part-container') // Do name replacement
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
+        .should('exist')
+    // When target actionable image "expand-button" is clicked
+    let buttonName = 'expand-button'
+    cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
+        .scrollIntoView().click()
+    // Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+    tag = supportService.translateTag('part') // Do name replacement
+    cy.log('>[the {string} is activated]> Translation: ' + tag)
+    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
+        .should('exist')
+})
