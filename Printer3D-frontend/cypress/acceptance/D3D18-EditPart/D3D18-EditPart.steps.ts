@@ -7,6 +7,7 @@ import { IsolationService } from '../../support/IsolationService.support';
 import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
+let store: any = {};
 
 // - E D I T I N G   D E T E C T I O N
 When('field named {string} is editable', function (fieldName: string) {
@@ -17,6 +18,46 @@ When('field named {string} is not editable', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
         .should('not.exist')
 });
+Then('field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('[cy-field-value="' + fieldName + '"]').then(($field) => {
+        cy.log('[the field {string} stores the current value into {string}]> Field text: ' + $field.text().replace('€', '').trim())
+        store[storeName] = $field.text().replace('€', '').trim()
+    })
+})
+Then('field {string} is editable and the content equals the stored value {string}', function (fieldName: string, storeName: string) {
+    cy.log('[the field {string} is editable and the content equals the stored value {string}]> Store content: ' + store[storeName])
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        cy.log(type as string);
+        switch (type) {
+            case 'input':
+                cy.log('input')
+                cy.get('@target-field').find('input')
+                    .invoke('val').should('equal', store[storeName])
+                break
+            case 'select':
+                cy.log('select')
+                cy.get('@target-field').find('select')
+                    .invoke('val').should('equal', store[storeName])
+                break
+            case 'textarea':
+                cy.log('textarea')
+                cy.get('@target-field').find('textarea')
+                    .invoke('val').should('equal', store[storeName])
+                break
+            case 'checkbox':
+                cy.log('chekbox')
+                cy.get('@target-field').find('input')
+                    .invoke('val').should('equal', store[storeName])
+                break
+        }
+    })
+
+})
+Then('form field {string} is cleared', function (fieldName: number) {
+    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target-field').find('input').clear()
+})
 
 // - D I A L O G
 Then('the dialog not closes', function () {

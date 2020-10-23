@@ -200,6 +200,7 @@ Then('field named {string} with label {string} is not empty',
                 .find('[cy-field-value="' + fieldName + '"]').should('not.be.empty')
         })
     });
+    
 // - F I E L D   V A L I D A T I O N
 Then('field named {string} is tested for size constraints {int} and {int}',
     function (fieldName: string, minCharacters: number, maxCharacters: number) {

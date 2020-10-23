@@ -89,10 +89,10 @@ Then('inactive Model shows a red corner', function () {
 
 
 
-Then('form field {string} is cleared', function (fieldName: number) {
-    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
-    cy.get('@target-field').find('input').clear()
-});
+// Then('form field {string} is cleared', function (fieldName: number) {
+//     cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+//     cy.get('@target-field').find('input').clear()
+// });
 
 
 Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
