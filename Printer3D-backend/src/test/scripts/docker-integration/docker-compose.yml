@@ -36,3 +36,4 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=local
       - JDBC_DATABASE_URL=jdbc:postgresql://postgres-integration:5432/postgres
+      - NEOCOM_BANNER_LOCATION=./app-banner.txt

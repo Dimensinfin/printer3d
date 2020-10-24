@@ -33,7 +33,7 @@ public class Printer3DApplication {
 
 	private static final class LogoPrinter {
 		public void print() {
-			this.printVersion( this.readAllBytes( ) );
+			this.printVersion( this.readAllBytes() );
 		}
 
 		private void printVersion( final String bannerData ) {
@@ -42,7 +42,7 @@ public class Printer3DApplication {
 
 		private String readAllBytes() {
 			try {
-				File resource = new File( "./app-banner.txt" );
+				File resource = new File( System.getenv( "NEOCOM_BANNER_LOCATION" ) );
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final IOException ioe) {
 				LogWrapper.error( ioe );
