@@ -47,7 +47,7 @@ module.exports = function(config) {
         browserDisconnectTolerance: 2,
         browserSocketTimeout: 90000,
         browserDisconnectTimeout: 4000,
-        browserNoActivityTimeout: 60000,
+        browserNoActivityTimeout: 100000,
         captureTimeout: 90000
     });
 };

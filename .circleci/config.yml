@@ -22,8 +22,6 @@
 #   we deploy the code to the Heroku server for restart on the Stage servers.
 #
 version: 2.1
-# orbs:
-#   sonarcloud: sonarsource/sonarcloud@1.0.1
 jobs:
   start-job:
     docker:
@@ -35,6 +33,8 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             node -v
+            npm install
+            npm run test:prod
 
   compile-frontend-job:
     docker:
@@ -138,13 +138,19 @@ jobs:
             npm run cypress:run
       - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
-  quality-sonarcloud:
+  quality-sonarcloud-backend:
     docker:
       - image: circleci/openjdk:11-jdk
     steps:
       - checkout
       - run:
-          name: BACKEND - Update SonarQube statistics
+          name: FRONTEND - Install the framework
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm install
+      - run:
+          name: BACKEND - Upload SonarQube statistics
           working_directory: Printer3D-backend
           environment:
             _JAVA_OPTIONS: "-Xmx3g"
@@ -156,6 +162,18 @@ jobs:
             SPRING_PROFILES_ACTIVE: test
           command: |
             ./gradlew build sonarqube -Dcucumber.options="--tags @P3D00"
+  quality-sonarcloud-frontend:
+    docker:
+      - image: circleci/node:12.16.3-browsers
+    steps:
+      - checkout
+      - run:
+          name: FRONTEND - Upload SonarQube statistics
+          working_directory: Printer3D-frontend
+          environment:
+            SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
+          command: |
+            npm run sonar:prod
 
   stage-to-heroku:
     docker:
@@ -277,10 +295,17 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      - quality-sonarcloud:
-          context: SonarCloud
+      - quality-sonarcloud-backend:
           requires:
             - test-backend-job
+          filters:
+            tags:
+              only: /0.*/
+            branches:
+              ignore: /.*/
+      - quality-sonarcloud-frontend:
+          requires:
+            - test-frontend-job
           filters:
             tags:
               only: /0.*/
@@ -290,7 +315,7 @@ workflows:
           requires:
             - test-backend-job
             - test-frontend-job
-            - quality-sonarcloud
+            - quality-sonarcloud-backend
           filters:
             tags:
               only: /0.*/
