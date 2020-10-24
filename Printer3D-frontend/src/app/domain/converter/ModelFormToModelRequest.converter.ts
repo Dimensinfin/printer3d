@@ -15,7 +15,8 @@ export class ModelFormToModelRequestConverter implements Converter<ModelForm, Mo
             label: input.label,
             price: input.price,
             stockLevel: input.stockLevel,
-            partIdList: this.idPartList
+            partIdList: this.idPartList,
+            active: input.active
         })
     }
 }
