@@ -156,3 +156,37 @@ Feature: The list of jobs to build to have a preselected stock can be ordered an
 
   @P3D05.H @P3D05.06
   Scenario: [P3D05.06] The completion of stock will not generate jobs for uncompleted inactive Parts.
+    Given the following Parts in my service
+      | id                                   | label                                   | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                 |
+      | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 10     | 30        | 1.0  | 5.00  | 2          | 1              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                       |
+      | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 10     | 45        | 1.0  | 5.00  | 2          | 1              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot |
+      | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 10     | 15        | 0.1  | 1.00  | 2          | 1              |                        |            | false  | Union para las piezas de la plataforma slot                                                 |
+    When the Get Jobs request is processed
+    Then there is a valid response with return code of "200 OK"
+    And the list of jobs has "2" records
+    And the jobs records contain the next information
+      | part.id                              | part.label                              | priority |
+      | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+      | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+
+  @P3D05.H @P3D05.07
+  Scenario: [P3D05.07] Parts belonging to Models are always on an active state and count for job generation.
+    Given the following Parts in my service
+      | id                                   | label                                   | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                 |
+      | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 10     | 30        | 1.0  | 5.00  | 2          | 1              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                       |
+      | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 10     | 45        | 1.0  | 5.00  | 2          | 1              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot |
+      | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 10     | 15        | 0.1  | 1.00  | 2          | 1              |                        |            | false  | Union para las piezas de la plataforma slot                                                 |
+    Given the following Models in my service
+      | id                                   | label                 | partIdList                                                                                                     | price | stockLevel | imagePath              | active |
+      | 4db4c212-3664-4d41-9a04-93c63431e339 | SLOT CAR Plataform v2 | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 1          | https://ibb.co/3dGbsRh | true   |
+    When the Get Jobs request is processed
+    Then there is a valid response with return code of "200 OK"
+    And the list of jobs has "6" records
+    And the jobs records contain the next information
+      | part.id                              | part.label                              | priority |
+      | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+      | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | 2        |
+      | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+      | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | 2        |
+      | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |
+      | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | 2        |

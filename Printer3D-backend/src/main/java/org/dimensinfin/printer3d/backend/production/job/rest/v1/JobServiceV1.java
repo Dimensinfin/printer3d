@@ -78,9 +78,10 @@ public class JobServiceV1 {
 				.stream()
 				.filter( ModelEntity::isActive )
 				.forEach( modelEntity -> {
-					for (UUID partId : modelEntity.getPartIdList())
+					for (UUID partId : modelEntity.getPartIdList()) {
+						stockManager.activate(partId);
 						stockManager.minus( partId, modelEntity.getStockLevel() ); // Subtract the part instance required for the model
-				} );
+					}} );
 		return stockManager;
 	}
 }

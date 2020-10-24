@@ -35,6 +35,13 @@ public class StockManager {
 		return this.stocks.keySet();
 	}
 
+	/**
+	 * Activate inactive Parts on the catalog but that are being used on Models. To completely deactivate parts Models have to be reviewed.
+	 */
+	public void activate( final UUID partId ) {
+		this.stocks.computeIfPresent( partId, ( UUID key, StockLevel stockLevel ) -> stockLevel.setActive( true ) );
+	}
+
 	public StockManager clean() {
 		this.stocks.clear();
 		return this;
@@ -54,6 +61,12 @@ public class StockManager {
 		if (this.stocks.containsKey( partId ))
 			return this.stocks.get( partId ).getStockLevel();
 		else throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorSTOCKPROCESSINGFAILURE( partId ) );
+	}
+
+	public boolean isActive( final UUID partId ) {
+		if (this.stocks.containsKey( partId ))
+			return this.stocks.get( partId ).isActive();
+		else return false;
 	}
 
 	public int minus( final UUID partId, final int quantity ) {
@@ -78,6 +91,7 @@ public class StockManager {
 				this.stocks.put( part.getId(), new StockLevel.Builder()
 						.withStockLevel( part.getStockLevel() )
 						.withStock( part.getStockAvailable() )
+						.withActive( part.isActive() )
 						.build() );
 				this.prices.put( part.getId(), part.getPrice() );
 			} );
@@ -90,6 +104,7 @@ public class StockManager {
 	private static class StockLevel {
 		private int level = 1;
 		private int stock = 0;
+		private boolean active = true;
 
 		// - C O N S T R U C T O R S
 		private StockLevel() { }
@@ -101,6 +116,15 @@ public class StockManager {
 
 		public int getStockLevel() {
 			return this.level;
+		}
+
+		public boolean isActive() {
+			return this.active;
+		}
+
+		public StockLevel setActive( final boolean active ) {
+			this.active = active;
+			return this;
 		}
 
 		public StockLevel reduceStock( final int minus ) {
@@ -119,6 +143,12 @@ public class StockManager {
 
 			public StockLevel build() {
 				return this.onConstruction;
+			}
+
+			public StockLevel.Builder withActive( final Boolean active ) {
+				this.onConstruction.active = true;
+				if (null != active) this.onConstruction.active = active;
+				return this;
 			}
 
 			public StockLevel.Builder withStock( final Integer stock ) {
