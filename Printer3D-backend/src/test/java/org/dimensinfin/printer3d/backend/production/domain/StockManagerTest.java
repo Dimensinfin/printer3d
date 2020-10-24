@@ -21,6 +21,26 @@ public class StockManagerTest {
 
 	private PartRepository partRepository;
 
+	@Test
+	public void activate() {
+		// Given
+		final UUID partId = UUID.fromString( "dad58f5e-af01-45da-819f-97ca3f354fa1" );
+		final PartEntity partEntity = Mockito.mock( PartEntity.class );
+		final List<PartEntity> testPartList = new ArrayList<>();
+		testPartList.add( partEntity );
+		// When
+		Mockito.when( this.partRepository.findAll() ).thenReturn( testPartList );
+		Mockito.when( partEntity.getId() ).thenReturn( partId );
+		Mockito.when( partEntity.isActive() ).thenReturn( false );
+		// Test
+		final StockManager stockManager = new StockManager( this.partRepository );
+		stockManager.startStock();
+		// Assertions
+		Assertions.assertFalse( stockManager.isActive( partId ) );
+		stockManager.activate( partId );
+		Assertions.assertTrue( stockManager.isActive( partId ) );
+	}
+
 	@BeforeEach
 	public void beforeEach() {
 		this.partRepository = Mockito.mock( PartRepository.class );
@@ -124,6 +144,25 @@ public class StockManagerTest {
 		final StockManager stockManager = new StockManager( this.partRepository );
 		stockManager.startStock();
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> stockManager.getStockLevel( partId ) );
+	}
+
+	@Test
+	public void isActive() {
+		// Given
+		final UUID partId = UUID.fromString( "dad58f5e-af01-45da-819f-97ca3f354fa1" );
+		final PartEntity partEntity = Mockito.mock( PartEntity.class );
+		final List<PartEntity> testPartList = new ArrayList<>();
+		testPartList.add( partEntity );
+		// When
+		Mockito.when( this.partRepository.findAll() ).thenReturn( testPartList );
+		Mockito.when( partEntity.getId() ).thenReturn( partId );
+		Mockito.when( partEntity.isActive() ).thenReturn( true );
+		// Test
+		final StockManager stockManager = new StockManager( this.partRepository );
+		stockManager.startStock();
+		// Assertions
+		Assertions.assertTrue( stockManager.isActive( partId ) );
+		Assertions.assertFalse( stockManager.isActive( UUID.randomUUID() ) );
 	}
 
 	@Test

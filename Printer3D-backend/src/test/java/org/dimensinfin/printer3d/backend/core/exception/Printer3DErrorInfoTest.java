@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.core.exception;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
@@ -22,5 +23,57 @@ public class Printer3DErrorInfoTest {
 		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".defined.repository.logic", error.getErrorCode() );
 		Assertions.assertEquals( messageExpected, error.getMessage() );
 		Assertions.assertEquals( HttpStatus.NOT_FOUND, error.getStatus() );
+	}
+
+	@Test
+	public void errorINVENTORYSTOREREPOSITORYFAILURE() {
+		// Test
+		final DimensinfinError error = Printer3DErrorInfo.errorINVENTORYSTOREREPOSITORYFAILURE( new SQLException( "-SQL-TEST-MESSAGE-" ) );
+		final String messageExpected = "There is an SQL error on the Inventory repository. -SQL-TEST-MESSAGE-.";
+		// Assertions
+		Assertions.assertEquals( "INVENTORY_STORE_REPOSITORY_FAILURE", error.getErrorName() );
+		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error", error.getErrorCode() );
+		Assertions.assertEquals( messageExpected, error.getMessage() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, error.getStatus() );
+	}
+
+	@Test
+	public void errorINVENTORYSTOREREPOSITORYFAILUREwithcause() {
+		// Test
+		final DimensinfinError error = Printer3DErrorInfo.errorINVENTORYSTOREREPOSITORYFAILURE(
+				new SQLException( new Throwable( "-CAUSE-MESSAGE" ) )
+		);
+		final String messageExpected = "There is an SQL error on the Inventory repository. java.lang.Throwable: -CAUSE-MESSAGE. SQL cause: java.lang.Throwable: -CAUSE-MESSAGE";
+		// Assertions
+		Assertions.assertEquals( "INVENTORY_STORE_REPOSITORY_FAILURE", error.getErrorName() );
+		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error", error.getErrorCode() );
+		Assertions.assertEquals( messageExpected, error.getMessage() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, error.getStatus() );
+	}
+
+	@Test
+	public void errorREQUESTSTOREREPOSITORYFAILURE() {
+		// Test
+		final DimensinfinError error = Printer3DErrorInfo.errorREQUESTSTOREREPOSITORYFAILURE( new SQLException( "-SQL-TEST-MESSAGE-" ) );
+		final String messageExpected = "There is an SQL error on the Requests repository. -SQL-TEST-MESSAGE-.";
+		// Assertions
+		Assertions.assertEquals( "REQUEST_STORE_REPOSITORY_FAILURE", error.getErrorName() );
+		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error", error.getErrorCode() );
+		Assertions.assertEquals( messageExpected, error.getMessage() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, error.getStatus() );
+	}
+
+	@Test
+	public void errorREQUESTSTOREREPOSITORYFAILUREwithcause() {
+		// Test
+		final DimensinfinError error = Printer3DErrorInfo.errorREQUESTSTOREREPOSITORYFAILURE(
+				new SQLException( new Throwable( "-CAUSE-MESSAGE" ) )
+		);
+		final String messageExpected = "There is an SQL error on the Requests repository. java.lang.Throwable: -CAUSE-MESSAGE. SQL cause: java.lang.Throwable: -CAUSE-MESSAGE";
+		// Assertions
+		Assertions.assertEquals( "REQUEST_STORE_REPOSITORY_FAILURE", error.getErrorName() );
+		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".persistence.sql.error", error.getErrorCode() );
+		Assertions.assertEquals( messageExpected, error.getMessage() );
+		Assertions.assertEquals( HttpStatus.INTERNAL_SERVER_ERROR, error.getStatus() );
 	}
 }

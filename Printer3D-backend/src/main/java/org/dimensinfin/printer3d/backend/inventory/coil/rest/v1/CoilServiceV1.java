@@ -49,7 +49,7 @@ public class CoilServiceV1 {
 	}
 
 	/**
-	 * Updates a Coil. All only field allowed to be changed is the weight.
+	 * Updates a Coil. The only field allowed to be changed is the weight.
 	 *
 	 * @since 0.10.0
 	 */

@@ -89,4 +89,55 @@ public class StockLevelJobGeneratorTest {
 				obtained.get( 5 ).getPart().getId().toString()
 		);
 	}
+
+	@Test
+	public void generateStockLevelJobsInactiveParts() {        // Given
+		final PartEntity partEntity1 = new PartEntity.Builder()
+				.withId( UUID.fromString( "21af768d-d238-4e8b-98a5-a838bf854f39" ) )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( 5 )
+				.withStockAvailable( 0 )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( true )
+				.build();
+		final PartEntity partEntity2 = new PartEntity.Builder()
+				.withId( UUID.fromString( "49f536a4-9086-42d5-b61c-35adc73b3e58" ) )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( 5 )
+				.withStockAvailable( 2 )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		final List<PartEntity> stockPartList = new ArrayList<>();
+		stockPartList.add( partEntity1 );
+		stockPartList.add( partEntity2 );
+		// When
+		Mockito.when( this.partRepository.findAll() ).thenReturn( stockPartList );
+		// Tests
+		final StockLevelJobGenerator stockLevelJobGenerator = new StockLevelJobGenerator( this.partRepository );
+		final List<Job> obtained = stockLevelJobGenerator.generateStockLevelJobs( new StockManager( this.partRepository ).clean().startStock() );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 5, obtained.size() );
+		Assertions.assertEquals(
+				UUID.fromString( "21af768d-d238-4e8b-98a5-a838bf854f39" ).toString(),
+				obtained.get( 1 ).getPart().getId().toString()
+		);
+	}
 }
