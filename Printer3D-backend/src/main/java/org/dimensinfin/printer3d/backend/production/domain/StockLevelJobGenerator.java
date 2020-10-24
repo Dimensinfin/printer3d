@@ -35,16 +35,18 @@ public class StockLevelJobGenerator {
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		try {
 			this.partRepository.findAll().forEach( part -> {
-				final int missingParts = part.getStockLevel() - stockManager.getStock( part.getId() ); // Account for model requirements.
-				LogWrapper.enter( MessageFormat.format( "Generate jobs: [{0}-{1}] stock level/current: {2}/{3} missing: {4}",
-						part.getId(), part.getLabel(), part.getStockLevel(), stockManager.getStock( part.getId() ), missingParts )
-				);
-				for (int count = 0; count < missingParts; count++)
-					jobs.add( new Job.Builder()
-							.withPart( new PartEntityToPartConverter().convert( part ) )
-							.withPriority( STOCK_LEVEL_PRIORITY )
-							.build()
+				if (stockManager.isActive( part.getId() )) {
+					final int missingParts = part.getStockLevel() - stockManager.getStock( part.getId() ); // Account for model requirements.
+					LogWrapper.enter( MessageFormat.format( "Generate jobs: [{0}-{1}] stock level/current: {2}/{3} missing: {4}",
+							part.getId(), part.getLabel(), part.getStockLevel(), stockManager.getStock( part.getId() ), missingParts )
 					);
+					for (int count = 0; count < missingParts; count++)
+						jobs.add( new Job.Builder()
+								.withPart( new PartEntityToPartConverter().convert( part ) )
+								.withPriority( STOCK_LEVEL_PRIORITY )
+								.build()
+						);
+				}
 			} );
 			return new JobSorter().sortByFinishingCount( jobs );
 		} finally {
