@@ -68,7 +68,9 @@ export class V1NewModelPanelComponent extends BackgroundEnabledComponent {
                         }))
                     .subscribe((newModel: ModelForm) => {
                         this.stopEditing()
-                    })
+                        console.log('>[V1NewModelPanelComponent.saveModel]> Clear the page')
+                        this.router.navigate(['/inventory/partlist']);
+                   })
             )
         else
             this.backendConnections.push(
