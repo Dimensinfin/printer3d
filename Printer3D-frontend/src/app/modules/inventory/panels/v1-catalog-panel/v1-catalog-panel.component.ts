@@ -141,5 +141,4 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
             0 - (container2.label > container1.label ? 1 : -1)
         )
     }
-
 }

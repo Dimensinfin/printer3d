@@ -10,7 +10,7 @@ export class PartContainer extends Node {
     public label: string
     public description: string
     public buildTime: number
-    public weight:number
+    public weight: number
     public imagePath: string
     public modelPath: string
     public contents: Part[] = []
@@ -35,14 +35,19 @@ export class PartContainer extends Node {
     }
     // - I C O L L A B O R A T I O N
     public collaborate2View(): ICollaboration[] {
-        let collaboration: ICollaboration[] = [];
+        let collaboration: ICollaboration[] = []
         if (this.isExpanded()) {
-            collaboration.push(this);
-            this.contents.forEach(element => {
-                collaboration.push(element);
-            });
-            return collaboration;
+            collaboration.push(this)
+            for (const element of this.sortPartByColour(this.contents)) {
+                collaboration.push(element)
+            }
+            return collaboration
         }
-        return [this];
+        return [this]
+    }
+    private sortPartByColour(parts: Part[]): Part[] {
+        return parts.sort((part1, part2) =>
+            0 - (!part2.active + '.' + part2.material + '/' + part2.color > !part1.active + '.' + part1.material + '/' + part1.color ? 1 : -1)
+        )
     }
 }
