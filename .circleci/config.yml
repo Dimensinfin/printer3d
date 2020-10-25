@@ -253,6 +253,7 @@ workflows:
               only:
                 - experimental
                 - development
+                - test
       - compile-frontend-job:
           requires:
             - start-job
@@ -261,10 +262,12 @@ workflows:
               only:
                 - experimental
                 - development
+                - test
 
       - test-backend-job:
           requires:
             - start-job
+            - compile-backend-job
           filters:
             branches:
               only:
@@ -273,6 +276,7 @@ workflows:
       - test-frontend-job:
           requires:
             - test-backend-job
+            - compile-frontend-job
           filters:
             branches:
               only:
