@@ -11,7 +11,6 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
@@ -97,7 +96,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/models")
-	Call<ModelList> getModels( @Header("Authorization") final @NotNull String authorizationToken );
+	Call<List<Model>> getModels( @Header("Authorization") final @NotNull String authorizationToken );
 
 	/**
 	 * Get the list of Parts persisted at the Inventory repository.
@@ -132,7 +131,7 @@ public interface InventoryApiV1 {
 	 * The initial model has no parts associated because that is edited on a second UI. On this endpoint we set all the other Model fields.
 	 *
 	 * @param modelRequest Contains the **Model** fields requested to the user on the frontend UI.
-	 *                        (optional)
+	 *                     (optional)
 	 * @return Call&lt;Model&gt;
 	 */
 	@Headers({ "Content-Type:application/json" })
