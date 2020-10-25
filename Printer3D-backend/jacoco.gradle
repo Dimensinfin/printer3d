@@ -34,11 +34,9 @@ sonarqube {
         property "sonar.projectName", "Printer3D - frontend"
         property "sonar.projectVersion", project.version
         property "sonar.projectDescription", "Back end Spring Boot server to service the Printer3D repository and do some data management."
-        property "sonar.sources", "./src"
+ //       property "sonar.sources", "./src"
         property "sonar.sourceEncoding","UTF-8"
-        property "sonar.sourceEncoding","UTF-8"
-        property "sonar.sourceEncoding","UTF-8"
-
+ 
         property "sonar.login", "c352a5eb3b19729f303b8e54eef7754364a6b9c7"
     }
 }
