@@ -13,11 +13,18 @@ let store: any = {};
 When('field named {string} is editable', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
         .should('exist')
-});
+})
 When('field named {string} is not editable', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
         .should('not.exist')
-});
+})
+When('form checkbox named {string} is clicked', function (fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]')
+        .find('span').invoke('attr', 'cy-input-type')
+        .should('exist')
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('input').click()
+})
+
 Then('field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('[cy-field-value="' + fieldName + '"]').then(($field) => {
         cy.log('[the field {string} stores the current value into {string}]> Field text: ' + $field.text().replace('€', '').trim())

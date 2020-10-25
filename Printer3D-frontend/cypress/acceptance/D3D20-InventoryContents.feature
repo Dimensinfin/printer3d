@@ -77,7 +77,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     # - P A R T
     @D3D20.04
-    Scenario: [D3D20.04]-Validate a part when it is not being edited.
+    Scenario: [D3D20.04.01]-Validate a part when it is not being edited. Validate an active Part
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
@@ -92,6 +92,23 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And target has an actionable image named "edit-button"
         And target has an actionable image named "duplicate-button"
         And target has an actionable image named "save-disabled"
+        # - Check the Part contents for an CANCELED Part.
+        Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
+        Then field named "material" with label "MATERIAL/COLOR" has contents "PLA/VERDE TRANSPARENTE"
+        And field named "stock" with label "STOCK" has contents "5"
+        And field named "stockAvailable" with label "DISPONIBLE" has contents "4"
+        And field named "cost" with label "COSTE" has contents "1 €"
+        And field named "price" with label "PRECIO" has contents "6 €"
+        And field named "active" with label "ACTIVA" has contents "FUERA PROD."
+        And target has an actionable image named "edit-button"
+        And target has an actionable image named "duplicate-button"
+        And target has an actionable image named "save-disabled"
+
+    @D3D20.04
+    Scenario: [D3D20.04.02]-Validate a part when it is not being edited. Validate an inactive Part
+        # - Expand a Part Group to see the Parts
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        When the target item is expanded
         # - Check the Part contents for an CANCELED Part.
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
         Then field named "material" with label "MATERIAL/COLOR" has contents "PLA/VERDE TRANSPARENTE"

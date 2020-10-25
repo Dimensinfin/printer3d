@@ -65,7 +65,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
 
     # - P A R T   E D I T I O N
     @D3D18.05
-    Scenario: [D3D18.05]-The Part has a buttons to activate the Edit In Place feature.
+    Scenario: [D3D18.05.1]-The Part has a buttons to activate the Edit In Place feature.
         # - Select a part
         Given a Part with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
         # - Check the buttons available
@@ -79,7 +79,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         And field named "price" is not editable
         And field named "active" is not editable
         When target actionable image "edit-button" is clicked
-        # - Reselect the Part as target that is sidabled after a click
+        # - Reselect the Part as target that is disabled after a click
         Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
         Then field named "stock" is editable
         And field named "stockAvailable" is editable
@@ -87,8 +87,36 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         And field named "price" is editable
         And field named "active" is editable
 
+    @D3D18.05
+    Scenario: [D3D18.05.2]-With a Part in editable mode is the fields are edited and the Part is saved then the new value are on the Part fields.
+        # - Select a part and store the values
+        Given a Part with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        # - Click the editable button and put the part in edit mode
+        When target actionable image "edit-button" is clicked
+        # - Reselect the Part as target that is disabled after a click
+        Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        # - Check original values
+        Then form field named "stock" with label "STOCK" has contents "15"
+        And form field named "stockAvailable" with label "DISPONIBLE" has contents "10"
+        And form field named "cost" with label "COSTE" has contents "0.45"
+        And form field named "price" with label "PRECIO" has contents "1"
+        # - Set the new values
+        And 8 is set on form field "stock"
+        And 4 is set on form field "stockAvailable"
+        And 1 is set on form field "cost"
+        And 2 is set on form field "price"
+        # - Save the edited changes
+        When target actionable image "save-button" is clicked
+        # - Reselect the Part as target that is disabled after a click
+        Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        # - Check original values
+        Then form field named "stock" with label "STOCK" has contents "8"
+        And form field named "stockAvailable" with label "DISPONIBLE" has contents "4"
+        And form field named "cost" with label "COSTE" has contents "1"
+        And form field named "price" with label "PRECIO" has contents "2"
+
     @D3D18.06
-    Scenario: [D3D18.06]-When the part is put in editable mode the editable field contents are the same of the original part.
+    Scenario: [D3D18.06.1]-When the part is put in editable mode the editable field contents are the same of the original part.
         # - Select a part and store the values
         Given a Part with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
         Then field "stock" stores the current value into "STOCK-STORE"
@@ -98,12 +126,42 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         Then field "active" stores the current value into "ACTIVA-STORE"
         # - Click the editable button and put the part in edit mode
         When target actionable image "edit-button" is clicked
-        # - Reselect the Part as target that is sidabled after a click
+        # - Reselect the Part as target that is disabled after a click
         Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
         Then field "stock" is editable and the content equals the stored value "STOCK-STORE"
         And field "stockAvailable" is editable and the content equals the stored value "DISPONIBLE-STORE"
         And field "cost" is editable and the content equals the stored value "COSTE-STORE"
         And field "price" is editable and the content equals the stored value "PRECIO-STORE"
+
+    @D3D18.06
+    Scenario: [D3D18.06.2]-Put a Part in editable mode and check the editable fields constraints.
+        # - Select a part and store the values
+        Given a Part with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        # - Click the editable button and put the part in edit mode
+        When target actionable image "edit-button" is clicked
+        # - Reselect the Part as target that is disabled after a click
+        Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        # - Check the fields constraints
+        Then field named "stock" is tested for value constraints 0 to 15
+        And field named "stockAvailable" is tested for value constraints 0
+        And field named "cost" is tested for numeric constraints 0.01
+        And field named "price" is tested for numeric constraints 0.01
+
+    @D3D18.06
+    Scenario: [D3D18.06.3]-When a part is deactivated then the stock count should be set to 0.
+        # - Select a part and store the values
+        Given a Part with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        # - Click the editable button and put the part in edit mode
+        When target actionable image "edit-button" is clicked
+        # - Reselect the Part as target that is disabled after a click
+        Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        Then form field named "stock" with label "STOCK" has contents "15"
+        When form checkbox named "active" is clicked
+        # - Save the edited changes
+        When target actionable image "save-button" is clicked
+        # - Reselect the Part as target that is disabled after a click
+        Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
+        Then form field named "stock" with label "STOCK" has contents "0"
 
     @D3D18.07
     Scenario: [D3D18.07]-When the duplicate button of any Part is clicked then there is a new Duplicate Part dialog.
@@ -193,15 +251,3 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         Then form field "stock" is cleared
         And form field named "stock" is "invalid"
         And actionable image named "save-button" is "disabled"
-
-    # @D3D18.13
-    # Scenario: [D3D18.13]-If this check mark button is clicked then the new values are persisted at the repository, a notification is shown and the edit state is exited.
-    #     Given there is a click on Feature "/INVENTARIO"
-    #     When the V2InventoryPartListPage is activated
-    #     When the right arrow is clicked
-    #     When the first v1-part is selected as the target
-    #     When the target Part Edit button is clicked
-    #     When the target Part Save button is clicked
-    #     Then there is a Notification panel
-    #     Then the new part contents are persisted to the backend
-    #     And the edit state is exited

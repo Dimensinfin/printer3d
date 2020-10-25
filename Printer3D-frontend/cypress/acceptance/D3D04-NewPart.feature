@@ -51,7 +51,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
     @D3D04.04
     Scenario: [D3D04.04]-If we enter enough characters the label field changes to 'valid'.
-        # - Check the field contents size
+        # - Check the fields constraints
         Then field named "label" is tested for size constraints 3 and 50
         And field named "weight" is tested for value constraints 1 to 100
         And field named "cost" is tested for numeric constraints 0.01
