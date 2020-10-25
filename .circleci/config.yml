@@ -251,16 +251,16 @@ workflows:
           filters:
             branches:
               only:
-                - development
                 - experimental
+                - development
       - compile-frontend-job:
           requires:
             - start-job
           filters:
             branches:
               only:
-                - development
                 - experimental
+                - development
 
       - test-backend-job:
           requires:
@@ -273,6 +273,22 @@ workflows:
       - test-frontend-job:
           requires:
             - test-backend-job
+          filters:
+            branches:
+              only:
+                - test
+                - hotfix
+      - quality-sonarcloud-backend:
+          requires:
+            - test-backend-job
+          filters:
+            branches:
+              only:
+                - test
+                - hotfix
+      - quality-sonarcloud-frontend:
+          requires:
+            - test-frontend-job
           filters:
             branches:
               only:
