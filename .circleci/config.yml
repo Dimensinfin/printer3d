@@ -152,6 +152,7 @@ jobs:
             DB_USER: inno-user
             DB_PASSWORD: inno-password
             SPRING_PROFILES_ACTIVE: test
+            SONAR_TOKEN: 4a8773dc6d995bc64f8d02ecfba6f9ee37a968ef
           command: |
             ./gradlew build sonarqube -Dcucumber.options="--tags @P3D00"
   quality-sonarcloud-frontend:

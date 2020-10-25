@@ -1,4 +1,5 @@
-const scanner = require('sonarqube-scanner');
+const scanner = require('sonarqube-scanner')
+const package = require('./package.json')
 
 scanner({
         serverUrl: 'https://sonarcloud.io',
@@ -8,7 +9,7 @@ scanner({
             'sonar.organization': 'dimensinfin3d',
             'sonar.projectKey': 'dimensinfin3d_printer3d_frontend',
             'sonar.projectName': 'Printer3D - frontend',
-            'sonar.projectVersion': require('../../package.json').version,
+            'sonar.projectVersion': package.version,
             'sonar.projectDescription': 'Front end Angular application to manage the production jobs on a set of 3D printers.',
             'sonar.sources': './src',
             'sonar.sourceEncoding': 'UTF-8',
