@@ -144,12 +144,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: FRONTEND - Install the framework
-          working_directory: Printer3D-frontend
-          command: |
-            node -v
-            npm install
-      - run:
           name: BACKEND - Upload SonarQube statistics
           working_directory: Printer3D-backend
           environment:
@@ -167,6 +161,12 @@ jobs:
       - image: circleci/node:12.16.3-browsers
     steps:
       - checkout
+      - run:
+          name: FRONTEND - Install the framework
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm install
       - run:
           name: FRONTEND - Upload SonarQube statistics
           working_directory: Printer3D-frontend
