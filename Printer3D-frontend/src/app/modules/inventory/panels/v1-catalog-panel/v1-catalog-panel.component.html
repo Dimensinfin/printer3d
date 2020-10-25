@@ -1,5 +1,9 @@
 <div cy-name="panel-title" class="panel-title">
     <span>/CATALOGO PIEZAS Y MODELOS</span>
+    <span cy-name="inactiveFilter" style="font-size: 16px;">
+        <span cy-input-type="checkbox"><input name="inactiveFilter" type="checkbox" style="margin-left:60px;" [(ngModel)]="filterInactive" (ngModelChange)="changeFilter()"><span cy-field-label="inactiveFilter">Filtrar elementos inactivos.</span>
+    </span>
+    </span>
 </div>
 <hr>
 <viewer-panel style="width: 60%;" [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Piezas...'" [downloader]="self" [variant]="'-CATALOG-'">

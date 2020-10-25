@@ -14,10 +14,28 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     # -  I N V E N T O R Y   P A G E
     @D3D20.01
-    Scenario: [D3D20.01]-The inventory contents has some Models and some Parts
+    Scenario: [D3D20.01.1]-The inventory contents has some Models and some Parts
         Then the target has the title "/CATALOGO PIEZAS Y MODELOS"
+        Then the target has 1 "model"
+        Then the target has 6 "part-container"
+
+    @D3D20.01
+    Scenario: [D3D20.01.2]-There is a checkbox to change the filter state.
+        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+
+    @D3D20.01
+    Scenario: [D3D20.01.3]-If the filter is deactivate then the inactive elements are visible.
+        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+        When form checkbox named "inactiveFilter" is clicked
+        Given the target is the panel of type "catalog"
         Then the target has 2 "model"
         Then the target has 6 "part-container"
+        # - Expand a container
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        When the target item is expanded
+        # - Count the Parts on the panel because they are not contained on the Part Container
+        Given the target is the panel of type "catalog"
+        Then the target has 6 "part"
 
     # - M O D E L
     @D3D20.02

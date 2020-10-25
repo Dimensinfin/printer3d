@@ -8,6 +8,13 @@ import { SupportService } from '../../support/SupportService.support';
 const supportService = new SupportService();
 
 // - C A T A L O G
+When('form checkbox named {string} is clicked', function (fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]')
+        .find('span').invoke('attr', 'cy-input-type')
+        .should('exist')
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('input').click()
+})
+
 Given('the target item is expandable', function () {
     cy.get('@target').parents().closest('node-container').first()
         .find('[cy-name="expand-button"]')

@@ -23,6 +23,7 @@ import { IContentProvider } from '@domain/interfaces/IContentProvider.interface'
 })
 export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IContentProvider {
     @Input() page: V3InventoryPageComponent  // Pointer to the page that contains this panel. Uset as a way to connect to siblings
+    public filterInactive: boolean = true;
     private parts: Part[] = []
     private models: Model[] = []
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
@@ -38,9 +39,14 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         this.refresh();
         console.log("<[V3InventoryPageComponent.ngOnInit]");
     }
+    // - I N T E R A C T I O N
+    public changeFilter(): void {
+        console.log("-[V1CatalogPanelComponent.changeFilter]")
+        this.refresh()
+    }
 
     // - I C O N T E N T P R O V I D E R
-    public findById(id: string, type:string): Part {
+    public findById(id: string, type: string): Part {
         for (let part of this.parts)
             if (part.getId() == id) return part;
         return undefined;
@@ -71,6 +77,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
 
     // - B A C K E N D
     protected downloadParts(): void {
+        console.log("-[V1CatalogPanelComponent.downloadParts]>Filter: " + this.filterInactive)
         this.backendConnections.push(
             this.backendService.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
                 .setTransformation((entrydata: any): PartListResponse => {
@@ -87,7 +94,9 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                             hit = new PartContainer(element);
                             this.partContainers.set(element.label, hit);
                         }
-                        hit.addPart(element);
+                        if (this.filterInactive) {// Filter out inactive items
+                            if (element.isActive()) hit.addPart(element)
+                        } else hit.addPart(element);
                     });
                     this.downloadModels()
                 })
@@ -115,7 +124,9 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                     // Join the list of Parts and the list of Models in order
                     this.items = []
                     for (const item of this.models) {
-                        this.items.push(item)
+                        if (this.filterInactive) {// Filter out inactive items
+                            if (item.isActive()) this.items.push(item)
+                        } else this.items.push(item)
                     }
                     // Load the containers on the root for the MVC.
                     const containers = this.partContainers.values();

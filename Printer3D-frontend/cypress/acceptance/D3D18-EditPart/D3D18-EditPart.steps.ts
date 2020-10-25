@@ -24,7 +24,6 @@ When('form checkbox named {string} is clicked', function (fieldName: string) {
         .should('exist')
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('input').click()
 })
-
 Then('field {string} stores the current value into {string}', function (fieldName: string, storeName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('[cy-field-value="' + fieldName + '"]').then(($field) => {
         cy.log('[the field {string} stores the current value into {string}]> Field text: ' + $field.text().replace('€', '').trim())
