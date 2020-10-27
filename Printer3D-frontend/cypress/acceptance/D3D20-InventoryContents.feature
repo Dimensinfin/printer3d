@@ -27,15 +27,15 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     Scenario: [D3D20.01.3]-If the filter is deactivate then the inactive elements are visible.
         Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
         When form checkbox named "inactiveFilter" is clicked
-        Given the target is the panel of type "catalog"
-        Then the target has 2 "model"
-        Then the target has 6 "part-container"
+        And the loading panel completes
         # - Expand a container
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
-        # - Count the Parts on the panel because they are not contained on the Part Container
         Given the target is the panel of type "catalog"
-        Then the target has 6 "part"
+        Then the target has 2 "model"
+        Then the target has 6 "part-container"
+        # - Count the Parts on the panel because they are not contained on the Part Container
+        Then the target has 12 "part"
 
     # - M O D E L
     @D3D20.02
@@ -48,13 +48,15 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And target has an actionable image named "edit-button"
         And actionable image named "edit-button" is "enabled"
         And active Model shows a violet corner
-        # And inactive Model shows a red corner
 
     @D3D20.02
     Scenario: [D3D20.02.2]-Validate the different color tagging for the Model.
+        Given the target is the panel of type "catalog"
         Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then the target item has a "blueviolet" tag
+        Given the target is the panel of type "catalog"
         When form checkbox named "inactiveFilter" is clicked
+        And the loading panel completes
         Given the target the "model" with id "197a3982-ad89-4987-b41e-392da1d376d9"
         Then the target item has a "red" tag
 
@@ -113,7 +115,15 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And target has an actionable image named "edit-button"
         And target has an actionable image named "duplicate-button"
         And target has an actionable image named "save-disabled"
-        # - Check the Part contents for an CANCELED Part.
+
+    @D3D20.04
+    Scenario: [D3D20.04.02]-Validate a part when it is not being edited. Validate an inactive Part
+        When form checkbox named "inactiveFilter" is clicked
+        And the loading panel completes
+        # - Expand a Part Group to see the Parts
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        When the target item is expanded
+        # - Check the Part contents for an inactive Part.
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
         Then field named "material" with label "MATERIAL/COLOR" has contents "PLA/VERDE TRANSPARENTE"
         And field named "stock" with label "STOCK" has contents "5"
@@ -126,8 +136,8 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And target has an actionable image named "save-disabled"
 
     @D3D20.04
-    Scenario: [D3D20.04.02]-Validate a part when it is not being edited. Validate an inactive Part
-        # When form checkbox named "inactiveFilter" is clicked
+    Scenario: [D3D20.04.03]-Validate a part when it is not being edited. Validate an inactive Part
+        When form checkbox named "inactiveFilter" is clicked
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
@@ -145,6 +155,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.05
     Scenario: [D3D20.05]-Validate the different color tagging for the Parts states.
+        When form checkbox named "inactiveFilter" is clicked
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
