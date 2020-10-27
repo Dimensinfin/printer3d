@@ -6,7 +6,7 @@ export class ModelForm {
     public label; string
     public price: number
     public stockLevel: number
-    public active : boolean
+    public active : boolean=true
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

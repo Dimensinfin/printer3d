@@ -54,7 +54,7 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
         this.inside = false;
     }
     /**
-     * On each iterationpass the current Model node to the selection on the viewer. If editing is closed then remove the selection.
+     * On each iteration pass the current Model node to the selection on the viewer. If editing is closed then remove the selection.
      */
     public toggleEdition(): void {
         console.log('>[V1ModelRenderComponent.toggleEdition]')

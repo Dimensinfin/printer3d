@@ -49,15 +49,15 @@
                     <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
                     <div class="dsf-input-container weight-width">
                         <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="coil.weight" required min="1" max="2000" oninput="validity.valid||(value='');" #partWeight="ngModel">
-                        <svg class="corner-border" viewBox="0 0 100 100">
-                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        <svg class="left-corner-border" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
                         </svg>
-                        <svg class="corner-clear" viewBox="0 0 100 100">
-                            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                        <svg class="left-corner-clear" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" fill="#180A16" />
                         </svg>
                         <div [ngClass]="{'ng-valid': !partWeight.invalid}">
-                            <svg class="corner-mark" viewBox="0 0 100 100">
-                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            <svg class="left-mark" viewBox="0 0 100 100">
+                                <path d="M0,0 L0,100 L100,0 L0,0"  />
                             </svg>
                         </div>
                     </div>
