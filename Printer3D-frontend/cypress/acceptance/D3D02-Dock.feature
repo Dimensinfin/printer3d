@@ -150,5 +150,5 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And the page "Inventory Page" has 2 panels
         Given the target is the panel of type "catalog"
         Then the target has the title "/CATALOGO PIEZAS Y MODELOS"
-        Then the target has 2 "model"
+        Then the target has 1 "model"
         Then the target has 6 "part-container"

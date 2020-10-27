@@ -118,7 +118,7 @@ jobs:
             node -v
             npm install
       - run:
-          name: FRONTEND - Run frontend uni tests
+          name: FRONTEND - Run frontend unit tests
           working_directory: Printer3D-frontend
           command: |
             npm run test:prod

@@ -173,7 +173,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         # - Click the expand button
         When target actionable image "expand-button" is clicked
         Given the target is the panel of type "catalog"
-        Then the target has 2 "part"
+        Then the target has 1 "part"
         Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
         Then target has an actionable image named "duplicate-button"
         # - Click the duplicate and validate the New Part Dialog
