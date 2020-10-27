@@ -48,15 +48,18 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And target has an actionable image named "edit-button"
         And actionable image named "edit-button" is "enabled"
         And active Model shows a violet corner
-        And inactive Model shows a red corner
+        # And inactive Model shows a red corner
 
     @D3D20.02
     Scenario: [D3D20.02.2]-Validate the different color tagging for the Model.
         Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then the target item has a "blueviolet" tag
+        When form checkbox named "inactiveFilter" is clicked
+        Given the target the "model" with id "197a3982-ad89-4987-b41e-392da1d376d9"
+        Then the target item has a "red" tag
 
-    @D3D20.08
-    Scenario: [D3D20.08]-Validate the contents of a Model. If the Model is clicked then the Model expands to show the contents.
+    @D3D20.02
+    Scenario: [D3D20.02.3]-Validate the contents of a Model. If the Model is clicked then the Model expands to show the contents.
         Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         When the target is clicked
         # - Check the model contents shown when expanded
@@ -91,7 +94,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         When the target item is expanded
         # - Count the Parts on the panel because they are not contained on the Part Container
         Given the target is the panel of type "catalog"
-        Then the target has 6 "part"
+        Then the target has 4 "part"
 
     # - P A R T
     @D3D20.04
@@ -124,6 +127,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.04
     Scenario: [D3D20.04.02]-Validate a part when it is not being edited. Validate an inactive Part
+        # When form checkbox named "inactiveFilter" is clicked
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded

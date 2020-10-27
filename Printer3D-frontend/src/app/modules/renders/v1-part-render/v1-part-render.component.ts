@@ -99,7 +99,6 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
         this.backendConnections.push(
             this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)
                 .subscribe((updatedPart: Part) => {
-                    // console.log('-[V1PartRenderComponent.saveEditing]> Updated Part: ' + JSON.stringify(updatedPart))
                     this.node = updatedPart;
                     this.toggleEdition();
                     this.ref.detectChanges();
