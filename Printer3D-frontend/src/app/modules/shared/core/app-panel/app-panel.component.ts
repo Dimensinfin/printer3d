@@ -57,7 +57,7 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
     }
     public subtractSelection(node: ISelectable): void {
         if (this.selection.subtractSelection(node))
-            this.fireSelectionChanged
+            this.fireSelectionChanged()
     }
     /**
      * This is an abstract methods that should be implemented by panels that require to support selections.
