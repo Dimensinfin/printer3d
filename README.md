@@ -1,18 +1,48 @@
 # README #
 
-### What is this repository for? ###
+## What is this repository for? ###
 
-* This repository contains the projects for an application to manage a set of 3D printer work queues. It will allow to define a set of Parts to be stocked for sell and when new requests from customers arrive the application should generate the worklist queue to fulfill them.
-* This repository holds the entire project. This is divided into different executables and services but all being together on the same storage.
-* There is a frontend with the user interface over a web platform developed in Angular.
-* Also there is s backend where the data is persisted and searched implemented with SpringBoot and using database relational repositories to store the data and relationships.
-* And a portal that unifies the frontend and the backend developed in Node that initializes the application and keeps track of the authentication and firewalls. This posrtal is still pending development once the authentication is put in place.
-* Current version is DEVELOPMENT-0.7.0
+Project to help manage the works to complete on a 3D printer or set of equal 3D printers.
+* App 1. The Back end. Developed with SpringBoot 2+ has the API interface to the persistence repository where the application stores the part models and the completed jobs. There is a RDMBS database with the application records and the needed entities required to model the application domain.
+* App 2. The Front end. Developed with Angular 9. Codes the UI to be used by the operators to enter the model and job information into the persistence repository. Shows listings of Customer Requests and pending jobs along with the current Part Catalog.
+* App 3. The Proof Of Concept repository where development can test new experimental features before entering them on the project main repository.
 
-# Application Port Mapping
-#### 5100 - Development frontend server<br>5110 - Development backend mock<br>5120 - Local backend application sringboot instance<br>5130 - Postgres database instance for acceptance tests<br>5140 - Backend application acceptance instance<br>5150 - Development portal server
+The App 1 and App 2 are glued by a Node server that will create a unique virtual domain and that will detect requests that should be processed by the backend.
+
+The project has Continuous Integration on the CircleCI platform and the production application instances will be located on Heroku servers.
+
+**Latest version is PRODUCTION 0.13.0.**
+
+## Application Feature Summary
+* The UI allows to control the Rolls of plastic that can be used as source materials on the 3D printers.
+* The UI allows the definition of Parts and inside them of part variations (by the color axis by example) that can be used to compose Models.
+* Customer Requests can contain Part and/or Models.
+* The UI shows the catalog of printers available and the current work status as commaned by the Operator. There is no direct connection with the 3D printer so there is no direct access to the real printer status.
+* Operators are authenticated by user/password so all operator jobs and changes can be tracked.
+* Pending 3D printer jobs is generated on the flow from the Stock levels set by operators and from the current open Customer Requests.
+* Application can take control of the source material expected usage so it can warn about shortages or reject jobs that will exceed the expected resource usage.
+* Application will provide a raw information about the expected time left to complete all Pending Jobs.
+* Application will provice a simple billing report for each work week from the Customer Requests fulfilled and billed.
+
+## Application Port Mapping
+#### 5100 - [DEVELOPMENT] Frontend Node server<br>5110 - [DEVELOPMENT] Frontend ApiSimulator backed server<br>5120 - [DEVELOPMENT] Backend SB application server<br>5130 - [DEVELOPMENT] Backend Postgres DB
+
+<br>5140 - Backend application acceptance instance<br>5150 - Development portal server
 #### 5101 - Integration frontend server<br>5121 - Local backend application springboot instance<br>5131 - Postgres database docker container for the integration environment
 #### 5190 - Experimental GUI fontend server. Uses the same mock server.
+
+#
+# Printer3D-Frontend
+## Steps to change to next version
+* Change the field *'~/package.json[version]'*
+* Change the version on the **~/src/index.html** file.
+* Run the npm script **app:banner**
+
+## Steps to upgrade/update the framework
+* Current frameworks are registered on file *'dimensinfin3d-angular9-commands.txt'*.
+* Node version is set to lts/erbium with nvm command **nvm use lts/erbium**
+* Angular version is set to '**ng916**' by alias configuration
+
 
 # Printer3D-Backend
 

@@ -2,12 +2,6 @@
     "folders": [
         {
             "path": "."
-        },
-        {
-            "path": "../../poc-webs/POC-WEBSionInterface"
-        },
-        {
-            "path": "../../GIPSoftware"
         }
     ],
     "settings": {

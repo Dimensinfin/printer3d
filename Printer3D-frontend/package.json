@@ -1,11 +1,12 @@
 {
     "name": "printer3d-frontend",
-    "version": "v0.13.0",
+    "version": "v0.14.0",
     "backversion": "<0.6.0",
     "scripts": {
         "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @D3D20.11",
         "docker:start": "docker-compose -f ./support/docker/docker-compose.yml up & ",
         "docker:stop": "docker-compose -f ./support/docker/docker-compose.yml down ",
+        "app:banner": "figlet `grep -w version package.json | grep -v figlet | awk '{print $2}' | sed 's/\"//g' | sed 's/,//g'` > app-banner.txt",
         "serve:dev": "ng serve --progress --proxy-config proxy.conf.json --port 5100",
         "build:dev": "ng build ",
         "build:stage": "ng build --aot --configuration=stage",
@@ -37,8 +38,8 @@
     },
     "private": true,
     "engines": {
-        "node": "12.16.3",
-        "npm": "6.14.4"
+        "node": "12.21.0",
+        "npm": "6.14.11"
     },
     "cypress-cucumber-preprocessor": {
         "nonGlobalStepDefinitions": true,
