@@ -25,7 +25,7 @@ The project has Continuous Integration on the CircleCI platform and the producti
 * Application will provice a simple billing report for each work week from the Customer Requests fulfilled and billed.
 
 ## Application Port Mapping
-#### 5100 - [DEVELOPMENT] Frontend Node server<br>5110 - [DEVELOPMENT] Frontend ApiSimulator backed server<br>5120 - [DEVELOPMENT] Backend SB application server<br>5130 - [DEVELOPMENT] Backend Postgres DB
+#### 5100 - [DEVELOPMENT] Frontend Node server<br>5110 - [DEVELOPMENT] Frontend ApiSimulator backed server<br>5120 - [DEVELOPMENT] Backend SB application server<br>5432 - [DEVELOPMENT] Backend Postgres DB (Global Database)
 
 <br>5140 - Backend application acceptance instance<br>5150 - Development portal server
 #### 5101 - Integration frontend server<br>5121 - Local backend application springboot instance<br>5131 - Postgres database docker container for the integration environment
@@ -45,6 +45,40 @@ The project has Continuous Integration on the CircleCI platform and the producti
 
 
 # Printer3D-Backend
+## Database File Name Pattern
+* ddl/dml - Data Description Language / Data Management Language for inserts and data manipulation.
+* -
+* v.w.x-00 - Version.Minor Version.Change-Order - the version code and the order for the file on a version set.
+* -
+* -/alter - Creation or alteration of a repository entity.
+* -
+* entity - repository entity name.
+* -
+* schema/table/index - entity type.
+* .yaml
+
+## Liquibase Id Name Pattern
+* version
+* _
+* minor version
+* _
+* change
+* _
+* 0 - order file number
+* 099 - change set sequential number
+* _
+* schema
+* _
+* action - one of the set actions that usually match the liqiubase action verb.
+* _
+* entity
+* _
+* entity type
+
+### Colors
+* azul electrico claro
+**ddl-v0.0.1-printer3d-schema** - Data Manipulation for version 0, subversion 0, first change. Schema name and this is the creation of the schema.
+
 
 ## Filtering tests
 

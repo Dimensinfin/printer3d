@@ -23,7 +23,7 @@ public class CoilList {
 
 	// - B U I L D E R
 	public static class Builder {
-		private CoilList onConstruction;
+		private final CoilList onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {

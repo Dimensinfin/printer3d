@@ -1,0 +1,24 @@
+server:
+  port: 9500
+
+spring:
+  datasource:
+    url: \${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+    username: \${DB_USER}
+    password: \${DB_PASSWORD}
+  liquibase:
+    liquibase-schema: public
+    change-log: classpath:/db/changelog/development/db.changelog-master-dev.yaml
+  jackson:
+    default-property-inclusion: NON_ABSENT
+    serialization.indent_output: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging.logstash:
+  enabled: true
