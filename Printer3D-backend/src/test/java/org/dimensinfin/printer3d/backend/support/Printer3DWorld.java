@@ -55,6 +55,7 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity;
 	private ResponseEntity<List<WeekAmount>> listWeekAmountResponseEntity;
 	private Integer weekCount;
+	private ResponseEntity<List<Coil>> coilV2ListResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -90,6 +91,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setCoilResponseEntity( final ResponseEntity<Coil> coilResponseEntity ) {
 		this.coilResponseEntity = coilResponseEntity;
+		return this;
+	}
+
+	public ResponseEntity<List<Coil>> getCoilV2ListResponseEntity() {
+		return this.coilV2ListResponseEntity;
+	}
+
+	public Printer3DWorld setCoilV2ListResponseEntity( final ResponseEntity<List<Coil>> coilV2ListResponseEntity ) {
+		this.coilV2ListResponseEntity = coilV2ListResponseEntity;
 		return this;
 	}
 

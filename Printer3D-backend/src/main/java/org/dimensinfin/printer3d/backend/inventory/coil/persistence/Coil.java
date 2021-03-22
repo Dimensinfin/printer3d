@@ -159,8 +159,18 @@ public class Coil {
 			return this.onConstruction;
 		}
 
+		public Coil.Builder withActive( final boolean active ) {
+			this.onConstruction.active = active;
+			return this;
+		}
+
 		public Coil.Builder withColor( final String color ) {
 			this.onConstruction.color = Objects.requireNonNull( color );
+			return this;
+		}
+
+		public Coil.Builder withColorSet( final String color ) {
+			if (null != color) this.onConstruction.colorSet = color;
 			return this;
 		}
 

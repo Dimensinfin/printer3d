@@ -1,12 +1,11 @@
 package org.dimensinfin.printer3d.backend.support.core;
 
 public class AcceptanceFieldMapConstants {
+	// - P A R T
 	public static final String ID = "id";
 	public static final String LABEL = "label";
 	public static final String DESCRIPTION = "description";
-	public static final String MATERIAL = "material";
 	public static final String COLOR = "color";
-	public static final String WEIGHT = "weight";
 	public static final String BUILD_TIME = "buildTime";
 	public static final String COST = "cost";
 	public static final String PRICE = "price";
@@ -15,6 +14,10 @@ public class AcceptanceFieldMapConstants {
 	public static final String IMAGE_PATH = "imagePath";
 	public static final String MODEL_PATH = "modelPath";
 	public static final String ACTIVE = "active";
+	// - C O I L
+	public static final String MATERIAL = "material";
+	public static final String COLOR_SET = "colorSet";
+	public static final String WEIGHT = "weight";
 
 	public static final String ITEM_ID = "itemId";
 	public static final String TYPE = "type";

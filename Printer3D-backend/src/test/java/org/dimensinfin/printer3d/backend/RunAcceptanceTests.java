@@ -10,8 +10,9 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 @CucumberOptions(
 		strict = true,
 		features = { "src/test/resources/features" },
-		snippets= CAMELCASE,
+		snippets = CAMELCASE,
 		glue = { "org.dimensinfin.printer3d.backend.steps" },
 		plugin = { "pretty", "json:build/cucumber_report.json" },
-		tags = { "not @skip_scenario", "not @front", "not @duplication", "@P3D05.07" })
-public class RunAcceptanceTests {}
+		tags = { "not @skip_scenario", "not @front", "not @duplication", "@P3D02.04" })
+public class RunAcceptanceTests {
+}

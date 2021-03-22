@@ -5,14 +5,12 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Assertions;
-import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CoilValidator;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToCoilConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToUpdateCoilRequestConverter;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
 import io.cucumber.java.en.Given;
@@ -48,6 +46,18 @@ public class P3D02CoilsSteps extends StepSupport {
 		}
 	}
 
+	@Then("the coil with id {string} of the list of Coils has the next fields")
+	public void the_coil_with_id_of_the_list_of_Coils_has_the_next_fields( final String identifier, final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity().getBody() );
+		this.printer3DWorld.getCoilV2ListResponseEntity().getBody()
+				.stream()
+				.filter( coil -> coil.getId().toString().equalsIgnoreCase( identifier ) )
+				.forEach( coil -> Assertions.assertTrue(
+						new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), coil ) )
+				);
+	}
+
 	@Then("the item {string} of the list of Coils has the next fields")
 	public void the_item_of_the_list_of_Coils_has_the_next_fields( final String row, final List<Map<String, String>> dataTable ) {
 		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
@@ -71,12 +81,11 @@ public class P3D02CoilsSteps extends StepSupport {
 		}
 	}
 
-	@Then("the list of Coils has {string} items")
-	public void the_list_of_Coils_has_items( final String coilCount ) {
-		final ResponseEntity<CoilList> coilListResponseEntity = this.printer3DWorld.getCoilListResponseEntity();
-		Assertions.assertNotNull( coilListResponseEntity );
-		Assertions.assertNotNull( coilListResponseEntity.getBody() );
-		Assertions.assertEquals( Integer.parseInt( coilCount ), coilListResponseEntity.getBody().getCount() );
+	@Then("the list of Coils has {int} items")
+	public void the_list_of_Coils_has_items( final Integer coilCount ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity().getBody() );
+		Assertions.assertEquals( coilCount, this.printer3DWorld.getCoilV2ListResponseEntity().getBody().size() );
 	}
 
 	@Given("the next New Coil request")
@@ -91,5 +100,16 @@ public class P3D02CoilsSteps extends StepSupport {
 		final UpdateCoilRequest updateCoilRequest = new CucumberTableToUpdateCoilRequestConverter().convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( updateCoilRequest );
 		this.printer3DWorld.setUpdateCoilRequest( updateCoilRequest );
+	}
+
+	@Then("the number of Active {string} Coils is {int}")
+	public void the_number_of_Active_Coils_is( final String activeState, final Integer recordCount ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity().getBody() );
+		final long count = this.printer3DWorld.getCoilV2ListResponseEntity().getBody()
+				.stream()
+				.filter( coil -> coil.getActive().equals( Boolean.parseBoolean( activeState ) ) )
+				.count();
+		Assertions.assertEquals( recordCount, (int) count );
 	}
 }

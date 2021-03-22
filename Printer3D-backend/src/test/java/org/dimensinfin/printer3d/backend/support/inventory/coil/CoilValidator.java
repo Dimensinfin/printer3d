@@ -9,7 +9,9 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.core.CommonValidator;
 
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COLOR;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COLOR_SET;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MATERIAL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.WEIGHT;
@@ -24,10 +26,16 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 
 	@Override
 	public boolean validate( final Map<String, String> rowData, final Coil record ) {
-		Assertions.assertEquals( this.cucumberDataMap( this.printer3DWorld, rowData.get( ID ) ), record.getId().toString() );
+		if (null != rowData.get( ID ))
+			Assertions.assertEquals( this.cucumberDataMap( this.printer3DWorld, rowData.get( ID ) ), record.getId() );
 		Assertions.assertEquals( rowData.get( MATERIAL ), record.getMaterial() );
-		Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );
+		if (null != rowData.get( COLOR ))
+			Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );
+		if (null != rowData.get( COLOR_SET ))
+			Assertions.assertEquals( rowData.get( COLOR_SET ), record.getColorSet() );
 		Assertions.assertEquals( Integer.parseInt( rowData.get( WEIGHT ) ), record.getWeight() );
+		if (null != rowData.get( ACTIVE ))
+			Assertions.assertEquals( rowData.get( ACTIVE ), record.getActive() );
 		return true;
 	}
 }
