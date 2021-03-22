@@ -32,8 +32,6 @@ import org.dimensinfin.logging.LogWrapper;
 @Entity
 @Table(name = "coils", schema = "printer3d")
 public class Coil {
-	@Column(name = "active", nullable = false)
-	private final Boolean active = true;
 	@Id
 	@NotNull(message = "Coil unique UUID 'id' is a mandatory field and cannot be null.")
 	@Column(name = "id", updatable = false, nullable = false)
@@ -52,6 +50,8 @@ public class Coil {
 	private String colorSet;
 	@Column(name = "weight", nullable = false)
 	private Integer weight = 750;
+	@Column(name = "active", nullable = false)
+	private Boolean active = true;
 
 	// - C O N S T R U C T O R S
 	protected Coil() {}
@@ -59,6 +59,11 @@ public class Coil {
 	// - G E T T E R S   &   S E T T E R S
 	public Boolean getActive() {
 		return this.active;
+	}
+
+	public Coil setActive( final Boolean active ) {
+		this.active = active;
+		return this;
 	}
 
 	public String getColor() {
