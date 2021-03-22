@@ -16,45 +16,100 @@
 # 4. Until script adjustment acceptance is optional to allow a commit to pass stage.
 #
 # BRANCHES:
-# The lowest level branch is the 'experimental' at this level we only require the environment to load and the code to compile.
-# The next level is 'development'
-# The final level is 'test'. With this branch we should compile and do full tests to the code. If tests complete then
-#   we deploy the code to the Heroku server for restart on the Stage servers.
+# 'experimental' - at this level we only require server framework validation and code compilation success.
+# 'development' - identical to the experimental but server framework can be cached to be used on next levels.
+# 'test' - testing level will compile the code and also run the unit, integration and acceptance tests.
+# 'master' - will do the testing tasks and also the complete set of quality gates and checks on sonar servers.
+# '0.x' - release tagged commits will run the deployment code to move that tagged version to the Heroku servers.
 #
 version: 2.1
 jobs:
   start-job:
     docker:
       - image: circleci/node:12.16.3-browsers
+      - image: circleci/openjdk:11-jdk
     steps:
       - checkout
+
+  # - F R O N T E N D
+  framework-frontend-job:
+    docker:
+      - image: circleci/node:12.16.3-browsers
+    environment:
+      BIT_TOKEN: d47a8f17-636f-4bda-aad9-ac9fa27fe26d
+    steps:
+      - checkout
+      - run:
+          name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm config set @bit:registry https://node.bitsrc.io
+      - run:
+          name: PRINTER3D-FRONTEND - Install the framework
+          working_directory: Printer3D-frontend
+          command: |
+            cp --update --verbose package.json package.json.checksum
+            npm install
+      - save_cache:
+          paths:
+            - ~/project/Printer3D-frontend/node_modules
+          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.checksum" }}
 
   compile-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
       - run:
-          name: FRONTEND - Install the framework
+          name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
           command: |
             node -v
-            npm install
+            npm config set @bit:registry https://node.bitsrc.io
       - run:
-          name: FRONTEND - Compile Angular code
+          name: PRINTER3D-FRONTEND - Install the framework
           working_directory: Printer3D-frontend
           command: |
-            npm run build:prod
+            npm install
+      - run:
+          name: PRINTER3D-FRONTEND - Compile Angular code
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:dev
+  
+  # - B A C K E N D
+  cache-dependencies-backend:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - run: 
+          name: PRINTER3D-BACKEND - Get and cache the backend compilation dependencies
+          working_directory: Printer3D-backend
+          command: |
+            ./gradlew dependencies --refresh-dependencies
+      - save_cache:
+          paths:
+            - ~/Printer3D-backend/gradle
+            - ~/Printer3D-backend/.gradle
+          key: backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
   compile-backend-job:
     docker:
       - image: circleci/openjdk:11-jdk
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
       - run:
-          name: BACKEND - Compile SpringBoot code
+          name: PRINTER3D-BACKEND - Compile SpringBoot code
           working_directory: Printer3D-backend
           command: |
-            ./gradlew clean bootJar
+            ./gradlew bootJar
 
   test-backend-job:
     docker:
@@ -103,6 +158,7 @@ jobs:
           path: ~/project/Printer3D-backend/build/test-results
       - store_artifacts:  
           path: ~/project/Printer3D-backend/build/libs
+
   test-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -243,8 +299,25 @@ workflows:
                 - test-frontend
                 - test-backend
                 - master
+      # - F R O N T E N D
+      - framework-frontend-job:
+          filters:
+            branches:
+              only:
+                - experimental
+      - compile-frontend-job:
+          requires:
+            - start-job
+            - framework-frontend-job
+          filters:
+            branches:
+              only:
+                - experimental
+                - development
+                - test
 
-      - compile-backend-job:
+      # - B A C K E N D
+      - cache-dependencies-backend:
           requires:
             - start-job
           filters:
@@ -252,10 +325,10 @@ workflows:
               only:
                 - experimental
                 - development
-                - test
-      - compile-frontend-job:
+      - compile-backend-job:
           requires:
             - start-job
+            - cache-dependencies-backend
           filters:
             branches:
               only:
