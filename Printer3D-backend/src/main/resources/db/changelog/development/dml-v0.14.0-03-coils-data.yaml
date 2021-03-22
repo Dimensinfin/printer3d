@@ -1,0 +1,189 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_14_0_3001_printer3d_coilsv1_data
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: 2f4fe8d8-fc1b-40fd-b9b2-729100612253
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: BLANCO
+              - column:
+                  name: color
+                  value: BLANCO
+              - column:
+                  name: weight
+                  value: 700
+              - column:
+                  name: active
+                  value: true
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: cee43a4e-339a-482c-ac60-dd7d13bba5e2
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: NEGRO
+              - column:
+                  name: color
+                  value: NEGRO (uso)
+              - column:
+                  name: weight
+                  value: 150
+              - column:
+                  name: active
+                  value: true
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: df397fcc-ba76-453c-b896-e58965133787
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: NEGRO
+              - column:
+                  name: color
+                  value: NEGRO
+              - column:
+                  name: weight
+                  value: 150
+              - column:
+                  name: active
+                  value: true
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: c8afa59f-33e4-4143-a874-1a54a8818b54
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: NEGRO
+              - column:
+                  name: color
+                  value: NEGRO
+              - column:
+                  name: weight
+                  value: 750
+              - column:
+                  name: active
+                  value: true
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: 5d01ccbd-8cb1-4509-8c35-85fda73c4686
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: ROJO
+              - column:
+                  name: color
+                  value: ROJO
+              - column:
+                  name: weight
+                  value: 650
+              - column:
+                  name: active
+                  value: true
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: be890c79-1d21-415e-8a38-ef20b0288b04
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: AZUL BRILLANTE
+              - column:
+                  name: color
+                  value: AZUL BRILLANTE CLARO
+              - column:
+                  name: weight
+                  value: 700
+              - column:
+                  name: active
+                  value: true
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: 5684eedb-2a96-49e5-b5d7-ca45c4ac8222
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: AZUL BRILLANTE
+              - column:
+                  name: color
+                  value: AZUL BRILLANTE CLARO
+              - column:
+                  name: weight
+                  value: 10
+              - column:
+                  name: active
+                  value: true
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: coilsv1
+            columns:
+              - column:
+                  name: id
+                  value: bc0f2683-ed24-4c09-81fc-689daf79d955
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color_set
+                  value: AZUL BRILLANTE
+              - column:
+                  name: color
+                  value: AZUL BRILLANTE CLARO
+              - column:
+                  name: weight
+                  value: 10
+              - column:
+                  name: active
+                  value: false

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_14_0_2001_printer3d_fill_coils_colorSet_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: coilsv1
+            where: 1=1
+            remarks: Insert a default value for the color set. By default matches the coil color.
+            column:
+              - column:
+                  name: color_set
+                  value: color
