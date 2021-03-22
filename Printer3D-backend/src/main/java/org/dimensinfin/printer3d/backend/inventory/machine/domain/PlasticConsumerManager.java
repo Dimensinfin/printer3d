@@ -27,6 +27,7 @@ public class PlasticConsumerManager {
 				.withMessage( "Not enough Material or no coil available to start the job." )
 				.build();
 	}
+
 	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S

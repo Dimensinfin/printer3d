@@ -17,7 +17,7 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 public class CoilValidator extends CommonValidator implements Validator<Coil> {
 	private final Printer3DWorld printer3DWorld;
 
-// - C O N S T R U C T O R S
+	// - C O N S T R U C T O R S
 	public CoilValidator( final Printer3DWorld printer3DWorld ) {
 		this.printer3DWorld = printer3DWorld;
 	}

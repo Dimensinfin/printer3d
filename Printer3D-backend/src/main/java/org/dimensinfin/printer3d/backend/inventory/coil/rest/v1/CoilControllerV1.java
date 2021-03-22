@@ -51,6 +51,7 @@ class CoilControllerV1 {
 
 	/**
 	 * Updates a Coil. All only field allowed to be changed is the weight.
+	 *
 	 * @param updateCoilRequest the new data to persist for this Coil
 	 * @return the coil data as found on the repository.
 	 * @since 0.10.0

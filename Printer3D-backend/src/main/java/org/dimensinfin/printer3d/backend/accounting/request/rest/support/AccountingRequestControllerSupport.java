@@ -18,7 +18,7 @@ import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 
-@Profile({ "local", "acceptance", "test" })
+@Profile({ "local", "dev", "acceptance", "test" })
 @RestController
 //@CrossOrigin
 @Validated

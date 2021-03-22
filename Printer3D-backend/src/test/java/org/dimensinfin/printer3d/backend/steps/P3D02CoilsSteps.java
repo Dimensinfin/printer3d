@@ -39,7 +39,7 @@ public class P3D02CoilsSteps extends StepSupport {
 	public void the_coil_with_id_has_the_next_data( final String coilId, final List<Map<String, String>> dataTable ) {
 		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils() );
-		for (Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()) {
+		for (final Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()) {
 			if (coil.getId().toString().equalsIgnoreCase( coilId )) {
 				Assertions.assertTrue(
 						new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), coil )
@@ -63,7 +63,7 @@ public class P3D02CoilsSteps extends StepSupport {
 	public void the_item_with_id_of_the_list_of_Coils_has_the_next_fields( final String targetId, final List<Map<String, String>> dataTable ) {
 		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils() );
-		for (Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()) {
+		for (final Coil coil : this.printer3DWorld.getCoilListResponseEntity().getBody().getCoils()) {
 			if (coil.getId().toString().equals( targetId ))
 				Assertions.assertTrue(
 						new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ), coil )

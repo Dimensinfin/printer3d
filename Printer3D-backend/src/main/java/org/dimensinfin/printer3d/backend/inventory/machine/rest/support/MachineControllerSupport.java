@@ -27,7 +27,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
-@Profile({ "local", "acceptance", "test" })
+@Profile({ "local", "dev", "acceptance", "test" })
 @RestController
 @Validated
 @RequestMapping("/api/v1")

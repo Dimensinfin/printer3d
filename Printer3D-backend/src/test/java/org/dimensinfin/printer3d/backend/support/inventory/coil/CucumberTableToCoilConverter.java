@@ -23,7 +23,7 @@ public class CucumberTableToCoilConverter extends CucumberTableConverter<Coil> {
 	@Override
 	public Coil convert( final Map<String, String> cucumberRow ) {
 		Coil.Builder builder = new Coil.Builder();
-		if (null != cucumberRow.get( ID )) builder = builder.withId( UUID.fromString( this.cucumberDataMap( printer3DWorld,
+		if (null != cucumberRow.get( ID )) builder = builder.withId( UUID.fromString( this.cucumberDataMap( this.printer3DWorld,
 				cucumberRow.get( ID ) ) ) );
 		if (null != cucumberRow.get( MATERIAL )) builder = builder.withMaterial( cucumberRow.get( MATERIAL ) );
 		if (null != cucumberRow.get( COLOR )) builder = builder.withColor( cucumberRow.get( COLOR ) );

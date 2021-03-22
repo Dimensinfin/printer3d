@@ -17,7 +17,7 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 
-@Profile({ "local", "acceptance", "test" })
+@Profile({ "local", "dev", "acceptance", "test" })
 @RestController
 //@CrossOrigin
 @Validated

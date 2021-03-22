@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Sort;
 
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
 public class FinishingsServiceV1Test {
@@ -20,12 +20,12 @@ public class FinishingsServiceV1Test {
 
 	@BeforeEach
 	public void beforeEach() {
-		this.coilRepository = Mockito.mock( CoilRepository.class);
+		this.coilRepository = Mockito.mock( CoilRepository.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final FinishingsServiceV1 finishingsServiceV1=new FinishingsServiceV1(this.coilRepository);
+		final FinishingsServiceV1 finishingsServiceV1 = new FinishingsServiceV1( this.coilRepository );
 		Assertions.assertNotNull( finishingsServiceV1 );
 	}
 
@@ -37,30 +37,30 @@ public class FinishingsServiceV1Test {
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
 				.withColor( "ROJO" )
-				.build());
+				.build() );
 		allCoils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
 				.withColor( "VERDE" )
-				.build());
+				.build() );
 		allCoils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
 				.withColor( "BLANCO" )
-				.build());
+				.build() );
 		allCoils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "TPU" )
 				.withColor( "BLANCO" )
-				.build());
+				.build() );
 		// When
-		Mockito.when( this.coilRepository.findAll(Mockito.any( Sort.class) ) ).thenReturn( allCoils );
+		Mockito.when( this.coilRepository.findAll( Mockito.any( Sort.class ) ) ).thenReturn( allCoils );
 		// Test
-		final FinishingsServiceV1 finishingsServiceV1=new FinishingsServiceV1(this.coilRepository);
+		final FinishingsServiceV1 finishingsServiceV1 = new FinishingsServiceV1( this.coilRepository );
 		final FinishingsResponse obtained = finishingsServiceV1.getFinishings();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.getMaterials().size() );
-		Assertions.assertEquals( 3, obtained.getMaterials().get(0).getColors().size() );
+		Assertions.assertEquals( 3, obtained.getMaterials().get( 0 ).getColors().size() );
 	}
 }

@@ -20,7 +20,7 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 
-@Profile({ "local", "acceptance", "test" })
+@Profile({ "local", "dev", "acceptance", "test" })
 @RestController
 @Validated
 @RequestMapping("/api/v1")

@@ -56,7 +56,7 @@ public class MachineServiceV2Test {
 
 	@Test
 	public void constructorContract() {
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		Assertions.assertNotNull( machineServiceV2 );
 	}
 
@@ -101,7 +101,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		Mockito.when( machineEntityRunning.getCurrentJobPartBuildTime() ).thenReturn( TEST_PART_BUILD_TIME );
 		// Test
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		final List<MachineV2> obtained = machineServiceV2.getMachines();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -117,6 +117,22 @@ public class MachineServiceV2Test {
 	}
 
 	@Test
+	public void getMachinesNullPointerException() {
+		// Given
+		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
+		final List<MachineEntity> machineEntityList = new ArrayList<>();
+		machineEntityList.add( machineEntity );
+		// When
+		Mockito.when( this.machineRepository.findAll() ).thenReturn( machineEntityList );
+		Mockito.when( machineEntity.getCurrentPartInstances() ).thenThrow( NullPointerException.class );
+		// Exceptions
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
+		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
+			machineServiceV2.getMachines();
+		} );
+	}
+
+	@Test
 	public void getMachinesPartNotFound() {
 		// Given
 		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
@@ -129,7 +145,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntity.getCurrentJobPartId() ).thenReturn( UUID.fromString( "85403a7a-4bf8-4e99-bbc1-8283ea91f99b" ) );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		// Exceptions
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			machineServiceV2.getMachines();
 		} );
@@ -183,7 +199,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntityRunning.getCurrentPartInstances() ).thenReturn( 3 );
 		Mockito.when( machineEntityRunning.getCurrentJobPartBuildTime() ).thenReturn( TEST_PART_BUILD_TIME );
 		// Test
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		final List<MachineV2> obtained = machineServiceV2.getMachines();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -265,7 +281,7 @@ public class MachineServiceV2Test {
 		Mockito.when( machineEntity.getCurrentPartInstances() ).thenReturn( 2 );
 		Mockito.when( machineEntity.getJobInstallmentDate() ).thenReturn( Instant.now() );
 		// Test
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		final MachineV2 obtained = machineServiceV2.startBuild( machineId, jobRequest );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -285,7 +301,7 @@ public class MachineServiceV2Test {
 		// When
 		Mockito.when( this.machineRepository.findById( machineId ) ).thenReturn( Optional.empty() );
 		// Test
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			machineServiceV2.startBuild( machineId, jobRequest );
@@ -306,7 +322,7 @@ public class MachineServiceV2Test {
 				Mockito.any( PartEntity.class ),
 				Mockito.anyInt() );
 		// Exceptions
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			machineServiceV2.startBuild( machineId, jobRequest );
 		} );
@@ -326,25 +342,10 @@ public class MachineServiceV2Test {
 		Mockito.when( this.machineRepository.findById( machineId ) ).thenReturn( Optional.of( machineEntity ) );
 		Mockito.when( this.partRepository.findById( TEST_PART_ID ) ).thenReturn( Optional.empty() );
 		// Test
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
+		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, this.plasticConsumerManager );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			machineServiceV2.startBuild( machineId, jobRequest );
-		} );
-	}
-	@Test
-	public void getMachinesNullPointerException() {
-		// Given
-		final MachineEntity machineEntity = Mockito.mock( MachineEntity.class );
-		final List<MachineEntity> machineEntityList = new ArrayList<>();
-		machineEntityList.add( machineEntity );
-		// When
-		Mockito.when( this.machineRepository.findAll() ).thenReturn( machineEntityList );
-		Mockito.when( machineEntity.getCurrentPartInstances() ).thenThrow( NullPointerException.class );
-		// Exceptions
-		final MachineServiceV2 machineServiceV2 = new MachineServiceV2( this.machineRepository, this.partRepository, plasticConsumerManager );
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			machineServiceV2.getMachines();
 		} );
 	}
 }

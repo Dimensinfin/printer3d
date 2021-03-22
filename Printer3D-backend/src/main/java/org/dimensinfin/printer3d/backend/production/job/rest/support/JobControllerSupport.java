@@ -23,7 +23,7 @@ import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepositor
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobHistoric;
 
-@Profile({ "local", "acceptance", "test" })
+@Profile({ "local", "dev", "acceptance", "test" })
 @RestController
 @CrossOrigin
 @Validated
