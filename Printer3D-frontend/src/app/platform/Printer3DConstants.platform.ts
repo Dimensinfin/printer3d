@@ -1,7 +1,11 @@
-export const platformconstants = {
+export const Printer3DConstants = {
     // - C O N S T A N T S
     DOCK_CURRENT_CONFIGURATION_KEY: '-DOCK_CURRENT_CONFIGURATION-KEY-',
     PARTIAL_PART_KEY: '-PARTIAL-PART-KEY-',
     JWTTOKEN_KEY: '-JWTTOKEN_KEY-',
     JWTTOKEN_EXPIRATION_TIME_KEY: '-JWTTOKEN_EXPIRATION_TIME_KEY-',
+    // - E N D P O I N T   P A T H   C O N S T A N T S
+    BACKENDPATH: '',
+    APIVERSION1: '/api/v1',
+    APIVERSION2: '/api/v2'
 }

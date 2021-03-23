@@ -15,7 +15,7 @@ import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
-import { platformconstants } from '@app/platform/platform-constants';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { Feature } from '@domain/Feature.domain';
 
@@ -109,7 +109,7 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
      * Save this part on the storage and open the dialog so the fields can be edited.
      */
     public duplicatePart(): void {
-        this.isolationService.setToStorageObject(platformconstants.PARTIAL_PART_KEY, this.getNode())
+        this.isolationService.setToStorageObject(Printer3DConstants.PARTIAL_PART_KEY, this.getNode())
         const targetFeature = new Feature({
             "label": "/Nueva Pieza",
             "enabled": true,

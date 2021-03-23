@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { platformconstants } from '@app/platform/platform-constants';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { v4 as uuidv4 } from 'uuid';
 // - MATERIAL
 import { MatDialogConfig } from '@angular/material/dialog';
@@ -60,7 +60,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
         this.backendConnections.push(
             this.backendService.apiNewPart_v1(this.part, this.dataToPartTransformer)
                 .subscribe((persistedPart: Part) => {
-                    this.isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY) // Clear the part copy
+                    this.isolationService.removeFromStorage(Printer3DConstants.PARTIAL_PART_KEY) // Clear the part copy
                     this.closeModal();
                 }, (error) => {
                     console.log('-[NewPartDialogComponent.savePart.exception]> Error message: ' + JSON.stringify(error.error))
@@ -88,7 +88,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
     }
     public closeModal(): void {
         console.log('>[NewPartDialogComponent.closeModal]')
-        this.isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY); // Clean the part on edition
+        this.isolationService.removeFromStorage(Printer3DConstants.PARTIAL_PART_KEY); // Clean the part on edition
         this.dialogRef.close();
     }
     public materialSelectorChanged(event: any): void {
@@ -118,7 +118,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
     }
     protected loadPartForm(): void {
         // If there is no previous pending part then initialize a new one with default values but new ID.
-        const pendingPart = this.isolationService.getFromStorage(platformconstants.PARTIAL_PART_KEY);
+        const pendingPart = this.isolationService.getFromStorage(Printer3DConstants.PARTIAL_PART_KEY);
         console.log('-[NewPartDialogComponent.ngOnInit]> Previous Part: ' + pendingPart)
         if (null == pendingPart) {
             console.log('-[NewPartDialogComponent.ngOnInit]> Initializing Part')

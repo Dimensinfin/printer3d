@@ -7,7 +7,7 @@ import { Feature } from '@domain/Feature.domain';
 import { V1DockComponent } from '../../common/v1-dock/v1-dock.component';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { platformconstants } from '@app/platform/platform-constants';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { DockService } from '@app/services/dock.service';
 
 @Component({

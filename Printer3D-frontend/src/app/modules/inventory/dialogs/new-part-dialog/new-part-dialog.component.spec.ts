@@ -2,7 +2,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { platformconstants } from '../../../../platform/platform-constants';
+import { Printer3DConstants } from '../../../../platform/Printer3DConstants.platform';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 // - MATERIAL
@@ -84,7 +84,7 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             component.finishings = new Map<string, string[]>();
             component.materials = []
             component.colors = []
-            isolationService.removeFromStorage(platformconstants.PARTIAL_PART_KEY);
+            isolationService.removeFromStorage(Printer3DConstants.PARTIAL_PART_KEY);
             jasmine.clock().install();
             component.ngOnInit();
             jasmine.clock().tick(200);
@@ -113,7 +113,7 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
             component.finishings = new Map<string, string[]>();
             component.materials = []
             component.colors = []
-            isolationService.setToStorageObject(platformconstants.PARTIAL_PART_KEY, originalPart);
+            isolationService.setToStorageObject(Printer3DConstants.PARTIAL_PART_KEY, originalPart);
             jasmine.clock().install();
             component.part = undefined
             component.ngOnInit();

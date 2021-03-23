@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { platformconstants } from '@app/platform/platform-constants';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { v4 as uuidv4 } from 'uuid';
 // - MATERIAL
 import { MatDialogConfig } from '@angular/material/dialog';

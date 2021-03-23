@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { platformconstants } from '../../../platform/platform-constants';
+import { Printer3DConstants } from '../../../platform/Printer3DConstants.platform';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 // - TESTING

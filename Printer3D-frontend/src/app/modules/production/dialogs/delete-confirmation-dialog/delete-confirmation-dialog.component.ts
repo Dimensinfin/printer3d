@@ -12,7 +12,7 @@ import { BackendService } from '@app/services/backend.service';
 import { Feature } from '@domain/Feature.domain';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { platformconstants } from '@app/platform/platform-constants';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { environment } from '@env/environment';
 import { Part } from '@domain/inventory/Part.domain';

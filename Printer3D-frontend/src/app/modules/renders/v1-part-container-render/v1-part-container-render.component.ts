@@ -15,7 +15,7 @@ import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
-import { platformconstants } from '@app/platform/platform-constants';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { PartContainer } from '@domain/PartContainer.domain';
 import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
