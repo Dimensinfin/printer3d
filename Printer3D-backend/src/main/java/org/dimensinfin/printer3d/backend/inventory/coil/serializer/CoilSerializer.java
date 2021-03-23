@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.springframework.boot.jackson.JsonComponent;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 
@@ -13,7 +12,7 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.14.0
  */
-@JsonComponent
+//@JsonComponent
 public class CoilSerializer extends JsonSerializer<Coil> {
 
 	@Override

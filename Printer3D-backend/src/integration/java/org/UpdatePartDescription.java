@@ -14,7 +14,7 @@ import org.dimensinfin.printer3d.backend.support.conf.ProductionTargetConfig;
 
 public class UpdatePartDescription {
 	private static final String NEW_DESCRIPTION = "Llavero ornamental.";
-	private static final String TARGET_LABEL="COVID KEY 1.0";
+	private static final String TARGET_LABEL = "COVID KEY 1.0";
 	private ITargetConfiguration targetConfiguration;
 	private Printer3DWorld printer3DWorld;
 	private PartFeignClientData partFeignClientData;
@@ -62,7 +62,7 @@ public class UpdatePartDescription {
 				.stream()
 				.filter( ( part ) -> {
 					LogWrapper.info( "label: " + part.getLabel() );
-					return part.getLabel().equalsIgnoreCase( TARGET_LABEL);
+					return part.getLabel().equalsIgnoreCase( TARGET_LABEL );
 				} )
 				.forEach( ( part ) -> {
 					part.setDescription( NEW_DESCRIPTION );

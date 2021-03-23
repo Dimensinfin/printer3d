@@ -107,10 +107,10 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.13.0
+  version: 0.14.0
 servers:
   - url: https://printer3d-backend-stage.herokuapp.com
-    description: OpenAPI 0.13.0 for 3D Printer Queue Management Backend Service. Stage environment
+    description: OpenAPI 0.14.0 for 3D Printer Queue Management Backend Service. Stage environment
   - url: https://printer3d-backend.herokuapp.com
     description: OpenAPI 0.13.0 for 3D Printer Queue Management Backend Service. Production
 
@@ -472,6 +472,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Coil'
+  #    get:
+  #      tags:
+  #        - Inventory
+  #      summary: Get the list of Coils persisted at the Inventory repository.
+  #      description: >
+  #        Get the complete list of **Coils** persisted at the Inventory repository.
+  #      operationId: getCoils
+  #      responses:
+  #        200:
+  #          description: >
+  #            The list of Coils persisted at the Inventory repository.
+  #          content:
+  #            application/json:
+  #              schema:
+  #                $ref: '#/components/schemas/CoilList'
+  /api/v2/inventory/coils:
     get:
       tags:
         - Inventory
@@ -486,7 +502,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CoilList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Coil'
 
   # - F I N I S H I N G S
   /api/v1/inventory/finishings:
@@ -1260,22 +1278,22 @@ components:
     ModelList:
       type: array
       items:
-#        $ref: '#/components/schemas/WeekAmount'
-#      type: object
-#      required:
-#        - count
-#        - models
-#      properties:
-#        count:
-#          type: number
-#          format: int32
-#          description: >
-#            The number of Models that follow on the response.
-#          example:
-#            8
-#        models:
-#          type: array
-#          items:
+        #        $ref: '#/components/schemas/WeekAmount'
+        #      type: object
+        #      required:
+        #        - count
+        #        - models
+        #      properties:
+        #        count:
+        #          type: number
+        #          format: int32
+        #          description: >
+        #            The number of Models that follow on the response.
+        #          example:
+        #            8
+        #        models:
+        #          type: array
+        #          items:
         $ref: '#/components/schemas/Model'
     Model:
       type: object
@@ -1356,7 +1374,9 @@ components:
         - id
         - material
         - color
+        - colorSet
         - weight
+        - active
       properties:
         id:
           type: string
@@ -1386,6 +1406,15 @@ components:
             The color name for the plastic on the coil. A coil should have this field as mandatory
           example:
             VERDE-T
+        colorSet:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 32
+          description: >
+            The color set name to which this Colil belongs. The color name as a label can be changed but this tag is related to a set of coils sharing the same color and then cannot be changed once the coil is created.
+          example:
+            VERDE
         weight:
           type: string
           format: int32
@@ -1397,6 +1426,13 @@ components:
             from the inventory when they have their weight under a predetermined level. The unit or representation is grames.
           example:
             1000
+        active:
+          type: boolean
+          default: true
+          description: >
+            The current coil availability state. Empty, rejected or defectuous coils can be moved to the 'false' state and then can be cleared from the listing with some filters.
+          example:
+            true
     UpdateCoilRequest:
       type: object
       required:
@@ -1421,24 +1457,24 @@ components:
             The new coil weight as reported by the user on the GUI. The unit or representation is grames.
           example:
             1000
-    CoilList:
-      type: object
-      deprecated: true
-      required:
-        - count
-        - coils
-      properties:
-        count:
-          type: number
-          format: int32
-          description: >
-            The number of Coils that follow on the response.
-          example:
-            8
-        coils:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coil'
+    #    CoilList:
+    #      type: object
+    #      deprecated: true
+    #      required:
+    #        - count
+    #        - coils
+    #      properties:
+    #        count:
+    #          type: number
+    #          format: int32
+    #          description: >
+    #            The number of Coils that follow on the response.
+    #          example:
+    #            8
+    #        coils:
+    #          type: array
+    #          items:
+    #            $ref: '#/components/schemas/Coil'
 
     FinishingsResponse:
       type: object
@@ -1473,7 +1509,7 @@ components:
           description: >
             The list of unique colors for active coils ordered alphabetically descending.
           example:
-            ['BLANCO', 'NEGRO', 'ROJO']
+            [ 'BLANCO', 'NEGRO', 'ROJO' ]
 
     Job:
       type: object

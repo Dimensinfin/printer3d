@@ -27,7 +27,7 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 	@Override
 	public boolean validate( final Map<String, String> rowData, final Coil record ) {
 		if (null != rowData.get( ID ))
-			Assertions.assertEquals( this.cucumberDataMap( this.printer3DWorld, rowData.get( ID ) ), record.getId() );
+			Assertions.assertEquals( this.cucumberDataMap( this.printer3DWorld, rowData.get( ID ) ), record.getId().toString() );
 		Assertions.assertEquals( rowData.get( MATERIAL ), record.getMaterial() );
 		if (null != rowData.get( COLOR ))
 			Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );
@@ -35,7 +35,7 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 			Assertions.assertEquals( rowData.get( COLOR_SET ), record.getColorSet() );
 		Assertions.assertEquals( Integer.parseInt( rowData.get( WEIGHT ) ), record.getWeight() );
 		if (null != rowData.get( ACTIVE ))
-			Assertions.assertEquals( rowData.get( ACTIVE ), record.getActive() );
+			Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.getActive() );
 		return true;
 	}
 }
