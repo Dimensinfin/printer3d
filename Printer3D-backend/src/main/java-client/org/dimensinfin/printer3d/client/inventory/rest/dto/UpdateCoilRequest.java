@@ -25,8 +25,18 @@ public class UpdateCoilRequest {
 	@NotNull(message = "Weight data cannot be null.")
 	@SerializedName("weight")
 	private Integer weight;
+	private String color;
+	private Boolean active;
 
 	// - G E T T E R S   &   S E T T E R S
+	public Boolean getActive() {
+		return this.active;
+	}
+
+	public String getColor() {
+		return this.color;
+	}
+
 	public UUID getId() {
 		return this.id;
 	}
@@ -40,6 +50,8 @@ public class UpdateCoilRequest {
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.weight )
+				.append( this.color )
+				.append( this.active )
 				.toHashCode();
 	}
 
@@ -50,6 +62,8 @@ public class UpdateCoilRequest {
 		final UpdateCoilRequest that = (UpdateCoilRequest) o;
 		return new EqualsBuilder()
 				.append( this.weight, that.weight )
+				.append( this.color, that.color )
+				.append( this.active, that.active )
 				.isEquals();
 	}
 
@@ -58,6 +72,8 @@ public class UpdateCoilRequest {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "id", this.id )
 				.append( "weight", this.weight )
+				.append( "color", this.color )
+				.append( "active", this.active )
 				.toString();
 	}
 
@@ -72,6 +88,16 @@ public class UpdateCoilRequest {
 
 		public UpdateCoilRequest build() {
 			return this.onConstruction;
+		}
+
+		public UpdateCoilRequest.Builder withActive( final Boolean active ) {
+			if (null != active) this.onConstruction.active = active;
+			return this;
+		}
+
+		public UpdateCoilRequest.Builder withColor( final String color ) {
+			if (null != color) this.onConstruction.color = color;
+			return this;
 		}
 
 		public UpdateCoilRequest.Builder withId( final UUID id ) {

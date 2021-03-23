@@ -14,6 +14,9 @@ public class CoilUpdater {
 	}
 
 	public Coil update( final @NotNull UpdateCoilRequest updateData ) {
-		return this.coilEntity.setWeight( updateData.getWeight() );
+		this.coilEntity.setWeight( updateData.getWeight() );
+		if (null != updateData.getColor()) this.coilEntity.setColor( updateData.getColor() );
+		if (null != updateData.getActive()) this.coilEntity.setActive( updateData.getActive() );
+		return this.coilEntity;
 	}
 }

@@ -70,6 +70,11 @@ public class Coil {
 		return this.color;
 	}
 
+	public Coil setColor( final String color ) {
+		this.color = color;
+		return this;
+	}
+
 	public String getColorSet() {
 		return this.colorSet;
 	}

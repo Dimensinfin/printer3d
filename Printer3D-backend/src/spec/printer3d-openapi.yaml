@@ -434,6 +434,8 @@ paths:
       description: >
         The 3D printers need and use plastic filament to build the models. The Coils have as main characteristics the type of plastic, the color
         and the quantity of the material.
+        Now coils also belong to a color group so when the machine selects the plastic it will select it from any of the coils on the same group
+        and not from a single coil.
       operationId: newCoil
       requestBody:
         description: >
@@ -455,7 +457,8 @@ paths:
         - Inventory
       summary: Updates an existing Coil.
       description: >
-        Updates a Coil. All only field allowed to be changed is the weight.
+        Updates a Coil. The fields allowed to be changed are the **weight** and now the **color** label.
+        The **active** field can be changed automatically when the coil is empty or by the user to reject a coil.
       operationId: updateCoil
       requestBody:
         description: >
@@ -467,26 +470,11 @@ paths:
       responses:
         200:
           description: >
-            The new Coil data as stored at the repository.
+            The new Coil data updated with the new received data and the values at the repository.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Coil'
-  #    get:
-  #      tags:
-  #        - Inventory
-  #      summary: Get the list of Coils persisted at the Inventory repository.
-  #      description: >
-  #        Get the complete list of **Coils** persisted at the Inventory repository.
-  #      operationId: getCoils
-  #      responses:
-  #        200:
-  #          description: >
-  #            The list of Coils persisted at the Inventory repository.
-  #          content:
-  #            application/json:
-  #              schema:
-  #                $ref: '#/components/schemas/CoilList'
   /api/v2/inventory/coils:
     get:
       tags:
@@ -1457,24 +1445,22 @@ components:
             The new coil weight as reported by the user on the GUI. The unit or representation is grames.
           example:
             1000
-    #    CoilList:
-    #      type: object
-    #      deprecated: true
-    #      required:
-    #        - count
-    #        - coils
-    #      properties:
-    #        count:
-    #          type: number
-    #          format: int32
-    #          description: >
-    #            The number of Coils that follow on the response.
-    #          example:
-    #            8
-    #        coils:
-    #          type: array
-    #          items:
-    #            $ref: '#/components/schemas/Coil'
+        color:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 32
+          description: >
+            The color name for the plastic on the coil. A coil should have this field as mandatory
+          example:
+            VERDE-T
+        active:
+          type: boolean
+          default: true
+          description: >
+            The current coil availability state. Empty, rejected or defectuous coils can be moved to the 'false' state and then can be cleared from the listing with some filters.
+          example:
+            true
 
     FinishingsResponse:
       type: object
