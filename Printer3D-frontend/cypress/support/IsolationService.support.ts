@@ -52,7 +52,7 @@ export class IsolationService {
             case 'backend-version':
                 return environment.backendVersion;
             case 'copyright':
-                return environment.copyright;
+                return '© 2020 Dimensinfin Industries'
         }
         return '-undefined-';
     }

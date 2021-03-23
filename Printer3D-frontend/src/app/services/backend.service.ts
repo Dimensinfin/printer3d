@@ -24,6 +24,7 @@ import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
 import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 import { WeekAmount } from '@domain/dto/WeekAmount.dto';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 
 @Injectable({
     providedIn: 'root'
@@ -34,12 +35,12 @@ export class BackendService {
 
     constructor(
         protected httpService: HttpClientWrapperService) {
-        this.APIV1 = environment.backendPath + environment.apiVersion1;
-        this.APIV2 = environment.backendPath + environment.apiVersion2;
+        this.APIV1 = Printer3DConstants.BACKENDPATH + Printer3DConstants.APIVERSION1;
+        this.APIV2 = Printer3DConstants.BACKENDPATH + Printer3DConstants.APIVERSION2;
     }
     // - A C T U A T O R - A P I
     public apiActuatorInfo(transformer: ResponseTransformer): Observable<BackendInfoResponse> {
-        const request = environment.backendPath + '/actuator/info';
+        const request = Printer3DConstants.BACKENDPATH + '/actuator/info';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpGETCall(request, headers)

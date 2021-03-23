@@ -26,7 +26,7 @@ version: 2.1
 jobs:
   start-job:
     docker:
-      - image: circleci/node:12.16.3-browsers
+      - image: circleci/node:12.21.0-browsers
       - image: circleci/openjdk:11-jdk
     steps:
       - checkout
@@ -41,7 +41,7 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             cp --force --verbose package-test.json package.json
-            npm install
+            # npm install
       - run:
           name: PRINTER3D-FRONTEND - Generate deploy code for Stage
           working_directory: Printer3D-frontend
@@ -59,7 +59,7 @@ jobs:
             git add *.*
             git add config
             git add src
-            git commit -m "-[HEROKU] Commiting code for deployment"
+            # git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
           name: PRINTER3D-FRONTEND - Deploy Master to Heroku
           environment:
@@ -67,7 +67,7 @@ jobs:
             HEROKU_FRONTEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
           working_directory: Printer3D-frontend
           command: |
-            git push https://heroku:$HEROKU_FRONTEND_API_KEY@git.heroku.com/$HEROKU_FRONTEND_APP_NAME.git master --force
+            # git push https://heroku:$HEROKU_FRONTEND_API_KEY@git.heroku.com/$HEROKU_FRONTEND_APP_NAME.git master --force
 
   # - F R O N T E N D
   framework-frontend-job:

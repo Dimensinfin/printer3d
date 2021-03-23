@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 // - SERVICES
 import { IsolationService } from '@app/platform/isolation.service';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 
 @Injectable({
     providedIn: 'root'
@@ -71,12 +72,11 @@ export class HttpClientWrapperService {
      */
     protected wrapHttpSecureHeaders(requestHeaders?: HttpHeaders): HttpHeaders {
         let headers = new HttpHeaders()
-            .set('Content-Type', 'application/json; charset=utf-8')
-            .set('xApp-Name', environment.appName)
-            .set('xApp-Version', environment.appVersion)
-            .set('xApp-Platform', environment.platform)
-            .set('xApp-Signature', 'S0000.0016.0001')
-            .set('xApp-Signature', 'S0000.0019.0001');
+        headers.set('Content-Type', 'application/json; charset=utf-8')
+        headers.set('xApp-Name', environment.appName)
+        headers.set('xApp-Version', environment.appVersion)
+        headers.set('xApp-Platform', Printer3DConstants.PLATFORM)
+        headers.set('xApp-Signature', Printer3DConstants.APPSIGNATURE)
         if (null != requestHeaders) { // Copy in additional headers.
             for (let key of requestHeaders.keys()) {
                 headers = headers.set(key, requestHeaders.get(key));
