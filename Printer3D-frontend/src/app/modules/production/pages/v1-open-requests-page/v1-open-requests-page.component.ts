@@ -4,7 +4,7 @@ import { ViewChild } from '@angular/core';
 // - DOMAIN
 import { V1OpenRequestsPanelComponent } from '../../panels/v1-open-requests-panel/v1-open-requests-panel.component';
 import { V1RequestDetailPanelComponent } from '../../panels/v1-request-detail-panel/v1-request-detail-panel.component';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
 @Component({
@@ -22,7 +22,7 @@ export class V1OpenRequestsPageComponent implements Refreshable{
     }
 
     // -  E V E N T S
-    public selectRequest(request: Request): void {
+    public selectRequest(request: CustomerRequest): void {
         this.selectedRequestPanel.selectRequest(request);
     }
 

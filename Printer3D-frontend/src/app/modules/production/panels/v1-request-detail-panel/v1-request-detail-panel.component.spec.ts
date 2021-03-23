@@ -5,7 +5,7 @@ import { async } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { V1RequestDetailPanelComponent } from './v1-request-detail-panel.component';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 
 describe('COMPONENT V1RequestDetailPanelComponent [Module: PRODUCTION]', () => {
     let component: V1RequestDetailPanelComponent;
@@ -36,14 +36,14 @@ describe('COMPONENT V1RequestDetailPanelComponent [Module: PRODUCTION]', () => {
     describe('Coverage contract [Methods]', () => {
         it('cleanSelectedRequest: clean the request selected', () => {
             expect(component.selectedRequest).toBeUndefined()
-            component.selectRequest(new Request())
+            component.selectRequest(new CustomerRequest())
             expect(component.selectedRequest).toBeDefined()
             component.cleanSelectedRequest()
             expect(component.selectedRequest).toBeUndefined()
         });
         it('selectRequest: set the selected request', () => {
             expect(component.selectedRequest).toBeUndefined()
-            component.selectRequest(new Request())
+            component.selectRequest(new CustomerRequest())
             expect(component.selectedRequest).toBeDefined()
         });
     });

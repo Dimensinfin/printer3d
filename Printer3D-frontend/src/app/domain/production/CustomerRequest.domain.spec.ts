@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { RequestState } from '../interfaces/EPack.enumerated';
 import { Part } from '../inventory/Part.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain';
@@ -8,7 +8,7 @@ describe('CLASS Request [Module: DOMAIN]', () => {
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
-            const instance = new Request();
+            const instance = new CustomerRequest();
             const instanceAsAny = instance as any
             expect(instance).toBeDefined();
             expect(instanceAsAny.id).toBeUndefined();
@@ -19,7 +19,7 @@ describe('CLASS Request [Module: DOMAIN]', () => {
             expect(instanceAsAny.contents.length).toBe(0);
         });
         it('constructor.object: validate initial state with object data', () => {
-            const instance = new Request({
+            const instance = new CustomerRequest({
                 "id": "8674832e-8377-4e30-ab01-d6468a312012",
                 "label": "Proveedor de llaves",
                 "requestDate": "2020-06-18T13:19:28.671Z",
@@ -45,7 +45,7 @@ describe('CLASS Request [Module: DOMAIN]', () => {
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Getters]', () => {
         it('getters: validate getter contract', () => {
-            const instance = new Request({
+            const instance = new CustomerRequest({
                 "id": "9903926b-e786-4fb2-8e8e-68960ebebb7a",
                 "label": "Proveedor de boquillas",
                 "requestDate": "2020-06-18T13:19:28.671Z",

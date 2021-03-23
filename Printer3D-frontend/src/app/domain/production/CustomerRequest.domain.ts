@@ -3,7 +3,7 @@ import { Node } from '../Node.domain';
 import { RequestState } from '@domain/interfaces/EPack.enumerated';
 import { RequestItem } from '@domain/production/RequestItem.domain';
 
-export class Request extends Node {
+export class CustomerRequest extends Node {
     private id: string;
     private label: string;
     private requestDate: string;

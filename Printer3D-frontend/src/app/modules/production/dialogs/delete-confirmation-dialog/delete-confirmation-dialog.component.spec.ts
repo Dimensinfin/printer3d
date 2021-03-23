@@ -26,7 +26,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
@@ -50,7 +50,7 @@ describe('COMPONENT DeleteConfirmationDialogComponent [Module: PRODUCTION]', () 
                 DeleteConfirmationDialogComponent
             ],
             providers: [
-                { provide: MAT_DIALOG_DATA, useValue: { request: new Request({ label: '-REQUEST-LABEL-' }) } },
+                { provide: MAT_DIALOG_DATA, useValue: { request: new CustomerRequest({ label: '-REQUEST-LABEL-' }) } },
                 { provide: MatDialogRef, useValue: { close: (dialogResult: any) => { } } },
                 { provide: IsolationService, useClass: SupportIsolationService },
                 { provide: BackendService, useClass: SupportBackendService }

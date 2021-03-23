@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 // - DOMAIN
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 
 @Component({
     selector: 'v1-request-detail-panel',
@@ -10,13 +10,13 @@ import { Request } from '@domain/production/Request.domain';
     styleUrls: ['./v1-request-detail-panel.component.scss']
 })
 export class V1RequestDetailPanelComponent {
-    public selectedRequest: Request;
+    public selectedRequest: CustomerRequest;
     public container : V1RequestDetailPanelComponent;
 
     public cleanSelectedRequest(): void {
         this.selectedRequest = undefined;
     }
-    public selectRequest(request: Request): void {
+    public selectRequest(request: CustomerRequest): void {
         this.selectedRequest = request;
     }
 }

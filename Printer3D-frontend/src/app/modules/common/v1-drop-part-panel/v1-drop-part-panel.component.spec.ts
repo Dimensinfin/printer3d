@@ -23,7 +23,7 @@ import { BackendService } from '@app/services/backend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
 import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerated';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { Part } from '@domain/inventory/Part.domain';
 import { V1DropPartPanelComponent } from './v1-drop-part-panel.component';
 import { PartStack } from '@domain/PartStack.domain';

@@ -29,18 +29,18 @@ import { V1RequestRenderComponent } from './v1-request-render.component'
 import { MatDialog } from '@angular/material/dialog'
 import { SupportDockService } from '@app/testing/SupportDock.service'
 import { RequestState } from '@domain/interfaces/EPack.enumerated'
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain'
 
 describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
-    const testRequestOpen: Request = new Request({
+    const testRequestOpen: CustomerRequest = new CustomerRequest({
         id: '8a2ac838-4ffa-4785-86bf-2f71ee1ab437',
         label: '-TEST-REQUEST-',
         requestDate: new Date(),
         state: RequestState.OPEN,
         contents: [new RequestItem({ quantity: 1 })]
     })
-    const testRequestCompleted: Request = new Request({
+    const testRequestCompleted: CustomerRequest = new CustomerRequest({
         id: '8a2ac838-4ffa-4785-86bf-2f71ee1ab437',
         label: '-TEST-REQUEST-',
         requestDate: new Date(),

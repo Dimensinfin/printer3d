@@ -1,11 +1,11 @@
 // - DOMAIN
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { IContent } from '@domain/interfaces/IContent.interface';
 import { RequestItem } from '@domain/production/RequestItem.domain';
 import { Converter } from '@domain/interfaces/Converter.interface';
 
-export class DataToRequestConverter implements Converter<any, Request> {
+export class DataToRequestConverter implements Converter<any, CustomerRequest> {
     private contentProvider: IContentProvider
 
     constructor(contentProvider: IContentProvider) {
@@ -16,8 +16,8 @@ export class DataToRequestConverter implements Converter<any, Request> {
      * The Constructor will make use of the ContentProvider to locate that references and to add them to the request before going to render.
      * @param input The backend raw data. The references should be converted to instances.
      */
-    public convert(input: any): Request {
-        const onConstruction: Request = new Request(input)
+    public convert(input: any): CustomerRequest {
+        const onConstruction: CustomerRequest = new CustomerRequest(input)
         const onConstructionAsAny = onConstruction as any
         const contents: RequestItem[] = []
         for (const item of onConstructionAsAny.contents) {

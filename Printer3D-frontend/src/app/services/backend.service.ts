@@ -16,7 +16,7 @@ import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/production/Machine.domain';
 import { Job } from '@domain/production/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { ModelForm } from '@domain/inventory/ModelForm.domain';
@@ -223,14 +223,14 @@ export class BackendService {
     }
 
     // - P R O D U C T I O N
-    public apiNewRequest_v2(newRequest: RequestRequest, transformer: ResponseTransformer): Observable<Request> {
+    public apiNewRequest_v2(newRequest: RequestRequest, transformer: ResponseTransformer): Observable<CustomerRequest> {
         const request = this.APIV2 + '/production/requests';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(newRequest), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiNewRequest_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Request;
+                const response = transformer.transform(data) as CustomerRequest;
                 return response;
             }));
     }
@@ -245,7 +245,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiProductionGetOpenRequests_v2(transformer: ResponseTransformer): Observable<Request[]> {
+    public apiProductionGetOpenRequests_v2(transformer: ResponseTransformer): Observable<CustomerRequest[]> {
         const request = this.APIV2 + '/production/requests';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName)
@@ -253,18 +253,18 @@ export class BackendService {
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionGetOpenRequests_v2]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Request[];
+                const response = transformer.transform(data) as CustomerRequest[];
                 return response;
             }));
     }
-    public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<Request> {
+    public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<CustomerRequest> {
         const request = this.APIV2 + '/production/requests/' + requestId + '/close';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPUTCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionRequestsClose_v2]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Request;
+                const response = transformer.transform(data) as CustomerRequest;
                 return response;
             }));
     }

@@ -12,7 +12,7 @@ import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
 import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/inventory/Part.domain';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
 import { Model } from '@domain/inventory/Model.domain';
 import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter';
@@ -46,10 +46,10 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
 
     // - I V I E W E R
     public fireSelectionChanged(): void {
-        this.page.selectRequest(this.selection.getFirstSelected() as Request);
+        this.page.selectRequest(this.selection.getFirstSelected() as CustomerRequest);
     }
     // - E V E N T S
-    public selectRequest(request: Request): void {
+    public selectRequest(request: CustomerRequest): void {
         this.page.selectRequest(request);
     }
 
@@ -120,17 +120,17 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
         this.backendConnections.push(
             this.backendService.apiProductionGetOpenRequests_v2(new ResponseTransformer()
                 .setDescription('Transforms response into a list of Requests.')
-                .setTransformation((entrydata: any): Request[] => {
+                .setTransformation((entrydata: any): CustomerRequest[] => {
                     console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
                     // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
-                    const requestList: Request[] = []
+                    const requestList: CustomerRequest[] = []
                     const requestConverter: DataToRequestConverter = new DataToRequestConverter(this)
                     for (let index = 0; index < entrydata.length; index++) {
                         requestList.push(requestConverter.convert(entrydata[index]));
                     }
                     return requestList;
                 }))
-                .subscribe((requestList: Request[]) => {
+                .subscribe((requestList: CustomerRequest[]) => {
                     console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Requests received: ' + requestList.length)
                     this.completeDowload(requestList); // Notify the completion of the download.
                 })

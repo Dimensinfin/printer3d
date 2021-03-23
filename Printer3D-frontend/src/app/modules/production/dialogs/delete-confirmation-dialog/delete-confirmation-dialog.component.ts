@@ -17,7 +17,7 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { environment } from '@env/environment';
 import { Part } from '@domain/inventory/Part.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -28,7 +28,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     styleUrls: ['./delete-confirmation-dialog.component.scss']
 })
 export class DeleteConfirmationDialogComponent extends BackgroundEnabledComponent {
-    private request: Request
+    private request: CustomerRequest
 
     constructor(
         public dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,

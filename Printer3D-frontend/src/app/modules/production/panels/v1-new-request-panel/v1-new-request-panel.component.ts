@@ -11,7 +11,7 @@ import { Part } from '@domain/inventory/Part.domain';
 import { RequestForm } from '@domain/RequestForm.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain';
 import { Model } from '@domain/inventory/Model.domain';
 import { environment } from '@env/environment';
@@ -77,11 +77,11 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         this.backendConnections.push(
             this.backendService.apiNewRequest_v2(new RequestFormToRequestConverter().convert(this.request),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
-                    .setTransformation((entrydata: any): Request => {
+                    .setTransformation((entrydata: any): CustomerRequest => {
                         this.isolationService.successNotification('Pedido [' + this.request.label + '] registrado correctamente.', '/PRODUCCION/NUEVO PEDIDO/OK');
-                        return new Request(); // Discard the just persisted request and return an empty instance.
+                        return new CustomerRequest(); // Discard the just persisted request and return an empty instance.
                     }))
-                .subscribe((persistedRequest: Request) => {
+                .subscribe((persistedRequest: CustomerRequest) => {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
                     this.dockService.clean() // Clean the selection from any feature
                     this.router.navigate(['/']);

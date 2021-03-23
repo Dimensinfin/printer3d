@@ -1,5 +1,5 @@
 // - DOMAIN
-import { Request } from '../production/Request.domain';
+import { CustomerRequest } from '../production/CustomerRequest.domain';
 import { DataToRequestConverter } from './DataToRequest.converter';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
@@ -20,7 +20,7 @@ describe('CLASS DataToRequestConverter [Module: CONVERTERS]', () => {
                 }
             } as IContentProvider
             const instance = new DataToRequestConverter(contentProvider);
-            const request: Request = instance.convert({
+            const request: CustomerRequest = instance.convert({
                 "id": "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef",
                 "label": "Complete Slot Car Platform P02",
                 "requestDate": "2020-06-29T20:00:00.226181Z",

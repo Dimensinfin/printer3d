@@ -29,7 +29,7 @@ import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { Machine } from '@domain/production/Machine.domain';
 import { Job } from '@domain/production/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { Model } from '@domain/inventory/Model.domain';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
@@ -278,20 +278,20 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         it('apiProductionRequestsClose_v1.default: complete a request', async () => {
             const requestId: string = "-REQUEST-ID-"
             service.apiProductionRequestsClose_v2(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
-                .setTransformation((entrydata: any): Request => {
-                    return new Request(entrydata);
+                .setTransformation((entrydata: any): CustomerRequest => {
+                    return new CustomerRequest(entrydata);
                 }))
-                .subscribe((response: Request) => {
+                .subscribe((response: CustomerRequest) => {
                     expect(response).toBeDefined();
                 });
         });
         it('apiProductionDeleteRequest_v1.default: delete a request', async () => {
             const requestId: string = "-REQUEST-ID-"
             service.apiProductionDeleteRequest_v2(requestId, new ResponseTransformer().setDescription('Transforms Request form backend.')
-                .setTransformation((entrydata: any): Request => {
-                    return new Request(entrydata);
+                .setTransformation((entrydata: any): CustomerRequest => {
+                    return new CustomerRequest(entrydata);
                 }))
-                .subscribe((response: Request) => {
+                .subscribe((response: CustomerRequest) => {
                     expect(response).toBeDefined();
                 });
         });

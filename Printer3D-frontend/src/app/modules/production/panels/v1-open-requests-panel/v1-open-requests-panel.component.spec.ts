@@ -11,7 +11,7 @@ import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientW
 // - DOMAIN
 import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { V1OpenRequestsPanelComponent } from './v1-open-requests-panel.component';
-import { Request } from '@domain/production/Request.domain';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { Part } from '@domain/inventory/Part.domain';
 import { Model } from '@domain/inventory/Model.domain';
 
@@ -76,7 +76,7 @@ describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
                 }
             }
             spyOn(component.page, 'selectRequest')
-            componentAsAny.target = new Request()
+            componentAsAny.target = new CustomerRequest()
             component.fireSelectionChanged()
             expect(component.page.selectRequest).toHaveBeenCalled()
         });
@@ -88,7 +88,7 @@ describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
                 }
             }
             spyOn(component.page, 'selectRequest')
-            component.selectRequest(new Request())
+            component.selectRequest(new CustomerRequest())
             expect(component.page.selectRequest).toHaveBeenCalled()
         });
     });

@@ -10,7 +10,7 @@ import { HttpClientWrapperService } from '@app/services/httpclientwrapper.servic
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
 // - DOMAIN
 import { EVariant } from '@domain/interfaces/EPack.enumerated'
-import { Request } from '@domain/production/Request.domain'
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
 import { Part } from '@domain/inventory/Part.domain'
 import { V1CatalogPanelComponent } from './v1-catalog-panel.component'
 import { Model } from '@domain/inventory/Model.domain'
@@ -121,7 +121,7 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             }
             spyOn(component.page, 'setSelected')
             spyOn(component.page, 'closeEditor')
-            componentAsAny.selection.addSelection(new Request())
+            componentAsAny.selection.addSelection(new CustomerRequest())
             component.fireSelectionChanged()
             expect(component.page.setSelected).not.toHaveBeenCalled()
             expect(component.page.closeEditor).toHaveBeenCalled()
