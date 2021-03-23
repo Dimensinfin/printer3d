@@ -310,6 +310,30 @@ response:
 
 ---
 
+simlet: inventory-coils-v2
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 1000
+  subsequent: 900
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v2/inventory/coils"
+
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+    - "Cookie: jwtToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFU0kgT0F1dGgyIEF1dGhlbnRpY2F0aW9uIiwiY29ycG9yYXRpb25JZCI6OTgzODQ3MjYsImFjY291bnROYW1lIjoiQmV0aCBSaXBsZXkiLCJpc3MiOiJOZW9Db20uSW5maW5pdHkuQmFja2VuZCIsInVuaXF1ZUlkIjoidHJhbnF1aWxpdHkvOTIyMjM2NDciLCJwaWxvdElkIjo5MjIyMzY0N30.Qom8COyZB2sW3bCGm9pnGcIOqw-E2yKDsmGklQW6r9Fhu8jJpkNUv5TUhU2cJjIg5jX3082bZ6eKtRZ3z10vGw"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.coils.json"
+
+---
+
 simlet: production-pendingjobs
 
 delay:

@@ -55,29 +55,27 @@ Then('field named {string} with label {string} and value {string}',
 Then('form field named {string} with label {string} and contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target').within(($item) => {
-            cy.get('[cy-name="' + fieldName + '"]')
-                .find('[cy-field-label="' + fieldName + '"]')
+            cy.get('[cy-name="' + fieldName + '"]')            .find('[cy-field-label="' + fieldName + '"]')
                 .contains(fieldLabel, { matchCase: false })
-            cy.get('[cy-name="' + fieldName + '"]').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-                cy.log(type as string);
-                switch (type) {
-                    case 'input':
-                        cy.log('input')
-                        cy.get('input')
-                            .invoke('val').should('equal', fieldValue)
-                        break
-                    case 'select':
-                        cy.log('select')
-                        cy.get('select')
-                            .invoke('val').should('equal', fieldValue)
-                        break
-                    case 'textarea':
-                        cy.log('textarea')
-                        cy.get('textarea')
-                            .invoke('val').should('equal', fieldValue)
-                        break
-                }
-            })
+            cy.get('[cy-name="' + fieldName + '"]').find('[cy-field-label="' + fieldName + '"]')
+                .invoke('attr', 'cy-input-type').then(type => {
+                    cy.log(type as string)
+                    cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-field')
+                    switch (type) {
+                        case 'input':
+                            cy.get('@target-field').find('input')
+                                .invoke('val').should('equal', fieldValue)
+                            break
+                        case 'select':
+                            cy.get('@target-field').find('select')
+                                .invoke('val').should('equal', fieldValue)
+                            break
+                        case 'textarea':
+                            cy.get('@target-field').find('textarea')
+                                .invoke('val').should('equal', fieldValue)
+                            break
+                    }
+                })
         })
     });
 Then('form field named {string} is {string}', function (fieldName: string, state: string) {

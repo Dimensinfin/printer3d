@@ -130,17 +130,17 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryUpdateCoil_v1(updatingCoil: UpdateCoilRequest, transformer: ResponseTransformer): Observable<Coil> {
-        const request = this.APIV1 + '/inventory/coils';
-        let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingCoil), headers)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Coil;
-                return response;
-            }));
-    }
+    // public apiInventoryUpdateCoil_v1(updatingCoil: UpdateCoilRequest, transformer: ResponseTransformer): Observable<Coil> {
+    //     const request = this.APIV1 + '/inventory/coils';
+    //     let headers = new HttpHeaders()
+    //         .set('xapp-name', environment.appName);
+    //     return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingCoil), headers)
+    //         .pipe(map((data: any) => {
+    //             console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
+    //             const response = transformer.transform(data) as Coil;
+    //             return response;
+    //         }));
+    // }
     public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
         const request = this.APIV1 + '/inventory/finishings';
         let headers = new HttpHeaders()
@@ -152,17 +152,17 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryCoils_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
-        const request = this.APIV1 + '/inventory/coils';
-        let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName);
-        return this.httpService.wrapHttpGETCall(request, headers)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiInventoryCoils_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as CoilListResponse;
-                return response;
-            }));
-    }
+    // public apiInventoryCoils_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
+    //     const request = this.APIV1 + '/inventory/coils';
+    //     let headers = new HttpHeaders()
+    //         .set('xapp-name', environment.appName);
+    //     return this.httpService.wrapHttpGETCall(request, headers)
+    //         .pipe(map((data: any) => {
+    //             console.log(">[BackendService.apiInventoryCoils_v1]> Transformation: " + transformer.description);
+    //             const response = transformer.transform(data) as CoilListResponse;
+    //             return response;
+    //         }));
+    // }
     public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<Machine[]> {
         const request = this.APIV2 + '/inventory/machines';
         let headers = new HttpHeaders()

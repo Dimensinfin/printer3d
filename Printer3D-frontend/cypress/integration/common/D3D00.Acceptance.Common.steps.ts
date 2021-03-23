@@ -1,23 +1,23 @@
 // - CUCUMBER-PREPROCESSOR
-import { Given } from "cypress-cucumber-preprocessor/steps";
-import { When } from "cypress-cucumber-preprocessor/steps";
-import { Then } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "cypress-cucumber-preprocessor/steps"
+import { When } from "cypress-cucumber-preprocessor/steps"
+import { Then } from "cypress-cucumber-preprocessor/steps"
 // - SERVICE
-import { IsolationService } from '../../support/IsolationService.support';
-import { SupportService } from '../../support/SupportService.support';
-import { max } from 'cypress/types/lodash';
-import { clear } from 'console';
+import { IsolationService } from '../../support/IsolationService.support'
+import { SupportService } from '../../support/SupportService.support'
+import { max } from 'cypress/types/lodash'
+import { clear } from 'console'
 
-const TITLE_VALIDATION = '3DPrinterManagement - UI';
-const supportService = new SupportService();
+const TITLE_VALIDATION = '3DPrinterManagement - UI'
+const supportService = new SupportService()
 
 // - A P P L I C A T I O N
 Given('the application Printer3DManager', function () {
     cy.viewport(1400, 900)
     cy.visit('/')
-    cy.title().should('eq', TITLE_VALIDATION);
+    cy.title().should('eq', TITLE_VALIDATION)
     cy.get('app-root').as('target-page').as('target')
-});
+})
 
 // - F E A T U R E   S E L E C T I O N
 When('there is a click on Feature {string}', function (featureLabel: string) {
@@ -25,31 +25,31 @@ When('there is a click on Feature {string}', function (featureLabel: string) {
     cy.get(supportService.translateTag('dock'))
         .find(tag)
         .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
-        .scrollIntoView().click('center');
-});
+        .scrollIntoView().click('center')
+})
 When('the Feature with label {string} is clicked the destination is the Page {string}', function (label: string, destination: string) {
     const tag = supportService.translateTag(destination) // Do name replacement
     cy.get(supportService.translateTag('dock'))
         .find(supportService.translateTag('feature'))
         .contains(label, { matchCase: false }).parent()
-        .scrollIntoView().click();
+        .scrollIntoView().click()
     cy.get('app-root').find(tag).as('target-page').as('target').should('exist')
-});
+})
 Then('there are no Features active', function () {
     cy.get('v1-dock')
         .find('v2-feature').within(($panel) => {
             cy.get('.corner-mark').should('have.length', 0)
-        });
-});
+        })
+})
 
 // - S P I N N E R
 Then('the loading panel shows {string}', function (loadingMessage: string) {
     cy.get('@target-page').find('.index-loading')
         .contains(loadingMessage)
-});
+})
 When('the loading panel completes', function () {
     cy.wait(2000)
-});
+})
 
 // - P A G E   A C T I V A T I O N
 Then('the page {string} is activated', function (symbolicName: string) {
@@ -57,13 +57,13 @@ Then('the page {string} is activated', function (symbolicName: string) {
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('app-root').find(tag).as('target-page').as('target')
         .should('exist')
-});
+})
 Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('app-root').find(tag).find('.row').first()
         .children()
         .should('have.length', panelCount)
-});
+})
 Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
     const tag = supportService.translateTag(dialogName) // Do name replacement
     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target').as('target-dialog')
@@ -74,7 +74,7 @@ Then('the {string} dialog opens and blocks the display', function (dialogName: s
 Given('one instance of Dock', function () {
     const tag = supportService.translateTag('dock') // Do name replacement
     cy.get('app-root').find(tag).should('have.length', 1)
-});
+})
 
 // - T A R G E T   S E L E C T I O N
 Given('the target is the panel of type {string}', function (symbolicName: string) {
@@ -82,30 +82,30 @@ Given('the target is the panel of type {string}', function (symbolicName: string
     cy.log('>[tag replacement]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target-page').find(tag)
         .as('target-panel').as('target')
-});
+})
 Given('the target the {string} with id {string}', function (symbolicName: string, recordId: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
     cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
         .should('exist')
-});
+})
 Given('the target has a panel labeled {string} named {string}',
     function (fieldLabel: string, fieldName: string) {
         cy.get('@target').within(($item) => {
             cy.get('[cy-name="' + fieldName + '"]').as('target')
         })
         cy.get('@target').contains(fieldLabel, { matchCase: false })
-    });
+    })
 Given('the target has a component ot type {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target').get(tag).as('target')
-});
+})
 Given('target is {string}', function (selecState: string) {
     if (selecState == 'selected')
         cy.get('@target').should('have.class', 'selected')
     else
         cy.get('@target').should('not.have.class', 'selected')
-});
+})
 
 // - B U T T O N S
 Then('the button with name {string} has a label {string} and is {string}', function (
@@ -116,23 +116,23 @@ Then('the button with name {string} has a label {string} and is {string}', funct
     else
         cy.get('@target').get('[cy-name="' + buttonName + '"]')
             .contains(buttonLabel, { matchCase: false })
-});
+})
 When('the button with name {string} is clicked', function (buttonName: string) {
     cy.get('@target').within(($item) => {
         cy.get('[cy-name="' + buttonName + '"]')
             .scrollIntoView().click()
     })
     cy.wait(100)
-});
+})
 
 // - I M A G E   B U T T O N S
 Then('target has an actionable image named {string}', function (buttonName: string) {
     cy.get('@target').find('[cy-name="' + buttonName + '"]').should('exist')
-});
+})
 When('target actionable image {string} is clicked', function (buttonName: string) {
     cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
         .scrollIntoView().click()
-});
+})
 Then('actionable image named {string} is {string}', function (buttonName: string, state: string) {
     cy.log('actionable')
     if (state == 'enabled')
@@ -141,33 +141,33 @@ Then('actionable image named {string} is {string}', function (buttonName: string
     if (state == 'disabled')
         cy.get('@target').find('[cy-name="' + buttonName + '"]')
             .should('have.class', 'button-disabled')
-});
+})
 
 // - T A R G E T   I N T E R A C T I O N
 When('the target is clicked', function () {
     cy.get('@target').scrollIntoView().click()
-});
+})
 
 // - T A R G E T   C O N T E N T S
 Then('the target has the title {string}', function (title: string) {
     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
-});
+})
 Then('the target has {int} {string}', function (count: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target').within(($item) => {
         cy.get(tag).should('have.length', count)
     })
-});
+})
 Then('the target has no {string}', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target').within(($item) => {
         cy.get(tag).should('not.exist')
     })
-});
+})
 Then('the target has variant {string}', function (variant: string) {
     cy.get('@target').find('viewer-panel').invoke('attr', 'ng-reflect-variant').should('equal', variant)
-});
+})
 
 // - F I E L D S
 Then('field named {string} with label {string} has contents {string}',
@@ -179,7 +179,13 @@ Then('field named {string} with label {string} has contents {string}',
             cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
-    });
+    })
+Then('field named {string} has contents {string}',
+    function (fieldName: string, fieldLabel: string, fieldValue: string) {
+        cy.get('@target').within(($item) => {
+            cy.find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+        })
+    })
 Then('field named {string} with label {string} is empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target').within(($item) => {
@@ -189,7 +195,7 @@ Then('field named {string} with label {string} is empty',
             cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
                 .find('[cy-field-value="' + fieldName + '"]').should('be.empty')
         })
-    });
+    })
 Then('field named {string} with label {string} is not empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target').within(($item) => {
@@ -199,8 +205,12 @@ Then('field named {string} with label {string} is not empty',
             cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
                 .find('[cy-field-value="' + fieldName + '"]').should('not.be.empty')
         })
-    });
-    
+    })
+Then('field named {string} is not editable', function (fieldName: string) {
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
+        .should('not.exist')
+})
+
 // - F I E L D   V A L I D A T I O N
 Then('field named {string} is tested for size constraints {int} and {int}',
     function (fieldName: string, minCharacters: number, maxCharacters: number) {
@@ -215,14 +225,14 @@ Then('field named {string} is tested for size constraints {int} and {int}',
         let largerValue = supportService.generateRandomString(maxCharacters + 5)
         cy.get('@target-field').find('input').clear().type(largerValue)
         cy.get('@target-field').find('input').invoke('val').should('equal', largerValue.substr(0, maxCharacters))
-    });
+    })
 Then('field named {string} is tested for max size of {int}',
     function (fieldName: string, maxCharacters: number) {
         const minCharacters = 1
         cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
         let largerValue = supportService.generateRandomString(maxCharacters + 5)
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-            cy.log(type as string);
+            cy.log(type as string)
             switch (type) {
                 case 'input':
                     cy.get('@target-field').find('input').clear().type(largerValue)
@@ -234,7 +244,7 @@ Then('field named {string} is tested for max size of {int}',
                     break
             }
         })
-    });
+    })
 Then('field named {string} is tested for value constraints {int} to {int}',
     function (fieldName: string, minValue: number, maxValue: number) {
         cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
@@ -246,7 +256,7 @@ Then('field named {string} is tested for value constraints {int} to {int}',
         cy.get('@target-field').find('input').should('have.class', 'ng-invalid')
         cy.get('@target-field').find('input').clear().type((maxValue + 11) + '')
         cy.get('@target-field').find('input').should('have.class', 'ng-invalid')
-    });
+    })
 Then('field named {string} is tested for value constraints {int}',
     function (fieldName: string, minValue: number) {
         cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
@@ -256,7 +266,7 @@ Then('field named {string} is tested for value constraints {int}',
         cy.get('@target-field').find('input').should('have.class', 'ng-valid')
         cy.get('@target-field').find('input').clear().type((minValue - 1) + '')
         cy.get('@target-field').find('input').should('have.class', 'ng-invalid')
-    });
+    })
 Then('field named {string} is tested for numeric constraints {float}',
     function (fieldName: string, minValue: number) {
         cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
@@ -264,12 +274,12 @@ Then('field named {string} is tested for numeric constraints {float}',
         const numberValue: number = supportService.generateRandomNum(minValue, minValue + 100)
         cy.get('@target-field').find('input').clear().type(numberValue + '').should('have.class', 'ng-valid')
         if ((minValue - 1) > 0) cy.get('@target-field').find('input').clear().type((minValue - 1) + '').should('have.class', 'ng-invalid')
-    });
+    })
 
 // - C O L U M N S
 Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
-});
+})
 
 // - D R A G   &   D R O P
 Given('the drag source the {string} with id {string}', function (symbolicName: string, recordId: string) {
@@ -278,11 +288,11 @@ Given('the drag source the {string} with id {string}', function (symbolicName: s
     cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
         .should('have.prop', 'draggable')
         .should('exist')
-});
+})
 When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
     cy.get('@drag-source').scrollIntoView().trigger('dragstart')
     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
-});
+})
 
 // - F O R M   F I E L D S
 Then('form field named {string} with label {string} has contents {string}',
@@ -291,31 +301,33 @@ Then('form field named {string} with label {string} has contents {string}',
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
             .contains(fieldLabel, { matchCase: false })
         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-            cy.log(type as string);
+            cy.log(type as string)
             switch (type) {
                 case 'input':
-                    cy.log('input')
-                    cy.get('@target-field').find('input')
-                        .invoke('val').should('equal', fieldValue)
+                    // cy.log('input')
+                    cy.get('@target-field').within(($panel) => {
+                        cy.find('input')
+                            .invoke('val').should('equal', fieldValue)
+                    })
                     break
                 case 'select':
-                    cy.log('select')
+                    // cy.log('select')
                     cy.get('@target-field').find('select')
                         .invoke('val').should('equal', fieldValue)
                     break
                 case 'textarea':
-                    cy.log('textarea')
+                    // cy.log('textarea')
                     cy.get('@target-field').find('textarea')
                         .invoke('val').should('equal', fieldValue)
                     break
                 case 'checkbox':
-                    cy.log('chekbox')
+                    // cy.log('chekbox')
                     cy.get('@target-field').find('input')
                         .invoke('val').should('equal', fieldValue)
                     break
             }
         })
-    });
+    })
 Then('form field named {string} with label {string} is empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
@@ -340,7 +352,7 @@ Then('form field named {string} with label {string} is empty',
                     break
             }
         })
-    });
+    })
 Then('form field named {string} with label {string} is not empty',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
@@ -365,12 +377,12 @@ Then('form field named {string} with label {string} is not empty',
                     break
             }
         })
-    });
+    })
 Then('form field named {string} is {string}', function (fieldName: string, state: string) {
     cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
     let inputType: string = ''
     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-        cy.log(type as string);
+        cy.log(type as string)
         inputType = type as string
     })
     let stateClass = 'ng-valid'
@@ -396,30 +408,34 @@ Then('form field named {string} is {string}', function (fieldName: string, state
                 break
         }
     }
-});
+})
 
 // - A L T E R N A T E   B A C K E N D   R E S P O N S E S
 Given('response {string} for {string}', function (responseCode: string, endpoint: string) {
     const tag = supportService.translateTag(endpoint) // Do name replacement
     cy.setCookie(tag, responseCode)
-});
+})
 // - N O T I F I C A T I O N S
 Then('there is a {string} Notification panel', function (string) {
     cy.get('#toast-container').should('exist')
-});
+})
 
 // - F O R M   F I E L D S
 Given('empty is set on form field {string}', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('input').clear()
-});
+})
 Given('{int} is set on form field {string}', function (fieldValue: number, fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('input').clear().type(fieldValue + '')
-});
+})
 Given('{string} is set on form field {string}', function (fieldValue: string, fieldName: string) {
-    cy.get('@target-panel').find('[cy-name="' + fieldName + '"]').as('target-field')
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').as('target-field')
     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
+        // cy.get('@target').within(($item) => {
+        //     cy.get('[cy-name="' + fieldName + '"]').as('target-field')
+        // })
+        cy.log(type as string)
         switch (type) {
             case 'input':
                 cy.get('@target-field').find('input').clear().type(fieldValue)
@@ -433,4 +449,4 @@ Given('{string} is set on form field {string}', function (fieldValue: string, fi
                 break
         }
     })
-});
+})

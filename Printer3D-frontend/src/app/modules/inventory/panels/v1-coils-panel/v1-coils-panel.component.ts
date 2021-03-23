@@ -16,6 +16,7 @@ import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { environment } from '@env/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IsolationService } from '@app/platform/isolation.service';
+import { InventoryService } from '../../service/inventory.service';
 
 @Component({
     selector: 'v1-coils-panel',
@@ -25,7 +26,7 @@ import { IsolationService } from '@app/platform/isolation.service';
 export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
     constructor(
         protected isolationService: IsolationService,
-        protected backendService: BackendService) {
+        protected inventoryService: InventoryService) {
         super();
     }
 
@@ -47,12 +48,8 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
     public downloadCoils(): void {
         console.log(">[V1CoilsPanelComponent.downloadCoils]");
         this.backendConnections.push(
-            this.backendService.apiInventoryCoils_v1(new ResponseTransformer().setDescription('Transforms Inventory Coil list form backend.')
-                .setTransformation((entrydata: any): CoilListResponse => {
-                    return new CoilListResponse(entrydata);
-                }))
-                .subscribe((response: CoilListResponse) => {
-                    const coilList = this.sortCoildByMaterialColor(response.getCoils());
+            this.inventoryService.apiv2_InventoryGetCoils()
+                .subscribe((coilList: Coil[]) => {
                     console.log('-[V1CoilsPanelComponent.downloadCoils]> Nodes downloaded: ' + coilList.length);
                     this.completeDowload(coilList); // Notify the completion of the download.
                 }, (error) => {

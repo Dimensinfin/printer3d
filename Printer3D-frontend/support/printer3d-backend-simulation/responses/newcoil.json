@@ -1,6 +1,8 @@
 {
-    "id": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+    "id": "e4d990d9-b8c4-438b-86da-987e17ee9116",
     "material": "PLA",
     "color": "ROJO",
-    "weight": "750"
+    "weight": "800",
+    "colorSet": "AZUL",
+    "active": false
 }
