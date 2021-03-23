@@ -1,11 +1,9 @@
 // - DOMAIN
-import { Converter } from '@domain/interfaces/Converter.interface';
-import { Part } from '@domain/inventory/Part.domain';
-import { PartRecord } from '@domain/PartRecord.domain';
-
 export class UpdateCoilRequest {
     public id: string
     public weight: number
+    public color:string
+    public active : boolean
 
     constructor(values: Object = {}) {
         Object.assign(this, values)

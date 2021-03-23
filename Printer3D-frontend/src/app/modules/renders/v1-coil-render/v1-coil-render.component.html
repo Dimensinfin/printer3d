@@ -8,16 +8,20 @@
             <svg class="save-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
         </button>
         <div cy-name="material" class="field material-width">
-            <span cy-field-label="material" class="label">MATERIAL</span><br>
-            <span cy-field-value="material" class="field-height">{{getMaterial()}}</span>
+            <div cy-field-label="material" class="label">MATERIAL</div>
+            <div cy-field-value="material" class="field-height">{{getMaterial()}}</div>
+        </div>
+        <div cy-name="colorGroup" class="field color-width">
+            <div cy-field-label="colorGroup" class="label">GRUPO</div>
+            <div cy-field-value="colorGroup" class="field-height">{{getColorSetGroup()}}</div>
         </div>
         <div cy-name="color" class="field color-width">
-            <span cy-field-label="color" class="label">COLOR</span><br>
-            <span cy-field-value="color" class="field-height">{{getColor()}}</span>
+            <div cy-field-label="color" class="label">COLOR</div>
+            <div cy-field-value="color" class="field-height">{{getColor()}}</div>
         </div>
         <div cy-name="weight" class="field weight-width">
-            <span cy-field-label="weight" class="label">PESO</span><br>
-            <span cy-field-value="weight" class="field-height">{{getWeight()}}</span>
+            <div cy-field-label="weight" class="label">PESO</div>
+            <div cy-field-value="weight" class="field-height">{{getWeight()}}</div>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
@@ -26,12 +30,12 @@
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
     </svg>
-    <svg class="corner-mark blueviolet-mark" viewBox="0 0 100 100">
+    <svg class="corner-mark green-mark" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>
 </div>
 <!-- E D I T   C O I L -->
-<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-COIL-EDITING-'">
+<div id="{{getUniqueId()}}" class="cornered-panel editing" *ngIf="getVariant() === '-COIL-EDITING-'">
     <form class="dsf-form" autocomplete="off">
         <div class="row">
             <button cy-name="edit-button" class="edit-attributes button-enabled" (click)="toggleEdition()">
@@ -43,15 +47,32 @@
                 </svg>
             </button>
             <div cy-name="material" class="field material-width">
-                <span cy-field-label="material" class="label">MATERIAL</span><br>
-                <span cy-field-value="material" class="field-height">{{getMaterial()}}</span>
+                <div cy-field-label="material" class="label">MATERIAL</div>
+                <div cy-field-value="material" class="field-height">{{getMaterial()}}</div>
+            </div>
+            <div cy-name="colorGroup" class="field color-width">
+                <div cy-field-label="colorGroup" class="label">GRUPO</div>
+                <div cy-field-value="colorGroup" class="field-height">{{getColorSetGroup()}}</div>
             </div>
             <div cy-name="color" class="field color-width">
-                <span cy-field-label="color" class="label">COLOR</span><br>
-                <span cy-field-value="color" class="field-height">{{getColor()}}</span>
+                <div cy-field-label="color" cy-input-type="input" class="label">COLOR</div>
+                <div class="dsf-input-container color-width">
+                    <input name="color" class="dsf-input" [(ngModel)]="editCoil.color" required min="1" oninput="validity.valid||(value='');" #color="ngModel">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <div [ngClass]="{'ng-valid': !color.invalid}">
+                        <svg class="corner-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                    </div>
+                </div>
             </div>
             <div cy-name="weight" class="field weight-width">
-                <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
+                <div cy-field-label="weight" cy-input-type="input" class="label">PESO</div>
                 <div class="dsf-input-container weight-width">
                     <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editCoil.weight" required min="1" oninput="validity.valid||(value='');" #weight="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -65,6 +86,12 @@
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>
                     </div>
+                </div>
+            </div>
+            <div cy-name="active" class="field">
+                <div cy-field-label="active" cy-input-type="checkbox" class="label">ACTIVO</div>
+                <div class="dsf-input-container stock-width">
+                    <input name="active" type="checkbox" class="dsf-input checkbox-input" [(ngModel)]="editCoil.active" #active="ngModel">
                 </div>
             </div>
         </div>

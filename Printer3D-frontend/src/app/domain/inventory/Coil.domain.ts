@@ -8,6 +8,8 @@ export class Coil extends Node {
     public material: string;
     public color: string;
     public weight: number;
+    public colorSet: string;
+    public active: boolean = true
 
     constructor(values: Object = {}) {
         super();

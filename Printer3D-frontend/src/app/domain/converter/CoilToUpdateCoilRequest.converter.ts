@@ -7,7 +7,9 @@ export class CoilToUpdateCoilRequestConverter implements Converter<Coil, UpdateC
     public convert(input: Coil): UpdateCoilRequest {
         return new UpdateCoilRequest({
             id: input.id,
-            weight: input.weight
+            weight: input.weight,
+            color: input.color,
+            active: input.active
         })
     }
 }
