@@ -1,6 +1,6 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { platformconstants } from '../platform/platform-constants';
+import { Printer3DConstants } from './Printer3DConstants.platform';
 // - TESTING
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -101,33 +101,33 @@ describe('SERVICE IsolationService [Module: PLATFORM]', () => {
     describe('Code Coverage Phase [Storage]', async function () {
         it('setToStorage: store an object on local storage', () => {
             const TEST_DATA: string = '-TEST-DATA-TO-STORE-';
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
-            service.setToStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, TEST_DATA);
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBe(TEST_DATA);
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
+            service.setToStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY, TEST_DATA);
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBe(TEST_DATA);
         });
         it('setToStorageObject: store a serialized object on local storage', () => {
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
             const targetFeature = new Feature();
-            service.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, targetFeature);
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBe(JSON.stringify(targetFeature));
+            service.setToStorageObject(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY, targetFeature);
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBe(JSON.stringify(targetFeature));
         });
         it('getFromStorage: get a serialized object from local storage', () => {
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
             const targetFeature = new Feature();
-            service.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, JSON.stringify(targetFeature))
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBe(JSON.stringify(JSON.stringify(targetFeature)))
+            service.setToStorageObject(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY, JSON.stringify(targetFeature))
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBe(JSON.stringify(JSON.stringify(targetFeature)))
         });
         it('removeFromStorage: remove an storage key', () => {
             // localStorage = new Map();
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
-            service.setToStorageObject(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY, new Feature());
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
-            const obtained = service.removeFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeUndefined();
+            service.setToStorageObject(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY, new Feature());
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeDefined();
+            const obtained = service.removeFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)
             expect(obtained).toBeDefined();
-            expect(service.getFromStorage(platformconstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeNull();
+            expect(service.getFromStorage(Printer3DConstants.DOCK_CURRENT_CONFIGURATION_KEY)).toBeNull();
         });
     });
     describe('Code Coverage Phase [Notifications]', async function () {

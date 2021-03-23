@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 
+@Deprecated
 public class CoilList {
 	private List<Coil> coils = new ArrayList<>();
 
