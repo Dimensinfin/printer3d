@@ -24,7 +24,6 @@
         "workbench.preferredDarkColorTheme": "Atom One Dark",
         "colorHelper.formatsOrder": [
             "hex"
-        ],
-        "files.autoSave": "afterDelay"
+        ]
     },
 }

@@ -1,6 +1,11 @@
 # Printer3DFrontend
 
 ## Unit Tests pending
+* InventoryService
+* BackendService
+* V1CoilRenderComponent
+* CoilToUpdateCoilRequestConverter
+* 
 * dock.service
 * new-part-dialog - update error and create test
 * RequestItem
