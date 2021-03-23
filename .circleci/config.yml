@@ -30,6 +30,18 @@ jobs:
       - image: circleci/openjdk:11-jdk
     steps:
       - checkout
+      - run:
+          name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm config set @bit:registry https://node.bitsrc.io
+      - run:
+          name: PRINTER3D-FRONTEND - Check the use of the BIT libraries
+          working_directory: Printer3D-frontend
+          command: |
+            cp --force --verbose package-test.json package.json
+            npm install
 
   # - F R O N T E N D
   framework-frontend-job:
@@ -80,6 +92,10 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm run build:dev
+      - save_cache: # save compiled angular code after a first compilation
+          paths:
+            - ~/project/Printer3D-frontend/node_modules
+          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.checksum" }}
   
   # - B A C K E N D
   cache-dependencies-backend:
