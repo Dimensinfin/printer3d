@@ -305,6 +305,7 @@ workflows:
             branches:
               only:
                 - experimental
+                - development
       - compile-frontend-job:
           requires:
             - start-job
