@@ -96,6 +96,30 @@ jobs:
           paths:
             - ~/project/Printer3D-frontend/node_modules
           key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.checksum" }}
+  validate-frontend-job:
+    docker:
+      - image: circleci/node:12.16.3-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+      - run:
+          name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm config set @bit:registry https://node.bitsrc.io
+      - run:
+          name: PRINTER3D-FRONTEND - Install the framework
+          working_directory: Printer3D-frontend
+          command: |
+            npm install
+      - run:
+          name: PRINTER3D-FRONTEND - Compile Angular code
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:prod
   
   # - B A C K E N D
   cache-dependencies-backend:
@@ -330,6 +354,13 @@ workflows:
             branches:
               only:
                 - experimental
+      - validate-frontend-job:
+          requires:
+            - start-job
+            - framework-frontend-job
+          filters:
+            branches:
+              only:
                 - development
                 - test
 
