@@ -56,7 +56,7 @@ export class InventoryService extends BackendService {
             .setTransformation((entrydata: any): Coil => {
                 const targetCoil: Coil = new Coil(entrydata)
                 this.isolationService.successNotification('Rollo [' +
-                    updatingCoil.material + '/' + updatingCoil.color +
+                    updatingCoil.getCoilIdentifier() +
                     '] actualizado correctamente.'
                     , '/INVENTARIO/ACTUALIZACION ROLLO/OK')
                 return targetCoil

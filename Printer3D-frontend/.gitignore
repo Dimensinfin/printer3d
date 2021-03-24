@@ -10,5 +10,6 @@ dist/
 support/apisimulator-http-1.4/
 support/apisimulator-http-1.6.1/
 support/apisimulator-http-1.7/
+support/apisimulator-http-1.8/
 support/sonar-scanner-4.4.0.2170-linux
 support/**/*.log
