@@ -138,7 +138,7 @@ public class CoilTest {
 				.withColor( TEST_COIL_COLOR )
 				.withWeight( TEST_COIL_WEIGHT )
 				.build();
-		final String expected = "{\"id\":\"55236c12-1322-4e32-8285-dac2a45a65fe\",\"material\":\"PLA\",\"color\":\"-COLOR-\",\"weight\":750}";
+		final String expected = "{\"id\":\"55236c12-1322-4e32-8285-dac2a45a65fe\",\"material\":\"PLA\",\"color\":\"-COLOR-\",\"weight\":750,\"label\":\"-COLOR-\",\"active\":true}";
 		final String obtained = coil.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

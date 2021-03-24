@@ -16,8 +16,8 @@ public class CucumberTableToUpdateCoilRequestConverter extends CucumberTableConv
 	public UpdateCoilRequest convert( final Map<String, String> cucumberRow ) {
 		UpdateCoilRequest.Builder builder = new UpdateCoilRequest.Builder()
 				.withId( UUID.fromString( cucumberRow.get( ID ) ) );
-		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( WEIGHT )) builder = builder.withWeight( Integer.parseInt( cucumberRow.get( WEIGHT ) ) );
+		if (null != cucumberRow.get( LABEL )) builder = builder.withLabel( cucumberRow.get( LABEL ) );
 		if (null != cucumberRow.get( ACTIVE )) builder = builder.withActive( Boolean.parseBoolean( cucumberRow.get( ACTIVE ) ) );
 		return builder.build();
 	}

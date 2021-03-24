@@ -26,7 +26,6 @@ import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignCli
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
@@ -114,11 +113,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	public void the_Delete_Request_request_for_request_is_processed( final String requestId ) throws IOException {
 		this.printer3DWorld.setRequestId( UUID.fromString( requestId ) );
 		this.processRequestByType( RequestType.DELETE_REQUEST );
-	}
-
-	@When("the Get Coils request is processed")
-	public void the_Get_Coils_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_COILS );
 	}
 
 	@When("the Get Coils v2 request is processed")
@@ -252,12 +246,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newCoilResponseEntity );
 				this.printer3DWorld.setCoilResponseEntity( newCoilResponseEntity );
 				return newCoilResponseEntity;
-			case GET_COILS:
-				final ResponseEntity<CoilList> coilListResponseEntity = this.coilFeignClientV1
-						.getCoils( this.printer3DWorld.getJwtAuthorizationToken() );
-				Assertions.assertNotNull( coilListResponseEntity );
-				this.printer3DWorld.setCoilListResponseEntity( coilListResponseEntity );
-				return coilListResponseEntity;
 			case GET_FINISHINGS:
 				final ResponseEntity<FinishingsResponse> finishingsResponseEntity = this.coilFeignClientV1
 						.getFinishings( this.printer3DWorld.getJwtAuthorizationToken() );

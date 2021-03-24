@@ -31,9 +31,10 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 		Assertions.assertEquals( rowData.get( MATERIAL ), record.getMaterial() );
 		if (null != rowData.get( COLOR ))
 			Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );
+		if (null != rowData.get( WEIGHT ))
+			Assertions.assertEquals( Integer.parseInt( rowData.get( WEIGHT ) ), record.getWeight() );
 		if (null != rowData.get( LABEL ))
 			Assertions.assertEquals( rowData.get( LABEL ), record.getLabel() );
-		Assertions.assertEquals( Integer.parseInt( rowData.get( WEIGHT ) ), record.getWeight() );
 		if (null != rowData.get( ACTIVE ))
 			Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.getActive() );
 		return true;

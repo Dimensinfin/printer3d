@@ -44,7 +44,7 @@ public class FinishingsServiceV1 {
 						finishingsOnConstruction.put( material, new HashSet<>() );
 					final Set<String> hit = finishingsOnConstruction.get( material );
 					// Add the color to this material set
-					hit.add( coil.getLabel() );
+					hit.add( coil.getColor() );
 				} );
 		return this.composeFittingsResponse( finishingsOnConstruction );
 	}

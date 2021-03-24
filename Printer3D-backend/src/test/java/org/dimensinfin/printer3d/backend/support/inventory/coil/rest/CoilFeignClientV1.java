@@ -11,7 +11,6 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
@@ -22,21 +21,6 @@ public class CoilFeignClientV1 extends CommonFeignClient {
 	// - C O N S T R U C T O R S
 	public CoilFeignClientV1( final @NotNull AcceptanceTargetConfig acceptanceTargetConfig ) {
 		super( acceptanceTargetConfig );
-	}
-
-	public ResponseEntity<CoilList> getCoils( final String authorizationToken ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
-		final Response<CoilList> response = new Retrofit.Builder()
-				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
-				.addConverterFactory( GSON_CONVERTER_FACTORY )
-				.build()
-				.create( InventoryApiV1.class )
-				.getCoils( authorizationToken )
-				.execute();
-		if (response.isSuccessful()) {
-			LogWrapper.info( ENDPOINT_MESSAGE );
-			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );
-		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
 	public ResponseEntity<FinishingsResponse> getFinishings( final String authorizationToken ) throws IOException {
@@ -70,7 +54,7 @@ public class CoilFeignClientV1 extends CommonFeignClient {
 	}
 
 	public ResponseEntity<Coil> updateCoil( final UpdateCoilRequest updateCoilRequest ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
+		final String ENDPOINT_MESSAGE = "Request the update for the Coil data.";
 		final Response<Coil> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )

@@ -23,16 +23,16 @@ public class P3D02CoilsSteps extends StepSupport {
 		super( printer3DWorld );
 	}
 
-	//	@Then("the Coil repository has a record for new Coil with the next fields")
-	//	public void the_Coil_repository_has_a_record_for_new_Coil_with_the_next_fields( final List<Map<String, String>> dataTable ) {
-	//		Assertions.assertNotNull( this.printer3DWorld.getCoilResponseEntity() );
-	//		Assertions.assertNotNull( this.printer3DWorld.getCoilResponseEntity().getBody() );
-	//		Assertions.assertTrue(
-	//				new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ),
-	//						this.printer3DWorld.getCoilResponseEntity().getBody() )
-	//		);
-	//	}
-	//
+	@Then("the Coil repository has a record for new Coil with the next fields")
+	public void the_Coil_repository_has_a_record_for_new_Coil_with_the_next_fields( final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getCoilResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getCoilResponseEntity().getBody() );
+		Assertions.assertTrue(
+				new CoilValidator( this.printer3DWorld ).validate( dataTable.get( 0 ),
+						this.printer3DWorld.getCoilResponseEntity().getBody() )
+		);
+	}
+
 	//	@Then("the coil with id {string} has the next data")
 	//	public void the_coil_with_id_has_the_next_data( final String coilId, final List<Map<String, String>> dataTable ) {
 	//		Assertions.assertNotNull( this.printer3DWorld.getCoilListResponseEntity() );

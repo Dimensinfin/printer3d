@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.accounting.request.rest.v1;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class AccountingRequestServiceV1Test {
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 1, obtained.size() );
-		Assertions.assertEquals( 2020, obtained.get( 0 ).getYear() );
+		Assertions.assertEquals( LocalDate.now().getYear(), obtained.get( 0 ).getYear() );
 		Assertions.assertEquals( 100.0F, obtained.get( 0 ).getAmount() );
 	}
 }

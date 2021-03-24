@@ -10,7 +10,6 @@ import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
@@ -32,7 +31,6 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<PartList> partListResponseEntity;
 	private Coil coil;
 	private ResponseEntity<Coil> coilResponseEntity;
-	private ResponseEntity<CoilList> coilListResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
 	private ResponseEntity<List<MachineV2>> listMachineV2ResponseEntity;
 	private UUID partId;
@@ -73,15 +71,6 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setCoil( final Coil coil ) {
 		this.coil = coil;
-		return this;
-	}
-
-	public ResponseEntity<CoilList> getCoilListResponseEntity() {
-		return this.coilListResponseEntity;
-	}
-
-	public Printer3DWorld setCoilListResponseEntity( final ResponseEntity<CoilList> coilListResponseEntity ) {
-		this.coilListResponseEntity = coilListResponseEntity;
 		return this;
 	}
 

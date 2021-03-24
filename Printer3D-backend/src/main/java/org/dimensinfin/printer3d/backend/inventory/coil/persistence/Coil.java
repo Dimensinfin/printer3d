@@ -43,13 +43,13 @@ public class Coil {
 	@Size(min = 1, max = 32)
 	@NotNull(message = "Coil 'color' is mandatory.")
 	@Column(name = "color", nullable = false)
-	private String label;
-	@Size(min = 1, max = 30)
-	@NotNull(message = "Coil 'colorSet' is mandatory.")
-	@Column(name = "color_set", nullable = false)
 	private String color;
 	@Column(name = "weight", nullable = false)
 	private Integer weight = 750;
+	@Size(min = 1, max = 32)
+	@NotNull(message = "Coil 'colorSet' is mandatory.")
+	@Column(name = "color_set", nullable = false)
+	private String label;
 	@Column(name = "active", nullable = false)
 	private Boolean active = true;
 

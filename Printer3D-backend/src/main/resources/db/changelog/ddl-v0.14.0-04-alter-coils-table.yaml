@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_14_0_4001_printer3d_alter_coils_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameColumn:
+            schemaName: printer3d
+            tableName: coilsv1
+            columnDataType: varchar
+            newColumnName: label
+            oldColumnName: color_set
+            remarks: Rename the column to the correct name of the representative meaning.

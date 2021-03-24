@@ -477,7 +477,6 @@ workflows:
           filters:
             branches:
               only:
-                - test
                 - hotfix
 
       - quality-sonarcloud-backend:

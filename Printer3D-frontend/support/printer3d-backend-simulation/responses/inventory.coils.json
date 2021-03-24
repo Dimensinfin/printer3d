@@ -1,9 +1,8 @@
-[
-    {
+[{
         "id": "2f4fe8d8-fc1b-40fd-b9b2-729100612253",
         "material": "PLA",
         "color": "BLANCO",
-        "colorSet": "BLANCO",
+        "label": "BLANCO",
         "weight": 700,
         "active": true
     },
@@ -11,7 +10,7 @@
         "id": "cee43a4e-339a-482c-ac60-dd7d13bba5e2",
         "material": "PLA",
         "color": "NEGRO (uso)",
-        "colorSet": "NEGRO",
+        "label": "NEGRO",
         "weight": 150,
         "active": true
     },
@@ -19,7 +18,7 @@
         "id": "df397fcc-ba76-453c-b896-e58965133787",
         "material": "PLA",
         "color": "NEGRO",
-        "colorSet": "NEGRO",
+        "label": "NEGRO",
         "weight": 150,
         "active": true
     },
@@ -27,7 +26,7 @@
         "id": "c8afa59f-33e4-4143-a874-1a54a8818b54",
         "material": "PLA",
         "color": "NEGRO",
-        "colorSet": "NEGRO",
+        "label": "NEGRO",
         "weight": 750,
         "active": true
     },
@@ -35,7 +34,7 @@
         "id": "5d01ccbd-8cb1-4509-8c35-85fda73c4686",
         "material": "PLA",
         "color": "ROJO",
-        "colorSet": "ROJO",
+        "label": "ROJO",
         "weight": 650,
         "active": true
     },
@@ -43,7 +42,7 @@
         "id": "be890c79-1d21-415e-8a38-ef20b0288b04",
         "material": "PLA",
         "color": "AZUL BRILLANTE CLARO",
-        "colorSet": "AZUL BRILLANTE",
+        "label": "AZUL BRILLANTE",
         "weight": 700,
         "active": true
     },
@@ -51,7 +50,7 @@
         "id": "5684eedb-2a96-49e5-b5d7-ca45c4ac8222",
         "material": "PLA",
         "color": "AZUL BRILLANTE CLARO",
-        "colorSet": "AZUL BRILLANTE",
+        "label": "AZUL BRILLANTE",
         "weight": 10,
         "active": true
     },
@@ -59,7 +58,7 @@
         "id": "bc0f2683-ed24-4c09-81fc-689daf79d955",
         "material": "PLA",
         "color": "AZUL BRILLANTE CLARO",
-        "colorSet": "AZUL BRILLANTE",
+        "label": "AZUL BRILLANTE",
         "weight": 10,
         "active": false
     },
@@ -67,28 +66,28 @@
         "id": "de53f791-0a53-429d-b2e5-c74a27442fda",
         "material": "PLA",
         "color": "GRIS",
-        "colorSet": "GRIS",
+        "label": "GRIS",
         "weight": 100
     },
     {
         "id": "9058ac8b-125e-4f4f-9313-2e117c23b66b",
         "material": "PLA",
         "color": "ROJO",
-        "colorSet": "ROJO",
+        "label": "ROJO",
         "weight": 900
     },
     {
         "id": "e6bfddac-c7ed-4f54-a1f2-8bf7f3d6f2fb",
         "material": "PLA",
         "color": "BLANCO",
-        "colorSet": "BLANCO",
+        "label": "BLANCO",
         "weight": 200
     },
     {
         "id": "7c97ae6c-dacf-476f-98ff-eac371635640",
         "material": "PLA",
         "color": "VERDE TRANSPARENTE",
-        "colorSet": "VERDE TRANSPARENTE",
+        "label": "VERDE TRANSPARENTE",
         "weight": 100
     },
     {
@@ -101,60 +100,70 @@
         "id": "23e2175d-d094-4a57-9519-edd8566e3f98",
         "material": "PLA",
         "color": "VERDE MENTA",
+        "label": "NEGRO",
         "weight": 200
     },
     {
         "id": "6ac2ecdd-4365-4de7-8618-25b0f907cad4",
         "material": "PLA",
         "color": "AMARILLO",
+        "label": "NEGRO",
         "weight": 10
     },
     {
         "id": "653abddd-290b-47f9-9e1c-941ff9df90dd",
         "material": "PLA",
         "color": "MORADO TRANSPARENTE",
+        "label": "NEGRO",
         "weight": 600
     },
     {
         "id": "e71405b5-e2bc-4b97-9f26-4b5e2d4a2cf4",
         "material": "PLA",
         "color": "NARANJA SEDA",
+        "label": "NEGRO",
         "weight": 800
     },
     {
         "id": "907a6d77-cb9b-4183-b437-f48362027d9b",
         "material": "PLA",
         "color": "PLATEADO",
+        "label": "NEGRO",
         "weight": 10
     },
     {
         "id": "295caa4b-2a57-4ca2-b776-3bfd9513c942",
         "material": "TPU",
         "color": "BLANCO",
+        "label": "NEGRO",
         "weight": 230
     },
     {
         "id": "3c0f090d-012a-407d-ace1-6927bc34dc7a",
         "material": "TPU",
         "color": "AZUL",
+        "label": "NEGRO",
         "weight": 220
     },
     {
         "id": "b19aa641-e01c-4725-ad05-35b7da362993",
         "material": "TPU",
         "color": "ROJO",
+        "label": "NEGRO",
         "weight": 230
     },
     {
         "id": "d6f7ded9-f5d8-4133-a17a-60eb47ba40a4",
         "material": "FLEX",
         "color": "NEGRO",
+        "label": "NEGRO",
         "weight": 700
     },
     {
         "id": "dfe7c723-ca4e-49df-a8e3-8dabf74b0f2d",
         "material": "PLA",
         "color": "ROSA",
+        "label": "NEGRO",
         "weight": 300
     }
 ]

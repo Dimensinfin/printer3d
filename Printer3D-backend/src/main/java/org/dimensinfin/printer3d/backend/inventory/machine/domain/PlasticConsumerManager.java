@@ -45,7 +45,7 @@ public class PlasticConsumerManager {
 				this.coilRepository.findAll()
 						.stream()
 						.filter( coilEntity -> partEntity.getMaterial().equals( coilEntity.getMaterial() ) )
-						.filter( coilEntity -> partEntity.getColor().equals( coilEntity.getLabel() ) )
+						.filter( coilEntity -> partEntity.getColor().equals( coilEntity.getColor() ) )
 						.filter( coilEntity -> coilEntity.getWeight() > partEntity.getWeight() * copies )
 						.collect( this.toSingleton() ) // Get the most used coil on the list or fire an exception if there is no material left.
 						.subtractMaterial( partEntity.getWeight() * copies )
