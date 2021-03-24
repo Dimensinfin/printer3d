@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CoilValidator;
+import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToCoilConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToUpdateCoilRequestConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
@@ -88,12 +89,12 @@ public class P3D02CoilsSteps extends StepSupport {
 		Assertions.assertEquals( coilCount, this.printer3DWorld.getCoilV2ListResponseEntity().getBody().size() );
 	}
 
-	//	@Given("the next New Coil request")
-	//	public void the_next_New_Coil_request( final List<Map<String, String>> dataTable ) {
-	//		final Coil coil = new CucumberTableToCoilConverter( this.printer3DWorld ).convert( dataTable.get( 0 ) );
-	//		Assertions.assertNotNull( coil );
-	//		this.printer3DWorld.setCoil( coil );
-	//	}
+	@Given("the next New Coil request")
+	public void the_next_New_Coil_request( final List<Map<String, String>> dataTable ) {
+		final Coil coil = new CucumberTableToCoilConverter( this.printer3DWorld ).convert( dataTable.get( 0 ) );
+		Assertions.assertNotNull( coil );
+		this.printer3DWorld.setCoil( coil );
+	}
 
 	@Given("the next Update Coil request")
 	public void the_next_Update_Coil_request( final List<Map<String, String>> dataTable ) {

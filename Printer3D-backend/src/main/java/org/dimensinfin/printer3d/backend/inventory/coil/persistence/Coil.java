@@ -43,11 +43,11 @@ public class Coil {
 	@Size(min = 1, max = 32)
 	@NotNull(message = "Coil 'color' is mandatory.")
 	@Column(name = "color", nullable = false)
-	private String color;
+	private String label;
 	@Size(min = 1, max = 30)
 	@NotNull(message = "Coil 'colorSet' is mandatory.")
 	@Column(name = "color_set", nullable = false)
-	private String colorSet;
+	private String color;
 	@Column(name = "weight", nullable = false)
 	private Integer weight = 750;
 	@Column(name = "active", nullable = false)
@@ -70,17 +70,17 @@ public class Coil {
 		return this.color;
 	}
 
-	public Coil setColor( final String color ) {
-		this.color = color;
-		return this;
-	}
-
-	public String getColorSet() {
-		return this.colorSet;
-	}
-
 	public UUID getId() {
 		return this.id;
+	}
+
+	public String getLabel() {
+		return this.label;
+	}
+
+	public Coil setLabel( final String label ) {
+		this.label = label;
+		return this;
 	}
 
 	public String getMaterial() {
@@ -101,8 +101,8 @@ public class Coil {
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.material )
+				.append( this.label )
 				.append( this.color )
-				.append( this.colorSet )
 				.append( this.weight )
 				.append( this.active )
 				.toHashCode();
@@ -115,8 +115,8 @@ public class Coil {
 		final Coil coil = (Coil) o;
 		return new EqualsBuilder()
 				.append( this.material, coil.material )
+				.append( this.label, coil.label )
 				.append( this.color, coil.color )
-				.append( this.colorSet, coil.colorSet )
 				.append( this.weight, coil.weight )
 				.append( this.active, coil.active )
 				.isEquals();
@@ -128,8 +128,8 @@ public class Coil {
 				.append( "id", this.id )
 				.append( "material", this.material )
 				.append( "color", this.color )
-				.append( "colorSet", this.colorSet )
 				.append( "weight", this.weight )
+				.append( "label", this.label )
 				.append( "active", this.active )
 				.toString();
 	}
@@ -160,7 +160,7 @@ public class Coil {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.material );
 			Objects.requireNonNull( this.onConstruction.color );
-			if (null == this.onConstruction.colorSet) this.onConstruction.colorSet = this.onConstruction.color;
+			if (null == this.onConstruction.label) this.onConstruction.label = this.onConstruction.color;
 			return this.onConstruction;
 		}
 
@@ -174,13 +174,13 @@ public class Coil {
 			return this;
 		}
 
-		public Coil.Builder withColorSet( final String color ) {
-			if (null != color) this.onConstruction.colorSet = color;
+		public Coil.Builder withId( final UUID id ) {
+			this.onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
-		public Coil.Builder withId( final UUID id ) {
-			this.onConstruction.id = Objects.requireNonNull( id );
+		public Coil.Builder withLabel( final String label ) {
+			if (null != label) this.onConstruction.label = label;
 			return this;
 		}
 

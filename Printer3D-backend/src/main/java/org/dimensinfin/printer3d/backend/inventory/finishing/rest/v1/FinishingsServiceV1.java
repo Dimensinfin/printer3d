@@ -44,14 +44,14 @@ public class FinishingsServiceV1 {
 						finishingsOnConstruction.put( material, new HashSet<>() );
 					final Set<String> hit = finishingsOnConstruction.get( material );
 					// Add the color to this material set
-					hit.add( coil.getColor() );
+					hit.add( coil.getLabel() );
 				} );
 		return this.composeFittingsResponse( finishingsOnConstruction );
 	}
 
 	private FinishingsResponse composeFittingsResponse( final Map<String, Set<String>> finishingsOnConstruction ) {
 		final FinishingsResponse finishingsResponse = new FinishingsResponse.Builder().build();
-		for (Map.Entry<String, Set<String>> entry : finishingsOnConstruction.entrySet()) {
+		for (final Map.Entry<String, Set<String>> entry : finishingsOnConstruction.entrySet()) {
 			final Set<String> colors = entry.getValue();
 			final ArrayList<String> col = new ArrayList<>( colors );
 			Collections.sort( col );

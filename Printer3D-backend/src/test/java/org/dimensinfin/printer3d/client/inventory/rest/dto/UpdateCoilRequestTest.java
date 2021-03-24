@@ -16,7 +16,7 @@ public class UpdateCoilRequestTest {
 		final UpdateCoilRequest updateCoilRequest = new UpdateCoilRequest.Builder()
 				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
 				.withWeight( 200 )
-				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		Assertions.assertNotNull( updateCoilRequest );
@@ -35,13 +35,13 @@ public class UpdateCoilRequestTest {
 		final UpdateCoilRequest updateCoilRequest = new UpdateCoilRequest.Builder()
 				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
 				.withWeight( 200 )
-				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Assertions
 		Assertions.assertEquals( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ).toString(), updateCoilRequest.getId().toString() );
 		Assertions.assertEquals( 200, updateCoilRequest.getWeight() );
-		Assertions.assertEquals( TEST_COIL_COLOR, updateCoilRequest.getColor() );
+		Assertions.assertEquals( TEST_COIL_COLOR, updateCoilRequest.getLabel() );
 		Assertions.assertEquals( TEST_COIL_ACTIVE, updateCoilRequest.getActive() );
 	}
 
@@ -51,7 +51,7 @@ public class UpdateCoilRequestTest {
 		final UpdateCoilRequest updateCoilRequest = new UpdateCoilRequest.Builder()
 				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
 				.withWeight( 200 )
-				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Test

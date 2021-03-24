@@ -25,7 +25,7 @@ public class UpdateCoilRequest {
 	@NotNull(message = "Weight data cannot be null.")
 	@SerializedName("weight")
 	private Integer weight;
-	private String color;
+	private String label;
 	private Boolean active;
 
 	// - G E T T E R S   &   S E T T E R S
@@ -33,12 +33,12 @@ public class UpdateCoilRequest {
 		return this.active;
 	}
 
-	public String getColor() {
-		return this.color;
-	}
-
 	public UUID getId() {
 		return this.id;
+	}
+
+	public String getLabel() {
+		return this.label;
 	}
 
 	public Integer getWeight() {
@@ -50,7 +50,7 @@ public class UpdateCoilRequest {
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.weight )
-				.append( this.color )
+				.append( this.label )
 				.append( this.active )
 				.toHashCode();
 	}
@@ -62,7 +62,7 @@ public class UpdateCoilRequest {
 		final UpdateCoilRequest that = (UpdateCoilRequest) o;
 		return new EqualsBuilder()
 				.append( this.weight, that.weight )
-				.append( this.color, that.color )
+				.append( this.label, that.label )
 				.append( this.active, that.active )
 				.isEquals();
 	}
@@ -72,7 +72,7 @@ public class UpdateCoilRequest {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "id", this.id )
 				.append( "weight", this.weight )
-				.append( "color", this.color )
+				.append( "color", this.label )
 				.append( "active", this.active )
 				.toString();
 	}
@@ -95,17 +95,17 @@ public class UpdateCoilRequest {
 			return this;
 		}
 
-		public UpdateCoilRequest.Builder withColor( final String color ) {
-			if (null != color) this.onConstruction.color = color;
-			return this;
-		}
-
 		public UpdateCoilRequest.Builder withId( final UUID id ) {
 			this.onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
-		public UpdateCoilRequest.Builder withWeight( final int weight ) {
+		public UpdateCoilRequest.Builder withLabel( final String label ) {
+			if (null != label) this.onConstruction.label = label;
+			return this;
+		}
+
+		public UpdateCoilRequest.Builder withWeight( final Integer weight ) {
 			this.onConstruction.weight = weight;
 			return this;
 		}

@@ -16,7 +16,6 @@ public class AcceptanceFieldMapConstants {
 	public static final String ACTIVE = "active";
 	// - C O I L
 	public static final String MATERIAL = "material";
-	public static final String COLOR_SET = "colorSet";
 	public static final String WEIGHT = "weight";
 
 	public static final String ITEM_ID = "itemId";

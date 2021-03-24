@@ -90,16 +90,16 @@ public class CoilTest {
 				.withId( TEST_COIL_ID )
 				.withMaterial( TEST_ROLL_MATERIAL )
 				.withColor( TEST_COIL_COLOR )
-				.withColorSet( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
 				.withWeight( TEST_COIL_WEIGHT )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Assertions
 		Assertions.assertEquals( TEST_COIL_ID, coil.getId() );
 		Assertions.assertEquals( TEST_ROLL_MATERIAL, coil.getMaterial() );
-		Assertions.assertEquals( TEST_COIL_COLOR, coil.getColor() );
+		Assertions.assertEquals( TEST_COIL_COLOR, coil.getLabel() );
 		Assertions.assertEquals( TEST_COIL_WEIGHT, coil.getWeight() );
-		Assertions.assertEquals( TEST_COIL_COLOR, coil.getColorSet() );
+		Assertions.assertEquals( TEST_COIL_COLOR, coil.getColor() );
 		Assertions.assertEquals( TEST_COIL_ACTIVE, coil.getActive() );
 	}
 
@@ -110,7 +110,7 @@ public class CoilTest {
 				.withId( TEST_COIL_ID )
 				.withMaterial( TEST_ROLL_MATERIAL )
 				.withColor( TEST_COIL_COLOR )
-				.withColorSet( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
 				.withWeight( TEST_COIL_WEIGHT )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
@@ -119,10 +119,10 @@ public class CoilTest {
 		coil.setWeight( 543 );
 		Assertions.assertEquals( 543, coil.getWeight() );
 
+		Assertions.assertEquals( TEST_COIL_COLOR, coil.getLabel() );
+		coil.setLabel( "-COLOR-" );
+		Assertions.assertEquals( "-COLOR-", coil.getLabel() );
 		Assertions.assertEquals( TEST_COIL_COLOR, coil.getColor() );
-		coil.setColor( "-COLOR-" );
-		Assertions.assertEquals( "-COLOR-", coil.getColor() );
-		Assertions.assertEquals( TEST_COIL_COLOR, coil.getColorSet() );
 
 		Assertions.assertEquals( TEST_COIL_ACTIVE, coil.getActive() );
 		coil.setActive( false );
