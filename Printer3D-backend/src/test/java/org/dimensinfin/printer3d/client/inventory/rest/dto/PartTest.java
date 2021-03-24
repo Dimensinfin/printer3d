@@ -265,35 +265,35 @@ public class PartTest {
 		} );
 	}
 
-//	@Test
-//	public void decrementStock() {
-//		// Given
-//		final Part part = new Part.Builder()
-//				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
-//				.withLabel( TEST_PART_LABEL )
-//				.withDescription( TEST_PART_DESCRIPTION )
-//				.withMaterial( TEST_PART_MATERIAL )
-//				.withColor( TEST_PART_COLOR )
-//				.withBuildTime( TEST_PART_BUILD_TIME )
-//				.withCost( TEST_PART_COST )
-//				.withPrice( TEST_PART_PRICE )
-//				.withStockLevel( TEST_PART_STOCK_LEVEL )
-//				.withStockAvailable( 10 )
-//				.withImagePath( TEST_PART_IMAGE_PATH )
-//				.withModelPath( TEST_PART_MODEL_PATH )
-//				.withActive( false )
-//				.build();
-//		// Test
-//		Assertions.assertEquals( 10, part.getStockAvailable() );
-//		part.decrementStock( 3 );
-//		// Assertions
-//		Assertions.assertEquals( 7, part.getStockAvailable() );
-//	}
+	//	@Test
+	//	public void decrementStock() {
+	//		// Given
+	//		final Part part = new Part.Builder()
+	//				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
+	//				.withLabel( TEST_PART_LABEL )
+	//				.withDescription( TEST_PART_DESCRIPTION )
+	//				.withMaterial( TEST_PART_MATERIAL )
+	//				.withColor( TEST_PART_COLOR )
+	//				.withBuildTime( TEST_PART_BUILD_TIME )
+	//				.withCost( TEST_PART_COST )
+	//				.withPrice( TEST_PART_PRICE )
+	//				.withStockLevel( TEST_PART_STOCK_LEVEL )
+	//				.withStockAvailable( 10 )
+	//				.withImagePath( TEST_PART_IMAGE_PATH )
+	//				.withModelPath( TEST_PART_MODEL_PATH )
+	//				.withActive( false )
+	//				.build();
+	//		// Test
+	//		Assertions.assertEquals( 10, part.getStockAvailable() );
+	//		part.decrementStock( 3 );
+	//		// Assertions
+	//		Assertions.assertEquals( 7, part.getStockAvailable() );
+	//	}
 
 	@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass( Part.class ).withIgnoredFields( "id" )
-				.suppress( Warning.STRICT_INHERITANCE)
+				.suppress( Warning.STRICT_INHERITANCE )
 				.verify();
 	}
 

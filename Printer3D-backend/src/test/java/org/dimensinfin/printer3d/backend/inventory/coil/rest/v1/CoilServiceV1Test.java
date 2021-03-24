@@ -16,10 +16,10 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilReposito
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_COLOR;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_COLOR;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_WEIGHT;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_MATERIAL;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_WEIGHT;
 
 public class CoilServiceV1Test {
 
@@ -37,7 +37,7 @@ public class CoilServiceV1Test {
 	}
 
 	@Test
-	public void getRolls() {
+	public void getCoils() {
 		// Given
 		final Coil coil = Mockito.mock( Coil.class );
 		final List<Coil> coils = new ArrayList<>();
@@ -56,7 +56,7 @@ public class CoilServiceV1Test {
 	}
 
 	@Test
-	public void newRoll() {
+	public void newCoil() {
 		// Given
 		final Coil coil = Mockito.mock( Coil.class );
 		// When
@@ -70,7 +70,7 @@ public class CoilServiceV1Test {
 	}
 
 	@Test
-	public void newRollFound() {
+	public void newCoilFound() {
 		// Given
 		final Coil coil = Mockito.mock( Coil.class );
 		// When
@@ -87,10 +87,10 @@ public class CoilServiceV1Test {
 	public void updateCoil() {
 		// Given
 		final UpdateCoilRequest updateCoilRequest = Mockito.mock( UpdateCoilRequest.class );
-		final Coil coil = new Coil.Builder().withId( TEST_ROLL_ID )
-				.withColor( TEST_ROLL_COLOR )
+		final Coil coil = new Coil.Builder().withId( TEST_COIL_ID )
+				.withColor( TEST_COIL_COLOR )
 				.withMaterial( TEST_ROLL_MATERIAL )
-				.withWeight( TEST_ROLL_WEIGHT )
+				.withWeight( TEST_COIL_WEIGHT )
 				.build();
 		final Coil savedCoil = Mockito.mock( Coil.class );
 		final UUID uuid = UUID.fromString( "1b92bdbd-27f9-4668-8b52-0c2a67effad2" );

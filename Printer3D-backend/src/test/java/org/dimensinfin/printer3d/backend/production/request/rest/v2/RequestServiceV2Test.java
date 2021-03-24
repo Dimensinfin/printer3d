@@ -216,6 +216,10 @@ public class RequestServiceV2Test {
 	}
 
 	@Test
+	public void collectItemsFromStock_UnderStocked() {
+	}
+
+	@Test
 	public void constructorContract() {
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,

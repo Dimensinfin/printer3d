@@ -105,8 +105,8 @@ public class UpdateCoilRequest {
 			return this;
 		}
 
-		public UpdateCoilRequest.Builder withWeight( final Integer weight ) {
-			this.onConstruction.weight = Objects.requireNonNull( weight );
+		public UpdateCoilRequest.Builder withWeight( final int weight ) {
+			this.onConstruction.weight = weight;
 			return this;
 		}
 	}

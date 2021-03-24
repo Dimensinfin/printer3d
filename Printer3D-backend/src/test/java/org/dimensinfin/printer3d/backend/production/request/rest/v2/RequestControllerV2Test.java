@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE_STRING;
@@ -50,6 +51,23 @@ public class RequestControllerV2Test {
 	}
 
 	@Test
+	public void deleteRequest() {
+		// Given
+		final UUID requestId = UUID.randomUUID();
+		final CounterResponse counterResponse = Mockito.mock( CounterResponse.class );
+		// When
+		Mockito.when( this.requestServiceV2.deleteRequest( Mockito.any( UUID.class ) ) ).thenReturn( counterResponse );
+		Mockito.when( counterResponse.getRecords() ).thenReturn( 1 );
+		// Test
+		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
+		final ResponseEntity<CounterResponse> obtained = requestControllerV2.deleteRequest( requestId );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertNotNull( obtained.getBody() );
+		Assertions.assertEquals( 1, obtained.getBody().getRecords() );
+	}
+
+	@Test
 	public void getOpenRequestsOnlyV1Requests() {
 		// Given
 		final RequestV2 request = Mockito.mock( RequestV2.class );
@@ -72,7 +90,7 @@ public class RequestControllerV2Test {
 		final RequestV2 request = new RequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
-				.withRequestDate( TEST_REQUEST_DATE_STRING)
+				.withRequestDate( TEST_REQUEST_DATE_STRING )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
 				.build();
