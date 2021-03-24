@@ -52,6 +52,18 @@ public class Printer3DErrorInfoTest {
 	}
 
 	@Test
+	public void errorMODELNOTFOUND() {
+		// Test
+		final DimensinfinError error = Printer3DErrorInfo.errorMODELNOTFOUND( UUID.fromString( "f6659840-0135-4c44-a7df-0b880ecf88f9" ) );
+		final String messageExpected = "Model with id [f6659840-0135-4c44-a7df-0b880ecf88f9] not found at the repository.";
+		// Assertions
+		Assertions.assertEquals( "MODEL_NOT_FOUND", error.getErrorName() );
+		Assertions.assertEquals( APPLICATION_ERROR_CODE_PREFIX + ".notfound", error.getErrorCode() );
+		Assertions.assertEquals( messageExpected, error.getMessage() );
+		Assertions.assertEquals( HttpStatus.NOT_FOUND, error.getStatus() );
+	}
+
+	@Test
 	public void errorREQUESTSTOREREPOSITORYFAILURE() {
 		// Test
 		final DimensinfinError error = Printer3DErrorInfo.errorREQUESTSTOREREPOSITORYFAILURE( new SQLException( "-SQL-TEST-MESSAGE-" ) );

@@ -121,5 +121,5 @@ public class Printer3DErrorInfo {
 	}
 
 	// - C O N S T R U C T O R S
-	protected Printer3DErrorInfo() { }
+	private Printer3DErrorInfo() {}
 }

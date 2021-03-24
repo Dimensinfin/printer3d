@@ -1,7 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.coil.rest.v2;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,8 +22,6 @@ public class CoilServiceV2 {
 
 	// - G E T T E R S   &   S E T T E R S
 	public List<Coil> getCoils() {
-		final List<Coil> coils = this.coilRepository.findAll();
-		if (null == coils) return new ArrayList<>();
-		else return coils;
+		return this.coilRepository.findAll();
 	}
 }

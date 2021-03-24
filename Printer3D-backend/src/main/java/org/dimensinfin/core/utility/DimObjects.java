@@ -10,17 +10,25 @@ import org.dimensinfin.logging.LogWrapper;
  */
 public class DimObjects {
 	public static <T> T requireNonNull( final T target ) {
-		return requireNonNull( target, "Null Pointer validation detected unexpected null value." );
-	}
-
-	public static <T> T requireNonNull( final T var0, final String message ) {
-		if (var0 == null) {
+		final String message = "Null Pointer validation detected unexpected null value.";
+		if (target == null) {
 			final String callerName = generateCaller();
 			final NullPointerException npe = new NullPointerException( MessageFormat.format( "[{0}]>{1}", callerName, message ) );
 			LogWrapper.error( npe );
 			throw npe;
 		} else {
-			return var0;
+			return target;
+		}
+	}
+
+	public static <T> T requireNonNull( final T target, final String message ) {
+		if (target == null) {
+			final String callerName = generateCaller();
+			final NullPointerException npe = new NullPointerException( MessageFormat.format( "[{0}]>{1}", callerName, message ) );
+			LogWrapper.error( npe );
+			throw npe;
+		} else {
+			return target;
 		}
 	}
 
@@ -33,4 +41,7 @@ public class DimObjects {
 		return element.getClassName().substring( element.getClassName().lastIndexOf( '.' ) + 1 ) + "." +
 				element.getMethodName();
 	}
+
+// - C O N S T R U C T O R S
+	private DimObjects() {}
 }

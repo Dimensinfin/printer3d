@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
@@ -66,16 +65,6 @@ public interface InventoryApiV1 {
 	@Headers({ "Content-Type:application/json" })
 	@PUT("api/v1/inventory/machines/{machineId}/completebuild")
 	Call<Machine> completeBuild( @Path("machineId") final @NotNull UUID machineId );
-
-	/**
-	 * Get the list of Coils persisted at the Inventory repository.
-	 * Get the complete list of **Coils** persisted at the Inventory repository.
-	 *
-	 * @return Call&lt;CoilList&gt;
-	 */
-	@Headers({ "Content-Type:application/json" })
-	@GET("api/v1/inventory/coils")
-	Call<CoilList> getCoils( @Header("Authorization") final @NotNull String authorizationToken );
 
 	/**
 	 * Returns the list of Materials with the colors available for each one.
