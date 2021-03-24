@@ -71,8 +71,7 @@ dependencies {
     testImplementation "com.squareup.retrofit2:converter-jackson:$retrofitVersion" // HTTP encapsulation and swagger support
     testImplementation 'com.auth0:java-jwt:3.3.0'
     // T E S T I N G
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
-    testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'com.openpojo:openpojo:0.8.12'
     // T E S T I N G   A D D I T I O N A L
@@ -80,8 +79,8 @@ dependencies {
     testImplementation "org.testcontainers:postgresql:1.9.1"
     testImplementation 'com.github.javafaker:javafaker:0.17.2'
     // - S P R I N G B O O T
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    testImplementation  'com.h2database:h2:1.4.194'
+//    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+//        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+//    }
+    testImplementation 'com.h2database:h2:1.4.194'
 }
