@@ -12,11 +12,11 @@
             <div cy-field-value="material" class="field-height">{{getMaterial()}}</div>
         </div>
         <div cy-name="colorGroup" class="field color-width">
-            <div cy-field-label="colorGroup" class="label">GRUPO</div>
+            <div cy-field-label="colorGroup" class="label">COLOR</div>
             <div cy-field-value="colorGroup" class="field-height">{{getColorSetGroup()}}</div>
         </div>
         <div cy-name="color" class="field color-width">
-            <div cy-field-label="color" class="label">COLOR</div>
+            <div cy-field-label="color" class="label">ETIQUETA</div>
             <div cy-field-value="color" class="field-height">{{getColor()}}</div>
         </div>
         <div cy-name="weight" class="field weight-width">
@@ -51,11 +51,11 @@
                 <div cy-field-value="material" class="field-height">{{getMaterial()}}</div>
             </div>
             <div cy-name="colorGroup" class="field color-width">
-                <div cy-field-label="colorGroup" class="label">GRUPO</div>
+                <div cy-field-label="colorGroup" class="label">COLOR</div>
                 <div cy-field-value="colorGroup" class="field-height">{{getColorSetGroup()}}</div>
             </div>
             <div cy-name="color" class="field color-width">
-                <div cy-field-label="color" cy-input-type="input" class="label">COLOR</div>
+                <div cy-field-label="color" cy-input-type="input" class="label">ETIQUETA</div>
                 <div class="dsf-input-container color-width">
                     <input name="color" class="dsf-input" [(ngModel)]="editCoil.color" required min="1" oninput="validity.valid||(value='');" #color="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">

@@ -8,7 +8,7 @@ export class Coil extends Node {
     public material: string;
     public color: string;
     public weight: number;
-    public colorSet: string;
+    public label: string;
     public active: boolean = true
 
     constructor(values: Object = {}) {
@@ -24,6 +24,10 @@ export class Coil extends Node {
     public getId(): string {
         return this.id
     }
+    /**
+     * Generates a user identifer that will be recognizd by the operator as a valid identifier for a Coil.
+     * @returns a user frindly Coil identifier that should be valid even it would not be unique.
+     */
     public getCoilIdentifier(): string {
         return this.material + ':' + this.color;
     }

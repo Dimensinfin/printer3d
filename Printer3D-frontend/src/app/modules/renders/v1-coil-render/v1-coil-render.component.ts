@@ -52,7 +52,7 @@ export class V1CoilRenderComponent extends NodeContainerRenderComponent {
         return this.getNode().color
     }
     public getColorSetGroup(): string {
-        if (this.getNode()) return this.getNode().colorSet
+        if (this.getNode()) return this.getNode().label
         else return '-'
     }
     public getWeight(): string {
