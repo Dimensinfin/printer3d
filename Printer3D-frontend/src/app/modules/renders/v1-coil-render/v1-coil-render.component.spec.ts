@@ -36,11 +36,9 @@ import { V1CoilRenderComponent } from './v1-coil-render.component'
 import { Coil } from '@domain/inventory/Coil.domain'
 import { InventoryService } from '@app/modules/inventory/service/inventory.service'
 import { SupportInventoryService } from '@app/testing/SupportInventory.service'
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 
-xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
-    let component: V1CoilRenderComponent
-    let fixture: any
-    let service: SupportInventoryService
+describe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
     const coil = new Coil({
         "id": "9903926b-e786-4fb2-8e8e-68960ebebb7a",
         "material": "PLA",
@@ -48,6 +46,11 @@ xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
         "weight": 800,
         "label": "-LABEL-"
     })
+    let component: V1CoilRenderComponent
+    let fixture: any
+    let isolationService: SupportIsolationService = new SupportIsolationService()
+    let inventoryService: SupportInventoryService = new SupportInventoryService()
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
@@ -57,8 +60,8 @@ xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
                 V1CoilRenderComponent
             ],
             providers: [
-                { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: InventoryService, useClass: SupportInventoryService },
+                { provide: IsolationService, useValue: isolationService },
+                { provide: InventoryService, useValue: inventoryService },
                 { provide: DialogFactoryService, useValue: {} },
                 { provide: ChangeDetectorRef, useValue: { detectChanges: () => { } } }
             ]
@@ -66,8 +69,6 @@ xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
 
         fixture = TestBed.createComponent(V1CoilRenderComponent)
         component = fixture.componentInstance
-        service = TestBed.inject(SupportInventoryService)
-        fixture.whenStable()
     }))
 
     // - C O N S T R U C T I O N   P H A S E
@@ -144,7 +145,7 @@ xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
             component.toggleEdition()
             expect(component.editing).toBeTrue()
         })
-        it('saveEditing.success check the save flow', async () => {
+        it('saveEditing.success check the save flow', fakeAsync(() => {
             component.node = coil
             const updateCoil = new Coil({
                 "id": "9903926b-e786-4fb2-8e8e-68960ebebb7a",
@@ -158,20 +159,21 @@ xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
             expect(component.getColor()).toBe("RED")
             expect(component.getWeight()).toBe('800 gr.')
             expect(component.getLabel()).toBe('-LABEL-')
-            // Set the http result
-            service.setResponse(updateCoil)
+            spyOn(inventoryService, 'apiv2_InventoryUpdateCoil').and
+                .callFake(function () {
+                    return inventoryService.prepareResponse('inventory.update.coil', updateCoil)
+                })
             component.editing = true
             expect(component.editing).toBeTrue()
             component.saveEditing()
-            fixture.whenStable().then(() => {
-                expect(component.editing).toBeFalse()
-                expect(component.getMaterial()).toBe("PLA")
-                expect(component.getColor()).toBe("ROJO")
-                expect(component.getWeight()).toBe('600 gr.')
-                expect(component.getLabel()).toBe("-NEW-LABEL-")
-            })
-        })
-        it('saveEditing.failure check the save flow', async () => {
+            tick(1000)
+            expect(component.editing).toBeFalse()
+            expect(component.getMaterial()).toBe("PLA")
+            expect(component.getColor()).toBe("ROJO")
+            expect(component.getWeight()).toBe('600 gr.')
+            expect(component.getLabel()).toBe("-NEW-LABEL-")
+        }))
+        it('saveEditing.failure check the save flow', fakeAsync(() => {
             component.node = coil
             const updateCoil = new Coil({
                 "id": "9903926b-e786-4fb2-8e8e-68960ebebb7a",
@@ -185,18 +187,27 @@ xdescribe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
             expect(component.getColor()).toBe("RED")
             expect(component.getWeight()).toBe('800 gr.')
             expect(component.getLabel()).toBe('-LABEL-')
-            // Set the http result
-            service.postResponse('NOT_FOUND')
+            spyOn(inventoryService, 'apiv2_InventoryUpdateCoil').and
+                .callFake(function () {
+                    return inventoryService.prepareResponse('Throw Error', new HttpErrorResponse({
+                        error: 'This is the error message',
+                        headers: new HttpHeaders(),
+                        status: 401,
+                        statusText: "NOT_FOUND",
+                        url: "url"
+                    }))
+                })
+            spyOn(isolationService, 'processException')
             component.editing = true
             expect(component.editing).toBeTrue()
             component.saveEditing()
-            fixture.whenStable().then(() => {
-                expect(component.editing).toBeTrue()
-                expect(component.getMaterial()).toBe("PLA")
-                expect(component.getColor()).toBe("RED")
-                expect(component.getWeight()).toBe('800 gr.')
-                expect(component.getLabel()).toBe('-LABEL-')
-            })
-        })
+            tick(1000)
+            expect(component.editing).toBeTrue()
+            expect(component.getMaterial()).toBe("PLA")
+            expect(component.getColor()).toBe("RED")
+            expect(component.getWeight()).toBe('800 gr.')
+            expect(component.getLabel()).toBe('-LABEL-')
+            expect(isolationService.processException).toHaveBeenCalled()
+        }))
     })
 })

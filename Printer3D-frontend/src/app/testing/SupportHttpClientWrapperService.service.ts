@@ -238,7 +238,7 @@ export class SupportHttpClientWrapperService {
                 return {};
         }
     }
-    private directAccessMockResource(dataIdentifier: string): any {
+    public directAccessMockResource(dataIdentifier: string): any {
         console.log(">[SupportHttpClientWrapperService.directAccessMockResource]> dataIdentifier: " + dataIdentifier);
         let rawdata = require('../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');
         console.log(">[SupportHttpClientWrapperService.directAccessMockResource]> path: " +

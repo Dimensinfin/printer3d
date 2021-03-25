@@ -1,5 +1,6 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
+import { of } from 'rxjs'
 // - TESTING
 import { async, tick } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
@@ -7,21 +8,18 @@ import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
-import { BackendService } from '@app/services/backend.service'
-import { SupportBackendService } from '@app/testing/SupportBackend.service'
-import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service'
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
 // - DOMAIN
 import { EVariant } from '@domain/interfaces/EPack.enumerated'
 import { V1CoilsPanelComponent } from './v1-coils-panel.component'
 import { InventoryService } from '../../service/inventory.service'
 import { SupportInventoryService } from '@app/testing/SupportInventory.service'
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 
 describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
     let component: V1CoilsPanelComponent
     let fixture: any
-    let service: SupportInventoryService
-    let isolationService: SupportIsolationService
+    let isolationService: SupportIsolationService = new SupportIsolationService()
+    let inventoryService: SupportInventoryService = new SupportInventoryService()
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -32,16 +30,13 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
                 V1CoilsPanelComponent
             ],
             providers: [
-                { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: InventoryService, useClass: SupportInventoryService }
+                { provide: IsolationService, useValue: isolationService },
+                { provide: InventoryService, useValue: inventoryService }
             ]
         }).compileComponents()
 
         fixture = TestBed.createComponent(V1CoilsPanelComponent)
         component = fixture.componentInstance
-        service = TestBed.inject(SupportInventoryService)
-        isolationService = TestBed.inject(SupportIsolationService)
-        // fixture.detectChanges()
     }))
 
     // - C O N S T R U C T I O N   P H A S E
@@ -60,37 +55,42 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
         })
         it('ngOnInit.after: validate initialization flow', fakeAsync(() => {
-            // fixture.detectChanges()
             console.log('>[V1CoilsPanelComponent.ngOnInit.after]')
-            service.postResponse('inventory.coils')
+            spyOn(inventoryService, 'apiv2_InventoryGetCoils').and
+                .callFake(function () {
+                    return inventoryService.prepareResponse('inventory.coils', inventoryService.directAccessMockResource('inventory.coils'))
+                })
             component.ngOnInit()
             tick(1000)
-            // fixture.whenStable().then(() => {
-            console.log('-[V1CoilsPanelComponent.ngOnInit.after]>Awaiting')
             const componentAsAny = component as any
             expect(component.getVariant()).toBe(EVariant.COIL_LIST)
             expect(componentAsAny.backendConnections.length).toBe(1)
             expect(componentAsAny.dataModelRoot.length).toBe(23)
             expect(componentAsAny.renderNodeList.length).toBe(23)
             expect(component.isDownloading()).toBeFalse()
-            // })
             console.log('<[V1CoilsPanelComponent.ngOnInit.after]')
         }))
-        it('ngOnInit.failure: check the result when there is an error', async () => {
-            // fixture.detectChanges()
+        it('ngOnInit.failure: check the result when there is an error', fakeAsync(() => {
             console.log('>[V1CoilsPanelComponent.ngOnInit.failure]')
             const componentAsAny = component as any
             expect(componentAsAny.backendConnections.length).toBe(0)
             expect(component.isDownloading()).toBeTrue()
+            spyOn(inventoryService, 'apiv2_InventoryGetCoils').and
+                .callFake(function () {
+                    return inventoryService.prepareResponse('Throw Error', new HttpErrorResponse({
+                        error: 'This is the error message',
+                        headers: new HttpHeaders(),
+                        status: 401,
+                        statusText: "NOT_FOUND",
+                        url: "url"
+                    }))
+                })
             spyOn(isolationService, 'processException')
-            service.postResponse('NOT_FOUND')
             component.ngOnInit()
-            fixture.whenStable().then(() => {
-                expect(componentAsAny.backendConnections.length).toBe(1)
-                expect(componentAsAny.dataModelRoot.length).toBe(0)
-                // This cannot be verified with the current Jasmine code, but works
-                // expect(isolationService.processException).toHaveBeenCalled()
-            })
-        })
+            tick(1000)
+            expect(componentAsAny.backendConnections.length).toBe(1)
+            expect(componentAsAny.dataModelRoot.length).toBe(0)
+            expect(isolationService.processException).toHaveBeenCalled()
+        }))
     })
 })

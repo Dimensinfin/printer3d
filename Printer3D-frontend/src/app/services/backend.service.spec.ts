@@ -155,16 +155,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        // it('apiInventoryUpdateCoil_v1.default: get the list of Parts', async () => {
-        //     const updatingCoil: UpdateCoilRequest = new UpdateCoilRequest()
-        //     service.apiInventoryUpdateCoil_v1(updatingCoil, new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
-        //         .setTransformation((entrydata: any): any => {
-        //             return entrydata;
-        //         }))
-        //         .subscribe((response: any) => {
-        //             expect(response).toBeDefined();
-        //         });
-        // });
         it('apiGetFinishings_v1.default: get the list of finishings available', async () => {
             service.apiInventoryGetFinishings_v1(new ResponseTransformer().setDescription('Transforms data into FinishingResponse.')
                 .setTransformation((entrydata: any): FinishingResponse => {
@@ -174,17 +164,6 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        // it('apiInventoryCoils_v1.default: get the list of Coils', async () => {
-        //     service.apiInventoryCoils_v1(new ResponseTransformer().setDescription('Transforms Inventory Coil list form backend.')
-        //         .setTransformation((entrydata: any): CoilListResponse => {
-        //             return new CoilListResponse(entrydata);
-        //         }))
-        //         .subscribe((response: CoilListResponse) => {
-        //             expect(response).toBeDefined();
-        //             expect(response.count).toBe(15, 'Number of Coils do not match.');
-        //             expect(response.coils.length).toBe(15, 'Number of Coils do not match.');
-        //         });
-        // });
         it('apiInventoryMachines_v2.default: get the list of Machines', async () => {
             console.log('apiInventoryMachines_v2.default: get the list of Machines')
             await service.apiInventoryGetMachines_v2(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
