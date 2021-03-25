@@ -107,3 +107,10 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         And field named "weight" with label "PESO" and value "800 gr."
         And actionable image named "edit-button" is "enabled"
         And actionable image named "save-button" is "disabled"
+
+    # @D3D10.09
+    # Scenario: [D3D10.09]-The Coils should be ordered. The first criteria is by the Material.
+    # @D3D10.10
+    # Scenario: [D3D10.10]-The Coils should be ordered. The second criteria is the Color.
+    # @D3D10.11
+    # Scenario: [D3D10.11]-The Coils should be ordered. The The third criteria is the weight. Less weight should be listed before.

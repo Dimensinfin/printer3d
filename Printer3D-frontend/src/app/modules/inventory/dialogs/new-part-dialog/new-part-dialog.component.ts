@@ -36,8 +36,7 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
     constructor(
         public dialogRef: MatDialogRef<NewPartDialogComponent>,
         private isolationService: IsolationService,
-        private backendService: BackendService
-    ) {
+        private backendService: BackendService ) {
         super()
         this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
             .setTransformation((entrydata: any): Part => {

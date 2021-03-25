@@ -12,6 +12,7 @@ export class SupportIsolationService {
 
     // - E X C E P T I O N S
     public processException(error: HttpErrorResponse): void {
+        console.log('>[SupportIsolationService.processException]')
         if (error.error.status == 404) {
             this.errorNotification('Endpoint [' + error.error.path + '] not found on server.', '404 NOT FOUND')
         } else {
@@ -24,6 +25,7 @@ export class SupportIsolationService {
             else
                 this.errorNotification(message, '[' + httpStatus + ']/' + errorName)
         }
+        console.log('<[SupportIsolationService.processException]')
     }
 
     // - M O C K   D A T A   A C C E S S

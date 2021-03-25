@@ -18,14 +18,18 @@ import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WeekAmount } from '@domain/dto/WeekAmount.dto';
 import { Model } from '@domain/inventory/Model.domain';
+import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 
+@Injectable({
+    providedIn: 'root'
+})
 export class SupportBackendService {
     public type: string = 'SUPPORT'
-    private httpWrapper: SupportHttpClientWrapperService;
+    // private httpWrapper: SupportHttpClientWrapperService;
     private failuresList: Map<string, any> = new Map<string, any>();
 
-    constructor() {
-        this.httpWrapper = new SupportHttpClientWrapperService();
+    constructor(protected httpWrapper: SupportHttpClientWrapperService) {
+        // this.httpWrapper = new SupportHttpClientWrapperService();
     }
 
     // - A C T U A T O R - A P I
@@ -215,7 +219,7 @@ export class SupportBackendService {
         });
     }
 
-    private directAccessMockResource(dataIdentifier: string): any {
+    protected directAccessMockResource(dataIdentifier: string): any {
         let rawdata = require('../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');
         console.log(">[SupportBackendService.directAccessMockResource]> path: " +
             '../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');

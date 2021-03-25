@@ -11,13 +11,13 @@
             <div cy-field-label="material" class="label">MATERIAL</div>
             <div cy-field-value="material" class="field-height">{{getMaterial()}}</div>
         </div>
-        <div cy-name="colorGroup" class="field color-width">
-            <div cy-field-label="colorGroup" class="label">COLOR</div>
-            <div cy-field-value="colorGroup" class="field-height">{{getColorSetGroup()}}</div>
-        </div>
         <div cy-name="color" class="field color-width">
-            <div cy-field-label="color" class="label">ETIQUETA</div>
+            <div cy-field-label="color" class="label">COLOR</div>
             <div cy-field-value="color" class="field-height">{{getColor()}}</div>
+        </div>
+        <div cy-name="label" class="field color-width">
+            <div cy-field-label="label" class="label">ETIQUETA</div>
+            <div cy-field-value="label" class="field-height">{{getLabel()}}</div>
         </div>
         <div cy-name="weight" class="field weight-width">
             <div cy-field-label="weight" class="label">PESO</div>
@@ -50,21 +50,21 @@
                 <div cy-field-label="material" class="label">MATERIAL</div>
                 <div cy-field-value="material" class="field-height">{{getMaterial()}}</div>
             </div>
-            <div cy-name="colorGroup" class="field color-width">
-                <div cy-field-label="colorGroup" class="label">COLOR</div>
-                <div cy-field-value="colorGroup" class="field-height">{{getColorSetGroup()}}</div>
-            </div>
             <div cy-name="color" class="field color-width">
-                <div cy-field-label="color" cy-input-type="input" class="label">ETIQUETA</div>
+                <div cy-field-label="color" class="label">COLOR</div>
+                <div cy-field-value="color" class="field-height">{{getColor()}}</div>
+            </div>
+            <div cy-name="label" class="field color-width">
+                <div cy-field-label="label" cy-input-type="input" class="label">ETIQUETA</div>
                 <div class="dsf-input-container color-width">
-                    <input name="color" class="dsf-input" [(ngModel)]="editCoil.color" required min="1" oninput="validity.valid||(value='');" #color="ngModel">
+                    <input name="label" class="dsf-input" [(ngModel)]="editCoil.label" required min="1" oninput="validity.valid||(value='');" #label="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
                     <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <div [ngClass]="{'ng-valid': !color.invalid}">
+                    <div [ngClass]="{'ng-valid': !label.invalid}">
                         <svg class="corner-mark" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" />
                         </svg>

@@ -9,8 +9,8 @@
     {
         "id": "cee43a4e-339a-482c-ac60-dd7d13bba5e2",
         "material": "PLA",
-        "color": "NEGRO (uso)",
-        "label": "NEGRO",
+        "color": "NEGRO",
+        "label": "NEGRO (uso)",
         "weight": 150,
         "active": true
     },

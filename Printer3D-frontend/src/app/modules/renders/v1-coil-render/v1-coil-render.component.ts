@@ -43,15 +43,18 @@ export class V1CoilRenderComponent extends NodeContainerRenderComponent {
         return this.node as Coil
     }
     public getUniqueId(): string {
-        return this.getNode().getId()
+        if (this.getNode()) return this.getNode().getId()
+        else return '-'
     }
     public getMaterial(): string {
-        return this.getNode().material
+        if (this.getNode()) return this.getNode().material
+        else return '-'
     }
     public getColor(): string {
-        return this.getNode().color
+        if (this.getNode()) return this.getNode().color
+        else return '-'
     }
-    public getColorSetGroup(): string {
+    public getLabel(): string {
         if (this.getNode()) return this.getNode().label
         else return '-'
     }
