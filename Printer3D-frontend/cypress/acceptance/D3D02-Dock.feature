@@ -9,7 +9,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
     Scenario: [D3D02.01]-Verify the list of features that should be present.
         Given the application Printer3DManager
         Given one instance of Dock
-        Then there are 7 Features enabled
+        Then there are 8 Features enabled
         Then there is a Feature with label "/ROLLOS"
         Then there is a Feature with label "/INVENTARIO"
         Then there is a Feature with label "/PEDIDOS"

@@ -12,9 +12,9 @@ const supportService = new SupportService();
 Then('there is a Feature with label {string}', function (label: string) {
     cy.get('v1-dock').find('v2-feature').find('.feature-label').contains(label, { matchCase: false })
 });
-Then('there are {int} Features enabled', function (int) {
+Then('there are {int} Features enabled', function (count: number) {
     cy.get('v1-dock').find('v2-feature').within(($panel) => {
-        cy.get('.feature-clip').should('not.have.class', 'disabled')
+        cy.get('.feature').not('.disabled').should('have.length', count)
     });
 });
 Then('the Feature with label {string} opens a Dialog', function (label: string) {
@@ -68,11 +68,11 @@ Then('the dialog has the title {string}', function (title: string) {
 
 
 
-Then('there are {int} Features enabled', function (int) {
-    cy.get('v1-dock').find('v2-feature').within(($panel) => {
-        cy.get('.feature-clip').should('not.have.class', 'disabled')
-    });
-});
+// Then('there are {int} Features enabled', function (int) {
+//     cy.get('v1-dock').find('v2-feature').within(($panel) => {
+//         cy.get('.feature-clip').should('not.have.class', 'disabled')
+//     });
+// });
 Then('the target Feature {string} changes to state {string}', function (featureLabel: string, state: string) {
     if (state == 'active')
         cy.get('@target-feature').within(($panel) => {

@@ -153,6 +153,7 @@ jobs:
             sudo snap install figlet
             wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
             npm install
+            cypress install
       - run:
           name: PRINTER3D-FRONTEND - Start frontend mock processes
           working_directory: Printer3D-frontend
@@ -172,13 +173,15 @@ jobs:
           command: |
             npm run acceptance:ready
             npm run acceptance:cypress:D01
-            # npm run acceptance:cypress:D04
+            npm run acceptance:cypress:D02
+            npm run acceptance:cypress:D05
             npm run acceptance:cypress:D06
-            npm run acceptance:cypress:D07
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
-            npm run acceptance:cypress:D10
             npm run acceptance:cypress:D11
+            npm run acceptance:cypress:D12
+            npm run acceptance:cypress:D14
+            npm run acceptance:cypress:D15
 
   # - B A C K E N D
   cache-dependencies-backend:
