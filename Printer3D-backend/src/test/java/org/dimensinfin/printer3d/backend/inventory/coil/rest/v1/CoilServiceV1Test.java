@@ -18,8 +18,8 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_COLOR;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_MATERIAL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_WEIGHT;
-import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_ROLL_MATERIAL;
 
 public class CoilServiceV1Test {
 
@@ -89,7 +89,7 @@ public class CoilServiceV1Test {
 		final UpdateCoilRequest updateCoilRequest = Mockito.mock( UpdateCoilRequest.class );
 		final Coil coil = new Coil.Builder().withId( TEST_COIL_ID )
 				.withColor( TEST_COIL_COLOR )
-				.withMaterial( TEST_ROLL_MATERIAL )
+				.withMaterial( TEST_COIL_MATERIAL )
 				.withWeight( TEST_COIL_WEIGHT )
 				.build();
 		final Coil savedCoil = Mockito.mock( Coil.class );

@@ -14,6 +14,7 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MATERIAL;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.TRADE_MARK;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.WEIGHT;
 
 public class CoilValidator extends CommonValidator implements Validator<Coil> {
@@ -29,8 +30,8 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 		if (null != rowData.get( ID ))
 			Assertions.assertEquals( this.cucumberDataMap( this.printer3DWorld, rowData.get( ID ) ), record.getId().toString() );
 		Assertions.assertEquals( rowData.get( MATERIAL ), record.getMaterial() );
-		if (null != rowData.get( COLOR ))
-			Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );
+		Assertions.assertEquals( rowData.get( TRADE_MARK ), record.getTradeMark() );
+		Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );
 		if (null != rowData.get( WEIGHT ))
 			Assertions.assertEquals( Integer.parseInt( rowData.get( WEIGHT ) ), record.getWeight() );
 		if (null != rowData.get( LABEL ))

@@ -8,7 +8,7 @@
             <div class="row">
                 <!-- M A T E R I A L -->
                 <div cy-name="material" class="field field-margins">
-                    <span cy-field-label="material" cy-input-type="input" class="label">MATERIAL</span><br>
+                    <span cy-field-label="material" cy-input-type="input" class="label">MATERIAL<span class="mandatory-field">&nbsp;*</span></span><br>
                     <div class="dsf-input-container material-width">
                         <input name="material" class="dsf-input" [(ngModel)]="coil.material" required minlength="2" maxlength="16" #material="ngModel">
                         <svg class="corner-border" viewBox="0 0 100 100">
@@ -24,9 +24,29 @@
                         </div>
                     </div>
                 </div>
+                <!--T R A D E M A R K -->
+                <div cy-name="tradeMark" class="field field-margins">
+                    <span cy-field-label="tradeMark" cy-input-type="input" class="label">MARCA<span class="mandatory-field">&nbsp;*</span></span><br>
+                    <div class="dsf-input-container material-width">
+                        <input name="tradeMark" class="dsf-input" [(ngModel)]="coil.tradeMark" required minlength="2" maxlength="32" #tradeMark="ngModel">
+                        <svg class="corner-border" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        </svg>
+                        <svg class="corner-clear" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                        </svg>
+                        <div [ngClass]="{'ng-valid': !tradeMark.invalid}">
+                            <svg class="corner-mark" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <!-- C O L O R -->
                 <div cy-name="color" class="field left">
-                    <span cy-field-label="color" cy-input-type="input" class="label">COLOR</span><br>
+                    <span cy-field-label="color" cy-input-type="input" class="label">COLOR<span class="mandatory-field">&nbsp;*</span></span><br>
                     <div class="dsf-input-container color-width">
                         <input name="color" class="dsf-input" [(ngModel)]="coil.color" required minlength="2" maxlength="32" #color="ngModel">
                         <svg class="corner-border" viewBox="0 0 100 100">
@@ -64,7 +84,7 @@
             <div class="row centered-container">
                 <!-- W E I G H T -->
                 <div cy-name="weight" class="field">
-                    <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
+                    <span cy-field-label="weight" cy-input-type="input" class="label">PESO<span class="mandatory-field">&nbsp;*</span></span><br>
                     <div class="dsf-input-container weight-width">
                         <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="coil.weight" required min="1" max="2000" oninput="validity.valid||(value='');" #partWeight="ngModel">
                         <svg class="left-corner-border" viewBox="0 0 100 100">

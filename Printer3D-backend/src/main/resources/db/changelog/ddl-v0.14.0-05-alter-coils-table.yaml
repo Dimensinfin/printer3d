@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_14_0_5001_printer3d_alter_coils_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: coilsv1
+            remarks: Add a new column to store the coil manufacturer name
+            columns:
+              - column:
+                  name: trade_mark
+                  type: varchar(32)
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_14_0_5002_printer3d_fill_coils_colorSet_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: coilsv1
+            where: 1=1
+            remarks: Insert a default value for the trade mark.
+            column:
+              - column:
+                  name: trade_mark
+                  value: "NONAME"
+  - changeSet:
+      id: 0_14_0_5003_printer3d_alter_trade_mark_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: coilsv1
+            columnDataType: int
+            columnName: trade_mark
+            validate: true
+            remark: Set the trade mark a column that does not accept nulls.
+  - changeSet:
+      id: 0_14_0_5004_printer3d_create_coils_view
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropView:
+            schemaName: printer3d
+            viewName: coils
+            remarks: Drop views before update their definitions.
+  - changeSet:
+      id: 0_14_0_5005_printer3d_create_coils_view
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropView:
+            schemaName: printer3d
+            viewName: active_coils
+            remarks: Drop views before update their definitions.
+  - changeSet:
+      id: 0_14_0_5006_printer3d_create_coils_view
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createView:
+            replaceIfExists: false
+            schemaName: printer3d
+            viewName: coils
+            selectQuery: SELECT id, material, trade_mark, color, label, weight, active FROM printer3d.coilsv1;
+            remarks: Update the view to the latest table definition.
+  - changeSet:
+      id: 0_14_0_5007_printer3d_create_coils_view
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - createView:
+            replaceIfExists: flase
+            schemaName: printer3d
+            viewName: active_coils
+            selectQuery: SELECT id, material, trade_mark, color, label, weight, active FROM printer3d.coilsv1 WHERE active=true;
+            remarks: Create a view to filter out all coils that are empty or discarded and no longer in use.

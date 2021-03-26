@@ -8,7 +8,7 @@
             <div class="column">
                 <!-- L A B E L -->
                 <div cy-name="label" class="field field-margins">
-                    <span cy-field-label="label" cy-input-type="input" class="label">ETIQUETA<span style="color: red;">&nbsp;*</span></span><br>
+                    <span cy-field-label="label" cy-input-type="input" class="label">ETIQUETA<span class="mandatory-field">&nbsp;*</span></span><br>
                     <div class="dsf-input-container label-width">
                         <input name="partLabel" type="text" class="dsf-input" [(ngModel)]="part.label" required minlength="3" maxlength="50" #partLabel="ngModel">
                         <svg class="corner-border" viewBox="0 0 100 100">
@@ -54,7 +54,7 @@
                     </div>
                     <!-- C O L O R -->
                     <div cy-name="color" class="field field-margins">
-                        <span cy-field-label="color" cy-input-type="select" class="label">COLOR<span style="color: red;">&nbsp;*</span></span><br>
+                        <span cy-field-label="color" cy-input-type="select" class="label">COLOR<span class="mandatory-field">&nbsp;*</span></span><br>
                         <div class="dsf-input-container label-width">
                             <select name="color" class="dsf-input dsf-input-drop part-color" [(ngModel)]="part.color" required #color="ngModel">
                                 <option [ngValue]="null" selected>-Selecciona Color-</option>
@@ -95,7 +95,7 @@
                 <div class="row">
                     <!-- C O S T -->
                     <div cy-name="cost" class="field field-margins">
-                        <span cy-field-label="cost" cy-input-type="input" class="label">COSTE FAB.<span style="color: red;">&nbsp;*</span></span><br>
+                        <span cy-field-label="cost" cy-input-type="input" class="label">COSTE FAB.<span class="mandatory-field">&nbsp;*</span></span><br>
                         <div class="dsf-input-container weight-width">
                             <input name="cost" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.cost" required min="0.01" #cost="ngModel">
                             <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -113,7 +113,7 @@
                     </div>
                     <!-- P R I C E -->
                     <div cy-name="price" class="field field-margins">
-                        <span cy-field-label="price" cy-input-type="input" class="label">PRECIO<span style="color: red;">&nbsp;*</span></span><br>
+                        <span cy-field-label="price" cy-input-type="input" class="label">PRECIO<span class="mandatory-field">&nbsp;*</span></span><br>
                         <div class="dsf-input-container weight-width">
                             <input name="price" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.price" required min="0.01" #price="ngModel">
                             <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -131,7 +131,7 @@
                     </div>
                     <!-- B U I L D   T I M E -->
                     <div cy-name="buildTime" class="field field-margins">
-                        <span cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO<span style="color: red;">&nbsp;*</span></span><br>
+                        <span cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO<span class="mandatory-field">&nbsp;*</span></span><br>
                         <div class="dsf-input-container weight-width">
                             <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.buildTime" required min="1" oninput="validity.valid||(value='');" #buildTime="ngModel">
                             <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -149,7 +149,7 @@
                     </div>
                     <!-- S T O C K   L E V E L -->
                     <div cy-name="stock" class="field field-margins">
-                        <span cy-field-label="stock" cy-input-type="input" class="label">STOCK DESEADO<span style="color: red;">&nbsp;*</span></span><br>
+                        <span cy-field-label="stock" cy-input-type="input" class="label">STOCK DESEADO<span class="mandatory-field">&nbsp;*</span></span><br>
                         <div class="dsf-input-container weight-width">
                             <input name="stock" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.stockLevel" required min="1" max="15" oninput="validity.valid||(value='');" #stock="ngModel">
                             <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -167,7 +167,7 @@
                     </div>
                     <!-- A C T U A L   S T O C K -->
                     <div cy-name="stockAvailable" class="field field-margins">
-                        <span cy-field-label="stockAvailable" cy-input-type="input" class="label">DISPONIBLES<span style="color: red;">&nbsp;*</span></span><br>
+                        <span cy-field-label="stockAvailable" cy-input-type="input" class="label">DISPONIBLES<span class="mandatory-field">&nbsp;*</span></span><br>
                         <div class="dsf-input-container weight-width">
                             <input name="stockAvailable" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.stockAvailable" required min="0" oninput="validity.valid||(value='');" #stockAvailable="ngModel">
                             <svg class="left-corner-border" viewBox="0 0 100 100">

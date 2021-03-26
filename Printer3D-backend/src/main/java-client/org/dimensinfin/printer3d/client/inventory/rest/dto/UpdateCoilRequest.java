@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
-import java.util.Objects;
 import java.util.UUID;
 import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
@@ -10,6 +9,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import org.dimensinfin.core.utility.DimObjects;
 
 /**
  * Contains the Coil fields that come from the GUI with the new Coil data.
@@ -25,7 +26,11 @@ public class UpdateCoilRequest {
 	@NotNull(message = "Weight data cannot be null.")
 	@SerializedName("weight")
 	private Integer weight;
+	@SerializedName("tradeMark")
+	private String tradeMark;
+	@SerializedName("label")
 	private String label;
+	@SerializedName("active")
 	private Boolean active;
 
 	// - G E T T E R S   &   S E T T E R S
@@ -41,6 +46,10 @@ public class UpdateCoilRequest {
 		return this.label;
 	}
 
+	public String getTradeMark() {
+		return this.tradeMark;
+	}
+
 	public Integer getWeight() {
 		return this.weight;
 	}
@@ -50,6 +59,7 @@ public class UpdateCoilRequest {
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.weight )
+				.append( this.tradeMark )
 				.append( this.label )
 				.append( this.active )
 				.toHashCode();
@@ -62,6 +72,7 @@ public class UpdateCoilRequest {
 		final UpdateCoilRequest that = (UpdateCoilRequest) o;
 		return new EqualsBuilder()
 				.append( this.weight, that.weight )
+				.append( this.tradeMark, that.tradeMark )
 				.append( this.label, that.label )
 				.append( this.active, that.active )
 				.isEquals();
@@ -72,6 +83,7 @@ public class UpdateCoilRequest {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "id", this.id )
 				.append( "weight", this.weight )
+				.append( "tradeMark", this.tradeMark )
 				.append( "color", this.label )
 				.append( "active", this.active )
 				.toString();
@@ -96,7 +108,7 @@ public class UpdateCoilRequest {
 		}
 
 		public UpdateCoilRequest.Builder withId( final UUID id ) {
-			this.onConstruction.id = Objects.requireNonNull( id );
+			this.onConstruction.id = DimObjects.requireNonNull( id );
 			return this;
 		}
 
@@ -105,8 +117,13 @@ public class UpdateCoilRequest {
 			return this;
 		}
 
+		public UpdateCoilRequest.Builder withTradeMark( final String trademark ) {
+			if (null != trademark) this.onConstruction.tradeMark = trademark;
+			return this;
+		}
+
 		public UpdateCoilRequest.Builder withWeight( final Integer weight ) {
-			this.onConstruction.weight = weight;
+			if (null != weight) this.onConstruction.weight = weight;
 			return this;
 		}
 	}

@@ -9,6 +9,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_COLOR;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_TRADE_MARK;
 
 public class UpdateCoilRequestTest {
 	@Test
@@ -16,6 +17,7 @@ public class UpdateCoilRequestTest {
 		final UpdateCoilRequest updateCoilRequest = new UpdateCoilRequest.Builder()
 				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
 				.withWeight( 200 )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withLabel( TEST_COIL_COLOR )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
@@ -35,12 +37,14 @@ public class UpdateCoilRequestTest {
 		final UpdateCoilRequest updateCoilRequest = new UpdateCoilRequest.Builder()
 				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
 				.withWeight( 200 )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withLabel( TEST_COIL_COLOR )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Assertions
 		Assertions.assertEquals( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ).toString(), updateCoilRequest.getId().toString() );
 		Assertions.assertEquals( 200, updateCoilRequest.getWeight() );
+		Assertions.assertEquals( TEST_COIL_TRADE_MARK, updateCoilRequest.getTradeMark() );
 		Assertions.assertEquals( TEST_COIL_COLOR, updateCoilRequest.getLabel() );
 		Assertions.assertEquals( TEST_COIL_ACTIVE, updateCoilRequest.getActive() );
 	}
@@ -51,6 +55,7 @@ public class UpdateCoilRequestTest {
 		final UpdateCoilRequest updateCoilRequest = new UpdateCoilRequest.Builder()
 				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
 				.withWeight( 200 )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withLabel( TEST_COIL_COLOR )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();

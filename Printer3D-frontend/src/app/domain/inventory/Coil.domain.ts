@@ -6,6 +6,7 @@ import { Node } from '../Node.domain';
 export class Coil extends Node {
     public id: string;
     public material: string;
+    public tradeMark: string
     public color: string;
     public weight: number;
     public label: string;
