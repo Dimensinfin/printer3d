@@ -63,6 +63,12 @@ dependencies {
 }
 
 // - U N I T   T E S T I N G
+test {
+    useJUnitPlatform()
+    systemProperty "cucumber.options", System.getProperty("cucumber.options")
+    dependsOn cleanTest
+    testLogging.showStandardStreams = true
+}
 dependencies {
     // C O R E
     testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.10'
@@ -72,9 +78,9 @@ dependencies {
     testImplementation "com.squareup.retrofit2:converter-jackson:$retrofitVersion" // HTTP encapsulation and swagger support
     testImplementation 'com.auth0:java-jwt:3.3.0'
     // T E S T I N G
-    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.19.0'
-//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.0'
+    testImplementation 'org.assertj:assertj-core:3.19.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.3.0'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'com.openpojo:openpojo:0.8.12'
     // T E S T I N G   A D D I T I O N A L

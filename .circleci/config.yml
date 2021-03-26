@@ -182,6 +182,9 @@ jobs:
             npm run acceptance:cypress:D12
             npm run acceptance:cypress:D14
             npm run acceptance:cypress:D15
+            npm run acceptance:cypress:D19
+            npm run acceptance:cypress:D20
+            npm run acceptance:cypress:F21
 
   # - B A C K E N D
   cache-dependencies-backend:

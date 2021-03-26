@@ -86,7 +86,7 @@ public class P3D02CoilsSteps extends StepSupport {
 	public void the_list_of_Coils_has_items( final Integer coilCount ) {
 		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getCoilV2ListResponseEntity().getBody() );
-		Assertions.assertEquals( coilCount, this.printer3DWorld.getCoilV2ListResponseEntity().getBody().size() );
+		Assertions.assertEquals( coilCount.intValue(), this.printer3DWorld.getCoilV2ListResponseEntity().getBody().size() );
 	}
 
 	@Given("the next New Coil request")
@@ -111,6 +111,6 @@ public class P3D02CoilsSteps extends StepSupport {
 				.stream()
 				.filter( coil -> 0 == Boolean.compare( coil.getActive(), Boolean.parseBoolean( activeState ) ) )
 				.count();
-		Assertions.assertEquals( recordCount, (int) count );
+		Assertions.assertEquals( recordCount.intValue(), (int) count );
 	}
 }

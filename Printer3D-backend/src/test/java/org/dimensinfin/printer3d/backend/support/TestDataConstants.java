@@ -35,7 +35,8 @@ public class TestDataConstants {
 
 	public static class CoilConstants {
 		public static final UUID TEST_COIL_ID = UUID.randomUUID();
-		public static final String TEST_ROLL_MATERIAL = "PLA";
+		public static final String TEST_COIL_MATERIAL = "PLA";
+		public static final String TEST_COIL_TRADE_MARK = "EOLAS";
 		public static final String TEST_COIL_COLOR = "-COLOR-";
 		public static final Integer TEST_COIL_WEIGHT = 750;
 		public static final Boolean TEST_COIL_ACTIVE = false;

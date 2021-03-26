@@ -21,10 +21,12 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         # - Check the empty dialog contents and field states
         And the target has the title "/INVENTARIO/NUEVO ROLLO"
         And the target panel has a form field named "material" with label "MATERIAL" and empty
+        And the target panel has a form field named "tradeMark" with label "MARCA" and empty
         And the target panel has a form field named "color" with label "COLOR" and empty
         And the target panel has a form field named "weight" with label "PESO" and empty
         # - Check the field state
         And form field named "material" is "invalid"
+        And form field named "tradeMark" is "invalid"
         And form field named "color" is "invalid"
         And form field named "weight" is "invalid"
 
@@ -33,6 +35,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         Then the "New Coil" dialog opens and blocks the display
         # - Check the field contents size
         Then field named "material" is tested for size constraints 2 and 16
+        And field named "tradeMark" is tested for size constraints 2 and 32
         And field named "color" is tested for size constraints 2 and 32
         And field named "weight" is tested for value constraints 1 to 2000
 
@@ -47,6 +50,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.05]-If all the fields are filled with valid values the Save button activates.
         Then the "New Coil" dialog opens and blocks the display
         Given "PLA" is set on form field "material"
+        And "EOLAS" is set on form field "tradeMark"
         And "AMARILLO" is set on form field "color"
         And 800 is set on form field "weight"
         Then the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
@@ -57,6 +61,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.06]-If the New Coil Save button is clicked then the coil is stored at the repository and a notification is thrown.
         Then the "New Coil" dialog opens and blocks the display
         Given "PLA" is set on form field "material"
+        And "EOLAS" is set on form field "tradeMark"
         And "AMARILLO" is set on form field "color"
         And 800 is set on form field "weight"
         Then the target panel button with name "submit-button" has a label "Guardar" and is "enabled"
@@ -75,6 +80,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D06.08]-If the New Coil Save and Continue button is clicked then coil is persisted but the dialog is kept open and the contents updated.
         Then the "New Coil" dialog opens and blocks the display
         Given "PLA" is set on form field "material"
+        And "EOLAS" is set on form field "tradeMark"
         And "AMARILLO" is set on form field "color"
         And 800 is set on form field "weight"
         Then the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
@@ -98,6 +104,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         Then the "New Coil" dialog opens and blocks the display
         # - Fill all required fields
         Given "PLA" is set on form field "material"
+        And "EOLAS" is set on form field "tradeMark"
         And "AMARILLO" is set on form field "color"
         And 800 is set on form field "weight"
         Then the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"

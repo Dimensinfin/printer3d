@@ -23,7 +23,7 @@ public class P3D03FinishingsSteps extends StepSupport {
 	public void the_list_of_colors_of_material_is_ordered_alphabetically( final String materialName ) {
 		final ResponseEntity<FinishingsResponse> response = this.printer3DWorld.getFinishingsResponseEntity();
 		Assertions.assertNotNull( response );
-		for (Finishing material : response.getBody().getMaterials())
+		for (final Finishing material : response.getBody().getMaterials())
 			if (material.getMaterial().equalsIgnoreCase( materialName ))
 				Assertions.assertTrue( this.checkIfSorted( material.getColors() ) );
 	}
@@ -32,9 +32,9 @@ public class P3D03FinishingsSteps extends StepSupport {
 	public void the_material_record_has_colors( final String materialName, final Integer colorCount ) {
 		final ResponseEntity<FinishingsResponse> response = this.printer3DWorld.getFinishingsResponseEntity();
 		Assertions.assertNotNull( response );
-		for (Finishing material : response.getBody().getMaterials())
+		for (final Finishing material : response.getBody().getMaterials())
 			if (material.getMaterial().equalsIgnoreCase( materialName )) {
-				Assertions.assertEquals( colorCount, material.getColors().size() );
+				Assertions.assertEquals( colorCount.intValue(), material.getColors().size() );
 			}
 	}
 
@@ -53,7 +53,7 @@ public class P3D03FinishingsSteps extends StepSupport {
 	public void the_response_has_material_records( final Integer materialsCount ) {
 		final ResponseEntity<FinishingsResponse> response = this.printer3DWorld.getFinishingsResponseEntity();
 		Assertions.assertNotNull( response );
-		Assertions.assertEquals( materialsCount, response.getBody().getMaterials().size() );
+		Assertions.assertEquals( materialsCount.intValue(), response.getBody().getMaterials().size() );
 	}
 
 	private boolean checkIfSorted( final List<String> input ) {
