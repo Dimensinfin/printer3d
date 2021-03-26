@@ -1361,6 +1361,7 @@ components:
       required:
         - id
         - material
+        - tradeMark
         - color
         - colorSet
         - weight
@@ -1385,6 +1386,15 @@ components:
             specialized machine or a particular machine configuration.
           example:
             PLA
+        tradeMark:
+          type: string
+          format: string
+          minLength: 2
+          maxLength: 32
+          description: >
+            This field is used to store the trade mark of the coil or the manufacturer name to be able to differentiate different coil qualities.
+          example:
+            ESUN
         color:
           type: string
           format: string
@@ -1425,7 +1435,6 @@ components:
       type: object
       required:
         - id
-        - weight
       properties:
         id:
           type: string
@@ -1445,6 +1454,15 @@ components:
             The new coil weight as reported by the user on the GUI. The unit or representation is grames.
           example:
             1000
+        tradeMark:
+          type: string
+          format: string
+          minLength: 2
+          maxLength: 32
+          description: >
+            The updated value for the trade mark as provided by the operator.
+          example:
+            ESUN
         color:
           type: string
           format: string
