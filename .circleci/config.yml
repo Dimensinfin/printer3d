@@ -153,7 +153,6 @@ jobs:
             sudo snap install figlet
             wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
             npm install
-            cypress install
       - run:
           name: PRINTER3D-FRONTEND - Start frontend mock processes
           working_directory: Printer3D-frontend
@@ -166,6 +165,7 @@ jobs:
           name: PRINTER3D-FRONTEND - Compile the integration version to be used on acceptance tests.
           working_directory: Printer3D-frontend
           command: |
+            npm install
             npm run build:stage
       - run:
           name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests
