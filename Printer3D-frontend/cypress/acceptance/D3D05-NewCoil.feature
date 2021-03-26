@@ -3,6 +3,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
 
     Other of the key elements to work are the Coils. They are created on a Dialog.
     Describe and test the creation of a new Coil.
+    [STORY] When creating a new Coil we should be able to attach a new label.
 
     Background: Dock Default Configuration setup
         Given the application Printer3DManager
@@ -82,6 +83,41 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         And the target panel has a form field named "material" with label "MATERIAL" and contents "PLA"
         And the target panel has a form field named "color" with label "COLOR" and empty
         And the target panel has a form field named "weight" with label "PESO" and empty
+
+    @D3D05.09
+    Scenario: [D3D05.09]-The New Coil has an additional field called label that is optional.
+        Then the "New Coil" dialog opens and blocks the display
+        # - Check the empty dialog contents and field states
+        And the target has the title "/INVENTARIO/NUEVO ROLLO"
+        And the target panel has a form field named "label" with label "ETIQUETA" and empty
+        # - Check the field state
+        And form field named "label" is "valid"
+
+    @D3D05.10
+    Scenario: [D3D05.10]-The Coil label field is not set the Coil can be saved and the default value is the Color.
+        Then the "New Coil" dialog opens and blocks the display
+        # - Fill all required fields
+        Given "PLA" is set on form field "material"
+        And "AMARILLO" is set on form field "color"
+        And 800 is set on form field "weight"
+        Then the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
+        And the target panel button with name "submit-button" has a label "Guardar" and is "enabled"
+        And the target panel button with name "cancel-button" has a label "Cancelar" and is "enabled"
+        When  the button with name "submit-button" is clicked
+        Then the coil is persisted at the backend
+        And the dialog closes
+
+    @D3D05.11
+    Scenario: [D3D05.11]-If the Coil label field is set the label field state does not change.
+        Then the "New Coil" dialog opens and blocks the display
+        # - Check the empty dialog contents and field states
+        And the target has the title "/INVENTARIO/NUEVO ROLLO"
+        And the target panel has a form field named "label" with label "ETIQUETA" and empty
+        # - Check the field state
+        And form field named "label" is "valid"
+        # - Fill and check again
+        And "-ETIQUETA-" is set on form field "label"
+        And form field named "label" is "valid"
 
     # - E X C E P T I O N S
     @D3D05.E.01

@@ -46,7 +46,7 @@
                 <div cy-name="label" class="field left">
                     <span cy-field-label="label" cy-input-type="input" class="label">ETIQUETA</span><br>
                     <div class="dsf-input-container color-width">
-                        <input name="label" class="dsf-input" [(ngModel)]="coil.label" required minlength="2" maxlength="32" #label="ngModel">
+                        <input name="label" class="dsf-input" [(ngModel)]="coil.label" #label="ngModel">
                         <svg class="corner-border" viewBox="0 0 100 100">
                             <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                         </svg>
