@@ -162,12 +162,17 @@ jobs:
             dockerize -wait tcp://localhost:5110 -timeout 1m
             docker ps
       - run:
+          name: PRINTER3D-FRONTEND - Compile the integration version to be used on acceptance tests.
+          working_directory: Printer3D-frontend
+          command: |
+            npm run build:stage
+      - run:
           name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests
           working_directory: Printer3D-frontend
           command: |
             npm run acceptance:ready
             npm run acceptance:cypress:D01
-            npm run acceptance:cypress:D04
+            # npm run acceptance:cypress:D04
             npm run acceptance:cypress:D06
             npm run acceptance:cypress:D07
             npm run acceptance:cypress:D08
@@ -411,6 +416,7 @@ workflows:
               only:
                 - experimental
                 - development
+                - test
       - compile-frontend-job:
           requires:
             - start-job
@@ -419,10 +425,12 @@ workflows:
             branches:
               only:
                 - experimental
+                - development
+                - test
       - validate-frontend-job:
           requires:
             - start-job
-            - framework-frontend-job
+            - compile-frontend-job
           filters:
             branches:
               only:
@@ -430,14 +438,14 @@ workflows:
                 - test
       - unittest-frontend-job:
           requires:
-            - validate-frontend-job
+            - compile-frontend-job
           filters:
             branches:
               only:
                 - test
       - acceptance-test-frontend-job:
           requires:
-            - validate-frontend-job
+            - compile-frontend-job
           filters:
             branches:
               only:
@@ -496,7 +504,13 @@ workflows:
 
   printer3d-deploy:
     jobs:
-      - start-job
+      - start-job:
+          filters:
+            tags:
+              only: /0.*/
+            branches:
+              ignore: /.*/
+
       # - F R O N T E N D
       - unittest-frontend-job:
           requires:

@@ -112,7 +112,7 @@ export class SupportService {
             case 'backend-version':
                 return environment.backendVersion;
             case 'copyright':
-                return environment.copyright;
+                return '© 2019,2020 Dimensinfin Industries'
         }
         return '-undefined-';
     }

@@ -1,0 +1,7 @@
+{
+    "settings": {
+        "port": 5100,
+        "applicationhome": "/dist/Printer3D-frontend",
+        "backendproxy": "http://localhost:5110/"
+    }
+}
