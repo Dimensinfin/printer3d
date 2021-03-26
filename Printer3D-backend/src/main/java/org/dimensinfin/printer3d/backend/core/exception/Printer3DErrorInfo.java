@@ -20,7 +20,7 @@ import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION
  * "The request [{0}] has assigned a Part with id [{1}] that does not exist on the Part repository." );
  */
 public class Printer3DErrorInfo {
-	private static final String PERSISTENCE_ERROR = ".persistence.sql.error";
+	public static final String PERSISTENCE_ERROR = ".persistence.sql.error";
 
 	public static DimensinfinError errorINVENTORYSTOREREPOSITORYFAILURE( final SQLException sqle ) {
 		if (null != sqle.getCause())

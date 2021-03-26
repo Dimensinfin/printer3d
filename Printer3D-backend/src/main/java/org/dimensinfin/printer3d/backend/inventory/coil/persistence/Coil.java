@@ -1,6 +1,5 @@
 package org.dimensinfin.printer3d.backend.inventory.coil.persistence;
 
-import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +13,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import org.dimensinfin.core.utility.DimObjects;
 import org.dimensinfin.logging.LogWrapper;
 
 /**
@@ -41,18 +41,20 @@ public class Coil {
 	@Column(name = "material", nullable = false)
 	private String material;
 	@Size(min = 1, max = 32)
+	@NotNull(message = "Coil 'tradeMark' is mandatory.")
+	@Column(name = "trade_mark", nullable = false)
+	private String tradeMark;
+	@Size(min = 1, max = 32)
 	@NotNull(message = "Coil 'color' is mandatory.")
 	@Column(name = "color", nullable = false)
 	private String color;
 	@Column(name = "weight", nullable = false)
 	private Integer weight = 750;
 	@Size(min = 1, max = 32)
-	@NotNull(message = "Coil 'colorSet' is mandatory.")
-	@Column(name = "color_set", nullable = false)
+	@Column(name = "label", nullable = false)
 	private String label;
 	@Column(name = "active", nullable = false)
 	private Boolean active = true;
-
 	// - C O N S T R U C T O R S
 	protected Coil() {}
 
@@ -87,6 +89,15 @@ public class Coil {
 		return this.material;
 	}
 
+	public String getTradeMark() {
+		return this.tradeMark;
+	}
+
+	public Coil setTradeMark( final String tradeMark ) {
+		this.tradeMark = tradeMark;
+		return this;
+	}
+
 	public Integer getWeight() {
 		return this.weight;
 	}
@@ -96,11 +107,24 @@ public class Coil {
 		return this;
 	}
 
+	/**
+	 * Validates that null fields can be completed with default data before being stored on the repository.
+	 *
+	 * @return a completed instance where null fields with default values have been completed.
+	 */
+	public Coil complete() {
+		if (null == this.label) this.label = this.color;
+		if (null == this.weight) this.weight = 750;
+		if (null == this.active) this.active = true;
+		return this;
+	}
+
 	// - C O R E
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.material )
+				.append( this.tradeMark )
 				.append( this.label )
 				.append( this.color )
 				.append( this.weight )
@@ -115,6 +139,7 @@ public class Coil {
 		final Coil coil = (Coil) o;
 		return new EqualsBuilder()
 				.append( this.material, coil.material )
+				.append( this.tradeMark, coil.tradeMark )
 				.append( this.label, coil.label )
 				.append( this.color, coil.color )
 				.append( this.weight, coil.weight )
@@ -127,6 +152,7 @@ public class Coil {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "id", this.id )
 				.append( "material", this.material )
+				.append( "tradeMark", this.tradeMark )
 				.append( "color", this.color )
 				.append( "weight", this.weight )
 				.append( "label", this.label )
@@ -157,9 +183,10 @@ public class Coil {
 		}
 
 		public Coil build() {
-			Objects.requireNonNull( this.onConstruction.id );
-			Objects.requireNonNull( this.onConstruction.material );
-			Objects.requireNonNull( this.onConstruction.color );
+			DimObjects.requireNonNull( this.onConstruction.id );
+			DimObjects.requireNonNull( this.onConstruction.material );
+			DimObjects.requireNonNull( this.onConstruction.tradeMark );
+			DimObjects.requireNonNull( this.onConstruction.color );
 			if (null == this.onConstruction.label) this.onConstruction.label = this.onConstruction.color;
 			return this.onConstruction;
 		}
@@ -170,12 +197,12 @@ public class Coil {
 		}
 
 		public Coil.Builder withColor( final String color ) {
-			this.onConstruction.color = Objects.requireNonNull( color );
+			this.onConstruction.color = DimObjects.requireNonNull( color );
 			return this;
 		}
 
 		public Coil.Builder withId( final UUID id ) {
-			this.onConstruction.id = Objects.requireNonNull( id );
+			this.onConstruction.id = DimObjects.requireNonNull( id );
 			return this;
 		}
 
@@ -185,7 +212,12 @@ public class Coil {
 		}
 
 		public Coil.Builder withMaterial( final String material ) {
-			this.onConstruction.material = Objects.requireNonNull( material );
+			this.onConstruction.material = DimObjects.requireNonNull( material );
+			return this;
+		}
+
+		public Coil.Builder withTradeMark( final String trademark ) {
+			this.onConstruction.tradeMark = DimObjects.requireNonNull( trademark );
 			return this;
 		}
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.dimensinfin.printer3d.client.core.dto.RestExceptionResponse;
 
 public class DimensinfinRuntimeException extends RuntimeException {
+	private static final long serialVersionUID = -8973768889849000453L;
+
 	public static DimensinfinError errorRUNTIMEINTERNALERROR( final String message ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "RUNTIME_INTERNAL_ERROR" )
@@ -45,6 +47,11 @@ public class DimensinfinRuntimeException extends RuntimeException {
 		this.httpStatus = error.getStatus();
 	}
 
+	/**
+	 * This constructor implementation is used to deserialize backend received exceptions.
+	 *
+	 * @param exceptionResponse the json deserializer class that jackson will use to convert back the Dimensinfin exception.
+	 */
 	public DimensinfinRuntimeException( final RestExceptionResponse exceptionResponse ) {
 		this.errorName = exceptionResponse.getErrorName();
 		this.errorCode = exceptionResponse.getErrorCode();

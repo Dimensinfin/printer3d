@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.backend.core.exception;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,19 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import org.dimensinfin.core.exception.ApiError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.printer3d.backend.inventory.coil.rest.v1.CoilServiceV1;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	protected ResponseEntity<ApiError> handleDataIntegrityViolationException( final DataIntegrityViolationException dataIntegrityException ) {
+		final String cause = dataIntegrityException.getCause().getCause().getMessage();
+		final DimensinfinRuntimeException dimensinfinRuntimeException =
+				new DimensinfinRuntimeException( CoilServiceV1.errorINVENTORYSTOREREPOSITORYUNEXPECTEDERROR( dataIntegrityException, cause ) );
+		return new ResponseEntity<>( new ApiError( dimensinfinRuntimeException ), dimensinfinRuntimeException.getHttpStatus() );
+	}
+
 	@ExceptionHandler(DimensinfinRuntimeException.class)
 	protected ResponseEntity<ApiError> handleDimensinfinRuntimeException( final DimensinfinRuntimeException dimensinfinRuntimeException ) {
 		return new ResponseEntity<>( new ApiError( dimensinfinRuntimeException ), dimensinfinRuntimeException.getHttpStatus() );
