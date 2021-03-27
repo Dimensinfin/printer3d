@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Printer3D-backend.iml" filepath="$PROJECT_DIR$/.idea/Printer3D-backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.acceptance.iml" filepath="$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.acceptance.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.test.iml" filepath="$PROJECT_DIR$/.idea/modules/org.dimensinfin.printer3d.Printer3D-backend.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dimensinfin3D.Printer3D-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/Dimensinfin3D.Printer3D-backend.iml" />
     </modules>
   </component>
 </project>
