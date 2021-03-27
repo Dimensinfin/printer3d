@@ -440,6 +440,7 @@ workflows:
               only:
                 - experimental
                 - development
+                - test
       - compile-backend-job:
           requires:
             - start-job
@@ -457,11 +458,9 @@ workflows:
             branches:
               only:
                 - test
-                - hotfixtest-front
-      - acceptance-test-frontend-job:
+      - acceptance-test-backend-job:
           requires:
             - unittest-backend-job
-            - compile-frontend-job
           filters:
             branches:
               only:
