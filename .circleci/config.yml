@@ -171,6 +171,7 @@ jobs:
           name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests
           working_directory: Printer3D-frontend
           command: |
+            npm install
             npm run acceptance:ready
             npm run acceptance:cypress:D01
             npm run acceptance:cypress:D02
@@ -275,11 +276,11 @@ jobs:
           working_directory: Printer3D-backend
           environment:
             DEFAULT_BACKEND_SERVER: 'http://localhost'
-            DEFAULT_BACKEND_PORT: '5121'
+            DEFAULT_BACKEND_PORT: 5140
           command: |
             ./docker-service.sh start acceptance
             docker ps
-            dockerize -wait tcp://localhost:5121 -timeout 3m
+            dockerize -wait tcp://localhost:5140 -timeout 3m
             docker ps
             ./gradlew clean
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D01 or @P3D02 or @P3D05 or @P3D07" --info
