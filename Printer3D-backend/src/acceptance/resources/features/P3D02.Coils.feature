@@ -142,7 +142,7 @@ Feature: Manage the Coils on the Inventory information section
     And the list of Coils has 5 items
     And the coil with id "49f72da1-051c-437c-b9d1-b81e298b156d" of the list of Coils has the next fields
       | id                                   | material | tradeMark | color | label | weight | active |
-      | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | EOLAS     | NEGRO | NEGRO | 600    | false  |
+      | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | EOLAS     | NEGRO | NEGRO | 600    | true   |
     And the number of Active "false" Coils is 1
 
     # - E X C E P T I O N S   P A T H

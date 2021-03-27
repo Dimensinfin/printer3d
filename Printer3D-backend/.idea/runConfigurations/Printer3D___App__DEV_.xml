@@ -8,7 +8,7 @@
       <env name="NEOCOM_BANNER_LOCATION" value="./build/resources/main/app-banner.txt" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="org.dimensinfin.printer3d.backend.Printer3DApplication" />
-    <module name="printer3d-backend.main" />
+    <module name="org.dimensinfin.printer3d.Printer3D-backend.main" />
     <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=dev --server.port=5120" />
     <method v="2">
       <option name="Make" enabled="true" />

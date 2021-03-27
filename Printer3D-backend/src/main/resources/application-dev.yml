@@ -3,11 +3,11 @@ server:
 
 spring:
   datasource:
-    url: \${DATABASE_URL}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
     platform: postgres
-    username: \${DB_USER}
-    password: \${DB_PASSWORD}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/development/db.changelog-master-dev.yaml

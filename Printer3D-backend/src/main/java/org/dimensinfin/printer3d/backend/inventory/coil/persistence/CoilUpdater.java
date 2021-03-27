@@ -14,7 +14,8 @@ public class CoilUpdater {
 	}
 
 	public Coil update( final @NotNull UpdateCoilRequest updateData ) {
-		this.coilEntity.setWeight( updateData.getWeight() );
+		if (null != updateData.getWeight()) this.coilEntity.setWeight( updateData.getWeight() );
+		if (null != updateData.getTradeMark()) this.coilEntity.setTradeMark( updateData.getTradeMark() );
 		if (null != updateData.getLabel()) this.coilEntity.setLabel( updateData.getLabel() );
 		if (null != updateData.getActive()) this.coilEntity.setActive( updateData.getActive() );
 		return this.coilEntity;

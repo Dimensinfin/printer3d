@@ -281,34 +281,8 @@ jobs:
             docker ps
             dockerize -wait tcp://localhost:5121 -timeout 3m
             docker ps
-            ./gradlew clean test
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@NIB01" --info
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@NIB03"
-      - run:
-          name: BACKEND - Waiting for application start
-          working_directory: Printer3D-backend
-          environment:
-            PORT: 5121
-            DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-            DB_USER: inno-user
-            DB_PASSWORD: inno-password
-            NEOCOM_BANNER_LOCATION: "./build/resources/main/app-banner.txt"
-            SPRING_PROFILES_ACTIVE: acceptance
-            DOCKERIZE_VERSION: v0.3.0
-          command: |
-            ./gradlew bootRun
-          background: true
-      - run:
-          name: BACKEND - Waiting for application start
-          environment:
-            PORT: 5121
-          working_directory: Printer3D-backend
-          command: |
-            dockerize -wait tcp://localhost:${PORT}/actuator/health -timeout 3m
-      - store_test_results:
-          path: ~/project/Printer3D-backend/build/test-results
-      - store_artifacts:  
-          path: ~/project/Printer3D-backend/build/libs
+            ./gradlew clean
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D02.H" --info
 
   quality-sonarcloud-backend:
     docker:
@@ -491,6 +465,7 @@ workflows:
           filters:
             branches:
               only:
+                - test
                 - hotfix
 
       - quality-sonarcloud-backend:

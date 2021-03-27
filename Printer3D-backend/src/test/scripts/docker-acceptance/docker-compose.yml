@@ -33,5 +33,7 @@ services:
       - "5140:9500"
     environment:
       - SPRING_PROFILES_ACTIVE=acceptance
-      - JDBC_DATABASE_URL=jdbc:postgresql://postgres-acceptance:5432/postgres
+      - DATABASE_URL=jdbc:postgresql://postgres-acceptance:5432/postgres
+      - DB_USER=printer3d-user
+      - DB_PASSWORD=printer3d-password
       - NEOCOM_BANNER_LOCATION=./app-banner.txt
