@@ -42,7 +42,6 @@ export class InventoryService extends BackendService {
                 return coilList
             })
         let headers = new HttpHeaders()
-        headers.set('xApp-Name', environment.appName)
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)

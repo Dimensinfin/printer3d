@@ -72,11 +72,11 @@ export class HttpClientWrapperService {
      */
     protected wrapHttpSecureHeaders(requestHeaders?: HttpHeaders): HttpHeaders {
         let headers = new HttpHeaders()
-        headers.set('Content-Type', 'application/json; charset=utf-8')
-        headers.set('xApp-Name', environment.appName)
-        headers.set('xApp-Version', environment.appVersion)
-        headers.set('xApp-Platform', Printer3DConstants.PLATFORM)
-        headers.set('xApp-Signature', Printer3DConstants.APPSIGNATURE)
+        headers = headers.set('Content-Type', 'application/json; charset=utf-8')
+        headers = headers.set('xApp-Name', environment.appName)
+        headers = headers.set('xApp-Version', environment.appVersion)
+        headers = headers.set('xApp-Platform', Printer3DConstants.PLATFORM)
+        headers = headers.set('xApp-Signature', Printer3DConstants.APPSIGNATURE)
         if (null != requestHeaders) { // Copy in additional headers.
             for (let key of requestHeaders.keys()) {
                 headers = headers.set(key, requestHeaders.get(key));
