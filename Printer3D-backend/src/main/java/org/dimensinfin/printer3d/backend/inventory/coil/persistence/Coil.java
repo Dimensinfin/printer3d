@@ -50,11 +50,12 @@ public class Coil {
 	private String color;
 	@Column(name = "weight", nullable = false)
 	private Integer weight = 750;
-	@Size(min = 1, max = 32)
+	@Size(min = 1, max = 50)
 	@Column(name = "label", nullable = false)
 	private String label;
 	@Column(name = "active", nullable = false)
 	private Boolean active = true;
+
 	// - C O N S T R U C T O R S
 	protected Coil() {}
 
