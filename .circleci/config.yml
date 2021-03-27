@@ -134,9 +134,6 @@ jobs:
       CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -276,11 +273,11 @@ jobs:
           working_directory: Printer3D-backend
           environment:
             DEFAULT_BACKEND_SERVER: 'http://localhost'
-            DEFAULT_BACKEND_PORT: 5140
+            DEFAULT_BACKEND_PORT: 5121
           command: |
             ./docker-service.sh start acceptance
             docker ps
-            dockerize -wait tcp://localhost:5140 -timeout 3m
+            dockerize -wait tcp://localhost:5121 -timeout 3m
             docker ps
             ./gradlew clean
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D01 or @P3D02" --info
