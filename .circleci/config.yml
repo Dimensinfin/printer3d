@@ -283,7 +283,9 @@ jobs:
             dockerize -wait tcp://localhost:5140 -timeout 3m
             docker ps
             ./gradlew clean
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D01 or @P3D02 or @P3D05 or @P3D07" --info
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D01 or @P3D02" --info
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D03 or @P3D05"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D07"
 
   quality-sonarcloud-backend:
     docker:
@@ -294,16 +296,9 @@ jobs:
           name: BACKEND - Upload SonarQube statistics
           working_directory: Printer3D-backend
           environment:
-            _JAVA_OPTIONS: "-Xmx3g"
-            GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-            PORT: 5140
-            JDBC_DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
-            DB_USER: inno-user
-            DB_PASSWORD: inno-password
-            SPRING_PROFILES_ACTIVE: test
             SONAR_TOKEN: 4a8773dc6d995bc64f8d02ecfba6f9ee37a968ef
           command: |
-            ./gradlew build sonarqube -Dcucumber.options="--tags @P3D00"
+            ./gradlew build sonarqube
   quality-sonarcloud-frontend:
     docker:
       - image: circleci/node:12.16.3-browsers
