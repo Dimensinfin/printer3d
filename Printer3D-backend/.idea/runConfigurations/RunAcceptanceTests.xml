@@ -1,7 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="RunAcceptanceTests" type="JUnit" factoryName="JUnit">
-    <module name="org.dimensinfin.printer3d.Printer3D-backend.acceptance" />
+    <module name="Dimensinfin3D.Printer3D-backend.acceptance" />
     <useClassPathOnly />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="ALTERNATIVE_JRE_PATH" value="11-OpenJDK" />
     <option name="PACKAGE_NAME" value="org.dimensinfin.printer3d.backend" />
     <option name="MAIN_CLASS_NAME" value="org.dimensinfin.printer3d.backend.RunAcceptanceTests" />
     <option name="METHOD_NAME" value="" />
@@ -9,7 +11,7 @@
     <option name="PARAMETERS" value="" />
     <envs>
       <env name="DEFAULT_BACKEND_SERVER" value="http://localhost" />
-      <env name="DEFAULT_BACKEND_PORT" value="5140" />
+      <env name="DEFAULT_BACKEND_PORT" value="5121" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />
