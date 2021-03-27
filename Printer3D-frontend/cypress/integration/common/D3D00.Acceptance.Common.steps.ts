@@ -207,7 +207,7 @@ Then('field named {string} with label {string} is not empty',
         })
     })
 Then('field named {string} is not editable', function (fieldName: string) {
-    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').invoke('attr', 'cy-input-type')
         .should('not.exist')
 })
 

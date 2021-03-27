@@ -2,6 +2,12 @@
     "jsonClass": "PatchChange",
     "name": "Patch-Cambios de 0.12.0 a 0.14.0",
     "changes": [
-        "Se ha añadido un nuevo campo al 'Rollo' llamado 'MARCA' y que es para indicar el fabricante del plástico."
+        "* Se ha añadido un nuevo campo al 'Rollo' llamado 'MARCA' y que es para indicar el fabricante del plástico.",
+        "* Se ha añadido otro campo al 'Rollo' llamado 'ETIQUETA' y que para propósito general. Se recomienda usarlo para etiquetar el rollo y poderlo identificar de forma única.",
+        "* Hay un nuevo atributo del 'Rollo' que es un flag para indicar si el rollo está disponible o está rechazado/vacío.",
+        "* El nuevo campo 'ETIQUETA' es modificable despues de haber creado el 'Rollo'.",
+        "* El nuevo campo 'MARCA' no es modificable.",
+        "* En el modo de edición de un 'Rollo' es posible modificar la ETIQUETA, el PESO y el flag de disponibilidad (ACTIVO).",
+        "* Es posible ver esta lista de cambios si se pulsa sobre el texto de la versión al lado del título."
     ]
 }]

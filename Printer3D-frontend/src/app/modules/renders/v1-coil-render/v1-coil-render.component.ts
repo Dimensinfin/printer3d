@@ -46,6 +46,10 @@ export class V1CoilRenderComponent extends NodeContainerRenderComponent {
         if (this.getNode()) return this.getNode().getId()
         else return '-'
     }
+    public getTradeMark(): string {
+        if (this.getNode()) return this.getNode().tradeMark
+        else return '-'
+    }
     public getMaterial(): string {
         if (this.getNode()) return this.getNode().material
         else return '-'

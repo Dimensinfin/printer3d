@@ -1,8 +1,9 @@
 {
     "id": "e4d990d9-b8c4-438b-86da-987e17ee9116",
     "material": "PLA",
+    "tradeMark": "EOLO",
     "color": "ROJO",
     "weight": "800",
-    "colorSet": "AZUL",
+    "label": "001-ROJO-ALTA CALIDAD",
     "active": false
 }
