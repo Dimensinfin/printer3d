@@ -9,6 +9,7 @@ export class CoilToUpdateCoilRequestConverter implements Converter<Coil, UpdateC
             id: input.id,
             weight: input.weight,
             color: input.color,
+            label: input.label,
             active: input.active
         })
     }
