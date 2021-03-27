@@ -29,5 +29,8 @@ spring:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml
 
-logging.logstash:
-  enabled: true
+logging:
+  logstash:
+    enabled: true
+  request:
+    headers: true

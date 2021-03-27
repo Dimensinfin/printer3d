@@ -20,5 +20,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-logging.logstash:
-  enabled: true
+logging:
+  logstash:
+    enabled: true
+  request:
+    headers: true

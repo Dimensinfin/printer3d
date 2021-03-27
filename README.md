@@ -27,7 +27,7 @@ The project has Continuous Integration on the CircleCI platform and the producti
 ## Application Port Mapping
 #### 5100 - [DEVELOPMENT] Frontend Node server<br>5110 - [DEVELOPMENT] Frontend ApiSimulator backed server<br>5120 - [DEVELOPMENT] Backend SB application server<br>5432 - [DEVELOPMENT] Backend Postgres DB (Global Database)
 
-#### 5121 - [ACCEPTANCE] Backend SB application server<br>
+#### 5121 - [ACCEPTANCE] Backend SB application server<br>5131 - Backend Postgres DB
 
 #### 5102 - [INTEGRATION] Frontend Node server<br>5122 - [INTEGRATION] Backend SB application server<br>5132 - [INTEGRATION] Backend Postgres DB
 <br>5140 - Backend application acceptance instance<br>5150 - Development portal server
