@@ -16,6 +16,7 @@ import { V3MachineRenderComponent } from './v3-machine-render/v3-machine-render.
 import { V1PartStackRenderComponent } from './v1-part-stack-render/v1-part-stack-render.component';
 import { V1ModelRenderComponent } from './v1-model-render/v1-model-render.component';
 import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-request-item-render.component';
+import { V1PatchNoteRenderComponent } from './v1-patch-note-render/v1-patch-note-render.component';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-reques
         V3MachineRenderComponent,
         V1PartStackRenderComponent,
         V1ModelRenderComponent,
-        V1RequestItemRenderComponent
+        V1RequestItemRenderComponent,
+        V1PatchNoteRenderComponent
     ],
     exports: [
         V1PendingJobRenderComponent,
@@ -48,7 +50,8 @@ import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-reques
         V3MachineRenderComponent,
         V1PartStackRenderComponent,
         V1ModelRenderComponent,
-        V1RequestItemRenderComponent
+        V1RequestItemRenderComponent,
+        V1PatchNoteRenderComponent
     ]
 })
 export class RendersModule { }

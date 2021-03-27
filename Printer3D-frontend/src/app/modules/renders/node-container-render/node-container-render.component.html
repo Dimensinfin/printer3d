@@ -1,5 +1,12 @@
 <div (mouseenter)="mouseEnter(node)" style="position: relative;">
     <div class="row node-panel body-box">
+        <!-- P A T C H   N O T E S -->
+        <!-- <div>{{node.getJsonClass()}}</div> -->
+        <v1-patch-note style="width: 100%;" *ngIf="node.getJsonClass() == 'PatchChange'" [container]="container" [node]="node" [variant]="'-CHANGE-'">
+        </v1-patch-note>
+        <v1-patch-note style="width: 100%;" *ngIf="node.getJsonClass() == 'PatchNote'" [container]="container" [node]="node" [variant]="'-NOTE-'">
+        </v1-patch-note>
+
         <!-- BODY -->
         <!-- <div class="row body-box"> -->
         <v1-coil style="width: 100%;" *ngIf="node.getJsonClass() == 'Coil'" [container]="container" [node]="node" [variant]="variant"></v1-coil>

@@ -1,0 +1,41 @@
+<div cy-name="new-coil-dialog" id="modal-content-wrapper">
+    <header id="modal-header">
+        <div class="row" style="background-color: black;">
+            <div class="panel-title header-title">/Patch Notes</div>
+            <div class="button-container" style="margin-bottom: 20px;">
+                <button cy-name="cancel-button" type="button" class="button cancel-button" (click)="closeModal()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Cerrar
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#240F21" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="#240F21" />
+                </svg>
+                <div>
+                    <svg class="button-right-mark ko-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark ko-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="modal-body">
+        <viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Comprobando lista de Cambios...'" [downloader]="self" [variant]="'-PATCH-NOTES-LIST-'">
+        </viewer-panel>
+    </section>
+    <footer id="modal-footer">
+        <div class="centered-container button-row">
+        </div>
+    </footer>
+</div>

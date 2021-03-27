@@ -15,6 +15,14 @@ mat-dialog-container#newcoil-component {
     padding: 0px;
 }
 
+mat-dialog-container#patch-notes {
+    border: 2px solid #361731;
+    background-color: #240F21;
+    font-family: 'Mina', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+    padding: 0px;
+}
+
 mat-dialog-container#delete-request-confirmation-dialog {
     border: 2px solid #361731;
     background-color: #240F21;

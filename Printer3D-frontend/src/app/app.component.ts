@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
@@ -12,6 +14,7 @@ import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { BackgroundEnabledComponent } from './modules/shared/core/background-enabled/background-enabled.component';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { DockService } from './services/dock.service';
+import { PatchNotesDialogComponent } from './modules/common/patch-notes-dialog/patch-notes-dialog.component';
 
 @Component({
     selector: 'app-root',
@@ -26,7 +29,8 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
 
     constructor(
         protected backendService: BackendService,
-        protected dockService : DockService) {
+        protected dockService : DockService,
+        protected matDialog: MatDialog) {
         super();
         this.self = this;
         this.appVersion = environment.appVersion + ' ' + process.env.NODE_ENV
@@ -63,5 +67,15 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     public refresh(): void {
         console.log('WARNING. This method should not be being called')
         this.dockService.refresh()
+    }
+
+    // - I N T E R A C T I O N S
+    public openPatchNotes () : void {
+      const  dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = false;
+        dialogConfig.id = "patch-notes";
+        dialogConfig.height = "86vh";
+        dialogConfig.width = "60vw";
+        const modalDialog = this.matDialog.open(PatchNotesDialogComponent, dialogConfig);
     }
 }

@@ -1,0 +1,16 @@
+<div *ngIf="getVariant() === '-CHANGE-'">
+    <div class="row">
+        <div class="field label-width">
+            <!-- <span cy-field-label="ETIQUETA" class="label">CAMBIO</span><br> -->
+            <span cy-field-value="ETIQUETA" class="field-height change-field">{{getContent()}}</span>
+        </div>
+    </div>
+</div>
+<div *ngIf="getVariant() === '-NOTE-'">
+    <div class="row">
+        <div class="field label-width">
+            <!-- <span cy-field-label="ETIQUETA" class="label">CAMBIO</span><br> -->
+            <span cy-field-value="ETIQUETA" class="field-height note-field">{{getContent()}}</span>
+        </div>
+    </div>
+</div>

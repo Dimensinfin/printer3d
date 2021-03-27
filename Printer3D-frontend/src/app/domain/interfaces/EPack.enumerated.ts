@@ -17,7 +17,10 @@ export enum EVariant {
     MODEL_COMPOSITION = '-MODEL-COMPOSITION-',
     CATALOG = '-CATALOG-',
     EDITING_PART_GROUP = '-EDITING-PART-GROUP-',
-    NEW_REQUEST = '-NEW-REQUEST-'
+    NEW_REQUEST = '-NEW-REQUEST-',
+    PATCH_NOTES='-PATCH-NOTES-LIST-',
+    CHANGE='-CHANGE-',
+    NOTE='-NOTE-'
 }
 export enum EInteraction {
     ACTION = 'ACTION',

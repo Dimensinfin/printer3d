@@ -10,25 +10,30 @@ import { V1DockComponent } from './v1-dock/v1-dock.component';
 import { V1DropPartPanelComponent } from './v1-drop-part-panel/v1-drop-part-panel.component';
 import { V1WorkLoadPanelComponent } from './v1-work-load-panel/v1-work-load-panel.component';
 import { V1BillingChartPanelComponent } from './v1-billing-chart-panel/v1-billing-chart-panel.component';
+import { PatchNotesDialogComponent } from './patch-notes-dialog/patch-notes-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
         CommonModule,
         NgDragDropModule.forRoot(),
         NgxChartsModule,
-        RendersModule
+        RendersModule,
+        SharedModule,
     ],
     declarations: [
         V1DockComponent,
         V1DropPartPanelComponent,
         V1WorkLoadPanelComponent,
-        V1BillingChartPanelComponent
+        V1BillingChartPanelComponent,
+        PatchNotesDialogComponent
     ],
     exports: [
         V1DockComponent,
         V1DropPartPanelComponent,
         V1WorkLoadPanelComponent,
-        V1BillingChartPanelComponent
+        V1BillingChartPanelComponent,
+        PatchNotesDialogComponent
     ]
 })
 export class AppCommonModule { }
