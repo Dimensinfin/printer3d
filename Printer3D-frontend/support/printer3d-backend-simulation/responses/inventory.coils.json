@@ -23,7 +23,7 @@
         "color": "NEGRO",
         "label": "NEGRO",
         "weight": 250,
-        "active": true
+        "active": false
     },
     {
         "id": "c8afa59f-33e4-4143-a874-1a54a8818b54",
@@ -59,7 +59,7 @@
         "color": "AZUL BRILLANTE",
         "label": "AZUL BRILLANTE",
         "weight": 10,
-        "active": true
+        "active": false
     },
     {
         "id": "bc0f2683-ed24-4c09-81fc-689daf79d955",
@@ -84,7 +84,8 @@
         "tradeMark": "ESUN",
         "color": "ROJO",
         "label": "ROJO",
-        "weight": 900
+        "weight": 900,
+        "active": false
     },
     {
         "id": "e6bfddac-c7ed-4f54-a1f2-8bf7f3d6f2fb",
@@ -124,7 +125,8 @@
         "tradeMark": "ESUN",
         "color": "AMARILLO",
         "label": "AMARILLO",
-        "weight": 10
+        "weight": 10,
+        "active": false
     },
     {
         "id": "653abddd-290b-47f9-9e1c-941ff9df90dd",
@@ -148,7 +150,8 @@
         "tradeMark": "ESUN",
         "color": "PLATEADO",
         "label": "PLATEADO",
-        "weight": 10
+        "weight": 10,
+        "active": false
     },
     {
         "id": "295caa4b-2a57-4ca2-b776-3bfd9513c942",
@@ -164,7 +167,8 @@
         "tradeMark": "ESUN",
         "color": "AZUL",
         "label": "AZUL",
-        "weight": 220
+        "weight": 220,
+        "active": false
     },
     {
         "id": "b19aa641-e01c-4725-ad05-35b7da362993",
@@ -172,7 +176,8 @@
         "tradeMark": "ESUN",
         "color": "ROJO",
         "label": "ROJO",
-        "weight": 230
+        "weight": 230,
+        "active": false
     },
     {
         "id": "d6f7ded9-f5d8-4133-a17a-60eb47ba40a4",
@@ -180,7 +185,8 @@
         "tradeMark": "ESUN",
         "color": "NEGRO",
         "label": "NEGRO",
-        "weight": 700
+        "weight": 700,
+        "active": false
     },
     {
         "id": "dfe7c723-ca4e-49df-a8e3-8dabf74b0f2d",
@@ -188,6 +194,7 @@
         "tradeMark": "ESUN",
         "color": "ROSA",
         "label": "ROSA",
-        "weight": 300
+        "weight": 300,
+        "active": false
     }
 ]

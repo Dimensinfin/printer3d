@@ -1,3 +1,4 @@
+@import "../../../../styles/_scss_variables.scss";
 .bar-graph {
     fill: white;
 }
@@ -18,12 +19,12 @@
 }
 
 .no-chart-data {
-    font-size: 32px;
+    font-size: 2.0rem;
     font-weight: bold;
-    font-family: "Electrolize", sans-serif;
+    font-family: $app-font-family;
     text-transform: uppercase;
     text-shadow: 0px 0px 2px blueviolet, 0px 0px 1px blueviolet;
     text-align: center;
     vertical-align: middle;
-    line-height: 80px;
+    line-height: 2.5rem;
 }

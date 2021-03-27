@@ -1,6 +1,18 @@
 <div cy-name="panel-title" class="panel-title">
     <span>/ROLLOS DISPONIBLES</span>
+    <!-- <span cy-name="contentFilter" style="font-size: 16px;">
+        <span cy-input-type="input">
+            <input name="filter" style="margin-left:60px;" [(ngModel)]="filter" (ngModelChange)="changeFilter()">
+            <span cy-field-label="filter">Filtro.</span>
+    </span>
+    </span> -->
+    <span cy-name="inactiveFilter" style="font-size: 16px;">
+        <span cy-input-type="checkbox">
+            <input name="inactiveFilter" type="checkbox" style="margin-left:60px;" [(ngModel)]="filterInactive" (ngModelChange)="changeFilter()">
+            <span cy-field-label="inactiveFilter">Filtrar elementos inactivos.</span>
+    </span>
+    </span>
 </div>
 <hr>
-<viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Descargando Lista de Rollos...'" [downloader]="self" [variant]="'-COIL-LIST-'">
+<viewer-panel [nodes2render]="getNodes2Render(filter)" [downloadtitle]="'Descargando Lista de Rollos...'" [downloader]="self" [variant]="'-COIL-LIST-'">
 </viewer-panel>

@@ -17,6 +17,8 @@ import { environment } from '@env/environment'
 import { HttpErrorResponse } from '@angular/common/http'
 import { IsolationService } from '@app/platform/isolation.service'
 import { InventoryService } from '../../service/inventory.service'
+import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface'
+import { IFiltered } from '@domain/interfaces/IFiltered.interface'
 
 @Component({
     selector: 'v1-coils-panel',
@@ -24,6 +26,9 @@ import { InventoryService } from '../../service/inventory.service'
     styleUrls: ['./v1-coils-panel.component.scss']
 })
 export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
+    public filter: string = ''
+    public filterInactive: boolean = true;
+    private coilList: ICollaboration[]
     constructor(
         protected isolationService: IsolationService,
         protected inventoryService: InventoryService) {
@@ -37,6 +42,35 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
         this.refresh()
         console.log("<[V1CoilsPanelComponent.ngOnInit]")
     }
+
+    // - I N T E R A C T I O N
+    public changeFilter(): void {
+        console.log("-[V1CatalogPanelComponent.changeFilter]")
+        this.refresh()
+    }
+
+    /**
+     * The panel implementation accepts a filter ans allow to remove some elements from rendering.
+     * @returns The filtered list of nodes to render
+     */
+    public getNodes2Render(filter?: string): ICollaboration[] {
+        if (filter) {
+            const filteredList: ICollaboration[] = []
+            for (const node of this.renderNodeList) {
+                if (node['getRepresentation']) {
+                    const representativeNode = node as IFiltered
+                    // console.log(representativeNode.getRepresentation())
+                    if (representativeNode.getRepresentation().toUpperCase().includes(filter.toUpperCase()))
+                        filteredList.push(node)
+                } else filteredList.push(node)
+            }
+            const size = filteredList.length
+            console.log('size: ' + size)
+            this.coilList == filteredList
+        } else this.coilList = this.renderNodeList
+        return this.coilList;
+    }
+
     // - R E F R E S H A B L E
     public clean(): void {
     }
@@ -51,7 +85,11 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
             this.inventoryService.apiv2_InventoryGetCoils()
                 .subscribe((coilList: Coil[]) => {
                     console.log('-[V1CoilsPanelComponent.downloadCoils]> Nodes downloaded: ' + coilList.length)
-                    this.completeDowload(this.sortCoilByIdentificationFields(this.sortCoilByWeightDesc(coilList))) // Notify the completion of the download.
+                    this.completeDowload(this.sortCoilByIdentificationFields(
+                        this.sortCoilByWeightDesc(
+                            this.filterActiveCoils(coilList))
+                    )
+                    ) // Notify the completion of the download.
                 }, (error) => {
                     console.log(JSON.stringify(error))
                     console.log('-[V1CoilsPanelComponent.downloadCoils.exception]> Error message: ' + JSON.stringify(error.error))
@@ -61,6 +99,16 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
                 })
         )
         console.log("<[V1CoilsPanelComponent.downloadCoils]")
+    }
+    private filterActiveCoils(sourceList: Coil[]): Coil[] {
+        if (this.filterInactive) {
+            const activeCoils = []
+            for (const coil of sourceList) {
+                if (coil.active) activeCoils.push(coil)
+            }
+            return activeCoils
+        }
+        else return sourceList
     }
     private sortCoilByWeightDesc(containers: Coil[]): Coil[] {
         return containers.sort((coil1, coil2) =>

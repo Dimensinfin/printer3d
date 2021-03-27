@@ -18,7 +18,7 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
     @Input() variant: EVariant = EVariant.DEFAULT;
     private downloading: boolean = true;
     private dataModelRoot: ICollaboration[] = [];
-    private renderNodeList: ICollaboration[] = [];
+    protected renderNodeList: ICollaboration[] = [];
     protected selection: SingleSelection = new SingleSelection();
 
     constructor() {

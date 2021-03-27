@@ -22,7 +22,7 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
     @D3D10.02
     Scenario: [D3D10.02]-Check the title and the contents for the coils panel.
         Then the target has the title "/ROLLOS DISPONIBLES"
-        Then the target has 23 "coil"
+        Then the target has 13 "coil"
 
     @D3D10.03
     Scenario: [D3D10.03]-Validate the contents of a Coil.
@@ -123,6 +123,19 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         # - Reselect the target because the page has changed
         Given the target the "coil" with id "653abddd-290b-47f9-9e1c-941ff9df90dd"
         Then field named "tradeMark" is not editable
+
+    @D3D10.10
+    Scenario: [D3D10.10]-There is a checkbox to change the filter state.
+        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+
+    @D3D10.11
+    Scenario: [D3D10.11]-If the filter is deactivated then the inactive elements are visible.
+        Then the target has 13 "coil"
+        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+        When form checkbox named "inactiveFilter" is clicked
+        And the loading panel completes
+        # - Count the new list of Coils
+        Then the target has 23 "coil"
 
 # @D3D10.09
 # Scenario: [D3D10.09]-The Coils should be ordered. The first criteria is by the Material.

@@ -8,23 +8,22 @@ body {
     background-color: $app-background-color;
     color: $app-font-color;
     font-family: $app-font-family, sans-serif;
-    // font-size: $app-default-font-size;
+    font-size: $app-default-font-size;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 hr {
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
+    border-top: 1px solid $app-hr-color;
+    border-bottom: 1px solid $app-hr-color;
     filter: blur(1px);
 }
 
-$page-path-color: white;
 .page-path {
-    font-size: 20px;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
     font-weight: bold;
-    font-family: 'Electrolize', sans-serif;
     margin-top: 10px;
     text-transform: uppercase;
     text-shadow: 0px 0px 2px $page-path-color, 0px 0px 1px $page-path-color;
@@ -58,23 +57,23 @@ $page-path-color: white;
 }
 
 .notifier-title {
-    font-family: 'Electrolize';
+    font-family: $notifier-font;
     margin-bottom: 6px;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-weight: bold;
+    line-height: 1.5rem;
 }
 
 .notifier-message {
-    font-family: 'Electrolize';
+    font-family: $notifier-font;
     font-size: 17px;
 }
 
 .panel-title {
     font-size: 18px;
     font-weight: bold;
-    font-family: 'Electrolize', sans-serif;
     text-transform: uppercase;
-    text-shadow: 0px 0px 2px white, 0px 0px 1px white;
+    text-shadow: 0px 0px 2px $panel-title-color, 0px 0px 1px $panel-title-color;
 }
 
 .header-title {

@@ -1,9 +1,10 @@
 // - CORE
+import { IFiltered } from '@domain/interfaces/IFiltered.interface';
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { Node } from '../Node.domain';
 
-export class Coil extends Node {
+export class Coil extends Node implements IFiltered {
     public id: string;
     public material: string;
     public tradeMark: string
@@ -17,7 +18,6 @@ export class Coil extends Node {
         Object.assign(this, values);
         this.jsonClass = 'Coil';
     }
-
     public createNewId(): string {
         this.id = uuidv4();
         return this.id;
@@ -31,5 +31,10 @@ export class Coil extends Node {
      */
     public getCoilIdentifier(): string {
         return this.material + ':' + this.color;
+    }
+
+    // - I F I L T E R E D
+    public getRepresentation(): string {
+        return this.material + '|' + this.color + '|' + this.label
     }
 }
