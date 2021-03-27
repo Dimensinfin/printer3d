@@ -1,13 +1,26 @@
 [{
-    "jsonClass": "PatchChange",
-    "name": "Patch-Cambios de 0.12.0 a 0.14.0",
-    "changes": [
-        "* Se ha añadido un nuevo campo al 'Rollo' llamado 'MARCA' y que es para indicar el fabricante del plástico.",
-        "* Se ha añadido otro campo al 'Rollo' llamado 'ETIQUETA' y que para propósito general. Se recomienda usarlo para etiquetar el rollo y poderlo identificar de forma única.",
-        "* Hay un nuevo atributo del 'Rollo' que es un flag para indicar si el rollo está disponible o está rechazado/vacío.",
-        "* El nuevo campo 'ETIQUETA' es modificable despues de haber creado el 'Rollo'.",
-        "* El nuevo campo 'MARCA' no es modificable.",
-        "* En el modo de edición de un 'Rollo' es posible modificar la ETIQUETA, el PESO y el flag de disponibilidad (ACTIVO).",
-        "* Es posible ver esta lista de cambios si se pulsa sobre el texto de la versión al lado del título."
-    ]
-}]
+        "jsonClass": "PatchChange",
+        "name": "➰ Anotaciones cambio 0.14.0 - Rollos",
+        "changes": [
+            "✅ Se ha añadido un nuevo campo al 'Rollo' llamado 'MARCA' y que es para indicar el fabricante del plástico.",
+            "✅ Se ha añadido otro campo al 'Rollo' llamado 'ETIQUETA' y que tiene propósito general. Se recomienda usarlo para etiquetar el rollo y poderlo identificar de forma única.",
+            "✅ Hay un nuevo atributo del 'Rollo' que es un flag para indicar si el rollo está disponible o está rechazado/vacío.",
+            "✅ El nuevo campo 'ETIQUETA' es modificable despues de haber creado el 'Rollo'.",
+            "✅ El nuevo campo 'MARCA' no es modificable."
+        ]
+    },
+    {
+        "jsonClass": "PatchChange",
+        "name": "➰ Anotaciones cambio 0.14.0 - Piezas",
+        "changes": [
+            "✅ Debido a que los rollos se pueden desactivar y activar, los desplegables para indicar los Meteriales/Colores disponibles pueden cambiar y aparecer o desaparecer colores. No es posible crear piezas basadas en rollos que ya no están en inventario.",
+            "✅ Sin embargo las piezas creadas con colores ya no existentes siguen estando disponibles mientras tengan stock."
+        ]
+    }, {
+        "jsonClass": "PatchChange",
+        "name": "➰ Anotaciones cambio 0.14.0 - Patch",
+        "changes": [
+            "✅ Es posible ver esta lista de cambios si se pulsa sobre el texto de la versión. El campo de versión esta al lado del título."
+        ]
+    }
+]

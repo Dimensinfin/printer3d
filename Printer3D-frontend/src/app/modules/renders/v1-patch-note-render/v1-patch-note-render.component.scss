@@ -1,8 +1,20 @@
 .change-field {
     font-size: 1.5rem;
+    font-family: 'Open Sans';
 }
 
 .note-field {
     font-size: 1.2rem;
     font-weight: 100;
+}
+
+.patch-change {
+    margin-top: 20px;
+    padding-top: 6px;
+    border-top: 1px solid white;
+}
+
+.note-change {
+    margin-top: 1.1rem;
+    font-family: 'Open Sans';
 }
