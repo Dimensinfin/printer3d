@@ -60,7 +60,7 @@ public class UpdateCoilRequestTest {
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"47461aa3-24f0-4cc5-a335-53e8bb61accc\",\"weight\":200,\"color\":\"-COLOR-\",\"active\":false}";
+		final String expected = "{\"id\":\"47461aa3-24f0-4cc5-a335-53e8bb61accc\",\"weight\":200,\"tradeMark\":\"EOLAS\",\"color\":\"-COLOR-\",\"active\":false}";
 		final String obtained = updateCoilRequest.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

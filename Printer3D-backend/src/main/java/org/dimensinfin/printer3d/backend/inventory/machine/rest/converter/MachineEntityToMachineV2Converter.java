@@ -17,7 +17,7 @@ public class MachineEntityToMachineV2Converter implements Converter<MachineEntit
 	private final BuildRecord buildRecord;
 
 	// - C O N S T R U C T O R S
-	public MachineEntityToMachineV2Converter( final @NotNull BuildRecord buildRecord ) {
+	public MachineEntityToMachineV2Converter( @NotNull final BuildRecord buildRecord ) {
 		this.buildRecord = Objects.requireNonNull( buildRecord );
 	}
 
@@ -35,11 +35,6 @@ public class MachineEntityToMachineV2Converter implements Converter<MachineEntit
 			LogWrapper.error( npe );
 			throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
 					"Null pointer found while converting a Machine entity into a MachineV2." )
-			);
-		} catch (final RuntimeException rte) {
-			LogWrapper.error( rte );
-			throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
-					rte.getMessage() )
 			);
 		}
 	}

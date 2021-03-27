@@ -1,16 +1,13 @@
 package org.dimensinfin.printer3d.backend.inventory.coil.rest.v1;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
@@ -20,22 +17,8 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilUpdater;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
-import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
-import static org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo.PERSISTENCE_ERROR;
-
 @Service
 public class CoilServiceV1 {
-	public static DimensinfinError errorINVENTORYSTOREREPOSITORYUNEXPECTEDERROR( final RuntimeException rte, final String cause ) {
-		return new DimensinfinError.Builder()
-				.withErrorName( "INVENTORY_STORE_REPOSITORY_FAILURE" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + PERSISTENCE_ERROR )
-				.withHttpStatus( HttpStatus.INTERNAL_SERVER_ERROR )
-				.withMessage( MessageFormat.format( "There is an SQL error on the Inventory repository. {0}. SQL cause: {1}",
-						rte.getMessage(),
-						cause ) )
-				.build();
-	}
-
 	private final CoilRepository coilRepository;
 
 	// - C O N S T R U C T O R S
@@ -44,6 +27,7 @@ public class CoilServiceV1 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
+	@Deprecated
 	public CoilList getCoils() {
 		final List<Coil> coils = new ArrayList<>( this.coilRepository.findAll() );
 		return new CoilList.Builder()

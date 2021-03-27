@@ -23,6 +23,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_TRADE_MARK;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.JobConstants.TEST_JOB_PART_COPIES;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_LABEL;
@@ -242,18 +243,21 @@ public class MachineServiceV2Test {
 		coils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "FLEX" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "ROJO" )
 				.withWeight( 800 )
 				.build() );
 		coils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "ROJO" )
 				.withWeight( 800 )
 				.build() );
 		final Coil targetCoil = new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "VERDE-T" )
 				.withWeight( 100 )
 				.build();
@@ -261,6 +265,7 @@ public class MachineServiceV2Test {
 		final Coil coil = new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "ROJO" )
 				.withWeight( 800 )
 				.build();

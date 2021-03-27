@@ -16,9 +16,11 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilReposito
 import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_COLOR;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_MATERIAL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_TRADE_MARK;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_WEIGHT;
 
 public class CoilServiceV1Test {
@@ -58,7 +60,15 @@ public class CoilServiceV1Test {
 	@Test
 	public void newCoil() {
 		// Given
-		final Coil coil = Mockito.mock( Coil.class );
+		final Coil coil = new Coil.Builder()
+				.withId( TEST_COIL_ID )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
+				.withWeight( TEST_COIL_WEIGHT )
+				.withActive( TEST_COIL_ACTIVE )
+				.build();
 		// When
 		Mockito.when( this.coilRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.coilRepository.save( Mockito.any( Coil.class ) ) ).thenReturn( coil );
@@ -90,6 +100,7 @@ public class CoilServiceV1Test {
 		final Coil coil = new Coil.Builder().withId( TEST_COIL_ID )
 				.withColor( TEST_COIL_COLOR )
 				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withWeight( TEST_COIL_WEIGHT )
 				.build();
 		final Coil savedCoil = Mockito.mock( Coil.class );

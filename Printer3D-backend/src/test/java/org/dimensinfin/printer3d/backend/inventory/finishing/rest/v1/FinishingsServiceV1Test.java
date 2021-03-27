@@ -14,6 +14,8 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_TRADE_MARK;
+
 public class FinishingsServiceV1Test {
 
 	private CoilRepository coilRepository;
@@ -36,21 +38,25 @@ public class FinishingsServiceV1Test {
 		allCoils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "ROJO" )
 				.build() );
 		allCoils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "VERDE" )
 				.build() );
 		allCoils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "BLANCO" )
 				.build() );
 		allCoils.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "TPU" )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "BLANCO" )
 				.build() );
 		// When

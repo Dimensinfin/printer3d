@@ -135,7 +135,7 @@ public class CoilTest {
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Assertions
-		Assertions.assertEquals( TEST_COIL_TRADE_MARK, coil.getWeight() );
+		Assertions.assertEquals( TEST_COIL_TRADE_MARK, coil.getTradeMark() );
 		coil.setTradeMark( "-NET-TRADE-MARK-" );
 		Assertions.assertEquals( "-NET-TRADE-MARK-", coil.getTradeMark() );
 
@@ -164,7 +164,7 @@ public class CoilTest {
 				.withWeight( TEST_COIL_WEIGHT )
 				.withLabel( TEST_COIL_COLOR )
 				.build();
-		final String expected = "";
+		final String expected = "{\"id\":\"55236c12-1322-4e32-8285-dac2a45a65fe\",\"material\":\"PLA\",\"tradeMark\":\"EOLAS\",\"color\":\"-COLOR-\",\"weight\":750,\"label\":\"-COLOR-\",\"active\":true}";
 		final String obtained = coil.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

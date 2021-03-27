@@ -14,6 +14,7 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_TRADE_MARK;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COST;
@@ -66,18 +67,21 @@ public class PlasticConsumerManagerTest {
 		coilList.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( TEST_PART_COLOR )
 				.withWeight( 800 )
 				.build() );
 		coilList.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( TEST_PART_COLOR )
 				.withWeight( 800 )
 				.build() );
 		final Coil targetCoil = new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( TEST_PART_COLOR )
 				.withWeight( 100 )
 				.build();
@@ -114,12 +118,14 @@ public class PlasticConsumerManagerTest {
 		coilList.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "NOT-FOUND" )
 				.withWeight( 800 )
 				.build() );
 		coilList.add( new Coil.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "NOT-FOUND" )
 				.withWeight( 800 )
 				.build() );
