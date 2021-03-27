@@ -282,7 +282,7 @@ jobs:
             dockerize -wait tcp://localhost:5121 -timeout 3m
             docker ps
             ./gradlew clean
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D02.H" --info
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D01 or @P3D02 or @P3D05 or @P3D07" --info
 
   quality-sonarcloud-backend:
     docker:
