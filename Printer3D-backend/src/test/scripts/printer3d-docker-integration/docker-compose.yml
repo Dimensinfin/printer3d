@@ -34,7 +34,7 @@ services:
     ports:
       - "5122:9500"
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_PROFILES_ACTIVE=acceptance
       - DATABASE_URL=jdbc:postgresql://printer3d-backend-integration-postgres:5432/postgres
       - DB_USER=printer3d-user
       - DB_PASSWORD=printer3d-password
