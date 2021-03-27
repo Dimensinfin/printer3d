@@ -5,6 +5,7 @@ ext {
     micrometerVersion = '1.1.0'
     resilience4jVersion = '0.17.0'
     springfox = '2.9.2'
+    jacksonVersion = '2.9.8'
 }
 
 // - S P R I N G B O O T
@@ -21,7 +22,8 @@ dependencies {
     implementation 'de.codecentric:spring-boot-admin-starter-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    compile 'org.junit.jupiter:junit-jupiter:5.7.1'
+//    compile 'org.junit.jupiter:junit-jupiter:5.7.1'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 dependencyManagement {
     imports {
@@ -32,17 +34,21 @@ dependencyManagement {
 
 dependencies {
     // - C O R E
-    implementation 'org.threeten:threeten-extra:1.5.0'
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
-    implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'net.logstash.logback:logstash-logback-encoder:4.11' // Configurable logging
+    implementation 'javax.validation:validation-api:2.0.1.Final' // Validation annotations
     implementation 'commons-codec:commons-codec:1.10' // Base64 decoding
+    implementation 'org.apache.commons:commons-lang3:3.9'
+    // - R E S T
     implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.3'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion" // OAuth2 authentication
+    implementation 'com.auth0:java-jwt:3.10.3' // JWT processing library
     // - M E T R I C S
     implementation "io.micrometer:micrometer-registry-prometheus"
     // - L O G G I N G
     implementation "com.github.piomin:logstash-logging-spring-boot-starter:1.2.2.RELEASE"
-    implementation 'net.logstash.logback:logstash-logback-encoder:4.11'
+//    implementation 'net.logstash.logback:logstash-logback-encoder:4.11'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1' // Retrofit logs
     // - D A T A B A S E
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
@@ -50,46 +56,71 @@ dependencies {
     // - D I M E N S I N F I N
     implementation 'org.bitbucket.dimensinfin:core-lib:3.2.0'
     implementation 'org.bitbucket.dimensinfin:annotations:0.3.1'
+
+    implementation 'org.threeten:threeten-extra:1.5.0'
 }
 
 // - C U C U M B E R
-ext {
-    cucumberVersion = '6.9.1'
-}
-dependencies {
-    testImplementation "io.cucumber:cucumber-java:$cucumberVersion"
-    testImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
-    testImplementation "io.cucumber:cucumber-picocontainer:$cucumberVersion"
-}
+//ext {
+//    cucumberVersion = '6.9.1'
+//}
+//dependencies {
+//    testImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+//    testImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
+//    testImplementation "io.cucumber:cucumber-picocontainer:$cucumberVersion"
+//}
 
 // - U N I T   T E S T I N G
 test {
     useJUnitPlatform()
-    systemProperty "cucumber.options", System.getProperty("cucumber.options")
+//    systemProperty "cucumber.options", System.getProperty("cucumber.options")
     dependsOn cleanTest
-    testLogging.showStandardStreams = true
+//    testLogging.showStandardStreams = true
 }
 dependencies {
-    // C O R E
-    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.10'
-    testImplementation 'org.apache.commons:commons-lang3:3.9'
-    testImplementation 'com.squareup.okhttp3:okhttp:3.12.0'
-    testImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
-    testImplementation "com.squareup.retrofit2:converter-jackson:$retrofitVersion" // HTTP encapsulation and swagger support
-    testImplementation 'com.auth0:java-jwt:3.3.0'
     // T E S T I N G
-    testImplementation 'org.assertj:assertj-core:3.19.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.3.0'
-    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.2'
+    testImplementation 'org.mockito:mockito-core:3.7.0'
+    testImplementation 'org.mockito:mockito-inline:3.7.0'
     testImplementation 'com.openpojo:openpojo:0.8.12'
+
+    // C O R E
+//    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.10'
+//    testImplementation 'org.apache.commons:commons-lang3:3.9'
+//    testImplementation 'com.squareup.okhttp3:okhttp:3.12.0'
+//    testImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
+//    testImplementation "com.squareup.retrofit2:converter-jackson:$retrofitVersion" // HTTP encapsulation and swagger support
+//    testImplementation 'com.auth0:java-jwt:3.3.0'
+//    // T E S T I N G
+//    testImplementation 'org.assertj:assertj-core:3.19.0'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.0'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.3.0'
+//    testImplementation 'org.mockito:mockito-core:3.3.3'
+//    testImplementation 'com.openpojo:openpojo:0.8.12'
     // T E S T I N G   A D D I T I O N A L
-    testImplementation "org.testcontainers:testcontainers:1.12.3"
-    testImplementation "org.testcontainers:postgresql:1.9.1"
-    testImplementation 'com.github.javafaker:javafaker:0.17.2'
+//    testImplementation "org.testcontainers:testcontainers:1.12.3"
+//    testImplementation "org.testcontainers:postgresql:1.9.1"
+//    testImplementation 'com.github.javafaker:javafaker:0.17.2'
     // - S P R I N G B O O T
 //    testImplementation('org.springframework.boot:spring-boot-starter-test') {
 //        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 //    }
-    testImplementation 'com.h2database:h2:1.4.194'
+//    testImplementation 'com.h2database:h2:1.4.194'
+}
+
+// - A C C E P T A N C E   T E S T I N G
+ext {
+    cucumberVersion = '6.9.1'
+}
+dependencies {
+    acceptanceImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+    acceptanceImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
+    acceptanceImplementation "io.cucumber:cucumber-picocontainer:$cucumberVersion"
+    acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
+}
+task acceptanceTest(type: Test) {
+    testClassesDirs = sourceSets.acceptance.output.classesDirs
+    classpath = sourceSets.acceptance.runtimeClasspath
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 }

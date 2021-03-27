@@ -3,6 +3,7 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:2.2.2.RELEASE'
@@ -21,26 +22,18 @@ plugins {
     id "org.sonarqube" version "3.0"
     id "org.hidetake.swagger.generator" version "2.18.2"
 }
-
-// - P R O J E C T   D E F I N I T I O N
-group = 'org.dimensinfin.printer3d'
-version = '0.13.0'
-archivesBaseName = 'printer3d-backend'
-sourceCompatibility = '11'
-targetCompatibility = '11'
-
 repositories {
     mavenLocal()
     mavenCentral()
     maven { url 'https://jitpack.io' }
 }
-configurations {
-    developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
-    deploy
-}
+
+// - P R O J E C T   D E F I N I T I O N
+group = 'org.dimensinfin.printer3d'
+version = '0.14.0'
+archivesBaseName = 'printer3d-backend'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 // - S O U R C E S
 def swaggerGenerated = "$buildDir/generated/"
@@ -50,6 +43,40 @@ sourceSets {
     }
     test.java {
         srcDirs += "src/test/java-common"
+    }
+    acceptance {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDirs += 'src/acceptance/java'
+        }
+    }
+    acceptance {
+        resources {
+            srcDirs += 'src/acceptance/resources'
+        }
+    }
+}
+
+// - C O N F I G U R A T I O N S
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+//    integrationImplementation.extendsFrom testImplementation
+//    integrationRuntime.extendsFrom testRuntime
+    acceptanceImplementation.extendsFrom testImplementation
+    acceptanceRuntime.extendsFrom testRuntime
+}
+
+// - S P R I N G B O O T
+springBoot {
+    buildInfo()
+}
+processResources {
+    filesMatching('application.properties') {
+        expand(project.properties)
     }
 }
 
@@ -103,14 +130,4 @@ dependencies {
 // - R U N N I N G
 bootRun {
     systemProperty "spring.profiles.active", "acceptance"
-}
-
-// - S P R I N G B O O T
-springBoot {
-    buildInfo()
-}
-processResources {
-    filesMatching('application*') {
-        expand(project.properties)
-    }
 }
