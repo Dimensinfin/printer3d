@@ -15,25 +15,27 @@
 version: '3.8'
 
 services:
-  postgres-integration:
-    container_name: postgres-integration
+  printer3d-backend-integration-postgres:
+    container_name: printer3d-backend-integration-postgres
     image: "postgres:11.2"
     volumes:
       - ./postgres:/var/lib/postgresql/data
     ports:
-      - "5131:5432"
+      - "5132:5432"
     environment:
       - CURRENT_UID=1000
       - POSTGRES_DB=postgres
       - POSTGRES_USER=printer3d-user
       - POSTGRES_PASSWORD=printer3d-password
 
-  integration:
-    container_name: printer3d-backend-integration
+  printer3d-backend-integration-app:
+    container_name: printer3d-backend-integration-app
     image: dimensinfin/printer3d.backend
     ports:
-      - "5121:9500"
+      - "5122:9500"
     environment:
-      - SPRING_PROFILES_ACTIVE=local
-      - JDBC_DATABASE_URL=jdbc:postgresql://postgres-integration:5432/postgres
+      - SPRING_PROFILES_ACTIVE=dev
+      - DATABASE_URL=jdbc:postgresql://printer3d-backend-integration-postgres:5432/postgres
+      - DB_USER=printer3d-user
+      - DB_PASSWORD=printer3d-password
       - NEOCOM_BANNER_LOCATION=./app-banner.txt

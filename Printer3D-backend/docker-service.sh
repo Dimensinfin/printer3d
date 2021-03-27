@@ -5,7 +5,7 @@ ENVIRONMENT=$2
 
 WORKING_DIRECTORY="$(dirname "$0")"
 DOCKER_DIRECTORY="${WORKING_DIRECTORY}/src/main/resources/docker"
-DOCKER_COMPOSER_COMMAND="docker-compose --file src/test/scripts/docker-${ENVIRONMENT}/docker-compose.yml"
+DOCKER_COMPOSER_COMMAND="docker-compose --file src/test/scripts/printer3d-docker-${ENVIRONMENT}/docker-compose.yml"
 
 # - G E N E R A T E   C O N T A I N E R
 generateContainer() {

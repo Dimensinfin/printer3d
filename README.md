@@ -29,6 +29,7 @@ The project has Continuous Integration on the CircleCI platform and the producti
 
 #### 5121 - [ACCEPTANCE] Backend SB application server<br>
 
+#### 5102 - [INTEGRATION] Frontend Node server<br>5122 - [INTEGRATION] Backend SB application server<br>5132 - [INTEGRATION] Backend Postgres DB
 <br>5140 - Backend application acceptance instance<br>5150 - Development portal server
 #### 5101 - Integration frontend server<br>5121 - Local backend application springboot instance<br>5131 - Postgres database docker container for the integration environment
 #### 5190 - Experimental GUI fontend server. Uses the same mock server.

@@ -15,10 +15,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: BLANCO
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: BLANCO
+              - column:
+                  name: label
                   value: BLANCO
               - column:
                   name: weight
@@ -38,10 +41,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: NEGRO
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: NEGRO
+              - column:
+                  name: label
                   value: NEGRO (uso)
               - column:
                   name: weight
@@ -61,10 +67,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: NEGRO
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: NEGRO
+              - column:
+                  name: label
                   value: NEGRO
               - column:
                   name: weight
@@ -84,10 +93,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: NEGRO
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: NEGRO
+              - column:
+                  name: label
                   value: NEGRO
               - column:
                   name: weight
@@ -107,10 +119,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: ROJO
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: ROJO
+              - column:
+                  name: label
                   value: ROJO
               - column:
                   name: weight
@@ -130,10 +145,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: AZUL BRILLANTE
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: AZUL BRILLANTE
+              - column:
+                  name: label
                   value: AZUL BRILLANTE CLARO
               - column:
                   name: weight
@@ -153,10 +171,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: AZUL BRILLANTE
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: AZUL BRILLANTE
+              - column:
+                  name: label
                   value: AZUL BRILLANTE CLARO
               - column:
                   name: weight
@@ -176,10 +197,13 @@ databaseChangeLog:
                   name: material
                   value: PLA
               - column:
-                  name: color_set
-                  value: AZUL BRILLANTE
+                  name: trade_mark
+                  value: ESUN
               - column:
                   name: color
+                  value: AZUL BRILLANTE
+              - column:
+                  name: label
                   value: AZUL BRILLANTE CLARO
               - column:
                   name: weight
