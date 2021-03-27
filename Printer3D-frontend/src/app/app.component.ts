@@ -29,7 +29,7 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
 
     constructor(
         protected backendService: BackendService,
-        protected dockService : DockService,
+        protected dockService: DockService,
         protected matDialog: MatDialog) {
         super();
         this.self = this;
@@ -45,6 +45,7 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
                     return new BackendInfoResponse(entrydata);
                 }))
                 .subscribe((backendInfo: BackendInfoResponse) => {
+                    console.log('info: '+JSON.stringify(backendInfo))
                     this.backendVersion = backendInfo.getVersion();
                 })
         )
@@ -56,13 +57,16 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     public getAppVersion(): string {
         return this.appVersion;
     }
+    public getBackendVersion(): string {
+        return this.backendVersion
+    }
     /**
      * This method is fired by any routing change. It is being used to report to the Dock service which page is being selected so the Dock can test if the user is navigating to the same route and then fire directly the refresh to the current active page detected through this method.
      * @param componentRef  
      */
     public setRoutedComponent(componentRef: Refreshable): void {
-        console.log('-[AppComponent.setRoutedComponent]> Component: '+componentRef)
-        this.dockService.activatePage( componentRef)
+        console.log('-[AppComponent.setRoutedComponent]> Component: ' + componentRef)
+        this.dockService.activatePage(componentRef)
     }
     public refresh(): void {
         console.log('WARNING. This method should not be being called')
@@ -70,8 +74,8 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
     }
 
     // - I N T E R A C T I O N S
-    public openPatchNotes () : void {
-      const  dialogConfig = new MatDialogConfig();
+    public openPatchNotes(): void {
+        const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = false;
         dialogConfig.id = "patch-notes";
         dialogConfig.height = "86vh";

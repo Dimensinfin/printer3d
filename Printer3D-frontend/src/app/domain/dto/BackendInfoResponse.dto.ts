@@ -1,6 +1,7 @@
 export class BackendInfoResponse {
-    private version: string;
+    // private version: string;
     private build: any;
+    // private ff: string="gghwfj"
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
