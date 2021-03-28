@@ -138,6 +138,13 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         # - Count the new list of Coils
         Then the target has 23 "coil"
 
-   @D3D10.12
+    @D3D10.12
     Scenario: [D3D10.12]-The Coils list page has a form field that will operate as a content match filter.
-         Then form field named "filter" with label "FILTRO" is empty
+        Then form field named "filter" with label "FILTRO" is empty
+
+    @D3D10.1
+    Scenario: [D3D10.13]-The Coils filter is changed the number of coils also changes.
+        Then form field named "filter" with label "FILTRO" is empty
+        And the target has 13 "coil"
+        When "tpu" is set on form field "filter"
+        Then the target has 1 "coil"
