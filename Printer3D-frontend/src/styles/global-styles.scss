@@ -29,6 +29,7 @@ hr {
     text-transform: uppercase;
     text-shadow: 0px 0px 2px $page-path-color, 0px 0px 1px $page-path-color;
     color: $page-path-color;
+    flex-grow: 1;
 }
 
 .row {

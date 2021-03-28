@@ -1,0 +1,15 @@
+.dock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.separator-top {
+    margin-top: 4px;
+    margin-bottom: 0px;
+}
+
+.separator-bottom {
+    margin-top: 4px;
+    margin-bottom: 8px;
+}

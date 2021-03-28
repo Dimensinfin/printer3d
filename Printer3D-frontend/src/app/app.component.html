@@ -1,6 +1,9 @@
 <div class=stiky-header>
     <div class="row">
-        <span cy-name="app-title" class="app-title">{{appTitle}}</span>
+        <div class="column">
+            <div cy-name="app-title" class="app-title">{{appTitle}}</div>
+            <div cy-name="page-path" class="page-path">/DASHBOARD</div>
+        </div>
         <div>
             <span cy-name="app-version" class="app-version" (click)="openPatchNotes()">{{appVersion}}</span><br>
             <span cy-name="backend-version" class="backend-version">{{backendVersion}}</span>
@@ -10,9 +13,6 @@
             <v1-work-load-panel></v1-work-load-panel>
         </div>
     </div>
-    <div cy-name="page-path" class="page-path">/DASHBOARD</div>
-    <hr>
     <v1-dock></v1-dock>
-    <hr style="margin-top: 7px;">
 </div>
 <router-outlet (activate)="setRoutedComponent($event)" style="top: 70px;"></router-outlet>
