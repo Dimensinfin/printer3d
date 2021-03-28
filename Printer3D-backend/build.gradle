@@ -19,6 +19,7 @@ plugins {
     id 'maven-publish'
     id 'project-report'
     id 'idea'
+    id 'jacoco'
     id "org.sonarqube" version "3.0"
     id "org.hidetake.swagger.generator" version "2.18.2"
 }
@@ -130,4 +131,19 @@ dependencies {
 // - R U N N I N G
 bootRun {
     systemProperty "spring.profiles.active", "acceptance"
+}
+
+// - S O N A R C L O U D
+sonarqube {
+    properties {
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.organization", "dimensinfin3d"
+        property "sonar.projectKey", "dimensinfin3d_dimensinfin3d"
+        property "sonar.projectName", "Printer3D - backend"
+        property "sonar.projectVersion", project.version
+        property "sonar.projectDescription", "Back end Spring Boot server to service the Printer3D repository and do some data management."
+        property "sonar.sourceEncoding", "UTF-8"
+
+        property "sonar.login", "760417486be1e97e4566898079652a8ac326af3d"
+    }
 }

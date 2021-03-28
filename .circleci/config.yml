@@ -208,7 +208,42 @@ jobs:
           environment:
             SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
           command: |
+            npm run test:prod
             npm run sonar:prod
+  stage-frontend-to-heroku:
+    docker:
+      - image: circleci/node:12.16.3-browsers
+    steps:
+      - checkout
+      - run:
+          name: PRINTER3D-FRONTEND - Remove modules not required for deployment.
+          working_directory: NeoCom-Infinity-Frontend
+          command: |
+            node -v
+            sed -i '/bahmutov.add/d' package.json
+            sed -i '/@cypress/d' package.json
+            sed -i '/"cypress"/d' package.json
+      - run:
+          name: PRINTER3D-FRONTEND - Clone Heroku repository
+          working_directory: Printer3D-frontend
+          command: |
+            git config --global user.email "adamantinoo.git@gmail.com"
+            git config --global user.name "Adam antinoo"
+            git init
+            rm -rf .gitignore
+            git add *.*
+            git add config
+            git add src
+            git commit -m "-[HEROKU] Commiting code for deployment"
+      - run:
+          name: PRINTER3D-FRONTEND - Deploy Master to Heroku
+          environment:
+            HEROKU_FRONTEND_APP_NAME: printer3d-frontend-stage
+            HEROKU_FRONTEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
+          working_directory: Printer3D-frontend
+          command: |
+            git push https://heroku:$HEROKU_FRONTEND_API_KEY@git.heroku.com/$HEROKU_FRONTEND_APP_NAME.git master --force
+ 
 
   # - B A C K E N D
   cache-dependencies-backend:
@@ -315,67 +350,42 @@ jobs:
     steps:
       - checkout
       - run:
-          name: BACKEND - Upload SonarQube statistics
+          name: PRINTER3D-BACKEND - Upload SonarQube statistics
           working_directory: Printer3D-backend
           environment:
-            SONAR_TOKEN: 4a8773dc6d995bc64f8d02ecfba6f9ee37a968ef
+            SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
           command: |
-            ./gradlew test sonarqube
-
-  stage-to-heroku:
+            ./gradlew jacocoTestReport sonarqube
+  stage-backend-to-heroku:
     docker:
       - image: circleci/node:12.16.3-browsers
     steps:
       - checkout
       - run:
-          name: BACKEND - Update application to Stage
+          name: PRINTER3D-BACKEND - Update application to Stage
           working_directory: Printer3D-backend
           command: |
+            rm -rf .gitignore
             git config --global user.email "adamantinoo.git@gmail.com"
             git config --global user.name "Adam antinoo"
             git init
-            git add .gitignore
-            git add *.*
-            git add src
+            git add app.json
+            git add *.gradle
+            git add *.properties
             git add gradle
             git add gradlew
+            git add gradlew.bat
+            git add src
             git commit -m "-[HEROKU] Commiting code for deployment"
       - run:
-          name: BACKEND - Deploy Master to Heroku
+          name: PRINTER3D-BACKEND - Deploy Master to Heroku
           working_directory: Printer3D-backend
           environment:
             HEROKU_BACKEND_APP_NAME: printer3d-backend-stage
             HEROKU_BACKEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
           command: |
             git push https://heroku:$HEROKU_BACKEND_API_KEY@git.heroku.com/$HEROKU_BACKEND_APP_NAME.git master --force
-      - run:
-          name: FRONTEND - Generate deploy code for Stage
-          working_directory: Printer3D-frontend
-          command: |
-            node -v
-            sed -i '/bahmutov.add/d' package.json
-            # npm install
-      - run:
-          name: FRONTEND - Clone Heroku repository
-          working_directory: Printer3D-frontend
-          command: |
-            git config --global user.email "adamantinoo.git@gmail.com"
-            git config --global user.name "Adam antinoo"
-            git init
-            rm -rf .gitignore
-            git add *.*
-            git add config
-            git add src
-            git commit -m "-[HEROKU] Commiting code for deployment"
-      - run:
-          name: FRONTEND - Deploy Master to Heroku
-          environment:
-            HEROKU_FRONTEND_APP_NAME: printer3d-frontend-stage
-            HEROKU_FRONTEND_API_KEY: 0898c4c7-7389-4023-940b-ba5d7d799f73
-          working_directory: Printer3D-frontend
-          command: |
-            git push https://heroku:$HEROKU_FRONTEND_API_KEY@git.heroku.com/$HEROKU_FRONTEND_APP_NAME.git master --force
- 
+
 workflows:
   version: 2
   printer3d-test:
@@ -486,7 +496,7 @@ workflows:
           filters:
             branches:
               only:
-                - test
+                - master
                 - hotfix
 
   printer3d-deploy:
@@ -515,7 +525,7 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      - quality-sonarcloud-frontend:
+      - stage-frontend-to-heroku:
           requires:
             - unittest-frontend-job
             - acceptance-test-frontend-job
@@ -542,19 +552,10 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      - quality-sonarcloud-backend:
+      - stage-backend-to-heroku:
           requires:
             - unittest-backend-job
             - acceptance-test-backend-job
-          filters:
-            tags:
-              only: /0.*/
-            branches:
-              ignore: /.*/
-      - stage-to-heroku:
-          requires:
-            - quality-sonarcloud-frontend
-            - quality-sonarcloud-backend
           filters:
             tags:
               only: /0.*/
