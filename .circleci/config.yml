@@ -217,7 +217,7 @@ jobs:
       - checkout
       - run:
           name: PRINTER3D-FRONTEND - Remove modules not required for deployment.
-          working_directory: NeoCom-Infinity-Frontend
+          working_directory: Printer3D-frontend
           command: |
             node -v
             sed -i '/bahmutov.add/d' package.json
@@ -442,7 +442,7 @@ workflows:
           filters:
             branches:
               only:
-                - test
+                - experimental
       - quality-sonarcloud-frontend:
           requires:
             - unittest-frontend-job
@@ -522,7 +522,7 @@ workflows:
             - start-job
           filters:
             tags:
-              only: /0.*/
+              only: /1.*/
             branches:
               ignore: /.*/
       - stage-frontend-to-heroku:
