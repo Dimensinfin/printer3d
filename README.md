@@ -39,6 +39,7 @@ The project has Continuous Integration on the CircleCI platform and the producti
 ## Steps to change to next version
 * Change the field *'~/package.json[version]'*
 * Change the version on the **~/src/index.html** file.
+* Change the version on the build.gradle file.
 * Run the npm script **app:banner**
 
 ## Steps to upgrade/update the framework
