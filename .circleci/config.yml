@@ -231,6 +231,8 @@ jobs:
             git config --global user.name "Adam antinoo"
             git init
             rm -rf .gitignore
+            git add .npmrc
+            git add Procfile
             git add *.*
             git add config
             git add src
