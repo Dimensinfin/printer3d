@@ -1,20 +1,11 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
 // - SERVICES
-import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
-import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { Coil } from '@domain/inventory/Coil.domain';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
-import { environment } from '@env/environment';
-import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { PatchChange } from '@domain/PatchChange.domain';
@@ -25,7 +16,6 @@ import { PatchChange } from '@domain/PatchChange.domain';
     styleUrls: ['./patch-notes-dialog.component.scss']
 })
 export class PatchNotesDialogComponent extends AppPanelComponent implements OnInit, Refreshable {
-
     constructor(
         public dialogRef: MatDialogRef<PatchNotesDialogComponent>,
         protected httpWrapper : HttpClientWrapperService) {

@@ -1,10 +1,7 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog , MatDialogConfig} from '@angular/material/dialog';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
@@ -80,6 +77,6 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
         dialogConfig.id = "patch-notes";
         dialogConfig.height = "86vh";
         dialogConfig.width = "60vw";
-        const modalDialog = this.matDialog.open(PatchNotesDialogComponent, dialogConfig);
+        this.matDialog.open(PatchNotesDialogComponent, dialogConfig);
     }
 }

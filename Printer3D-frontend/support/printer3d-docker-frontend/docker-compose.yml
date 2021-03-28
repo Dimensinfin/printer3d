@@ -1,7 +1,7 @@
 version: '3'
 services:
-  printerd-frontent-development-backend-apisimulator:
-    container_name: printerd-frontent-development-backend-apisimulator
+  printer3d-frontent-development-backend-apisimulator:
+    container_name: printer3d-frontent-development-backend-apisimulator
     image: apimastery/apisimulator:1.8
     ports:
       - "5110:6090"

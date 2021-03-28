@@ -12,7 +12,7 @@ $form-item-invalid: #A94442; // Red
 .dsf-form-control {
     font-size: 16px;
     font-weight: 600;
-    font-family: 'Mina';
+    font-family: 'Mina', sans-serif;
     height: auto;
     line-height: 1.0;
     padding: 4px;
@@ -218,7 +218,7 @@ $clearform-button-color: #FF7733;
     background-color: black;
     color: white;
     width: calc(100% - 3px);
-    font-family: 'Mina';
+    font-family: 'Mina', sans-serif;
     border-radius: 5px;
     caret-color: white;
 }

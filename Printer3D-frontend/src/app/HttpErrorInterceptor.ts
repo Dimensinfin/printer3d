@@ -31,35 +31,31 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             )
     }
     private printErrorReport(error: HttpErrorResponse) {
+        let errorName: string = '-'
+        let httpStatus
+        let message: string = '-'
+        let cause: string = '-'
         if (null != error.error) {
             if (null != error.error.errorName) {
-                const errorName: string = error.error.errorName
-                const httpStatus: string = error.error.httpStatus
-                const message: string = error.error.message
-                const cause: string = error.error.cause
-                console.log('>[Exception]> ErrorName: ' + errorName)
-                console.log('>[Exception]> HttpStatus: ' + httpStatus)
-                console.log('>[Exception]> Message: ' + message)
-                if (null != cause) console.log('>[Exception]> Cause: ' + cause)
-                if (null != cause)
-                    this.isolationService.errorNotification(message + '\nCausa: ' + cause, '[' + httpStatus + ']/' + errorName)
-                else
-                    this.isolationService.errorNotification(message, '[' + httpStatus + ']/' + errorName)
+                errorName = error.error.errorName
+                httpStatus = error.error.httpStatus
+                message = error.error.message
+                cause = error.error.cause
             }
         }
         else {
-            const errorName: string = error.statusText
-            const httpStatus: number = error.status
-            const message: string = error.message
-            const cause: string = error.url
-            console.log('>[Exception]> ErrorName: ' + errorName)
-            console.log('>[Exception]> HttpStatus: ' + httpStatus)
-            console.log('>[Exception]> Message: ' + message)
-            if (null != cause) console.log('>[Exception]> Cause: ' + cause)
-            if (null != cause)
-                this.isolationService.errorNotification(message + '\nCausa: ' + cause, '[' + httpStatus + ']/' + errorName)
-            else
-                this.isolationService.errorNotification(message, '[' + httpStatus + ']/' + errorName)
+            errorName = error.statusText
+            httpStatus = error.status
+            message = error.message
+            cause = error.url
         }
+        console.log('>[Exception]> ErrorName: ' + errorName)
+        console.log('>[Exception]> HttpStatus: ' + httpStatus)
+        console.log('>[Exception]> Message: ' + message)
+        if (null != cause) console.log('>[Exception]> Cause: ' + cause)
+        if (null != cause)
+            this.isolationService.errorNotification(message + '\nCausa: ' + cause, '[' + httpStatus + ']/' + errorName)
+        else
+            this.isolationService.errorNotification(message, '[' + httpStatus + ']/' + errorName)
     }
 }

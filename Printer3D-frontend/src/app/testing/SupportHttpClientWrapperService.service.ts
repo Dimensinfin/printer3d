@@ -12,8 +12,6 @@ import { IsolationService } from '@app/platform/isolation.service';
 import { includes } from 'cypress/types/lodash';
 // - DOMAIN
 
-const REQUEST_PREFIX = 'http://neocom.infinity.local/api/v1/neocom';
-
 @Injectable({
     providedIn: 'root'
 })
