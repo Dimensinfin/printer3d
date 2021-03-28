@@ -1,0 +1,8 @@
+﻿{
+  "name": "Printer3D-backend",
+  "description": "Project to help manage the jobs to do on a 3D printer or set of 3D printers. Back end. Developed with SpringBoot 2+ has the API interface to the persistence repository as a RDMBS database with the needed entities required to model the domain",
+  "image": "heroku/gradle",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}

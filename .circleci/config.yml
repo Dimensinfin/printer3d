@@ -528,7 +528,6 @@ workflows:
       - stage-frontend-to-heroku:
           requires:
             - unittest-frontend-job
-            - acceptance-test-frontend-job
           filters:
             tags:
               only: /0.*/
