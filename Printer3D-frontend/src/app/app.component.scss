@@ -1,4 +1,6 @@
+@import "../styles/_scss_variables.scss";
 $app-title-color: #FF0000; // Red 50%
+$app-version-color: blueviolet;
 .app-title {
     font-size: 32px;
     font-weight: bold;
@@ -11,10 +13,11 @@ $app-title-color: #FF0000; // Red 50%
 }
 
 .app-version {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: blue;
+    font-family: $app-font-family, sans-serif;
+    font-weight: 100;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    color: $app-version-color;
     padding-left: 20px;
     text-shadow: none;
     text-transform: none;
@@ -22,10 +25,11 @@ $app-title-color: #FF0000; // Red 50%
 }
 
 .backend-version {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: blue;
+    font-family: $app-font-family, sans-serif;
+    font-weight: 100;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    color: $app-title-color;
     padding-left: 20px;
     text-shadow: none;
     text-transform: none;

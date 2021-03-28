@@ -22,14 +22,38 @@ hr {
 }
 
 .page-path {
+    font-family: $app-font-family, sans-serif;
+    font-weight: 100;
     font-size: 1.5rem;
     line-height: 1.5rem;
-    font-weight: bold;
     margin-top: 10px;
     text-transform: uppercase;
     text-shadow: 0px 0px 2px $page-path-color, 0px 0px 1px $page-path-color;
     color: $page-path-color;
     flex-grow: 1;
+}
+
+.panel-title {
+    font-family: $app-font-family, sans-serif;
+    font-weight: 100;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 2px $panel-title-color, 0px 0px 1px $panel-title-color;
+}
+
+.header-title {
+    font-family: $app-font-family, sans-serif;
+    font-weight: 100;
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 2px white, 0px 0px 1px white;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-color: black;
+    padding-left: 10px;
+    flex-grow: 3;
 }
 
 .row {
@@ -69,26 +93,6 @@ hr {
 .notifier-message {
     font-family: $notifier-font;
     font-size: 17px;
-}
-
-.panel-title {
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-shadow: 0px 0px 2px $panel-title-color, 0px 0px 1px $panel-title-color;
-}
-
-.header-title {
-    font-size: 18px;
-    font-weight: bold;
-    font-family: "Electrolize", sans-serif;
-    text-transform: uppercase;
-    text-shadow: 0px 0px 2px white, 0px 0px 1px white;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    background-color: black;
-    padding-left: 10px;
-    flex-grow: 3;
 }
 
 .left {

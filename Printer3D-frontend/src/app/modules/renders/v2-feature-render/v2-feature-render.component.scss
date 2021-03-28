@@ -1,12 +1,14 @@
+@import "../../../../styles/_scss_variables.scss";
 $feature-color:white;
-$feature-backeground-color:black;
+$feature-background-color:black;
+$feature-width: 170px;
 .feature {
     position: relative;
     white-space: nowrap;
     padding-top: 9px;
     padding-bottom: 9px;
-    background-color: $feature-backeground-color;
-    width: 150px;
+    background-color: $feature-background-color;
+    width: $feature-width;
     border: 1px solid $feature-color;
     cursor: pointer;
     margin-right: 4px;
@@ -14,17 +16,17 @@ $feature-backeground-color:black;
 }
 
 .feature:hover {
-    font-weight: bold;
+    // font-weight: bold;
     background-color: #172E47;
 }
 
 .feature-label {
-    font-size: 15px;
-    font-weight: bold;
-    font-family: 'Electrolize', sans-serif;
+    font-family: $app-font-family, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+    color: $app-font-color;
     text-transform: uppercase;
-    text-shadow: 0px 0px 2px white, 0px 0px 2px white;
-    color: white;
+    text-shadow: 0px 0px 2px $app-font-color, 0px 0px 2px $app-font-color;
     padding-left: 8px;
 }
 
