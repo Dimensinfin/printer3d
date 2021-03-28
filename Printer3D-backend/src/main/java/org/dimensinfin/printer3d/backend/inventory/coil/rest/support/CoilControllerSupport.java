@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 
 @Profile({ "local", "dev", "acceptance", "test" })
 @RestController
-//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class CoilControllerSupport {
@@ -42,8 +41,8 @@ public class CoilControllerSupport {
 					.build(), HttpStatus.OK );
 		} catch (final RuntimeException sqle) {
 			LogWrapper.error( sqle );
-			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorINVENTORYSTOREREPOSITORYFAILURE(new SQLException( sqle ) ),
-					"Detected exception while deleting all coils on repository.");
+			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorINVENTORYSTOREREPOSITORYFAILURE( new SQLException( sqle ) ),
+					"Detected exception while deleting all coils on repository." );
 		}
 	}
 }

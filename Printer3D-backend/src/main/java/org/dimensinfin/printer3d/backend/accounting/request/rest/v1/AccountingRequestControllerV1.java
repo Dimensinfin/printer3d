@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 
 @RestController
-//@CrossOrigin
 @Validated
 @RequestMapping("/api/v1")
 public class AccountingRequestControllerV1 {
@@ -31,7 +30,7 @@ public class AccountingRequestControllerV1 {
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<List<WeekAmount>> getRequestsAmountPerWeek(
-			final @RequestParam(name = "weekCount",required = false)Integer weekCount ) {
+			final @RequestParam(name = "weekCount", required = false) Integer weekCount ) {
 		return new ResponseEntity<>( this.accountingRequestServiceV1.getRequestsAmountPerWeek(
 				(null != weekCount) ? weekCount : DEFAULT_WEEK_COUNT
 		), HttpStatus.OK );
