@@ -47,11 +47,7 @@ databaseChangeLog:
       file: db/changelog/ddl-v0.12.0-alter-machines-table.yaml
   - include:
       file: db/changelog/ddl-v0.14.0-01-alter-coils-table.yaml
-  #  - include:
-  #      file: db/changelog/dml-v0.14.0-02-alter-coils-table.yaml
   - include:
       file: db/changelog/development/dml-v0.14.0-03-coils-data.yaml
-#  - include:
-#      file: db/changelog/ddl-v0.14.0-04-alter-coils-table.yaml
-#  - include:
-#      file: db/changelog/ddl-v0.14.0-05-alter-coils-table.yaml
+  - include:
+      file: db/changelog/dml-v0.14.1-01-coils-data.yaml
