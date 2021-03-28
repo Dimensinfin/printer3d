@@ -29,3 +29,12 @@ $app-title-color: #FF0000; // Red 50%
     text-shadow: none;
     text-transform: none;
 }
+
+.stiky-header {
+    position: sticky;
+    top: 0px;
+    background: black;
+    opacity: 1.0;
+    z-index: 1;
+    padding-top: 8px;
+}

@@ -1,15 +1,18 @@
-<div class="row"><span cy-name="app-title" class="app-title">{{appTitle}}</span>
-    <div>
-        <span cy-name="app-version" class="app-version" (click)="openPatchNotes()">{{appVersion}}</span><br>
-        <span cy-name="backend-version" class="backend-version">{{backendVersion}}</span>
+<div class=stiky-header>
+    <div class="row">
+        <span cy-name="app-title" class="app-title">{{appTitle}}</span>
+        <div>
+            <span cy-name="app-version" class="app-version" (click)="openPatchNotes()">{{appVersion}}</span><br>
+            <span cy-name="backend-version" class="backend-version">{{backendVersion}}</span>
+        </div>
+        <div class="row right">
+            <v1-billing-chart-panel></v1-billing-chart-panel>
+            <v1-work-load-panel></v1-work-load-panel>
+        </div>
     </div>
-    <div class="row right">
-        <v1-billing-chart-panel></v1-billing-chart-panel>
-        <v1-work-load-panel></v1-work-load-panel>
-    </div>
+    <div cy-name="page-path" class="page-path">/DASHBOARD</div>
+    <hr>
+    <v1-dock></v1-dock>
+    <hr style="margin-top: 7px;">
 </div>
-<div cy-name="page-path" class="page-path">/DASHBOARD</div>
-<hr>
-<v1-dock></v1-dock>
-<hr style="margin-top: 7px;">
-<router-outlet (activate)="setRoutedComponent($event)"></router-outlet>
+<router-outlet (activate)="setRoutedComponent($event)" style="top: 70px;"></router-outlet>
