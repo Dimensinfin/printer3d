@@ -1,3 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: db/changelog/test/ddl-v0.5.0-test-printer3d-schema.yaml
