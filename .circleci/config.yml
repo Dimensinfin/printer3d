@@ -183,6 +183,32 @@ jobs:
             npm run acceptance:cypress:D19
             npm run acceptance:cypress:D20
             npm run acceptance:cypress:F21
+  quality-sonarcloud-frontend:
+    docker:
+      - image: circleci/node:12.16.3-browsers
+    steps:
+      - checkout
+      - run:
+          name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm config set @bit:registry https://node.bitsrc.io
+      - run:
+          name: PRINTER3D-FRONTEND - Validate the CI machine configuration
+          working_directory: Printer3D-frontend
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+          command: |
+            node -v
+            npm install
+      - run:
+          name: PRINTER3D-FRONTEND - Upload SonarQube statistics
+          working_directory: Printer3D-frontend
+          environment:
+            SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
+          command: |
+            npm run sonar:prod
 
   # - B A C K E N D
   cache-dependencies-backend:
@@ -283,7 +309,6 @@ jobs:
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D01 or @P3D02" --info
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D03 or @P3D05"
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D07"
-
   quality-sonarcloud-backend:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -295,25 +320,7 @@ jobs:
           environment:
             SONAR_TOKEN: 4a8773dc6d995bc64f8d02ecfba6f9ee37a968ef
           command: |
-            ./gradlew build sonarqube
-  quality-sonarcloud-frontend:
-    docker:
-      - image: circleci/node:12.16.3-browsers
-    steps:
-      - checkout
-      - run:
-          name: FRONTEND - Install the framework
-          working_directory: Printer3D-frontend
-          command: |
-            node -v
-            npm install
-      - run:
-          name: FRONTEND - Upload SonarQube statistics
-          working_directory: Printer3D-frontend
-          environment:
-            SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
-          command: |
-            npm run sonar:prod
+            ./gradlew test sonarqube
 
   stage-to-heroku:
     docker:
@@ -390,6 +397,7 @@ workflows:
                 - experimental
                 - development
                 - test
+                - master
       - compile-frontend-job:
           requires:
             - start-job
@@ -400,6 +408,7 @@ workflows:
                 - experimental
                 - development
                 - test
+                - master
       - validate-frontend-job:
           requires:
             - start-job
@@ -416,6 +425,7 @@ workflows:
             branches:
               only:
                 - test
+                - master
       - acceptance-test-frontend-job:
           requires:
             - compile-frontend-job
@@ -423,6 +433,14 @@ workflows:
             branches:
               only:
                 - test
+      - quality-sonarcloud-frontend:
+          requires:
+            - unittest-frontend-job
+          filters:
+            branches:
+              only:
+                - master
+                - hotfix
 
       # - B A C K E N D
       - cache-dependencies-backend:
@@ -434,6 +452,7 @@ workflows:
                 - experimental
                 - development
                 - test
+                - master
       - compile-backend-job:
           requires:
             - start-job
@@ -444,6 +463,7 @@ workflows:
                 - experimental
                 - development
                 - test
+                - master
       - unittest-backend-job:
           requires:
             - compile-backend-job
@@ -451,6 +471,7 @@ workflows:
             branches:
               only:
                 - test
+                - master
       - acceptance-test-backend-job:
           requires:
             - unittest-backend-job
@@ -459,20 +480,13 @@ workflows:
               only:
                 - test
                 - hotfix
-
       - quality-sonarcloud-backend:
           requires:
             - unittest-backend-job
           filters:
             branches:
               only:
-                - hotfix
-      - quality-sonarcloud-frontend:
-          requires:
-            - unittest-frontend-job
-          filters:
-            branches:
-              only:
+                - test
                 - hotfix
 
   printer3d-deploy:
