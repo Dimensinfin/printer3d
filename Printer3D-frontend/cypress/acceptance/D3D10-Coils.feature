@@ -142,9 +142,17 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
     Scenario: [D3D10.12]-The Coils list page has a form field that will operate as a content match filter.
         Then form field named "filter" with label "FILTRO" is empty
 
-    @D3D10.1
+    @D3D10.13
     Scenario: [D3D10.13]-The Coils filter is changed the number of coils also changes.
         Then form field named "filter" with label "FILTRO" is empty
         And the target has 13 "coil"
         When "tpu" is set on form field "filter"
         Then the target has 1 "coil"
+
+    @D3D10.14
+    Scenario: [D3D10.14]-The Coil list page has a counter with the number of coils shown.
+        Then the target has 13 "coil"
+        And field named "coilCounter" has contents "13"
+        When form checkbox named "inactiveFilter" is clicked
+        Then the target has 23 "coil"
+        And field named "coilCounter" has contents "23"

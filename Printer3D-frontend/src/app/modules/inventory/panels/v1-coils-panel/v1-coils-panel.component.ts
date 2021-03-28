@@ -29,6 +29,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
     public filter: string = ''
     public filterInactive: boolean = true;
     private coilList: ICollaboration[]
+
     constructor(
         protected isolationService: IsolationService,
         protected inventoryService: InventoryService) {
@@ -47,6 +48,9 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
     public changeFilter(): void {
         console.log("-[V1CatalogPanelComponent.changeFilter]")
         this.refresh()
+    }
+    public coilCounter () :number {
+        return this.renderNodeList.length
     }
 
     /**

@@ -1,7 +1,13 @@
 <div cy-name="panel-title" class="panel-title">
     <form #newCoilForm="ngForm" class="dsf-form" autocomplete="off">
         <div class="row">
-            <div>/ROLLOS DISPONIBLES</div>
+            <div class="row">
+                <div>/</div>
+                <div cy-name="coilCounter">
+                    <div cy-field-value="coilCounter" class="counter">{{coilCounter()}}</div>
+                </div>
+                <div>/ROLLOS DISPONIBLES</div>
+            </div>
             <!-- F I L T E R -->
             <div cy-name="filter" class="field filter-margins">
                 <div class="dsf-input-container filter-width">
