@@ -138,9 +138,6 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         # - Count the new list of Coils
         Then the target has 23 "coil"
 
-# @D3D10.09
-# Scenario: [D3D10.09]-The Coils should be ordered. The first criteria is by the Material.
-# @D3D10.10
-# Scenario: [D3D10.10]-The Coils should be ordered. The second criteria is the Color.
-# @D3D10.11
-# Scenario: [D3D10.11]-The Coils should be ordered. The The third criteria is the weight. Less weight should be listed before.
+   @D3D10.12
+    Scenario: [D3D10.12]-The Coils list page has a form field that will operate as a content match filter.
+         Then form field named "filter" with label "FILTRO" is empty

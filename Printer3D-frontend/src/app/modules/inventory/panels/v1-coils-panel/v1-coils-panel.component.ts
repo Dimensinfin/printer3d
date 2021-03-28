@@ -66,7 +66,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
             }
             const size = filteredList.length
             console.log('size: ' + size)
-            this.coilList == filteredList
+            this.coilList = filteredList
         } else this.coilList = this.renderNodeList
         return this.coilList;
     }
