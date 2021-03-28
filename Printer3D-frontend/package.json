@@ -36,11 +36,13 @@
         "acceptance:cypress:F21": "cypress run --spec ./cypress/acceptance/F3D21-BillingChart.feature",
         "acceptance:cypress:F22": "cypress run --spec ./cypress/acceptance/F3D22-ModelEditing.feature",
         "acceptance:cypress": "npm run start:dev & wait-on http://localhost:5100 && npm run cypress:run ",
-        "heroku-postbuild": "ng build --configuration=${NODE_ENV}",
         "serve:integration": "export NODE_ENV=integration && export PORT=5102 && npm run build:dev && npm start",
         "analyzer": "ng build --aot --configuration=stage --stats-json && webpack-bundle-analyzer ./dist/Printer3D-frontend/stats-es2015.json",
         "test:ci": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI  --code-coverage",
-        "heroku-prebuild": "npm config set @bit:registry https://node.bitsrc.io"
+        "npm:bit:configuration": "npm config set @bit:registry https://node.bitsrc.io",
+        "npm:install:cli": "npm install @angular/cli@9.1.6 @angular-devkit/build-angular@9.1.6 @angular/compiler-cli@9.1.7 typescript@3.8.3 --save-prod ",
+        "heroku-prebuild": "npm run npm:bit:configuration && npm run npm:install:cli ",
+        "heroku-postbuild": "ng build --configuration=${NODE_ENV}"
     },
     "private": true,
     "engines": {
