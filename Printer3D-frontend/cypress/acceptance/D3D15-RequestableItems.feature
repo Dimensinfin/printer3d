@@ -11,6 +11,7 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
         Given the application Printer3DManager
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
+        When the application completes loading
 
     @D3D15.01
     Scenario: [D3D15.01]-When the New Request page open then we can see a panel with Models and Parts.

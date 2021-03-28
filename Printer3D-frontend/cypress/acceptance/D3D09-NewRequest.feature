@@ -13,6 +13,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Given the application Printer3DManager
         Given there is a click on Feature "/NUEVO PEDIDO"
         Then the page "NewRequestPage" is activated
+        When the application completes loading
 
     # - H A P P Y   P A T H
     @D3D09.02

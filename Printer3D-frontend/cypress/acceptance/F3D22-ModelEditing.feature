@@ -13,6 +13,7 @@ Feature: [F3D22]-[STORY] From the Inventory the Models can be edited.
         When the loading panel completes
         Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
+        When the application completes loading
 
     # - H A P P Y   P A T H
     @F3D22.01

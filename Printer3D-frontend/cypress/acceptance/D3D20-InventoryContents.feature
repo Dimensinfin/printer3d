@@ -11,6 +11,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Given there is a click on Feature "/INVENTARIO"
         Then the page "Inventory Page" is activated
         Given the target is the panel of type "catalog"
+        When the application completes loading
 
     # -  I N V E N T O R Y   P A G E
     @D3D20.01

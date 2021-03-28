@@ -10,6 +10,7 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         Given the application Printer3DManager
         Given there is a click on Feature "/PEDIDOS"
         Then the page "Open Requests Page" is activated
+        When the application completes loading
 
     # - H A P P Y   P A T H
     @D3D11 @D3D11.02

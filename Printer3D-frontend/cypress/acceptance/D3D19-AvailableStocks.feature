@@ -6,6 +6,7 @@ Feature: [D3D19]-[STORY] There is a list of items that can be deployed inside a 
 
     Background: Application landing page
         Given the application Printer3DManager
+        When the application completes loading
 
     # - H A P P Y   P A T H
     @D3D19.01

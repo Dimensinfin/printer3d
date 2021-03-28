@@ -7,6 +7,7 @@ Feature: [F3D21]-[STORY] Add a panel to display a bar graph with the aggregated 
 
     Background: Application landing page
         Given the application Printer3DManager
+        When the application completes loading
 
     # - H A P P Y   P A T H
     @F3D21.01

@@ -11,6 +11,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         Given the application Printer3DManager
         Given there is a click on Feature "/PEDIDOS"
         Then the page "Open Requests Page" is activated
+        When the application completes loading
 
     # - H A P P Y   P A T H
     @D3D12.01

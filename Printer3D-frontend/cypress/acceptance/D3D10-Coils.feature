@@ -12,6 +12,7 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         Given the application Printer3DManager
         Given there is a click on Feature "/ROLLOS"
         Then the page "CoilsPage" is activated
+        When the loading panel completes
         Given the target is the panel of type "coils"
 
     @D3D10.01
