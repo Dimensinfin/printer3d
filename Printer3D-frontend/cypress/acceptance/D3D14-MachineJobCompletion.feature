@@ -102,5 +102,30 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         Given the target the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
         And field named "quantity-data" with label "CANTIDAD" has contents "2"
 
-# @D3D14.04
-#     Scenario: [D3D14.04]-When the build job enters the last minute then the timer color changes.
+    @D3D14.04
+    Scenario: [D3D14.04]-When the build job enters the last minute then the timer color changes.
+        # - Select a Job for drag
+        Given the target is the panel of type "jobs-list"
+        Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+        # - Drag a part to the drop contents
+        Given the target is the panel of type "machines"
+        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        When the drag source is dragged to the drop destination "dropJobs"
+        Then the button with name "start-button" has a label "Comenzar" and is "enabled"
+        When 2 is set on form field "quantity"
+        And the mouse exits the target
+        # - Check the timer status
+        Given the target has a component ot type "build-countdown-timer"
+        Then column named "hours" has contents "1"
+        Then column named "minutes" has contents "00"
+        # - Click the button to start the timer
+        Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+        When the button with name "start-button" is clicked
+        Then advance time "5" minutes
+        Then advance time "50" minutes
+        Then advance time "4" minutes
+        Then field "hours" has color "rgb(154, 205, 50)"
+        Then field "minutes" has color "rgb(154, 205, 50)"
+        Then advance time "1" minutes
+        Then field "hours" has color "rgb(255, 255, 0)"
+        Then field "minutes" has color "rgb(255, 255, 0)"
