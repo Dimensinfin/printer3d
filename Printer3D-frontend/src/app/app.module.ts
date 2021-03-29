@@ -61,9 +61,9 @@ registerLocaleData(localeEs);
         ToastrModule.forRoot(),
         MatDialogModule,
         NgDragDropModule.forRoot(),
-        RollbarModule.forRoot({
-            accessToken: '4b7515a4ac41496b931963f64ef666e2'
-        }),
+        // RollbarModule.forRoot({
+        //     accessToken: '4b7515a4ac41496b931963f64ef666e2'
+        // }),
         // - APPLICATION MODULES
         AppCommonModule,
         SharedModule,
@@ -80,7 +80,7 @@ registerLocaleData(localeEs);
         { provide: BackendService, useClass: BackendService },
         { provide: DialogFactoryService, useClass: DialogFactoryService },
         // - ERROR INTERCEPTION
-        { provide: ErrorHandler, useClass: AppErrorHandler },
+        // { provide: ErrorHandler, useClass: AppErrorHandler },
         // - HTTP INTERCEPTION
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
     ],

@@ -25,7 +25,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
 
     @D3D20.01
-    Scenario: [D3D20.01.3]-If the filter is deactivate then the inactive elements are visible.
+    Scenario: [D3D20.01.3]-If the filter is deactivated then the inactive elements are visible.
         Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
         When form checkbox named "inactiveFilter" is clicked
         And the loading panel completes
@@ -36,7 +36,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Then the target has 2 "model"
         Then the target has 6 "part-container"
         # - Count the Parts on the panel because they are not contained on the Part Container
-        Then the target has 12 "part"
+        Then the target has 6 "part"
 
     # - M O D E L
     @D3D20.02
@@ -138,6 +138,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.04
     Scenario: [D3D20.04.03]-Validate a part when it is not being edited. Validate an inactive Part
+        Given the target is the panel of type "catalog"
         When form checkbox named "inactiveFilter" is clicked
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
@@ -156,6 +157,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.05
     Scenario: [D3D20.05]-Validate the different color tagging for the Parts states.
+        Given the target is the panel of type "catalog"
         When form checkbox named "inactiveFilter" is clicked
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
@@ -166,6 +168,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
         Then the target item has a "orangered" tag
         And inactive "part" shows an orange corner
+        When form checkbox named "inactiveFilter" is clicked
 
     @D3D20.09
     Scenario: [D3D20.09]-Validate the contents of a Part.

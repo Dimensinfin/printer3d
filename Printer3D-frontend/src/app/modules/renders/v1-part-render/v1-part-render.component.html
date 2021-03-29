@@ -2,12 +2,12 @@
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-REQUEST-PART-LIST-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
     <div class="row part-panel">
         <div class="field label-width">
-            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" class="field-height part-material">{{getLabel()}}</span>
+            <div cy-field-label="ETIQUETA" class="label">ETIQUETA</div>
+            <div cy-field-value="ETIQUETA" class="field-height part-material">{{getLabel()}}</div>
         </div>
         <div class="field material-width">
-            <span cy-field-label="MATERIAL" class="label">MATERIAL</span><br>
-            <span cy-field-value="MATERIAL" class="field-height part-material">{{getMaterial()}}</span>
+            <div cy-field-label="MATERIAL" class="label">MATERIAL</div>
+            <div cy-field-value="MATERIAL" class="field-height part-material">{{getMaterial()}}</div>
         </div>
         <div class="field color-width">
             <span cy-field-label="COLOR" class="label">COLOR</span><br>
@@ -105,28 +105,28 @@
                 <path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
         </div>
         <div cy-name="material" class="field material-width">
-            <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
-            <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
+            <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
+            <div cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</div>
         </div>
         <div cy-name="stock" class="field stock-width">
-            <span cy-field-label="stock" class="label">STOCK</span><br>
-            <span cy-field-value="stock" class="field-height part-stock">{{getStockRequired()}}</span>
+            <div cy-field-label="stock" class="label">STOCK</div>
+            <div cy-field-value="stock" class="field-height part-stock">{{getStockRequired()}}</div>
         </div>
         <div cy-name="stockAvailable" class="field stock-width">
-            <span cy-field-label="stockAvailable" class="label">DISPONIBLE</span><br>
-            <span cy-field-value="stockAvailable" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
+            <div cy-field-label="stockAvailable" class="label">DISPONIBLE</div>
+            <div cy-field-value="stockAvailable" class="field-height part-stockAvailable">{{getStockAvailable()}}</div>
         </div>
         <div cy-name="cost" class="field stock-width">
-            <span cy-field-label="cost" class="label">COSTE</span><br>
-            <span cy-field-value="cost" class="field-height part-cost">{{getCost()}}</span>
+            <div cy-field-label="cost" class="label">COSTE</div>
+            <div cy-field-value="cost" class="field-height part-cost">{{getCost()}}</div>
         </div>
         <div cy-name="price" class="field stock-width">
-            <span cy-field-label="price" class="label">PRECIO</span><br>
-            <span cy-field-value="price" class="field-height part-price">{{getPrice()}}</span>
+            <div cy-field-label="price" class="label">PRECIO</div>
+            <div cy-field-value="price" class="field-height part-price">{{getPrice()}}</div>
         </div>
         <div cy-name="active" class="field active-width">
-            <span cy-field-label="active" class="label">ACTIVA</span><br>
-            <span cy-field-value="active" class="field-height part-active">{{getActive()}}</span>
+            <div cy-field-label="active" class="label">ACTIVA</div>
+            <div cy-field-value="active" class="field-height part-active">{{getActive()}}</div>
         </div>
         <div cy-name="duplicate-button" class="field duplicate-width" (click)="duplicatePart()">
             <svg class="duplicate-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px">
