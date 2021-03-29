@@ -49,7 +49,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
         console.log("-[V1CatalogPanelComponent.changeFilter]")
         this.refresh()
     }
-    public coilCounter () :number {
+    public coilCounter(): number {
         return this.renderNodeList.length
     }
 
@@ -92,8 +92,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
                     this.completeDowload(this.sortCoilByIdentificationFields(
                         this.sortCoilByWeightDesc(
                             this.filterActiveCoils(coilList))
-                    )
-                    ) // Notify the completion of the download.
+                    )) // Notify the completion of the download.
                 }, (error) => {
                     console.log(JSON.stringify(error))
                     console.log('-[V1CoilsPanelComponent.downloadCoils.exception]> Error message: ' + JSON.stringify(error.error))
