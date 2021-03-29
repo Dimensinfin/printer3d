@@ -1,38 +1,36 @@
 <div cy-name="panel-title" class="panel-title">
-    <form #newCoilForm="ngForm" class="dsf-form" autocomplete="off">
+    <div class="row">
         <div class="row">
-            <div class="row">
-                <div>/</div>
-                <div cy-name="coilCounter">
-                    <div cy-field-value="coilCounter" class="counter">{{coilCounter()}}</div>
-                </div>
-                <div>/ROLLOS DISPONIBLES</div>
+            <div>/</div>
+            <div cy-name="coilCounter">
+                <div cy-field-value="coilCounter" class="counter">{{coilCounter()}}</div>
             </div>
-            <!-- F I L T E R -->
-            <div cy-name="filter" class="field filter-margins">
-                <div class="dsf-input-container filter-width">
-                    <div cy-field-label="filter" cy-input-type="input" class="label invisible">FILTRO</div>
-                    <input name="filter" class="dsf-input" [(ngModel)]="filter" (ngModelChange)="changeFilter()">
-                    <svg class="corner-border" viewBox="0 0 100 100">
+            <div>/ROLLOS DISPONIBLES</div>
+        </div>
+        <!-- F I L T E R -->
+        <div cy-name="filter" class="field filter-margins">
+            <div class="dsf-input-container filter-width">
+                <div cy-field-label="filter" cy-input-type="input" class="label invisible">FILTRO</div>
+                <input name="filter" class="dsf-input" [(ngModel)]="filter" (ngModelChange)="changeFilter()">
+                <svg class="corner-border" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
                     </svg>
-                    <svg class="corner-clear" viewBox="0 0 100 100">
+                <svg class="corner-clear" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
                     </svg>
-                    <svg class="corner-mark blueviolet-mark" viewBox="0 0 100 100">
+                <svg class="corner-mark blueviolet-mark" viewBox="0 0 100 100">
                         <path d="M100,100 L0,100 L100,0 L100,100" />
                     </svg>
-                </div>
-            </div>
-            <div class="filter-margins">Filtro.</div>
-            <div cy-name="inactiveFilter" style="font-size: 16px;">
-                <span cy-input-type="checkbox">
-                <input name="inactiveFilter" type="checkbox" style="margin-left:60px;" [(ngModel)]="filterInactive" (ngModelChange)="changeFilter()">
-                <span cy-field-label="inactiveFilter">Filtrar elementos inactivos.</span>
-                </span>
             </div>
         </div>
-    </form>
+        <div class="filter-margins">Filtro.</div>
+        <div cy-name="inactiveFilter" style="font-size: 16px;">
+            <span cy-input-type="checkbox">
+                <input name="inactiveFilter" type="checkbox" style="margin-left:60px;" [(ngModel)]="filterInactive" (ngModelChange)="changeFilter()">
+                <span cy-field-label="inactiveFilter">Filtrar elementos inactivos.</span>
+            </span>
+        </div>
+    </div>
 </div>
 <hr>
 <viewer-panel [nodes2render]="getNodes2Render(filter)" [downloadtitle]="'Descargando Lista de Rollos...'" [downloader]="self" [variant]="'-COIL-LIST-'">

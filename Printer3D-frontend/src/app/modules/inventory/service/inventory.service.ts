@@ -15,6 +15,7 @@ import { environment } from '@env/environment'
 import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto'
 import { IsolationService } from '@app/platform/isolation.service'
 import { CoilToUpdateCoilRequestConverter } from '@domain/converter/CoilToUpdateCoilRequest.converter'
+import { PartListResponse } from '@domain/dto/PartListResponse.dto'
 
 @Injectable({
     providedIn: 'root'
@@ -66,6 +67,21 @@ export class InventoryService extends BackendService {
             .pipe(map((data: any) => {
                 console.log(">[InventoryService.apiv2_InventoryUpdateCoil]> Transformation: " + transformer.description)
                 return transformer.transform(data) as Coil
+            }))
+    }
+
+    // - P A R T S
+    public apiv1_InventoryGetParts(): Observable<PartListResponse> {
+        const request = this.INVENTORYAPIV1 + '/inventory/parts'
+        const transformer: ResponseTransformer = new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
+            .setTransformation((entrydata: any): PartListResponse => {
+                return new PartListResponse(entrydata)
+            })
+        let headers = new HttpHeaders()
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[InventoryService.apiv1_GetInventoryParts]> Transformation: " + transformer.description)
+                return transformer.transform(data) as PartListResponse
             }))
     }
 }

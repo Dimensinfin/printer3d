@@ -34,6 +34,13 @@ export class SupportIsolationService {
         let rawdata = require('./mock-data/' + dataIdentifier.toLowerCase() + '.json');
         return rawdata;
     }
+    public directAccessTestResource(dataIdentifier: string): any {
+        console.log(">[SupportHttpClientWrapperService.directAccessMockResource]> dataIdentifier: " + dataIdentifier);
+        let rawdata = require('../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');
+        console.log(">[SupportHttpClientWrapperService.directAccessMockResource]> path: " +
+            '../../../support/printer3d-backend-simulation/responses/' + dataIdentifier + '.json');
+        return rawdata
+    }
 
     // - S T O R A G E
     public getFromStorage(_key: string): any {

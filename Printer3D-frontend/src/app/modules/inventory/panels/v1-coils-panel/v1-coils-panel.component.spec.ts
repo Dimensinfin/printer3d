@@ -2,8 +2,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { of } from 'rxjs'
 // - TESTING
-import { async, tick } from '@angular/core/testing'
-import { fakeAsync } from '@angular/core/testing'
+import { async, tick, fakeAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service'
@@ -41,8 +40,16 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
-        it('constructor.none: validate initial state without constructor', () => {
+        it('Should be created', () => {
             expect(component).toBeDefined('component has not been created.')
+        })
+        it('Initial state', () => {
+            expect(component.filter).toBeDefined()
+            expect(component.filter).toBe('')
+            expect(component.filterInactive).toBeTrue()
+            const componentAsAny = component as any
+            expect(componentAsAny.coilList).toBeDefined()
+            expect(componentAsAny.coilList.length).toBe(0)
         })
     })
 

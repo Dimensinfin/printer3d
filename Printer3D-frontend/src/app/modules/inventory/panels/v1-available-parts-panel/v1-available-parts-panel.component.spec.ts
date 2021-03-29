@@ -54,8 +54,8 @@ describe('COMPONENT V1AvailablePartsPanelComponent [Module: PRODUCTION]', () => 
             const componentAsAny = component as any;
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
             expect(componentAsAny.backendConnections.length).toBe(1);
-            expect(componentAsAny.dataModelRoot.length).toBe(16);
-            expect(componentAsAny.renderNodeList.length).toBe(16);
+            expect(componentAsAny.dataModelRoot.length).toBe(13);
+            expect(componentAsAny.renderNodeList.length).toBe(13);
             expect(component.isDownloading()).toBeFalse();
             jasmine.clock().uninstall()
         });
