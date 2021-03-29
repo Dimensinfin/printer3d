@@ -28,7 +28,7 @@ import { IFiltered } from '@domain/interfaces/IFiltered.interface'
 export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
     public filter: string = ''
     public filterInactive: boolean = true;
-    private coilList: ICollaboration[]
+    private coilList: ICollaboration[]=[]
 
     constructor(
         protected isolationService: IsolationService,
@@ -50,7 +50,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
         this.refresh()
     }
     public coilCounter(): number {
-        return this.renderNodeList.length
+        return this.coilList.length
     }
 
     /**
@@ -72,7 +72,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
             console.log('size: ' + size)
             this.coilList = filteredList
         } else this.coilList = this.renderNodeList
-        return this.coilList;
+        return this.coilList
     }
 
     // - R E F R E S H A B L E
