@@ -34,16 +34,20 @@
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-NEW-MODEL-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
     <div class="row">
         <div class="field label-width">
-            <span cy-field-label="ETIQUETA" class="label">ETIQUETA</span><br>
-            <span cy-field-value="ETIQUETA" class="field-height part-material">{{getLabel()}}</span>
+            <div cy-field-label="ETIQUETA" class="label">ETIQUETA</div>
+            <div cy-field-value="ETIQUETA" class="field-height part-material">{{getLabel()}}</div>
         </div>
         <div class="field left material-width">
-            <span cy-field-label="MATERIAL" class="label">MATERIAL/COLOR</span><br>
-            <span cy-field-value="MATERIAL" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
+            <div cy-field-label="MATERIAL" class="label">MATERIAL/COLOR</div>
+            <div cy-field-value="MATERIAL" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</div>
         </div>
         <div class="field stock-width">
-            <span cy-field-label="DISPONIBLE" class="label">DISPONIBLE</span><br>
-            <span cy-field-value="DISPONIBLE" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
+            <div cy-field-label="DISPONIBLE" class="label">DISPONIBLE</div>
+            <div cy-field-value="DISPONIBLE" class="field-height part-stockAvailable">{{getStockAvailable()}}</div>
+        </div>
+        <div cy-name="active" class="field invisible">
+            <div cy-field-label="active" class="label">ACTIVE</div>
+            <div cy-field-value="active" class="field-height part-stockAvailable">{{getActive()}}</div>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">

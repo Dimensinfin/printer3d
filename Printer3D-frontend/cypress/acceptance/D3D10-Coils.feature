@@ -156,3 +156,6 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         When form checkbox named "inactiveFilter" is clicked
         Then the target has 23 "coil"
         And field named "coilCounter" has contents "23"
+        When "tpu" is set on form field "filter"
+        Then the target has 3 "coil"
+        And field named "coilCounter" has contents "3"

@@ -3,10 +3,7 @@ import { Given } from "cypress-cucumber-preprocessor/steps"
 import { When } from "cypress-cucumber-preprocessor/steps"
 import { Then } from "cypress-cucumber-preprocessor/steps"
 // - SERVICE
-import { IsolationService } from '../../support/IsolationService.support'
 import { SupportService } from '../../support/SupportService.support'
-import { max } from 'cypress/types/lodash'
-import { clear } from 'console'
 
 const TITLE_VALIDATION = '3DPrinterManagement - UI'
 const supportService = new SupportService()
@@ -47,7 +44,7 @@ Then('there are no Features active', function () {
 
 // - S P I N N E R
 Then('the loading panel shows {string}', function (loadingMessage: string) {
-    cy.get('@target-page').find('.index-loading')
+    cy.get('@target-page').find('.loading-message')
         .contains(loadingMessage)
 })
 When('the loading panel completes', function () {
@@ -184,9 +181,9 @@ Then('field named {string} with label {string} has contents {string}',
         })
     })
 Then('field named {string} has contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target').within(($item) => {
-            cy.find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+    function (fieldName: string, fieldValue: string) {
+        cy.get('@target').find('[cy-name="' + fieldName + '"]').within(($item) => {
+            cy.get('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
     })
 Then('field named {string} with label {string} is empty',

@@ -20,12 +20,13 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
     Scenario: [D3D08.03]-The Parts panel has a simplified, one level list of Parts. The listing contains Parts with any number of copies on stock but that are active.
         Given the target is the panel of type "available-parts"
         Then the target has the title "/PIEZAS/DISPONIBLES"
-        And the target has 16 "part"
+        And the target has 13 "part"
         # - Validate the Part contents
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then field named "ETIQUETA" with label "ETIQUETA" has contents "Boquilla Ganesha - Figura"
         Then field named "MATERIAL" with label "MATERIAL" has contents "PLA/ROSA"
         Then field named "DISPONIBLE" with label "DISPONIBLE" has contents "0"
+        Then field named "active" has contents "ACTIVA"
 
     @D3D08 @D3D08.04
     Scenario: [D3D08.04]-The New Model panel has some input fields and a place to drop the Parts that are to be used on the Model.
@@ -75,15 +76,15 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         When the drag source is dragged to the drop destination "dropParts"
 
         Given the target is the panel of type "available-parts"
-        And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        And the drag source the "part" with id "068368c3-ab2c-4140-b2b1-039365a409b7"
         Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
         Given the target is the panel of type "available-parts"
-        And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        And the drag source the "part" with id "068368c3-ab2c-4140-b2b1-039365a409b7"
         Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
         Given the target is the panel of type "available-parts"
-        And the drag source the "part" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        And the drag source the "part" with id "068368c3-ab2c-4140-b2b1-039365a409b7"
         Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
 
@@ -92,13 +93,13 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Given the target is the panel of type "new-model"
         When the drag source is dragged to the drop destination "dropParts"
 
-        Given the target the "part-stack" with id "0078cd61-63bb-4a35-9d66-c4c630b017c3"
+        Given the target the "part-stack" with id "068368c3-ab2c-4140-b2b1-039365a409b7"
         Then column named "quantity" has contents "3"
-        And column named "label" has contents "Boquilla Ganesha - Embocadura"
-        And column named "material" has contents "TPU/AZUL"
+        And column named "label" has contents "PLATAFORMA SLOT 1/32 - Base"
+        And column named "material" has contents "PLA/ROJO"
         And target has an actionable image named "remove-button"
 
-# GRAGGING IS NOT WORKING
+    # DRAGGING IS NOT WORKING
     # @D3D08 @D3D08.07
     # Scenario: [D3D08.07]-The Part on the Model has a button that allows to remove parts from the Model. If the counter reaches 0 the Part is removed.
     #     Given there is a click on Feature "/NUEVO MODELO"
@@ -157,3 +158,10 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         And there is a Notification panel
         And the active page is set to Dashboard
         And there are no Features active
+
+    @D3D08 @D3D08.09
+    Scenario: [D3D08.09]-On The list of available parts there is none with the state inactive.
+        Given the target is the panel of type "available-parts"
+        Then the target has the title "/PIEZAS/DISPONIBLES"
+        And the target has 13 "part"
+        Then number of "part" with field "active" set to "FUERA PROD." is 0

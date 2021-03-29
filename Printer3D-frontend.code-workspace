@@ -1,9 +1,12 @@
 {
     "folders": [
-		{
-			"path": "."
-		}
-	],
+        {
+            "path": "."
+        },
+        {
+            "path": "../Dimensinfin3DPOCs"
+        }
+    ],
     "settings": {
         "editor.fontSize": 12,
         "editor.wordWrapColumn": 150,
