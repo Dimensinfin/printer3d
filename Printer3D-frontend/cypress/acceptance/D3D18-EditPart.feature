@@ -48,8 +48,8 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         Given an editable Part Container with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
         Then field named "buildTime" is tested for value constraints 1
         And field named "weight" is tested for value constraints 1 to 100
-        And field named "imagePath" is tested for max size of 100
-        And field named "modelPath" is tested for max size of 100
+        And field named "imagePath" is tested for max size of 300
+        And field named "modelPath" is tested for max size of 300
         And field named "description" is tested for max size of 500
 
     @D3D18.04

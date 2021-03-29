@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_14_1_2001_printer3d_alter_parts_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - modifyDataType:
+            schemaName: printer3d
+            tableName: parts
+            columnName: image_path
+            newDataType: varchar(1000)
+            remarks: Adjust the size of the column to a large value.
+  - changeSet:
+      id: 0_14_1_2002_printer3d_alter_parts_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - modifyDataType:
+            schemaName: printer3d
+            tableName: parts
+            columnName: model_path
+            newDataType: varchar(1000)
+            remarks: Adjust the size of the column to a large value.

@@ -947,6 +947,7 @@ components:
         imagePath:
           type: string
           format: url
+          maxLength: 1000
           description: >
             The URL for an external image stored on a public repository or Google drive. This image will be used when showing the catalog.
           example:
@@ -954,6 +955,7 @@ components:
         modelPath:
           type: string
           format: string
+          maxLength: 1000
           description: >
             The file name os the model to be used on the printer to be used on the printer job.
           example:
