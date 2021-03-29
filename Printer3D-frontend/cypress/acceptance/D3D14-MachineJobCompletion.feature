@@ -129,3 +129,7 @@ Feature: [D3D14]-[STORY] Once the user registers a job for build it should have 
         Then advance time "1" minutes
         Then field "hours" has color "rgb(255, 255, 0)"
         Then field "minutes" has color "rgb(255, 255, 0)"
+
+    @D3D14.05
+    Scenario: [D3D14.05]-Validate test completion.
+        Given the target is the panel of type "jobs-list"
