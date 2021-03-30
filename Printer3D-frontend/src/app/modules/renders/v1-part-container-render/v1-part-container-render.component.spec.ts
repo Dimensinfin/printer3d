@@ -1,39 +1,34 @@
 // - CORE
-import { NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { Printer3DConstants } from '../../../platform/Printer3DConstants.platform';
+import { NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core'
 // - TESTING
-import { inject } from '@angular/core/testing';
-import { async } from '@angular/core/testing';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/testing';
-import { ComponentFixture } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
-import { routes } from '@app/testing/RouteMockUp.component';
+import { async } from '@angular/core/testing'
+import { fakeAsync } from '@angular/core/testing'
+import { tick } from '@angular/core/testing'
+import { ComponentFixture } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
+import { RouterTestingModule } from '@angular/router/testing'
+import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component'
+import { routes } from '@app/testing/RouteMockUp.component'
 // - PROVIDERS
-import { ToastrService } from 'ngx-toastr';
-import { SupportToastrService } from '@app/testing/SupportToastrService.service';
-import { IsolationService } from '@app/platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
-import { BackendService } from '@app/services/backend.service';
-import { SupportBackendService } from '@app/testing/SupportBackend.service';
-import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
+import { ToastrService } from 'ngx-toastr'
+import { SupportToastrService } from '@app/testing/SupportToastrService.service'
+import { IsolationService } from '@app/platform/isolation.service'
+import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
+import { BackendService } from '@app/services/backend.service'
+import { SupportBackendService } from '@app/testing/SupportBackend.service'
+import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service'
+import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
 // - DOMAIN
-import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { V1DockComponent } from '../../common/v1-dock/v1-dock.component';
-import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
-import { Part } from '@domain/inventory/Part.domain';
-import { V1PartContainerRenderComponent } from './v1-part-container-render.component';
-import { PartContainer } from '@domain/PartContainer.domain';
-import { EVariant } from '@domain/interfaces/EPack.enumerated';
+import { DialogFactoryService } from '@app/services/dialog-factory.service'
+import { V1DockComponent } from '../../common/v1-dock/v1-dock.component'
+import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component'
+import { Part } from '@domain/inventory/Part.domain'
+import { V1PartContainerRenderComponent } from './v1-part-container-render.component'
+import { PartContainer } from '@domain/inventory/PartContainer.domain'
+import { EVariant } from '@domain/interfaces/EPack.enumerated'
 
 describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
-    let component: V1PartContainerRenderComponent;
+    let component: V1PartContainerRenderComponent
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -51,18 +46,18 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
                 { provide: DialogFactoryService, useValue: {} },
                 { provide: ChangeDetectorRef, useValue: { detectChanges: () => { } } },
             ]
-        }).compileComponents();
+        }).compileComponents()
 
-        const fixture = TestBed.createComponent(V1PartContainerRenderComponent);
-        component = fixture.componentInstance;
-    }));
+        const fixture = TestBed.createComponent(V1PartContainerRenderComponent)
+        component = fixture.componentInstance
+    }))
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
-            expect(component).toBeDefined('component has not been created.');
-        });
-    });
+            expect(component).toBeDefined('component has not been created.')
+        })
+    })
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Coverage Phase [Getters]', () => {
@@ -95,7 +90,7 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
                 ]
             })
             component.node = partContainer
-            expect(component).toBeDefined();
+            expect(component).toBeDefined()
             expect(component.getNode()).toBeDefined()
             expect(component.getUniqueId()).toBe("0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2")
             expect(component.getLabel()).toBe("Boquilla Ganesha")
@@ -110,12 +105,12 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
             expect(component.modelVisible()).toBeTrue()
             partContainer.modelPath = undefined
             expect(component.modelVisible()).toBeFalse()
-        });
-    });
+        })
+    })
     describe('Coverage Phase [Editing]', () => {
         it('isEditing: check the "editing" flag', () => {
-            expect(component.isEditing()).toBeFalse();
-        });
+            expect(component.isEditing()).toBeFalse()
+        })
         it('toggleEdition.noEvent: check the change on the editing', () => {
             const partContainer = new PartContainer({
                 "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
@@ -146,12 +141,12 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
             })
             component.node = partContainer
             component.toggleEdition()
-            expect(component.editing).toBeTrue();
+            expect(component.editing).toBeTrue()
             component.toggleEdition()
-            expect(component.editing).toBeFalse();
+            expect(component.editing).toBeFalse()
             component.toggleEdition()
-            expect(component.editing).toBeTrue();
-        });
+            expect(component.editing).toBeTrue()
+        })
         it('toggleEdition.event: check the change on the editing', () => {
             const partContainer = new PartContainer({
                 "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
@@ -182,14 +177,14 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
             })
             component.node = partContainer
             component.toggleEdition({ event: 'event', stopPropagation: () => { } })
-            expect(component.editing).toBeTrue();
+            expect(component.editing).toBeTrue()
             component.toggleEdition()
-            expect(component.editing).toBeFalse();
+            expect(component.editing).toBeFalse()
             component.toggleEdition()
-            expect(component.editing).toBeTrue();
-        });
+            expect(component.editing).toBeTrue()
+        })
         it('saveEditing: save the edited model properties', async () => {
-            jasmine.clock().install();
+            jasmine.clock().install()
             const partContainer = new PartContainer({
                 "id": "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2",
                 "label": "Boquilla Ganesha",
@@ -234,7 +229,7 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
             expect(component.variant).toBe(EVariant.DEFAULT)
             expect(component.editPart.description).toBe("Descripcion de una base de slot")
             await component.saveEditing()
-            jasmine.clock().tick(1100);
+            jasmine.clock().tick(1100)
             expect(component.variant).toBe(EVariant.CATALOG)
             expect(component.getDescription()).toBe("Descripcion de una base de slot")
             expect(component.getBuildTime()).toBe('120 min.')
@@ -242,6 +237,6 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
             expect(component.getImagePath()).toBe('image')
             expect(component.getModelPath()).toBeNull()
             jasmine.clock().uninstall()
-        });
-    });
-});
+        })
+    })
+})

@@ -12,7 +12,7 @@ import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/inventory/Part.domain';
 import { Model } from '@domain/inventory/Model.domain';
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
-import { PartContainer } from '@domain/PartContainer.domain';
+import { PartContainer } from '@domain/inventory/PartContainer.domain';
 import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 

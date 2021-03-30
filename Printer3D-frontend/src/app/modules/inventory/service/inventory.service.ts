@@ -16,6 +16,7 @@ import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto'
 import { IsolationService } from '@app/platform/isolation.service'
 import { CoilToUpdateCoilRequestConverter } from '@domain/converter/CoilToUpdateCoilRequest.converter'
 import { PartListResponse } from '@domain/dto/PartListResponse.dto'
+import { Part } from '@domain/inventory/Part.domain'
 
 @Injectable({
     providedIn: 'root'
@@ -82,6 +83,21 @@ export class InventoryService extends BackendService {
             .pipe(map((data: any) => {
                 console.log(">[InventoryService.apiv1_GetInventoryParts]> Transformation: " + transformer.description)
                 return transformer.transform(data) as PartListResponse
+            }))
+    }
+    public apiv1_InventoryUpdatePart(updatingPart: Part): Observable<Part> {
+        const request = this.INVENTORYAPIV1 + '/inventory/parts'
+        const transformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
+            .setTransformation((entrydata: any): Part => {
+                const targetPart: Part = new Part(entrydata)
+                this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
+                return targetPart
+            })
+        let headers = new HttpHeaders()
+        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart), headers)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description)
+                return transformer.transform(data) as Part
             }))
     }
 }

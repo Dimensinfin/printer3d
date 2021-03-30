@@ -19,6 +19,7 @@ import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
 import { Feature } from '@domain/Feature.domain'
 import { V1PartContainerRenderComponent } from '../v1-part-container-render/v1-part-container-render.component'
+import { InventoryService } from '@app/modules/inventory/service/inventory.service'
 
 @Component({
     selector: 'v1-part',
@@ -29,20 +30,13 @@ import { V1PartContainerRenderComponent } from '../v1-part-container-render/v1-p
 export class V1PartRenderComponent extends NodeContainerRenderComponent {
     public editPart: Part = new Part()
     public editing: boolean = false
-    private dataToPartTransformer: ResponseTransformer
 
     constructor(
         protected isolationService: IsolationService,
-        protected backendService: BackendService,
+        protected inventoryService: InventoryService,
         protected ref: ChangeDetectorRef,
         protected dialogFactory: DialogFactoryService) {
         super()
-        this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
-            .setTransformation((entrydata: any): Part => {
-                const targetPart: Part = new Part(entrydata)
-                this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
-                return targetPart
-            })
     }
 
     public getNode(): Part {
@@ -73,11 +67,12 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
         return this.getNode().getAvailable()
     }
     public getActive(): string {
-        if (this.getNode().active) return 'ACTIVA'
-        else return 'FUERA PROD.'
+        if (this.getNode())
+            if (this.getNode().isActive()) return 'ACTIVA'
+        return 'FUERA PROD.'
     }
     public isActive(): boolean {
-        return this.getNode().active
+        return this.getNode().isActive()
     }
 
     // - EDITING
@@ -96,16 +91,17 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
         // Update values that depend on Part final state. [D3D20.11]-When a part is deactivated then the stock count should be set to 0.
         if (!this.editPart.isActive())
             this.editPart.stockLevel = 0
-        this.node = new Part(this.editPart)
         this.backendConnections.push(
-            this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)
+            this.inventoryService.apiv1_InventoryUpdatePart(this.editPart)
                 .subscribe((updatedPart: Part) => {
                     this.node = updatedPart
-                    this.toggleEdition()
+                    this.closeEditing()
                     this.ref.detectChanges()
-                    const intermediate = this.container as any
-                    const parent = intermediate as V1PartContainerRenderComponent
-                    parent.notifyDataChanged() // Notify the Part Container about the end of the change.
+                    //    this.toggleEdition()
+                    // this.ref.detectChanges()
+                    // const intermediate = this.container as any
+                    // const parent = intermediate as V1PartContainerRenderComponent
+                    // parent.notifyDataChanged() // Notify the Part Container about the end of the change.
                 })
         )
     }

@@ -8,12 +8,13 @@ import { IViewer } from '@domain/interfaces/core/IViewer.interface';
 import { BackgroundEnabledComponent } from '../background-enabled/background-enabled.component';
 import { SingleSelection } from '../../domain/SingleSelection.domain';
 import { ISelectable } from '@domain/interfaces/core/ISelectable.interface';
+import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 @Component({
     selector: 'app-panel',
     templateUrl: './app-panel.component.html',
     styleUrls: ['./app-panel.component.scss']
 })
-export class AppPanelComponent extends BackgroundEnabledComponent implements IViewer {
+export class AppPanelComponent extends BackgroundEnabledComponent implements IViewer, Refreshable {
     @Input() self: IViewer;
     @Input() variant: EVariant = EVariant.DEFAULT;
     private downloading: boolean = true;
@@ -24,6 +25,20 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
     constructor() {
         super()
         this.self = this;
+    }
+
+    public ngOnInit(): void {
+        console.log(">[AppPanelComponent.ngOnInit]");
+        this.startDownloading();
+        this.refresh();
+        console.log("<[AppPanelComponent.ngOnInit]");
+    }
+
+    // - I R E F R E S H A B L E
+    public clean(): void {
+    }
+    public refresh(): void {
+        this.clean()
     }
 
     // - G E T T E R S
