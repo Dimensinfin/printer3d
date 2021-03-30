@@ -43,7 +43,7 @@
         "analyzer": "ng build --aot --configuration=stage --stats-json && webpack-bundle-analyzer ./dist/Printer3D-frontend/stats-es2015.json",
         "test:ci": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI  --code-coverage",
         "npm:bit:configuration": "npm config set @bit:registry https://node.bitsrc.io",
-        "npm:install:cli": "npm install @angular/cli@9.1.6 @angular-devkit/build-angular@9.1.6 @angular/compiler-cli@9.1.7 typescript@3.8.3 --save-prod ",
+        "npm:install:cli": "npm install @angular/cli@9.1.6 @angular-devkit/build-angular@0.901.6 @angular/compiler-cli@9.1.7 typescript@3.8.3 --save-prod ",
         "heroku-prebuild": "npm run npm:bit:configuration && npm run npm:install:cli ",
         "heroku-postbuild": "ng build --configuration=${NODE_ENV}"
     },

@@ -114,7 +114,8 @@
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "codeCoverageExclude": [
-                            "src/app/testing/**/*",
+                            "src/app/testing/*",
+                            "src/app/testing/mock-data/*",
                             "src/app/services/dock.service.ts"
                         ],
                         "assets": [
