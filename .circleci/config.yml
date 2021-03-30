@@ -117,7 +117,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+          - frontend-compiled-node
       - run:
           name: PRINTER3D-FRONTEND - Run frontend unit tests
           working_directory: Printer3D-frontend
@@ -133,9 +133,9 @@ jobs:
       CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - frontend-compiled-node
+      # - restore_cache:
+      #     keys:
+      #     - frontend-compiled-node
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -167,7 +167,7 @@ jobs:
             npm install
             npm run build:stage
       - run:
-          name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests
+          name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests. Phase 1
           working_directory: Printer3D-frontend
           command: |
             npm install
@@ -176,6 +176,12 @@ jobs:
             npm run acceptance:cypress:D02
             npm run acceptance:cypress:D04
             npm run acceptance:cypress:D05
+      - run:
+          name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests. Phase 2
+          working_directory: Printer3D-frontend
+          command: |
+            npm install
+            npm run acceptance:ready
             npm run acceptance:cypress:D06
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
@@ -192,6 +198,9 @@ jobs:
       - image: circleci/node:12.16.3-browsers
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - frontend-compiled-node
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -493,6 +502,7 @@ workflows:
             branches:
               only:
                 - test
+                - master
                 - hotfix
       - quality-sonarcloud-backend:
           requires:
