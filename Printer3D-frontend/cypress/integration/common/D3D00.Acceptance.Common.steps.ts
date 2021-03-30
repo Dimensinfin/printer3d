@@ -304,9 +304,8 @@ Then('form field named {string} with label {string} has contents {string}',
             cy.log(type as string)
             switch (type) {
                 case 'input':
-                    // cy.log('input')
                     cy.get('@target-field').within(($panel) => {
-                        cy.find('input')
+                        cy.get('input')
                             .invoke('val').should('equal', fieldValue)
                     })
                     break

@@ -77,14 +77,14 @@
                     <div cy-name="weight" class="field right">
                         <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
                         <div class="dsf-input-container weight-width">
-                            <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.weight" required min="1" max="100" oninput="validity.valid||(value='');" #partWeight="ngModel">
+                            <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.weight" required min="1" max="100" oninput="validity.valid||(value='');" #weight="ngModel">
                             <svg class="left-corner-border" viewBox="0 0 100 100">
                                 <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
                             </svg>
                             <svg class="left-corner-clear" viewBox="0 0 100 100">
                                 <path d="M0,0 L0,100 L100,0 L0,0" fill="#180A16" />
                             </svg>
-                            <div [ngClass]="{'ng-valid': !partWeight.invalid}">
+                            <div [ngClass]="{'ng-valid': !weight.invalid}">
                                 <svg class="left-mark" viewBox="0 0 100 100">
                                     <path d="M0,0 L0,100 L100,0 L0,0"  />
                                 </svg>

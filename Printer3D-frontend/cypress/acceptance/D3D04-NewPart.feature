@@ -65,7 +65,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
 
     @D3D04.05
     Scenario: [D3D04.05]-If all the mandatory fields are filled then the Save buttons activate.
-         # - Fill all the mandatory fields
+        # - Fill all the mandatory fields
         Given "-ETIQUETA-" is set on form field "label"
         And "PLA" is set on form field "material"
         And "AMARILLO" is set on form field "color"

@@ -63,8 +63,8 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
 
     @D3D08 @D3D08.06
     Scenario: [D3D08.06]-When one or more Parts are dropped on the Model the dropped Part information has some required fields.
-        Given there is a click on Feature "/NUEVO MODELO"
-        Then the page "NewModelPage" is activated
+        # Given there is a click on Feature "/NUEVO MODELO"
+        # Then the page "NewModelPage" is activated
         Given the target is the panel of type "new-model"
         When "Modelo de prueba 1" is set on the target panel input field named "label"
         And "2" is set on the target panel input field named "price"
@@ -133,8 +133,8 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
 
     @D3D08 @D3D08.08
     Scenario: [D3D08.08]-If the Save button is active and it is clicked then the Model is persisted at the repository, there is a notification panel and the page is closed returning to the Dashboard.
-        Given there is a click on Feature "/NUEVO MODELO"
-        Then the page "NewModelPage" is activated
+        # Given there is a click on Feature "/NUEVO MODELO"
+        # Then the page "NewModelPage" is activated
         Given the target is the panel of type "new-model"
         Then the button with name "save-button" has a label "Guardar" and is "disabled"
         When "Modelo de prueba 1" is set on the target panel input field named "label"
