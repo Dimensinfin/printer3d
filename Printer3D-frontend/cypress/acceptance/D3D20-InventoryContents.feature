@@ -140,6 +140,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     Scenario: [D3D20.04.03]-Validate a part when it is not being edited. Validate an inactive Part
         Given the target is the panel of type "catalog"
         When form checkbox named "inactiveFilter" is clicked
+        When the application completes loading
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
@@ -159,6 +160,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     Scenario: [D3D20.05]-Validate the different color tagging for the Parts states.
         Given the target is the panel of type "catalog"
         When form checkbox named "inactiveFilter" is clicked
+        When the application completes loading
         # - Expand a Part Group to see the Parts
         Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
@@ -168,7 +170,6 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
         Then the target item has a "orangered" tag
         And inactive "part" shows an orange corner
-        When form checkbox named "inactiveFilter" is clicked
 
     @D3D20.09
     Scenario: [D3D20.09]-Validate the contents of a Part.

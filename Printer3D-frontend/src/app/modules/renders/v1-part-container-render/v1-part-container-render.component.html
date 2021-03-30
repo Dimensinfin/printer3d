@@ -1,6 +1,6 @@
 <!-- C A T A L O G   V A R I A N T -->
 <div *ngIf="getVariant() === '-CATALOG-'">
-    <div id="{{getUniqueId()}}" (click)="toggleExpanded()">
+    <div id="{{getUniqueId()}}" class="cornered-panel">
         <div class="row part-container-panel">
             <button cy-name="edit-button" class="edit-attributes button-enabled" style="padding-left: 5px;" (click)="toggleEdition($event)">
                 <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px">
@@ -14,6 +14,7 @@
                     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/>
                 </svg>
             </button>
+            <div class="row" (click)="toggleExpanded()">
             <div cy-name="label" class="field label-width">
                 <span cy-field-label="label" class="label">ETIQUETA</span><br>
                 <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
@@ -37,6 +38,7 @@
                 </div>
             </div>
         </div>
+        </div>
         <div class="row">
             <div cy-name="imagePath" class="field image-width" *ngIf="imagePathVisible()">
                 <span cy-field-label="imagePath" class="label">IMAGEN</span><br>
@@ -45,6 +47,11 @@
             <div cy-name="modelPath" class="field model-file-width left" *ngIf="modelVisible()">
                 <span cy-field-label="modelPath" class="label">FICHERO IMPR.</span><br>
                 <span cy-field-value="modelPath" class="partcontainer-buildTime">{{getModelPath()}}</span>
+            </div>
+        </div>
+        <div *ngIf="isExpanded()" style="padding-right: 4px;padding-bottom:4px;">
+            <div *ngFor="let part of getParts()">
+                <v1-part style="width: 100%;" [container]="self" [node]="part" [variant]="'-CATALOG-'"></v1-part>
             </div>
         </div>
     </div>
