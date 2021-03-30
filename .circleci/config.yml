@@ -605,14 +605,14 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      - acceptance-test-frontend-job:
-          requires:
-            - start-job
-          filters:
-            tags:
-              only: /1.*/
-            branches:
-              ignore: /.*/
+      # - acceptance-test-frontend-job:
+      #     requires:
+      #       - start-job
+      #     filters:
+      #       tags:
+      #         only: /1.*/
+      #       branches:
+      #         ignore: /.*/
       - stage-frontend-to-heroku:
           requires:
             - unittest-frontend-job
@@ -631,14 +631,14 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      # - acceptance-test-backend-job:
-      #     requires:
-      #       - start-job
-      #     filters:
-      #       tags:
-      #         only: /0.*/
-      #       branches:
-      #         ignore: /.*/
+      - acceptance-test-backend-job:
+          requires:
+            - start-job
+          filters:
+            tags:
+              only: /0.*/
+            branches:
+              ignore: /.*/
       - stage-backend-to-heroku:
           requires:
             - unittest-backend-job
