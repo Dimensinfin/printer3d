@@ -30,6 +30,7 @@
         "acceptance:cypress:D10": "cypress run --spec ./cypress/acceptance/D3D10-Coils.feature",
         "acceptance:cypress:D11": "cypress run --spec ./cypress/acceptance/D3D11-OpenRequests.feature",
         "acceptance:cypress:D12": "cypress run --spec ./cypress/acceptance/D3D12-RequestDetails.feature",
+        "acceptance:cypress:D13": "cypress run --spec ./cypress/acceptance/D3D13-Machine.feature",
         "acceptance:cypress:D14": "cypress run --spec ./cypress/acceptance/D3D14-MachineJobCompletion.feature",
         "acceptance:cypress:D15": "cypress run --spec ./cypress/acceptance/D3D15-RequestableItems.feature",
         "acceptance:cypress:D18": "cypress run --spec ./cypress/acceptance/D3D18-EditPart.feature",

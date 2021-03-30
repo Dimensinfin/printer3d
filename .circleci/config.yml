@@ -125,7 +125,7 @@ jobs:
             npm run test:prod
       - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
-  acceptance-test-frontend-job:
+  acceptance-test-frontend-prepare:
     machine:
       image: ubuntu-2004:202010-01
     environment:
@@ -133,9 +133,6 @@ jobs:
       CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
     steps:
       - checkout
-      # - restore_cache:
-      #     keys:
-      #     - frontend-compiled-node
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -151,48 +148,112 @@ jobs:
             node -v
             sudo snap install figlet
             wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-            npm install
-      - run:
-          name: PRINTER3D-FRONTEND - Start frontend mock processes
-          working_directory: Printer3D-frontend
-          command: |
-            npm run docker:start
-            docker ps
-            dockerize -wait tcp://localhost:5110 -timeout 1m
-            docker ps
       - run:
           name: PRINTER3D-FRONTEND - Compile the integration version to be used on acceptance tests.
           working_directory: Printer3D-frontend
           command: |
             npm install
             npm run build:stage
+      - save_cache: # save compiled angular code after a first compilation
+          paths:
+            - ~/project/Printer3D-frontend/dist
+          key: frontend-build-code-{{ epoch }}
+  acceptance-test-frontend-phase01:
+    machine:
+      image: ubuntu-2004:202010-01
+    environment:
+      PORT: 5100
+      CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - frontend-build-code-{{ epoch }}
+          - frontend-build-code-
+      - run:
+          name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm config set @bit:registry https://node.bitsrc.io
+      - run:
+          name: PRINTER3D-FRONTEND - Validate the CI machine configuration
+          working_directory: Printer3D-frontend
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+          command: |
+            node -v
+            sudo snap install figlet
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+      - run:
+          name: PRINTER3D-FRONTEND - Start frontend mock processes
+          working_directory: Printer3D-frontend
+          command: |
+            npm install
+            npm run docker:start
+            docker ps
+            dockerize -wait tcp://localhost:5110 -timeout 1m
+            docker ps
       - run:
           name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests. Phase 1
           working_directory: Printer3D-frontend
           command: |
-            npm install
             npm run acceptance:ready
             npm run acceptance:cypress:D01
             npm run acceptance:cypress:D02
             npm run acceptance:cypress:D04
             npm run acceptance:cypress:D05
+  acceptance-test-frontend-phase02:
+    machine:
+      image: ubuntu-2004:202010-01
+    environment:
+      PORT: 5100
+      CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - frontend-build-code-{{ epoch }}
+          - frontend-build-code-
+      - run:
+          name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
+          working_directory: Printer3D-frontend
+          command: |
+            node -v
+            npm config set @bit:registry https://node.bitsrc.io
+      - run:
+          name: PRINTER3D-FRONTEND - Validate the CI machine configuration
+          working_directory: Printer3D-frontend
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+          command: |
+            node -v
+            sudo snap install figlet
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+      - run:
+          name: PRINTER3D-FRONTEND - Start frontend mock processes
+          working_directory: Printer3D-frontend
+          command: |
+            npm install
+            npm run docker:start
+            docker ps
+            dockerize -wait tcp://localhost:5110 -timeout 1m
+            docker ps
       - run:
           name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests. Phase 2
           working_directory: Printer3D-frontend
           command: |
-            npm install
-            npm run acceptance:ready
             npm run acceptance:cypress:D06
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
-            npm run acceptance:cypress:D10
-            npm run acceptance:cypress:D11
-            npm run acceptance:cypress:D12
-            npm run acceptance:cypress:D14
-            npm run acceptance:cypress:D15
-            npm run acceptance:cypress:D19
-            npm run acceptance:cypress:D20
-            npm run acceptance:cypress:F21
+            # npm run acceptance:cypress:D10
+            # npm run acceptance:cypress:D11
+            # npm run acceptance:cypress:D12
+            # npm run acceptance:cypress:D14
+            # npm run acceptance:cypress:D15
+            # npm run acceptance:cypress:D19
+            # npm run acceptance:cypress:D20
+            # npm run acceptance:cypress:F21
   quality-sonarcloud-frontend:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -450,9 +511,23 @@ workflows:
               only:
                 - test
                 - master
-      - acceptance-test-frontend-job:
+      - acceptance-test-frontend-prepare:
           requires:
             - compile-frontend-job
+          filters:
+            branches:
+              only:
+                - test
+      - acceptance-test-frontend-phase01:
+          requires:
+            - acceptance-test-frontend-prepare
+          filters:
+            branches:
+              only:
+                - test
+      - acceptance-test-frontend-phase02:
+          requires:
+            - acceptance-test-frontend-prepare
           filters:
             branches:
               only:
@@ -468,8 +543,6 @@ workflows:
 
       # - B A C K E N D
       - cache-dependencies-backend:
-          requires:
-            - start-job
           filters:
             branches:
               only:
@@ -479,6 +552,7 @@ workflows:
                 - master
       - compile-backend-job:
           requires:
+            - start-job
             - cache-dependencies-backend
           filters:
             branches:
@@ -557,14 +631,14 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      - acceptance-test-backend-job:
-          requires:
-            - start-job
-          filters:
-            tags:
-              only: /0.*/
-            branches:
-              ignore: /.*/
+      # - acceptance-test-backend-job:
+      #     requires:
+      #       - start-job
+      #     filters:
+      #       tags:
+      #         only: /0.*/
+      #       branches:
+      #         ignore: /.*/
       - stage-backend-to-heroku:
           requires:
             - unittest-backend-job
