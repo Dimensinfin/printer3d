@@ -15,38 +15,38 @@
                 </svg>
             </button>
             <div class="row" (click)="toggleExpanded()">
-            <div cy-name="label" class="field label-width">
-                <span cy-field-label="label" class="label">ETIQUETA</span><br>
-                <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
-            </div>
-            <div cy-name="description" class="field description-width">
-                <span cy-field-label="description" class="label">DESCRIPCION</span><br>
-                <span cy-field-value="description" class="partcontainer-description">{{getDescription()}}</span>
-            </div>
-            <div cy-name="buildTime" class="field buildTime-width">
-                <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
-                <span cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</span>
-            </div>
-            <div cy-name="weight" class="field weight-width">
-                <span cy-field-label="weight" class="label">PLASTICO</span><br>
-                <span cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</span>
-            </div>
-            <div class="left">
-                <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;" *ngIf="node.isExpandable()">
-                    <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                <div cy-name="label" class="field label-width">
+                    <div cy-field-label="label" class="label">ETIQUETA</div>
+                    <div cy-field-value="label" class="partcontainer-label">{{getLabel()}}</div>
+                </div>
+                <div cy-name="description" class="field description-width">
+                    <div cy-field-label="description" class="label">DESCRIPCION</div>
+                    <div cy-field-value="description" class="partcontainer-description">{{getDescription()}}</div>
+                </div>
+                <div cy-name="buildTime" class="field buildTime-width">
+                    <div cy-field-label="buildTime" class="label">TIEMPO</div>
+                    <div cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</div>
+                </div>
+                <div cy-name="weight" class="field weight-width">
+                    <div cy-field-label="weight" class="label">PLASTICO</div>
+                    <div cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</div>
+                </div>
+                <div class="right">
+                    <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;" *ngIf="node.isExpandable()">
+                        <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
                     </svg>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
         <div class="row">
             <div cy-name="imagePath" class="field image-width" *ngIf="imagePathVisible()">
-                <span cy-field-label="imagePath" class="label">IMAGEN</span><br>
-                <span cy-field-value="imagePath" class="partcontainer-buildTime">{{getImagePath()}}</span>
+                <div cy-field-label="imagePath" class="label">IMAGEN</div>
+                <div cy-field-value="imagePath" class="partcontainer-buildTime">{{getImagePath()}}</div>
             </div>
-            <div cy-name="modelPath" class="field model-file-width left" *ngIf="modelVisible()">
-                <span cy-field-label="modelPath" class="label">FICHERO IMPR.</span><br>
-                <span cy-field-value="modelPath" class="partcontainer-buildTime">{{getModelPath()}}</span>
+            <div cy-name="modelPath" class="field model-file-width right" *ngIf="modelVisible()">
+                <div cy-field-label="modelPath" class="label">FICHERO IMPR.</div>
+                <div cy-field-value="modelPath" class="partcontainer-buildTime">{{getModelPath()}}</div>
             </div>
         </div>
         <div *ngIf="isExpanded()" style="padding-right: 4px;padding-bottom:4px;">
@@ -67,15 +67,15 @@
                 <svg class="save-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
             </button>
             <div cy-name="label" class="field">
-                <span cy-field-label="label" class="label">ETIQUETA</span><br>
-                <span cy-field-value="label" class="partcontainer-label">{{getLabel()}}</span>
+                <div cy-field-label="label" class="label">ETIQUETA</div>
+                <div cy-field-value="label" class="partcontainer-label">{{getLabel()}}</div>
             </div>
-            <div cy-name="description" class="field description-widt">
-                <span cy-field-label="description" cy-input-type="textarea" class="labelh">DESCRIPCION</span><br>
+            <div cy-name="description" class="field description-width">
+                <div cy-field-label="description" cy-input-type="textarea" class="labelh">DESCRIPCION</div>
                 <textarea name="description" cols="35" rows="3" class="dsf-input part-description" [(ngModel)]="editPart.description" minlength="5" maxlength="500"></textarea>
             </div>
             <div cy-name="buildTime" class="field buildTime-width">
-                <span cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO</span><br>
+                <div cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO</div>
                 <div class="dsf-input-container buildTime-width">
                     <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.buildTime" required min="1" oninput="validity.valid||(value='');" #buildTime="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div cy-name="weight" class="field weight-width">
-                <span cy-field-label="weight" cy-input-type="input" class="label">PLASTICO</span><br>
+                <div cy-field-label="weight" cy-input-type="input" class="label">PLASTICO</div>
                 <div class="dsf-input-container weight-width">
                     <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.weight" required min="1" max="100" oninput="validity.valid||(value='');" #weight="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -109,9 +109,9 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="column">
             <div cy-name="imagePath" class="field image-width">
-                <span cy-field-label="imagePath" cy-input-type="input" class="label">IMAGEN</span><br>
+                <div cy-field-label="imagePath" cy-input-type="input" class="label">IMAGEN</div>
                 <div class="dsf-input-container label-width">
                     <input name="imagePath" type="text" class="dsf-input" [(ngModel)]="editPart.imagePath" maxlength="300" #imagePath="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">
@@ -127,8 +127,8 @@
                     </div>
                 </div>
             </div>
-            <div cy-name="modelPath" class="field model-file-width left">
-                <span cy-field-label="modelPath" cy-input-type="input" class="label">FICHERO IMPR.</span><br>
+            <div cy-name="modelPath" class="field image-width">
+                <div cy-field-label="modelPath" cy-input-type="input" class="label">FICHERO IMPR.</div>
                 <div class="dsf-input-container label-width">
                     <input name="modelPath" type="text" class="dsf-input" [(ngModel)]="editPart.modelPath" maxlength="300" #modelPath="ngModel">
                     <svg class="corner-border" viewBox="0 0 100 100">

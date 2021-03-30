@@ -9,7 +9,8 @@
         "jsonClass": "PatchChange",
         "name": "➰ Anotaciones cambio 0.14.1 - Piezas",
         "changes": [
-            "✅ Los campos de IMAGEN y FICHERO IMPR. se han ampliado de capacidad al menos hasta los 300 caracteres."
+            "✅ Los campos de IMAGEN y FICHERO IMPR. se han ampliado de capacidad al menos hasta los 300 caracteres.",
+            "Las piezas del mismo modelo pero con diferentes características en lugar de mostrarse debajo de la caja con los datos comunes ahora se muestran <b><i>dentro</i></b> de la caja de los datos comunes. Esto mejora la legibilidad de este listado."
         ]
     },
     {

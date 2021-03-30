@@ -24,12 +24,14 @@
     min-width: 4em;
 }
 
-.model-file-width {
-    min-width: 200px;
+.image-width {
+    flex-grow: 1;
+    margin-left: 76px;
 }
 
-.image-width {
-    margin-left: 76px;
+.model-file-width {
+    flex-grow: 1;
+    // min-width: 200px;
 }
 
 .description-width {

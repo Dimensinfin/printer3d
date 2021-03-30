@@ -81,7 +81,12 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
         else return []
     }
 
-    // - EDITING
+    // - I N T E R A C T I O N S
+    public notifyDataChanged () : void {
+        this.ref.detectChanges();
+    }
+
+    // - E D I T I N G
     public isEditing(): boolean {
         return this.editing
     }

@@ -1,23 +1,24 @@
 // - CORE
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core'
+import { OnInit } from '@angular/core'
+import { OnDestroy } from '@angular/core'
+import { Input } from '@angular/core'
+import { ChangeDetectionStrategy } from '@angular/core'
+import { ChangeDetectorRef } from '@angular/core'
+import { Subscription } from 'rxjs'
 // - DOMAIN
-import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component';
-import { Part } from '@domain/inventory/Part.domain';
-import { EVariant } from '@domain/interfaces/EPack.enumerated';
-import { BackendService } from '@app/services/backend.service';
-import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { IsolationService } from '@app/platform/isolation.service';
-import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component';
-import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
-import { DialogFactoryService } from '@app/services/dialog-factory.service';
-import { Feature } from '@domain/Feature.domain';
+import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component'
+import { Part } from '@domain/inventory/Part.domain'
+import { EVariant } from '@domain/interfaces/EPack.enumerated'
+import { BackendService } from '@app/services/backend.service'
+import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component'
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
+import { IsolationService } from '@app/platform/isolation.service'
+import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component'
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
+import { DialogFactoryService } from '@app/services/dialog-factory.service'
+import { Feature } from '@domain/Feature.domain'
+import { V1PartContainerRenderComponent } from '../v1-part-container-render/v1-part-container-render.component'
 
 @Component({
     selector: 'v1-part',
@@ -26,22 +27,22 @@ import { Feature } from '@domain/Feature.domain';
     styleUrls: ['./v1-part-render.component.scss']
 })
 export class V1PartRenderComponent extends NodeContainerRenderComponent {
-    public editPart: Part = new Part();
-    public editing: boolean = false;
-    private dataToPartTransformer: ResponseTransformer;
+    public editPart: Part = new Part()
+    public editing: boolean = false
+    private dataToPartTransformer: ResponseTransformer
 
     constructor(
         protected isolationService: IsolationService,
         protected backendService: BackendService,
         protected ref: ChangeDetectorRef,
         protected dialogFactory: DialogFactoryService) {
-        super();
+        super()
         this.dataToPartTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Part".')
             .setTransformation((entrydata: any): Part => {
-                const targetPart: Part = new Part(entrydata);
-                this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK');
-                return targetPart;
-            });
+                const targetPart: Part = new Part(entrydata)
+                this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
+                return targetPart
+            })
     }
 
     public getNode(): Part {
@@ -51,59 +52,62 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
         return this.getNode().getId()
     }
     public getLabel(): string {
-        return this.getNode().label;
+        return this.getNode().label
     }
     public getMaterial(): string {
-        return this.getNode().material;
+        return this.getNode().material
     }
     public getColor(): string {
-        return this.getNode().color;
+        return this.getNode().color
     }
     public getCost(): string {
-        return this.getNode().cost + ' €';
+        return this.getNode().cost + ' €'
     }
     public getPrice(): string {
-        return this.getNode().price + ' €';
+        return this.getNode().price + ' €'
     }
     public getStockRequired(): number {
-        return this.getNode().stockLevel;
+        return this.getNode().stockLevel
     }
     public getStockAvailable(): number {
-        return this.getNode().getAvailable();
+        return this.getNode().getAvailable()
     }
     public getActive(): string {
         if (this.getNode().active) return 'ACTIVA'
         else return 'FUERA PROD.'
     }
     public isActive(): boolean {
-        return this.getNode().active;
+        return this.getNode().active
     }
 
     // - EDITING
     public isEditing(): boolean {
-        return this.editing;
+        return this.editing
     }
     public toggleEdition(): void {
-        this.editing = !this.editing;
+        this.editing = !this.editing
         if (this.isEditing())
-            this.activateEditing();
+            this.activateEditing()
         if (!this.isEditing())
             this.closeEditing()
     }
     public saveEditing(): void {
-        console.log('>[V1PartRenderComponent.saveEditing]');
+        console.log('>[V1PartRenderComponent.saveEditing]')
         // Update values that depend on Part final state. [D3D20.11]-When a part is deactivated then the stock count should be set to 0.
         if (!this.editPart.isActive())
             this.editPart.stockLevel = 0
-        this.node = new Part(this.editPart);
+        this.node = new Part(this.editPart)
         this.backendConnections.push(
             this.backendService.apiInventoryUpdatePart_v1(this.node as Part, this.dataToPartTransformer)
                 .subscribe((updatedPart: Part) => {
-                    this.node = updatedPart;
-                    this.toggleEdition();
-                    this.ref.detectChanges();
+                    this.node = updatedPart
+                    this.toggleEdition()
+                    this.ref.detectChanges()
+                    const intermediate = this.container as any
+                    const parent = intermediate as V1PartContainerRenderComponent
+                    parent.notifyDataChanged() // Notify the Part Container about the end of the change.
                 })
-        );
+        )
     }
     /**
      * Save this part on the storage and open the dialog so the fields can be edited.
@@ -118,19 +122,19 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
             "route": "NewPartDialog"
         })
         console.log('><[V1PartRenderComponent.duplicatePart]> DIALOG')
-        targetFeature.activate();
-        const dialogRef = this.dialogFactory.processClick(targetFeature);
+        targetFeature.activate()
+        const dialogRef = this.dialogFactory.processClick(targetFeature)
         dialogRef.afterClosed()
             .subscribe(result => {
-                console.log('[V1FeatureRenderComponent.onClick]> Close detected');
-                targetFeature.deactivate();
-            });
+                console.log('[V1FeatureRenderComponent.onClick]> Close detected')
+                targetFeature.deactivate()
+            })
     }
     private activateEditing(): void {
-        this.variant = EVariant.EDITABLE_PART;
-        this.editPart = new Part(this.node);
+        this.variant = EVariant.EDITABLE_PART
+        this.editPart = new Part(this.node)
     }
     private closeEditing(): void {
-        this.variant = EVariant.CATALOG;
+        this.variant = EVariant.CATALOG
     }
 }

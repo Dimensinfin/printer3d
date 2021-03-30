@@ -64,20 +64,20 @@
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'REQUEST-CONTENT'" [dragClass]="'part-selected'">
     <div class="row">
         <div cy-name="label" class="field label-width">
-            <span cy-field-label="label" class="label">ETIQUETA</span><br>
-            <span cy-field-value="label" class="field-height part-material">{{getLabel()}}</span>
+            <div cy-field-label="label" class="label">ETIQUETA</div>
+            <div cy-field-value="label" class="field-height part-material">{{getLabel()}}</div>
         </div>
         <div cy-name="material" class="field left material-width">
-            <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
-            <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
+            <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
+            <div cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</div>
         </div>
         <div cy-name="partCount" class="field stock-width">
-            <span cy-field-label="partCount" class="label">DISPONIBLE</span><br>
-            <span cy-field-value="partCount" class="field-height part-stockAvailable">{{getStockAvailable()}}</span>
+            <div cy-field-label="partCount" class="label">DISPONIBLE</div>
+            <div cy-field-value="partCount" class="field-height part-stockAvailable">{{getStockAvailable()}}</div>
         </div>
         <div class="field price-width">
-            <span cy-field-label="price" class="label">PRECIO</span><br>
-            <span cy-field-value="price" class="field-height part-stockAvailable">{{getPrice()}}</span>
+            <div cy-field-label="price" class="label">PRECIO</div>
+            <div cy-field-value="price" class="field-height part-stockAvailable">{{getPrice()}}</div>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
@@ -165,11 +165,11 @@
                 </svg>
             </button>
             <div cy-name="material" class="field material-width">
-                <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
-                <span cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
+                <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
+                <div cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</div>
             </div>
             <div cy-name="stock" class="field">
-                <span cy-field-label="stock" cy-input-type="input" class="label">STOCK</span><br>
+                <div cy-field-label="stock" cy-input-type="input" class="label">STOCK</div>
                 <div class="dsf-input-container stock-width">
                     <input name="stock" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.stockLevel" required min="0" max="15" onInput="validity.valid||(value='');" #stock="ngModel">
                     <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -186,7 +186,7 @@
                 </div>
             </div>
             <div cy-name="stockAvailable" class="field">
-                <span cy-field-label="stockAvailable" cy-input-type="input" class="label">DISPONIBLE</span><br>
+                <div cy-field-label="stockAvailable" cy-input-type="input" class="label">DISPONIBLE</div>
                 <div class="dsf-input-container stock-width">
                     <input name="stockAvailable" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.stockAvailable" required min="0" oninput="validity.valid||(value='');" #stockAvailable="ngModel">
                     <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -203,7 +203,7 @@
                 </div>
             </div>
             <div cy-name="cost" class="field">
-                <span cy-field-label="cost" cy-input-type="input" class="label">COSTE</span><br>
+                <div cy-field-label="cost" cy-input-type="input" class="label">COSTE</div>
                 <div class="dsf-input-container stock-width">
                     <input name="cost" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.cost" required min="0.01" #cost="ngModel">
                     <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -220,7 +220,7 @@
                 </div>
             </div>
             <div cy-name="price" class="field">
-                <span cy-field-label="price" cy-input-type="input" class="label">PRECIO</span><br>
+                <div cy-field-label="price" cy-input-type="input" class="label">PRECIO</div>
                 <div class="dsf-input-container stock-width">
                     <input name="price" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.price" required min="0.01" #price="ngModel">
                     <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -237,7 +237,7 @@
                 </div>
             </div>
             <div cy-name="active" class="field">
-                <span cy-field-label="active" cy-input-type="checkbox" class="label">ACTIVA</span><br>
+                <div cy-field-label="active" cy-input-type="checkbox" class="label">ACTIVA</div>
                 <div class="dsf-input-container stock-width">
                     <input name="active" type="checkbox" class="dsf-input checkbox-input" [(ngModel)]="editPart.active" #active="ngModel">
                 </div>

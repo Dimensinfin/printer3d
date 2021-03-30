@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <!-- W E I G H T -->
-                    <div cy-name="weight" class="field left">
+                    <div cy-name="weight" class="field right">
                         <span cy-field-label="weight" cy-input-type="input" class="label">PESO</span><br>
                         <div class="dsf-input-container weight-width">
                             <input name="partWeight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="part.weight" required min="1" max="100" oninput="validity.valid||(value='');" #partWeight="ngModel">
@@ -204,7 +204,7 @@
                         </div>
                     </div>
                     <!-- M O D E L   F I L E   N A M E -->
-                    <div cy-name="modelPath" class="field left">
+                    <div cy-name="modelPath" class="field right">
                         <span cy-field-label="modelPath" cy-input-type="input" class="label">FICHERO MODELO</span><br>
                         <div class="dsf-input-container path-width">
                             <input name="modelPath" type="text" class="dsf-input" [(ngModel)]="part.modelPath" maxlength="100" #modelPath="ngModel">
