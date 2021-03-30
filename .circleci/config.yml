@@ -49,12 +49,11 @@ jobs:
           name: PRINTER3D-FRONTEND - Install the framework
           working_directory: Printer3D-frontend
           command: |
-            cp --update --verbose package.json package.json.checksum
             npm install
       - save_cache:
           paths:
             - ~/project/Printer3D-frontend/node_modules
-          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.checksum" }}
+          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
   compile-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -84,7 +83,7 @@ jobs:
       - save_cache: # save compiled angular code after a first compilation
           paths:
             - ~/project/Printer3D-frontend/node_modules
-          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.checksum" }}
+          key: frontend-compiled-node
   validate-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -94,7 +93,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+          - frontend-compiled-node
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -134,6 +133,9 @@ jobs:
       CYPRESS_KEY: 9eebb605-a163-4da0-bb36-6af73faddf1b
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - frontend-compiled-node
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -172,10 +174,12 @@ jobs:
             npm run acceptance:ready
             npm run acceptance:cypress:D01
             npm run acceptance:cypress:D02
+            npm run acceptance:cypress:D04
             npm run acceptance:cypress:D05
             npm run acceptance:cypress:D06
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
+            npm run acceptance:cypress:D10
             npm run acceptance:cypress:D11
             npm run acceptance:cypress:D12
             npm run acceptance:cypress:D14
