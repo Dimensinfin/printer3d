@@ -13,6 +13,7 @@ import { V1CoilsPanelComponent } from './v1-coils-panel.component'
 import { InventoryService } from '../../service/inventory.service'
 import { SupportInventoryService } from '@app/testing/SupportInventory.service'
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http'
+import { Coil } from '@domain/inventory/Coil.domain'
 
 describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
     let component: V1CoilsPanelComponent
@@ -53,7 +54,7 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
         })
     })
 
-    // - O N I N I A T I Z A T I O N   P H A S E
+    // - O N I N I T I A L I Z A T I O N   P H A S E
     describe('On Initialization Phase', async () => {
         it('ngOnInit.before: validate initialization flow', () => {
             const componentAsAny = component as any
@@ -98,6 +99,51 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
             expect(componentAsAny.backendConnections.length).toBe(1)
             expect(componentAsAny.dataModelRoot.length).toBe(0)
             expect(isolationService.processException).toHaveBeenCalled()
+        }))
+    })
+
+    // - C O D E   C O V E R A G E   P H A S E
+    describe('Code Coverage Phase [Interactions]', () => {
+        it('changeFilter.success: signal the change on the active filter', () => {
+            const componentAsAny = component as any
+            expect(componentAsAny.backendConnections.length).toBe(0)
+            component.changeFilter()
+            expect(componentAsAny.backendConnections.length).toBe(1)
+        })
+        it('coilCounter.success: check the coil counter value', () => {
+            const componentAsAny = component as any
+            expect(component.coilCounter()).toBe(0)
+            componentAsAny.coilList = [new Coil(), new Coil(), new Coil()]
+            expect(component.coilCounter()).toBe(3)
+        })
+    })
+    describe('Code Coverage Phase [AppPanelComponent]', () => {
+        it('getNodes2Render.success: validate the use of filters to return the list of Coils', fakeAsync(() => {
+            console.log('>[V1CoilsPanelComponent.ngOnInit.after]')
+            // - Load the list of Coils
+            const componentAsAny = component as any
+            spyOn(inventoryService, 'apiv2_InventoryGetCoils').and
+                .callFake(function () {
+                    return inventoryService.prepareResponse('inventory.coils', inventoryService.directAccessMockResource('inventory.coils'))
+                })
+            component.ngOnInit()
+            tick(1000)
+            expect(component.getNodes2Render().length).toBe(13)
+            expect(component.getNodes2Render('tpu').length).toBe(1)
+        }))
+        it('getNodes2Render.success: validate the cancel of filters', fakeAsync(() => {
+            console.log('>[V1CoilsPanelComponent.ngOnInit.after]')
+            // - Load the list of Coils
+            const componentAsAny = component as any
+            spyOn(inventoryService, 'apiv2_InventoryGetCoils').and
+                .callFake(function () {
+                    return inventoryService.prepareResponse('inventory.coils', inventoryService.directAccessMockResource('inventory.coils'))
+                })
+            component.filterInactive = false
+            component.ngOnInit()
+            tick(1000)
+            expect(component.getNodes2Render().length).toBe(23)
+            expect(component.getNodes2Render('tpu').length).toBe(3)
         }))
     })
 })

@@ -28,7 +28,7 @@ import { IFiltered } from '@domain/interfaces/IFiltered.interface'
 export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
     public filter: string = ''
     public filterInactive: boolean = true;
-    private coilList: ICollaboration[]=[]
+    private coilList: ICollaboration[] = []
 
     constructor(
         protected isolationService: IsolationService,
@@ -38,9 +38,8 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
 
     public ngOnInit(): void {
         console.log(">[V1CoilsPanelComponent.ngOnInit]")
-        this.startDownloading()
         this.setVariant(EVariant.COIL_LIST)
-        this.refresh()
+        super.ngOnInit()
         console.log("<[V1CoilsPanelComponent.ngOnInit]")
     }
 

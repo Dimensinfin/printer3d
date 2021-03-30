@@ -14,20 +14,23 @@ import { V1NewModelPanelComponent } from '../../panels/v1-new-model-panel/v1-new
     templateUrl: './v3-inventory-page.component.html',
     styleUrls: ['./v3-inventory-page.component.scss']
 })
-export class V3InventoryPageComponent implements OnInit, Refreshable {
+export class V3InventoryPageComponent implements Refreshable {
     @ViewChild(V1CatalogPanelComponent) private catalogPanel: V1CatalogPanelComponent;
     @ViewChild(V1NewModelPanelComponent) private modelEditingPanel: V1NewModelPanelComponent;
     public selected: Model
     public self: V3InventoryPageComponent
 
-    public ngOnInit(): void {
+    constructor() {
         this.self = this
     }
+
+    // - I N T E R A C T I O N S
     public setSelected(newSelection: Model) {
         console.log('>[V3InventoryPageComponent.setSelected]> Label: ' + newSelection.getLabel())
         this.selected = newSelection
         if (null != this.modelEditingPanel) this.modelEditingPanel.startEditing(newSelection)
     }
+
     public closeEditor(): void {
         if (null != this.modelEditingPanel) this.modelEditingPanel.stopEditing()
     }
