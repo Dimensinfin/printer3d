@@ -83,7 +83,7 @@ jobs:
       - save_cache: # save compiled angular code after a first compilation
           paths:
             - ~/project/Printer3D-frontend/node_modules
-          key: frontend-compiled-node
+          key: frontend-compiled-node-{{ epoch }}
   validate-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -123,6 +123,10 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm run test:prod
+      - save_cache: # save compiled angular code after a first compilation
+          paths:
+            - ~/project/Printer3D-frontend/coverage
+          key: frontend-coverage-{{ epoch }}
       - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
   acceptance-test-frontend-prepare:
@@ -261,7 +265,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-compiled-node
+          - frontend-compiled-node-{{ epoch }}
+          - frontend-compiled-node-
+      - restore_cache:
+          keys:
+          - frontend-coverage-{{ epoch }}
+          - frontend-coverage-
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -269,20 +278,13 @@ jobs:
             node -v
             npm config set @bit:registry https://node.bitsrc.io
       - run:
-          name: PRINTER3D-FRONTEND - Validate the CI machine configuration
-          working_directory: Printer3D-frontend
-          environment:
-            DOCKERIZE_VERSION: v0.3.0
-          command: |
-            node -v
-            npm install
-      - run:
           name: PRINTER3D-FRONTEND - Upload SonarQube statistics
           working_directory: Printer3D-frontend
           environment:
             SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
           command: |
-            npm run test:prod
+            npm install
+            # npm run test:prod
             npm run sonar:prod
   stage-frontend-to-heroku:
     docker:
@@ -581,6 +583,7 @@ workflows:
       - quality-sonarcloud-backend:
           requires:
             - unittest-backend-job
+            - acceptance-test-backend-job
           filters:
             branches:
               only:
