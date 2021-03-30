@@ -423,7 +423,6 @@ workflows:
                 - master
       - validate-frontend-job:
           requires:
-            - start-job
             - compile-frontend-job
           filters:
             branches:
@@ -444,7 +443,7 @@ workflows:
           filters:
             branches:
               only:
-                - experimental
+                - test
       - quality-sonarcloud-frontend:
           requires:
             - unittest-frontend-job
@@ -467,7 +466,6 @@ workflows:
                 - master
       - compile-backend-job:
           requires:
-            - start-job
             - cache-dependencies-backend
           filters:
             branches:
