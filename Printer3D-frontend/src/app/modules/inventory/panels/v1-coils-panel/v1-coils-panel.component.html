@@ -1,6 +1,6 @@
 <div cy-name="panel-title" class="panel-title">
     <div class="row">
-        <div class="row">
+        <div class="row" style="flex-grow: 1;">
             <div cy-name="coilCounter">
                 <div cy-field-value="coilCounter" class="counter">{{nodeCounter()}}</div>
             </div>
@@ -22,11 +22,11 @@
                     </svg>
             </div>
         </div>
-        <div class="filter-margins">Filtro.</div>
+        <div class="filter-margins filter-label">Filtro.</div>
         <div cy-name="inactiveFilter" style="font-size: 16px;">
             <span cy-input-type="checkbox">
                 <input name="inactiveFilter" type="checkbox" style="margin-left:60px;" [(ngModel)]="filterInactive" (ngModelChange)="changeFilter()">
-                <span cy-field-label="inactiveFilter">Filtrar elementos inactivos.</span>
+                <span cy-field-label="inactiveFilter" class="filter-label">Filtrar elementos inactivos.</span>
             </span>
         </div>
     </div>

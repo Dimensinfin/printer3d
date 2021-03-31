@@ -40,7 +40,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         console.log("<[V3InventoryPageComponent.ngOnInit]");
     }
     // - I N T E R A C T I O N
-    public changeFilter(): void {
+    public toggleFilter(): void {
         console.log("-[V1CatalogPanelComponent.changeFilter]")
         this.refresh()
     }
