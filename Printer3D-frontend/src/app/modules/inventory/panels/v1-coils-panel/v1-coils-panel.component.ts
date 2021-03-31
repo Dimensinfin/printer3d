@@ -88,10 +88,11 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
             this.inventoryService.apiv2_InventoryGetCoils()
                 .subscribe((coilList: Coil[]) => {
                     console.log('-[V1CoilsPanelComponent.downloadCoils]> Nodes downloaded: ' + coilList.length)
-                    this.completeDowload(this.sortCoilByIdentificationFields(
+                    this.coilList=this.sortCoilByIdentificationFields(
                         this.sortCoilByWeightDesc(
                             this.filterActiveCoils(coilList))
-                    )) // Notify the completion of the download.
+                    ) // Notify the completion of the download.
+                    this.completeDowload(this.coilList)
                 }, (error) => {
                     console.log(JSON.stringify(error))
                     console.log('-[V1CoilsPanelComponent.downloadCoils.exception]> Error message: ' + JSON.stringify(error.error))
