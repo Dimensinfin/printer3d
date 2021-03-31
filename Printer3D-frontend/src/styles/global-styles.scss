@@ -115,3 +115,7 @@ hr {
     display: none;
     visibility: hidden;
 }
+
+.disabled-node {
+    background-color: $inactive-node-color;
+}
