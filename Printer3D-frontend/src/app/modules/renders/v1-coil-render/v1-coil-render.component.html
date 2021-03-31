@@ -19,7 +19,7 @@
             <div cy-field-label="color" class="label">COLOR</div>
             <div cy-field-value="color" class="field-height">{{getColor()}}</div>
         </div>
-        <div cy-name="label" class="field color-width">
+        <div cy-name="label" class="field color-width invisible">
             <div cy-field-label="label" class="label">ETIQUETA</div>
             <div cy-field-value="label" class="field-height">{{getLabel()}}</div>
         </div>
@@ -62,7 +62,7 @@
                 <div cy-field-label="color" class="label">COLOR</div>
                 <div cy-field-value="color" class="field-height">{{getColor()}}</div>
             </div>
-            <div cy-name="label" class="field color-width">
+            <div cy-name="label" class="field color-width invisible">
                 <div cy-field-label="label" cy-input-type="input" class="label">ETIQUETA</div>
                 <div class="dsf-input-container color-width">
                     <input name="label" class="dsf-input" [(ngModel)]="editCoil.label" required min="1" max="50" oninput="validity.valid||(value='');" #label="ngModel">
