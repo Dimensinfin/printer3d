@@ -107,4 +107,9 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
     public nodeCounter(): number {
         return this.renderNodeList.length
     }
+    protected isEmpty(target?: any): boolean {
+        if (null == target) return true;
+        if (Object.keys(target).length > 0) return false;
+        return true;
+    }
 }

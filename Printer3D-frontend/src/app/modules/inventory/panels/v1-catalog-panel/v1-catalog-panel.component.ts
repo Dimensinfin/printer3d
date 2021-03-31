@@ -89,15 +89,16 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                     const partList = this.sortPartsByActive(response.getParts());
                     // Classify Parts on part containers.
                     partList.forEach(element => {
-                        let hit = this.partContainers.get(element.label);
+                        let hit = this.partContainers.get(element.label)
                         if (null == hit) {
-                            hit = new PartContainer(element);
-                            this.partContainers.set(element.label, hit);
+                            hit = new PartContainer(element)
+                            this.partContainers.set(element.label, hit)
                         }
-                        if (this.filterInactive) {// Filter out inactive items
+                        if (this.filterInactive) {  // Filter out inactive items
                             if (element.isActive()) hit.addPart(element)
-                        } else hit.addPart(element);
-                    });
+                        } else hit.addPart(element)
+                    })
+                    this.partContainers = this.removeEmptyContainers()
                     this.downloadModels()
                 })
         )
@@ -140,11 +141,19 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                 })
         )
     }
+    private removeEmptyContainers(): Map<string, PartContainer> {
+        const filteredContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
+        this.partContainers.forEach((value, key) => {
+            if (!this.isEmpty(value.contents))
+                filteredContainers.set(key, value)
+        })
+        return filteredContainers
+    }
     private sortPartsByActive(parts: Part[]): Part[] {
         return parts.sort((part1, part2) => {
-            if (part1.active && !part2.active) return -1;
-            if (!part1.active && part2.active) return 1;
-            return 0;
+            if (part1.active && !part2.active) return -1
+            if (!part1.active && part2.active) return 1
+            return 0
         })
     }
     private sortPartContainersByLabel(containers: PartContainer[]): PartContainer[] {

@@ -14,27 +14,31 @@
                     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/>
                 </svg>
             </button>
-            <div class="row" (click)="toggleExpanded()">
-                <div cy-name="label" class="field label-width">
-                    <div cy-field-label="label" class="label">ETIQUETA</div>
-                    <div cy-field-value="label" class="partcontainer-label">{{getLabel()}}</div>
+            <div class="row" style="width: 100%;" (click)="toggleExpanded()">
+                <div class="row">
+                    <div cy-name="label" class="field label-width">
+                        <div cy-field-label="label" class="label">ETIQUETA</div>
+                        <div cy-field-value="label" class="partcontainer-label">{{getLabel()}}</div>
+                    </div>
+                    <div cy-name="description" class="field">
+                        <div cy-field-label="description" class="label">DESCRIPCION</div>
+                        <div cy-field-value="description" class="partcontainer-description">{{getDescription()}}</div>
+                    </div>
                 </div>
-                <div cy-name="description" class="field description-width">
-                    <div cy-field-label="description" class="label">DESCRIPCION</div>
-                    <div cy-field-value="description" class="partcontainer-description">{{getDescription()}}</div>
-                </div>
-                <div cy-name="buildTime" class="field buildTime-width">
-                    <div cy-field-label="buildTime" class="label">TIEMPO</div>
-                    <div cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</div>
-                </div>
-                <div cy-name="weight" class="field weight-width">
-                    <div cy-field-label="weight" class="label">PLASTICO</div>
-                    <div cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</div>
-                </div>
-                <div class="right">
-                    <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;" *ngIf="node.isExpandable()">
-                        <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                <div class="row right">
+                    <div cy-name="buildTime" class="field buildTime-width">
+                        <div cy-field-label="buildTime" class="label">TIEMPO</div>
+                        <div cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</div>
+                    </div>
+                    <div cy-name="weight" class="field weight-width">
+                        <div cy-field-label="weight" class="label">PLASTICO</div>
+                        <div cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</div>
+                    </div>
+                    <div class="right">
+                        <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;" *ngIf="node.isExpandable()">
+                            <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
                     </svg>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,6 +58,15 @@
                 <v1-part style="width: 100%;" [container]="self" [node]="part" [variant]="'-CATALOG-'"></v1-part>
             </div>
         </div>
+        <svg class="left-corner-border" viewBox="0 0 100 100">
+            <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+        </svg>
+        <svg class="left-corner-clear" viewBox="0 0 100 100">
+            <path d="M0,0 L0,100 L100,0 L0,0" fill="#180A16" />
+        </svg>
+        <svg class="left-mark yellow-mark" viewBox="0 0 100 100">
+            <path d="M0,0 L0,100 L100,0 L0,0"  />
+        </svg>
     </div>
 </div>
 <!-- E D I T   V A R I A N T -->
