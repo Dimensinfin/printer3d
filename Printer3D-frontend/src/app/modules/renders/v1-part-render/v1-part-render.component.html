@@ -125,7 +125,7 @@
             <div cy-field-value="price" class="field-height part-price">{{getPrice()}}</div>
         </div>
         <div cy-name="active" class="field active-width">
-            <div cy-field-label="active" class="label">ACTIVA</div>
+            <div cy-field-label="active" class="label">ESTADO</div>
             <div cy-field-value="active" class="field-height part-active">{{getActive()}}</div>
         </div>
         <div cy-name="duplicate-button" class="field duplicate-width" (click)="duplicatePart()">
@@ -237,7 +237,7 @@
                 </div>
             </div>
             <div cy-name="active" class="field">
-                <div cy-field-label="active" cy-input-type="checkbox" class="label">ACTIVA</div>
+                <div cy-field-label="active" cy-input-type="checkbox" class="label">ESTADO</div>
                 <div class="dsf-input-container stock-width">
                     <input name="active" type="checkbox" class="dsf-input checkbox-input" [(ngModel)]="editPart.active" #active="ngModel">
                 </div>

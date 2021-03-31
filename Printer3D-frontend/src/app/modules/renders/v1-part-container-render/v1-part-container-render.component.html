@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="row">
-            <div cy-name="imagePath" class="field image-width" *ngIf="imagePathVisible()">
+            <div cy-name="imagePath" class="field image-width invisible" *ngIf="imagePathVisible()">
                 <div cy-field-label="imagePath" class="label">IMAGEN</div>
                 <div cy-field-value="imagePath" class="partcontainer-buildTime">{{getImagePath()}}</div>
             </div>
@@ -123,7 +123,7 @@
             </div>
         </div>
         <div class="column">
-            <div cy-name="imagePath" class="field image-width">
+            <div cy-name="imagePath" class="field image-width invisible">
                 <div cy-field-label="imagePath" cy-input-type="input" class="label">IMAGEN</div>
                 <div class="dsf-input-container label-width">
                     <input name="imagePath" type="text" class="dsf-input" [(ngModel)]="editPart.imagePath" maxlength="300" #imagePath="ngModel">
