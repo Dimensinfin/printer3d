@@ -104,4 +104,7 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
         return entries;
     }
     public redirectPage(route: any): void { }
+    public nodeCounter(): number {
+        return this.renderNodeList.length
+    }
 }

@@ -48,7 +48,7 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
         console.log("-[V1CatalogPanelComponent.changeFilter]")
         this.refresh()
     }
-    public coilCounter(): number {
+    public nodeCounter(): number {
         return this.coilList.length
     }
 

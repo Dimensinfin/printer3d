@@ -1,5 +1,8 @@
-<div cy-name="panel-title" class="panel-title">
-    <span>/PIEZAS/DISPONIBLES</span>
+<div cy-name="panel-title" class="row panel-title">
+    <div cy-name="partCounter">
+        <div cy-field-value="partCounter" class="counter">{{nodeCounter()}}</div>
+    </div>
+    <div>/PIEZAS/DISPONIBLES</div>
 </div>
 <hr>
 <viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Piezas...'" [downloader]="self" [variant]="getVariant()">

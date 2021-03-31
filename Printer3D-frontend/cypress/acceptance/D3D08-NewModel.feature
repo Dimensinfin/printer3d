@@ -165,3 +165,8 @@ Feature: [D3D08]-[STORY] There should be a Feature to create Models. Models have
         Then the target has the title "/PIEZAS/DISPONIBLES"
         And the target has 13 "part"
         Then number of "part" with field "active" set to "FUERA PROD." is 0
+
+    @D3D08 @D3D08.10
+    Scenario: [D3D08.10]-The aviable parts panel on the New Model page has a counter with the number of parts.
+        Then the target has 13 "part"
+        And field named "partCounter" has contents "13"
