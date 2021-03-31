@@ -9,20 +9,24 @@
     width: 60px;
 }
 
-.field-height {
-    height: 20px;
-}
-
+// .field-height {
+//     height: 20px;
+// }
 .label-width {
     min-width: 35%;
+    flex-grow: 1;
 }
 
 .material-width {
-    min-width: 280px;
+    min-width: 30%;
+    flex-grow: 2;
 }
 
 .stock-width {
-    width: 75px;
+    width: 50px;
+    max-width: 50px;
+    float: right;
+    flex-grow: 1;
 }
 
 .active-width {
@@ -30,7 +34,9 @@
 }
 
 .price-width {
-    width: 35px;
+    max-width: 35px;
+    flex-grow: 1;
+    float: right;
 }
 
 .active {

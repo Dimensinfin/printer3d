@@ -3,20 +3,20 @@
     <div class="row">
         <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
         <div class="field number-width">
-            <span cy-field-label="quantity" class="label">CANTIDAD</span><br>
-            <span cy-field-value="quantity" class="field-height job-number">{{getAggregatedNumber()}}</span>
+            <div cy-field-label="quantity" class="label">CANTIDAD</div>
+            <div cy-field-value="quantity" class="field-height job-number">{{getAggregatedNumber()}}</div>
         </div>
         <div cy-name="job-label" class="field label-width">
-            <span cy-field-label="label" class="label">ETIQUETA</span><br>
-            <span cy-field-value="label" class="field-height job-label">{{getLabel()}}</span>
+            <div cy-field-label="label" class="label">ETIQUETA</div>
+            <div cy-field-value="label" class="field-height job-label">{{getLabel()}}</div>
         </div>
         <div class="field left job-material-width">
-            <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
-            <span cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</span>
+            <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
+            <div cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</div>
         </div>
-        <div class="field tiempo-const-width last-field">
-            <span cy-field-label="buildTime" class="label">TIEMPO CONSTRUC.</span><br>
-            <span cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}} min.</span>
+        <div class="field-no-margin tiempo-const-width last-field">
+            <div cy-field-label="buildTime" class="label">TIEMPO CONSTRUC.</div>
+            <div cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}} min.</div>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
@@ -34,7 +34,7 @@
     <div class="row">
         <form #editJobForm="ngForm">
             <div cy-name="quantity" class="field" *ngIf="isEditable()">
-                <span cy-field-label="quantity" cy-input-type="input" class="label">CANTIDAD</span><br>
+                <div cy-field-label="quantity" cy-input-type="input" class="label">CANTIDAD</div>
                 <div class="dsf-input-container quantity-width">
                     <input cy-focus="mouseleave" name="quantity" type="number" class="dsf-input dsf-input-number" required [(ngModel)]="node['partCount']" (mouseleave)="onMouseLeave()" required min="1" max="100" oninput="validity.valid||(value='');" #quantity="ngModel">
                     <svg class="left-corner-border" viewBox="0 0 100 100">
@@ -53,21 +53,21 @@
         </form>
         <div *ngIf="!isEditable()">
             <div cy-name="quantity-data" class="field quantity-width">
-                <span cy-field-label="quantity-data" class="label">CANTIDAD</span><br>
-                <span cy-field-value="quantity-data" class="field-height job-label">{{getCopies()}}</span>
+                <div cy-field-label="quantity-data" class="label">CANTIDAD</div>
+                <div cy-field-value="quantity-data" class="field-height job-label">{{getCopies()}}</div>
             </div>
         </div>
         <div cy-name="label" class="field building-label-width">
-            <span cy-field-label="label" class="label">ETIQUETA</span><br>
-            <span cy-field-value="label" class="field-height job-label">{{getLabel()}}</span>
+            <div cy-field-label="label" class="label">ETIQUETA</div>
+            <div cy-field-value="label" class="field-height job-label">{{getLabel()}}</div>
         </div>
         <div cy-name="material" class="field right">
-            <span cy-field-label="material" class="label">MATERIAL/COLOR</span><br>
-            <span cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</span>
+            <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
+            <div cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</div>
         </div>
         <div cy-name="buildTime" class="field">
-            <span cy-field-label="buildTime" class="label">TIEMPO</span><br>
-            <span cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}}</span>
+            <div cy-field-label="buildTime" class="label">TIEMPO</div>
+            <div cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}}</div>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">

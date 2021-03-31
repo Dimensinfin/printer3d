@@ -8,6 +8,7 @@
 
 .label-width {
     min-width: 35%;
+    flex-grow: 1;
 }
 
 .quantity-width {
@@ -15,7 +16,9 @@
 }
 
 .price-width {
-    width: 40px;
+    max-width: 35px;
+    flex-grow: 1;
+    float: right;
 }
 
 .quantity-width {

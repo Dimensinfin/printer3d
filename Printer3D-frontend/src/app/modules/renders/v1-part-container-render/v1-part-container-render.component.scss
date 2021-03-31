@@ -16,14 +16,12 @@
     min-width: 20em;
 }
 
-.buildTime-width {
-    min-width: 4em;
-}
-
-.weight-width {
-    min-width: 4em;
-}
-
+// .buildTime-width {
+//     min-width: 4em;
+// }
+// .weight-width {
+//     min-width: 4em;
+// }
 .image-width {
     flex-grow: 1;
     margin-left: 76px;
@@ -35,5 +33,5 @@
 }
 
 .description-width {
-    width: 390px;
+    width: 60%;
 }
