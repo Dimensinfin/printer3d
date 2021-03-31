@@ -11,7 +11,7 @@ The App 1 and App 2 are glued by a Node server that will create a unique virtual
 
 The project has Continuous Integration on the CircleCI platform and the production application instances will be located on Heroku servers.
 
-**Latest version is PRODUCTION 0.13.0.**
+**Latest version is PRODUCTION 0.14.1.**
 
 ## Application Feature Summary
 * The UI allows to control the Rolls of plastic that can be used as source materials on the 3D printers.
