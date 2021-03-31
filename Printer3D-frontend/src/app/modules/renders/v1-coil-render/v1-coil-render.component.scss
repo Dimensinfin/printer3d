@@ -1,3 +1,8 @@
+@import "../../../../styles/_scss_variables.scss";
+.disabled-coil {
+    background-color: $inactive-node-color;
+}
+
 .material-width {
     min-width: 60px;
 }

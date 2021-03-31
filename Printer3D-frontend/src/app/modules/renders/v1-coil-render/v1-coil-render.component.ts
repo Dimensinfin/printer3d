@@ -66,6 +66,10 @@ export class V1CoilRenderComponent extends NodeContainerRenderComponent {
         if (this.getNode()) return this.getNode().weight + ' gr.'
         else return '- gr.'
     }
+    public isActive(): boolean {
+        if (this.getNode()) return this.getNode().active
+        else return false
+    }
 
     // - EDITING
     public isEditing(): boolean {
