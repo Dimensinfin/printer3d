@@ -4,17 +4,17 @@
 }
 
 .graph-container {
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+    font-family: 'Electrolize', sans-serif;
+    text-transform: uppercase;
     border: 1px solid darkviolet;
-    padding: 2px;
     width: 220px;
     height: 80px;
     color: blueviolet;
-    font-size: 9px;
-    font-family: 'Electrolize', sans-serif;
-    text-transform: uppercase;
-    margin: 0px;
-    line-height: 9px;
     position: relative;
+    margin: 0px;
+    padding: 0px;
     margin-right: 8px;
 }
 

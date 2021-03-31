@@ -1,50 +1,10 @@
 [{
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.1",
-        "changes": [
-            "✅ Se ha cambiado el tipo de la fuente principal de la aplicación a Open Sans."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.1 - Piezas",
-        "changes": [
-            "✅ Los campos de IMAGEN y FICHERO IMPR. se han ampliado de capacidad al menos hasta los 300 caracteres.",
-            "Las piezas del mismo modelo pero con diferentes características en lugar de mostrarse debajo de la caja con los datos comunes ahora se muestran <b><i>dentro</i></b> de la caja de los datos comunes. Esto mejora la legibilidad de este listado."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.1 - Rollos",
-        "changes": [
-            "✅ Se ha añadido un nuevo campo de búsqueda. Si se introducen carácteres en ese campo solo se muestran los rollos que contengan ese filtro en cualquiera de los campos MARCA/MATERIAL/COLOR/ETIQUETA.",
-            "✅ Se ha incorporado un contador de Rollos en el título que indica el número de rollos que encajan con el filtro."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.0 - Rollos",
-        "changes": [
-            "✅ Se ha añadido un nuevo campo al 'Rollo' llamado 'MARCA' y que es para indicar el fabricante del plástico.",
-            "✅ Se ha añadido otro campo al 'Rollo' llamado 'ETIQUETA' y que tiene propósito general. Se recomienda usarlo para etiquetar el rollo y poderlo identificar de forma única.",
-            "✅ Hay un nuevo atributo del 'Rollo' que es un flag para indicar si el rollo está disponible o está rechazado/vacío.",
-            "✅ El nuevo campo 'ETIQUETA' es modificable despues de haber creado el 'Rollo'.",
-            "✅ El nuevo campo 'MARCA' no es modificable."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.0 - Piezas",
-        "changes": [
-            "✅ Debido a que los rollos se pueden desactivar y activar, los desplegables para indicar los Meteriales/Colores disponibles pueden cambiar y aparecer o desaparecer colores. No es posible crear piezas basadas en rollos que ya no están en inventario.",
-            "✅ Sin embargo las piezas creadas con colores ya no existentes siguen estando disponibles mientras tengan stock."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.0 - Patch",
-        "changes": [
-            "✅ Es posible ver esta lista de cambios si se pulsa sobre el texto de la versión. El campo de versión esta al lado del título."
-        ]
-    }
-]
+    "jsonClass": "PatchChange",
+    "name": "➰ Anotaciones cambio 0.14.2",
+    "changes": [
+        "✅ Ajustados algunos estilos para que los elementos se coloquen más adecuadamente en el caso que las páginas no sean tan anchas como se necesite.",
+        "🐞 Resuelto el problema de que la activación de la edición de un modelo también desplegaba su contenido. Ahora el click en el boton se diferencia del click en el contenido para desplegar las piezas que componen un modelo.",
+        "✅ Incorporado un contador de piezas disponibles en la página de creación de un modelo.",
+        ""
+    ]
+}]

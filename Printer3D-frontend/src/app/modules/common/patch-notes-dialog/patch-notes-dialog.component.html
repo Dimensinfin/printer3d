@@ -1,7 +1,7 @@
 <div cy-name="new-coil-dialog" id="modal-content-wrapper">
-    <header id="modal-header">
-        <div class="row" style="background-color: black;">
-            <div class="panel-title header-title">/Patch Notes</div>
+    <!-- <header id="modal-header">
+        <div class="row header-title">
+            <div class="panel-title">/Cambios Realizados</div>
             <div class="button-container" style="margin-bottom: 20px;">
                 <button cy-name="cancel-button" type="button" class="button cancel-button" (click)="closeModal()">
                     <i class="fa fa-times" aria-hidden="true"></i>
@@ -29,7 +29,39 @@
                 </div>
             </div>
         </div>
+    </header> -->
+    <header>
+        <div class="row header">
+            <div class="panel-title header-title">
+                <span>/Cambios Realizados</span>
+            </div>
+            <div class="button-container">
+                <button cy-name="cancel-button" class="button cancel-button" style="width: 150px;" (click)="closeModal()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Cerrar
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                </svg>
+                <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                </svg>
+                <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" />
+                </svg>
+            </div>
+        </div>
     </header>
+
     <section id="modal-body" class="patch-section">
         <viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Comprobando lista de Cambios...'" [downloader]="self" [variant]="'-PATCH-NOTES-LIST-'">
         </viewer-panel>
