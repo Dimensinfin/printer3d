@@ -30,24 +30,35 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 })
             )
     }
-    private printErrorReport(error: HttpErrorResponse) {
+    private printErrorReport(exception: HttpErrorResponse) {
+        // Detect the type of error to extract the corrent information.
+        if (exception.error) {
+            const error = exception.error
+            if (error.error) { // This type of exception is received when there is a parsing error.
+                const causeException = error.error
+                if (causeException instanceof SyntaxError) {
+                    this.processSyntaxErrorReport(exception)
+                    return
+                }
+            }
+        }
         let errorName: string = '-'
         let httpStatus
         let message: string = '-'
         let cause: string = '-'
-        if (null != error.error) {
-            if (null != error.error.errorName) {
-                errorName = error.error.errorName
-                httpStatus = error.error.httpStatus
-                message = error.error.message
-                cause = error.error.cause
+        if (null != exception.error) {
+            if (null != exception.error.errorName) {
+                errorName = exception.error.errorName
+                httpStatus = exception.error.httpStatus
+                message = exception.error.message
+                cause = exception.error.cause
             }
         }
         else {
-            errorName = error.statusText
-            httpStatus = error.status
-            message = error.message
-            cause = error.url
+            errorName = exception.statusText
+            httpStatus = exception.status
+            message = exception.message
+            cause = exception.url
         }
         console.log('>[Exception]> ErrorName: ' + errorName)
         console.log('>[Exception]> HttpStatus: ' + httpStatus)
@@ -57,5 +68,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.isolationService.errorNotification(message + '\nCausa: ' + cause, '[' + httpStatus + ']/' + errorName)
         else
             this.isolationService.errorNotification(message, '[' + httpStatus + ']/' + errorName)
+    }
+    private processSyntaxErrorReport(exception: HttpErrorResponse): void {
+        const message = exception.message
+        const cause = exception.error.error.message
+        const errorName = 'SYNTAX EXCEPTION'
+        console.log('>[Exception]> ErrorName: ' + errorName)
+        console.log('>[Exception]> Message: ' + message)
+        console.log('>[Exception]> Cause: ' + cause)
+        this.isolationService.errorNotification(message + '\nCausa: ' + cause, '[' + errorName + ']')
     }
 }
