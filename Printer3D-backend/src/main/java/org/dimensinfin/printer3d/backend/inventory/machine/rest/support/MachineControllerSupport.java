@@ -24,7 +24,7 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRe
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.v1.MachineServiceV1;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.PartRestErrors;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.SetupRequest;
 
 @Profile({ "local", "dev", "acceptance", "test" })
@@ -53,12 +53,12 @@ public class MachineControllerSupport {
 		final List<MachineEntity> machines = this.machineRepository.findByLabel( setupRequest.getMachineLabel() );
 		if (machines.isEmpty())
 			throw new DimensinfinRuntimeException( MachineServiceV1.errorMACHINENOTFOUND( setupRequest.getMachineLabel() ) );
-		for (MachineEntity machine : machines) {
+		for (final MachineEntity machine : machines) {
 			LogWrapper.info( "Found Machine: " + machine.toString() );
 			// Search for part if defined
 			if (null != setupRequest.getPartId()) {
 				final PartEntity partEntity = this.partRepository.findById( setupRequest.getPartId() ).orElseThrow( () ->
-						new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( setupRequest.getPartId() ),
+						new DimensinfinRuntimeException( PartRestErrors.errorPARTNOTFOUND( setupRequest.getPartId() ),
 								"Part not found while updating the Machine setup for acceptance testing." )
 				);
 				final MachineEntity updatedMachine = this.machineRepository.save( new SupportMachineUpdater( machine ).update(

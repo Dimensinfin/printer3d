@@ -14,7 +14,7 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.PartRestErrors;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 @Component
@@ -39,7 +39,7 @@ public class RequestJobGenerator {
 		LogWrapper.enter();
 		final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 		try {
-			for (UUID stockId : stockManager.getStockIterator()) { // Generate jobs to reach the required stock level.
+			for (final UUID stockId : stockManager.getStockIterator()) { // Generate jobs to reach the required stock level.
 				if (stockManager.getStock( stockId ) < 0) {
 					LogWrapper.info( MessageFormat.format( "Missing stock [{0}]", stockId ) );
 					jobs.addAll( this.generateRequestJobs( stockId, Math.abs( stockManager.getStock( stockId ) ) ) );
@@ -65,7 +65,7 @@ public class RequestJobGenerator {
 		try {
 			final List<Job> jobs = new ArrayList<>(); // Initialize the result list
 			final PartEntity partOpt = this.partRepository.findById( partId )
-					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( partId ) ) );
+					.orElseThrow( () -> new DimensinfinRuntimeException( PartRestErrors.errorPARTNOTFOUND( partId ) ) );
 			for (int i = 0; i < jobCount; i++)
 				jobs.add( new Job.Builder().withPart(
 						new PartEntityToPartConverter().convert( partOpt )

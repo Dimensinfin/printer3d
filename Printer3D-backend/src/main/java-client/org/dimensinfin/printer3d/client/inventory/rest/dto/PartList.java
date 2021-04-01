@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Deprecated
 public class PartList {
 	private List<Part> parts = new ArrayList<>();
 

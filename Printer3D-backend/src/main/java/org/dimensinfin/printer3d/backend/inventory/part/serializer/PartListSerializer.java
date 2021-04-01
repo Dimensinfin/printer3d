@@ -9,6 +9,7 @@ import org.springframework.boot.jackson.JsonComponent;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 
+@Deprecated
 @JsonComponent
 public class PartListSerializer extends JsonSerializer<PartList> {
 	@Override

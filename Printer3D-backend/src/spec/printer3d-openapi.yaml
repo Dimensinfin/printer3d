@@ -255,6 +255,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PartList'
+  /api/v2/inventory/parts:
+    get:
+      tags:
+        - Inventory
+      summary: Get the list of Parts persisted at the Inventory repository.
+      description: >
+        Get the valid list of <b>Parts</b> persisted at the Inventory repository. Only the Parts that can be built because those that have no Coil
+        will be removed from the listing.
+      operationId: getParts
+      responses:
+        200:
+          description: >
+            The list of Parts persisted at the Inventory repository. Only the Parts that can be built because those that have no Coil will be
+            removed from the listing.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Part'
   /api/v1/inventory/parts/group:
     patch:
       tags:
@@ -843,11 +863,14 @@ components:
       required:
         - id
         - label
-        - colorCode
+        - material
+        - color
+        - weight
         - buildTime
         - cost
         - price
         - stockLevel
+        - active
       properties:
         id:
           type: string
@@ -969,23 +992,23 @@ components:
             with this flag. Disable status can be reverted editing the part.
           example:
             true
-    PartList:
-      type: object
-      required:
-        - count
-        - parts
-      properties:
-        count:
-          type: number
-          format: int32
-          description: >
-            The number of parts that follow on the response.
-          example:
-            8
-        parts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Part'
+    #    PartList:
+    #      type: object
+    #      required:
+    #        - count
+    #        - parts
+    #      properties:
+    #        count:
+    #          type: number
+    #          format: int32
+    #          description: >
+    #            The number of parts that follow on the response.
+    #          example:
+    #            8
+    #        parts:
+    #          type: array
+    #          items:
+    #            $ref: '#/components/schemas/Part'
     UpdateGroupPartRequest:
       type: object
       properties:

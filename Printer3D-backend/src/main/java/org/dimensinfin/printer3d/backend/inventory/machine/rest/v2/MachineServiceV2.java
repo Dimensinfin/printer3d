@@ -21,7 +21,7 @@ import org.dimensinfin.printer3d.backend.inventory.machine.rest.v1.MachineServic
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.PartRestErrors;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
@@ -99,7 +99,7 @@ public class MachineServiceV2 {
 			final MachineEntity machineEntity = this.machineRepository.findById( machineId )
 					.orElseThrow( () -> new DimensinfinRuntimeException( MachineServiceV1.errorMACHINENOTFOUND( machineId ) ) );
 			final PartEntity jobPartEntity = this.partRepository.findById( jobRequest.getPartId() )
-					.orElseThrow( () -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) );
+					.orElseThrow( () -> new DimensinfinRuntimeException( PartRestErrors.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) );
 			this.plasticConsumerManager.subtractPlasticFromCoil( jobPartEntity, jobRequest.getCopies() );
 			final MachineEntity updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update(
 					jobRequest,
@@ -123,7 +123,7 @@ public class MachineServiceV2 {
 			return new PartEntityToPartConverter().convert(
 					this.partRepository.findById( machineEntity.getCurrentJobPartId() )
 							.orElseThrow(
-									() -> new DimensinfinRuntimeException( PartServiceV1.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) )
+									() -> new DimensinfinRuntimeException( PartRestErrors.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) )
 			);
 		} else return null;
 	}

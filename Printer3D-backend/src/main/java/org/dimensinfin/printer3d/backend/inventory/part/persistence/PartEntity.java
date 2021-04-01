@@ -39,14 +39,16 @@ public class PartEntity {
 	@Column(name = "description")
 	private String description;
 	@NotNull(message = "Part 'material' is mandatory.")
+	@Size(max = 16)
 	@Column(name = "material", nullable = false)
 	private String material;
 	@NotNull(message = "Part 'color' is mandatory.")
+	@Size(max = 32)
 	@Column(name = "color", nullable = false)
 	private String color;
+	@NotNull(message = "Part 'weight' is mandatory.")
 	@Column(name = "weight", nullable = false)
 	private Integer weight = 1;
-	@NotNull(message = "Part 'cost' value is mandatory.")
 	@NotNull(message = "Part 'buildTime' is mandatory.")
 	@Column(name = "build_time", nullable = false)
 	private Integer buildTime;
@@ -59,13 +61,12 @@ public class PartEntity {
 	@NotNull(message = "Part 'stockLevel' value is mandatory.")
 	@Column(name = "stock_level", nullable = false)
 	private Integer stockLevel;
-	@NotNull(message = "Part 'stockAvailable' value is mandatory.")
 	@Column(name = "stock_available", nullable = false)
 	private int stockAvailable = 0;
-	@Size(max = 100)
+	@Size(max = 1000)
 	@Column(name = "image_path")
 	private String imagePath;
-	@Size(max = 100)
+	@Size(max = 1000)
 	@Column(name = "model_path")
 	private String modelPath;
 	@Column(name = "active", nullable = false)
@@ -124,7 +125,7 @@ public class PartEntity {
 	}
 
 	public String getMaterial() {
-		return material;
+		return this.material;
 	}
 
 	public String getModelPath() {
