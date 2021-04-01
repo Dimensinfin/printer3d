@@ -1,0 +1,3 @@
+# - Ignore the jar files used to build the docker container
+*.jar
+app-banner.txt

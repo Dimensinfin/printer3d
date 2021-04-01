@@ -9,6 +9,3 @@ build/
 out/
 target/
 coverage/
-
-# - Ignore the jar files used to build the docker container
-src/main/resources/docker/*.jar

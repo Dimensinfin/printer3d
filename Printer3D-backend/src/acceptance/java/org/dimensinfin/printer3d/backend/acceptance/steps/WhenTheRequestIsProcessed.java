@@ -22,6 +22,7 @@ import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineF
 import org.dimensinfin.printer3d.backend.support.inventory.machine.rest.MachineFeignClientV2;
 import org.dimensinfin.printer3d.backend.support.inventory.model.rest.ModelFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV1;
+import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV2;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
@@ -40,6 +41,7 @@ import io.cucumber.java.en.When;
 
 public class WhenTheRequestIsProcessed extends StepSupport {
 	private final PartFeignClientV1 partFeignClientV1;
+	private final PartFeignClientV2 partFeignClientV2;
 	private final CoilFeignClientV1 coilFeignClientV1;
 	private final CoilFeignClientV2 coilFeignClientV2;
 	private final MachineFeignClientV1 machineFeignClientV1;
@@ -50,18 +52,20 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final AccountFeignClientV1 accountFeignClientV1;
 
 	// - C O N S T R U C T O R S
-	public WhenTheRequestIsProcessed( final @NotNull Printer3DWorld printer3DWorld,
-	                                  final @NotNull PartFeignClientV1 partFeignClientV1,
-	                                  final @NotNull CoilFeignClientV1 coilFeignClientV1,
+	public WhenTheRequestIsProcessed( @NotNull final Printer3DWorld printer3DWorld,
+	                                  @NotNull final PartFeignClientV1 partFeignClientV1,
+	                                  @NotNull final PartFeignClientV2 partFeignClientV2,
+	                                  @NotNull final CoilFeignClientV1 coilFeignClientV1,
 	                                  @NotNull final CoilFeignClientV2 coilFeignClientV2,
-	                                  final @NotNull MachineFeignClientV1 machineFeignClientV1,
-	                                  final @NotNull MachineFeignClientV2 machineFeignClientV2,
-	                                  final @NotNull JobFeignClientV1 jobFeignClientV1,
-	                                  final @NotNull ModelFeignClientV1 modelFeignClientV1,
-	                                  final @NotNull RequestFeignClientV2 requestFeignClientV2,
-	                                  final @NotNull AccountFeignClientV1 accountFeignClientV1 ) {
+	                                  @NotNull final MachineFeignClientV1 machineFeignClientV1,
+	                                  @NotNull final MachineFeignClientV2 machineFeignClientV2,
+	                                  @NotNull final JobFeignClientV1 jobFeignClientV1,
+	                                  @NotNull final ModelFeignClientV1 modelFeignClientV1,
+	                                  @NotNull final RequestFeignClientV2 requestFeignClientV2,
+	                                  @NotNull final AccountFeignClientV1 accountFeignClientV1 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
+		this.partFeignClientV2 = partFeignClientV2;
 		this.coilFeignClientV1 = Objects.requireNonNull( coilFeignClientV1 );
 		this.coilFeignClientV2 = coilFeignClientV2;
 		this.machineFeignClientV1 = Objects.requireNonNull( machineFeignClientV1 );
@@ -204,6 +208,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the Update Part request is processed")
 	public void the_Update_Part_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.UPDATE_PART );
+	}
+
+	@When("the Get Parts V2 request is processed")
+	public void the_get_parts_v2_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_PARTS_V2 );
 	}
 
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
@@ -352,6 +361,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( coilV2ListResponseEntity );
 				this.printer3DWorld.setCoilV2ListResponseEntity( coilV2ListResponseEntity );
 				return coilV2ListResponseEntity;
+			case GET_PARTS_V2:
+				final ResponseEntity<List<Part>> partListV2ResponseEntity = this.partFeignClientV2
+						.getParts( this.printer3DWorld.getJwtAuthorizationToken() );
+				Assertions.assertNotNull( partListV2ResponseEntity );
+				this.printer3DWorld.setPartListV2ResponseEntity( partListV2ResponseEntity );
+				return partListV2ResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

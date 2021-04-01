@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
 import retrofit2.Call;
@@ -19,6 +20,7 @@ import retrofit2.http.Path;
 
 public interface InventoryApiV2 {
 	// - G E T T E R S   &   S E T T E R S
+
 	/**
 	 * Gets the list of **Machines** defined on the system and persisted on the Inventory unit.
 	 * This version changes the contents so it is not compatible with previous versions. The build job information is collected into a new data
@@ -40,6 +42,16 @@ public interface InventoryApiV2 {
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v2/inventory/coils")
 	Call<List<Coil>> getCoils( @Header("Authorization") final @NotNull String authorizationToken );
+
+	/**
+	 * Get the valid list of <b>Parts</b> persisted at the Inventory repository. Only the Parts that can be built because those that have no Coil
+	 * will be removed from the listing.
+	 *
+	 * @return Call&lt;PartList&gt;
+	 */
+	@Headers({ "Content-Type:application/json" })
+	@GET("api/v2/inventory/parts")
+	Call<List<Part>> getParts( @Header("Authorization") final @NotNull String authorizationToken );
 
 	/**
 	 * Signals the registration and start of a new build job.

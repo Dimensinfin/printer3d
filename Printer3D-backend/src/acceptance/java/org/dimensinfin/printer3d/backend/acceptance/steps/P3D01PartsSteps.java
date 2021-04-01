@@ -18,6 +18,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartReques
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class P3D01PartsSteps extends StepSupport {
 
@@ -66,6 +67,13 @@ public class P3D01PartsSteps extends StepSupport {
 		final Part part = new CucumberTableToPartConverter().convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( part );
 		this.printer3DWorld.setPart( part );
+	}
+
+	@When("the number of Parts is {int}")
+	public void the_number_of_parts_is( final Integer partCount ) {
+		Assertions.assertNotNull( this.printer3DWorld.getPartListV2ResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getPartListV2ResponseEntity().getBody() );
+		Assertions.assertEquals( partCount, this.printer3DWorld.getPartListV2ResponseEntity().getBody().size() );
 	}
 
 	@Then("the response for Update Part has the next fields")
