@@ -67,7 +67,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     describe('Getter Phase', () => {
         it('appTitle: check value declared for "appTitle"', () => {
             expect(component.getAppTitle()).toBeDefined('field "appTitle" not defined.')
-            expect(component.getAppTitle()).toBe('3DPrinterManagement - UI')
+            expect(component.getAppTitle()).toBe('Tetsuo3D - UI')
         })
         it('appVersion: check value declared for "appVersion"', () => {
             expect(component.getAppVersion()).toBeDefined('field "appVersion" not defined.')
@@ -79,7 +79,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     describe('Field Acceptance Phase', () => {
         it('appTitle: check value declared for "appTitle"', () => {
             expect(component.appTitle).toBeDefined('field "appTitle" not defined.')
-            expect(component.appTitle).toBe('3DPrinterManagement - UI')
+            expect(component.appTitle).toBe('Tetsuo3D - UI')
         })
         it('appVersion: check value declared for "appVersion"', () => {
             expect(component.appVersion).toBeDefined('field "appVersion" not defined.')

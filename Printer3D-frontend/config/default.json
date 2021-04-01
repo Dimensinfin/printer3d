@@ -1,6 +1,6 @@
 {
     "settings": {
-        "appname": "3DPrinterManagement - UI",
+        "appname": "Tetsuo3D - UI",
         "port": 5100,
         "applicationhome": "/dist/Printer3D-frontend",
         "backendproxy": "http://localhost:5110/",

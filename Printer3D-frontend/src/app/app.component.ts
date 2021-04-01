@@ -19,7 +19,7 @@ import { PatchNotesDialogComponent } from './modules/common/patch-notes-dialog/p
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends BackgroundEnabledComponent implements OnInit {
-    public appTitle: string = '3DPrinterManagement - UI';
+    public appTitle: string = 'Tetsuo3D - UI';
     public appVersion: string = environment.appVersion;
     public backendVersion: string = 'backend';
     public self: AppComponent;
