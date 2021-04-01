@@ -1,5 +1,5 @@
 [{
-        "label": "/Rollos",
+        "label": "/Filamentos",
         "enabled": true,
         "active": false,
         "interaction": "PAGEROUTE",
@@ -27,7 +27,7 @@
         "route": "/production/pendingjobs"
     },
     {
-        "label": "/Nuevo Rollo",
+        "label": "/Nuevo Filamento",
         "enabled": true,
         "active": false,
         "interaction": "DIALOG",

@@ -82,7 +82,7 @@ xdescribe('service DockService [Module: SERVICES]', () => {
             const serviceAsAny = service as any;
             serviceAsAny.activeFeature = new Feature()
             serviceAsAny.featureList = [new Feature({
-                "label": "/Rollos",
+                "label": "/Filamentos",
                 "enabled": true,
                 "active": true,
                 "interaction": "PAGEROUTE",
@@ -110,7 +110,7 @@ xdescribe('service DockService [Module: SERVICES]', () => {
             const serviceAsAny = service as any;
             serviceAsAny.activeFeature = undefined
             serviceAsAny.featureList = [new Feature({
-                "label": "/Rollos",
+                "label": "/Filamentos",
                 "enabled": true,
                 "active": false,
                 "interaction": "PAGEROUTE",
@@ -126,7 +126,7 @@ xdescribe('service DockService [Module: SERVICES]', () => {
             ]
             expect(serviceAsAny.activeFeature).toBeUndefined()
             await service.activateFeature(new Feature({
-                "label": "/Rollos",
+                "label": "/Filamentos",
                 "enabled": true,
                 "active": true,
                 "interaction": "PAGEROUTE",
@@ -134,7 +134,7 @@ xdescribe('service DockService [Module: SERVICES]', () => {
             }))
             jasmine.clock().tick(200);
             expect(serviceAsAny.activeFeature).toBeDefined()
-            expect(serviceAsAny.activeFeature.label).toBe("/Rollos")
+            expect(serviceAsAny.activeFeature.label).toBe("/Filamentos")
             expect(serviceAsAny.featureList).toBeDefined()
             console.log('>Features: '+JSON.stringify(serviceAsAny.featureList))
             expect(serviceAsAny.featureList[0].active).toBeTrue()
@@ -146,14 +146,14 @@ xdescribe('service DockService [Module: SERVICES]', () => {
             jasmine.clock().install();
             const serviceAsAny = service as any;
             serviceAsAny.activeFeature = new Feature({
-                "label": "/Rollos",
+                "label": "/Filamentos",
                 "enabled": true,
                 "active": false,
                 "interaction": "PAGEROUTE",
                 "route": "inventory/coillist"
             })
             serviceAsAny.featureList = [new Feature({
-                "label": "/Rollos",
+                "label": "/Filamentos",
                 "enabled": true,
                 "active": false,
                 "interaction": "PAGEROUTE",
@@ -168,7 +168,7 @@ xdescribe('service DockService [Module: SERVICES]', () => {
             })
             ]
             expect(serviceAsAny.activeFeature).toBeDefined()
-            expect(serviceAsAny.activeFeature.label).toBe("/Rollos")
+            expect(serviceAsAny.activeFeature.label).toBe("/Filamentos")
             await service.activateFeature(new Feature({
                 "label": "/Inventario",
                 "enabled": true,

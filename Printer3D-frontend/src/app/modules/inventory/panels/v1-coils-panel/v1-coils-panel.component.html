@@ -4,7 +4,7 @@
             <div cy-name="coilCounter">
                 <div cy-field-value="coilCounter" class="counter">{{nodeCounter()}}</div>
             </div>
-            <div>/ROLLOS DISPONIBLES</div>
+            <div>/FILAMENTOS DISPONIBLES</div>
         </div>
         <!-- F I L T E R -->
         <div cy-name="filter" class="field filter-margins">
@@ -32,5 +32,5 @@
     </div>
 </div>
 <hr>
-<viewer-panel [nodes2render]="getNodes2Render(filter)" [downloadtitle]="'Descargando Lista de Rollos...'" [downloader]="self" [variant]="'-COIL-LIST-'">
+<viewer-panel [nodes2render]="getNodes2Render(filter)" [downloadtitle]="'Descargando Lista de Filamentos...'" [downloader]="self" [variant]="'-COIL-LIST-'">
 </viewer-panel>

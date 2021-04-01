@@ -1,7 +1,7 @@
 @import "../../../../styles/_scss_variables.scss";
 $feature-color:white;
 $feature-background-color:black;
-$feature-width: 170px;
+$feature-width: 180px;
 .feature {
     position: relative;
     white-space: nowrap;
@@ -16,7 +16,6 @@ $feature-width: 170px;
 }
 
 .feature:hover {
-    // font-weight: bold;
     background-color: #172E47;
 }
 

@@ -74,7 +74,7 @@ describe('COMPONENT DialogFactoryService [Module: CORE]', () => {
         it('processClick.NewCoilDialog: process the click action on a Feature', async () => {
             const feature = new Feature({
                 "jsonClass": "Feature",
-                "label": "/Nuevo Rollo",
+                "label": "/Nuevo Filamento",
                 "enabled": true,
                 "active": false,
                 "interaction": "DIALOG",

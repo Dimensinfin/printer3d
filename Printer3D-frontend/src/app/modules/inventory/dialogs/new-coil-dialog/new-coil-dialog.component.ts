@@ -36,7 +36,7 @@ export class NewCoilDialogComponent implements OnInit, OnDestroy {
         this.dataToCoilTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Roll".')
             .setTransformation((entrydata: any): Coil => {
                 const targetCoil: Coil = new Coil(entrydata);
-                this.isolationService.successNotification('Rollo [' + targetCoil.getCoilIdentifier() + '] almacenado correctamente.', '/INVENTARIO/NUEVO ROLL/OK');
+                this.isolationService.successNotification('Filamento [' + targetCoil.getCoilIdentifier() + '] almacenado correctamente.', '/INVENTARIO/NUEVO ROLL/OK');
                 return targetCoil;
             });
     }

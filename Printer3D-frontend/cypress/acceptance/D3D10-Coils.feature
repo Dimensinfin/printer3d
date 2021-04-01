@@ -10,7 +10,7 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
 
     Background: Application landing page
         Given the application Printer3DManager
-        Given there is a click on Feature "/ROLLOS"
+        Given there is a click on Feature "/FILAMENTOS"
         Then the page "CoilsPage" is activated
         When the loading panel completes
         Given the target is the panel of type "coils"
@@ -22,7 +22,7 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
 
     @D3D10.02
     Scenario: [D3D10.02]-Check the title and the contents for the coils panel.
-        Then the target has the title "/ROLLOS DISPONIBLES"
+        Then the target has the title "/FILAMENTOS DISPONIBLES"
         Then the target has 13 "coil"
 
     @D3D10.03

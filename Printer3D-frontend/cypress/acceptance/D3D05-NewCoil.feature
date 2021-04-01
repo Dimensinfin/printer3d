@@ -8,7 +8,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Background: Dock Default Configuration setup
         Given the application Printer3DManager
         Given one instance of Dock
-        When there is a click on Feature "/NUEVO ROLLO"
+        When there is a click on Feature "/NUEVO FILAMENTO"
 
     # - H A P P Y   P A T H
     @D3D05.01
@@ -19,7 +19,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.02]-A new coil dialog should have all the fields empty and invalid.
         Then the "New Coil" dialog opens and blocks the display
         # - Check the empty dialog contents and field states
-        And the target has the title "/INVENTARIO/NUEVO ROLLO"
+        And the target has the title "/INVENTARIO/NUEVO FILAMENTO"
         And the target panel has a form field named "material" with label "MATERIAL" and empty
         And the target panel has a form field named "tradeMark" with label "MARCA" and empty
         And the target panel has a form field named "color" with label "COLOR" and empty
@@ -98,7 +98,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.09]-The New Coil has an additional field called label that is optional.
         Then the "New Coil" dialog opens and blocks the display
         # - Check the empty dialog contents and field states
-        And the target has the title "/INVENTARIO/NUEVO ROLLO"
+        And the target has the title "/INVENTARIO/NUEVO FILAMENTO"
         And the target panel has a form field named "label" with label "ETIQUETA" and empty
         # - Check the field state
         And form field named "label" is "valid"
@@ -122,7 +122,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
     Scenario: [D3D05.11]-If the Coil label field is set the label field state does not change.
         Then the "New Coil" dialog opens and blocks the display
         # - Check the empty dialog contents and field states
-        And the target has the title "/INVENTARIO/NUEVO ROLLO"
+        And the target has the title "/INVENTARIO/NUEVO FILAMENTO"
         And the target panel has a form field named "label" with label "ETIQUETA" and empty
         # - Check the field state
         And form field named "label" is "valid"

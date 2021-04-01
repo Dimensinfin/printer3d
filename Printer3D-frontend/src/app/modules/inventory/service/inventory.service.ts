@@ -56,10 +56,10 @@ export class InventoryService extends BackendService {
         const transformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Coil".')
             .setTransformation((entrydata: any): Coil => {
                 const targetCoil: Coil = new Coil(entrydata)
-                this.isolationService.successNotification('Rollo [' +
+                this.isolationService.successNotification('Filamento [' +
                     updatingCoil.getCoilIdentifier() +
                     '] actualizado correctamente.'
-                    , '/INVENTARIO/ACTUALIZACION ROLLO/OK')
+                    , '/INVENTARIO/ACTUALIZACION FILAMENTO/OK')
                 return targetCoil
             })
         let headers = new HttpHeaders()
