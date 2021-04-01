@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.part.rest.v2.v1;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.v2;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +35,7 @@ public class PartServiceV2 extends PartServiceV1 {
 	public List<Part> getParts() {
 		final List<Coil> coils = this.coilRepository.findAll()
 				.stream()
-				.filter( coil -> coil.getActive() )
+				.filter( Coil::getActive )
 				.collect( Collectors.toList() );
 		return this.partRepository.findAll()
 				.stream()

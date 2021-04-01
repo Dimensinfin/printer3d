@@ -25,14 +25,14 @@ public class ModelFeignClientV1 extends CommonFeignClient {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public ResponseEntity<List<Model>> getModels() throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the creation of a new Model.";
+	public ResponseEntity<List<Model>> getModels( final String authorizationToken ) throws IOException {
+		final String ENDPOINT_MESSAGE = "Request the list of Models.";
 		final Response<List<Model>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
 				.create( InventoryApiV1.class )
-				.getModels()
+				.getModels( authorizationToken )
 				.execute();
 		if (response.isSuccessful()) {
 			LogWrapper.info( ENDPOINT_MESSAGE );

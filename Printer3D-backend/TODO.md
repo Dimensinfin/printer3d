@@ -3,6 +3,8 @@
 * PartServiceV2
 * Part
 * PartServiceV1
+* ModelControllerV1
+* ModelServiceV1
 
 * RequestServiceCoreTest
 * MachineServiceV1 - requires long development

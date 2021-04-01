@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.part.rest.v2.v1;
+package org.dimensinfin.printer3d.backend.inventory.part.rest.v2;
 
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -30,6 +30,11 @@ public class PartControllerV2 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
+
+	/**
+	 * Get the valid list of <b>Parts</b> persisted at the Inventory repository. Only the Parts that can be built because those that have no Coil
+	 * will be removed from the listing.
+	 */
 	@GetMapping(path = "/inventory/parts",
 			consumes = "application/json",
 			produces = "application/json")

@@ -16,6 +16,7 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelReposi
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelUpdater;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.v2.PartServiceV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 
@@ -45,19 +46,20 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 
 public class ModelServiceV1Test {
-
 	private ModelRepository modelRepository;
 	private PartRepository partRepository;
+	private PartServiceV2 partServiceV2;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.modelRepository = Mockito.mock( ModelRepository.class );
 		this.partRepository = Mockito.mock( PartRepository.class );
+		this.partServiceV2 = Mockito.mock( PartServiceV2.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository, this.partServiceV2 );
 		Assertions.assertNotNull( modelServiceV1 );
 	}
 
@@ -85,7 +87,7 @@ public class ModelServiceV1Test {
 		// When
 		Mockito.when( this.modelRepository.findAll() ).thenReturn( modelEntityList );
 		// Test
-		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository, this.partServiceV2 );
 		final List<Model> obtained = modelServiceV1.getModels();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -134,7 +136,7 @@ public class ModelServiceV1Test {
 		Mockito.when( this.modelRepository.save( Mockito.any( ModelEntity.class ) ) ).thenReturn( modelEntity );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Test
-		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository, this.partServiceV2 );
 		final Model obtained = modelServiceV1.newModel( modelRequest );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -183,7 +185,7 @@ public class ModelServiceV1Test {
 		Mockito.when( this.modelRepository.save( Mockito.any( ModelEntity.class ) ) ).thenReturn( modelEntity );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Test
-		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository, this.partServiceV2 );
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> modelServiceV1.newModel( modelRequest ) );
 	}
 
@@ -208,9 +210,10 @@ public class ModelServiceV1Test {
 				.build();
 		// When
 		Mockito.when( this.modelRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( modelEntity ) );
-		Mockito.when( this.modelRepository.save( Mockito.any(ModelEntity.class) ) ).thenReturn( new ModelUpdater( modelEntity ).update( modelRequest ) );
+		Mockito.when( this.modelRepository.save( Mockito.any( ModelEntity.class ) ) )
+				.thenReturn( new ModelUpdater( modelEntity ).update( modelRequest ) );
 		// Test
-		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository );
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository, this.partServiceV2 );
 		final Model obtained = modelServiceV1.updateModel( modelRequest );
 		// Assertions
 		Assertions.assertEquals( TEST_MODEL_ID.toString(), obtained.getId().toString() );

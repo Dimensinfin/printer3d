@@ -20,30 +20,38 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelUpdate
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.inventory.part.rest.v2.PartServiceV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 @Service
 public class ModelServiceV1 {
-	private final ModelRepository modelRepository;
-	private final PartRepository partRepository;
+	protected final ModelRepository modelRepository;
+	protected final PartRepository partRepository;
+	private final PartServiceV2 partServiceV2;
 
 	// - C O N S T R U C T O R S
-	public ModelServiceV1( final @NotNull ModelRepository modelRepository,
-	                       final @NotNull PartRepository partRepository ) {
+	public ModelServiceV1( @NotNull final ModelRepository modelRepository,
+	                       @NotNull final PartRepository partRepository,
+	                       @NotNull final PartServiceV2 partServiceV2 ) {
 		this.modelRepository = Objects.requireNonNull( modelRepository );
 		this.partRepository = Objects.requireNonNull( partRepository );
+		this.partServiceV2 = partServiceV2;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
 
 	/**
 	 * The complete list of models stored on the backend repository.
+	 *
 	 * @return the complete list of models.
 	 */
 	public List<Model> getModels() {
+		final List<Part> partList = this.partServiceV2.getParts();
 		return this.modelRepository.findAll()
 				.stream()
+				.filter( model -> this.noMissingParts( model, partList ) )
 				.map( modelEntity -> new ModelEntityToModelConverter().convert( modelEntity ) )
 				.collect( Collectors.toList() );
 	}
@@ -103,5 +111,26 @@ public class ModelServiceV1 {
 			partEntityOpt.ifPresent( partEntity -> model.addPart( new PartEntityToPartConverter().convert( partEntity ) ) );
 		}
 		return model;
+	}
+
+	/**
+	 * Make sure all the requested parts are found on the list of available parts. That list have removed parts with missing coils.
+	 *
+	 * @param model the model to use as the part source.
+	 * @return false if there is any missing part.
+	 */
+	private boolean noMissingParts( final ModelEntity model, final List<Part> partList ) {
+		final List<UUID> partIds = model.getPartIdList();
+		for (final UUID partId : partIds) {
+			if (!this.partFound( partList, partId )) return false;
+		}
+		return true;
+	}
+
+	private boolean partFound( final List<Part> partList, final UUID partId ) {
+		for (final Part part : partList) {
+			if (part.getId().toString().equals( partId.toString() )) return true;
+		}
+		return false;
 	}
 }

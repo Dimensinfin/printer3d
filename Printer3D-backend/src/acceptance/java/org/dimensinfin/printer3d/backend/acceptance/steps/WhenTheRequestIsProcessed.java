@@ -323,7 +323,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return startBuildV2ResponseEntity;
 			case GET_MODELS:
 				final ResponseEntity<List<Model>> modelListResponseEntity = this.modelFeignClientV1
-						.getModels();
+						.getModels( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( modelListResponseEntity );
 				this.printer3DWorld.setModelListResponseEntity( modelListResponseEntity );
 				return modelListResponseEntity;

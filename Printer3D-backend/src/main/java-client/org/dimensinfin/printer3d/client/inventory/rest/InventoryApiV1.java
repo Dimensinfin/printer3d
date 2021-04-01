@@ -31,16 +31,6 @@ public interface InventoryApiV1 {
 	// - G E T T E R S   &   S E T T E R S
 
 	/**
-	 * Get the list of Models persisted at the Inventory repository.
-	 * Get the complete list of **Models** persisted at the Inventory repository.
-	 *
-	 * @return Call&lt;ModelList&gt;
-	 */
-	@Headers({ "Content-Type:application/json" })
-	@GET("api/v1/inventory/models")
-	Call<List<Model>> getModels();
-
-	/**
 	 * Signals the cancellation of the current build.
 	 * With this command the **Machine** will be recorded as ready. This cancellation command has not to be related toa real cancellation at the real
 	 * 3D printer. Maybe used to correct the current job being performed by the real printer..

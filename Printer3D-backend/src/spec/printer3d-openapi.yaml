@@ -363,6 +363,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ModelList'
+  /api/v2/inventory/models:
+    get:
+      tags:
+        - Inventory
+      summary: Get the list of Models persisted at the Inventory repository.
+      description: >
+        Get the filtered list of **Models** persisted at the Inventory repository. Filter out and remove the Models that depend on missing Parts.
+        Missing parts can be generated because they cannot be built due to missing Coils.
+      operationId: getModels
+      responses:
+        200:
+          description: >
+            The list of Models persisted at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model'
   /api/v1/inventory/models/{modelId}/addPart/{partId}:
     put:
       tags:
@@ -1288,26 +1307,6 @@ components:
             The URL for an external image stored on a public repository or Google drive. This image will be used when showing the catalog.
           example:
             'https://ibb.co/3dGbsRh'
-    ModelList:
-      type: array
-      items:
-        #        $ref: '#/components/schemas/WeekAmount'
-        #      type: object
-        #      required:
-        #        - count
-        #        - models
-        #      properties:
-        #        count:
-        #          type: number
-        #          format: int32
-        #          description: >
-        #            The number of Models that follow on the response.
-        #          example:
-        #            8
-        #        models:
-        #          type: array
-        #          items:
-        $ref: '#/components/schemas/Model'
     Model:
       type: object
       required:

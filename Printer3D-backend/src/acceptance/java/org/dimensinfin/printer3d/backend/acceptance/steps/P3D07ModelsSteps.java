@@ -48,11 +48,11 @@ public class P3D07ModelsSteps extends StepSupport {
 		this.printer3DWorld.setModelRequest( modelRequest );
 	}
 
-	@Then("the number of Models is {string}")
-	public void the_number_of_Models_is( final String modelCount ) {
+	@Then("the number of Models is {int}")
+	public void the_number_of_Models_is( final Integer modelCount ) {
 		Assertions.assertNotNull( this.printer3DWorld.getModelListResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getModelListResponseEntity().getBody() );
-		Assertions.assertEquals( Integer.parseInt( modelCount ), this.printer3DWorld.getModelListResponseEntity().getBody().size() );
+		Assertions.assertEquals( modelCount, this.printer3DWorld.getModelListResponseEntity().getBody().size() );
 	}
 
 	@Then("the response for Model requests has the next fields")
