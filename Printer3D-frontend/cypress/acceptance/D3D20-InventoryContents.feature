@@ -22,11 +22,11 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.01
     Scenario: [D3D20.01.2]-There is a checkbox to change the filter state.
-        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+        Then form field named "inactiveFilter" with label "Quitar elementos inactivos." has contents "on"
 
     @D3D20.01
     Scenario: [D3D20.01.3]-If the filter is deactivated then the inactive elements are visible.
-        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+        Then form field named "inactiveFilter" with label "Quitar elementos inactivos." has contents "on"
         When form checkbox named "inactiveFilter" is clicked
         And the loading panel completes
         # - Expand a container

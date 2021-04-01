@@ -127,12 +127,12 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
 
     @D3D10.10
     Scenario: [D3D10.10]-There is a checkbox to change the filter state.
-        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+        Then form field named "inactiveFilter" with label "Quitar elementos inactivos." has contents "on"
 
     @D3D10.11
     Scenario: [D3D10.11]-If the filter is deactivated then the inactive elements are visible.
         Then the target has 13 "coil"
-        Then form field named "inactiveFilter" with label "Filtrar elementos inactivos." has contents "on"
+        Then form field named "inactiveFilter" with label "Quitar elementos inactivos." has contents "on"
         When form checkbox named "inactiveFilter" is clicked
         And the loading panel completes
         # - Count the new list of Coils
