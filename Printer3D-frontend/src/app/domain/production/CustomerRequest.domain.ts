@@ -34,11 +34,11 @@ export class CustomerRequest extends Node {
             count += content.getQuantity()
         return count
     }
-    public getAmount(): string {
+    public getAmount(): number {
         let amount: number = 0.0
         for (let content of this.contents)
             amount += content.getPrice() * content.getQuantity();
-        return amount + ' €';
+        return amount
     }
     public getState(): RequestState {
         return this.state;

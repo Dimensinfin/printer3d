@@ -75,7 +75,7 @@ describe('CLASS Request [Module: DOMAIN]', () => {
             expect(instance.getContents()).toBeDefined()
             expect(instance.getContents().length).toBe(2)
             expect(instance.getContentCount()).toBe(6)
-            expect(instance.getAmount()).toBe('40 €')
+            expect(instance.getAmount()).toBe(40)
             expect(instance.getState()).toBe(RequestState.OPEN)
         });
     });

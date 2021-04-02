@@ -86,9 +86,9 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
     })
     // - I N T E R A C T I O N S
     describe('Component Interactions',  () => {
-        it('changeFilter click',  () => {
+        it('toggleFilter click',  () => {
             spyOn(component, 'refresh')
-            component.changeFilter()
+            component.toggleFilter()
             expect(component.refresh).toHaveBeenCalled()
         })
     })

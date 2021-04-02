@@ -1,11 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Subject } from 'rxjs'
-import { Router } from '@angular/router'
-import { Printer3DConstants } from '../../../platform/Printer3DConstants.platform'
 // - TESTING
-import { inject } from '@angular/core/testing'
 import { async } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
@@ -23,22 +19,34 @@ import { DialogFactoryService } from '@app/services/dialog-factory.service'
 import { V1DockComponent } from '../../common/v1-dock/v1-dock.component'
 import { SupportBackendService } from '@app/testing/SupportBackend.service'
 import { BackendService } from '@app/services/backend.service'
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
 import { DockService } from '@app/services/dock.service'
 import { V1RequestRenderComponent } from './v1-request-render.component'
 import { MatDialog } from '@angular/material/dialog'
 import { SupportDockService } from '@app/testing/SupportDock.service'
-import { RequestState } from '@domain/interfaces/EPack.enumerated'
+import { RequestContentType, RequestState } from '@domain/interfaces/EPack.enumerated'
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain'
+import { Part } from '@domain/inventory/Part.domain'
 
 describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
+    const testPart: Part = new Part({
+        label: "-PART-LABEL-",
+        price: 12.34,
+        stockAvailable: 321
+    })
     const testRequestOpen: CustomerRequest = new CustomerRequest({
         id: '8a2ac838-4ffa-4785-86bf-2f71ee1ab437',
         label: '-TEST-REQUEST-',
         requestDate: new Date(),
         state: RequestState.OPEN,
-        contents: [new RequestItem({ quantity: 1 })]
+        contents: [new RequestItem({
+            "itemId": "4e7001ee-6bf5-40b4-9c15-61802e4c59ea",
+            "type": RequestContentType.PART,
+            "quantity": 5,
+            "missing": 2,
+            "required": 1,
+            "content": testPart
+        })]
     })
     const testRequestCompleted: CustomerRequest = new CustomerRequest({
         id: '8a2ac838-4ffa-4785-86bf-2f71ee1ab437',
@@ -99,33 +107,58 @@ describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
 
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Getters]', () => {
-        it('getUniqueId: get the Request id', () => {
+        it('getUniqueId.success: get the Request id', () => {
             component.node = testRequestOpen
             expect(component.getUniqueId()).toBe('8a2ac838-4ffa-4785-86bf-2f71ee1ab437')
         })
-        it('getRequestDate: get the Request date', () => {
+        it('getUniqueId.failure: get the Request id', () => {
+            expect(component.getUniqueId()).toBe('-')
+        })
+        it('getRequestDate.success: get the Request date', () => {
             component.node = testRequestOpen
             expect(component.getRequestDate()).toBeDefined()
         })
-        it('getLabel: get the Request date', () => {
+        it('getRequestDate.failure: get the Request date', () => {
+            expect(component.getRequestDate()).toBeUndefined()
+        })
+        it('getLabel.success: get the Request date', () => {
             component.node = testRequestOpen
             expect(component.getLabel()).toBe('-TEST-REQUEST-')
         })
-        it('getContentCount: get the numer of elements in the request', () => {
-            component.node = testRequestOpen
-            expect(component.getContentCount()).toBe('1')
+        it('getLabel.failure: get the Request date', () => {
+            expect(component.getLabel()).toBe('-')
         })
-        it('isOpen: the Request has parts missing', () => {
+        it('getContentCount.success: get the numer of elements in the request', () => {
             component.node = testRequestOpen
-            expect(component.isOpen()).toBeTrue()
-            component.node = testRequestCompleted
-            expect(component.isOpen()).toBeFalse()
+            expect(component.getContentCount()).toBe('5')
         })
-        it('isCompleted: the Request is completed', () => {
+        it('getContentCount.failure: get the numer of elements in the request', () => {
+            expect(component.getContentCount()).toBe('-')
+        })
+        it('getAmount.success: get the ', () => {
             component.node = testRequestOpen
-            expect(component.isCompleted()).toBeFalse()
-            component.node = testRequestCompleted
+            expect(component.getAmount()).toBe('61.7 €')
+        })
+        it('getAmount.failure: get the numer of elements in the request', () => {
+            expect(component.getAmount()).toBe('- €')
+        })
+        it('isCompleted.success: the Request has parts missing', () => {
+            component.node = testRequestOpen
             expect(component.isCompleted()).toBeTrue()
+            component.node = testRequestCompleted
+            expect(component.isCompleted()).toBeFalse()
+        })
+        it('isCompleted.failure: the Request has parts missing', () => {
+            expect(component.isCompleted()).toBeTrue()
+        })
+        it('isSelected.success: get the ', () => {
+            component.node = testRequestOpen
+            const componentAsAny = component as any
+            componentAsAny.node.selected = true 
+            expect(component.isSelected()).toBeTrue()
+        })
+        it('isSelected.failure: get the numer of elements in the request', () => {
+            expect(component.isSelected()).toBeFalse()
         })
     })
 })

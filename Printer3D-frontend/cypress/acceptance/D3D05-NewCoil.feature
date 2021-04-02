@@ -23,7 +23,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         And the target panel has a form field named "material" with label "MATERIAL" and empty
         And the target panel has a form field named "tradeMark" with label "MARCA" and empty
         And the target panel has a form field named "color" with label "COLOR" and empty
-        And the target panel has a form field named "label" with label "ETIQUETA" and empty
+        # And the target panel has a form field named "label" with label "ETIQUETA" and empty
         And the target panel has a form field named "weight" with label "PESO" and empty
         # - Check the field state
         And form field named "material" is "invalid"
@@ -53,7 +53,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         Given "PLA" is set on form field "material"
         And "EOLAS" is set on form field "tradeMark"
         And "AMARILLO" is set on form field "color"
-        And "001-AMARILLO normal" is set on form field "label"
+        # And "001-AMARILLO normal" is set on form field "label"
         And 800 is set on form field "weight"
         Then the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
         And the target panel button with name "submit-button" has a label "Guardar" and is "enabled"
@@ -65,7 +65,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         Given "PLA" is set on form field "material"
         And "EOLAS" is set on form field "tradeMark"
         And "AMARILLO" is set on form field "color"
-        And "001-AMARILLO normal" is set on form field "label"
+        # And "001-AMARILLO normal" is set on form field "label"
         And 800 is set on form field "weight"
         Then the target panel button with name "submit-button" has a label "Guardar" and is "enabled"
         When  the button with name "submit-button" is clicked
@@ -85,7 +85,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         Given "PLA" is set on form field "material"
         And "EOLAS" is set on form field "tradeMark"
         And "AMARILLO" is set on form field "color"
-        And "001-AMARILLO normal" is set on form field "label"
+        # And "001-AMARILLO normal" is set on form field "label"
         And 800 is set on form field "weight"
         Then the target panel button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
         When the button with name "repeat-button" is clicked
@@ -127,7 +127,7 @@ Feature: [D3D05]-Define the requirements for the New Coil dialog interactions
         # - Check the field state
         And form field named "label" is "valid"
         # - Fill and check again
-        And "-ETIQUETA-" is set on form field "label"
+        # And "-ETIQUETA-" is set on form field "label"
         And form field named "label" is "valid"
 
     @D3D05.12

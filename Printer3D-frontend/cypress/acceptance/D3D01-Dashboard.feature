@@ -16,7 +16,7 @@ Feature: [D3D01]-When the application starts show the dashboard page with the he
         Given the application Printer3DManager
         When the application starts the default route is "/DASHBOARD"
         # - Check the header application contents
-        Then there is a field named "app-title" with the value "3DPRINTERMANAGEMENT - UI"
+        Then there is a field named "app-title" with the value "TETSUO3D - UI"
         Then there is a field named "app-version" with the value "<environment.app-version>"
         Then there is a field named "backend-version" with the value "<0.0.0 backend"
         Then there is a field named "page-path" with the value "/DASHBOARD"

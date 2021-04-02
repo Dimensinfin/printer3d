@@ -110,11 +110,11 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
             component.changeFilter()
             expect(componentAsAny.backendConnections.length).toBe(1)
         })
-        it('coilCounter.success: check the coil counter value', () => {
+        it('nodeCounter.success: check the coil counter value', () => {
             const componentAsAny = component as any
-            expect(component.coilCounter()).toBe(0)
+            expect(component.nodeCounter()).toBe(0)
             componentAsAny.coilList = [new Coil(), new Coil(), new Coil()]
-            expect(component.coilCounter()).toBe(3)
+            expect(component.nodeCounter()).toBe(3)
         })
     })
     describe('Code Coverage Phase [AppPanelComponent]', () => {

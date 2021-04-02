@@ -138,6 +138,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 # DATABASE
 ## PSQL Commands
 
+* **CONNECT** - heroku pg:psql --app printer3d-backend
 * **CHANGE SCHEMA** - *SET search_path TO printer3d;*
 * **LIST TABLES** - \dt
 * **EXIT PSQL** - \q
