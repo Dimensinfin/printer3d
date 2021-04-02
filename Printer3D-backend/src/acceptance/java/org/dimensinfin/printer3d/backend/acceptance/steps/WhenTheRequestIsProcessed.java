@@ -363,7 +363,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return coilV2ListResponseEntity;
 			case GET_PARTS_V2:
 				final ResponseEntity<List<Part>> partListV2ResponseEntity = this.partFeignClientV2
-						.getParts( this.printer3DWorld.getJwtAuthorizationToken() );
+						.getPartsV2( this.printer3DWorld.getJwtAuthorizationToken() );
 				Assertions.assertNotNull( partListV2ResponseEntity );
 				this.printer3DWorld.setPartListV2ResponseEntity( partListV2ResponseEntity );
 				return partListV2ResponseEntity;

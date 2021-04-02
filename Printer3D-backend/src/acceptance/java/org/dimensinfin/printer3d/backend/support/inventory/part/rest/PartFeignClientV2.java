@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
-import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
@@ -17,13 +16,13 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PartFeignClientV2 extends CommonFeignClient {
+public class PartFeignClientV2 extends PartFeignClientV1 {
 	// - C O N S T R U C T O R S
 	public PartFeignClientV2( final @NotNull ITargetConfiguration acceptanceTargetConfig ) {
 		super( acceptanceTargetConfig );
 	}
 
-	public ResponseEntity<List<Part>> getParts( final String authorizationToken ) throws IOException {
+	public ResponseEntity<List<Part>> getPartsV2( final String authorizationToken ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the list of all parts excluding the ones that cannot be built.";
 		final Response<List<Part>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )

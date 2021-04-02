@@ -26,10 +26,11 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 		this.printer3DWorld = printer3DWorld;
 	}
 
+	//	@Override
 	@Override
 	public boolean validate( final Map<String, String> rowData, final Coil record ) {
 		if (null != rowData.get( ID ))
-			Assertions.assertEquals( rowData.get( ID ), this.cucumberDataMap( this.printer3DWorld, record.getId().toString() ) );
+			Assertions.assertEquals( this.cucumberDataMap( this.printer3DWorld, rowData.get( ID ) ), record.getId().toString() );
 		Assertions.assertEquals( rowData.get( MATERIAL ), record.getMaterial() );
 		Assertions.assertEquals( rowData.get( TRADE_MARK ), record.getTradeMark() );
 		Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );

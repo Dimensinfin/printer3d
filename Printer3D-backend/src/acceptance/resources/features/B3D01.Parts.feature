@@ -1,4 +1,4 @@
-@P3D01 @Parts
+@B3D01 @Parts
 Feature: [STORY] Manage the Parts on the Inventory repository
 
   The Parts inventory service should allow to create new parts.
@@ -12,8 +12,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
     Given a clean Parts repository
 
     # - H A P P Y   P A T H
-  @P3D01.H @P3D01.01
-  Scenario: [P3D01.01] Validate the creation of a new Part with the data received.
+  @B3D01.H @B3D01.01
+  Scenario: [B3D01.01] Validate the creation of a new Part with the data received.
     And the next NewPart request
       | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -23,8 +23,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 5      | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
-  @P3D01.H @P3D01.02
-  Scenario: [P3D01.02] Validate the update of the Part data and check the resulting records contents.
+  @B3D01.H @B3D01.02
+  Scenario: [B3D01.02] Validate the update of the Part data and check the resulting records contents.
     And the following Parts in my service
       | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -38,8 +38,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 2.65 | 6.00  | 10         | 4              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
-  @P3D01.H @P3D01.03
-  Scenario: [P3D01.03] Request the list of Parts available on Inventory repository.
+  @B3D01.H @B3D01.03
+  Scenario: [B3D01.03] Request the list of Parts available on Inventory repository.
     And the following Parts in my service
       | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -55,8 +55,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
-  @P3D01.H @P3D01.04
-  Scenario: [P3D01.04] When a group update is received validate that only the affected Parts are updated.
+  @B3D01.H @B3D01.04
+  Scenario: [B3D01.04] When a group update is received validate that only the affected Parts are updated.
     And the following Parts in my service
       | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -74,8 +74,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 65        | 12     | 0.65 | 2.00  | 3          | 2              | https://ibb.co/changed | pieza101.STL | true   | This is a changed description.                                                                                |
       | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL   | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
-  @P3D01.H @P3D01.06
-  Scenario: [P3D01.06] When a new Part request is received check that missing optional fields get persisted on database with default values.
+  @B3D01.H @B3D01.06
+  Scenario: [B3D01.06] When a new Part request is received check that missing optional fields get persisted on database with default values.
     And the next NewPart request
       | id                                   | label        | material | color  | buildTime | cost | price | imagePath              | modelPath  | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | https://ibb.co/3dGbsRh | pieza3.STL | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -85,8 +85,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | id                                   | label        | material | color  | weight | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 1      | 60        | 0.65 | 2.00  | 1          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
-  @P3D01.H @P3D01.07
-  Scenario: [P3D01.07] Validate the update of the Part Group data and check the resulting records contents.
+  @B3D01.H @B3D01.07
+  Scenario: [B3D01.07] Validate the update of the Part Group data and check the resulting records contents.
     And the following Parts in my service
       | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -104,8 +104,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 30        | 12     | 0.65 | 2.00  | 3          | 2              | https://ibb.co/changed | pieza101.STL | true   | This is a changed description.                                                                                |
       | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL   | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
-  @P3D01.H @P3D01.08
-  Scenario: [P3D01.08] When requesting the list of Parts, remove those that can no longet be built because there are no such coils.
+  @B3D01.H @B3D01.08
+  Scenario: [B3D01.08] When requesting the list of Parts, remove those that can no longet be built because there are no such coils.
     Given a clean Coils repository
     And the following Parts in my service
       | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -132,8 +132,8 @@ Feature: [STORY] Manage the Parts on the Inventory repository
     And the number of Parts is 1
 
     # - E X C E P T I O N S
-  @P3D01.E @P3D01.E.01
-  Scenario: [P3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion
+  @B3D01.E @B3D01.E.01
+  Scenario: [B3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion
   with a clear message.
     And the following Parts in my service
       | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
