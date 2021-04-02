@@ -250,7 +250,7 @@ jobs:
             npm run acceptance:cypress:D06
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
-            # npm run acceptance:cypress:D10
+            npm run acceptance:cypress:D10
             # npm run acceptance:cypress:D11
             # npm run acceptance:cypress:D12
             # npm run acceptance:cypress:D14

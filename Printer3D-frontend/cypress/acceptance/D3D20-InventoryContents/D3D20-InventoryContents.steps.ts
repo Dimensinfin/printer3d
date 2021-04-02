@@ -10,7 +10,7 @@ const supportService = new SupportService();
 // - C A T A L O G
 When('form checkbox named {string} is clicked', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]')
-        .find('span').invoke('attr', 'cy-input-type')
+        .find('div').invoke('attr', 'cy-input-type')
         .should('exist')
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('input').click()
 })

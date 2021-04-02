@@ -135,8 +135,8 @@ Given('a Part with id {string}', function (recordId: string) {
     cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
         .scrollIntoView().click()
     // Given the target the "part" with id "5caaf805-f3dd-4dfe-9545-eaa3e6300da3"
-    tag = supportService.translateTag('part') // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
-        .should('exist')
+    // tag = supportService.translateTag('part') // Do name replacement
+    // cy.log('>[the {string} is activated]> Translation: ' + tag)
+    // cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
+    //     .should('exist')
 })

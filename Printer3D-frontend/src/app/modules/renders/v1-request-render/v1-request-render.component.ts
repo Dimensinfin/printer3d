@@ -72,9 +72,9 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         return this.isCompleted()
     }
     public isCompleted(): boolean {
-        if (this.node) return (this.getNode().getState() == RequestState.OPEN)
-        else return true
-  }
+        if (this.node) return !(this.getNode().getState() == RequestState.OPEN)
+        else return false
+    }
     public isSelected(): boolean {
         if (this.getNode()) return this.getNode().isSelected()
         else return false
