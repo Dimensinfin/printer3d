@@ -59,7 +59,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         And field named "buildTime" is tested for value constraints 1
         And field named "stock" is tested for value constraints 1 to 15
         And field named "stockAvailable" is tested for value constraints 0
-        And field named "imagePath" is tested for max size of 100
+        # And field named "imagePath" is tested for max size of 100
         And field named "modelPath" is tested for max size of 100
         And field named "description" is tested for max size of 500
 

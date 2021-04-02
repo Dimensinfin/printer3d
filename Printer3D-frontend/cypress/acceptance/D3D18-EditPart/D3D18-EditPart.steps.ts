@@ -11,16 +11,16 @@ let store: any = {};
 
 // - E D I T I N G   D E T E C T I O N
 When('field named {string} is editable', function (fieldName: string) {
-    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('div').invoke('attr', 'cy-input-type')
         .should('exist')
 })
 When('field named {string} is not editable', function (fieldName: string) {
-    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('span').invoke('attr', 'cy-input-type')
+    cy.get('@target').find('[cy-name="' + fieldName + '"]').find('div').invoke('attr', 'cy-input-type')
         .should('not.exist')
 })
 When('form checkbox named {string} is clicked', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]')
-        .find('span').invoke('attr', 'cy-input-type')
+        .find('div').invoke('attr', 'cy-input-type')
         .should('exist')
     cy.get('@target').find('[cy-name="' + fieldName + '"]').find('input').click()
 })

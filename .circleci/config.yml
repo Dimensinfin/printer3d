@@ -419,9 +419,11 @@ jobs:
             dockerize -wait tcp://localhost:5121 -timeout 3m
             docker ps
             ./gradlew clean
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D01 or @P3D02"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D01 or @B3D02"
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D03 or @P3D05"
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D07"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D08"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D09"
   quality-sonarcloud-backend:
     docker:
       - image: circleci/openjdk:11-jdk

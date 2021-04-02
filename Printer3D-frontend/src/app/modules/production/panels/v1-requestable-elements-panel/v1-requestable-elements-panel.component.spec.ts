@@ -65,7 +65,7 @@ describe('COMPONENT V1RequestableElementsPanelComponent [Module: PRODUCTION]', (
         });
     });
     // - C O V E R A G E   P H A S E
-    describe('Validate Interface compliance [IPartProvider]', () => {
+    describe('Validate Interface compliance [IContentProvider]', () => {
         it('findById: serach element', () => {
             const componentAsAny = component as any;
             componentAsAny.parts = [new Part({ id: "6801b340-a572-4043-85d4-a9e10634e916" })]

@@ -39,7 +39,7 @@ export class V1ModelRenderComponent extends NodeContainerRenderComponent {
     public getComposingParts(): PartStack[] {
         return this.getNode().getParts()
     }
-    public isActive():boolean{
+    public isActive(): boolean {
         return this.getNode().isActive()
     }
 

@@ -129,6 +129,9 @@ When('the button with name {string} is clicked', function (buttonName: string) {
 Then('target has an actionable image named {string}', function (buttonName: string) {
     cy.get('@target').find('[cy-name="' + buttonName + '"]').should('exist')
 })
+Then('target actionable image named {string} is missing', function (buttonName: string) {
+    cy.get('@target').find('[cy-name="' + buttonName + '"]').should('not.exist')
+})
 When('target actionable image {string} is clicked', function (buttonName: string) {
     cy.get('@target').find('[cy-name="' + buttonName + '"]').as('target-button')
         .scrollIntoView().click()

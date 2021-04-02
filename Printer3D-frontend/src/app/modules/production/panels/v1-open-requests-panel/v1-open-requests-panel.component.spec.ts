@@ -92,7 +92,7 @@ describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
             expect(component.page.selectRequest).toHaveBeenCalled()
         });
     });
-    describe('Validate Interface compliance [IPartProvider]', () => {
+    describe('Validate Interface compliance [IContentProvider]', () => {
         it('findById.found: as a Part storage export a function to search for Parts', () => {
             const componentAsAny = component as any;
             const partList: Part[] = []

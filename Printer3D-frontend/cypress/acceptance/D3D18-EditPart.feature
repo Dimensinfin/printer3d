@@ -48,7 +48,7 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         Given an editable Part Container with id "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39"
         Then field named "buildTime" is tested for value constraints 1
         And field named "weight" is tested for value constraints 1 to 100
-        And field named "imagePath" is tested for max size of 300
+        # And field named "imagePath" is tested for max size of 300
         And field named "modelPath" is tested for max size of 300
         And field named "description" is tested for max size of 500
 
@@ -251,3 +251,21 @@ Feature: [D3D18]-[STORY] Parts have fields editable both at the generic definiti
         Then form field "stock" is cleared
         And form field named "stock" is "invalid"
         And actionable image named "save-button" is "disabled"
+
+    @D3D18.13
+    Scenario: [D3D18.13]-Inactive Parts should not have the duplicate action active.
+        # - Deactivate the filter
+        Then form field named "inactiveFilter" with label "Quitar elementos inactivos." has contents "on"
+        When form checkbox named "inactiveFilter" is clicked
+        And the loading panel completes
+        # - Expand the Part Container
+        Given the target is the panel of type "catalog"
+        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Then target has an actionable image named "expand-button"
+        # - Click the expand button
+        When target actionable image "expand-button" is clicked
+        Given the target is the panel of type "catalog"
+        Given the target the "part" with id  "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Then target has an actionable image named "duplicate-button"
+        Given the target the "part" with id "3097cf15-494e-43b7-b637-b91eb4f42630"
+        Then target actionable image named "duplicate-button" is missing
