@@ -144,17 +144,17 @@ describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
         })
         it('isCompleted.success: the Request has parts missing', () => {
             component.node = testRequestOpen
-            expect(component.isCompleted()).toBeTrue()
-            component.node = testRequestCompleted
             expect(component.isCompleted()).toBeFalse()
+            component.node = testRequestCompleted
+            expect(component.isCompleted()).toBeTrue()
         })
         it('isCompleted.failure: the Request has parts missing', () => {
-            expect(component.isCompleted()).toBeTrue()
+            expect(component.isCompleted()).toBeFalse()
         })
         it('isSelected.success: get the ', () => {
             component.node = testRequestOpen
             const componentAsAny = component as any
-            componentAsAny.node.selected = true 
+            componentAsAny.node.selected = true
             expect(component.isSelected()).toBeTrue()
         })
         it('isSelected.failure: get the numer of elements in the request', () => {

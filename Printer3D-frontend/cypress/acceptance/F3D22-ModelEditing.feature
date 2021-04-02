@@ -45,7 +45,7 @@ Feature: [F3D22]-[STORY] From the Inventory the Models can be edited.
         When target actionable image "edit-button" is clicked
         Given the target the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         When target actionable image "edit-button" is clicked
-        Then column named "label" has contents "PLATAFORMA SLOT 1/32 - Base"
+        Then column named "label" has contents "PLATAFORMA SLOT 1/32 - Verde"
 
     @F3D22.03
     Scenario: [F3D22.03]-Validate the input fields limits and constraints
