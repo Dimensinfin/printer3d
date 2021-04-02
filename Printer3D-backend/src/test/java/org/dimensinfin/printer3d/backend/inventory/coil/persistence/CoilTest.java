@@ -97,6 +97,7 @@ public class CoilTest {
 	@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass( Coil.class )
+				.withIgnoredFields( "id", "destructionTime" )
 				.verify();
 	}
 
@@ -120,6 +121,7 @@ public class CoilTest {
 		Assertions.assertEquals( TEST_COIL_WEIGHT, coil.getWeight() );
 		Assertions.assertEquals( TEST_COIL_COLOR, coil.getColor() );
 		Assertions.assertEquals( TEST_COIL_ACTIVE, coil.getActive() );
+		Assertions.assertNull( coil.getDestructionTime() );
 	}
 
 	@Test

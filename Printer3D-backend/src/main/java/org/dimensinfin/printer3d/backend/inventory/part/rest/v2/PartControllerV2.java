@@ -39,6 +39,6 @@ public class PartControllerV2 {
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<List<Part>> getParts() {
-		return new ResponseEntity<>( this.partServiceV2.getParts(), HttpStatus.OK );
+		return new ResponseEntity<>( this.partServiceV2.getPartsV2(), HttpStatus.OK );
 	}
 }

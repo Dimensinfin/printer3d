@@ -10,8 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 public class PartControllerV1Test {
 
@@ -65,6 +67,22 @@ public class PartControllerV1Test {
 		Assertions.assertNotNull( obtained.getBody() );
 		Assertions.assertEquals( 4, obtained.getBody().getCount() );
 		Assertions.assertEquals( 4, obtained.getBody().getParts().size() );
+	}
+
+	@Test
+	public void updateGroupPart() {
+		// Given
+		final UpdateGroupPartRequest updateData = Mockito.mock( UpdateGroupPartRequest.class );
+		final CounterResponse counter = new CounterResponse.Builder().withRecords( 1 ).build();
+		// When
+		Mockito.when( this.partServiceV1.updateGroupPart( Mockito.any( UpdateGroupPartRequest.class ) ) ).thenReturn( counter );
+		// Test
+		final PartControllerV1 controllerV1 = new PartControllerV1( this.partServiceV1 );
+		final ResponseEntity<CounterResponse> obtained = controllerV1.updateGroupPart( updateData );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertNotNull( obtained.getBody() );
+		Assertions.assertEquals( 1, obtained.getBody().getRecords() );
 	}
 
 	@Test

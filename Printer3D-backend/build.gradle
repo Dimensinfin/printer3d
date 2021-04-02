@@ -57,6 +57,13 @@ sourceSets {
             srcDirs += 'src/acceptance/resources'
         }
     }
+    integration {
+        java {
+            compileClasspath += main.output + test.output + acceptance.output
+            runtimeClasspath += main.output + test.output + acceptance.output
+            srcDirs += 'src/integration/java'
+        }
+    }
 }
 
 // - C O N F I G U R A T I O N S
@@ -65,10 +72,10 @@ configurations {
     runtimeClasspath {
         extendsFrom developmentOnly
     }
-//    integrationImplementation.extendsFrom testImplementation
-//    integrationRuntime.extendsFrom testRuntime
     acceptanceImplementation.extendsFrom testImplementation
     acceptanceRuntime.extendsFrom testRuntime
+    integrationImplementation.extendsFrom acceptanceImplementation
+    integrationRuntime.extendsFrom acceptanceRuntime
 }
 
 // - S P R I N G B O O T

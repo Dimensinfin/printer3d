@@ -29,7 +29,7 @@ public class BuildRecordTest {
 	public void buildFailure() {
 		final Part part = Mockito.mock( Part.class );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			BuildRecord buildRecord = new BuildRecord.Builder()
+			final BuildRecord buildRecord = new BuildRecord.Builder()
 					.withPart( part )
 					.withJobInstallmentDate( TEST_BUILDRECORD_JOBINSTALLMENTDATE )
 					.withPartCopies( null )
@@ -69,7 +69,7 @@ public class BuildRecordTest {
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertEquals( TEST_BUILDRECORD_JOBINSTALLMENTDATE, buildRecord.getJobInstallmentDate() );
 		Assertions.assertEquals( 1, buildRecord.getPartCopies() );
-		assertThat( buildRecord.getRemainingTime() ).isBetween( TEST_BUILDRECORD_BUILD_TIME * 60 - 20, TEST_BUILDRECORD_BUILD_TIME * 60 );
+		assertThat( buildRecord.getRemainingTime() ).isBetween( TEST_BUILDRECORD_BUILD_TIME * 60 - 60, TEST_BUILDRECORD_BUILD_TIME * 60 );
 
 		buildRecord = new BuildRecord.Builder()
 				.withPart( part )
@@ -80,7 +80,7 @@ public class BuildRecordTest {
 		Assertions.assertEquals( BuildState.RUNNING, buildRecord.getState() );
 		Assertions.assertEquals( TEST_BUILDRECORD_JOBINSTALLMENTDATE, buildRecord.getJobInstallmentDate() );
 		Assertions.assertEquals( 1, buildRecord.getPartCopies() );
-		assertThat( buildRecord.getRemainingTime() ).isBetween( TEST_BUILDRECORD_BUILD_TIME * 60 - 20, TEST_BUILDRECORD_BUILD_TIME * 60 );
+		assertThat( buildRecord.getRemainingTime() ).isBetween( TEST_BUILDRECORD_BUILD_TIME * 60 - 60, TEST_BUILDRECORD_BUILD_TIME * 60 );
 	}
 
 	@Test

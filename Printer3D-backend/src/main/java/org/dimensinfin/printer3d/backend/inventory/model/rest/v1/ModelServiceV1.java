@@ -48,7 +48,7 @@ public class ModelServiceV1 {
 	 * @return the complete list of models.
 	 */
 	public List<Model> getModels() {
-		final List<Part> partList = this.partServiceV2.getParts();
+		final List<Part> partList = this.partServiceV2.getPartsV2();
 		return this.modelRepository.findAll()
 				.stream()
 				.filter( model -> this.noMissingParts( model, partList ) )

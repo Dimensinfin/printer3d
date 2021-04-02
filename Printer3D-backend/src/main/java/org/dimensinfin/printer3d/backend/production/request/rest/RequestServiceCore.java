@@ -24,8 +24,8 @@ public class RequestServiceCore {
 	protected final StockManager stockManager;
 
 	// - C O N S T R U C T O R S
-	public RequestServiceCore( final @NotNull PartRepository partRepository,
-	                           final @NotNull ModelRepository modelRepository ) {
+	public RequestServiceCore( @NotNull final PartRepository partRepository,
+	                           @NotNull final ModelRepository modelRepository ) {
 		this.partRepository = partRepository;
 		this.modelRepository = modelRepository;
 		this.stockManager = new StockManager( partRepository );
@@ -41,13 +41,13 @@ public class RequestServiceCore {
 
 	protected float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
 		float amount = 0.0F;
-		for (RequestItem item : requestEntityV2.getContents()) {
+		for (final RequestItem item : requestEntityV2.getContents()) {
 			if (item.getType() == RequestContentType.PART)
 				amount = amount + item.getQuantity() * this.stockManager.getPrice( item.getItemId() );
 			if (item.getType() == RequestContentType.MODEL) {
 				final Optional<ModelEntity> model = this.modelRepository.findById( item.getItemId() );
 				if (model.isPresent())
-					for (UUID modelPartId : model.get().getPartIdList())
+					for (final UUID modelPartId : model.get().getPartIdList())
 						amount = amount + this.stockManager.getPrice( modelPartId ) * item.getQuantity();
 			}
 		}
@@ -58,13 +58,13 @@ public class RequestServiceCore {
 		final Map<UUID, Integer> contents = new HashMap<>();
 		final ModelEntity model = this.modelRepository.findById( modelId ).orElseThrow();
 		Integer hit;
-		for (UUID contentId : model.getPartIdList()) {
+		for (final UUID contentId : model.getPartIdList()) {
 			contents.putIfAbsent( contentId, 0 );
 			hit = contents.get( contentId );
 			contents.put( contentId, ++hit );
 		}
 		final List<RequestItem> resultContents = new ArrayList<>();
-		for (Map.Entry<UUID, Integer> targetContent : contents.entrySet())
+		for (final Map.Entry<UUID, Integer> targetContent : contents.entrySet())
 			resultContents.add( new RequestItem.Builder()
 					.withItemId( targetContent.getKey() )
 					.withQuantity( targetContent.getValue() * modelQuantity )

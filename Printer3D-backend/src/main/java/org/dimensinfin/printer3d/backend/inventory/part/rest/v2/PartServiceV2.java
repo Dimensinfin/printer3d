@@ -32,7 +32,7 @@ public class PartServiceV2 extends PartServiceV1 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public List<Part> getParts() {
+	public List<Part> getPartsV2() {
 		final List<Coil> coils = this.coilRepository.findAll()
 				.stream()
 				.filter( Coil::getActive )

@@ -1,0 +1,32 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RIntegrationTests" type="JUnit" factoryName="JUnit">
+    <module name="Printer3D-backend.integration" />
+    <useClassPathOnly />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.dimensinfin.printer3d.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="org.dimensinfin.printer3d.backend.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="directory" />
+    <option name="PARAMETERS" value="" />
+    <envs>
+      <env name="SPRING_PROFILES_ACTIVE" value="dev" />
+      <env name="PORT" value="5123" />
+      <env name="DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5432/postgres" />
+      <env name="DB_USER" value="adamantinoo" />
+      <env name="DB_PASSWORD" value="z.iliada.2020" />
+      <env name="NEOCOM_BANNER_LOCATION" value="./build/resources/main/app-banner.txt" />
+    </envs>
+    <dir value="$PROJECT_DIR$/src/integration/java/org/dimensinfin/printer3d/backend" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
