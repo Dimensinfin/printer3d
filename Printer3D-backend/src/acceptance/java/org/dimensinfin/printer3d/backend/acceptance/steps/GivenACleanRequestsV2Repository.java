@@ -20,6 +20,12 @@ public class GivenACleanRequestsV2Repository extends StepSupport {
 		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
 	}
 
+	@Given("a clean Requests repository")
+	public void aCleanRequestsRepository() {
+		final Integer records = this.requestFeignClientSupport.deleteAllRequestsV2();
+		Assertions.assertNotNull( records );
+	}
+
 	@Given("a clean RequestsV2 repository")
 	public void a_clean_RequestsV2_repository() {
 		final Integer records = this.requestFeignClientSupport.deleteAllRequestsV2();
