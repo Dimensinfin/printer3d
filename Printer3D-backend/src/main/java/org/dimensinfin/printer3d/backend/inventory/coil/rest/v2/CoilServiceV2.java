@@ -9,6 +9,10 @@ import org.dimensinfin.core.utility.DimObjects;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 
+/**
+ * @author Adam Antinoo (adamantinoo.git@gmail.com)
+ * @since 0.14.0
+ */
 @Service
 public class CoilServiceV2 {
 	private final CoilRepository coilRepository;

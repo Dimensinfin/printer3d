@@ -5,6 +5,7 @@
 * PartServiceV1
 * ModelControllerV1
 * ModelServiceV1
+* CoilUpdater
 
 * RequestServiceCoreTest
 * MachineServiceV1 - requires long development

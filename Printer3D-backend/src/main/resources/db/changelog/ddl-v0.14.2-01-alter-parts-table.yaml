@@ -1,0 +1,42 @@
+databaseChangeLog:
+  # - Remove views that only are producing problems and rename back the coils table
+  - changeSet:
+      id: 0_14_2_1001_printer3d_create_coils_view
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropView:
+            schemaName: printer3d
+            viewName: coils
+            remarks: Drop defined views because they are not adding content.
+  - changeSet:
+      id: 0_14_2_1002_printer3d_create_coils_view
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropView:
+            schemaName: printer3d
+            viewName: active_coils
+            remarks: Drop defined views because they are not adding content.
+  - changeSet:
+      id: 0_14_2_1003_printer3d_rename_coils_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameTable:
+            schemaName: printer3d
+            oldTableName: coilsv1
+            newTableName: coils
+            remarks: Return back to the classic single table definition.
+  - changeSet:
+      id: 0_14_2_1004_printer3d_alter_coils_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: coils
+            remarks: Add a new column to store future time when this coil record should be deleted
+            columns:
+              - column:
+                  name: destruction_time
+                  type: timestamptz
+                  constraints:
+                    nullable: true
+                    updatable: true

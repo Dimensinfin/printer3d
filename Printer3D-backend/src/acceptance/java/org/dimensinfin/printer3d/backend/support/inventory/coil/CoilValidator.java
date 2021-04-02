@@ -11,6 +11,7 @@ import org.dimensinfin.printer3d.backend.support.core.CommonValidator;
 
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COLOR;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.DESTRUCTION_TIME;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MATERIAL;
@@ -28,7 +29,7 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 	@Override
 	public boolean validate( final Map<String, String> rowData, final Coil record ) {
 		if (null != rowData.get( ID ))
-			Assertions.assertEquals( this.cucumberDataMap( this.printer3DWorld, rowData.get( ID ) ), record.getId().toString() );
+			Assertions.assertEquals( rowData.get( ID ), this.cucumberDataMap( this.printer3DWorld, record.getId().toString() ) );
 		Assertions.assertEquals( rowData.get( MATERIAL ), record.getMaterial() );
 		Assertions.assertEquals( rowData.get( TRADE_MARK ), record.getTradeMark() );
 		Assertions.assertEquals( rowData.get( COLOR ), record.getColor() );
@@ -38,6 +39,12 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 			Assertions.assertEquals( rowData.get( LABEL ), record.getLabel() );
 		if (null != rowData.get( ACTIVE ))
 			Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.getActive() );
+		if (null != rowData.get( DESTRUCTION_TIME ))
+			Assertions.assertEquals(
+					rowData.get( DESTRUCTION_TIME ),
+					this.cucumberDataReplacer( rowData.get( DESTRUCTION_TIME ),
+							(null != record.getDestructionTime()) ? record.getDestructionTime().toString() : null )
+			);
 		return true;
 	}
 }

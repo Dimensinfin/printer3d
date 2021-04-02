@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.backend.inventory.coil.persistence;
 
+import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,6 +56,8 @@ public class Coil {
 	private String label;
 	@Column(name = "active", nullable = false)
 	private Boolean active = true;
+	@Column(name = "destruction_time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Instant destructionTime;
 
 	// - C O N S T R U C T O R S
 	protected Coil() {}
@@ -71,6 +74,15 @@ public class Coil {
 
 	public String getColor() {
 		return this.color;
+	}
+
+	public Instant getDestructionTime() {
+		return this.destructionTime;
+	}
+
+	public Coil setDestructionTime( final Instant destructionTime ) {
+		this.destructionTime = destructionTime;
+		return this;
 	}
 
 	public UUID getId() {

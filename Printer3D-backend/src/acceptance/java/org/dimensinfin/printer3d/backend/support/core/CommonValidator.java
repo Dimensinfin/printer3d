@@ -17,4 +17,12 @@ public class CommonValidator {
 		}
 		return cucumberData;
 	}
+
+	protected String cucumberDataReplacer( final String cucumberData, final String recordValue ) {
+		if (cucumberData.contains( "defined" ))
+			if (null != recordValue) return cucumberData;
+		if (cucumberData.contains( "null" ))
+			if (null == recordValue) return cucumberData;
+		return recordValue;
+	}
 }
