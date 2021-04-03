@@ -251,7 +251,7 @@ jobs:
             # npm run acceptance:cypress:D06
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
-            npm run acceptance:cypress:D10
+            # npm run acceptance:cypress:D10
             npm run acceptance:cypress:D11
   acceptance-test-frontend-phase03:
     machine:
@@ -340,7 +340,7 @@ jobs:
           command: |
             npm run acceptance:ready
             npm run acceptance:cypress:D20
-            npm run acceptance:cypress:F21
+            # npm run acceptance:cypress:F21
   quality-sonarcloud-frontend:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -367,7 +367,7 @@ jobs:
             SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
           command: |
             npm install
-            # npm run test:prod
+            npm run test:prod
             npm run sonar:prod
   stage-frontend-to-heroku:
     docker:
