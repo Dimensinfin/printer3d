@@ -1,11 +1,6 @@
-package org.dimensinfin.printer3d.backend.inventory.coil.persistence;
+package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
-import java.time.Instant;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,34 +25,23 @@ import org.dimensinfin.logging.LogWrapper;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.1.0
  */
-@Entity
-@Table(name = "coils", schema = "printer3d")
 public class Coil {
-	@Id
 	@NotNull(message = "Coil unique UUID 'id' is a mandatory field and cannot be null.")
-	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
 	@Size(min = 1, max = 16)
 	@NotNull(message = "Coil 'material' is mandatory.")
-	@Column(name = "material", nullable = false)
 	private String material;
 	@Size(min = 1, max = 32)
 	@NotNull(message = "Coil 'tradeMark' is mandatory.")
-	@Column(name = "trade_mark", nullable = false)
 	private String tradeMark;
 	@Size(min = 1, max = 32)
 	@NotNull(message = "Coil 'color' is mandatory.")
-	@Column(name = "color", nullable = false)
 	private String color;
-	@Column(name = "weight", nullable = false)
 	private Integer weight = 750;
 	@Size(min = 1, max = 50)
-	@Column(name = "label", nullable = false)
 	private String label;
-	@Column(name = "active", nullable = false)
 	private Boolean active = true;
-	@Column(name = "destruction_time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-	private Instant destructionTime;
+	//	private Instant destructionTime;
 
 	// - C O N S T R U C T O R S
 	protected Coil() {}
@@ -67,23 +51,23 @@ public class Coil {
 		return this.active;
 	}
 
-	public Coil setActive( final Boolean active ) {
-		this.active = active;
-		return this;
-	}
+	//	public Coil setActive( final Boolean active ) {
+	//		this.active = active;
+	//		return this;
+	//	}
 
 	public String getColor() {
 		return this.color;
 	}
 
-	public Instant getDestructionTime() {
-		return this.destructionTime;
-	}
+	//	public Instant getDestructionTime() {
+	//		return this.destructionTime;
+	//	}
 
-	public Coil setDestructionTime( final Instant destructionTime ) {
-		this.destructionTime = destructionTime;
-		return this;
-	}
+	//	public Coil setDestructionTime( final Instant destructionTime ) {
+	//		this.destructionTime = destructionTime;
+	//		return this;
+	//	}
 
 	public UUID getId() {
 		return this.id;
@@ -93,10 +77,10 @@ public class Coil {
 		return this.label;
 	}
 
-	public Coil setLabel( final String label ) {
-		this.label = label;
-		return this;
-	}
+	//	public Coil setLabel( final String label ) {
+	//		this.label = label;
+	//		return this;
+	//	}
 
 	public String getMaterial() {
 		return this.material;
@@ -106,19 +90,19 @@ public class Coil {
 		return this.tradeMark;
 	}
 
-	public Coil setTradeMark( final String tradeMark ) {
-		this.tradeMark = tradeMark;
-		return this;
-	}
+	//	public Coil setTradeMark( final String tradeMark ) {
+	//		this.tradeMark = tradeMark;
+	//		return this;
+	//	}
 
 	public Integer getWeight() {
 		return this.weight;
 	}
 
-	public Coil setWeight( final Integer weight ) {
-		this.weight = weight;
-		return this;
-	}
+	//	public Coil setWeight( final Integer weight ) {
+	//		this.weight = weight;
+	//		return this;
+	//	}
 
 	/**
 	 * Validates that null fields can be completed with default data before being stored on the repository.

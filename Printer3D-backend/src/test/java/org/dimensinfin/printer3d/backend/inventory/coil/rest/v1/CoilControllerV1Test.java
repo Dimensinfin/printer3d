@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 
 public class CoilControllerV1Test {
 
@@ -25,22 +24,7 @@ public class CoilControllerV1Test {
 	}
 
 	@Test
-	public void getCoils() {
-		// Given
-		final CoilList coilList = Mockito.mock( CoilList.class );
-		// When
-		Mockito.when( this.coilServiceV1.getCoils() ).thenReturn( coilList );
-		// Test
-		final CoilControllerV1 coilControllerV1 = new CoilControllerV1( this.coilServiceV1 );
-		final ResponseEntity<CoilList> obtained = coilControllerV1.getCoils();
-		// Assertions
-		Assertions.assertNotNull( obtained );
-		Assertions.assertNotNull( obtained.getBody() );
-		Assertions.assertTrue( obtained.getBody().equals( coilList ) );
-	}
-
-	@Test
-	public void newRoll() {
+	public void newCoil() {
 		// Given
 		final Coil coil = Mockito.mock( Coil.class );
 		// When

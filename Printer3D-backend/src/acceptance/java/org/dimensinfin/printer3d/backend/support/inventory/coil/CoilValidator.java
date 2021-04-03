@@ -5,13 +5,12 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 
 import org.dimensinfin.acceptance.support.Validator;
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.core.CommonValidator;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COLOR;
-import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.DESTRUCTION_TIME;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MATERIAL;
@@ -40,12 +39,12 @@ public class CoilValidator extends CommonValidator implements Validator<Coil> {
 			Assertions.assertEquals( rowData.get( LABEL ), record.getLabel() );
 		if (null != rowData.get( ACTIVE ))
 			Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.getActive() );
-		if (null != rowData.get( DESTRUCTION_TIME ))
-			Assertions.assertEquals(
-					rowData.get( DESTRUCTION_TIME ),
-					this.cucumberDataReplacer( rowData.get( DESTRUCTION_TIME ),
-							(null != record.getDestructionTime()) ? record.getDestructionTime().toString() : null )
-			);
+		//		if (null != rowData.get( DESTRUCTION_TIME ))
+		//			Assertions.assertEquals(
+		//					rowData.get( DESTRUCTION_TIME ),
+		//					this.cucumberDataReplacer( rowData.get( DESTRUCTION_TIME ),
+		//							(null != record.getDestructionTime()) ? record.getDestructionTime().toString() : null )
+		//			);
 		return true;
 	}
 }

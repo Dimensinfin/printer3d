@@ -1,7 +1,5 @@
 package org.dimensinfin.printer3d.backend.inventory.coil.rest.v1;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.CoilList;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilConstants.TEST_COIL_ACTIVE;
@@ -39,25 +37,6 @@ public class CoilServiceV1Test {
 	}
 
 	@Test
-	public void getCoils() {
-		// Given
-		final Coil coil = Mockito.mock( Coil.class );
-		final List<Coil> coils = new ArrayList<>();
-		coils.add( coil );
-		coils.add( coil );
-		coils.add( coil );
-		// When
-		Mockito.when( this.coilRepository.findAll() ).thenReturn( coils );
-		// Test
-		final CoilServiceV1 coilServiceV1 = new CoilServiceV1( this.coilRepository );
-		final CoilList obtained = coilServiceV1.getCoils();
-		// Assertions
-		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( 3, obtained.getCount() );
-		Assertions.assertEquals( 3, obtained.getCoils().size() );
-	}
-
-	@Test
 	public void newCoil() {
 		// Given
 		final Coil coil = new Coil.Builder()
@@ -69,9 +48,18 @@ public class CoilServiceV1Test {
 				.withWeight( TEST_COIL_WEIGHT )
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
+		final CoilEntity coilEntity = new CoilEntity.Builder()
+				.withId( TEST_COIL_ID )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
+				.withWeight( TEST_COIL_WEIGHT )
+				.withActive( TEST_COIL_ACTIVE )
+				.build();
 		// When
 		Mockito.when( this.coilRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
-		Mockito.when( this.coilRepository.save( Mockito.any( Coil.class ) ) ).thenReturn( coil );
+		Mockito.when( this.coilRepository.save( Mockito.any( CoilEntity.class ) ) ).thenReturn( coilEntity );
 		// Test
 		final CoilServiceV1 coilServiceV1 = new CoilServiceV1( this.coilRepository );
 		final Coil obtained = coilServiceV1.newCoil( coil );
@@ -82,10 +70,17 @@ public class CoilServiceV1Test {
 	@Test
 	public void newCoilFound() {
 		// Given
-		final Coil coil = Mockito.mock( Coil.class );
+		final Coil coil = new Coil.Builder()
+				.withId( TEST_COIL_ID )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withColor( TEST_COIL_COLOR )
+				.withWeight( TEST_COIL_WEIGHT )
+				.build();
+		final CoilEntity coilEntity = Mockito.mock( CoilEntity.class );
 		// When
-		Mockito.when( coil.getId() ).thenReturn( UUID.randomUUID() );
-		Mockito.when( this.coilRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( coil ) );
+		Mockito.when( coilEntity.getId() ).thenReturn( UUID.randomUUID() );
+		Mockito.when( this.coilRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( coilEntity ) );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			final CoilServiceV1 coilServiceV1 = new CoilServiceV1( this.coilRepository );
@@ -103,13 +98,19 @@ public class CoilServiceV1Test {
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withWeight( TEST_COIL_WEIGHT )
 				.build();
-		final Coil savedCoil = Mockito.mock( Coil.class );
+		final CoilEntity coilEntity = new CoilEntity.Builder().withId( TEST_COIL_ID )
+				.withColor( TEST_COIL_COLOR )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withWeight( TEST_COIL_WEIGHT )
+				.build();
+		final CoilEntity savedCoil = Mockito.mock( CoilEntity.class );
 		final UUID uuid = UUID.fromString( "1b92bdbd-27f9-4668-8b52-0c2a67effad2" );
 		// When
 		Mockito.when( updateCoilRequest.getId() ).thenReturn( uuid );
 		Mockito.when( updateCoilRequest.getWeight() ).thenReturn( 100 );
-		Mockito.when( this.coilRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( coil ) );
-		Mockito.when( this.coilRepository.save( Mockito.any( Coil.class ) ) ).thenReturn( savedCoil );
+		Mockito.when( this.coilRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( coilEntity ) );
+		Mockito.when( this.coilRepository.save( Mockito.any( CoilEntity.class ) ) ).thenReturn( savedCoil );
 		Mockito.when( savedCoil.getId() ).thenReturn( uuid );
 		// Test
 		final CoilServiceV1 coilServiceV1 = new CoilServiceV1( this.coilRepository );

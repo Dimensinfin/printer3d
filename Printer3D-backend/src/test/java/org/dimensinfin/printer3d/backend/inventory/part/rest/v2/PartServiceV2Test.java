@@ -8,7 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.converter.CoilEntityToCoilConverter;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
@@ -25,17 +26,19 @@ public class PartServiceV2Test {
 	private PartRepository partRepository;
 	private PartEntityToPartConverter partConverter;
 	private CoilRepository coilRepository;
+	private CoilEntityToCoilConverter coilConverter;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.partRepository = Mockito.mock( PartRepository.class );
 		this.partConverter = Mockito.mock( PartEntityToPartConverter.class );
 		this.coilRepository = Mockito.mock( CoilRepository.class );
+		this.coilConverter = Mockito.mock( CoilEntityToCoilConverter.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final PartServiceV2 partServiceV2 = new PartServiceV2( this.partRepository, this.partConverter, this.coilRepository );
+		final PartServiceV2 partServiceV2 = new PartServiceV2( this.partRepository, this.partConverter, this.coilRepository, this.coilConverter );
 		Assertions.assertNotNull( partServiceV2 );
 	}
 
@@ -44,14 +47,14 @@ public class PartServiceV2Test {
 		// Given
 		final String MATERIAL = "-MATERIAL-";
 		final String COLOR = "-COLOR-";
-		final Coil coil = new Coil.Builder()
+		final CoilEntity coil = new CoilEntity.Builder()
 				.withId( TEST_COIL_ID )
 				.withMaterial( TEST_COIL_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( TEST_COIL_COLOR )
 				.withWeight( TEST_COIL_WEIGHT )
 				.build();
-		final List<Coil> coilList = new ArrayList<>();
+		final List<CoilEntity> coilList = new ArrayList<>();
 		coilList.add( coil );
 		final PartEntity part = Mockito.mock( PartEntity.class );
 		final List<PartEntity> partList = new ArrayList<>();
@@ -62,7 +65,7 @@ public class PartServiceV2Test {
 		Mockito.when( part.getMaterial() ).thenReturn( TEST_COIL_MATERIAL );
 		Mockito.when( part.getColor() ).thenReturn( TEST_COIL_COLOR );
 		// Test
-		final PartServiceV2 serviceV2 = new PartServiceV2( this.partRepository, this.partConverter, this.coilRepository );
+		final PartServiceV2 serviceV2 = new PartServiceV2( this.partRepository, this.partConverter, this.coilRepository, this.coilConverter );
 		final List<Part> obtained = serviceV2.getPartsV2();
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -73,14 +76,14 @@ public class PartServiceV2Test {
 	public void getPartsV2_nomatch() {
 		// Given
 		final String MATERIAL = "-MATERIAL-";
-		final Coil coil = new Coil.Builder()
+		final CoilEntity coil = new CoilEntity.Builder()
 				.withId( TEST_COIL_ID )
 				.withMaterial( TEST_COIL_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( TEST_COIL_COLOR )
 				.withWeight( TEST_COIL_WEIGHT )
 				.build();
-		final List<Coil> coilList = new ArrayList<>();
+		final List<CoilEntity> coilList = new ArrayList<>();
 		coilList.add( coil );
 		final PartEntity part = Mockito.mock( PartEntity.class );
 		final List<PartEntity> partList = new ArrayList<>();
@@ -91,7 +94,7 @@ public class PartServiceV2Test {
 		Mockito.when( part.getMaterial() ).thenReturn( MATERIAL );
 		Mockito.when( part.getColor() ).thenReturn( TEST_COIL_COLOR );
 		// Test
-		final PartServiceV2 serviceV2 = new PartServiceV2( this.partRepository, this.partConverter, this.coilRepository );
+		final PartServiceV2 serviceV2 = new PartServiceV2( this.partRepository, this.partConverter, this.coilRepository, this.coilConverter );
 		final List<Part> obtained = serviceV2.getPartsV2();
 		// Assertions
 		Assertions.assertNotNull( obtained );

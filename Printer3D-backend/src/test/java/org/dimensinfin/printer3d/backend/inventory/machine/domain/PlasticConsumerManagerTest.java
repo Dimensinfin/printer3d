@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 
@@ -63,22 +63,22 @@ public class PlasticConsumerManagerTest {
 				.withModelPath( TEST_PART_MODEL_PATH )
 				.withActive( false )
 				.build();
-		final List<Coil> coilList = new ArrayList<>();
-		coilList.add( new Coil.Builder()
+		final List<CoilEntity> coilList = new ArrayList<>();
+		coilList.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( TEST_PART_COLOR )
 				.withWeight( 800 )
 				.build() );
-		coilList.add( new Coil.Builder()
+		coilList.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( TEST_PART_COLOR )
 				.withWeight( 800 )
 				.build() );
-		final Coil targetCoil = new Coil.Builder()
+		final CoilEntity targetCoil = new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
@@ -114,15 +114,15 @@ public class PlasticConsumerManagerTest {
 				.withModelPath( TEST_PART_MODEL_PATH )
 				.withActive( false )
 				.build();
-		final List<Coil> coilList = new ArrayList<>();
-		coilList.add( new Coil.Builder()
+		final List<CoilEntity> coilList = new ArrayList<>();
+		coilList.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "NOT-FOUND" )
 				.withWeight( 800 )
 				.build() );
-		coilList.add( new Coil.Builder()
+		coilList.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )

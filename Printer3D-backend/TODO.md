@@ -1,4 +1,7 @@
 # Classes pending Unit Test completion
+* CoilToCoilEntityConverter
+* CoilEntityToCoilConverter
+* CoilUpdater
 * PartControllerV2
 * PartServiceV2
 * Part

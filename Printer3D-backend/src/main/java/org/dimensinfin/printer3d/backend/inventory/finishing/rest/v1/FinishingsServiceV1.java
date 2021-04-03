@@ -11,7 +11,7 @@ import java.util.Set;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Finishing;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
@@ -38,7 +38,7 @@ public class FinishingsServiceV1 {
 		final Map<String, Set<String>> finishingsOnConstruction = new HashMap<>();
 		this.coilRepository.findAll( Sort.by( Sort.Direction.ASC, "material" ) )
 				.stream()
-				.filter( Coil::getActive )
+				.filter( CoilEntity::getActive )
 				.forEach( coil -> {
 					// Check if there is a material.
 					final String material = coil.getMaterial();

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Sort;
 
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 
@@ -34,26 +34,26 @@ public class FinishingsServiceV1Test {
 	@Test
 	public void getFinishings() {
 		// Given
-		final List<Coil> allCoils = new ArrayList<>();
-		allCoils.add( new Coil.Builder()
+		final List<CoilEntity> allCoils = new ArrayList<>();
+		allCoils.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "ROJO" )
 				.build() );
-		allCoils.add( new Coil.Builder()
+		allCoils.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "VERDE" )
 				.build() );
-		allCoils.add( new Coil.Builder()
+		allCoils.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "PLA" )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withColor( "BLANCO" )
 				.build() );
-		allCoils.add( new Coil.Builder()
+		allCoils.add( new CoilEntity.Builder()
 				.withId( UUID.randomUUID() )
 				.withMaterial( "TPU" )
 				.withTradeMark( TEST_COIL_TRADE_MARK )

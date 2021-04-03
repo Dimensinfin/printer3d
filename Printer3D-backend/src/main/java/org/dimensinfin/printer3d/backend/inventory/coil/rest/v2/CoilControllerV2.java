@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.core.utility.DimObjects;
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 
 /**
  * @author Adam Antinoo (adamantinoo.git@gmail.com)

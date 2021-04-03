@@ -8,11 +8,11 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToCoilConverter;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.rest.CoilFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.rest.CoilFeignClientV2;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 
 import io.cucumber.java.en.Given;
 

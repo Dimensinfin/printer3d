@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.coil.persistence;
+package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.UUID;
 
@@ -121,39 +121,39 @@ public class CoilTest {
 		Assertions.assertEquals( TEST_COIL_WEIGHT, coil.getWeight() );
 		Assertions.assertEquals( TEST_COIL_COLOR, coil.getColor() );
 		Assertions.assertEquals( TEST_COIL_ACTIVE, coil.getActive() );
-		Assertions.assertNull( coil.getDestructionTime() );
+		//		Assertions.assertNull( coil.getDestructionTime() );
 	}
 
-	@Test
-	public void setterContract() {
-		// Given
-		final Coil coil = new Coil.Builder()
-				.withId( TEST_COIL_ID )
-				.withMaterial( TEST_COIL_MATERIAL )
-				.withTradeMark( TEST_COIL_TRADE_MARK )
-				.withColor( TEST_COIL_COLOR )
-				.withLabel( TEST_COIL_COLOR )
-				.withWeight( TEST_COIL_WEIGHT )
-				.withActive( TEST_COIL_ACTIVE )
-				.build();
-		// Assertions
-		Assertions.assertEquals( TEST_COIL_TRADE_MARK, coil.getTradeMark() );
-		coil.setTradeMark( "-NET-TRADE-MARK-" );
-		Assertions.assertEquals( "-NET-TRADE-MARK-", coil.getTradeMark() );
-
-		Assertions.assertEquals( TEST_COIL_WEIGHT, coil.getWeight() );
-		coil.setWeight( 543 );
-		Assertions.assertEquals( 543, coil.getWeight() );
-
-		Assertions.assertEquals( TEST_COIL_COLOR, coil.getLabel() );
-		coil.setLabel( "-COLOR-" );
-		Assertions.assertEquals( "-COLOR-", coil.getLabel() );
-		Assertions.assertEquals( TEST_COIL_COLOR, coil.getLabel() );
-
-		Assertions.assertEquals( TEST_COIL_ACTIVE, coil.getActive() );
-		coil.setActive( false );
-		Assertions.assertEquals( false, coil.getActive() );
-	}
+	//	@Test
+	//	public void setterContract() {
+	//		// Given
+	//		final Coil coil = new Coil.Builder()
+	//				.withId( TEST_COIL_ID )
+	//				.withMaterial( TEST_COIL_MATERIAL )
+	//				.withTradeMark( TEST_COIL_TRADE_MARK )
+	//				.withColor( TEST_COIL_COLOR )
+	//				.withLabel( TEST_COIL_COLOR )
+	//				.withWeight( TEST_COIL_WEIGHT )
+	//				.withActive( TEST_COIL_ACTIVE )
+	//				.build();
+	//		// Assertions
+	//		Assertions.assertEquals( TEST_COIL_TRADE_MARK, coil.getTradeMark() );
+	//		coil.setTradeMark( "-NET-TRADE-MARK-" );
+	//		Assertions.assertEquals( "-NET-TRADE-MARK-", coil.getTradeMark() );
+	//
+	//		Assertions.assertEquals( TEST_COIL_WEIGHT, coil.getWeight() );
+	//		coil.setWeight( 543 );
+	//		Assertions.assertEquals( 543, coil.getWeight() );
+	//
+	//		Assertions.assertEquals( TEST_COIL_COLOR, coil.getLabel() );
+	//		coil.setLabel( "-COLOR-" );
+	//		Assertions.assertEquals( "-COLOR-", coil.getLabel() );
+	//		Assertions.assertEquals( TEST_COIL_COLOR, coil.getLabel() );
+	//
+	//		Assertions.assertEquals( TEST_COIL_ACTIVE, coil.getActive() );
+	//		coil.setActive( false );
+	//		Assertions.assertEquals( false, coil.getActive() );
+	//	}
 
 	@Test
 	public void toStringContract() {

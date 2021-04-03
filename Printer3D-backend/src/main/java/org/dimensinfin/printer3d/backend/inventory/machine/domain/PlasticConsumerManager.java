@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
-import org.dimensinfin.printer3d.backend.inventory.coil.persistence.Coil;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 
@@ -52,7 +52,7 @@ public class PlasticConsumerManager {
 		);
 	}
 
-	protected <T extends Coil> T processCoilList( final List<T> coils ) {
+	protected <T extends CoilEntity> T processCoilList( final List<T> coils ) {
 		coils.sort( new CoilWeightComparator() );
 		final T target = coils.get( 0 );
 		LogWrapper.info( MessageFormat.format( "Located coil: {0}", target ) );
@@ -67,7 +67,7 @@ public class PlasticConsumerManager {
 	 * @param <T> Coil stream collector
 	 * @return the selected coil to be used on the job.
 	 */
-	protected <T extends Coil> Collector<T, ?, T> toSingleton() {
+	protected <T extends CoilEntity> Collector<T, ?, T> toSingleton() {
 		return Collectors.collectingAndThen(
 				Collectors.toList(), list -> {
 					if (list.isEmpty()) throw new DimensinfinRuntimeException( errorMISSINGMATERIALTOCOMPLETEJOB(),
