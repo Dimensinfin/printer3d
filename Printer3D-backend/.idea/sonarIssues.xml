@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/RunAcceptanceTests.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/acceptance/steps/B3D01PartsSteps.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/acceptance/steps/P3D01PartsSteps.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/support/core/AcceptanceFieldMapConstants.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/support/inventory/part/PartValidator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/resources/features/B3D01.Parts.feature">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java-client/org/dimensinfin/printer3d/client/inventory/rest/dto/Part.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/part/converter/PartEntityToPartConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v1/PartControllerV1.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v1/PartServiceV1.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v2/PartServiceV2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/spec/printer3d-openapi.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v1/PartControllerV1Test.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v1/PartServiceV1Test.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

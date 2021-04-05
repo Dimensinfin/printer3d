@@ -1,4 +1,5 @@
 # Classes pending Unit Test completion
+* CoilEntity
 * CoilToCoilEntityConverter
 * CoilEntityToCoilConverter
 * CoilUpdater

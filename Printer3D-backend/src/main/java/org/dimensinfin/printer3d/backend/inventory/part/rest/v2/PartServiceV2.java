@@ -41,12 +41,13 @@ public class PartServiceV2 extends PartServiceV1 {
 		final List<Coil> coils = this.coilRepository.findAll()
 				.stream()
 				.filter( CoilEntity::getActive )
-				.map( coilEntity -> this.coilConverter.convert( coilEntity ) )
+				.map( this.coilConverter::convert )
 				.collect( Collectors.toList() );
 		return this.partRepository.findAll()
 				.stream()
-				.filter( part -> this.findColorCoil( coils, part.getMaterial(), part.getColor() ) )
-				.map( this.partConverter::convert )
+				.map( partEntity -> new PartEntityToPartConverter(
+						this.findColorCoil( coils, partEntity.getMaterial(), partEntity.getColor() ) )
+						.convert( partEntity ) )
 				.collect( Collectors.toList() );
 	}
 

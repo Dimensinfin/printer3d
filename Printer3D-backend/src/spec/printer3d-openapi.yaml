@@ -98,7 +98,7 @@ info:
 
     This special unit will add endpoints that will be used to mine repository data to extract useful trending information or historical data.
     The first endpoint for this are the aggregated amounts billed when a Request is closed. The Request amounts are then added by week and sent to
-    the fromt end for display.
+    the front end for display.
 
     * **WeekAmount** - The aggregated amounts for all the Requests closed on a week. The proces used are the prices available when the Request was
     closed so that information was saved on the database when clsing the Request. The week records have the year to be able to display data when
@@ -1011,6 +1011,15 @@ components:
             with this flag. Disable status can be reverted editing the part.
           example:
             true
+        unavailable:
+          type: boolean
+          format: boolean
+          default: false
+          description: >
+            This flag is used to mark Parts that have missing coils with the required Material/Color set. Because a Coil with that characteristics
+            will be obtained later the part is just removed from listings.
+          example:
+            false
     #    PartList:
     #      type: object
     #      required:

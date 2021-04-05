@@ -36,6 +36,7 @@ public class PartControllerV1 {
 	@GetMapping(path = "/inventory/parts",
 			consumes = "application/json",
 			produces = "application/json")
+	@Deprecated
 	public ResponseEntity<PartList> getParts( final @RequestParam(name = "activesOnly") Optional<Boolean> activesOnly ) {
 		final boolean activeState = activesOnly.isPresent() && activesOnly.get();
 		return new ResponseEntity<>( this.partServiceV1.getParts( activeState ), HttpStatus.OK );

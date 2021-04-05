@@ -105,7 +105,7 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL   | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
 
   @B3D01.H @B3D01.08
-  Scenario: [B3D01.08] When requesting the list of Parts, remove those that can no longet be built because there are no such coils.
+  Scenario: [B3D01.08] When requesting the list of Parts, identify those that can no longer be built because there are no such coils.
     Given a clean Coils repository
     And the following Parts in my service
       | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -113,12 +113,12 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
       | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
     And the following Coils in my service
-      | id                                   | material | tradeMark | color  | label    | weight | active |
-      | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ESUN      | ROJO   | ROJO     | 500    | true   |
-      | 6aee8cff-6d33-43d9-99eb-4b86800fa0dd | PLA      | ESUN      | BLANCO | BLANCO   | 500    | true   |
-      | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | ESUN      | NEGRO  | NEGRO    | 500    | true   |
-      | 55ad0b77-dd63-4ea3-804d-2f384074def9 | PLA      | ESUN      | GRIS   | GRIS     | 500    | false  |
-      | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | ESUN      | VERDE  | AMARILLO | 500    | true   |
+      | id                                   | material | tradeMark | color  | label  | weight | active |
+      | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ESUN      | ROJO   | ROJO   | 500    | true   |
+      | 6aee8cff-6d33-43d9-99eb-4b86800fa0dd | PLA      | ESUN      | BLANCO | BLANCO | 500    | true   |
+      | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | ESUN      | NEGRO  | NEGRO  | 500    | true   |
+      | 55ad0b77-dd63-4ea3-804d-2f384074def9 | PLA      | ESUN      | GRIS   | GRIS   | 500    | false  |
+      | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | ESUN      | VERDE  | VERDE  | 500    | true   |
     When the Get Parts V2 request is processed
     And the number of Parts is 3
     Given a clean Coils repository
@@ -129,7 +129,10 @@ Feature: [STORY] Manage the Parts on the Inventory repository
       | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | ESUN      | NEGRO  | NEGRO  | 500    | true   |
       | 55ad0b77-dd63-4ea3-804d-2f384074def9 | PLA      | ESUN      | GRIS   | GRIS   | 500    | false  |
     When the Get Parts V2 request is processed
-    And the number of Parts is 1
+    And the number of Parts is 3
+    And the Part with id "63fff2bc-a93f-4ee5-b753-185d83a13151" of the list of Parts has the next fields
+      | id                                   | label        | material | color | buildTime | weight | cost | price | stockLevel | stockAvailable | active | unavailable |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE | 60        | 3      | 0.65 | 2.00  | 3          | 2              | true   | false       |
 
     # - E X C E P T I O N S
   @B3D01.E @B3D01.E.01

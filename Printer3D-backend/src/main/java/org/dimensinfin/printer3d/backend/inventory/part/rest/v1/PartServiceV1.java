@@ -37,6 +37,7 @@ public class PartServiceV1 {
 		this.partConverter = partConverter;
 	}
 
+	@Deprecated
 	public PartList getParts( final boolean activesOnly ) {
 		final List<Part> parts = this.partRepository.findAll()
 				.stream()

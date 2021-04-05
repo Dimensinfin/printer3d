@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.backend.acceptance.steps;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Assertions;
@@ -20,10 +21,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class P3D01PartsSteps extends StepSupport {
+public class B3D01PartsSteps extends StepSupport {
 
 	// - C O N S T R U C T O R S
-	public P3D01PartsSteps( final @NotNull Printer3DWorld printer3DWorld ) {
+	public B3D01PartsSteps( final @NotNull Printer3DWorld printer3DWorld ) {
 		super( printer3DWorld );
 	}
 
@@ -74,6 +75,19 @@ public class P3D01PartsSteps extends StepSupport {
 		Assertions.assertNotNull( this.printer3DWorld.getPartListV2ResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getPartListV2ResponseEntity().getBody() );
 		Assertions.assertEquals( partCount, this.printer3DWorld.getPartListV2ResponseEntity().getBody().size() );
+	}
+
+	@When("the Part with id {string} of the list of Parts has the next fields")
+	public void the_part_with_id_of_the_list_of_parts_has_the_next_fields( final String identifier, final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getPartListV2ResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getPartListV2ResponseEntity().getBody() );
+		final List<Part> target = this.printer3DWorld.getPartListV2ResponseEntity().getBody()
+				.stream()
+				.filter( part -> part.getId().toString().equalsIgnoreCase( identifier ) )
+				.collect( Collectors.toList() );
+		Assertions.assertNotNull( target );
+		Assertions.assertEquals( 1, target.size() );
+		Assertions.assertTrue( new PartValidator().validate( dataTable.get( 0 ), target.get( 0 ) ) );
 	}
 
 	@Then("the response for Update Part has the next fields")

@@ -8,6 +8,14 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 @Component
 public class PartEntityToPartConverter implements Converter<PartEntity, Part> {
+	private boolean unavailable = false;
+
+	// - C O N S T R U C T O R S
+	public PartEntityToPartConverter() {}
+
+	public PartEntityToPartConverter( final boolean unavailable ) {
+		this.unavailable = unavailable;
+	}
 
 	@Override
 	public Part convert( final PartEntity input ) {
@@ -26,6 +34,7 @@ public class PartEntityToPartConverter implements Converter<PartEntity, Part> {
 				.withImagePath( input.getImagePath() )
 				.withModelPath( input.getModelPath() )
 				.withActive( input.isActive() )
+				.withUnavailable( this.unavailable )
 				.build();
 	}
 }

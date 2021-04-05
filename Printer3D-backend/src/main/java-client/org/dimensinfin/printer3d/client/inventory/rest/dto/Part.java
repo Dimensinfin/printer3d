@@ -50,6 +50,7 @@ public class Part {
 	@Size(max = 1000)
 	private String modelPath;
 	private boolean active = true;
+	private boolean unavailable = false;
 
 	// - C O N S T R U C T O R S
 	private Part() {}
@@ -133,6 +134,15 @@ public class Part {
 
 	public Part setActive( final boolean active ) {
 		this.active = active;
+		return this;
+	}
+
+	public boolean isUnavailable() {
+		return this.unavailable;
+	}
+
+	public Part setUnavailable( final boolean unavailable ) {
+		this.unavailable = unavailable;
 		return this;
 	}
 
@@ -285,6 +295,11 @@ public class Part {
 
 		public Part.Builder withStockLevel( final Integer stockLevel ) {
 			if (null != stockLevel) this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
+			return this;
+		}
+
+		public Part.Builder withUnavailable( final Boolean unavailable ) {
+			if (null != unavailable) this.onConstruction.unavailable = unavailable;
 			return this;
 		}
 

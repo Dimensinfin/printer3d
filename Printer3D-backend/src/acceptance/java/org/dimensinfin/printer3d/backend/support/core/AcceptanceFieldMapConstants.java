@@ -19,6 +19,7 @@ public class AcceptanceFieldMapConstants {
 	public static final String TRADE_MARK = "tradeMark";
 	public static final String WEIGHT = "weight";
 	public static final String DESTRUCTION_TIME = "destructionTime";
+	public static final String UNAVAILABLE = "unavailable";
 
 	public static final String ITEM_ID = "itemId";
 	public static final String TYPE = "type";
