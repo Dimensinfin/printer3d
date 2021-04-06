@@ -25,6 +25,9 @@ import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
 import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 import { WeekAmount } from '@domain/dto/WeekAmount.dto';
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
+import { Model } from '@domain/inventory/Model.domain';
+import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
+import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter';
 
 @Injectable({
     providedIn: 'root'
@@ -98,6 +101,22 @@ export class BackendService {
                 return response;
             }));
     }
+    public apiv2_InventoryGetParts(): Observable<Part[]> {
+        const request = this.APIV2 + '/inventory/parts'
+        const transformer: ResponseTransformer = new ResponseTransformer()
+            .setDescription('Transforms response into a list of Parts.')
+            .setTransformation((entrydata: any): Part[] => {
+                const recordList: Part[] = []
+                for (let entry of entrydata)
+                    recordList.push(new Part(entry));
+                return recordList
+            })
+        return this.httpService.wrapHttpGETCall(request)
+            .pipe(map((data: any) => {
+                console.log(">[BackendService.apiInventoryParts_v1]> Transformation: " + transformer.description);
+                return transformer.transform(data) as Part[]
+            }));
+    }
     public apiInventoryUpdatePart_v1(updatingPart: Part, transformer: ResponseTransformer): Observable<Part> {
         const request = this.APIV1 + '/inventory/parts';
         let headers = new HttpHeaders()
@@ -131,17 +150,6 @@ export class BackendService {
                 return response;
             }));
     }
-    // public apiInventoryUpdateCoil_v1(updatingCoil: UpdateCoilRequest, transformer: ResponseTransformer): Observable<Coil> {
-    //     const request = this.APIV1 + '/inventory/coils';
-    //     let headers = new HttpHeaders()
-    //         .set('xapp-name', environment.appName);
-    //     return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingCoil), headers)
-    //         .pipe(map((data: any) => {
-    //             console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description);
-    //             const response = transformer.transform(data) as Coil;
-    //             return response;
-    //         }));
-    // }
     public apiInventoryGetFinishings_v1(transformer: ResponseTransformer): Observable<FinishingResponse> {
         const request = this.APIV1 + '/inventory/finishings';
         let headers = new HttpHeaders()
@@ -153,17 +161,6 @@ export class BackendService {
                 return response;
             }));
     }
-    // public apiInventoryCoils_v1(transformer: ResponseTransformer): Observable<CoilListResponse> {
-    //     const request = this.APIV1 + '/inventory/coils';
-    //     let headers = new HttpHeaders()
-    //         .set('xapp-name', environment.appName);
-    //     return this.httpService.wrapHttpGETCall(request, headers)
-    //         .pipe(map((data: any) => {
-    //             console.log(">[BackendService.apiInventoryCoils_v1]> Transformation: " + transformer.description);
-    //             const response = transformer.transform(data) as CoilListResponse;
-    //             return response;
-    //         }));
-    // }
     public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<Machine[]> {
         const request = this.APIV2 + '/inventory/machines';
         let headers = new HttpHeaders()
@@ -209,10 +206,24 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryGetModels_v1(transformer: ResponseTransformer): Observable<any> {
+    public apiInventoryGetModels_v1(itemContainer: IContentProvider): Observable<Model[]> {
         const request = this.APIV1 + '/inventory/models';
+        const transformer = new ResponseTransformer()
+            .setDescription('Transforms response into a list of Models.')
+            .setTransformation((entrydata: any): Model[] => {
+                // For each of the Models expand the Parts from the part provider.
+                const modelList: Model[] = []
+                for (const entry of entrydata) {
+                    const model: Model = new Model(entry)
+                    for (let index = 0; index < entry.partIdList.length; index++) {
+                        const partFound = itemContainer.findById(entry.partIdList[index], 'PART') as Part
+                        if (undefined != partFound) model.addPart(partFound)
+                    }
+                    modelList.push(model)
+                }
+                return modelList
+            })
         let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName)
             .set('x-api-version', 'api v1');
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
@@ -245,17 +256,27 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiProductionGetOpenRequests_v2(transformer: ResponseTransformer): Observable<CustomerRequest[]> {
-        const request = this.APIV2 + '/production/requests';
+    public apiProductionGetOpenRequests_v2(provider: IContentProvider): Observable<CustomerRequest[]> {
+        const request = this.APIV2 + '/production/requests'
+        const transformer = new ResponseTransformer()
+            .setDescription('Transforms response into a list of Requests.')
+            .setTransformation((entrydata: any): CustomerRequest[] => {
+                console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
+                // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
+                const requestList: CustomerRequest[] = []
+                const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
+                for (let index = 0; index < entrydata.length; index++) {
+                    requestList.push(requestConverter.convert(entrydata[index]))
+                }
+                return requestList
+            })
         let headers = new HttpHeaders()
-            .set('xapp-name', environment.appName)
-            .set('x-api-version', 'api v2')
+        headers = headers.set('x-api-version', 'api v2')
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionGetOpenRequests_v2]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as CustomerRequest[];
-                return response;
-            }));
+                return transformer.transform(data) as CustomerRequest[]
+            }))
     }
     public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<CustomerRequest> {
         const request = this.APIV2 + '/production/requests/' + requestId + '/close';

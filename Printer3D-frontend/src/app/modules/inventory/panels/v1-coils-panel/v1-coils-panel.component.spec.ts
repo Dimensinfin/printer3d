@@ -142,7 +142,7 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
             component.filterInactive = false
             component.ngOnInit()
             tick(1000)
-            expect(component.getNodes2Render().length).toBe(23)
+            expect(component.getNodes2Render().length).toBe(22)
             expect(component.getNodes2Render('tpu').length).toBe(3)
         }))
     })

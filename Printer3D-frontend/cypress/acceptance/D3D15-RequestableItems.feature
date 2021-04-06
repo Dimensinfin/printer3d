@@ -18,7 +18,7 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
         Given the target is the panel of type "available-request-elements"
         Then the target has the title "/STOCKS DISPONIBLES"
         Then the target has 1 "model"
-        Then the target has 13 "part"
+        Then the target has 12 "part"
 
     @D3D15.02
     Scenario: [D3D15.02]-Validate the fields shown by the Model and the data rendered by the Part.
@@ -29,9 +29,9 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
         Then field named "partCount" with label "NUMERO PIEZAS" has contents "6"
         Then field named "price" with label "PRECIO" has contents "15 €"
 
-        Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
-        Then field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Figura"
-        And field named "material" with label "MATERIAL" has contents "PLA/ROSA"
+        Given the target the "part" with id "6dfc54c8-c361-41ed-8157-0db052a9563f"
+        Then field named "label" with label "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Guarda Tornillos"
+        And field named "material" with label "MATERIAL" has contents "PLA/ROJO"
         And field named "partCount" with label "DISPONIBLE" has contents "0"
 
     @D3D15.03
@@ -54,4 +54,4 @@ Feature: [D3D15]-[STORY] For Requests the source of elements allowed to be added
         Given the target is the panel of type "available-request-elements"
 
         Given the drag source the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
-        Given the drag source the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
+        Given the drag source the "part" with id "6dfc54c8-c361-41ed-8157-0db052a9563f"

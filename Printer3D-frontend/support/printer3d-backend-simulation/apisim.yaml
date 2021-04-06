@@ -556,3 +556,26 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/accounting.week.amounts.json"
+
+---
+
+simlet: inventory-get-parts-v2
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 700
+  subsequent: 500
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v2/inventory/parts"
+
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/inventory.parts.v2.json"

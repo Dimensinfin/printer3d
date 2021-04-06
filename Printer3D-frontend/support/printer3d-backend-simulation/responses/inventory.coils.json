@@ -187,14 +187,5 @@
         "label": "NEGRO",
         "weight": 700,
         "active": false
-    },
-    {
-        "id": "dfe7c723-ca4e-49df-a8e3-8dabf74b0f2d",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "ROSA",
-        "label": "ROSA",
-        "weight": 300,
-        "active": false
     }
 ]

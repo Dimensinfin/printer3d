@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async } from '@angular/core/testing'
+import { async, fakeAsync, tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { BackendService } from '@app/services/backend.service'
@@ -14,9 +14,17 @@ import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
 import { Part } from '@domain/inventory/Part.domain'
 import { V1CatalogPanelComponent } from './v1-catalog-panel.component'
 import { Model } from '@domain/inventory/Model.domain'
+import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
+import { Observable } from 'rxjs'
 
 describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
     let component: V1CatalogPanelComponent
+    let isolationService: SupportIsolationService = new SupportIsolationService()
+    let backendService = {
+        apiv2_InventoryGetParts: () => { },
+        apiInventoryGetModels_v1: (provider) => { }
+    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -27,8 +35,7 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
                 V1CatalogPanelComponent,
             ],
             providers: [
-                { provide: BackendService, useClass: SupportBackendService },
-                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
+                { provide: BackendService, useValue: backendService }
             ]
         }).compileComponents()
 
@@ -38,7 +45,10 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
-        it('constructor.none: validate initial state without constructor', () => {
+        it('Should be created', () => {
+            expect(component).toBeDefined('component has not been created.')
+        })
+        it('Initial state', () => {
             expect(component).toBeDefined('component has not been created.')
             const componentAsAny = component as any
             expect(component.page).toBeUndefined()
@@ -55,38 +65,122 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
     })
 
     // - O N I N I A T I Z A T I O N   P H A S E
-    describe('On Initialization Phase',  () => {
-        it('ngOnInit.filter true: validate initialization flow', async () => {
-            jasmine.clock().install()
+    describe('On Initialization Phase', () => {
+        it('ngOnInit.filter true: validate initialization flow', fakeAsync(() => {
             const componentAsAny = component as any
             expect(componentAsAny.backendConnections.length).toBe(0)
-            await component.ngOnInit()
-            jasmine.clock().tick(500)
+            spyOn(backendService, 'apiv2_InventoryGetParts').and
+                .callFake(function () {
+                    console.log('call on init base')
+                    const transformer: ResponseTransformer = new ResponseTransformer()
+                        .setDescription('Transforms response into a list of Parts.')
+                        .setTransformation((entrydata: any): Part[] => {
+                            const recordList: Part[] = []
+                            for (let entry of entrydata) {
+                                const part = new Part(entry)
+                                part.unavailable = false
+                                recordList.push(part)
+                            }
+                            return recordList
+                        })
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(transformer.transform(isolationService.directAccessTestResource('inventory.parts.v2')))
+                        }, 100)
+                    })
+                })
+            spyOn(backendService, 'apiInventoryGetModels_v1').and
+                .callFake(function (provider) {
+                    console.log('step.04.b')
+                    const transformer: ResponseTransformer = new ResponseTransformer()
+                        .setDescription('Transforms response into a list of Models.')
+                        .setTransformation((entrydata: any): Model[] => {
+                            // For each of the Models expand the Parts from the part provider.
+                            const modelList: Model[] = []
+                            for (const entry of entrydata) {
+                                const model: Model = new Model(entry)
+                                for (let index = 0; index < entry.partIdList.length; index++) {
+                                    const partFound = provider.findById(entry.partIdList[index], 'PART')
+                                    if (undefined != partFound) model.addPart(partFound)
+                                }
+                                modelList.push(model)
+                            }
+                            return modelList
+                        })
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(transformer.transform(isolationService.directAccessTestResource('inventory.models')))
+                        }, 100)
+                    })
+                })
+            component.ngOnInit()
+            tick(1000)
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
             expect(componentAsAny.backendConnections.length).toBe(2) // This component downloads the Parts and the Requests
             expect(componentAsAny.dataModelRoot.length).toBe(7)
             expect(componentAsAny.renderNodeList.length).toBe(7)
             expect(component.isDownloading()).toBeFalse()
-            jasmine.clock().uninstall()
-        })
-        it('ngOnInit.filter false: validate initialization flow', async () => {
-            jasmine.clock().install()
+        }))
+        it('ngOnInit.filter false: validate initialization flow', fakeAsync(() => {
             const componentAsAny = component as any
             expect(componentAsAny.backendConnections.length).toBe(0)
             component.filterInactive = false
-            await component.ngOnInit()
-            jasmine.clock().tick(500)
+            spyOn(backendService, 'apiv2_InventoryGetParts').and
+                .callFake(function () {
+                    console.log('call on init base')
+                    const transformer: ResponseTransformer = new ResponseTransformer()
+                        .setDescription('Transforms response into a list of Parts.')
+                        .setTransformation((entrydata: any): Part[] => {
+                            const recordList: Part[] = []
+                            for (let entry of entrydata) {
+                                const part = new Part(entry)
+                                part.unavailable = false
+                                recordList.push(part)
+                            }
+                            return recordList
+                        })
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(transformer.transform(isolationService.directAccessTestResource('inventory.parts.v2')))
+                        }, 100)
+                    })
+                })
+            spyOn(backendService, 'apiInventoryGetModels_v1').and
+                .callFake(function (provider) {
+                    console.log('step.04.b')
+                    const transformer: ResponseTransformer = new ResponseTransformer()
+                        .setDescription('Transforms response into a list of Models.')
+                        .setTransformation((entrydata: any): Model[] => {
+                            // For each of the Models expand the Parts from the part provider.
+                            const modelList: Model[] = []
+                            for (const entry of entrydata) {
+                                const model: Model = new Model(entry)
+                                for (let index = 0; index < entry.partIdList.length; index++) {
+                                    const partFound = provider.findById(entry.partIdList[index], 'PART')
+                                    if (undefined != partFound) model.addPart(partFound)
+                                }
+                                modelList.push(model)
+                            }
+                            return modelList
+                        })
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(transformer.transform(isolationService.directAccessTestResource('inventory.models')))
+                        }, 100)
+                    })
+                })
+            component.ngOnInit()
+            tick(1000)
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
             expect(componentAsAny.backendConnections.length).toBe(2) // This component downloads the Parts and the Requests
             expect(componentAsAny.dataModelRoot.length).toBe(8)
             expect(componentAsAny.renderNodeList.length).toBe(8)
             expect(component.isDownloading()).toBeFalse()
-            jasmine.clock().uninstall()
-        })
+        }))
     })
     // - I N T E R A C T I O N S
-    describe('Component Interactions',  () => {
-        it('toggleFilter click',  () => {
+    describe('Component Interactions', () => {
+        it('toggleFilter click', () => {
             spyOn(component, 'refresh')
             component.toggleFilter()
             expect(component.refresh).toHaveBeenCalled()

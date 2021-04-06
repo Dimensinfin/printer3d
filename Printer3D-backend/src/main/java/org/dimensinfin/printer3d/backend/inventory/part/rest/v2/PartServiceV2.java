@@ -46,7 +46,7 @@ public class PartServiceV2 extends PartServiceV1 {
 		return this.partRepository.findAll()
 				.stream()
 				.map( partEntity -> new PartEntityToPartConverter(
-						this.findColorCoil( coils, partEntity.getMaterial(), partEntity.getColor() ) )
+						!this.findColorCoil( coils, partEntity.getMaterial(), partEntity.getColor() ) )
 						.convert( partEntity ) )
 				.collect( Collectors.toList() );
 	}

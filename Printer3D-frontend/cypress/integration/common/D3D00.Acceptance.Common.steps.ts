@@ -5,7 +5,7 @@ import { Then } from "cypress-cucumber-preprocessor/steps"
 // - SERVICE
 import { SupportService } from '../../support/SupportService.support'
 
-const TITLE_VALIDATION = '3DPrinterManagement - UI'
+const TITLE_VALIDATION = 'Tetsuo3D'
 const supportService = new SupportService()
 
 // - A P P L I C A T I O N

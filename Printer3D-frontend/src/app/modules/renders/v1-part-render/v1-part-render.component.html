@@ -67,17 +67,19 @@
             <div cy-field-label="label" class="label">ETIQUETA</div>
             <div cy-field-value="label" class="field-height part-material">{{getLabel()}}</div>
         </div>
-        <div cy-name="material" class="field left material-width">
-            <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
-            <div cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</div>
-        </div>
-        <div cy-name="partCount" class="field stock-width">
-            <div cy-field-label="partCount" class="label">DISPONIBLE</div>
-            <div cy-field-value="partCount" class="field-height part-stockAvailable">{{getStockAvailable()}}</div>
-        </div>
-        <div class="field price-width">
-            <div cy-field-label="price" class="label">PRECIO</div>
-            <div cy-field-value="price" class="field-height part-stockAvailable">{{getPrice()}}</div>
+        <div class="row right">
+            <div cy-name="material" class="field left material-width">
+                <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
+                <div cy-field-value="material" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</div>
+            </div>
+            <div cy-name="partCount" class="field stock-width">
+                <div cy-field-label="partCount" class="label">DISPONIBLE</div>
+                <div cy-field-value="partCount" class="field-height part-stockAvailable">{{getStockAvailable()}}</div>
+            </div>
+            <div class="field price-width">
+                <div cy-field-label="price" class="label">PRECIO</div>
+                <div cy-field-value="price" class="field-height part-stockAvailable">{{getPrice()}}</div>
+            </div>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">

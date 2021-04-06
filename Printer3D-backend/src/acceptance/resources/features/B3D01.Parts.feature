@@ -132,7 +132,10 @@ Feature: [STORY] Manage the Parts on the Inventory repository
     And the number of Parts is 3
     And the Part with id "63fff2bc-a93f-4ee5-b753-185d83a13151" of the list of Parts has the next fields
       | id                                   | label        | material | color | buildTime | weight | cost | price | stockLevel | stockAvailable | active | unavailable |
-      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE | 60        | 3      | 0.65 | 2.00  | 3          | 2              | true   | false       |
+      | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key | PLA      | VERDE | 60        | 3      | 0.65 | 2.00  | 3          | 2              | true   | true        |
+    And the Part with id "4e7001ee-6bf5-40b4-9c15-61802e4c59ea" of the list of Parts has the next fields
+      | id                                   | label        | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | active | unavailable |
+      | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | true   | false       |
 
     # - E X C E P T I O N S
   @B3D01.E @B3D01.E.01

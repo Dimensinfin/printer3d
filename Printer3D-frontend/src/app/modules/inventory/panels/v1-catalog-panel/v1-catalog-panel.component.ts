@@ -35,8 +35,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
 
     public ngOnInit(): void {
         console.log(">[V3InventoryPageComponent.ngOnInit]");
-        this.startDownloading();
-        this.refresh();
+        super.ngOnInit()
         console.log("<[V3InventoryPageComponent.ngOnInit]");
     }
     // - I N T E R A C T I O N
@@ -62,6 +61,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                 this.page.setSelected(this.selection.getFirstSelected() as Model)
             else this.page.closeEditor()
     }
+
     // - R E F R E S H A B L E
     public clean(): void {
         this.selection.clearSelection() // Clear the selection
@@ -78,15 +78,13 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
     // - B A C K E N D
     protected downloadParts(): void {
         console.log("-[V1CatalogPanelComponent.downloadParts]>Filter: " + this.filterInactive)
-        this.backendConnections.push(
-            this.backendService.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
-                .setTransformation((entrydata: any): PartListResponse => {
-                    return new PartListResponse(entrydata);
-                }))
-                .subscribe((response: PartListResponse) => {
-                    this.parts = response.getParts();
+         this.backendConnections.push(
+            this.backendService.apiv2_InventoryGetParts()
+                .subscribe((response: Part[]) => {
+                    console.log('downloadParts.part count: ' + response.length)
+                    this.parts = response
                     // Sort the Parts before storing them inside the containers.
-                    const partList = this.sortPartsByActive(response.getParts());
+                    const partList = this.sortPartsByActive(response)
                     // Classify Parts on part containers.
                     partList.forEach(element => {
                         let hit = this.partContainers.get(element.label)
@@ -105,21 +103,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
     }
     protected downloadModels(): void {
         this.backendConnections.push(
-            this.backendService.apiInventoryGetModels_v1(new ResponseTransformer()
-                .setDescription('Transforms response into a list of Models.')
-                .setTransformation((entrydata: any): Model[] => {
-                    // For each of the Models expand the Parts from the part provider.
-                    const modelList: Model[] = []
-                    for (const entry of entrydata) {
-                        const model: Model = new Model(entry)
-                        for (let index = 0; index < entry.partIdList.length; index++) {
-                            const partFound = this.findById(entry.partIdList[index], 'PART')
-                            if (undefined != partFound) model.addPart(partFound)
-                        }
-                        modelList.push(model)
-                    }
-                    return modelList
-                }))
+            this.backendService.apiInventoryGetModels_v1(this)
                 .subscribe((response: Model[]) => {
                     this.models = response
                     // Join the list of Parts and the list of Models in order

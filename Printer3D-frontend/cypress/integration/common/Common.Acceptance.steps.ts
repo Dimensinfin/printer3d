@@ -87,47 +87,47 @@ Given('one instance of PagePath', function () {
 //     cy.get('app-root').find('v1-feature-render').should('have.length.gt', 0)
 // });
 
-Then('there is a {string} with the next fields', (panelType, dataTable) => {
-    cy.log('[THEN] there is a {string} with the next fields');
-    cy.log('[THEN] panelType=' + panelType);
-    const row = dataTable.hashes()[0];
-    const service = new IsolationService();
-    switch (panelType) {
-        case 'app-title':
-            cy.get('.app-title').contains(service.decodeDataTableRow(row, panelType));
-            break;
-        case 'app-version':
-            cy.get('.app-version').contains(service.decodeDataTableRow(row, panelType));
-            break;
-        case 'page-name':
-            cy.get('.page-name').contains(service.decodeDataTableRow(row, panelType));
-            break;
-        case 'v1-page-path-panel':
-            const pagePath: V1PagePath = new V1PagePath();
-            expect(pagePath).to.not.be.null;
-            pagePath.validatePanel(row);
-            break;
-    }
-});
+// Then('there is a {string} with the next fields', (panelType, dataTable) => {
+//     cy.log('[THEN] there is a {string} with the next fields');
+//     cy.log('[THEN] panelType=' + panelType);
+//     const row = dataTable.hashes()[0];
+//     const service = new IsolationService();
+//     switch (panelType) {
+//         case 'app-title':
+//             cy.get('.app-title').contains(service.decodeDataTableRow(row, panelType));
+//             break;
+//         case 'app-version':
+//             cy.get('.app-version').contains(service.decodeDataTableRow(row, panelType));
+//             break;
+//         case 'page-name':
+//             cy.get('.page-name').contains(service.decodeDataTableRow(row, panelType));
+//             break;
+//         case 'v1-page-path-panel':
+//             const pagePath: V1PagePath = new V1PagePath();
+//             expect(pagePath).to.not.be.null;
+//             pagePath.validatePanel(row);
+//             break;
+//     }
+// });
 
-Then('there is a {string} at index {string} with the next fields', function (panelType: string, index: string, dataTable) {
-    cy.log('[THEN] there is a {string} at index {string} with the next fields');
-    cy.log('[THEN] panelType=' + panelType);
-    const row = dataTable.hashes()[0];
-    expect(row).to.not.be.empty;
-    switch (panelType) {
-        case 'v1-feature-render':
-            const feature: V1Feature = new V1Feature();
-            expect(feature)
-            feature.validatePanel(row);
-            break;
-        case 'grid-row':
-            const gridrow: GridRow = new GridRow(+index);
-            expect(gridrow).to.not.be.null;
-            gridrow.validatePanel(row);
-            break;
-    }
-});
+// Then('there is a {string} at index {string} with the next fields', function (panelType: string, index: string, dataTable) {
+//     cy.log('[THEN] there is a {string} at index {string} with the next fields');
+//     cy.log('[THEN] panelType=' + panelType);
+//     const row = dataTable.hashes()[0];
+//     expect(row).to.not.be.empty;
+//     switch (panelType) {
+//         case 'v1-feature-render':
+//             const feature: V1Feature = new V1Feature();
+//             expect(feature)
+//             feature.validatePanel(row);
+//             break;
+//         case 'grid-row':
+//             const gridrow: GridRow = new GridRow(+index);
+//             expect(gridrow).to.not.be.null;
+//             gridrow.validatePanel(row);
+//             break;
+//     }
+// });
 
 Then('there is a dialog title saying {string}', function (dialogLabel) {
     console.log('[THEN] there is a dialog title saying {string}');

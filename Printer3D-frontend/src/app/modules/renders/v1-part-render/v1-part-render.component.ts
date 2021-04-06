@@ -74,6 +74,10 @@ export class V1PartRenderComponent extends NodeContainerRenderComponent {
     public isActive(): boolean {
         return this.getNode().isActive()
     }
+    public getAvailability():boolean{
+        if (this.getNode()) return this.getNode().unavailable
+        else return false
+    }
 
     // - EDITING
     public isEditing(): boolean {

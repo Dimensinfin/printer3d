@@ -39,8 +39,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
 
     public ngOnInit(): void {
         console.log(">[V1OpenRequestsPanelComponent.ngOnInit]");
-        this.startDownloading();
-        this.refresh();
+        super.ngOnInit()
         console.log("<[V1OpenRequestsPanelComponent.ngOnInit]");
     }
 
@@ -70,15 +69,16 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
     public findById(id: string, type: string): IContent {
         if (type == RequestContentType.PART)
             for (let part of this.parts)
-                if (part.getId() == id) return part;
+                if (part.getId() == id) return part
         if (type == RequestContentType.MODEL)
             for (let model of this.models)
-                if (model.getId() == id) return model;
-        return undefined;
+                if (model.getId() == id) return model
+        return undefined
     }
 
     // - B A C K E N D
     protected downloadParts(): void {
+        console.log('step.03')
         this.backendConnections.push(
             this.backendService.apiInventoryParts_v1(new ResponseTransformer()
                 .setDescription('Transforms response into a list of Parts.')
@@ -93,23 +93,9 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
         )
     }
     protected downloadModels(): void {
+        console.log('step.04')
         this.backendConnections.push(
-            this.backendService.apiInventoryGetModels_v1(new ResponseTransformer()
-                .setDescription('Transforms response into a list of Models.')
-                .setTransformation((entrydata: any): Model[] => {
-                    console.log('-[V1OpenRequestsPanelComponent.downloadModels]> Processing Models')
-                    // For each of the Models expand the Parts from the part provider.
-                    const modelList: Model[] = []
-                    for (const entry of entrydata) {
-                        const model: Model = new Model(entry)
-                        for (let index = 0; index < entry.partIdList.length; index++) {
-                            const partFound = this.findById(entry.partIdList[index], RequestContentType.PART)
-                            if (undefined != partFound) model.addPart(partFound as Part)
-                        }
-                        modelList.push(model)
-                    }
-                    return modelList
-                }))
+            this.backendService.apiInventoryGetModels_v1(this)
                 .subscribe((response: Model[]) => {
                     this.models = response
                     this.downloadRequests()
@@ -117,19 +103,9 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
         )
     }
     protected downloadRequests(): void {
+        console.log('step.05')
         this.backendConnections.push(
-            this.backendService.apiProductionGetOpenRequests_v2(new ResponseTransformer()
-                .setDescription('Transforms response into a list of Requests.')
-                .setTransformation((entrydata: any): CustomerRequest[] => {
-                    console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
-                    // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
-                    const requestList: CustomerRequest[] = []
-                    const requestConverter: DataToRequestConverter = new DataToRequestConverter(this)
-                    for (let index = 0; index < entrydata.length; index++) {
-                        requestList.push(requestConverter.convert(entrydata[index]));
-                    }
-                    return requestList;
-                }))
+            this.backendService.apiProductionGetOpenRequests_v2(this)
                 .subscribe((requestList: CustomerRequest[]) => {
                     console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Requests received: ' + requestList.length)
                     this.completeDowload(requestList); // Notify the completion of the download.

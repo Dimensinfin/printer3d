@@ -211,15 +211,15 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response).toBeDefined();
                 });
         });
-        it('apiInventoryGetModels_v1.default: complete the build job on a Machine', async () => {
-            await service.apiInventoryGetModels_v1(new ResponseTransformer().setDescription('Transforms response to a Model list.')
-                .setTransformation((entrydata: any): Model[] => {
-                    return entrydata
-                }))
-                .subscribe((response: Model[]) => {
-                    expect(response).toBeDefined();
-                });
-        });
+        // it('apiInventoryGetModels_v1.default: complete the build job on a Machine', async () => {
+        //     await service.apiInventoryGetModels_v1(new ResponseTransformer().setDescription('Transforms response to a Model list.')
+        //         .setTransformation((entrydata: any): Model[] => {
+        //             return entrydata
+        //         }))
+        //         .subscribe((response: Model[]) => {
+        //             expect(response).toBeDefined();
+        //         });
+        // });
     });
     describe('Code Coverage Phase [PRODUCTION]', () => {
         it('apiNewRequest_v2.default: get the persisted part', async () => {
@@ -245,15 +245,15 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.length).toBe(16, 'Number of Jobs do not match');
                 });
         });
-        it('apiProductionGetOpenRequests_v2.default: get the list jobs required to level the stocks', async () => {
-            service.apiProductionGetOpenRequests_v2(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
-                .setTransformation((entrydata: any): any => {
-                    return entrydata;
-                }))
-                .subscribe((response: any) => {
-                    expect(response).toBeDefined();
-                });
-        });
+        // it('apiProductionGetOpenRequests_v2.default: get the list jobs required to level the stocks', async () => {
+        //     service.apiProductionGetOpenRequests_v2(new ResponseTransformer().setDescription('Transforms Open Requests list form backend.')
+        //         .setTransformation((entrydata: any): any => {
+        //             return entrydata;
+        //         }))
+        //         .subscribe((response: any) => {
+        //             expect(response).toBeDefined();
+        //         });
+        // });
         it('apiProductionRequestsClose_v1.default: complete a request', async () => {
             const requestId: string = "-REQUEST-ID-"
             service.apiProductionRequestsClose_v2(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
