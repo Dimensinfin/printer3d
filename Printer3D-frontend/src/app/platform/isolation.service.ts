@@ -35,18 +35,18 @@ export class IsolationService {
     }
     // - S T O R A G E
     public getFromStorage(key: string): string {
-        return this.storage.get(key);
+        return this.storage.get(key)
     }
     public setToStorage(key: string, object: any): void {
-        this.storage.set(key, object);
+        this.storage.set(key, object)
     }
     public setToStorageObject(key: string, object: any): void {
-        this.storage.set(key, JSON.stringify(object));
+        this.storage.set(key, JSON.stringify(object))
     }
     public removeFromStorage(key: string): string {
-        const data = this.storage.get(key);
-        this.storage.remove(key);
-        return data;
+        const data = this.storage.get(key)
+        this.storage.remove(key)
+        return data
     }
 
     // - N O T I F I C A T I O N S
@@ -72,7 +72,7 @@ export class IsolationService {
         let notConf;
         if (null != options) notConf = { ...this.notifierConfiguration, ...options };
         else notConf = this.notifierConfiguration;
-        notConf.toastTimeout = 15000;
+        notConf.toastTimeout = 18000;
         this.notifier.error(message, title, notConf);
     }
     public warningNotification(message: string, title?: string, options?: any): void {
