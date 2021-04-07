@@ -9,6 +9,7 @@ import { NodeContainerRenderComponent } from '../node-container-render/node-cont
 export class V1PatchNoteRenderComponent extends NodeContainerRenderComponent {
     public getContent(): string {
         const note = this.node as any
-        return note.getContent()
+        if (note) return note.getContent()
+        else return '-'
     }
 }

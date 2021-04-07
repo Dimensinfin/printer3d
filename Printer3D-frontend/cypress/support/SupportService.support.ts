@@ -17,6 +17,7 @@ export class SupportService {
         this.translationTable['Inventory Page'] = 'v3-inventory-page'
         this.translationTable['CoilsPage'] = 'v2-coil-list-page'
         this.translationTable['Delete Confirmation'] = 'delete-confirmation-dialog'
+        this.translationTable['Patch Notes'] = 'patch-notes-dialog'
         // - PANELS
         this.translationTable['app-component'] = 'app-root'
         this.translationTable['dock'] = 'v1-dock'

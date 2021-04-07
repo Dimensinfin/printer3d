@@ -14,10 +14,11 @@ import { PatchNotesDialogComponent } from './patch-notes-dialog.component'
 import { MatDialogRef } from '@angular/material/dialog'
 import { EVariant } from '@domain/interfaces/EPack.enumerated'
 
-describe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
+fdescribe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
     let component: PatchNotesDialogComponent
     let httpWrapper = { wrapHttpRESOURCECall: () => { } }
-    let isolationService: SupportIsolationService = new SupportIsolationService()
+    let dialogRef = { close: () => { } }
+    // let isolationService: SupportIsolationService = new SupportIsolationService()
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -28,7 +29,7 @@ describe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
                 PatchNotesDialogComponent
             ],
             providers: [
-                { provide: MatDialogRef, useValue: {} },
+                { provide: MatDialogRef, useValue: dialogRef },
                 { provide: HttpClientWrapperService, useValue: httpWrapper }
             ]
         }).compileComponents()
@@ -42,6 +43,7 @@ describe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
             expect(component).toBeDefined('component has not been created.')
         })
     })
+
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
         it('ngOnInit.before: validate initialization flow', () => {
@@ -73,5 +75,19 @@ describe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
             expect(componentAsAny.backendConnections.length).toBe(1)
             console.log('<[PatchNotesDialogComponent.ngOnInit.after]')
         }))
+    })
+
+    // - I N T E R A C T I O N S   P H A S E
+    describe('Interactions Phase', () => {
+        it('closeModal: close the patch notes dialog', () => {
+            // Given
+            const componentAsAny = component as any
+            expect(componentAsAny.dialogRef).toBeDefined()
+            spyOn(dialogRef, 'close')
+            // Test
+            component.closeModal()
+            // Expect
+            expect(dialogRef.close).toHaveBeenCalled()
+        })
     })
 })

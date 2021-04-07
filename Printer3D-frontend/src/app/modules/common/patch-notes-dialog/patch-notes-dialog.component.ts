@@ -28,6 +28,13 @@ export class PatchNotesDialogComponent extends AppPanelComponent implements OnIn
         super.ngOnInit()
         console.log("<[PatchNotesDialogComponent.ngOnInit]")
     }
+
+    // - I N T E R A C T I O N S
+    public closeModal(): void {
+        console.log('>[NewCoilDialogComponent.closeModal]')
+        this.dialogRef.close()
+    }
+
     // - I R E F R E S H A B L E
     public clean(): void {
     }
@@ -51,9 +58,4 @@ export class PatchNotesDialogComponent extends AppPanelComponent implements OnIn
         console.log("<[PatchNotesDialogComponent.processPathNotes]")
 
     }
-    public closeModal(): void {
-        console.log('>[NewCoilDialogComponent.closeModal]')
-        this.dialogRef.close()
-    }
-
 }
