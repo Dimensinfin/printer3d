@@ -23,8 +23,17 @@ export class DockService {
         protected router: Router,
         protected httpService: HttpClientWrapperService) { }
 
-    public readDockConfiguration(transformer: ResponseTransformer): Observable<Feature[]> {
-        let request = '/assets/properties/config/DefaultDockFeatureMap.json'
+    public readDockConfiguration(): Observable<Feature[]> {
+        const request = '/assets/properties/config/DefaultDockFeatureMap.json'
+        const transformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
+            .setTransformation((entrydata: any): Feature[] => {
+                let results: Feature[] = [];
+                if (entrydata instanceof Array) {
+                    for (let key in entrydata)
+                        results.push(new Feature(entrydata[key]));
+                }
+                return results;
+            })
         return this.httpService.wrapHttpRESOURCECall(request)
             .pipe(
                 map((data) => {

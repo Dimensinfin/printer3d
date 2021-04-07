@@ -248,11 +248,9 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm run acceptance:ready
-            # npm run acceptance:cypress:D06
+            npm run acceptance:cypress:D06
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
-            # npm run acceptance:cypress:D10
-            npm run acceptance:cypress:D11
   acceptance-test-frontend-phase03:
     machine:
       image: ubuntu-2004:202010-01
@@ -294,6 +292,8 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm run acceptance:ready
+            npm run acceptance:cypress:D10
+            npm run acceptance:cypress:D11
             npm run acceptance:cypress:D12
             npm run acceptance:cypress:D14
             npm run acceptance:cypress:D15

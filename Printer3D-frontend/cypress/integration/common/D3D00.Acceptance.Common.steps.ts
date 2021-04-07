@@ -150,6 +150,10 @@ Then('actionable image named {string} is {string}', function (buttonName: string
 When('the target is clicked', function () {
     cy.get('@target').scrollIntoView().click()
 })
+Then('the dialog {string} closes', function (dialogName: string) {
+    const tag = supportService.translateTag(dialogName) // Do name replacement
+    cy.get(tag).should('not.exist')
+})
 
 // - T A R G E T   C O N T E N T S
 Then('the target has the title {string}', function (title: string) {

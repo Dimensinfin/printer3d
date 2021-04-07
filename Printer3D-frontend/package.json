@@ -38,6 +38,7 @@
         "acceptance:cypress:D20": "cypress run --spec ./cypress/acceptance/D3D20-InventoryContents.feature",
         "acceptance:cypress:F21": "cypress run --spec ./cypress/acceptance/F3D21-BillingChart.feature",
         "acceptance:cypress:F22": "cypress run --spec ./cypress/acceptance/F3D22-ModelEditing.feature",
+        "acceptance:cypress:F23": "cypress run --spec ./cypress/acceptance/F3D23-PatchNotes.feature",
         "acceptance:cypress": "npm run start:dev & wait-on http://localhost:5100 && npm run cypress:run ",
         "serve:integration": "export NODE_ENV=integration && export PORT=5102 && npm run build:dev && npm start",
         "analyzer": "ng build --aot --configuration=stage --stats-json && webpack-bundle-analyzer ./dist/Printer3D-frontend/stats-es2015.json",

@@ -23,17 +23,7 @@ export class V1DockComponent implements OnInit {
 
     public ngOnInit(): void {
         console.log('>[V1DockComponent.ngOnInit]');
-        this.dockService.readDockConfiguration(
-            new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
-                .setTransformation((entrydata: any): Feature[] => {
-                    console.log('<[V1DockComponent.ngOnInit.setTransformation]');
-                    let results: Feature[] = [];
-                    if (entrydata instanceof Array) {
-                        for (let key in entrydata)
-                            results.push(new Feature(entrydata[key]));
-                    }
-                    return results;
-                }))
+        this.dockService.readDockConfiguration()
             .subscribe((featureList: Feature[]) => {
                 console.log('<[V1DockComponent.ngOnInit.subscribe]');
                 this.configuredFeatures = featureList

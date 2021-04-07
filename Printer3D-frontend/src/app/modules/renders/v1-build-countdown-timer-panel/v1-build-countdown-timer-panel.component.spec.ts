@@ -12,7 +12,7 @@ import { V3MachineRenderComponent } from '../v3-machine-render/v3-machine-render
 
 const TEST_TIME: number = 1 * 3600 + 12 * 60;
 
-describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () => {
+xdescribe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () => {
     let component: V1BuildCountdownTimerPanelComponent;
 
     beforeEach(async(() => {

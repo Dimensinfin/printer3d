@@ -11,11 +11,12 @@ import { Routes } from '@angular/router';
 @Component({
     template: `Home`
 })
-export class RouteMockUpComponent {}
+export class RouteMockUpComponent { }
 export const routes: Routes = [
     { path: '', redirectTo: '/', pathMatch: 'full' },
     { path: 'inventory', component: RouteMockUpComponent },
     { path: 'inventory/partlist', component: RouteMockUpComponent },
-    { path: 'inventory/coillist', component: RouteMockUpComponent }
+    { path: 'inventory/coillist', component: RouteMockUpComponent },
+    { path: 'production/pendingjobs', component: RouteMockUpComponent }
 ];
 // - E N D   O F   R O U T I N G   C O M P O N E N T

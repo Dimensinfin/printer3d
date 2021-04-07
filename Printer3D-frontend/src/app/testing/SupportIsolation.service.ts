@@ -30,10 +30,10 @@ export class SupportIsolationService {
 
     // - M O C K   D A T A   A C C E S S
     public directAccessAssetResource(dataIdentifier: string): any {
-        // console.log(">>[SupportIsolationService.directAccessMockResource]> dataIdentifier: " + dataIdentifier)
-        // let rawdata = require('../../' + dataIdentifier)
-        // return rawdata
-        return null
+        console.log(">>[SupportIsolationService.directAccessMockResource]> dataIdentifier: " + dataIdentifier)
+        let rawdata = require('../../../src/assets/' + dataIdentifier + '.json')
+        return rawdata
+        // return null
     }
     public directAccessMockResource(dataIdentifier: string): any {
         console.log(">>[SupportIsolationService.directAccessMockResource]> dataIdentifier: " + dataIdentifier)

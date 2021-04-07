@@ -113,7 +113,7 @@ Feature: [D3D04]-Define the requirements for the New Part dialog interactions
         And the button with name "repeat-button" has a label "Guardar y Repetir" and is "enabled"
         And the button with name "submit-button" has a label "Guardar" and is "enabled"
         And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
-        # - Click on the Save button
+        # - Click on the Cancel button
         When the button with name "cancel-button" is clicked
         Then the dialog closes
 

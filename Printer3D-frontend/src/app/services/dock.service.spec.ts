@@ -1,29 +1,42 @@
 // - CORE
-import { NO_ERRORS_SCHEMA, ɵbypassSanitizationTrustStyle } from '@angular/core';
-import { Router } from '@angular/router';
+import { NO_ERRORS_SCHEMA, ɵbypassSanitizationTrustStyle } from '@angular/core'
+import { Router } from '@angular/router'
 // - TESTING
-import { async } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
-import { routes } from '@app/testing/RouteMockUp.component';
-import { Location } from "@angular/common";
+import { async, fakeAsync, tick } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
+import { RouterTestingModule } from '@angular/router/testing'
+import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component'
+import { routes } from '@app/testing/RouteMockUp.component'
+import { Location } from "@angular/common"
 // - PROVIDERS
-import { IsolationService } from '@app/platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
+import { IsolationService } from '@app/platform/isolation.service'
+import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { DockService } from './dock.service';
-import { ResponseTransformer } from './support/ResponseTransformer';
-import { HttpClientWrapperService } from './httpclientwrapper.service';
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
-import { features } from 'process';
+import { Feature } from '@domain/Feature.domain'
+import { DockService } from './dock.service'
+import { ResponseTransformer } from './support/ResponseTransformer'
+import { HttpClientWrapperService } from './httpclientwrapper.service'
+import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
+import { features } from 'process'
+import { Observable } from 'rxjs'
+import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 
-xdescribe('service DockService [Module: SERVICES]', () => {
-    let service: DockService;
-    let routerDetector: any = { refresh: () => { } };
-    let location: Location;
-    let router: Router;
+describe('service DockService [Module: SERVICES]', () => {
+    let service: DockService
+    let routerDetector: any = { refresh: () => { } }
+    let location: Location
+    let router: Router
+    let isolationService: SupportIsolationService = new SupportIsolationService()
+    let clientWrapperService = {
+        wrapHttpRESOURCECall: () => {
+            console.log('DockService->spyOn.wrapHttpRESOURCECall')
+            return new Observable(observer => {
+                setTimeout(() => {
+                    observer.next(isolationService.directAccessAssetResource('properties/config/DefaultDockFeatureMap'))
+                }, 100)
+            })
+        }
+    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -34,191 +47,159 @@ xdescribe('service DockService [Module: SERVICES]', () => {
             declarations: [
             ],
             providers: [
-                // { provide: Router, useClass: Router },
-                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
+                { provide: HttpClientWrapperService, useValue: clientWrapperService }
             ]
-        }).compileComponents();
+        }).compileComponents()
 
-        service = TestBed.get(DockService);
-        location = TestBed.get(Location)
-        router = TestBed.get(Router)
+        service = TestBed.inject(DockService)
+        location = TestBed.inject(Location)
+        router = TestBed.inject(Router)
         router.initialNavigation()
-    }));
+    }))
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
-        it('constructor.none: validate initial state without constructor', () => {
-            console.log('><[core/DockService]> should be created');
-            expect(service).toBeTruthy('service has not been created.');
-        });
-    });
-
-    // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [DOCK]', () => {
-        it('readDockConfiguration: read and return the list of configured Features', async () => {
-            jasmine.clock().install();
+        it('Should be created', () => {
+            expect(service).toBeDefined('component has not been created.')
+        })
+        it('Initial state', () => {
+            expect(service).toBeTruthy('service has not been created.')
             const serviceAsAny = service as any
             expect(serviceAsAny.activeFeature).toBeUndefined()
             expect(serviceAsAny.featureList).toBeUndefined()
-            await service.readDockConfiguration(new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
-                .setTransformation((entrydata: any): Feature[] => {
-                    let results: Feature[] = [];
-                    if (entrydata instanceof Array) {
-                        for (let key in entrydata)
-                            results.push(new Feature(entrydata[key]));
-                    }
-                    return results;
-                }))
-                .subscribe((response: Feature[]) => {
-                    expect(response).toBeDefined();
-                    expect(response.length).toBe(2);
+            expect(serviceAsAny.routedComponent).toBeUndefined()
+        })
+    })
+
+    // - C O D E   C O V E R A G E   P H A S E
+    describe('Code Coverage Phase [DOCK]', () => {
+        it('readDockConfiguration: read and return the list of configured Features', fakeAsync(() => {
+            const serviceAsAny = service as any
+            expect(serviceAsAny.activeFeature).toBeUndefined()
+            expect(serviceAsAny.featureList).toBeUndefined()
+            spyOn(clientWrapperService, 'wrapHttpRESOURCECall').and
+                .callFake(function () {
+                    console.log('Code Coverage Phase [DOCK]->spyOn.wrapHttpRESOURCECall')
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(isolationService.directAccessAssetResource('properties/config/DefaultDockFeatureMap'))
+                        }, 100)
+                    })
                 })
-            jasmine.clock().tick(1100);
-            expect(serviceAsAny.featureList.length).toBe(2);
-            jasmine.clock().uninstall()
-        });
-        it('activateFeature.null: no feature selected for activation', async () => {
-            jasmine.clock().install();
-            const serviceAsAny = service as any;
-            serviceAsAny.activeFeature = new Feature()
-            serviceAsAny.featureList = [new Feature({
-                "label": "/Filamentos",
-                "enabled": true,
-                "active": true,
-                "interaction": "PAGEROUTE",
-                "route": "inventory/coillist"
-            }),
-            new Feature({
-                "label": "/Inventario",
-                "enabled": true,
-                "active": true,
-                "interaction": "PAGEROUTE",
-                "route": "/inventory/partlist"
-            })
-            ]
-            await service.activateFeature(null)
-            jasmine.clock().tick(200);
+            service.readDockConfiguration()
+                .subscribe((response: Feature[]) => {
+                    expect(response).toBeDefined()
+                    expect(response.length).toBe(8)
+                })
+            tick(1100)
+            expect(serviceAsAny.featureList.length).toBe(8)
+        }))
+        it('activateFeature.null: no feature selected for activation', fakeAsync(() => {
+            const serviceAsAny = service as any
+            service.readDockConfiguration()
+                .subscribe((response: Feature[]) => {
+                    expect(response).toBeDefined()
+                    expect(response.length).toBe(8)
+                })
+            tick(100)
+            expect(serviceAsAny.featureList.length).toBe(8)
+            serviceAsAny.activeFeature = serviceAsAny.featureList[3]
+            expect(serviceAsAny.activeFeature).toBeDefined()
+            service.activateFeature(null)
+            tick(100)
             expect(serviceAsAny.activeFeature).toBeUndefined()
-            expect(serviceAsAny.featureList).toBeDefined()
-            expect(serviceAsAny.featureList[0].active).toBeFalse()
-            expect(serviceAsAny.featureList[1].active).toBeFalse()
-            expect(location.path()).toBe('/');
-            jasmine.clock().uninstall()
-        });
-        xit('activateFeature.new feature: activate a new selected feature', async () => {
-            jasmine.clock().install();
-            const serviceAsAny = service as any;
-            serviceAsAny.activeFeature = undefined
-            serviceAsAny.featureList = [new Feature({
-                "label": "/Filamentos",
-                "enabled": true,
-                "active": false,
-                "interaction": "PAGEROUTE",
-                "route": "inventory/coillist"
-            }),
-            new Feature({
-                "label": "/Inventario",
-                "enabled": true,
-                "active": false,
-                "interaction": "PAGEROUTE",
-                "route": "/inventory/partlist"
-            })
-            ]
+            expect(serviceAsAny.featureList.length).toBe(8)
+            expect(location.path()).toBe('/')
+        }))
+        it('activateFeature.new feature: activate a new selected feature', fakeAsync(() => {
+            // Given
+            const serviceAsAny = service as any
+            service.readDockConfiguration()
+                .subscribe((response: Feature[]) => {
+                    expect(response).toBeDefined()
+                    expect(response.length).toBe(8)
+                })
+            tick(100)
+            expect(serviceAsAny.featureList.length).toBe(8)
+            expect(serviceAsAny.featureList[3]).toBeDefined()
+            expect(serviceAsAny.featureList[3].active).toBeFalse()
+            spyOn(serviceAsAny.featureList[3], 'activate').and.callThrough()
+            expect(serviceAsAny.activeFeature).toBeUndefined('Initial state is no feature activated.')
+            // Test
+            service.activateFeature(serviceAsAny.featureList[3])
+            tick(100)
+            // Expect
+            expect(serviceAsAny.activeFeature).toBeDefined()
+            expect(serviceAsAny.activeFeature).toBe(serviceAsAny.featureList[3])
+            expect(serviceAsAny.featureList[3].active).toBeTrue()
+            expect(serviceAsAny.featureList[3].activate).toHaveBeenCalled()
+            expect(location.path()).toBe('/production/pendingjobs')
+        }))
+        it('activateFeature.replace feature: activate a new selected feature', fakeAsync(() => {
+            // Given
+            const serviceAsAny = service as any
+            service.readDockConfiguration()
+                .subscribe((response: Feature[]) => {
+                    expect(response).toBeDefined()
+                    expect(response.length).toBe(8)
+                })
+            tick(100)
+            expect(serviceAsAny.featureList.length).toBe(8)
+            service.activateFeature(serviceAsAny.featureList[3])
+            tick(100)
+            expect(serviceAsAny.activeFeature).toBeDefined()
+            expect(serviceAsAny.activeFeature).toBe(serviceAsAny.featureList[3])
+            expect(serviceAsAny.featureList[3].active).toBeTrue()
+            spyOn(serviceAsAny.featureList[1], 'activate').and.callThrough()
+            // Test
+            service.activateFeature(serviceAsAny.featureList[1])
+            tick(100)
+            // Expect
+            expect(serviceAsAny.activeFeature).toBeDefined()
+            expect(serviceAsAny.featureList[3].active).toBeFalse()
+            expect(serviceAsAny.featureList[1].active).toBeTrue()
+            expect(serviceAsAny.activeFeature).toBe(serviceAsAny.featureList[1])
+            expect(location.path()).toBe('/inventory/partlist')
+        }))
+        it('clean.success: deactivate any feature', fakeAsync(() => {
+            // Given
+            const serviceAsAny = service as any
+            service.readDockConfiguration()
+                .subscribe((response: Feature[]) => {
+                    expect(response).toBeDefined()
+                    expect(response.length).toBe(8)
+                })
+            tick(100)
+            expect(serviceAsAny.featureList.length).toBe(8)
+            service.activateFeature(serviceAsAny.featureList[3])
+            tick(100)
+            expect(serviceAsAny.activeFeature).toBeDefined()
+            expect(serviceAsAny.activeFeature).toBe(serviceAsAny.featureList[3])
+            expect(serviceAsAny.featureList[3].active).toBeTrue()
+            // Test
+            service.clean()
             expect(serviceAsAny.activeFeature).toBeUndefined()
-            await service.activateFeature(new Feature({
-                "label": "/Filamentos",
-                "enabled": true,
-                "active": true,
-                "interaction": "PAGEROUTE",
-                "route": "inventory/coillist"
-            }))
-            jasmine.clock().tick(200);
-            expect(serviceAsAny.activeFeature).toBeDefined()
-            expect(serviceAsAny.activeFeature.label).toBe("/Filamentos")
-            expect(serviceAsAny.featureList).toBeDefined()
-            console.log('>Features: '+JSON.stringify(serviceAsAny.featureList))
-            expect(serviceAsAny.featureList[0].active).toBeTrue()
-            expect(serviceAsAny.featureList[1].active).toBeFalse()
-            expect(location.path()).toBe('/inventory/partlist');
-            jasmine.clock().uninstall()
-        });
-        xit('activateFeature.replace feature: activate a new selected feature', async () => {
-            jasmine.clock().install();
-            const serviceAsAny = service as any;
-            serviceAsAny.activeFeature = new Feature({
-                "label": "/Filamentos",
-                "enabled": true,
-                "active": false,
-                "interaction": "PAGEROUTE",
-                "route": "inventory/coillist"
-            })
-            serviceAsAny.featureList = [new Feature({
-                "label": "/Filamentos",
-                "enabled": true,
-                "active": false,
-                "interaction": "PAGEROUTE",
-                "route": "inventory/coillist"
-            }),
-            new Feature({
-                "label": "/Inventario",
-                "enabled": true,
-                "active": false,
-                "interaction": "PAGEROUTE",
-                "route": "/inventory/partlist"
-            })
-            ]
-            expect(serviceAsAny.activeFeature).toBeDefined()
-            expect(serviceAsAny.activeFeature.label).toBe("/Filamentos")
-            await service.activateFeature(new Feature({
-                "label": "/Inventario",
-                "enabled": true,
-                "active": true,
-                "interaction": "PAGEROUTE",
-                "route": "/inventory/partlist"
-            }))
-            jasmine.clock().tick(200);
-            expect(serviceAsAny.activeFeature).toBeDefined()
-            expect(serviceAsAny.activeFeature.label).toBe("/Inventario")
-            expect(serviceAsAny.featureList).toBeDefined()
-            expect(serviceAsAny.featureList[0].active).toBeFalse()
-            expect(serviceAsAny.featureList[1].active).toBeFalse()
-            expect(location.path()).toBe('/inventory/partlist');
-            jasmine.clock().uninstall()
-        });
-        // it('activateFeature.firstTime: activate a new feature when there is none active', () => {
-        //     const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
-        //     const featureB = new Feature({ label: '/Nueva Pieza', active: false });
-        //     const serviceAsAny = service as any;
-        //     serviceAsAny.routerDetector = routerDetector;
-        //     serviceAsAny.configuredFeatures.push(featureA);
-        //     serviceAsAny.configuredFeatures.push(featureB);
-        //     expect(serviceAsAny.activeFeature).toBeUndefined();
-        //     service.activateFeature(featureA);
-        //     expect(serviceAsAny.activeFeature).toBe(featureA);
-        // });
-        // it('activateFeature.active: activate a new feature when there is one active', () => {
-        //     const featureA = new Feature({ label: '/Inventario', active: false, route: 'inventory' });
-        //     const featureB = new Feature({ label: '/Nueva Pieza', active: false });
-        //     const serviceAsAny = service as any;
-        //     serviceAsAny.routerDetector = routerDetector;
-        //     serviceAsAny.configuredFeatures.push(featureA);
-        //     serviceAsAny.configuredFeatures.push(featureB);
-        //     expect(serviceAsAny.activeFeature).toBeUndefined();
-        //     service.activateFeature(featureA);
-        //     expect(serviceAsAny.activeFeature).toBe(featureA);
-        //     service.activateFeature(featureB);
-        //     expect(serviceAsAny.activeFeature).toBe(featureB);
-        // });
-        // xit('clean: clean the Dock configuration', () => {
-        //     const serviceAsAny = service as any;
-        //     serviceAsAny.configuredFeatures = []
-        //     serviceAsAny.configuredFeatures.push(new Feature());
-        //     serviceAsAny.configuredFeatures.push(new Feature());
-        //     serviceAsAny.configuredFeatures.push(new Feature());
-        //     serviceAsAny.configuredFeatures.push(new Feature());
-        //     expect(serviceAsAny.configuredFeatures.length).toBe(4);
-        //     service.clean();
-        //     expect(serviceAsAny.configuredFeatures.length).toBe(2);
-        // });
-    });
-});
+        }))
+        it('activatePage.success: set the active component to have the refresh target', () => {
+            // Given
+            const serviceAsAny = service as any
+            expect(serviceAsAny.routedComponent).toBeUndefined()
+            const pageRef: Refreshable = { clean: () => { }, refresh: () => { } }
+            // Test
+            service.activatePage(pageRef)
+            // Expect
+            expect(serviceAsAny.routedComponent).toBeDefined()
+        })
+        it('refresh.success: refresh the active component', () => {
+            // Given
+            const serviceAsAny = service as any
+            const pageRef: Refreshable = { clean: () => { }, refresh: () => { } }
+            spyOn(pageRef, 'refresh')
+            service.activatePage(pageRef)
+            // Test
+            service.refresh()
+            // Expect
+            expect(pageRef.refresh).toHaveBeenCalled()
+        })
+    })
+})
