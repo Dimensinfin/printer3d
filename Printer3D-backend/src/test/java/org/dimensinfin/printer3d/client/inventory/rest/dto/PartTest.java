@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_BUILD_TIME;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COLOR;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_COST;
@@ -292,8 +291,8 @@ public class PartTest {
 
 	@Test
 	public void equalsContract() {
-		EqualsVerifier.forClass( Part.class ).withIgnoredFields( "id" )
-				.suppress( Warning.STRICT_INHERITANCE )
+		EqualsVerifier.forClass( Part.class )
+				.withIgnoredFields( "id", "unavailable" )
 				.verify();
 	}
 

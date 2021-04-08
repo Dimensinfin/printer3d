@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
-import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
@@ -38,7 +37,6 @@ public class PartServiceV1Test {
 	private PartEntity testPart;
 	private PartEntity testPartNotActive;
 	private PartRepository partRepository;
-	private PartEntityToPartConverter partConverter;
 
 	@BeforeEach
 	public void beforeEach() {
@@ -73,12 +71,11 @@ public class PartServiceV1Test {
 				.withActive( false )
 				.build();
 		this.partRepository = Mockito.mock( PartRepository.class );
-		this.partConverter = Mockito.mock( PartEntityToPartConverter.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		Assertions.assertNotNull( serviceV1 );
 	}
 
@@ -91,7 +88,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		final PartList obtained = serviceV1.getParts( true );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -138,7 +135,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenReturn( partEntity );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		final Part obtained = serviceV1.newPart( part );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -181,7 +178,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
 	}
@@ -195,7 +192,7 @@ public class PartServiceV1Test {
 		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
 	}
@@ -222,7 +219,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenThrow( DataIntegrityViolationException.class );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
 	}
@@ -265,7 +262,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.save( partEntity ) ).thenThrow( DataIntegrityViolationException.class );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 			serviceV1.newPart( part );
 		} );
 	}
@@ -279,7 +276,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		final PartList obtained = serviceV1.getParts( false );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -320,7 +317,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findByLabel( Mockito.anyString() ) ).thenReturn( partList );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		final CounterResponse obtained = serviceV1.updateGroupPart( updateData );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -367,7 +364,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenReturn( partEntity );
 		//		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 		final Part obtained = serviceV1.updatePart( part );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -384,7 +381,7 @@ public class PartServiceV1Test {
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			// Test
-			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.partConverter );
+			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
 			serviceV1.updatePart( part );
 		} );
 	}

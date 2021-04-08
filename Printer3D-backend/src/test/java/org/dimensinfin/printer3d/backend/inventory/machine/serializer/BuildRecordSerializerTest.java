@@ -34,9 +34,9 @@ public class BuildRecordSerializerTest {
 	@BeforeEach
 	public void beforeEach() {
 		this.objectMapper = new ObjectMapper();
-		SimpleModule module = new SimpleModule();
+		final SimpleModule module = new SimpleModule();
 		module.addSerializer( BuildRecord.class, new BuildRecordSerializer() );
-		objectMapper.registerModule( module );
+		this.objectMapper.registerModule( module );
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class BuildRecordSerializerTest {
 				.build();
 		// Test
 		final String expected = "{\"state\":\"IDLE\",\"partCopies\":8,\"buildTime\":0,\"part\":null,\"jobInstallmentDate\":null,\"remainingTime\":0}";
-		final String obtained = objectMapper.writeValueAsString( buildRecord );
+		final String obtained = this.objectMapper.writeValueAsString( buildRecord );
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
 	}
@@ -79,8 +79,8 @@ public class BuildRecordSerializerTest {
 				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		// Test
-		final String expected = "{\"state\":\"RUNNING\",\"partCopies\":8,\"buildTime\":30,\"part\":{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false},\"jobInstallmentDate\":\"2020-06-05T21:54:00.226181Z\",\"remainingTime\":0}";
-		final String obtained = objectMapper.writeValueAsString( buildRecord );
+		final String expected = "{\"state\":\"RUNNING\",\"partCopies\":8,\"buildTime\":30,\"part\":{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false,\"unavailable\":false},\"jobInstallmentDate\":\"2020-06-05T21:54:00.226181Z\",\"remainingTime\":0}";
+		final String obtained = this.objectMapper.writeValueAsString( buildRecord );
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
 	}

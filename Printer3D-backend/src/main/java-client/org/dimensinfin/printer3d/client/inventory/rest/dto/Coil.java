@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.client.inventory.rest.dto;
 
 import java.util.UUID;
+import javax.annotation.concurrent.Immutable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,6 +26,7 @@ import org.dimensinfin.logging.LogWrapper;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.1.0
  */
+@Immutable
 public class Coil {
 	@NotNull(message = "Coil unique UUID 'id' is a mandatory field and cannot be null.")
 	private UUID id;
@@ -41,7 +43,6 @@ public class Coil {
 	@Size(min = 1, max = 50)
 	private String label;
 	private Boolean active = true;
-	//	private Instant destructionTime;
 
 	// - C O N S T R U C T O R S
 	protected Coil() {}
@@ -51,23 +52,9 @@ public class Coil {
 		return this.active;
 	}
 
-	//	public Coil setActive( final Boolean active ) {
-	//		this.active = active;
-	//		return this;
-	//	}
-
 	public String getColor() {
 		return this.color;
 	}
-
-	//	public Instant getDestructionTime() {
-	//		return this.destructionTime;
-	//	}
-
-	//	public Coil setDestructionTime( final Instant destructionTime ) {
-	//		this.destructionTime = destructionTime;
-	//		return this;
-	//	}
 
 	public UUID getId() {
 		return this.id;
@@ -77,11 +64,6 @@ public class Coil {
 		return this.label;
 	}
 
-	//	public Coil setLabel( final String label ) {
-	//		this.label = label;
-	//		return this;
-	//	}
-
 	public String getMaterial() {
 		return this.material;
 	}
@@ -90,19 +72,9 @@ public class Coil {
 		return this.tradeMark;
 	}
 
-	//	public Coil setTradeMark( final String tradeMark ) {
-	//		this.tradeMark = tradeMark;
-	//		return this;
-	//	}
-
 	public Integer getWeight() {
 		return this.weight;
 	}
-
-	//	public Coil setWeight( final Integer weight ) {
-	//		this.weight = weight;
-	//		return this;
-	//	}
 
 	/**
 	 * Validates that null fields can be completed with default data before being stored on the repository.
@@ -118,7 +90,7 @@ public class Coil {
 
 	// - C O R E
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.material )
 				.append( this.tradeMark )
@@ -130,7 +102,7 @@ public class Coil {
 	}
 
 	@Override
-	public boolean equals( final Object o ) {
+	public final boolean equals( final Object o ) {
 		if (this == o) return true;
 		if (!(o instanceof Coil)) return false;
 		final Coil coil = (Coil) o;

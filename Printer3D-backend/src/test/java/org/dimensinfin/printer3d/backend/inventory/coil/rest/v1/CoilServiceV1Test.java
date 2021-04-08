@@ -91,32 +91,28 @@ public class CoilServiceV1Test {
 	@Test
 	public void updateCoil() {
 		// Given
-		final UpdateCoilRequest updateCoilRequest = Mockito.mock( UpdateCoilRequest.class );
-		final Coil coil = new Coil.Builder().withId( TEST_COIL_ID )
-				.withColor( TEST_COIL_COLOR )
-				.withMaterial( TEST_COIL_MATERIAL )
+		final UpdateCoilRequest updateCoilRequest = new UpdateCoilRequest.Builder()
+				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
+				.withWeight( 200 )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
-				.withWeight( TEST_COIL_WEIGHT )
+				.withLabel( TEST_COIL_COLOR )
+				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		final CoilEntity coilEntity = new CoilEntity.Builder().withId( TEST_COIL_ID )
+				.withId( UUID.fromString( "47461aa3-24f0-4cc5-a335-53e8bb61accc" ) )
 				.withColor( TEST_COIL_COLOR )
 				.withMaterial( TEST_COIL_MATERIAL )
 				.withTradeMark( TEST_COIL_TRADE_MARK )
 				.withWeight( TEST_COIL_WEIGHT )
 				.build();
-		final CoilEntity savedCoil = Mockito.mock( CoilEntity.class );
-		final UUID uuid = UUID.fromString( "1b92bdbd-27f9-4668-8b52-0c2a67effad2" );
 		// When
-		Mockito.when( updateCoilRequest.getId() ).thenReturn( uuid );
-		Mockito.when( updateCoilRequest.getWeight() ).thenReturn( 100 );
 		Mockito.when( this.coilRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( coilEntity ) );
-		Mockito.when( this.coilRepository.save( Mockito.any( CoilEntity.class ) ) ).thenReturn( savedCoil );
-		Mockito.when( savedCoil.getId() ).thenReturn( uuid );
+		Mockito.when( this.coilRepository.save( Mockito.any( CoilEntity.class ) ) ).thenReturn( coilEntity );
 		// Test
 		final CoilServiceV1 coilServiceV1 = new CoilServiceV1( this.coilRepository );
 		final Coil obtained = coilServiceV1.updateCoil( updateCoilRequest );
 		// Assertions
-		Assertions.assertEquals( "1b92bdbd-27f9-4668-8b52-0c2a67effad2", obtained.getId().toString() );
+		Assertions.assertEquals( "47461aa3-24f0-4cc5-a335-53e8bb61accc", obtained.getId().toString() );
 	}
 
 	@Test

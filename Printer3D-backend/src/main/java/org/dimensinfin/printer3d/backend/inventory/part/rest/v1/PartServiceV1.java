@@ -27,14 +27,11 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartReques
 @Service
 public class PartServiceV1 {
 	protected final PartRepository partRepository;
-	protected final PartEntityToPartConverter partConverter;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public PartServiceV1( @NotNull final PartRepository partRepository,
-	                      @NotNull final PartEntityToPartConverter partConverter ) {
+	public PartServiceV1( @NotNull final PartRepository partRepository ) {
 		this.partRepository = partRepository;
-		this.partConverter = partConverter;
 	}
 
 	@Deprecated
@@ -42,7 +39,7 @@ public class PartServiceV1 {
 		final List<Part> parts = this.partRepository.findAll()
 				.stream()
 				.filter( part -> (!activesOnly || part.isActive()) )
-				.map( this.partConverter::convert )
+				.map( partEntity -> new PartEntityToPartConverter().convert( partEntity ) )
 				.collect( Collectors.toList() );
 		return new PartList.Builder()
 				.withPartList( parts )

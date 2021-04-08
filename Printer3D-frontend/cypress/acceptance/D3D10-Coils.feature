@@ -136,7 +136,7 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         When form checkbox named "inactiveFilter" is clicked
         And the loading panel completes
         # - Count the new list of Coils
-        Then the target has 23 "coil"
+        Then the target has 22 "coil"
 
     @D3D10.12
     Scenario: [D3D10.12]-The Coils list page has a form field that will operate as a content match filter.
@@ -154,8 +154,8 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
         Then the target has 13 "coil"
         And field named "coilCounter" has contents "13"
         When form checkbox named "inactiveFilter" is clicked
-        Then the target has 23 "coil"
-        And field named "coilCounter" has contents "23"
+        Then the target has 22 "coil"
+        And field named "coilCounter" has contents "22"
         When "tpu" is set on form field "filter"
         Then the target has 3 "coil"
         And field named "coilCounter" has contents "3"

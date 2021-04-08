@@ -32,9 +32,9 @@ public class PartListSerializerTest {
 	@BeforeEach
 	public void beforeEach() {
 		this.objectMapper = new ObjectMapper();
-		SimpleModule module = new SimpleModule();
+		final SimpleModule module = new SimpleModule();
 		module.addSerializer( PartList.class, new PartListSerializer() );
-		objectMapper.registerModule( module );
+		this.objectMapper.registerModule( module );
 	}
 
 	@Test
@@ -61,9 +61,8 @@ public class PartListSerializerTest {
 				.withPartList( partList )
 				.build();
 		// Testing
-		final String expected = "{\"jsonClass\":\"PartList\",\"count\":1,\"parts\":[{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\"," +
-				"\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}]}";
-		final String obtained = objectMapper.writeValueAsString( partContainer );
+		final String expected = "{\"jsonClass\":\"PartList\",\"count\":1,\"parts\":[{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false,\"unavailable\":false}]}";
+		final String obtained = this.objectMapper.writeValueAsString( partContainer );
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
 	}

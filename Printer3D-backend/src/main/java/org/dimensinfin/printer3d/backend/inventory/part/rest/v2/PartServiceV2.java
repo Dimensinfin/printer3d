@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.converter.CoilEntityToCoilConverter;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
@@ -28,10 +29,9 @@ public class PartServiceV2 extends PartServiceV1 {
 	// - C O N S T R U C T O R S
 	@Autowired
 	public PartServiceV2( @NotNull final PartRepository partRepository,
-	                      @NotNull final PartEntityToPartConverter partConverter,
 	                      @NotNull final CoilRepository coilRepository,
 	                      @NotNull final CoilEntityToCoilConverter coilConverter ) {
-		super( partRepository, partConverter );
+		super( partRepository );
 		this.coilRepository = coilRepository;
 		this.coilConverter = coilConverter;
 	}
@@ -41,7 +41,11 @@ public class PartServiceV2 extends PartServiceV1 {
 		final List<Coil> coils = this.coilRepository.findAll()
 				.stream()
 				.filter( CoilEntity::getActive )
-				.map( this.coilConverter::convert )
+				.map( coilEntity -> {
+					LogWrapper.info( coilEntity.toString() );
+					return this.coilConverter.convert( coilEntity );
+
+				} )
 				.collect( Collectors.toList() );
 		return this.partRepository.findAll()
 				.stream()

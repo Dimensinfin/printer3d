@@ -33,6 +33,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java-client/org/dimensinfin/printer3d/client/inventory/rest/dto/Coil.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java-client/org/dimensinfin/printer3d/client/inventory/rest/dto/Part.java">
           <value>
             <set />
@@ -63,12 +68,52 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/coil/persistence/CoilEntityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/coil/rest/v1/CoilServiceV1Test.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/machine/serializer/BuildRecordSerializerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/machine/serializer/MachineV2SerializerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v1/PartControllerV1Test.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v1/PartServiceV1Test.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/part/rest/v2/PartServiceV2Test.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/part/serializer/PartListSerializerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/client/inventory/rest/dto/CoilTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/client/inventory/rest/dto/PartTest.java">
           <value>
             <set />
           </value>

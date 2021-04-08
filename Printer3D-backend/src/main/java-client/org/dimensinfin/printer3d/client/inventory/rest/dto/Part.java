@@ -146,8 +146,9 @@ public class Part {
 		return this;
 	}
 
+	// - C O R E
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.label )
 				.append( this.description )
@@ -166,7 +167,7 @@ public class Part {
 	}
 
 	@Override
-	public boolean equals( final Object o ) {
+	public final boolean equals( final Object o ) {
 		if (this == o) return true;
 		if (!(o instanceof Part)) return false;
 		final Part part = (Part) o;
