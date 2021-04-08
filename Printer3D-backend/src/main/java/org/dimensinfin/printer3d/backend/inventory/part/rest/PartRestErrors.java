@@ -35,4 +35,7 @@ public class PartRestErrors {
 				.withMessage( MessageFormat.format( "Part with id [{0}] already exists. Use the Update endpoint.", partId ) )
 				.build();
 	}
+
+	// - C O N S T R U C T O R S
+	private PartRestErrors() {}
 }

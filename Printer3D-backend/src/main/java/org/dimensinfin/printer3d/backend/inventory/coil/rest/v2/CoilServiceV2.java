@@ -36,7 +36,7 @@ public class CoilServiceV2 {
 	public List<Coil> getCoils() {
 		return this.coilRepository.findAll()
 				.stream()
-				.map( coilEntity -> this.coilConverter.convert( coilEntity ) )
+				.map( this.coilConverter::convert )
 				.collect( Collectors.toList() );
 	}
 }

@@ -86,6 +86,7 @@ public interface InventoryApiV1 {
 	 *                    included on the list. If tru only active parts will be returned by the filter.  (optional, default to false)
 	 * @return Call&lt;PartList&gt;
 	 */
+	@Deprecated
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/inventory/parts")
 	Call<PartList> getParts( @Header("Authorization") final @NotNull String authorizationToken,

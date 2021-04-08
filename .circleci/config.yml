@@ -338,7 +338,7 @@ jobs:
             npm run acceptance:cypress:D14
             npm run acceptance:cypress:D15
             npm run acceptance:cypress:D19
-          npm run acceptance:cypress:D20
+            npm run acceptance:cypress:D20
             # npm run acceptance:cypress:F21
   quality-sonarcloud-frontend:
     docker:

@@ -29,7 +29,7 @@ public class CoilUpdater {
 		if (null != updateData.getLabel()) this.coilEntity.setLabel( updateData.getLabel() );
 		// [STORY] Coils that are set inactive should be removed definitively in the future.
 		if (null != updateData.getActive()) {
-			if (updateData.getActive())
+			if (Boolean.TRUE.equals( updateData.getActive() ))
 				this.coilEntity.setDestructionTime( null );
 			else
 				this.coilEntity.setDestructionTime( Instant.now().plus( 1, ChronoUnit.DAYS ) );

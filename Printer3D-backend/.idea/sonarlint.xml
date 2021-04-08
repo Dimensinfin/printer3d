@@ -5,6 +5,8 @@
     <option name="fileExclusions">
       <list>
         <option value="GLOB:src/test/**" />
+        <option value="GLOB:src/acceptance/**" />
+        <option value="GLOB:src/integration/**" />
       </list>
     </option>
     <option name="projectKey" value="dimensinfin3d_dimensinfin3d" />

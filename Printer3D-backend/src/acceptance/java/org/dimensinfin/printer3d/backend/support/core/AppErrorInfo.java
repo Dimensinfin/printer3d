@@ -36,7 +36,7 @@ public class AppErrorInfo {
 	@JsonProperty("errorCode")
 	private String errorCode;
 	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	private final Map<String, Object> additionalProperties = new HashMap<>();
 
 	// - G E T T E R S   &   S E T T E R S
 	@JsonAnyGetter
@@ -46,76 +46,76 @@ public class AppErrorInfo {
 
 	@JsonProperty("errorCode")
 	public String getErrorCode() {
-		return errorCode;
+		return this.errorCode;
 	}
 
 	@JsonProperty("errorCode")
-	public void setErrorCode( String errorCode ) {
+	public void setErrorCode( final String errorCode ) {
 		this.errorCode = errorCode;
 	}
 
 	@JsonProperty("errorInfo")
 	public String getErrorInfo() {
-		return errorInfo;
+		return this.errorInfo;
 	}
 
 	@JsonProperty("errorInfo")
-	public void setErrorInfo( String errorInfo ) {
+	public void setErrorInfo( final String errorInfo ) {
 		this.errorInfo = errorInfo;
 	}
 
 	@JsonProperty("httpStatus")
 	public String getHttpStatus() {
-		return httpStatus;
+		return this.httpStatus;
 	}
 
 	@JsonProperty("httpStatus")
-	public void setHttpStatus( String httpStatus ) {
+	public void setHttpStatus( final String httpStatus ) {
 		this.httpStatus = httpStatus;
 	}
 
 	@JsonProperty("httpStatusCode")
 	public Integer getHttpStatusCode() {
-		return httpStatusCode;
+		return this.httpStatusCode;
 	}
 
 	@JsonProperty("httpStatusCode")
-	public void setHttpStatusCode( Integer httpStatusCode ) {
+	public void setHttpStatusCode( final Integer httpStatusCode ) {
 		this.httpStatusCode = httpStatusCode;
 	}
 
 	@JsonProperty("httpStatusName")
 	public String getHttpStatusName() {
-		return httpStatusName;
+		return this.httpStatusName;
 	}
 
 	@JsonProperty("httpStatusName")
-	public void setHttpStatusName( String httpStatusName ) {
+	public void setHttpStatusName( final String httpStatusName ) {
 		this.httpStatusName = httpStatusName;
 	}
 
 	@JsonProperty("message")
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	@JsonProperty("message")
-	public void setMessage( String message ) {
+	public void setMessage( final String message ) {
 		this.message = message;
 	}
 
 	@JsonProperty("timestamp")
 	public Object getTimestamp() {
-		return timestamp;
+		return this.timestamp;
 	}
 
 	@JsonProperty("timestamp")
-	public void setTimestamp( Object timestamp ) {
+	public void setTimestamp( final Object timestamp ) {
 		this.timestamp = timestamp;
 	}
 
 	@JsonAnySetter
-	public void setAdditionalProperty( String name, Object value ) {
+	public void setAdditionalProperty( final String name, final Object value ) {
 		this.additionalProperties.put( name, value );
 	}
 }
