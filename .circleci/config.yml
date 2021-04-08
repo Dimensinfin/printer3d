@@ -40,6 +40,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: PRINTER3D-FRONTEND - Create cache configutation file unmodified.
+          working_directory: Printer3D-frontend
+          command: |
+            cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
+      - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
           command: |
@@ -53,7 +58,7 @@ jobs:
       - save_cache:
           paths:
             - ~/project/Printer3D-frontend/node_modules
-          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
   compile-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -61,9 +66,15 @@ jobs:
       BIT_TOKEN: d47a8f17-636f-4bda-aad9-ac9fa27fe26d
     steps:
       - checkout
+      - run:
+          name: PRINTER3D-FRONTEND - Create cache configutation file unmodified.
+          working_directory: Printer3D-frontend
+          command: |
+            cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
-          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json" }}
+          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          - frontend-dependencies-
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -84,7 +95,7 @@ jobs:
           paths:
             - ~/project/Printer3D-frontend/node_modules
             - ~/project/Printer3D-frontend/dist
-          key: frontend-compiled-node-{{ epoch }}
+          key: frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
   validate-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -92,8 +103,14 @@ jobs:
       BIT_TOKEN: d47a8f17-636f-4bda-aad9-ac9fa27fe26d
     steps:
       - checkout
+      - run:
+          name: PRINTER3D-FRONTEND - Create cache configutation file unmodified.
+          working_directory: Printer3D-frontend
+          command: |
+            cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
+          - frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
           - frontend-compiled-node-
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
@@ -116,8 +133,14 @@ jobs:
       - image: circleci/node:12.16.3-browsers
     steps:
       - checkout
+      - run:
+          name: PRINTER3D-FRONTEND - Create cache configutation file unmodified.
+          working_directory: Printer3D-frontend
+          command: |
+            cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
+          - frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
           - frontend-compiled-node-
       - run:
           name: PRINTER3D-FRONTEND - Run frontend unit tests
@@ -168,6 +191,7 @@ jobs:
           paths:
             - ~/project/Printer3D-frontend/node_modules
             - ~/project/Printer3D-frontend/dist
+            - /home/circleci/.cache/Cypress
           key: frontend-build-code-{{ epoch }}
   acceptance-test-frontend-phase01:
     machine:
@@ -237,6 +261,7 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm install
+            cypress install
             npm run docker:start
             docker ps
             dockerize -wait tcp://localhost:5110 -timeout 1m

@@ -14,7 +14,7 @@ import { PatchNotesDialogComponent } from './patch-notes-dialog.component'
 import { MatDialogRef } from '@angular/material/dialog'
 import { EVariant } from '@domain/interfaces/EPack.enumerated'
 
-fdescribe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
+describe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
     let component: PatchNotesDialogComponent
     let httpWrapper = { wrapHttpRESOURCECall: () => { } }
     let dialogRef = { close: () => { } }
