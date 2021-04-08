@@ -23,6 +23,11 @@ spring:
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+  scheduler:
+    enable: true
+    removecoils:
+      active: true
+      scheduletime: PT8H
 
 logging:
   logstash:

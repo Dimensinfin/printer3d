@@ -24,6 +24,7 @@ import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignCl
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV2;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
+import org.dimensinfin.printer3d.backend.support.rest.Printer3DFeignClientSupport;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
@@ -50,6 +51,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final ModelFeignClientV1 modelFeignClientV1;
 	private final RequestFeignClientV2 requestFeignClientV2;
 	private final AccountFeignClientV1 accountFeignClientV1;
+	private final Printer3DFeignClientSupport printer3DFeignClientSupport;
 
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( @NotNull final Printer3DWorld printer3DWorld,
@@ -62,7 +64,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  @NotNull final JobFeignClientV1 jobFeignClientV1,
 	                                  @NotNull final ModelFeignClientV1 modelFeignClientV1,
 	                                  @NotNull final RequestFeignClientV2 requestFeignClientV2,
-	                                  @NotNull final AccountFeignClientV1 accountFeignClientV1 ) {
+	                                  @NotNull final AccountFeignClientV1 accountFeignClientV1,
+	                                  @NotNull final Printer3DFeignClientSupport printer3DFeignClientSupport ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.partFeignClientV2 = partFeignClientV2;
@@ -74,6 +77,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.modelFeignClientV1 = Objects.requireNonNull( modelFeignClientV1 );
 		this.requestFeignClientV2 = requestFeignClientV2;
 		this.accountFeignClientV1 = accountFeignClientV1;
+		this.printer3DFeignClientSupport = printer3DFeignClientSupport;
 	}
 
 	@When("the Accounting Week Income request is processed")
@@ -213,6 +217,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the Get Parts V2 request is processed")
 	public void the_get_parts_v2_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_PARTS_V2 );
+	}
+
+	@When("the scheduler time is reset")
+	public void the_scheduler_time_is_reset() throws IOException {
+		this.processRequestByType( RequestType.SCHEDULER_COIL_RESET );
 	}
 
 	private ResponseEntity processRequest( final RequestType requestType ) throws IOException {
@@ -367,6 +376,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( partListV2ResponseEntity );
 				this.printer3DWorld.setPartListV2ResponseEntity( partListV2ResponseEntity );
 				return partListV2ResponseEntity;
+			case SCHEDULER_COIL_RESET:
+				return this.printer3DFeignClientSupport.resetCoilScheduler();
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import org.dimensinfin.logging.LogWrapper;
 
@@ -21,10 +22,11 @@ import org.dimensinfin.logging.LogWrapper;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableAutoConfiguration
+@EnableScheduling
 public class Printer3DApplication {
 	public static final String APPLICATION_ERROR_CODE_PREFIX = "dimensinfin.printer3d";
 
-	public static void main( String[] args ) {
+	public static void main( final String[] args ) {
 		LogWrapper.enter();
 		SpringApplication.run( Printer3DApplication.class, args );
 		new LogoPrinter().print();
@@ -42,7 +44,7 @@ public class Printer3DApplication {
 
 		private String readAllBytes() {
 			try {
-				File resource = new File( System.getenv( "NEOCOM_BANNER_LOCATION" ) );
+				final File resource = new File( System.getenv( "NEOCOM_BANNER_LOCATION" ) );
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final IOException ioe) {
 				LogWrapper.error( ioe );

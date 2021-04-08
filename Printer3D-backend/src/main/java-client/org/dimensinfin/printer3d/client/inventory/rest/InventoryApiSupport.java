@@ -26,6 +26,10 @@ public interface InventoryApiSupport {
 	Call<CounterResponse> deleteAllRolls();
 
 	@Headers({ "Content-Type:application/json" })
+	@GET("/api/v1/inventory/coils/reset/destruction")
+	Call<CounterResponse> resetCoilScheduler();
+
+	@Headers({ "Content-Type:application/json" })
 	@PUT("/api/v1/inventory/machines/setup")
 	Call<Boolean> setupMachine( @Body final @NotNull @Valid SetupRequest setupRequest );
 }

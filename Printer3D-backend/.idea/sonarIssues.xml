@@ -13,7 +13,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/acceptance/steps/B3D02CoilsSteps.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/acceptance/steps/GivenACleanCoilsRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/acceptance/steps/P3D01PartsSteps.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/acceptance/steps/WhenTheRequestIsProcessed.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/support/RequestType.java">
           <value>
             <set />
           </value>
@@ -33,7 +53,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/java/org/dimensinfin/printer3d/backend/support/rest/Printer3DFeignClientSupport.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/acceptance/resources/features/B3D01.Parts.feature">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/acceptance/resources/features/B3D02.Coils.feature">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java-client/org/dimensinfin/printer3d/client/inventory/rest/InventoryApiSupport.java">
           <value>
             <set />
           </value>
@@ -53,12 +88,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/Printer3DApplication.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/config/interceptor/LogRequestHeaderInterceptor.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/core/scheduler/RemoveEmptyCoilsJob.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/coil/persistence/CoilUpdater.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/coil/rest/support/CoilControllerSupport.java">
           <value>
             <set />
           </value>
@@ -93,12 +143,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/application-dev.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/application.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/spec/printer3d-openapi.yaml">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/coil/persistence/CoilEntityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/dimensinfin/printer3d/backend/inventory/coil/rest/support/CoilControllerSupportTest.java">
           <value>
             <set />
           </value>
