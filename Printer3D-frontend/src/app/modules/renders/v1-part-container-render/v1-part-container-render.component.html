@@ -1,6 +1,6 @@
 <!-- C A T A L O G   V A R I A N T -->
 <div *ngIf="getVariant() === '-CATALOG-'">
-    <div id="{{getUniqueId()}}" class="cornered-panel">
+    <div id="{{getUniqueId()}}" class="cornered-panel" [ngClass]="{'expanded-panel': isExpanded()}">
         <div class="row part-container-panel">
             <button cy-name="edit-button" class="edit-attributes button-enabled" style="padding-left: 5px;" (click)="toggleEdition($event)">
                 <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px">
@@ -53,7 +53,7 @@
                 <div cy-field-value="modelPath" class="partcontainer-buildTime">{{getModelPath()}}</div>
             </div>
         </div>
-        <div *ngIf="isExpanded()" style="padding-right: 4px;padding-bottom:4px;">
+        <div *ngIf="isExpanded()" class="part-container-expanded">
             <div *ngFor="let part of getParts()">
                 <v1-part style="width: 100%;" [container]="self" [node]="part" [variant]="'-CATALOG-'"></v1-part>
             </div>
