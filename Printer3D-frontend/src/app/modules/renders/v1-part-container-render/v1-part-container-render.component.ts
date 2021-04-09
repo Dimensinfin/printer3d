@@ -36,7 +36,7 @@ export class V1PartContainerRenderComponent extends NodeContainerRenderComponent
         return this.node as PartContainer
     }
     public getUniqueId(): string {
-        return this.getNode().getId()
+        return 'part-container:'+this.getNode().getId()
     }
     public getLabel(): string {
         return this.getNode().label

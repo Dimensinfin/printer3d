@@ -1,10 +1,16 @@
 [{
     "jsonClass": "PatchChange",
+    "name": "➰ Anotaciones cambio 0.14.3",
+    "changes": [
+        "✅ Cambiada la limitación de stock del valor 15 al valor 999.",
+        "✅ En el inventario cuando se expande un grupo de piezas se cambia el fondo y se cierran el resto de los desplegables."
+    ]
+}, {
+    "jsonClass": "PatchChange",
     "name": "➰ Anotaciones cambio 0.14.2",
     "changes": [
         "✅ Ajustados algunos estilos para que los elementos se coloquen más adecuadamente en el caso que las páginas no sean tan anchas como se necesite.",
         "🐞 Resuelto el problema de que la activación de la edición de un modelo también desplegaba su contenido. Ahora el click en el boton se diferencia del click en el contenido para desplegar las piezas que componen un modelo.",
-        "✅ Incorporado un contador de piezas disponibles en la página de creación de un modelo.",
-        ""
+        "✅ Incorporado un contador de piezas disponibles en la página de creación de un modelo."
     ]
 }]

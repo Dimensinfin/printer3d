@@ -55,7 +55,7 @@ When('the loading panel completes', function () {
 Then('the page {string} is activated', function (symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('app-root').find(tag).as('target-page').as('target')
+    cy.get('app-root').find(tag).as('target-page').as('target-panel').as('target')
         .should('exist')
 })
 Then('the page {string} has {int} panels', function (symbolicName: string, panelCount: number) {
