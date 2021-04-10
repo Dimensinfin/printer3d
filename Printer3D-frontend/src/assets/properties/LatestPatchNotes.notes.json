@@ -1,5 +1,15 @@
 [{
         "jsonClass": "PatchChange",
+        "name": "➰ Anotaciones cambio 0.15.0",
+        "changes": [
+            "✅ Competado el control de calidad.",
+            "✅ Los finamentos acabados o rechazados (no activos) se eliminan definivamente a las 48 horas.",
+            "✅ Las piezas que ya no dispongan de filamento se ocultan de los listados. Lo mismo con los modelos que contienen piezas ocultadas por no poderse fabricar. La compra de un filamente del tipo adecuado activará de nuevo las piezas y modelos.",
+            "✅ Incorporadas otras dos impresoras. Cambiada la página para poder asignar trabajos a todas la impresoras."
+        ]
+    },
+    {
+        "jsonClass": "PatchChange",
         "name": "➰ Anotaciones cambio 0.14.3",
         "changes": [
             "✅ Cambiada la limitación de stock del valor 15 al valor 999.",
@@ -16,11 +26,3 @@
         ]
     }
 ]
-    "jsonClass": "PatchChange",
-    "name": "➰ Anotaciones cambio 0.15.0",
-    "changes": [
-        "✅ Competado el control de calidad.",
-        "✅ Los finamentos acabados o rechazados (no activos) se eliminan definivamente a las 48 horas.",
-        "✅ Las piezas que ya no dispongand de filamento se ocultan de los listados. Lo mismo con los modelos que contienen piezas ocultadas por no poderse fabricar. La compra de un filamente del tipo adecuado activará de nuevo las piezas y modelos."
-    ]
-}]
