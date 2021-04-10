@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.coil.rest.v2.CoilServiceV2;
@@ -16,7 +16,7 @@ import org.dimensinfin.printer3d.backend.inventory.coil.rest.v2.CoilServiceV2;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.15.0
  */
-@Service
+@Component
 @ConditionalOnProperty(name = "spring.scheduler.removecoils.active")
 public class RemoveEmptyCoilsJob {
 	private final CoilServiceV2 coilServiceV2;
