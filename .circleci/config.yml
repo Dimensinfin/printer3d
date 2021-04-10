@@ -53,7 +53,7 @@ jobs:
           working_directory: Printer3D-frontend
           command: |
             npm install
-            cypress install
+            # cypress install
             npm run build:stage
       - save_cache: # save compiled angular code after a first compilation
           paths:
