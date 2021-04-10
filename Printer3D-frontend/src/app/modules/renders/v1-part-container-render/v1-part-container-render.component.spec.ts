@@ -92,7 +92,7 @@ describe('COMPONENT V1PartContainerRenderComponent [Module: RENDER]', () => {
             component.node = partContainer
             expect(component).toBeDefined()
             expect(component.getNode()).toBeDefined()
-            expect(component.getUniqueId()).toBe("0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2")
+            expect(component.getUniqueId()).toBe("part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2")
             expect(component.getLabel()).toBe("Boquilla Ganesha")
             expect(component.getDescription()).toBe("Boquilla Ganesha")
             expect(component.getBuildTime()).toBe('90 min.')
