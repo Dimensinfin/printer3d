@@ -557,6 +557,8 @@ jobs:
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D08"
             echo "@B3D09"
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D09"
+            # echo "@B3D10"
+            # ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D10"
   quality-sonarcloud-backend:
     docker:
       - image: circleci/openjdk:11-jdk
