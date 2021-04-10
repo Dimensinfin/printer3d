@@ -434,7 +434,7 @@ jobs:
           paths:
             - ~/Printer3D-backend/gradle
             - ~/Printer3D-backend/.gradle
-          key: backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+          key: v15-backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
   compile-backend-job:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -442,7 +442,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+          - v15-backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+          - v15-backend-dependencies-
       - run:
           name: PRINTER3D-BACKEND - Compile SpringBoot code
           working_directory: Printer3D-backend
@@ -455,7 +456,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+          - v15-backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+          - v15-backend-dependencies-
       - run:
           name: PRINTER3D-BACKEND - Unit Testing application
           working_directory: Printer3D-backend
@@ -477,7 +479,7 @@ jobs:
             - ~/project/Printer3D-backend/.gradle
             - ~/project/Printer3D-backend/build
             - ~/project/Printer3D-backend/coverage
-          key: backend-build-{{ checksum "~/project/Printer3D-backend/build.gradle" }}
+          key: v15-backend-build-{{ checksum "~/project/Printer3D-backend/build.gradle" }}
   integrationtest-backend-job:
     machine:
       image: ubuntu-2004:202010-01
@@ -512,7 +514,7 @@ jobs:
           command: |
             ./docker-service.sh start integration
             docker ps
-            dockerize -wait tcp://localhost:5121 -timeout 3m
+            dockerize -wait tcp://localhost:5122 -timeout 3m
             docker ps
             ./gradlew integrationTest
   acceptancetest-backend-job:
@@ -569,8 +571,12 @@ jobs:
       - image: circleci/openjdk:11-jdk
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - v15-backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+          - v15-backend-dependencies-
       - run:
-          name: PRINTER3D-BACKEND - Upload SonarQube statistics
+          name: PRINTER3D-BACKEND - Upload Sonarqube statistics
           working_directory: Printer3D-backend
           environment:
             SONAR_TOKEN: 760417486be1e97e4566898079652a8ac326af3d
