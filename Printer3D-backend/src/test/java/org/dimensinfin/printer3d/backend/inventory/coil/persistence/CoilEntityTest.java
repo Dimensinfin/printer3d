@@ -78,4 +78,23 @@ public class CoilEntityTest {
 		coilEntity.setActive( false );
 		Assertions.assertEquals( false, coilEntity.getActive() );
 	}
+
+	@Test
+	public void toStringContract() {
+		// Given
+		final CoilEntity coilEntity = new CoilEntity.Builder()
+				.withId( TEST_COIL_ID )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
+				.withWeight( TEST_COIL_WEIGHT )
+				.withActive( TEST_COIL_ACTIVE )
+				.build();
+		// Test
+		final String expected = "{\"id\":\"31009b73-fd2d-432d-9616-51cc2a1882be\",\"material\":\"PLA\",\"tradeMark\":\"EOLAS\",\"color\":\"-COLOR-\",\"weight\":750,\"label\":\"-COLOR-\",\"active\":false}";
+		final String obtained = coilEntity.toString();
+		// Assertions
+		Assertions.assertEquals( expected, obtained );
+	}
 }

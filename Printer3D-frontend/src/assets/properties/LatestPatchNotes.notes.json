@@ -13,7 +13,8 @@
         "name": "➰ Anotaciones cambio 0.14.3",
         "changes": [
             "✅ Cambiada la limitación de stock del valor 15 al valor 999.",
-            "✅ En el inventario cuando se expande un grupo de piezas se cambia ligeramente el color del fondo."
+            "✅ En el inventario cuando se expande un grupo de piezas se cambia ligeramente el color del fondo.",
+            "✅ Las piezas que no están activas no es posible duplicarlas."
         ]
     },
     {

@@ -23,7 +23,7 @@
             <div cy-field-label="label" class="label">ETIQUETA</div>
             <div cy-field-value="label" class="field-height">{{getLabel()}}</div>
         </div>
-        <div cy-name="weight" class="field weight-width">
+        <div cy-name="weight" class="field right weight-width">
             <div cy-field-label="weight" class="label">PESO</div>
             <div cy-field-value="weight" class="field-height">{{getWeight()}}</div>
         </div>
@@ -34,9 +34,6 @@
     <svg class="corner-clear" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
     </svg>
-    <!-- <svg class="corner-mark green-mark" viewBox="0 0 100 100">
-        <path d="M100,100 L0,100 L100,0 L100,100" />
-    </svg> -->
     <svg *ngIf="isActive()" class="corner-mark greenyellow-mark" viewBox="0 0 100 100">
         <path d="M100,100 L0,100 L100,0 L100,100" />
     </svg>

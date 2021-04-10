@@ -82,14 +82,10 @@ jobs:
             node -v
             npm config set @bit:registry https://node.bitsrc.io
       - run:
-          name: PRINTER3D-FRONTEND - Install the framework
-          working_directory: Printer3D-frontend
-          command: |
-            npm install
-      - run:
           name: PRINTER3D-FRONTEND - Compile Angular code
           working_directory: Printer3D-frontend
           command: |
+            npm install
             npm run build:prod
       - save_cache: # save compiled angular code after a first compilation
           paths:
@@ -155,7 +151,7 @@ jobs:
           key: frontend-coverage-{{ epoch }}
       - store_test_results:
           path: ~/project/Printer3D-frontend/cypress/cucumber-json
-  acceptance-test-frontend-prepare:
+  acceptancetest-frontend-prepare:
     machine:
       image: ubuntu-2004:202010-01
     environment:
@@ -189,7 +185,7 @@ jobs:
             - ~/project/Printer3D-frontend/dist
             - /home/circleci/.cache/Cypress
           key: frontend-build-code-{{ epoch }}
-  acceptance-test-frontend-phase01:
+  acceptancetest-frontend-phase01:
     machine:
       image: ubuntu-2004:202010-01
     environment:
@@ -224,7 +220,7 @@ jobs:
             npm run acceptance:cypress:D02
             npm run acceptance:cypress:D04
             npm run acceptance:cypress:D05
-  acceptance-test-frontend-phase02:
+  acceptancetest-frontend-phase02:
     machine:
       image: ubuntu-2004:202010-01
     environment:
@@ -258,7 +254,7 @@ jobs:
             # npm run acceptance:cypress:D06 # Drag and drop does not work on CI.
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09
-  acceptance-test-frontend-phase03:
+  acceptancetest-frontend-phase03:
     machine:
       image: ubuntu-2004:202010-01
     environment:
@@ -292,7 +288,7 @@ jobs:
             npm run acceptance:cypress:D10
             npm run acceptance:cypress:D11
             npm run acceptance:cypress:D12
-  acceptance-test-frontend-phase04:
+  acceptancetest-frontend-phase04:
     machine:
       image: ubuntu-2004:202010-01
     environment:
@@ -326,7 +322,7 @@ jobs:
             npm run acceptance:cypress:D13
             npm run acceptance:cypress:D14
             npm run acceptance:cypress:D15
-  acceptance-test-frontend-phase05:
+  acceptancetest-frontend-phase05:
     machine:
       image: ubuntu-2004:202010-01
     environment:
@@ -484,7 +480,37 @@ jobs:
             - ~/project/Printer3D-backend/build
             - ~/project/Printer3D-backend/coverage
           key: backend-build-{{ checksum "~/project/Printer3D-backend/build.gradle" }}
-  acceptance-test-backend-job:
+  integrationtest-backend-job:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
+      - run:
+          name: PRINTER3D-BACKEND - Application integration tests
+          working_directory: Printer3D-backend
+          environment:
+            PORT: 5120
+            DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
+            NEOCOM_BANNER_LOCATION: "./build/resources/main/app-banner.txt"
+            SPRING_PROFILES_ACTIVE: test
+          command: |
+            ./gradlew integrationTest
+      - store_test_results:
+          path: ~/project/Printer3D-backend/build/test-results
+      - store_artifacts:  
+          path: ~/project/Printer3D-backend/build/libs
+      - save_cache:
+          paths:
+            - ~/project/Printer3D-backend/.gradle
+            - ~/project/Printer3D-backend/build
+            - ~/project/Printer3D-backend/coverage
+          key: backend-build-{{ checksum "~/project/Printer3D-backend/build.gradle" }}
+  acceptancetest-backend-job:
     machine:
       image: ubuntu-2004:202010-01
     steps:
@@ -623,44 +649,45 @@ workflows:
               only:
                 - test
                 - master
-      - acceptance-test-frontend-prepare:
+      - acceptancetest-frontend-prepare:
           requires:
-            - compile-frontend-job
+            - start-job
+            - unittest-frontend-job
           filters:
             branches:
               only:
                 - test
-      - acceptance-test-frontend-phase01:
+      - acceptancetest-frontend-phase01:
           requires:
-            - acceptance-test-frontend-prepare
+            - acceptancetest-frontend-prepare
           filters:
             branches:
               only:
                 - test
-      - acceptance-test-frontend-phase02:
+      - acceptancetest-frontend-phase02:
           requires:
-            - acceptance-test-frontend-prepare
+            - acceptancetest-frontend-prepare
           filters:
             branches:
               only:
                 - test
-      - acceptance-test-frontend-phase03:
+      - acceptancetest-frontend-phase03:
           requires:
-            - acceptance-test-frontend-prepare
+            - acceptancetest-frontend-prepare
           filters:
             branches:
               only:
                 - test
-      - acceptance-test-frontend-phase04:
+      - acceptancetest-frontend-phase04:
           requires:
-            - acceptance-test-frontend-prepare
+            - acceptancetest-frontend-prepare
           filters:
             branches:
               only:
                 - test
-      - acceptance-test-frontend-phase05:
+      - acceptancetest-frontend-phase05:
           requires:
-            - acceptance-test-frontend-prepare
+            - acceptancetest-frontend-prepare
           filters:
             branches:
               only:
@@ -702,9 +729,18 @@ workflows:
               only:
                 - test
                 - master
-      - acceptance-test-backend-job:
+      - integrationtest-backend-job:
+          requires:
+            - compile-backend-job
+          filters:
+            branches:
+              only:
+                - test
+                - master
+      - acceptancetest-backend-job:
           requires:
             - unittest-backend-job
+            - integrationtest-backend-job
           filters:
             branches:
               only:
@@ -714,7 +750,8 @@ workflows:
       - quality-sonarcloud-backend:
           requires:
             - unittest-backend-job
-            - acceptance-test-backend-job
+            - integrationtest-backend-job
+            - acceptancetest-backend-job
           filters:
             branches:
               only:
@@ -739,7 +776,7 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      # - acceptance-test-frontend-job:
+      # - acceptancetest-frontend-job:
       #     requires:
       #       - start-job
       #     filters:
@@ -766,7 +803,15 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      - acceptance-test-backend-job:
+      - integrationtest-backend-job:
+          requires:
+            - start-job
+          filters:
+            tags:
+              only: /0.*/
+            branches:
+              ignore: /.*/
+      - acceptancetest-backend-job:
           requires:
             - start-job
           filters:
@@ -777,7 +822,8 @@ workflows:
       - stage-backend-to-heroku:
           requires:
             - unittest-backend-job
-            - acceptance-test-backend-job
+            - integrationtest-backend-job
+            - acceptancetest-backend-job
           filters:
             tags:
               only: /0.*/

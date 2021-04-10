@@ -30,7 +30,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         When form checkbox named "inactiveFilter" is clicked
         And the loading panel completes
         # - Expand a container
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         Given the target is the panel of type "catalog"
         Then the target has 2 "model"
@@ -77,7 +77,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     @D3D20.03
     Scenario: [D3D20.03.1]-Validate the contents for the Part Group.
         # - Check the Part Group contents
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         Then field named "label" with label "ETIQUETA" has contents "Boquilla Ganesha - Figura"
         And field named "description" with label "DESCRIPCION" has contents "Boquilla para fomar en narguile. Compuesta de 3 piezas desmontables."
         And field named "buildTime" with label "TIEMPO" has contents "90 min."
@@ -92,7 +92,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         Given the target is the panel of type "catalog"
         Then the target has no "part"
         # - Expand a container
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         Given the target item is expandable
         When the target item is expanded
         # - Count the Parts on the panel because they are not contained on the Part Container
@@ -103,7 +103,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
     @D3D20.04
     Scenario: [D3D20.04.01]-Validate a part when it is not being edited. Validate an active Part
         # - Expand a Part Group to see the Parts
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         # - Check the Part contents for an ACTIVE Part.
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
@@ -122,7 +122,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         When form checkbox named "inactiveFilter" is clicked
         And the loading panel completes
         # - Expand a Part Group to see the Parts
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         # - Check the Part contents for an inactive Part.
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
@@ -133,7 +133,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And field named "price" with label "PRECIO" has contents "6 €"
         And field named "active" with label "ESTADO" has contents "FUERA PROD."
         And target has an actionable image named "edit-button"
-        And target has an actionable image named "duplicate-button"
+        # And target has an actionable image named "duplicate-button"
         And target has an actionable image named "save-disabled"
 
     @D3D20.04
@@ -142,7 +142,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         When form checkbox named "inactiveFilter" is clicked
         When the application completes loading
         # - Expand a Part Group to see the Parts
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         # - Check the Part contents for an CANCELED Part.
         Given the target the "part" with id "4cf23190-d140-4681-93e5-2b2d02dfba39"
@@ -153,7 +153,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         And field named "price" with label "PRECIO" has contents "6 €"
         And field named "active" with label "ESTADO" has contents "FUERA PROD."
         And target has an actionable image named "edit-button"
-        And target has an actionable image named "duplicate-button"
+        # And target has an actionable image named "duplicate-button"
         And target has an actionable image named "save-disabled"
 
     @D3D20.05
@@ -162,7 +162,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
         When form checkbox named "inactiveFilter" is clicked
         When the application completes loading
         # - Expand a Part Group to see the Parts
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"
         Then the target item has a "greenyellow" tag
@@ -173,7 +173,7 @@ Feature: [D3D20]-[STORY] Describe the contents for the Inventory panel but just 
 
     @D3D20.09
     Scenario: [D3D20.09]-Validate the contents of a Part.
-        Given the target the "part-container" with id "0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
+        Given the target the "part-container" with id "part-container:0972b78a-8eb7-4d53-8ada-b5ae3bfda0f2"
         When the target item is expanded
         # - Validate the fields of a Part inside a part group
         Given the target the "part" with id "6939c6cc-297f-48ca-8f17-25fa18c3dbc7"

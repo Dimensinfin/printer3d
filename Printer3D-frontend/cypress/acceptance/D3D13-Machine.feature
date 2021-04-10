@@ -20,7 +20,7 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
     Scenario: [D3D13.01]-The list of Machines is a fixed list at the right panel and should show some fields.
         Given the target is the panel of type "machines"
         Then the target has the title "/MAQUINAS"
-        Then the target has 2 "machine"
+        Then the target has 4 "machine"
 
     @D3D13.02
     Scenario: [D3D13.02]-Any of the machines has a list of fields. If the Part is not assigned then there are no buttons.
@@ -28,8 +28,8 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         # - Validate the content for the Machine fields
         Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
         Then field named "label" with label "ETIQUETA" and value "Ender 3 Pro - A"
-        And field named "model" with label "MODEL" and value "Creality 3D Ender 3 Pro"
-        And field named "characteristics" with label "CARACTERISTICAS" and value "Max size set to 200mm. Has adaptor for flexible plastic filament."
+        # And field named "model" with label "MODEL" and value "Creality 3D Ender 3 Pro"
+        # And field named "characteristics" with label "CARACTERISTICAS" and value "Max size set to 200mm. Has adaptor for flexible plastic filament."
         # - There is a panel for dropping parts and empty
         And the target has a drop place named "dropJobs"
         And the target has a panel labeled "PIEZA EN PRODUCCION" named "buildingPart"

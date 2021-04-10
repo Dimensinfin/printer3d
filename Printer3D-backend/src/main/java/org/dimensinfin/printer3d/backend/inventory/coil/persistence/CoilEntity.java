@@ -120,18 +120,6 @@ public class CoilEntity {
 		return this;
 	}
 
-	/**
-	 * Validates that null fields can be completed with default data before being stored on the repository.
-	 *
-	 * @return a completed instance where null fields with default values have been completed.
-	 */
-	public CoilEntity complete() {
-		if (null == this.label) this.label = this.color;
-		if (null == this.weight) this.weight = 750;
-		if (null == this.active) this.active = true;
-		return this;
-	}
-
 	// - C O R E
 	@Override
 	public int hashCode() {

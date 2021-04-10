@@ -34,7 +34,7 @@ public class TestDataConstants {
 	}
 
 	public static class CoilConstants {
-		public static final UUID TEST_COIL_ID = UUID.randomUUID();
+		public static final UUID TEST_COIL_ID = UUID.fromString( "31009b73-fd2d-432d-9616-51cc2a1882be" );
 		public static final String TEST_COIL_MATERIAL = "PLA";
 		public static final String TEST_COIL_TRADE_MARK = "EOLAS";
 		public static final String TEST_COIL_COLOR = "-COLOR-";
