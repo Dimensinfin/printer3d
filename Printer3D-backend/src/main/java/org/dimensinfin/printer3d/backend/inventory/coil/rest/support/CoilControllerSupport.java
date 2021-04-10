@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
-import org.dimensinfin.printer3d.backend.core.scheduler.RemoveEmptyCoilsJob;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
+import org.dimensinfin.printer3d.backend.inventory.coil.rest.v2.CoilServiceV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 
 @Profile({ "dev", "acceptance" })
@@ -29,13 +29,13 @@ import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 @RequestMapping("/api/v1")
 public class CoilControllerSupport {
 	private final CoilRepository coilRepository;
-	private final RemoveEmptyCoilsJob removeEmptyCoilsJob;
+	private final CoilServiceV2 coilServiceV2;
 
 	// - C O N S T R U C T O R S
 	public CoilControllerSupport( @NotNull final CoilRepository coilRepository,
-	                              @NotNull final RemoveEmptyCoilsJob removeEmptyCoilsJob ) {
+	                              @NotNull final CoilServiceV2 coilServiceV2 ) {
 		this.coilRepository = Objects.requireNonNull( coilRepository );
-		this.removeEmptyCoilsJob = removeEmptyCoilsJob;
+		this.coilServiceV2 = coilServiceV2;
 	}
 
 	@GetMapping(path = "/inventory/coils/delete/all",
@@ -71,7 +71,7 @@ public class CoilControllerSupport {
 						this.coilRepository.save( coilEntity );
 					} );
 			// Call the service to remove the coils
-			this.removeEmptyCoilsJob.process();
+			this.coilServiceV2.removeExpiredCoils();
 			return new ResponseEntity<>( new CounterResponse.Builder()
 					.withRecords( updatedCoils.size() )
 					.build(), HttpStatus.OK );

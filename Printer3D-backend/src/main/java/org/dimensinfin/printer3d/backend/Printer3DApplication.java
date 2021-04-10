@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,10 +18,9 @@ import org.dimensinfin.logging.LogWrapper;
  * @author Adam Antinoo
  * @since 0.9.0
  */
-@SpringBootApplication
 @EnableDiscoveryClient
-@EnableAutoConfiguration
 @EnableScheduling
+@SpringBootApplication
 public class Printer3DApplication {
 	public static final String APPLICATION_ERROR_CODE_PREFIX = "dimensinfin.printer3d";
 

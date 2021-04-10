@@ -3,8 +3,6 @@ package org.dimensinfin.printer3d.backend.inventory.machine.rest.converter;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.stereotype.Component;
-
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.core.interfaces.Converter;
 import org.dimensinfin.logging.LogWrapper;
@@ -12,7 +10,7 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEn
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 
-@Component
+//@Component
 public class MachineEntityToMachineV2Converter implements Converter<MachineEntity, MachineV2> {
 	private final BuildRecord buildRecord;
 

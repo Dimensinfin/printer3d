@@ -1,13 +1,12 @@
 package org.dimensinfin.printer3d.backend.inventory.machine.rest.converter;
 
-import org.springframework.stereotype.Component;
-
 import org.dimensinfin.core.interfaces.Converter;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
-@Component
+@Deprecated
+//@Component
 public class MachineEntityToMachineConverter implements Converter<MachineEntity, Machine> {
 	private final Part part;
 

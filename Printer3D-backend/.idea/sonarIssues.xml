@@ -118,6 +118,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/machine/rest/converter/MachineEntityToMachineConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/machine/rest/converter/MachineEntityToMachineV2Converter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/dimensinfin/printer3d/backend/inventory/part/converter/PartEntityToPartConverter.java">
           <value>
             <set />
@@ -144,6 +154,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/application-dev.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/application.properties">
           <value>
             <set />
           </value>

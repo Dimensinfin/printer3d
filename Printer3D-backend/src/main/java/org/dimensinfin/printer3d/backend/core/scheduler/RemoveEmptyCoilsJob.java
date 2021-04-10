@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.backend.core.scheduler;
 import java.text.MessageFormat;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -22,11 +23,12 @@ public class RemoveEmptyCoilsJob {
 	private final CoilServiceV2 coilServiceV2;
 
 	// - C O N S T R U C T O R S
-	private RemoveEmptyCoilsJob( @NotNull final CoilServiceV2 coilServiceV2 ) {
+	@Autowired
+	public RemoveEmptyCoilsJob( @NotNull final CoilServiceV2 coilServiceV2 ) {
 		this.coilServiceV2 = coilServiceV2;
 	}
 
-	@Scheduled(fixedRateString = "${spring.scheduler.removecoils.scheduletime}")
+	@Scheduled(cron = "${spring.scheduler.removecoils.scheduletime}")
 	public void process() {
 		LogWrapper.enter();
 		final int deleteCoilsCount = this.coilServiceV2.removeExpiredCoils();
