@@ -177,7 +177,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 .subscribe((response: Machine[]) => {
                     console.log(response)
                     expect(response).toBeDefined();
-                    expect(response.length).toBe(2, 'Number of Machines do not match.');
+                    expect(response.length).toBe(4, 'Number of Machines do not match.');
                 });
         });
         it('apiMachinesStartBuild_v2.default: start a build jot on a Machine', async () => {
