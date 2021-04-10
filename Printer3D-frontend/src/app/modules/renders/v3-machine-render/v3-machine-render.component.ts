@@ -134,7 +134,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                     .setTransformation((entrydata: any): Machine => {
                         this.isolationService.successNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] comenzada con éxito.',
-                            '/COMENZAR CONSTRUCCCION'
+                            '/COMENZAR CONSTRUCCION'
                         )
                         console.log('>[V3MachineRenderComponent.startBuild]> EntryData: ' + entrydata)
                         return new Machine(entrydata);

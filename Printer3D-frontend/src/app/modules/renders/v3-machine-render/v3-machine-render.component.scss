@@ -5,15 +5,17 @@
 }
 
 .machine-image {
-    width: 160px;
-    height: 160px;
+    width: 100px;
+    height: 100px;
     background-color: #343149;
     border: 1px solid grey;
+    margin-top: 4px;
 }
 
 .machine-label {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    font-weight: 600;
     color: blueviolet;
     text-shadow: 0px 0px 2px blueviolet, 0px 0px 1px blueviolet;
 }
