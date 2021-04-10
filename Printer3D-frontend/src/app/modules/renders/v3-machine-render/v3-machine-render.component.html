@@ -1,22 +1,14 @@
 <!-- M A C H I N E S   D O   N O T   H A V E   V A R I A N T -->
-<div id="{{getUniqueId()}}" class="cornered-panel">
+<div id="{{getUniqueId()}}" class="cornered-panel" style="margin-bottom: 4px;">
     <div class="row">
         <div>
             <img class="machine-image" src="/assets/media/Creality3DEnder3Pro.png" alt="Imagen de una impresora">
         </div>
-        <div class="column" style="margin-left: 4px;">
+        <div class="column" style="margin-left: 4px; width: 78%;">
             <div cy-name="label" class="cy-field-value">
                 <div cy-field-label="label" class="label">ETIQUETA</div>
                 <div cy-field-value="label" cy-name="machine-label" class="field-height machine-label">{{getLabel()}}</div>
             </div>
-            <!-- <div cy-name="model" class="field">
-            <div cy-field-label="model" class="label">MODEL</div>
-            <div cy-field-value="model" cy-name="machine-model" class="field-height">{{getModel()}}</div>
-        </div> -->
-            <!-- <div cy-name="characteristics" class="field">
-            <span cy-field-label="characteristics" class="label">CARACTERISTICAS</span><br>
-            <span cy-field-value="characteristics" cy-name="machine-characteristics" class="field-height">{{getCharacteristics()}}</span>
-        </div> -->
             <div cy-name="buildingPart" class="field machine-part-width">
                 <div cy-field-label="buildingPart" class="label">PIEZA EN PRODUCCION</div>
                 <div *ngIf="!target; else runningJob">
@@ -30,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="row" style="flex-growxxx: 1;">
+    <div class="row">
         <v1-build-countdown-timer [parent]="self"></v1-build-countdown-timer>
         <div class="row right" *ngIf="target">
             <div cy-name="start-button" class="button-margins" *ngIf="state=='IDLE'">

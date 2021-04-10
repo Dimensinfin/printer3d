@@ -1,21 +1,24 @@
+$timer-color: yellowgreen;
+$timer-last-minute-color: yellow;
+$timer-completed-color: blue;
 .timer-value {
-    margin-top: 10px;
+    // margin-top: 10px;
     font-family: "Electrolize", sans-serif;
-    font-size: 41px;
-    line-height: 41px;
+    font-size: 3rem;
+    line-height: 3rem;
     font-weight: 900;
     text-transform: uppercase;
-    text-shadow: 0px 0px 2px yellowgreen, 0px 0px 1px yellowgreen;
+    text-shadow: 0px 0px 2px $timer-color, 0px 0px 1px $timer-color;
     text-align: center;
-    color: yellowgreen;
+    color: $timer-color;
 }
 
 .timer-last-minute {
-    color: yellow;
-    text-shadow: 0px 0px 2px yellow, 0px 0px 1px yellow;
+    color: $timer-last-minute-color;
+    text-shadow: 0px 0px 2px $timer-last-minute-color, 0px 0px 1px $timer-last-minute-color;
 }
 
 .timer-comleted {
-    color: blue;
-    text-shadow: 0px 0px 2px blue, 0px 0px 1px blue;
+    color: $timer-completed-color;
+    text-shadow: 0px 0px 2px $timer-completed-color, 0px 0px 1px $timer-completed-color;
 }

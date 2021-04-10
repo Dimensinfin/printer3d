@@ -2,7 +2,7 @@
 <div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'" [ngClass]="{'job-priority-high': getPriority()==1}">
     <div class="row">
         <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
-        <div class="field number-width">
+        <div cy-name="quantity" class="field number-width">
             <div cy-field-label="quantity" class="label">CANTIDAD</div>
             <div cy-field-value="quantity" class="field-height job-number">{{getAggregatedNumber()}}</div>
         </div>
@@ -10,11 +10,11 @@
             <div cy-field-label="label" class="label">ETIQUETA</div>
             <div cy-field-value="label" class="field-height job-label">{{getLabel()}}</div>
         </div>
-        <div class="field left job-material-width">
+        <div cy-name="material" class="field left job-material-width">
             <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
             <div cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</div>
         </div>
-        <div class="field-no-margin tiempo-const-width last-field">
+        <div cy-name="buildTime" class="field-no-margin tiempo-const-width last-field">
             <div cy-field-label="buildTime" class="label">TIEMPO CONSTRUC.</div>
             <div cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}} min.</div>
         </div>

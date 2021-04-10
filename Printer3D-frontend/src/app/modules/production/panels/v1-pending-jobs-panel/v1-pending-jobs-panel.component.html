@@ -1,6 +1,8 @@
-<div cy-name="panel-title" class="panel-title">
-    <span>/TRABAJOS/PENDIENTES</span>
+<div style="width: 100%;">
+    <div cy-name="panel-title" class="panel-title">
+        <span>/TRABAJOS/PENDIENTES</span>
+    </div>
+    <hr>
+    <viewer-panel cy-name="jobs-list" [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Trabajos...'" [downloader]="self" [variant]="'-JOB-LIST-'">
+    </viewer-panel>
 </div>
-<hr>
-<viewer-panel cy-name="jobs-list" [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Trabajos...'" [downloader]="self" [variant]="'-JOB-LIST-'">
-</viewer-panel>
