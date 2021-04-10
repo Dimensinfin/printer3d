@@ -479,35 +479,42 @@ jobs:
             - ~/project/Printer3D-backend/coverage
           key: backend-build-{{ checksum "~/project/Printer3D-backend/build.gradle" }}
   integrationtest-backend-job:
-    docker:
-      - image: circleci/openjdk:11-jdk
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - backend-dependencies-{{ checksum "~/project/Printer3D-backend/dependencies.gradle" }}
       - run:
-          name: PRINTER3D-BACKEND - Application integration tests
+          name: PRINTER3D-BACKEND - Validate the CI machine configuration
           working_directory: Printer3D-backend
           environment:
-            PORT: 5120
+            PORT: 5121
             DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
             DB_USER: inno-user
             DB_PASSWORD: inno-password
             NEOCOM_BANNER_LOCATION: "./build/resources/main/app-banner.txt"
-            SPRING_PROFILES_ACTIVE: test
+            SPRING_PROFILES_ACTIVE: acceptance
+            DOCKERIZE_VERSION: v0.3.0
           command: |
+            ./gradlew --version
+            sudo snap install figlet
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+      - run:
+          name: PRINTER3D-BACKEND - Generate the docker file to be used for application acceptance tests
+          working_directory: Printer3D-backend
+          command: |
+            ./docker-service.sh generate
+      - run:
+          name: PRINTER3D-BACKEND - Start the mock services and run tests
+          working_directory: Printer3D-backend
+          environment:
+            DEFAULT_BACKEND_SERVER: 'http://localhost'
+            DEFAULT_BACKEND_PORT: 5121
+          command: |
+            ./docker-service.sh start integration
+            docker ps
+            dockerize -wait tcp://localhost:5121 -timeout 3m
+            docker ps
             ./gradlew integrationTest
-      - store_test_results:
-          path: ~/project/Printer3D-backend/build/test-results
-      - store_artifacts:  
-          path: ~/project/Printer3D-backend/build/libs
-      - save_cache:
-          paths:
-            - ~/project/Printer3D-backend/.gradle
-            - ~/project/Printer3D-backend/build
-            - ~/project/Printer3D-backend/coverage
-          key: backend-build-{{ checksum "~/project/Printer3D-backend/build.gradle" }}
   acceptancetest-backend-job:
     machine:
       image: ubuntu-2004:202010-01
