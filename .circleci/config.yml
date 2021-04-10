@@ -58,7 +58,7 @@ jobs:
       - save_cache:
           paths:
             - ~/project/Printer3D-frontend/node_modules
-          key: frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          key: v15-frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
   compile-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -73,8 +73,8 @@ jobs:
             cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
-          - frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
-          - frontend-dependencies-
+          - v15-frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          - v15-frontend-dependencies-
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -91,7 +91,7 @@ jobs:
           paths:
             - ~/project/Printer3D-frontend/node_modules
             - ~/project/Printer3D-frontend/dist
-          key: frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          key: v15-frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
   validate-frontend-job:
     docker:
       - image: circleci/node:12.16.3-browsers
@@ -106,8 +106,8 @@ jobs:
             cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
-          - frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
-          - frontend-compiled-node-
+          - v15-frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          - v15-frontend-compiled-node-
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -136,8 +136,8 @@ jobs:
             cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
-          - frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
-          - frontend-compiled-node-
+          - v15-frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          - v15-frontend-compiled-node-
       - run:
           name: PRINTER3D-FRONTEND - Run frontend unit tests
           working_directory: Printer3D-frontend
@@ -148,9 +148,7 @@ jobs:
             - ~/project/Printer3D-frontend/node_modules
             - ~/project/Printer3D-frontend/dist
             - ~/project/Printer3D-frontend/coverage
-          key: frontend-coverage-{{ epoch }}
-      - store_test_results:
-          path: ~/project/Printer3D-frontend/cypress/cucumber-json
+          key: v15-frontend-coverage-{{ epoch }}
   acceptancetest-frontend-prepare:
     machine:
       image: ubuntu-2004:202010-01
@@ -184,7 +182,7 @@ jobs:
             - ~/project/Printer3D-frontend/node_modules
             - ~/project/Printer3D-frontend/dist
             - /home/circleci/.cache/Cypress
-          key: frontend-build-code-{{ epoch }}
+          key: v15-frontend-build-code-{{ epoch }}
   acceptancetest-frontend-phase01:
     machine:
       image: ubuntu-2004:202010-01
@@ -195,7 +193,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-build-code-
+          - v15-frontend-build-code-
       - run:
           name: PRINTER3D-FRONTEND - Restore test configuration
           working_directory: Printer3D-frontend
@@ -230,7 +228,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-build-code-
+          - v15-frontend-build-code-
       - run:
           name: PRINTER3D-FRONTEND - Restore test configuration
           working_directory: Printer3D-frontend
@@ -264,7 +262,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-build-code-
+          - v15-frontend-build-code-
       - run:
           name: PRINTER3D-FRONTEND - Restore test configuration
           working_directory: Printer3D-frontend
@@ -298,7 +296,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-build-code-
+          - v15-frontend-build-code-
       - run:
           name: PRINTER3D-FRONTEND - Restore test configuration
           working_directory: Printer3D-frontend
@@ -332,7 +330,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-build-code-
+          - v15-frontend-build-code-
       - run:
           name: PRINTER3D-FRONTEND - Restore test configuration
           working_directory: Printer3D-frontend
@@ -355,7 +353,7 @@ jobs:
             npm run acceptance:ready
             npm run acceptance:cypress:D18
             npm run acceptance:cypress:D19
-            # npm run acceptance:cypress:D20
+            npm run acceptance:cypress:D20
             # npm run acceptance:cypress:F21
   quality-sonarcloud-frontend:
     docker:
@@ -364,12 +362,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - frontend-compiled-node-{{ epoch }}
-          - frontend-compiled-node-
+          - v15-frontend-compiled-node-{{ epoch }}
+          - v15-frontend-compiled-node-
       - restore_cache:
           keys:
-          - frontend-coverage-{{ epoch }}
-          - frontend-coverage-
+          - v15-frontend-coverage-{{ epoch }}
+          - v15-frontend-coverage-
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -742,7 +740,6 @@ workflows:
       - acceptancetest-backend-job:
           requires:
             - unittest-backend-job
-            - integrationtest-backend-job
           filters:
             branches:
               only:
@@ -752,7 +749,6 @@ workflows:
       - quality-sonarcloud-backend:
           requires:
             - unittest-backend-job
-            - integrationtest-backend-job
             - acceptancetest-backend-job
           filters:
             branches:
@@ -778,14 +774,6 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      # - acceptancetest-frontend-job:
-      #     requires:
-      #       - start-job
-      #     filters:
-      #       tags:
-      #         only: /1.*/
-      #       branches:
-      #         ignore: /.*/
       - stage-frontend-to-heroku:
           requires:
             - unittest-frontend-job
@@ -805,14 +793,6 @@ workflows:
               only: /0.*/
             branches:
               ignore: /.*/
-      - integrationtest-backend-job:
-          requires:
-            - start-job
-          filters:
-            tags:
-              only: /0.*/
-            branches:
-              ignore: /.*/
       - acceptancetest-backend-job:
           requires:
             - start-job
@@ -824,7 +804,6 @@ workflows:
       - stage-backend-to-heroku:
           requires:
             - unittest-backend-job
-            - integrationtest-backend-job
             - acceptancetest-backend-job
           filters:
             tags:

@@ -18,7 +18,7 @@ Feature: [D3D10]-[STORY] Have a list of all the Coils persisted on the backend.
     @D3D10.01
     Scenario: [D3D10.01]-The coils page has a single panel and the variant is set to '-COIL-LIST-'
         And the page "CoilsPage" has 1 panels
-        And the target has variant "-COIL-LIST-"
+        # And the target has variant "-COIL-LIST-"
 
     @D3D10.02
     Scenario: [D3D10.02]-Check the title and the contents for the coils panel.
