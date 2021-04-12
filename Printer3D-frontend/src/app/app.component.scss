@@ -1,6 +1,11 @@
 @import "../styles/_scss_variables.scss";
 $app-title-color: #FF0000; // Red 50%
 $app-version-color: blueviolet;
+a {
+    color: $app-title-color;
+    text-decoration: none;
+}
+
 .app-title {
     font-size: 32px;
     font-weight: bold;
