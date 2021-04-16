@@ -9,12 +9,14 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.DESCRIPTION;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.MODEL_PATH;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PROJECT;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.WEIGHT;
 
 public class CucumberTableToUpdateGroupPartRequestConverter extends CucumberTableConverter<UpdateGroupPartRequest> {
 	@Override
 	public UpdateGroupPartRequest convert( final Map<String, String> cucumberRow ) {
 		UpdateGroupPartRequest.Builder builder = new UpdateGroupPartRequest.Builder();
+		if (null != cucumberRow.get( PROJECT )) builder = builder.withProject( cucumberRow.get( PROJECT ) );
 		if (null != cucumberRow.get( DESCRIPTION )) builder = builder.withDescription( cucumberRow.get( DESCRIPTION ) );
 		if (null != cucumberRow.get( WEIGHT )) builder = builder.withWeight( Integer.parseInt( cucumberRow.get( WEIGHT ) ) );
 		if (null != cucumberRow.get( BUILD_TIME )) builder = builder.withBuildTime( Integer.parseInt( cucumberRow.get( BUILD_TIME ) ) );

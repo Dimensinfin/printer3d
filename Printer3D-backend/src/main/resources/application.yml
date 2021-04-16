@@ -27,7 +27,7 @@ spring:
     enable: true
     removecoils:
       active: true
-      scheduletime: "0 0 0/8 * * ?"
+      scheduletime: "0 0 * * * ?"
 
 logging:
   logstash:

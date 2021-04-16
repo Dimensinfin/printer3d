@@ -28,12 +28,16 @@ public class PartValidator implements Validator<Part> {
 			Assertions.assertEquals( rowData.get( PROJECT ), record.getProject() );
 		if (null != rowData.get( DESCRIPTION ))
 			Assertions.assertEquals( rowData.get( DESCRIPTION ), record.getDescription() );
-		Assertions.assertEquals( Float.parseFloat( rowData.get( COST ) ), record.getCost() );
-		Assertions.assertEquals( Float.parseFloat( rowData.get( PRICE ) ), record.getPrice() );
-		Assertions.assertEquals( Integer.parseInt( rowData.get( BUILD_TIME ) ), record.getBuildTime() );
+		if (null != rowData.get( COST ))
+			Assertions.assertEquals( Float.parseFloat( rowData.get( COST ) ), record.getCost() );
+		if (null != rowData.get( PRICE ))
+			Assertions.assertEquals( Float.parseFloat( rowData.get( PRICE ) ), record.getPrice() );
+		if (null != rowData.get( BUILD_TIME ))
+			Assertions.assertEquals( Integer.parseInt( rowData.get( BUILD_TIME ) ), record.getBuildTime() );
 		if (null != rowData.get( WEIGHT ))
 			Assertions.assertEquals( Float.parseFloat( rowData.get( WEIGHT ) ), record.getWeight() );
-		Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.isActive() );
+		if (null != rowData.get( ACTIVE ))
+			Assertions.assertEquals( Boolean.parseBoolean( rowData.get( ACTIVE ) ), record.isActive() );
 		if (null != rowData.get( UNAVAILABLE ))
 			Assertions.assertEquals( Boolean.parseBoolean( rowData.get( UNAVAILABLE ) ), record.isUnavailable() );
 		return true;

@@ -882,6 +882,7 @@ components:
       required:
         - id
         - label
+        - project
         - material
         - color
         - weight
@@ -911,6 +912,16 @@ components:
             the front end interface.
           example:
             Covid-19 Key
+        project:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 50
+          default: <DEFAULT>
+          description: >
+            Used to group sets of Parts into categories or fields or projects. This will help on the UI Part classification.
+          example:
+            KIT X 1.32
         description:
           type: string
           format: string
@@ -945,7 +956,7 @@ components:
           minimum: 1
           maximum: 400
           description: >
-            This is the weigth in grames consumed by the Machine to build one instance of this Part.
+            This is the weigh in grams consumed by the Machine to build one instance of this Part.
           example:
             12
         buildTime:
@@ -1020,23 +1031,6 @@ components:
             will be obtained later the part is just removed from listings.
           example:
             false
-    #    PartList:
-    #      type: object
-    #      required:
-    #        - count
-    #        - parts
-    #      properties:
-    #        count:
-    #          type: number
-    #          format: int32
-    #          description: >
-    #            The number of parts that follow on the response.
-    #          example:
-    #            8
-    #        parts:
-    #          type: array
-    #          items:
-    #            $ref: '#/components/schemas/Part'
     UpdateGroupPartRequest:
       type: object
       properties:
@@ -1051,6 +1045,16 @@ components:
             the front end interface.
           example:
             Covid-19 Key
+        project:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 50
+          default: <DEFAULT>
+          description: >
+            Used to group sets of Parts into categories or fields or projects. This will help on the UI Part classification.
+          example:
+            KIT X 1.32
         description:
           type: string
           format: string

@@ -14,11 +14,12 @@ public class PartGroupUpdater {
 	}
 
 	public PartEntity update( final @NotNull UpdateGroupPartRequest updateData ) {
-		if (null != updateData.getDescription()) this.partEntity.setDescription( updateData.getDescription() );
-		if (null != updateData.getBuildTime()) this.partEntity.setBuildTime( updateData.getBuildTime() );
-		if (null != updateData.getWeight()) this.partEntity.setWeight( updateData.getWeight() );
-		if (null != updateData.getImagePath()) this.partEntity.setImagePath( updateData.getImagePath() );
-		if (null != updateData.getModelPath()) this.partEntity.setModelPath( updateData.getModelPath() );
-		return this.partEntity;
+		if (null != updateData.getProject()) partEntity.setProject( updateData.getProject() );
+		if (null != updateData.getDescription()) partEntity.setDescription( updateData.getDescription() );
+		if (null != updateData.getBuildTime()) partEntity.setBuildTime( updateData.getBuildTime() );
+		if (null != updateData.getWeight()) partEntity.setWeight( updateData.getWeight() );
+		if (null != updateData.getImagePath()) partEntity.setImagePath( updateData.getImagePath() );
+		if (null != updateData.getModelPath()) partEntity.setModelPath( updateData.getModelPath() );
+		return partEntity;
 	}
 }

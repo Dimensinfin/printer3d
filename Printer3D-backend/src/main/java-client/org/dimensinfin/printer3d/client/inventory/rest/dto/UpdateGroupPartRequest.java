@@ -4,8 +4,9 @@ import java.util.Objects;
 
 public class UpdateGroupPartRequest {
 	private String label;
+	private String project;
 	private String description;
-	private int weight;
+	private Integer weight;
 	private Integer buildTime;
 	private String imagePath;
 	private String modelPath;
@@ -24,7 +25,7 @@ public class UpdateGroupPartRequest {
 	}
 
 	public String getLabel() {
-		return this.label;
+		return label;
 	}
 
 	public UpdateGroupPartRequest setLabel( final String label ) {
@@ -34,6 +35,10 @@ public class UpdateGroupPartRequest {
 
 	public String getModelPath() {
 		return modelPath;
+	}
+
+	public String getProject() {
+		return project;
 	}
 
 	public Integer getWeight() {
@@ -46,40 +51,45 @@ public class UpdateGroupPartRequest {
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new UpdateGroupPartRequest();
+			onConstruction = new UpdateGroupPartRequest();
 		}
 
 		public UpdateGroupPartRequest build() {
-			return this.onConstruction;
+			return onConstruction;
 		}
 
 		public UpdateGroupPartRequest.Builder withBuildTime( final Integer buildTime ) {
-			if (null != buildTime) this.onConstruction.buildTime = Objects.requireNonNull( buildTime );
+			if (null != buildTime) onConstruction.buildTime = Objects.requireNonNull( buildTime );
 			return this;
 		}
 
 		public UpdateGroupPartRequest.Builder withDescription( final String description ) {
-			if (null != description) this.onConstruction.description = description;
+			if (null != description) onConstruction.description = description;
 			return this;
 		}
 
 		public UpdateGroupPartRequest.Builder withImagePath( final String imagePath ) {
-			if (null != imagePath) this.onConstruction.imagePath = imagePath;
+			if (null != imagePath) onConstruction.imagePath = imagePath;
 			return this;
 		}
 
 		public UpdateGroupPartRequest.Builder withLabel( final String label ) {
-			if (null != label) this.onConstruction.label = label;
+			if (null != label) onConstruction.label = label;
 			return this;
 		}
 
 		public UpdateGroupPartRequest.Builder withModelPath( final String modelPath ) {
-			if (null != modelPath) this.onConstruction.modelPath = modelPath;
+			if (null != modelPath) onConstruction.modelPath = modelPath;
+			return this;
+		}
+
+		public UpdateGroupPartRequest.Builder withProject( final String project ) {
+			if (null != project) onConstruction.project = project;
 			return this;
 		}
 
 		public UpdateGroupPartRequest.Builder withWeight( final Integer weight ) {
-			if (null != weight) this.onConstruction.weight = Objects.requireNonNull( weight );
+			if (null != weight) onConstruction.weight = Objects.requireNonNull( weight );
 			return this;
 		}
 	}

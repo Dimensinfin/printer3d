@@ -153,6 +153,25 @@ Feature: [STORY] Manage the Parts on the Inventory repository
             | id                                   | label       | material | color        | project   | weight | buildTime | cost | price | stockLevel | stockAvailable | active |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | BASE L 1.24 | PLA      | MELON YELLOW | <DEFAULT> | 5      | 60        | 0.65 | 2.00  | 3          | 0              | true   |
 
+    @B3D01.H @B3D01.10
+    Scenario: [B3D01.10] Validate the change on a Part Group Project name.
+        And the following Parts in my service
+            | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        And the next Update Group Part request
+            | project  |
+            | KIT BASE |
+        When the Update Group Parts with label "Covid-19 Key" request is processed
+        Then there is a valid response with return code of "200 OK"
+        When the Get Parts request is processed
+        And we have the next list of Parts at the repository
+            | id                                   | label          | material | color  | project   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | KIT BASE  |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | KIT BASE  |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | <DEFAULT> |
+
     # - E X C E P T I O N S
     @B3D01.E @B3D01.E.01
     Scenario: [B3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion

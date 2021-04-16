@@ -1,4 +1,9 @@
 # Classes pending Unit Test completion
+* PartGroupUpdater
+* Part
+* PartEntity
+* PartToPartEntityConverter
+* UpdateGroupPartRequest
 * CoilEntity
 * CoilToCoilEntityConverter
 * CoilEntityToCoilConverter
