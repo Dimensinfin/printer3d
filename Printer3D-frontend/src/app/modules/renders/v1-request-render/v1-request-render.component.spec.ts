@@ -28,7 +28,7 @@ import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain'
 import { Part } from '@domain/inventory/Part.domain'
 
-describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
+fdescribe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
     const testPart: Part = new Part({
         label: "-PART-LABEL-",
         price: 12.34,

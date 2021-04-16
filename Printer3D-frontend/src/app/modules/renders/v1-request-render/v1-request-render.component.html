@@ -23,7 +23,7 @@
         <svg class="corner-clear" viewBox="0 0 100 100">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
         </svg>
-        <svg cy-field-mark="REQUEST" class="corner-mark completed-request" viewBox="0 0 100 100" [ngClass]="{'open-request': isOpen()}">
+        <svg cy-field-mark="REQUEST" class="corner-mark completed-request" viewBox="0 0 100 100" [ngClass]="{'open-request': !isCompleted()}">
             <path d="M100,100 L0,100 L100,0 L100,100" />
         </svg>
     </div>
@@ -129,7 +129,7 @@
         <svg class="corner-clear" viewBox="0 0 100 100">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
         </svg>
-        <svg cy-field-mark="REQUEST" class="corner-mark completed-request" viewBox="0 0 100 100" [ngClass]="{'open-request': isOpen()}">
+        <svg cy-field-mark="REQUEST" class="corner-mark completed-request" viewBox="0 0 100 100" [ngClass]="{'open-request': !isCompleted()}">
             <path d="M100,100 L0,100 L100,0 L100,100" />
         </svg>
     </div>

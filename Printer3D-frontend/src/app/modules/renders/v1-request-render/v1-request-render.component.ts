@@ -67,10 +67,6 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         if (this.node) return this.getNode().getAmount() + ' €'
         else return '- €'
     }
-    /** @deprecated */
-    public isOpen(): boolean {
-        return this.isCompleted()
-    }
     public isCompleted(): boolean {
         if (this.node) return !(this.getNode().getState() == RequestState.OPEN)
         else return false

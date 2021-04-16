@@ -1,6 +1,7 @@
 # Printer3DFrontend
 
 ## Unit Tests pending
+* V1RequestRenderComponent
 * InventoryService
 * BackendService
 * V1CoilRenderComponent
