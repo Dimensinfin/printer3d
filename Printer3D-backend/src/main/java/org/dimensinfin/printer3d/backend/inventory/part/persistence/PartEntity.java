@@ -35,6 +35,10 @@ public class PartEntity {
 	@Size(min = 3, max = 50)
 	@Column(name = "label", updatable = false, nullable = false)
 	private String label;
+	@NotNull(message = "Part 'project' is mandatory but has default value.")
+	@Size(min = 3, max = 50)
+	@Column(name = "project", nullable = false)
+	private final String project = "<DEFAULT>";
 	@Size(max = 500)
 	@Column(name = "description")
 	private String description;

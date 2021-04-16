@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_15_1_2001_printer3d_alter_parts_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: parts
+            remarks: Add a new column to store the associated project where the part belongs.
+            columns:
+              - column:
+                  name: project
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+                    updatable: true
+  - changeSet:
+      id: 0_15_1_2002_printer3d_alter_parts_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addDefaultValue:
+            schemaName: printer3d
+            tableName: parts
+            columnDataType: varchar(50)
+            columnName: project
+            defaultValue: <DEFAULT>
+  - changeSet:
+      id: 0_15_1_2003_printer3d_alter_parts_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: parts
+            columns:
+              - column:
+                  name: project
+                  value: <DEFAULT>
+  - changeSet:
+      id: 0_15_1_2004_printer3d_alter_parts_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: parts
+            columnDataType: varchar(50)
+            columnName: project
+            validate: true
