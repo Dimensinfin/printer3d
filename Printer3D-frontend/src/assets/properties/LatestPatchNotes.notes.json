@@ -1,8 +1,11 @@
 [{
         "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.15.0",
+        "name": "➰ Anotaciones cambio 0.15.1",
         "changes": [
-            "🐞 Corregida la deteccion de pedidos que se pueden completar. La esquina ahora aparece de color verde cuando el pedido se puede completar y de color rojo cuando aún faltan piezas."
+            "🐞 Corregida la deteccion de pedidos que se pueden completar. La esquina ahora aparece de color verde cuando el pedido se puede completar y de color rojo cuando aún faltan piezas.",
+            "✅ Ahora es posible poner el valor 0 como stock deseado. Esto permite la definición correcta de piezas de un solo uso.",
+            "✅ Incorporado un Manual de Procedimientos que se abre al pulsar sobre el nombre de la aplicación.",
+            "✅ Quitada la limitación de stock al valor 15. Ahora es posible aumentar ese valor hasta 999."
         ]
     },
     {
