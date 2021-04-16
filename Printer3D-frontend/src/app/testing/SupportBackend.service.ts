@@ -10,7 +10,7 @@ import { Part } from '@domain/inventory/Part.domain';
 import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { Machine } from '@domain/production/Machine.domain';
+import { MachineV2 } from '@domain/production/MachineV2.domain';
 import { RequestForm } from '@domain/RequestForm.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
@@ -138,28 +138,28 @@ export class SupportBackendService {
                 })
         });
     }
-    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<Machine[]> {
+    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<MachineV2[]> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.machines.v2')
             observer.next(transformer.transform(data));
             observer.complete();
         });
     }
-    public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<MachineV2> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.machines.cancelbuild')
             observer.next(transformer.transform(data));
             observer.complete();
         });
     }
-    public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<MachineV2> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.machines.cancelbuild')
             observer.next(transformer.transform(data));
             observer.complete();
         });
     }
-    public apiMachinesCompleteBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesCompleteBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<MachineV2> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('inventory.machines.cancelbuild')
             observer.next(transformer.transform(data));
@@ -189,14 +189,14 @@ export class SupportBackendService {
             observer.complete();
         });
     }
-    public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<MachineV2> {
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('newrequest')
             observer.next(transformer.transform(data));
             observer.complete();
         });
     }
-    public apiProductionDeleteRequest_v2(requestId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiProductionDeleteRequest_v2(requestId: string, transformer: ResponseTransformer): Observable<MachineV2> {
         const failureHit = this.failuresList.get('apiProductionDeleteRequest_v2')
         if (null != failureHit)
             return Observable.create((observer) => {

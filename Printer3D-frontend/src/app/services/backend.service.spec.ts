@@ -26,7 +26,7 @@ import { Part } from '@domain/inventory/Part.domain';
 import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { Machine } from '@domain/production/Machine.domain';
+import { MachineV2 } from '@domain/production/MachineV2.domain';
 import { Job } from '@domain/production/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
@@ -167,14 +167,14 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         it('apiInventoryMachines_v2.default: get the list of Machines', async () => {
             console.log('apiInventoryMachines_v2.default: get the list of Machines')
             await service.apiInventoryGetMachines_v2(new ResponseTransformer().setDescription('Transforms Inventory Machine list form backend.')
-                .setTransformation((entrydata: any): Machine[] => {
+                .setTransformation((entrydata: any): MachineV2[] => {
                     console.log('apiInventoryMachines_v2.entrydata: ' + JSON.stringify(entrydata))
-                    const recordList: Machine[] = [];
+                    const recordList: MachineV2[] = [];
                     for (let entry of entrydata)
-                        recordList.push(new Machine(entry));
+                        recordList.push(new MachineV2(entry));
                     return recordList;
                 }))
-                .subscribe((response: Machine[]) => {
+                .subscribe((response: MachineV2[]) => {
                     console.log(response)
                     expect(response).toBeDefined();
                     expect(response.length).toBe(4, 'Number of Machines do not match.');
@@ -184,30 +184,30 @@ describe('SERVICE BackendService [Module: CORE]', () => {
             const machineId: string = "-MACHINE-ID-"
             const jobRequest: JobRequest = new JobRequest({ part: { id: "-ID-" } })
             await service.apiMachinesStartBuild_v2(machineId, jobRequest, new ResponseTransformer().setDescription('Transforms response to a Machine.')
-                .setTransformation((entrydata: any): Machine => {
-                    return new Machine(entrydata);
+                .setTransformation((entrydata: any): MachineV2 => {
+                    return new MachineV2(entrydata);
                 }))
-                .subscribe((response: Machine) => {
+                .subscribe((response: MachineV2) => {
                     expect(response).toBeDefined();
                 });
         });
         it('apiMachinesCancelBuild_v1.default: cancel the build job on a Machine', async () => {
             const machineId: string = "-MACHINE-ID-"
             await service.apiMachinesCancelBuild_v1(machineId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
-                .setTransformation((entrydata: any): Machine => {
-                    return new Machine(entrydata);
+                .setTransformation((entrydata: any): MachineV2 => {
+                    return new MachineV2(entrydata);
                 }))
-                .subscribe((response: Machine) => {
+                .subscribe((response: MachineV2) => {
                     expect(response).toBeDefined();
                 });
         });
         it('apiMachinesCompleteBuild_v1.default: complete the build job on a Machine', async () => {
             const machineId: string = "-MACHINE-ID-"
             await service.apiMachinesCompleteBuild_v1(machineId, new ResponseTransformer().setDescription('Transforms response to a Machine.')
-                .setTransformation((entrydata: any): Machine => {
-                    return new Machine(entrydata);
+                .setTransformation((entrydata: any): MachineV2 => {
+                    return new MachineV2(entrydata);
                 }))
-                .subscribe((response: Machine) => {
+                .subscribe((response: MachineV2) => {
                     expect(response).toBeDefined();
                 });
         });

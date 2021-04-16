@@ -13,7 +13,7 @@ import { Part } from '@domain/inventory/Part.domain';
 import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
-import { Machine } from '@domain/production/Machine.domain';
+import { MachineV2 } from '@domain/production/MachineV2.domain';
 import { Job } from '@domain/production/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
@@ -161,7 +161,7 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<Machine[]> {
+    public apiInventoryGetMachines_v2(transformer: ResponseTransformer): Observable<MachineV2[]> {
         const request = this.APIV2 + '/inventory/machines';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName)
@@ -169,40 +169,40 @@ export class BackendService {
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryMachines_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Machine[];
+                const response = transformer.transform(data) as MachineV2[];
                 return response;
             }));
     }
-    public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesStartBuild_v2(machineId: string, jobRequest: JobRequest, transformer: ResponseTransformer): Observable<MachineV2> {
         const request = this.APIV2 + '/inventory/machines/' + machineId + '/startbuild';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPOSTCall(request, JSON.stringify(jobRequest), headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiMachinesStartBuild_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Machine;
+                const response = transformer.transform(data) as MachineV2;
                 return response;
             }));
     }
-    public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesCancelBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<MachineV2> {
         const request = this.APIV1 + '/inventory/machines/' + machineId + '/cancelbuild';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPUTCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiMachinesCancelBuild_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Machine;
+                const response = transformer.transform(data) as MachineV2;
                 return response;
             }));
     }
-    public apiMachinesCompleteBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<Machine> {
+    public apiMachinesCompleteBuild_v1(machineId: string, transformer: ResponseTransformer): Observable<MachineV2> {
         const request = this.APIV1 + '/inventory/machines/' + machineId + '/completebuild';
         let headers = new HttpHeaders()
             .set('xapp-name', environment.appName);
         return this.httpService.wrapHttpPUTCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiMachinesCancelBuild_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as Machine;
+                const response = transformer.transform(data) as MachineV2;
                 return response;
             }));
     }

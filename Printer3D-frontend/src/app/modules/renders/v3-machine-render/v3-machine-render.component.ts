@@ -10,7 +10,7 @@ import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { IsolationService } from '@app/platform/isolation.service';
 import { V1BuildCountdownTimerPanelComponent } from '../v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component';
 import { Job } from '@domain/production/Job.domain';
-import { Machine } from '@domain/production/Machine.domain';
+import { MachineV2 } from '@domain/production/MachineV2.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { JobToJobRequestConverter } from '@domain/converter/JobToJobRequest.converter';
 import { environment } from '@env/environment';
@@ -53,8 +53,8 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     }
 
     // - G E T T E R S
-    public getNode(): Machine {
-        return this.node as Machine
+    public getNode(): MachineV2 {
+        return this.node as MachineV2
     }
     public getUniqueId(): string {
         const machine = this.node as any
@@ -131,15 +131,15 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         this.backendConnections.push(
             this.backendService.apiMachinesStartBuild_v2(this.getNode().getId(), jobRequest,
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
-                    .setTransformation((entrydata: any): Machine => {
+                    .setTransformation((entrydata: any): MachineV2 => {
                         this.isolationService.successNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] comenzada con éxito.',
                             '/COMENZAR CONSTRUCCION'
                         )
                         console.log('>[V3MachineRenderComponent.startBuild]> EntryData: ' + entrydata)
-                        return new Machine(entrydata);
+                        return new MachineV2(entrydata);
                     }))
-                .subscribe((resultMachine: Machine) => {
+                .subscribe((resultMachine: MachineV2) => {
                     console.log('>[V3MachineRenderComponent.startBuild.subscription]')
                     this.showTimer(this.remainingTime)
                     this.activateTimer()
@@ -159,16 +159,16 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         this.backendConnections.push(
             this.backendService.apiMachinesCancelBuild_v1(this.getNode().getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine" on onClear.')
-                    .setTransformation((entrydata: any): Machine => {
+                    .setTransformation((entrydata: any): MachineV2 => {
                         console.log('>[V3MachineRenderComponent.onClear.setTransformation]> Part Label: ' + this.getPartLabel())
                         this.isolationService.warningNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] cancelada.',
                             '/CANCELAR CONSTRUCCION'
                         )
                         console.log('-[V3MachineRenderComponent.onClear.setTransformation] 2')
-                        return new Machine(entrydata);
+                        return new MachineV2(entrydata);
                     }))
-                .subscribe((resultMachine: Machine) => {
+                .subscribe((resultMachine: MachineV2) => {
                     console.log('-[V3MachineRenderComponent.onClear]')
                     this.setTimerToDefault()
                     this.node = resultMachine;
@@ -188,14 +188,14 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
         this.backendConnections.push(
             this.backendService.apiMachinesCompleteBuild_v1(this.getNode().getId(),
                 new ResponseTransformer().setDescription('Do HTTP transformation to "Machine".')
-                    .setTransformation((entrydata: any): Machine => {
+                    .setTransformation((entrydata: any): MachineV2 => {
                         this.isolationService.successNotification(
                             'Construccion de pieza [' + this.getPartLabel() + '] completada con exito.',
                             '/COMPLETAR/CONSTRUCCION'
                         )
-                        return new Machine(entrydata);
+                        return new MachineV2(entrydata);
                     }))
-                .subscribe((resultMachine: Machine) => {
+                .subscribe((resultMachine: MachineV2) => {
                     this.setTimerToDefault()
                     this.node = resultMachine;
                     this.target = undefined;

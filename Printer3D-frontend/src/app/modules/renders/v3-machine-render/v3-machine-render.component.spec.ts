@@ -11,7 +11,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 // - DOMAIN
-import { Machine } from '@domain/production/Machine.domain';
+import { MachineV2 } from '@domain/production/MachineV2.domain';
 import { Part } from '@domain/inventory/Part.domain';
 import { V3MachineRenderComponent } from './v3-machine-render.component';
 import { Job } from '@domain/production/Job.domain';
@@ -63,7 +63,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
             componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
-            componentAsAny.node = new Machine()
+            componentAsAny.node = new MachineV2()
             await component.ngAfterViewInit();
             jasmine.clock().tick(500);
             expect(component.self).toBeDefined();
@@ -73,7 +73,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
             componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
-            componentAsAny.node = new Machine({
+            componentAsAny.node = new MachineV2({
                 "id": "d55a5ca6-b1f5-423c-9a47-007439534744",
                 "label": "Ender 3 Pro - B",
                 "model": "Creality 3D Ender 3 Pro",
@@ -115,7 +115,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
     // - C O D E   C O V E R A G E   P H A S E
     describe('Code Coverage Phase [Getters]', () => {
         it('getters contract: check all getters', () => {
-            component.node = new Machine({
+            component.node = new MachineV2({
                 id: "0913f2bc-6feb-4c80-9093-4372ec630044",
                 label: '-MACHINE-LABEL-',
                 model: '-MACHINE-MODEL-',
@@ -220,7 +220,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                 id: "9cc43545-3221-4a24-bd0c-04b429d11df4",
                 buildTime: 30
             })
-            componentAsAny.node = new Machine({
+            componentAsAny.node = new MachineV2({
                 id: "9903926b-e786-4fb2-8e8e-68960ebebb7a",
                 isRunning: () => { return false }
             });
@@ -266,7 +266,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                 id: "9cc43545-3221-4a24-bd0c-04b429d11df4",
                 buildTime: 30
             })
-            componentAsAny.node = new Machine({
+            componentAsAny.node = new MachineV2({
                 id: "9903926b-e786-4fb2-8e8e-68960ebebb7a",
                 isRunning: () => { return false }
             });
@@ -306,7 +306,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             jasmine.clock().install();
             const componentAsAny = component as any;
             componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
-            componentAsAny.node = new Machine({
+            componentAsAny.node = new MachineV2({
                 "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
                 "label": "Machine B",
                 "model": "Creality 3D Ender 3 Pro",
@@ -363,7 +363,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
             const componentAsAny = component as any;
             componentAsAny.backendService = TestBed.get(FailureBackendService)
             componentAsAny.buildTimeTimer = TestBed.createComponent(V1BuildCountdownTimerPanelComponent).componentInstance
-            componentAsAny.node = new Machine({
+            componentAsAny.node = new MachineV2({
                 "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
                 "label": "Machine B",
                 "model": "Creality 3D Ender 3 Pro",
@@ -420,7 +420,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                 id: "9cc43545-3221-4a24-bd0c-04b429d11df4",
                 buildTime: 30
             })
-            componentAsAny.node = new Machine({
+            componentAsAny.node = new MachineV2({
                 id: "9903926b-e786-4fb2-8e8e-68960ebebb7a",
                 currentJobPartId: new Part(),
                 buildTime: TEST_TIME,
@@ -453,7 +453,7 @@ describe('COMPONENT V3MachineRenderComponent [Module: SHARED]', () => {
                 id: "9cc43545-3221-4a24-bd0c-04b429d11df4",
                 buildTime: 30
             })
-            componentAsAny.node = new Machine({
+            componentAsAny.node = new MachineV2({
                 id: "9903926b-e786-4fb2-8e8e-68960ebebb7a",
                 currentJobPartId: new Part(),
                 buildTime: TEST_TIME,

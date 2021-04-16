@@ -1,7 +1,7 @@
 // - DOMAIN
-import { Machine } from './Machine.domain';
+import { MachineV2 } from './MachineV2.domain';
 
-describe('CLASS Machine [Module: DOMAIN]', () => {
+describe('CLASS MachineV2 [Module: DOMAIN]', () => {
 
     beforeEach(() => {
     });
@@ -9,12 +9,12 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
         it('constructor.none: validate initial state without constructor', () => {
-            const instance = new Machine();
+            const instance = new MachineV2();
             expect(instance).toBeDefined();
             // expect(instance.currentPartInstances).toBe(1)
         });
         it('constructor.objectv1: validate initial state with object data', () => {
-            const instance = new Machine({
+            const instance = new MachineV2({
                 "id": "009ab011-03ad-4e84-9a88-25708d1cfd64",
                 "label": "Machine B",
                 "model": "Creality 3D Ender 3 Pro",
@@ -48,7 +48,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
         });
     });
     it('constructor.objectv2: validate initial state with object data', () => {
-        const instance = new Machine({
+        const instance = new MachineV2({
             "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
             "label": "Ender 3 Pro - A",
             "model": "Creality 3D Ender 3 Pro",
@@ -72,7 +72,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Methods]', () => {
         it('isRunning.idle: check if the machine has a job running', () => {
-            let instance = new Machine({
+            let instance = new MachineV2({
                 "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
                 "label": "Ender 3 Pro - A",
                 "model": "Creality 3D Ender 3 Pro",
@@ -88,7 +88,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
             expect(instance.isRunning()).toBeFalse();
         });
         it('isRunning.idle: check if the machine has a job running', () => {
-            let instance = new Machine({
+            let instance = new MachineV2({
                 "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
                 "label": "Ender 3 Pro - A",
                 "model": "Creality 3D Ender 3 Pro",
@@ -104,7 +104,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
             expect(instance.isRunning()).toBeTrue();
         });
         it('getRunTime.idle: get the time left to run', () => {
-            let instance = new Machine({
+            let instance = new MachineV2({
                 "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
                 "label": "Ender 3 Pro - A",
                 "model": "Creality 3D Ender 3 Pro",
@@ -120,7 +120,7 @@ describe('CLASS Machine [Module: DOMAIN]', () => {
             expect(instance.getRunTime()).toBe(0)
         });
         it('getRunTime.running: get the time left to run', () => {
-            let instance = new Machine({
+            let instance = new MachineV2({
                 "id": "e18aa442-19cd-4b08-8ed0-9f1917821fac",
                 "label": "Ender 3 Pro - A",
                 "model": "Creality 3D Ender 3 Pro",
