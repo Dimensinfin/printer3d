@@ -23,6 +23,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MATERIAL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MODEL_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PRICE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PROJECT;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 
@@ -43,6 +44,7 @@ public class PartListSerializerTest {
 		final Part part = new Part.Builder()
 				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
@@ -61,7 +63,7 @@ public class PartListSerializerTest {
 				.withPartList( partList )
 				.build();
 		// Testing
-		final String expected = "{\"jsonClass\":\"PartList\",\"count\":1,\"parts\":[{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false,\"unavailable\":false}]}";
+		final String expected = "{\"jsonClass\":\"PartList\",\"count\":1,\"parts\":[{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"project\":\"-TEST_PART_PROJECT-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false,\"unavailable\":false}]}";
 		final String obtained = this.objectMapper.writeValueAsString( partContainer );
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

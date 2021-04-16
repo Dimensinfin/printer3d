@@ -25,6 +25,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MATERIAL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MODEL_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PRICE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PROJECT;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 
@@ -60,6 +61,7 @@ public class BuildRecordSerializerTest {
 		final Part part = new Part.Builder()
 				.withId( UUID.fromString( "a4ba0dd6-acde-483c-ad68-5efb9ac9886e" ) )
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
@@ -79,7 +81,7 @@ public class BuildRecordSerializerTest {
 				.withPartBuildTime( TEST_BUILDRECORD_BUILD_TIME )
 				.build();
 		// Test
-		final String expected = "{\"state\":\"RUNNING\",\"partCopies\":8,\"buildTime\":30,\"part\":{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false,\"unavailable\":false},\"jobInstallmentDate\":\"2020-06-05T21:54:00.226181Z\",\"remainingTime\":0}";
+		final String expected = "{\"state\":\"RUNNING\",\"partCopies\":8,\"buildTime\":30,\"part\":{\"id\":\"a4ba0dd6-acde-483c-ad68-5efb9ac9886e\",\"label\":\"-TEST_PART_LABEL-\",\"project\":\"-TEST_PART_PROJECT-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https://ibb.co/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false,\"unavailable\":false},\"jobInstallmentDate\":\"2020-06-05T21:54:00.226181Z\",\"remainingTime\":0}";
 		final String obtained = this.objectMapper.writeValueAsString( buildRecord );
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
