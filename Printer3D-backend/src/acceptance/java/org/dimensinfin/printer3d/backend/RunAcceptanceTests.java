@@ -12,6 +12,6 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 		snippets = CAMELCASE,
 		glue = { "org.dimensinfin.printer3d.backend.acceptance.steps" },
 		plugin = { "pretty", "json:target/cucumber_report.json" },
-		tags = "@B3D01.07 or @B3D01.09 or @B3D01.10")
+		tags = "@B3D01.07")
 public class RunAcceptanceTests {
 }

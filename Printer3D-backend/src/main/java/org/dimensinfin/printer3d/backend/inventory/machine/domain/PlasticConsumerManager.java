@@ -48,7 +48,7 @@ public class PlasticConsumerManager {
 						.filter( coilEntity -> partEntity.getColor().equals( coilEntity.getColor() ) )
 						.filter( coilEntity -> coilEntity.getWeight() > partEntity.getWeight() * copies )
 						.collect( this.toSingleton() ) // Get the most used coil on the list or fire an exception if there is no material left.
-						.subtractMaterial( partEntity.getWeight() * copies )
+						.subtractMaterial( (float) (partEntity.getWeight() * copies) )
 		);
 	}
 

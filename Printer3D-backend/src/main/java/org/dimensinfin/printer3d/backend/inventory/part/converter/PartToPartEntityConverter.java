@@ -26,6 +26,7 @@ public class PartToPartEntityConverter implements Converter<Part, PartEntity> {
 				.withImagePath( input.getImagePath() )
 				.withModelPath( input.getModelPath() )
 				.withActive( input.isActive() )
-				.build();
+				.build()
+				.setProject( input.getProject() );
 	}
 }

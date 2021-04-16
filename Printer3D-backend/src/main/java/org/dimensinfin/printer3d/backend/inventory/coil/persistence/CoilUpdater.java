@@ -19,11 +19,11 @@ public class CoilUpdater {
 	private final CoilEntity coilEntity;
 
 	// - C O N S T R U C T O R S
-	public CoilUpdater( final @NotNull CoilEntity coilEntity ) {
+	public CoilUpdater( @NotNull final CoilEntity coilEntity ) {
 		this.coilEntity = Objects.requireNonNull( coilEntity );
 	}
 
-	public CoilEntity update( final @NotNull UpdateCoilRequest updateData ) {
+	public CoilEntity update( @NotNull final UpdateCoilRequest updateData ) {
 		if (null != updateData.getWeight()) this.coilEntity.setWeight( updateData.getWeight() );
 		if (null != updateData.getTradeMark()) this.coilEntity.setTradeMark( updateData.getTradeMark() );
 		if (null != updateData.getLabel()) this.coilEntity.setLabel( updateData.getLabel() );

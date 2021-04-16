@@ -1,18 +1,4 @@
 # Classes pending Unit Test completion
-* PartGroupUpdater
-* Part
-* PartEntity
-* PartToPartEntityConverter
-* UpdateGroupPartRequest
-* CoilEntity
-* CoilToCoilEntityConverter
-* CoilEntityToCoilConverter
-* CoilUpdater
-* PartControllerV2
-* PartServiceV2
-* Part
-* PartServiceV1
-* ModelControllerV1
 * ModelServiceV1
 * CoilUpdater
 

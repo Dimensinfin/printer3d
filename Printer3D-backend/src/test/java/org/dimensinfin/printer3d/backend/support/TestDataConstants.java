@@ -20,6 +20,7 @@ public class TestDataConstants {
 	public static class PartConstants {
 		public static final UUID TEST_PART_ID = UUID.randomUUID();
 		public static final String TEST_PART_LABEL = "-TEST_PART_LABEL-";
+		public static final String TEST_PART_PROJECT = "-TEST_PART_PROJECT-";
 		public static final String TEST_PART_DESCRIPTION = "-TEST_PART_DESCRIPTION-";
 		public static final String TEST_PART_MATERIAL = "PLA";
 		public static final String TEST_PART_COLOR = "VERDE-T";
@@ -35,6 +36,7 @@ public class TestDataConstants {
 
 	public static class CoilConstants {
 		public static final UUID TEST_COIL_ID = UUID.fromString( "31009b73-fd2d-432d-9616-51cc2a1882be" );
+		public static final String TEST_COIL_LABEL = "-TEST_COIL_LABEL-";
 		public static final String TEST_COIL_MATERIAL = "PLA";
 		public static final String TEST_COIL_TRADE_MARK = "EOLAS";
 		public static final String TEST_COIL_COLOR = "-COLOR-";

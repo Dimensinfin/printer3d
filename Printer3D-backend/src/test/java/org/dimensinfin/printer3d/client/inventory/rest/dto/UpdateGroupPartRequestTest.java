@@ -8,6 +8,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_IMAGE_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MODEL_PATH;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PROJECT;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_WEIGHT;
 
 public class UpdateGroupPartRequestTest {
@@ -15,6 +16,7 @@ public class UpdateGroupPartRequestTest {
 	public void buildContract() {
 		final UpdateGroupPartRequest updateGroupPartRequest = new UpdateGroupPartRequest.Builder()
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withWeight( TEST_PART_WEIGHT )
@@ -29,6 +31,7 @@ public class UpdateGroupPartRequestTest {
 		// Given
 		final UpdateGroupPartRequest updateGroupPartRequest = new UpdateGroupPartRequest.Builder()
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withWeight( TEST_PART_WEIGHT )
@@ -39,6 +42,7 @@ public class UpdateGroupPartRequestTest {
 		Assertions.assertEquals( TEST_PART_LABEL, updateGroupPartRequest.getLabel() );
 		updateGroupPartRequest.setLabel( "New Label" );
 		Assertions.assertEquals( "New Label", updateGroupPartRequest.getLabel() );
+		Assertions.assertEquals( TEST_PART_PROJECT, updateGroupPartRequest.getProject() );
 		Assertions.assertEquals( TEST_PART_BUILD_TIME, updateGroupPartRequest.getBuildTime() );
 		Assertions.assertEquals( TEST_PART_DESCRIPTION, updateGroupPartRequest.getDescription() );
 		Assertions.assertEquals( TEST_PART_WEIGHT, updateGroupPartRequest.getWeight() );

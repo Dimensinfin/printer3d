@@ -16,6 +16,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartCo
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MATERIAL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_MODEL_PATH;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PRICE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_PROJECT;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_AVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_STOCK_LEVEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.PartConstants.TEST_PART_WEIGHT;
@@ -26,6 +27,7 @@ public class PartTest {
 		final Part part = new Part.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
@@ -37,6 +39,7 @@ public class PartTest {
 				.withImagePath( TEST_PART_IMAGE_PATH )
 				.withModelPath( TEST_PART_MODEL_PATH )
 				.withActive( false )
+				.withUnavailable( true )
 				.build();
 		Assertions.assertNotNull( part );
 	}
@@ -264,31 +267,6 @@ public class PartTest {
 		} );
 	}
 
-	//	@Test
-	//	public void decrementStock() {
-	//		// Given
-	//		final Part part = new Part.Builder()
-	//				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
-	//				.withLabel( TEST_PART_LABEL )
-	//				.withDescription( TEST_PART_DESCRIPTION )
-	//				.withMaterial( TEST_PART_MATERIAL )
-	//				.withColor( TEST_PART_COLOR )
-	//				.withBuildTime( TEST_PART_BUILD_TIME )
-	//				.withCost( TEST_PART_COST )
-	//				.withPrice( TEST_PART_PRICE )
-	//				.withStockLevel( TEST_PART_STOCK_LEVEL )
-	//				.withStockAvailable( 10 )
-	//				.withImagePath( TEST_PART_IMAGE_PATH )
-	//				.withModelPath( TEST_PART_MODEL_PATH )
-	//				.withActive( false )
-	//				.build();
-	//		// Test
-	//		Assertions.assertEquals( 10, part.getStockAvailable() );
-	//		part.decrementStock( 3 );
-	//		// Assertions
-	//		Assertions.assertEquals( 7, part.getStockAvailable() );
-	//	}
-
 	@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass( Part.class )
@@ -302,6 +280,7 @@ public class PartTest {
 		final Part part = new Part.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
@@ -318,6 +297,7 @@ public class PartTest {
 		// Assertions
 		Assertions.assertEquals( TEST_PART_ID.toString(), part.getId().toString() );
 		Assertions.assertEquals( TEST_PART_LABEL, part.getLabel() );
+		Assertions.assertEquals( TEST_PART_PROJECT, part.getProject() );
 		Assertions.assertEquals( TEST_PART_DESCRIPTION, part.getDescription() );
 		Assertions.assertEquals( TEST_PART_MATERIAL, part.getMaterial() );
 		Assertions.assertEquals( TEST_PART_COLOR, part.getColor() );
@@ -330,31 +310,43 @@ public class PartTest {
 		Assertions.assertEquals( TEST_PART_IMAGE_PATH, part.getImagePath() );
 		Assertions.assertEquals( TEST_PART_MODEL_PATH, part.getModelPath() );
 		Assertions.assertFalse( part.isActive() );
+		Assertions.assertFalse( part.isUnavailable() );
 	}
 
 	@Test
-	public void incrementStock() {
+	public void setterContract() {
 		// Given
 		final Part part = new Part.Builder()
-				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
+				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
 				.withBuildTime( TEST_PART_BUILD_TIME )
 				.withCost( TEST_PART_COST )
 				.withPrice( TEST_PART_PRICE )
 				.withStockLevel( TEST_PART_STOCK_LEVEL )
-				.withStockAvailable( 10 )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
 				.withImagePath( TEST_PART_IMAGE_PATH )
 				.withModelPath( TEST_PART_MODEL_PATH )
 				.withActive( false )
+				.withUnavailable( true )
 				.build();
-		// Test
-		Assertions.assertEquals( 10, part.getStockAvailable() );
-		part.incrementStock( 3 );
 		// Assertions
-		Assertions.assertEquals( 13, part.getStockAvailable() );
+		part.setCost( 543.78F );
+		Assertions.assertEquals( 543.78F, part.getCost(), 0.01 );
+		part.setPrice( 543.78F );
+		Assertions.assertEquals( 543.78F, part.getPrice() );
+		part.setStockAvailable( 8 );
+		Assertions.assertEquals( 8, part.getStockAvailable() );
+		part.setStockLevel( 8 );
+		Assertions.assertEquals( 8, part.getStockLevel() );
+		part.setActive( true );
+		Assertions.assertTrue( part.isActive() );
+		part.setUnavailable( false );
+		Assertions.assertFalse( part.isUnavailable() );
 	}
 
 	@Test
@@ -363,6 +355,7 @@ public class PartTest {
 		final Part part = new Part.Builder()
 				.withId( UUID.fromString( "112ad653-9eea-4124-ab20-9fcd92d0527b" ) )
 				.withLabel( TEST_PART_LABEL )
+				.withProject( TEST_PART_PROJECT )
 				.withDescription( TEST_PART_DESCRIPTION )
 				.withMaterial( TEST_PART_MATERIAL )
 				.withColor( TEST_PART_COLOR )
@@ -375,9 +368,10 @@ public class PartTest {
 				.withImagePath( TEST_PART_IMAGE_PATH )
 				.withModelPath( TEST_PART_MODEL_PATH )
 				.withActive( false )
+				.withUnavailable( true )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}";
+		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"project\":\"-TEST_PART_PROJECT-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false,\"unavailable\":true}";
 		final String obtained = part.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );

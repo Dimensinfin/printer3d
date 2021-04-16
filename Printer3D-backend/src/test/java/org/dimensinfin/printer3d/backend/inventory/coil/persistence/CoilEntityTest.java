@@ -15,6 +15,20 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.CoilCo
 
 public class CoilEntityTest {
 	@Test
+	public void buildContract() {
+		final CoilEntity coilEntity = new CoilEntity.Builder()
+				.withId( TEST_COIL_ID )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
+				.withWeight( TEST_COIL_WEIGHT )
+				.withActive( TEST_COIL_ACTIVE )
+				.build();
+		Assertions.assertNotNull( coilEntity );
+	}
+
+	@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass( CoilEntity.class )
 				.withIgnoredFields( "id", "destructionTime" )
@@ -77,6 +91,44 @@ public class CoilEntityTest {
 		Assertions.assertEquals( TEST_COIL_ACTIVE, coilEntity.getActive() );
 		coilEntity.setActive( false );
 		Assertions.assertEquals( false, coilEntity.getActive() );
+	}
+
+	@Test
+	public void subtractMaterialDecimal() {
+		// Given
+		final CoilEntity coilEntity = new CoilEntity.Builder()
+				.withId( TEST_COIL_ID )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
+				.withWeight( TEST_COIL_WEIGHT )
+				.withActive( TEST_COIL_ACTIVE )
+				.build();
+		// Test
+		final CoilEntity obtained = coilEntity.subtractMaterial( 32.6F );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( TEST_COIL_WEIGHT - 33, obtained.getWeight(), 0.01 );
+	}
+
+	@Test
+	public void subtractMaterialInteger() {
+		// Given
+		final CoilEntity coilEntity = new CoilEntity.Builder()
+				.withId( TEST_COIL_ID )
+				.withMaterial( TEST_COIL_MATERIAL )
+				.withTradeMark( TEST_COIL_TRADE_MARK )
+				.withColor( TEST_COIL_COLOR )
+				.withLabel( TEST_COIL_COLOR )
+				.withWeight( TEST_COIL_WEIGHT )
+				.withActive( TEST_COIL_ACTIVE )
+				.build();
+		// Test
+		final CoilEntity obtained = coilEntity.subtractMaterial( 19.0F );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( TEST_COIL_WEIGHT - 19, obtained.getWeight(), 0.01 );
 	}
 
 	@Test

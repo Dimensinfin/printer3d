@@ -167,10 +167,10 @@ public class CoilEntity {
 	 * @param weight the number og grams to remove from the coil estimated weight.
 	 * @return the updated coil instance.
 	 */
-	public CoilEntity subtractMaterial( final Integer weight ) {
+	public CoilEntity subtractMaterial( final Float weight ) {
 		LogWrapper.info( "Selected coil: " + this.toString() );
 		LogWrapper.info( "Subtracting plastic: " + weight );
-		this.weight -= weight;
+		this.weight -= Math.round( weight );
 		return this;
 	}
 

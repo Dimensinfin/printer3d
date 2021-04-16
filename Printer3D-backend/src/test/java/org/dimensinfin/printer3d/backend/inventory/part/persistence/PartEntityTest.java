@@ -347,7 +347,7 @@ public class PartEntityTest {
 	@Test
 	public void getterContract() {
 		// Given
-		final PartEntity part = new PartEntity.Builder()
+		final PartEntity partEntity = new PartEntity.Builder()
 				.withId( TEST_PART_ID )
 				.withLabel( TEST_PART_LABEL )
 				.withDescription( TEST_PART_DESCRIPTION )
@@ -364,20 +364,21 @@ public class PartEntityTest {
 				.withActive( false )
 				.build();
 		// Assertions
-		Assertions.assertEquals( TEST_PART_ID.toString(), part.getId().toString() );
-		Assertions.assertEquals( TEST_PART_LABEL, part.getLabel() );
-		Assertions.assertEquals( TEST_PART_DESCRIPTION, part.getDescription() );
-		Assertions.assertEquals( TEST_PART_MATERIAL, part.getMaterial() );
-		Assertions.assertEquals( TEST_PART_COLOR, part.getColor() );
-		Assertions.assertEquals( TEST_PART_WEIGHT, part.getWeight() );
-		Assertions.assertEquals( TEST_PART_BUILD_TIME, part.getBuildTime() );
-		Assertions.assertEquals( TEST_PART_COST, part.getCost() );
-		Assertions.assertEquals( TEST_PART_PRICE, part.getPrice() );
-		Assertions.assertEquals( TEST_PART_STOCK_LEVEL, part.getStockLevel() );
-		Assertions.assertEquals( TEST_PART_STOCK_AVAILABLE, part.getStockAvailable() );
-		Assertions.assertEquals( TEST_PART_IMAGE_PATH, part.getImagePath() );
-		Assertions.assertEquals( TEST_PART_MODEL_PATH, part.getModelPath() );
-		Assertions.assertFalse( part.isActive() );
+		Assertions.assertEquals( TEST_PART_ID.toString(), partEntity.getId().toString() );
+		Assertions.assertEquals( TEST_PART_LABEL, partEntity.getLabel() );
+		Assertions.assertEquals( "<DEFAULT>", partEntity.getProject() );
+		Assertions.assertEquals( TEST_PART_DESCRIPTION, partEntity.getDescription() );
+		Assertions.assertEquals( TEST_PART_MATERIAL, partEntity.getMaterial() );
+		Assertions.assertEquals( TEST_PART_COLOR, partEntity.getColor() );
+		Assertions.assertEquals( TEST_PART_WEIGHT, partEntity.getWeight() );
+		Assertions.assertEquals( TEST_PART_BUILD_TIME, partEntity.getBuildTime() );
+		Assertions.assertEquals( TEST_PART_COST, partEntity.getCost() );
+		Assertions.assertEquals( TEST_PART_PRICE, partEntity.getPrice() );
+		Assertions.assertEquals( TEST_PART_STOCK_LEVEL, partEntity.getStockLevel() );
+		Assertions.assertEquals( TEST_PART_STOCK_AVAILABLE, partEntity.getStockAvailable() );
+		Assertions.assertEquals( TEST_PART_IMAGE_PATH, partEntity.getImagePath() );
+		Assertions.assertEquals( TEST_PART_MODEL_PATH, partEntity.getModelPath() );
+		Assertions.assertFalse( partEntity.isActive() );
 	}
 
 	@Test
@@ -406,6 +407,38 @@ public class PartEntityTest {
 	}
 
 	@Test
+	public void setterContract() {
+		// Given
+		final PartEntity partEntity = new PartEntity.Builder()
+				.withId( TEST_PART_ID )
+				.withLabel( TEST_PART_LABEL )
+				.withDescription( TEST_PART_DESCRIPTION )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR )
+				.withWeight( TEST_PART_WEIGHT )
+				.withBuildTime( TEST_PART_BUILD_TIME )
+				.withCost( TEST_PART_COST )
+				.withPrice( TEST_PART_PRICE )
+				.withStockLevel( TEST_PART_STOCK_LEVEL )
+				.withStockAvailable( TEST_PART_STOCK_AVAILABLE )
+				.withImagePath( TEST_PART_IMAGE_PATH )
+				.withModelPath( TEST_PART_MODEL_PATH )
+				.withActive( false )
+				.build();
+		// Assertions
+		partEntity.setCost( 543.78F );
+		Assertions.assertEquals( 543.78F, partEntity.getCost(), 0.01 );
+		partEntity.setPrice( 543.78F );
+		Assertions.assertEquals( 543.78F, partEntity.getPrice() );
+		partEntity.setStockAvailable( 8 );
+		Assertions.assertEquals( 8, partEntity.getStockAvailable() );
+		partEntity.setStockLevel( 8 );
+		Assertions.assertEquals( 8, partEntity.getStockLevel() );
+		partEntity.setActive( true );
+		Assertions.assertTrue( partEntity.isActive() );
+	}
+
+	@Test
 	public void toStringContract() {
 		// Given
 		final PartEntity part = new PartEntity.Builder()
@@ -424,7 +457,7 @@ public class PartEntityTest {
 				.withActive( false )
 				.build();
 		// Test
-		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}";
+		final String expected = "{\"id\":\"112ad653-9eea-4124-ab20-9fcd92d0527b\",\"label\":\"-TEST_PART_LABEL-\",\"project\":\"<DEFAULT>\",\"description\":\"-TEST_PART_DESCRIPTION-\",\"material\":\"PLA\",\"color\":\"VERDE-T\",\"weight\":1,\"buildTime\":60,\"cost\":0.76,\"price\":2.0,\"stockLevel\":4,\"stockAvailable\":4,\"imagePath\":\"https:\\/\\/ibb.co\\/3dGbsRh\",\"modelPath\":\"pieza3.STL\",\"active\":false}";
 		final String obtained = part.toString();
 		// Assertions
 		Assertions.assertEquals( expected, obtained );
