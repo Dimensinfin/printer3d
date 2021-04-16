@@ -38,7 +38,7 @@ public class PartEntity {
 	@NotNull(message = "Part 'project' is mandatory but has default value.")
 	@Size(min = 3, max = 50)
 	@Column(name = "project", nullable = false)
-	private final String project = "<DEFAULT>";
+	private String project = "<DEFAULT>";
 	@Size(max = 500)
 	@Column(name = "description")
 	private String description;
@@ -81,7 +81,7 @@ public class PartEntity {
 
 	// - G E T T E R S   &   S E T T E R S
 	public Integer getBuildTime() {
-		return this.buildTime;
+		return buildTime;
 	}
 
 	public PartEntity setBuildTime( final Integer buildTime ) {
@@ -90,11 +90,11 @@ public class PartEntity {
 	}
 
 	public String getColor() {
-		return this.color;
+		return color;
 	}
 
 	public Float getCost() {
-		return this.cost;
+		return cost;
 	}
 
 	public PartEntity setCost( final Float cost ) {
@@ -103,7 +103,7 @@ public class PartEntity {
 	}
 
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	public PartEntity setDescription( final String description ) {
@@ -112,11 +112,11 @@ public class PartEntity {
 	}
 
 	public UUID getId() {
-		return this.id;
+		return id;
 	}
 
 	public String getImagePath() {
-		return this.imagePath;
+		return imagePath;
 	}
 
 	public PartEntity setImagePath( final String imagePath ) {
@@ -125,15 +125,15 @@ public class PartEntity {
 	}
 
 	public String getLabel() {
-		return this.label;
+		return label;
 	}
 
 	public String getMaterial() {
-		return this.material;
+		return material;
 	}
 
 	public String getModelPath() {
-		return this.modelPath;
+		return modelPath;
 	}
 
 	public PartEntity setModelPath( final String modelPath ) {
@@ -142,7 +142,7 @@ public class PartEntity {
 	}
 
 	public Float getPrice() {
-		return this.price;
+		return price;
 	}
 
 	public PartEntity setPrice( final Float price ) {
@@ -150,8 +150,17 @@ public class PartEntity {
 		return this;
 	}
 
+	public String getProject() {
+		return project;
+	}
+
+	public PartEntity setProject( final String project ) {
+		this.project = project;
+		return this;
+	}
+
 	public int getStockAvailable() {
-		return this.stockAvailable;
+		return stockAvailable;
 	}
 
 	public PartEntity setStockAvailable( final int stockAvailable ) {
@@ -160,7 +169,7 @@ public class PartEntity {
 	}
 
 	public Integer getStockLevel() {
-		return this.stockLevel;
+		return stockLevel;
 	}
 
 	public PartEntity setStockLevel( final Integer stockLevel ) {
@@ -169,7 +178,7 @@ public class PartEntity {
 	}
 
 	public Integer getWeight() {
-		return this.weight;
+		return weight;
 	}
 
 	public PartEntity setWeight( final Integer weight ) {
@@ -178,7 +187,7 @@ public class PartEntity {
 	}
 
 	public boolean isActive() {
-		return this.active;
+		return active;
 	}
 
 	public PartEntity setActive( final boolean active ) {
@@ -187,26 +196,26 @@ public class PartEntity {
 	}
 
 	public int decrementStock( final Integer quantity ) {
-		this.stockAvailable -= quantity;
-		return this.stockAvailable;
+		stockAvailable -= quantity;
+		return stockAvailable;
 	}
 
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
-				.append( this.label )
-				.append( this.description )
-				.append( this.material )
-				.append( this.color )
-				.append( this.weight )
-				.append( this.buildTime )
-				.append( this.cost )
-				.append( this.price )
-				.append( this.stockLevel )
-				.append( this.stockAvailable )
-				.append( this.imagePath )
-				.append( this.modelPath )
-				.append( this.active )
+				.append( label )
+				.append( description )
+				.append( material )
+				.append( color )
+				.append( weight )
+				.append( buildTime )
+				.append( cost )
+				.append( price )
+				.append( stockLevel )
+				.append( stockAvailable )
+				.append( imagePath )
+				.append( modelPath )
+				.append( active )
 				.toHashCode();
 	}
 
@@ -216,44 +225,44 @@ public class PartEntity {
 		if (!(o instanceof PartEntity)) return false;
 		final PartEntity part = (PartEntity) o;
 		return new EqualsBuilder()
-				.append( this.stockAvailable, part.stockAvailable )
-				.append( this.active, part.active )
-				.append( this.label, part.label )
-				.append( this.description, part.description )
-				.append( this.material, part.material )
-				.append( this.color, part.color )
-				.append( this.weight, part.weight )
-				.append( this.buildTime, part.buildTime )
-				.append( this.cost, part.cost )
-				.append( this.price, part.price )
-				.append( this.stockLevel, part.stockLevel )
-				.append( this.imagePath, part.imagePath )
-				.append( this.modelPath, part.modelPath )
+				.append( stockAvailable, part.stockAvailable )
+				.append( active, part.active )
+				.append( label, part.label )
+				.append( description, part.description )
+				.append( material, part.material )
+				.append( color, part.color )
+				.append( weight, part.weight )
+				.append( buildTime, part.buildTime )
+				.append( cost, part.cost )
+				.append( price, part.price )
+				.append( stockLevel, part.stockLevel )
+				.append( imagePath, part.imagePath )
+				.append( modelPath, part.modelPath )
 				.isEquals();
 	}
 
 	@Override
 	public String toString() {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
-				.append( "id", this.id )
-				.append( "label", this.label )
-				.append( "description", this.description )
-				.append( "material", this.material )
-				.append( "color", this.color )
-				.append( "weight", this.weight )
-				.append( "buildTime", this.buildTime )
-				.append( "cost", this.cost )
-				.append( "price", this.price )
-				.append( "stockLevel", this.stockLevel )
-				.append( "stockAvailable", this.stockAvailable )
-				.append( "imagePath", this.imagePath )
-				.append( "modelPath", this.modelPath )
-				.append( "active", this.active )
+				.append( "id", id )
+				.append( "label", label )
+				.append( "description", description )
+				.append( "material", material )
+				.append( "color", color )
+				.append( "weight", weight )
+				.append( "buildTime", buildTime )
+				.append( "cost", cost )
+				.append( "price", price )
+				.append( "stockLevel", stockLevel )
+				.append( "stockAvailable", stockAvailable )
+				.append( "imagePath", imagePath )
+				.append( "modelPath", modelPath )
+				.append( "active", active )
 				.toString();
 	}
 
 	public PartEntity incrementStock( final int increment ) {
-		this.stockAvailable += increment;
+		stockAvailable += increment;
 		return this;
 	}
 
@@ -263,88 +272,88 @@ public class PartEntity {
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new PartEntity();
+			onConstruction = new PartEntity();
 		}
 
 		public PartEntity build() {
-			Objects.requireNonNull( this.onConstruction.id );
-			Objects.requireNonNull( this.onConstruction.label );
-			Objects.requireNonNull( this.onConstruction.material );
-			Objects.requireNonNull( this.onConstruction.color );
-			Objects.requireNonNull( this.onConstruction.buildTime );
-			Objects.requireNonNull( this.onConstruction.cost );
-			Objects.requireNonNull( this.onConstruction.price );
-			Objects.requireNonNull( this.onConstruction.stockLevel );
-			return this.onConstruction;
+			Objects.requireNonNull( onConstruction.id );
+			Objects.requireNonNull( onConstruction.label );
+			Objects.requireNonNull( onConstruction.material );
+			Objects.requireNonNull( onConstruction.color );
+			Objects.requireNonNull( onConstruction.buildTime );
+			Objects.requireNonNull( onConstruction.cost );
+			Objects.requireNonNull( onConstruction.price );
+			Objects.requireNonNull( onConstruction.stockLevel );
+			return onConstruction;
 		}
 
 		public PartEntity.Builder withActive( final Boolean active ) {
-			if (null != active) this.onConstruction.active = active;
+			if (null != active) onConstruction.active = active;
 			return this;
 		}
 
 		public PartEntity.Builder withBuildTime( final Integer buildTime ) {
-			this.onConstruction.buildTime = Objects.requireNonNull( buildTime );
+			onConstruction.buildTime = Objects.requireNonNull( buildTime );
 			return this;
 		}
 
 		public PartEntity.Builder withColor( final String color ) {
-			this.onConstruction.color = Objects.requireNonNull( color );
+			onConstruction.color = Objects.requireNonNull( color );
 			return this;
 		}
 
 		public PartEntity.Builder withCost( final Float cost ) {
-			this.onConstruction.cost = Objects.requireNonNull( cost );
+			onConstruction.cost = Objects.requireNonNull( cost );
 			return this;
 		}
 
 		public PartEntity.Builder withDescription( final String description ) {
-			if (null != description) this.onConstruction.description = description;
+			if (null != description) onConstruction.description = description;
 			return this;
 		}
 
 		public PartEntity.Builder withId( final UUID id ) {
-			this.onConstruction.id = Objects.requireNonNull( id );
+			onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
 		public PartEntity.Builder withImagePath( final String imagePath ) {
-			if (null != imagePath) this.onConstruction.imagePath = imagePath;
+			if (null != imagePath) onConstruction.imagePath = imagePath;
 			return this;
 		}
 
 		public PartEntity.Builder withLabel( final String label ) {
-			this.onConstruction.label = Objects.requireNonNull( label );
+			onConstruction.label = Objects.requireNonNull( label );
 			return this;
 		}
 
 		public PartEntity.Builder withMaterial( final String material ) {
-			this.onConstruction.material = Objects.requireNonNull( material );
+			onConstruction.material = Objects.requireNonNull( material );
 			return this;
 		}
 
 		public PartEntity.Builder withModelPath( final String modelPath ) {
-			if (null != modelPath) this.onConstruction.modelPath = modelPath;
+			if (null != modelPath) onConstruction.modelPath = modelPath;
 			return this;
 		}
 
 		public PartEntity.Builder withPrice( final Float price ) {
-			this.onConstruction.price = Objects.requireNonNull( price );
+			onConstruction.price = Objects.requireNonNull( price );
 			return this;
 		}
 
 		public PartEntity.Builder withStockAvailable( final Integer stockAvailable ) {
-			if (null != stockAvailable) this.onConstruction.stockAvailable = stockAvailable;
+			if (null != stockAvailable) onConstruction.stockAvailable = stockAvailable;
 			return this;
 		}
 
 		public PartEntity.Builder withStockLevel( final Integer stockLevel ) {
-			this.onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
+			onConstruction.stockLevel = Objects.requireNonNull( stockLevel );
 			return this;
 		}
 
 		public PartEntity.Builder withWeight( final Integer weight ) {
-			if (null != weight) this.onConstruction.weight = Objects.requireNonNull( weight );
+			if (null != weight) onConstruction.weight = Objects.requireNonNull( weight );
 			return this;
 		}
 	}

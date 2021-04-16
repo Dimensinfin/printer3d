@@ -4,6 +4,7 @@ public class AcceptanceFieldMapConstants {
 	// - P A R T
 	public static final String ID = "id";
 	public static final String LABEL = "label";
+	public static final String PROJECT = "project";
 	public static final String DESCRIPTION = "description";
 	public static final String COLOR = "color";
 	public static final String BUILD_TIME = "buildTime";

@@ -39,7 +39,7 @@ public class CoilFeignClientV1 extends CommonFeignClient {
 	}
 
 	public ResponseEntity<Coil> newCoil( final String authorizationToken, final Coil coil ) throws IOException {
-		final String ENDPOINT_MESSAGE = "Request the creation of a new Roll.";
+		final String ENDPOINT_MESSAGE = "Request the creation of a new Coil.";
 		final Response<Coil> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )

@@ -28,6 +28,7 @@ public class Part {
 	@NotNull(message = "Part 'label' is mandatory.")
 	@Size(min = 3, max = 50)
 	private String label;
+	private String project;
 	@Size(max = 500)
 	private String description;
 	@NotNull(message = "Part 'material' is mandatory.")
@@ -106,6 +107,10 @@ public class Part {
 		return this;
 	}
 
+	public String getProject() {
+		return this.project;
+	}
+
 	public int getStockAvailable() {
 		return this.stockAvailable;
 	}
@@ -151,6 +156,7 @@ public class Part {
 	public final int hashCode() {
 		return new HashCodeBuilder( 17, 37 )
 				.append( this.label )
+				.append( this.project )
 				.append( this.description )
 				.append( this.material )
 				.append( this.color )
@@ -175,6 +181,7 @@ public class Part {
 				.append( this.stockAvailable, part.stockAvailable )
 				.append( this.active, part.active )
 				.append( this.label, part.label )
+				.append( this.project, part.project )
 				.append( this.description, part.description )
 				.append( this.material, part.material )
 				.append( this.color, part.color )
@@ -193,6 +200,7 @@ public class Part {
 		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "id", this.id )
 				.append( "label", this.label )
+				.append( "project", this.project )
 				.append( "description", this.description )
 				.append( "material", this.material )
 				.append( "color", this.color )
@@ -286,6 +294,11 @@ public class Part {
 
 		public Part.Builder withPrice( final Float price ) {
 			this.onConstruction.price = Objects.requireNonNull( price );
+			return this;
+		}
+
+		public Part.Builder withProject( final String project ) {
+			if (null != project) this.onConstruction.project = project;
 			return this;
 		}
 

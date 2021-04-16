@@ -15,6 +15,7 @@ public class PartUpdater {
 
 	public PartEntity update( final @NotNull Part updateData ) {
 		this.partEntity.setDescription( updateData.getDescription() );
+		this.partEntity.setProject( updateData.getProject() );
 		this.partEntity.setStockLevel( updateData.getStockLevel() );
 		this.partEntity.setStockAvailable( updateData.getStockAvailable() );
 		this.partEntity.setCost( updateData.getCost() );

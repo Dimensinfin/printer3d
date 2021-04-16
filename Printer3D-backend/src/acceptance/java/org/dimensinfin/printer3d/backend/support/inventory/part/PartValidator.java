@@ -14,6 +14,7 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PRICE;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.PROJECT;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.UNAVAILABLE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.WEIGHT;
 
@@ -21,7 +22,10 @@ public class PartValidator implements Validator<Part> {
 	@Override
 	public boolean validate( final Map<String, String> rowData, final Part record ) {
 		Assertions.assertEquals( rowData.get( ID ), record.getId().toString() );
-		Assertions.assertEquals( rowData.get( LABEL ), record.getLabel() );
+		if (null != rowData.get( LABEL ))
+			Assertions.assertEquals( rowData.get( LABEL ), record.getLabel() );
+		if (null != rowData.get( PROJECT ))
+			Assertions.assertEquals( rowData.get( PROJECT ), record.getProject() );
 		if (null != rowData.get( DESCRIPTION ))
 			Assertions.assertEquals( rowData.get( DESCRIPTION ), record.getDescription() );
 		Assertions.assertEquals( Float.parseFloat( rowData.get( COST ) ), record.getCost() );
@@ -34,5 +38,4 @@ public class PartValidator implements Validator<Part> {
 			Assertions.assertEquals( Boolean.parseBoolean( rowData.get( UNAVAILABLE ) ), record.isUnavailable() );
 		return true;
 	}
-
 }

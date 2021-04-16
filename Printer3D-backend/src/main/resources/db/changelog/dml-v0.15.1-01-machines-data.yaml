@@ -10,5 +10,5 @@ databaseChangeLog:
               - column:
                   name: label
                   value: Ender 3 Pro V2 - D
-            where: id = 7728aef4-811e-4177-8adb-8f3daf8dc809
+            where: id = '7728aef4-811e-4177-8adb-8f3daf8dc809'
             remarks: Update the machine model.

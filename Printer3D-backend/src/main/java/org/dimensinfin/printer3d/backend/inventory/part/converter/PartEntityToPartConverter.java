@@ -22,6 +22,7 @@ public class PartEntityToPartConverter implements Converter<PartEntity, Part> {
 		return new Part.Builder()
 				.withId( input.getId() )
 				.withLabel( input.getLabel() )
+				.withProject( input.getProject() )
 				.withDescription( input.getDescription() )
 				.withBuildTime( input.getBuildTime() )
 				.withWeight( input.getWeight() )
