@@ -1,7 +1,9 @@
 package org.dimensinfin.printer3d.backend.inventory.coil.rest.v1;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Service;
@@ -42,6 +44,14 @@ public class CoilServiceV1 {
 		}
 	}
 
+	public List<CoilEntity> searchCoils( final String material, final String color ) {
+		return this.coilRepository.findAll()
+				.stream()
+				.filter( coilEntity -> coilEntity.getMaterial().equalsIgnoreCase( material ) )
+				.filter( coilEntity -> coilEntity.getColor().equalsIgnoreCase( color ) )
+				.collect( Collectors.toList() );
+	}
+
 	/**
 	 * Updates a Coil. The only field allowed to be changed is the weight.
 	 *
@@ -59,6 +69,5 @@ public class CoilServiceV1 {
 		} finally {
 			LogWrapper.exit();
 		}
-
 	}
 }

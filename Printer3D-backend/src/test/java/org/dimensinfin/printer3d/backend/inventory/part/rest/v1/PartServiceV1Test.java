@@ -12,6 +12,8 @@ import org.mockito.Mockito;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
+import org.dimensinfin.printer3d.backend.inventory.coil.rest.v1.CoilServiceV1;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartToPartEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
@@ -41,6 +43,7 @@ public class PartServiceV1Test {
 	private PartEntity testPart;
 	private PartEntity testPartNotActive;
 	private PartRepository partRepository;
+	private CoilServiceV1 coilServiceV1;
 
 	@BeforeEach
 	public void beforeEach() {
@@ -75,11 +78,12 @@ public class PartServiceV1Test {
 				.withActive( false )
 				.build();
 		this.partRepository = Mockito.mock( PartRepository.class );
+		this.coilServiceV1 = Mockito.mock( CoilServiceV1.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		Assertions.assertNotNull( serviceV1 );
 	}
 
@@ -92,7 +96,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		final PartList obtained = serviceV1.getParts( true );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -120,11 +124,15 @@ public class PartServiceV1Test {
 				.withActive( false )
 				.build();
 		final PartEntity partEntity = new PartToPartEntityConverter().convert( part );
+		final CoilEntity coil = Mockito.mock( CoilEntity.class );
+		final List<CoilEntity> coilList = new ArrayList<>();
+		coilList.add( coil );
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenReturn( partEntity );
+		Mockito.when( this.coilServiceV1.searchCoils( Mockito.anyString(), Mockito.anyString() ) ).thenReturn( coilList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		final Part obtained = serviceV1.newPart( part );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -184,7 +192,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
 	}
@@ -202,11 +210,15 @@ public class PartServiceV1Test {
 				.withPrice( TEST_PART_PRICE )
 				.build();
 		final PartEntity partEntity = new PartToPartEntityConverter().convert( part );
+		final CoilEntity coil = Mockito.mock( CoilEntity.class );
+		final List<CoilEntity> coilList = new ArrayList<>();
+		coilList.add( coil );
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenReturn( partEntity );
+		Mockito.when( this.coilServiceV1.searchCoils( Mockito.anyString(), Mockito.anyString() ) ).thenReturn( coilList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		final Part obtained = serviceV1.newPart( part );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -237,7 +249,7 @@ public class PartServiceV1Test {
 		Mockito.when( part.getId() ).thenReturn( UUID.randomUUID() );
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
 	}
@@ -264,7 +276,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenThrow( DataIntegrityViolationException.class );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> serviceV1.newPart( part ) );
 	}
@@ -307,7 +319,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.save( partEntity ) ).thenThrow( DataIntegrityViolationException.class );
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
-			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 			serviceV1.newPart( part );
 		} );
 	}
@@ -321,7 +333,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		final PartList obtained = serviceV1.getParts( false );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -362,7 +374,7 @@ public class PartServiceV1Test {
 		// When
 		Mockito.when( this.partRepository.findByLabel( Mockito.anyString() ) ).thenReturn( partList );
 		// Tests
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		final CounterResponse obtained = serviceV1.updateGroupPart( updateData );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -407,7 +419,7 @@ public class PartServiceV1Test {
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( partEntity ) );
 		Mockito.when( this.partRepository.save( Mockito.any( PartEntity.class ) ) ).thenReturn( updatedEntity );
 		// Test
-		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+		final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 		final Part obtained = serviceV1.updatePart( updatePart );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -439,7 +451,7 @@ public class PartServiceV1Test {
 		// Exceptions
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> {
 			// Test
-			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository );
+			final PartServiceV1 serviceV1 = new PartServiceV1( this.partRepository, this.coilServiceV1 );
 			serviceV1.updatePart( part );
 		} );
 	}

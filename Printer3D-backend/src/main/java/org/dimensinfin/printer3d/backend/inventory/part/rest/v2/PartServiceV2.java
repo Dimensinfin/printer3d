@@ -13,7 +13,6 @@ import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilEntity;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartServiceV1;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
@@ -22,7 +21,8 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
  * @since 0.6.0
  */
 @Service
-public class PartServiceV2 extends PartServiceV1 {
+public class PartServiceV2 {
+	private final PartRepository partRepository;
 	private final CoilRepository coilRepository;
 	private final CoilEntityToCoilConverter coilConverter;
 
@@ -31,7 +31,7 @@ public class PartServiceV2 extends PartServiceV1 {
 	public PartServiceV2( @NotNull final PartRepository partRepository,
 	                      @NotNull final CoilRepository coilRepository,
 	                      @NotNull final CoilEntityToCoilConverter coilConverter ) {
-		super( partRepository );
+		this.partRepository = partRepository;
 		this.coilRepository = coilRepository;
 		this.coilConverter = coilConverter;
 	}

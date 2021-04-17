@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
+import org.dimensinfin.printer3d.backend.inventory.coil.rest.v1.CoilServiceV1;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.converter.PartToPartEntityConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
@@ -27,11 +28,14 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartReques
 @Service
 public class PartServiceV1 {
 	protected final PartRepository partRepository;
+	private final CoilServiceV1 coilServiceV1;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public PartServiceV1( @NotNull final PartRepository partRepository ) {
+	public PartServiceV1( @NotNull final PartRepository partRepository,
+	                      @NotNull final CoilServiceV1 coilServiceV1 ) {
 		this.partRepository = partRepository;
+		this.coilServiceV1 = coilServiceV1;
 	}
 
 	@Deprecated
@@ -60,8 +64,11 @@ public class PartServiceV1 {
 			final Optional<PartEntity> target = this.partRepository.findById( newPart.getId() );
 			if (target.isPresent())
 				throw new DimensinfinRuntimeException( PartRestErrors.errorPARTALREADYEXISTS( newPart.getId() ) );
-			final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
 			try {
+				if (this.coilServiceV1.searchCoils( newPart.getMaterial(), newPart.getColor() ).isEmpty())
+					throw new DimensinfinRuntimeException( PartRestErrors.errorPARTREPOSITORYCONFLICT( newPart.getId(),
+							"The Part coil is not found at the repository" ) );
+				final PartEntity partEntity = new PartToPartEntityConverter().convert( newPart );
 				return new PartEntityToPartConverter().convert( this.partRepository.save( partEntity ) );
 			} catch (final DataIntegrityViolationException die) {
 				throw new DimensinfinRuntimeException( PartRestErrors.errorPARTREPOSITORYCONFLICT( newPart.getId(), die.getMessage() ) );
