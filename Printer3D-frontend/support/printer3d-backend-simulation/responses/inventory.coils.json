@@ -1,191 +1,208 @@
 [{
-        "id": "2f4fe8d8-fc1b-40fd-b9b2-729100612253",
+        "id": "9059239f-eacf-4131-8c17-c86b1faf53b4",
         "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "BLANCO",
-        "label": "BLANCO",
-        "weight": 700,
-        "active": true
-    },
-    {
-        "id": "cee43a4e-339a-482c-ac60-dd7d13bba5e2",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "NEGRO",
-        "label": "NEGRO (uso)",
-        "weight": 150,
-        "active": true
-    },
-    {
-        "id": "df397fcc-ba76-453c-b896-e58965133787",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "NEGRO",
-        "label": "NEGRO",
-        "weight": 250,
-        "active": false
-    },
-    {
-        "id": "c8afa59f-33e4-4143-a874-1a54a8818b54",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "NEGRO",
-        "label": "NEGRO",
+        "tradeMark": "SMARTFIL",
+        "color": "PLATA",
         "weight": 750,
+        "label": "PLATA",
         "active": true
     },
     {
-        "id": "5d01ccbd-8cb1-4509-8c35-85fda73c4686",
+        "id": "37160e28-e5a4-4cfd-b917-20b3c1465224",
         "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "ROJO",
-        "label": "ROJO",
-        "weight": 650,
+        "tradeMark": "SMARTFIL",
+        "color": "NEO PINK",
+        "weight": 330,
+        "label": "NEO PINK",
         "active": true
     },
     {
-        "id": "be890c79-1d21-415e-8a38-ef20b0288b04",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "AZUL BRILLANTE",
-        "label": "AZUL BRILLANTE CLARO",
-        "weight": 700,
+        "id": "95523561-9dcc-4642-b4a8-ddfac7d6cd57",
+        "material": "TPU",
+        "tradeMark": "SMARTFIL",
+        "color": "TRUE BLACK",
+        "weight": 750,
+        "label": "TRUE BLACK",
         "active": true
     },
     {
-        "id": "5684eedb-2a96-49e5-b5d7-ca45c4ac8222",
+        "id": "ac8d5a6c-8f7a-4c18-be2e-a117b784dfbc",
         "material": "PLA",
         "tradeMark": "ESUN",
-        "color": "AZUL BRILLANTE",
-        "label": "AZUL BRILLANTE",
-        "weight": 10,
-        "active": false
+        "color": "BLACK",
+        "weight": 1000,
+        "label": "BLACK",
+        "active": true
     },
     {
-        "id": "bc0f2683-ed24-4c09-81fc-689daf79d955",
+        "id": "1cf4202d-735a-4da8-84fb-1cbed31332e0",
         "material": "PLA",
         "tradeMark": "ESUN",
-        "color": "AZUL BRILLANTE",
-        "label": "AZUL BRILLANTE CLARO",
-        "weight": 10,
-        "active": false
+        "color": "BLACK",
+        "weight": 1000,
+        "label": "BLACK",
+        "active": true
     },
     {
-        "id": "de53f791-0a53-429d-b2e5-c74a27442fda",
+        "id": "53e96f40-70e4-4e31-8f14-21cbb57181dc",
         "material": "PLA",
         "tradeMark": "ESUN",
-        "color": "GRIS",
-        "label": "GRIS",
-        "weight": 100
+        "color": "PINE GREEN",
+        "weight": 1000,
+        "label": "PINE GREEN",
+        "active": true
     },
     {
-        "id": "9058ac8b-125e-4f4f-9313-2e117c23b66b",
+        "id": "0a140404-8bf7-4a44-b6d0-a13232a8a6da",
         "material": "PLA",
         "tradeMark": "ESUN",
-        "color": "ROJO",
-        "label": "ROJO",
-        "weight": 900,
-        "active": false
+        "color": "BLUE",
+        "weight": 1000,
+        "label": "BLUE",
+        "active": true
     },
     {
-        "id": "e6bfddac-c7ed-4f54-a1f2-8bf7f3d6f2fb",
+        "id": "359387f0-9367-4b9e-ad2e-bdae98b029d9",
+        "material": "PLA",
+        "tradeMark": "FILLAMENTUM",
+        "color": "VERTIGO GALAXY",
+        "weight": 750,
+        "label": "VERTIGO GALAXY",
+        "active": true
+    },
+    {
+        "id": "e9a0a569-e36b-4701-abc1-51e8ec1bb8e3",
+        "material": "PLA",
+        "tradeMark": "FILLAMENTUM",
+        "color": "MELON YELLOW",
+        "weight": 750,
+        "label": "MELON YELLOW",
+        "active": true
+    },
+    {
+        "id": "0ccac5b4-ad0d-4d60-93f0-11c22cb051f4",
+        "material": "PLA",
+        "tradeMark": "FILLAMENTUM",
+        "color": "WIZARDS VOODOO",
+        "weight": 750,
+        "label": "WIZARDS VOODOO",
+        "active": true
+    },
+    {
+        "id": "59a254d9-90bc-4ac7-82c4-bf12a802213a",
+        "material": "CARB NYLON",
+        "tradeMark": "FILLAMENTUM",
+        "color": "CARBON",
+        "weight": 600,
+        "label": "CARBON",
+        "active": true
+    },
+    {
+        "id": "85eed015-afb0-4a56-bf61-5ed1504ae286",
+        "material": "TPU",
+        "tradeMark": "EOLAS",
+        "color": "WHITE",
+        "weight": 250,
+        "label": "WHITE",
+        "active": true
+    },
+    {
+        "id": "bd45b97a-cc75-486b-a05a-f9d1aa2b31e5",
+        "material": "TPU",
+        "tradeMark": "EOLAS",
+        "color": "SKY BLUE",
+        "weight": 250,
+        "label": "SKY BLUE",
+        "active": true
+    },
+    {
+        "id": "8112e3a2-16da-4616-aef0-03118006cd83",
+        "material": "TPU",
+        "tradeMark": "EOLAS",
+        "color": "TOMATO RED",
+        "weight": 250,
+        "label": "TOMATO RED",
+        "active": true
+    },
+    {
+        "id": "60ed7887-60ee-42b5-8bdf-cb09917baa2b",
         "material": "PLA",
         "tradeMark": "EOLAS",
-        "color": "BLANCO",
-        "label": "BLANCO",
-        "weight": 200
+        "color": "AMARILLO RASTA",
+        "weight": 1000,
+        "label": "AMARILLO RASTA",
+        "active": true
     },
     {
-        "id": "7c97ae6c-dacf-476f-98ff-eac371635640",
+        "id": "510870b9-0f6f-48c7-91ca-e102da7580da",
         "material": "PLA",
         "tradeMark": "EOLAS",
+        "color": "ROJO RASTA",
+        "weight": 1000,
+        "label": "ROJO RASTA",
+        "active": true
+    },
+    {
+        "id": "51272c1e-3ef3-4e65-a6f0-c59224694772",
+        "material": "PLA",
+        "tradeMark": "EOLAS",
+        "color": "VERDE RASTA",
+        "weight": 1000,
+        "label": "VERDE RASTA",
+        "active": true
+    },
+    {
+        "id": "36824f82-5309-42ab-a262-e6200a37d95d",
+        "material": "PLA",
+        "tradeMark": "NONAME",
         "color": "VERDE TRANSPARENTE",
+        "weight": 1000,
         "label": "VERDE TRANSPARENTE",
-        "weight": 100
+        "active": true
     },
     {
-        "id": "8e4649e1-4c05-45c4-af8b-31af6f16edd0",
+        "id": "ff305cd8-bb19-4d8f-bbe4-a01d3970814c",
         "material": "PLA",
         "tradeMark": "EOLAS",
-        "color": "VERDE",
-        "label": "VERDE",
-        "weight": 900
-    },
-    {
-        "id": "23e2175d-d094-4a57-9519-edd8566e3f98",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "VERDE MENTA",
-        "label": "001-VERDE OSCURO",
-        "weight": 200
-    },
-    {
-        "id": "6ac2ecdd-4365-4de7-8618-25b0f907cad4",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "AMARILLO",
-        "label": "AMARILLO",
-        "weight": 10,
+        "color": "VERDE PASTEL",
+        "weight": 182,
+        "label": "VERDE PASTEL",
         "active": false
     },
     {
-        "id": "653abddd-290b-47f9-9e1c-941ff9df90dd",
+        "id": "0870815b-66fa-4a43-8de4-deba64645245",
         "material": "PLA",
-        "tradeMark": "EOLAS",
-        "color": "MORADO TRANSPARENTE",
-        "label": "MORADO TRANSPARENTE",
-        "weight": 600
+        "tradeMark": "NONAME",
+        "color": "ROSA TRANSPARENTE",
+        "weight": 1000,
+        "label": "ROSA TRANSPARENTE",
+        "active": true
     },
     {
-        "id": "e71405b5-e2bc-4b97-9f26-4b5e2d4a2cf4",
+        "id": "5423d36c-989d-41ad-af8b-ab15db2d1d04",
         "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "NARANJA SEDA",
-        "label": "NARANJA SEDA",
-        "weight": 800
+        "tradeMark": "NONAME",
+        "color": "AZUL TRANSPARENTE",
+        "weight": 1000,
+        "label": "AZUL TRANSPARENTE",
+        "active": true
     },
     {
-        "id": "907a6d77-cb9b-4183-b437-f48362027d9b",
-        "material": "PLA",
-        "tradeMark": "ESUN",
-        "color": "PLATEADO",
-        "label": "PLATEADO",
-        "weight": 10,
-        "active": false
+        "id": "09953a6c-6041-43ce-ba08-d2db9529db96",
+        "material": "EP PLA",
+        "tradeMark": "SMARTFIL",
+        "color": "IVORY WHITE",
+        "weight": 1000,
+        "label": "IVORY WHITE",
+        "active": true
     },
     {
-        "id": "295caa4b-2a57-4ca2-b776-3bfd9513c942",
-        "material": "TPU",
+        "id": "3403b3a5-1d79-4a57-b424-d300a9cec9d6",
+        "material": "PLA",
         "tradeMark": "FILLAMENTUM",
-        "color": "BLANCO",
-        "label": "BLANCO",
-        "weight": 230
-    },
-    {
-        "id": "3c0f090d-012a-407d-ace1-6927bc34dc7a",
-        "material": "TPU",
-        "tradeMark": "FILLAMENTUM",
-        "color": "AZUL",
-        "label": "AZUL",
-        "weight": 220,
-        "active": false
-    },
-    {
-        "id": "b19aa641-e01c-4725-ad05-35b7da362993",
-        "material": "TPU",
-        "tradeMark": "ESUN",
-        "color": "ROJO",
-        "label": "ROJO",
-        "weight": 230,
-        "active": false
-    },
-    {
-        "id": "d6f7ded9-f5d8-4133-a17a-60eb47ba40a4",
-        "material": "FLEX",
-        "tradeMark": "ESUN",
-        "color": "NEGRO",
-        "label": "NEGRO",
-        "weight": 700,
-        "active": false
+        "color": "NATURAL WHITE",
+        "weight": 722,
+        "label": "NATURAL WHITE",
+        "active": true
     }
 ]
