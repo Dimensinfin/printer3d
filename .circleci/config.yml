@@ -554,10 +554,14 @@ jobs:
             dockerize -wait tcp://localhost:5121 -timeout 3m
             docker ps
             ./gradlew clean
-            echo "@B3D01 or @B3D02"
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D01 or @B3D02"
-            echo "@P3D03 or @P3D05"
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D03 or @P3D05"
+            echo "@B3D01"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D01"
+            echo "@B3D02"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D02"
+            echo "@P3D03"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D03"
+            echo "@P3D05"
+            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D05"
             # echo "@P3D07"
             # ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D07"
             echo "@P3D08"

@@ -11,6 +11,11 @@ Feature: [STORY] Manage the Parts on the Inventory repository
 
     Background:
         Given a clean Parts repository
+        Given a clean Coils repository
+        And the following Coils in my service
+            | id                                   | material | tradeMark   | color  | label | weight | active |
+            | e7a42126-6732-41f0-902b-98a8ebe79eb5 | PLA      | FILLAMENTUM | BLANCO | -     | 500    | true   |
+            | 151e6dd4-ab88-4289-9a5d-a68a25ff0b65 | PLA      | FILLAMENTUM | VERDE  | -     | 500    | true   |
 
     # - H A P P Y   P A T H
     @B3D01.H @B3D01.01
@@ -108,11 +113,6 @@ Feature: [STORY] Manage the Parts on the Inventory repository
     @B3D01.H @B3D01.08
     Scenario: [B3D01.08] When requesting the list of Parts, identify those that can no longer be built because there are no such coils.
         Given a clean Coils repository
-        And the following Parts in my service
-            | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
         And the following Coils in my service
             | id                                   | material | tradeMark | color  | label  | weight | active |
             | 3bcb9a1f-fa2e-42a9-8a66-d05a7453a61e | TPU      | ESUN      | ROJO   | ROJO   | 500    | true   |
@@ -120,6 +120,11 @@ Feature: [STORY] Manage the Parts on the Inventory repository
             | 49f72da1-051c-437c-b9d1-b81e298b156d | TPU      | ESUN      | NEGRO  | NEGRO  | 500    | true   |
             | 55ad0b77-dd63-4ea3-804d-2f384074def9 | PLA      | ESUN      | GRIS   | GRIS   | 500    | false  |
             | 2e5dd268-0940-454a-918b-58b4dfd1a308 | PLA      | ESUN      | VERDE  | VERDE  | 500    | true   |
+        And the following Parts in my service
+            | id                                   | label          | material | color  | buildTime | weight | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key   | PLA      | BLANCO | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key   | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 8328e3ff-1cee-42f1-bd1d-275353debb6d | NOCovid-19 Key | PLA      | VERDE  | 60        | 3      | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
         When the Get Parts V2 request is processed
         And the number of Parts is 3
         Given a clean Coils repository

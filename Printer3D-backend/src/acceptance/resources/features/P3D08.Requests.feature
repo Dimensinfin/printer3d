@@ -287,7 +287,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | 2020-06-29T20:00:00.226181Z | OPEN  |
         When the New Request V2 request is processed
         Then there is a exception response with return code of "400 BAD_REQUEST"
-        And the exception response contains the message "Validation failed for argument"
+        And the exception response contains the message "The request is not valid. [Field error in object"
 
     @P3D08.E @P3D08.E.03
     Scenario: [P3D08.E.03] If the Requests that should be deleted is on the state CLOSED then raise an exception.
