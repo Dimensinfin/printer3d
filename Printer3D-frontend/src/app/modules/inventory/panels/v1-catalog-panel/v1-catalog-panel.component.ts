@@ -1,20 +1,20 @@
 // - CORE
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component } from '@angular/core'
+import { OnInit } from '@angular/core'
+import { Input } from '@angular/core'
 // - SERVICES
-import { BackendService } from '@app/services/backend.service';
+import { BackendService } from '@app/services/backend.service'
 // - DOMAIN
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Refreshable } from '@domain/interfaces/Refreshable.interface';
-import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
-import { PartListResponse } from '@domain/dto/PartListResponse.dto';
-import { Part } from '@domain/inventory/Part.domain';
-import { Model } from '@domain/inventory/Model.domain';
-import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface';
-import { PartContainer } from '@domain/inventory/PartContainer.domain';
-import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component';
-import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
+import { Refreshable } from '@domain/interfaces/Refreshable.interface'
+import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component'
+import { PartListResponse } from '@domain/dto/PartListResponse.dto'
+import { Part } from '@domain/inventory/Part.domain'
+import { Model } from '@domain/inventory/Model.domain'
+import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface'
+import { PartContainer } from '@domain/inventory/PartContainer.domain'
+import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component'
+import { IContentProvider } from '@domain/interfaces/IContentProvider.interface'
 
 @Component({
     selector: 'v1-catalog-panel',
@@ -22,21 +22,24 @@ import { IContentProvider } from '@domain/interfaces/IContentProvider.interface'
     styleUrls: ['./v1-catalog-panel.component.scss']
 })
 export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IContentProvider {
-    @Input() page: V3InventoryPageComponent  // Pointer to the page that contains this panel. Uset as a way to connect to siblings
-    public filterInactive: boolean = true;
+    @Input() page: V3InventoryPageComponent  // Pointer to the page that contains this panel. Used as a way to connect to siblings
+    public filterInactive: boolean = true
     private parts: Part[] = []
     private models: Model[] = []
+    private projects: Map<string, PartContainer> = new Map<string, PartContainer>()
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
     private items: ICollaboration[] = []
 
     constructor(protected backendService: BackendService) {
-        super();
+        super()
     }
 
     public ngOnInit(): void {
-        console.log(">[V3InventoryPageComponent.ngOnInit]");
+        console.log(">[V3InventoryPageComponent.ngOnInit]")
+        this.clean()
+        this.downloadParts()
         super.ngOnInit()
-        console.log("<[V3InventoryPageComponent.ngOnInit]");
+        console.log("<[V3InventoryPageComponent.ngOnInit]")
     }
     // - I N T E R A C T I O N
     public toggleFilter(): void {
@@ -47,8 +50,8 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
     // - I C O N T E N T P R O V I D E R
     public findById(id: string, type: string): Part {
         for (let part of this.parts)
-            if (part.getId() == id) return part;
-        return undefined;
+            if (part.getId() == id) return part
+        return undefined
     }
 
     // - I V I E W E R
@@ -71,8 +74,10 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         this.items = []
     }
     public refresh(): void {
-        this.clean()
-        this.downloadParts()
+        // this.clean()
+        // this.downloadParts()
+        this.startDownloading()
+        this.completeDowload(this.items)
     }
 
     // - B A C K E N D
@@ -114,7 +119,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                         } else this.items.push(item)
                     }
                     // Load the containers on the root for the MVC.
-                    const containers = this.partContainers.values();
+                    const containers = this.partContainers.values()
                     const sortedContainers: PartContainer[] = []
                     for (const container of containers)
                         sortedContainers.push(container)

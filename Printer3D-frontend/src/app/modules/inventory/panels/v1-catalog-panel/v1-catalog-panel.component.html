@@ -1,6 +1,6 @@
 <div cy-name="panel-title" class="row panel-title">
-    <div style="flex-grow: 1;">/CATALOGO PIEZAS Y MODELOS</div>
-    <div cy-name="inactiveFilter">
+    <div>/CATALOGO PIEZAS Y MODELOS</div>
+    <div class="right" cy-name="inactiveFilter">
         <div cy-name="inactiveFilter" cy-input-type="checkbox">
             <input name="inactiveFilter" type="checkbox" style="margin-left:60px;" [(ngModel)]="filterInactive" (ngModelChange)="toggleFilter()">
             <span cy-field-label="inactiveFilter" class="filter-label">Quitar elementos inactivos.</span>
@@ -8,5 +8,5 @@
     </div>
 </div>
 <hr>
-<viewer-panel style="width: 60%;" [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Piezas...'" [downloader]="self" [variant]="'-CATALOG-'">
+<viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Piezas...'" [downloader]="self" [variant]="'-CATALOG-'">
 </viewer-panel>
