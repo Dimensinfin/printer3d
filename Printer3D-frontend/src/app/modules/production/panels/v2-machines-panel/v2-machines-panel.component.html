@@ -1,8 +1,8 @@
-<div class="panel-title">
-    <span>/MAQUINAS</span>
-</div>
-<hr>
-<div>
+<div style="position: fixed;">
+    <div class="panel-title">
+        <span>/MAQUINAS</span>
+    </div>
+    <hr>
     <div *ngFor="let machine of machines">
         <v3-machine [node]="machine"></v3-machine>
     </div>
