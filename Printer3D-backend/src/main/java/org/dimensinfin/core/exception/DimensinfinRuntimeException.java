@@ -28,6 +28,17 @@ public class DimensinfinRuntimeException extends RuntimeException {
 				.build();
 	}
 
+	public static DimensinfinError errorFIELDNOTVALIDREQUEST( final MethodArgumentNotValidException restException,
+	                                                          final String cause,
+	                                                          final String subcause ) {
+		return new DimensinfinError.Builder()
+				.withErrorName( "INVALID_REQUEST_FIELD_CONTENTS" )
+				.withHttpStatus( HttpStatus.BAD_REQUEST )
+				.withErrorCode( "dimensinfin.request.validation" )
+				.withMessage( MessageFormat.format( "The request is not valid. {0} {1}", cause, subcause ) )
+				.build();
+	}
+
 	private final String errorName;
 	private final String errorCode;
 	private final String causeMessage;

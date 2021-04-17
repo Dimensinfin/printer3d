@@ -71,8 +71,9 @@ public class GlobalRestExceptionHandlerTest {
 		final HttpHeaders headers = Mockito.mock( HttpHeaders.class );
 		final HttpStatus status = HttpStatus.BAD_REQUEST;
 		final WebRequest request = Mockito.mock( WebRequest.class );
+		final String exceptionMessage = "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.dimensinfin.printer3d.client.inventory.rest.dto.Part> org.dimensinfin.printer3d.backend.inventory.part.rest.v1.PartControllerV1.newPart(org.dimensinfin.printer3d.client.inventory.rest.dto.Part): [Field error in object 'part' on field 'project': rejected value [NO]; codes [Size.part.project,Size.project,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [part.project,project]; arguments []; default message [project],50,3]; default message [size must be between 3 and 50]]";
 		// When
-		Mockito.when( exception.getMessage() ).thenReturn( "Test Message" );
+		Mockito.when( exception.getMessage() ).thenReturn( exceptionMessage );
 		// Test
 		final GlobalRestExceptionHandler exceptionHandler = new GlobalRestExceptionHandler();
 		final ResponseEntity<Object> obtained = exceptionHandler.handleMethodArgumentNotValid(
@@ -82,6 +83,7 @@ public class GlobalRestExceptionHandlerTest {
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
 		Assertions.assertEquals( HttpStatus.BAD_REQUEST, obtained.getStatusCode() );
-		Assertions.assertEquals( "The request is not valid. Test Message", ((ApiError) obtained.getBody()).getMessage() );
+		final String expectedMessage = "The request is not valid. [Field error in object 'part' on field 'project': rejected value [NO] default message [size must be between 3 and 50]";
+		Assertions.assertEquals( expectedMessage, ((ApiError) obtained.getBody()).getMessage() );
 	}
 }

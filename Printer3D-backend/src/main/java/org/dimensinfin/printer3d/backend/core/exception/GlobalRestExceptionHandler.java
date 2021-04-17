@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.dimensinfin.core.exception.ApiError;
 import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.logging.LogWrapper;
 
 import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
 import static org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo.PERSISTENCE_ERROR;
@@ -52,8 +53,12 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid( final MethodArgumentNotValidException ex, final HttpHeaders headers,
 	                                                               final HttpStatus status, final WebRequest request ) {
+		LogWrapper.info( ex.getMessage() );
+		final String message = ex.getMessage();
+		final String cause = message.substring( message.indexOf( "[Field" ), message.indexOf( ";", message.indexOf( "[Field" ) ) );
+		final String subcause = message.substring( message.lastIndexOf( "default message [" ), message.lastIndexOf( "]" ) );
 		return new ResponseEntity<>(
-				new ApiError( new DimensinfinRuntimeException( DimensinfinRuntimeException.errorINVALIDREQUESTSTRUCTURE( ex ) ) ),
+				new ApiError( new DimensinfinRuntimeException( DimensinfinRuntimeException.errorFIELDNOTVALIDREQUEST( ex, cause, subcause ) ) ),
 				HttpStatus.BAD_REQUEST );
 	}
 }

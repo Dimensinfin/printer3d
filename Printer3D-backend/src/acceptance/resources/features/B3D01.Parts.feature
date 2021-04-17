@@ -174,8 +174,11 @@ Feature: [STORY] Manage the Parts on the Inventory repository
 
     # - E X C E P T I O N S
     @B3D01.E @B3D01.E.01
-    Scenario: [B3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion
-    with a clear message.
+    Scenario: [B3D01.E.01] If we receive a request with the same label/material/color of another already persisted Part we reject the new insertion with a clear message.
+        Given a clean Coils repository
+        And the following Coils in my service
+            | id                                   | material | tradeMark   | color  | label | weight | active |
+            | e7a42126-6732-41f0-902b-98a8ebe79eb5 | PLA      | FILLAMENTUM | BLANCO | -     | 500    | true   |
         And the following Parts in my service
             | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -187,14 +190,27 @@ Feature: [STORY] Manage the Parts on the Inventory repository
         And the exception response contains the message "is rejected because constraint violation"
 
     @B3D01.E @B3D01.E.02
-    Scenario: [B3D01.E.02] If we receive a New Part request with a unexisting or inactive coil we reject the new part creation.
-    with a clear message.
-        And the following Parts in my service
-            | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+    Scenario: [B3D01.E.02] If we receive a New Part request with a not existing or inactive coil we reject the new part creation.
+        Given a clean Coils repository
+        And the following Coils in my service
+            | id                                   | material | tradeMark   | color        | label | weight | active |
+            | e7a42126-6732-41f0-902b-98a8ebe79eb5 | PLA      | FILLAMENTUM | MELON YELLOW | -     | 500    | true   |
         And the next NewPart request
             | id                                   | label        | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | c926da84-258c-47d2-8cc8-859058c6266e | Covid-19 Key | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
         When the New Part request is processed
         Then there is a exception response with return code of "409 CONFLICT"
-        And the exception response contains the message "is rejected because constraint violation"
+        And the exception response contains the message "The Part coil is not found at the repository"
+
+    @B3D01.E @B3D01.E.03
+    Scenario: [B3D01.E.03] If we receive a New Part request with invalid contents then we reject the persistence action.
+        Given a clean Coils repository
+        And the following Coils in my service
+            | id                                   | material | tradeMark   | color  | label | weight | active |
+            | e7a42126-6732-41f0-902b-98a8ebe79eb5 | PLA      | FILLAMENTUM | BLANCO | -     | 500    | true   |
+        And the next NewPart request
+            | id                                   | label        | project                                                                       | material                                                                      | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | c926da84-258c-47d2-8cc8-859058c6266e | Covid-19 Key | LONGITUD DEL NOMBRE DE PROYECTO COMPLETAMENTE FUERA DE LOS LIMITES PERMITIDOS | LONGITUD DEL NOMBRE DE PROYECTO COMPLETAMENTE FUERA DE LOS LIMITES PERMITIDOS | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+        When the New Part request is processed
+        Then there is a exception response with return code of "400 BAD_REQUEST"
+        And the exception response contains the message "The request is not valid. [Field error in object"
