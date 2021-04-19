@@ -12,7 +12,7 @@ const supportService = new SupportService()
 Given('the application Printer3DManager', function () {
     cy.viewport(1400, 900)
     cy.visit('/')
-    cy.title().should('eq', TITLE_VALIDATION)
+    cy.title().should('contain', TITLE_VALIDATION)
     cy.get('app-root').as('target-page').as('target')
 })
 When('the application completes loading', function () {

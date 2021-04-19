@@ -132,4 +132,4 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given the target is the panel of type "catalog"
         Then the target has the title "/CATALOGO PIEZAS Y MODELOS"
         Then the target has 1 "model"
-        Then the target has 6 "part-container"
+        Then the target has 17 "part-container"
