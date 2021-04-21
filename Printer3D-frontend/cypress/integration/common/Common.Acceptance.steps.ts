@@ -6,10 +6,10 @@ import { Then } from "cypress-cucumber-preprocessor/steps";
 import { IsolationService } from '../../support/IsolationService.support';
 import { SupportService } from '../../support/SupportService.support';
 // - DOMAIN
-import { V1PagePath } from '../../support/page-objects/V1PagePath.panel';
-import { V1Dock } from '../../support/page-objects/V1Dock.panel';
-import { V1Feature } from '../../support/page-objects/V1Feature.panel';
-import { GridRow } from '../../support/page-objects/GridRow.panel';
+// import { V1PagePath } from '../../support/page-objects/V1PagePath.panel';
+// import { V1Dock } from '../../support/page-objects/V1Dock.panel';
+// import { V1Feature } from '../../support/page-objects/V1Feature.panel';
+// import { GridRow } from '../../support/page-objects/GridRow.panel';
 
 const supportService = new SupportService();
 
@@ -72,12 +72,12 @@ Then('there is a Notification panel', function () {
 });
 
 // - O B S O L E T E
-Given('one instance of PagePath', function () {
-    console.log('[GIVEN] one instance of PageTitle');
-    const pageTitle: V1PagePath = new V1PagePath();
-    expect(pageTitle).to.not.be.null;
-    cy.get('app-root').find('v1-page-path-panel').should('have.length', 1)
-});
+// Given('one instance of PagePath', function () {
+//     console.log('[GIVEN] one instance of PageTitle');
+//     const pageTitle: V1PagePath = new V1PagePath();
+//     expect(pageTitle).to.not.be.null;
+//     cy.get('app-root').find('v1-page-path-panel').should('have.length', 1)
+// });
 
 
 
@@ -121,10 +121,10 @@ Given('the InventoryPartListPage at route {string}', function (route: string) {
 
 
 // - PAGE ACTIVATION & CONTENTS
-Then('the target page has one panel of type {string}', function (symbolicName: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.get('@target-page').find(tag).should('exist')
-});
+// Then('the target page has one panel of type {string}', function (symbolicName: string) {
+//     const tag = supportService.translateTag(symbolicName) // Do name replacement
+//     cy.get('@target-page').find(tag).should('exist')
+// });
 Then('the target page has one panel of type {string} with variant {string}', function (symbolicName: string, variant: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.get('@target-page').find(tag).get('[ng-reflect-variant="' + variant + '"]').first().should('exist')

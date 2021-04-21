@@ -1,4 +1,5 @@
 // - CORE
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { ICollaboration } from '../interfaces/core/ICollaboration.interface';
@@ -8,6 +9,7 @@ import { Part } from './Part.domain';
 export class PartContainer extends Node {
     public id: string
     public label: string
+    private project: string = Printer3DConstants.DEFAULT_PROJECT_NAME
     public description: string
     public buildTime: number
     public weight: number
@@ -32,5 +34,8 @@ export class PartContainer extends Node {
     }
     public addPart(newPart: Part): void {
         if (null != newPart) this.contents.push(newPart);
+    }
+    public getProject(): string {
+        return this.project
     }
 }

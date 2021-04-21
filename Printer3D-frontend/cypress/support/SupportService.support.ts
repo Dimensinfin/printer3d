@@ -40,6 +40,7 @@ export class SupportService {
         this.translationTable['job'] = 'v1-pending-job'
         this.translationTable['machine'] = 'v3-machine'
         this.translationTable['part'] = 'v1-part'
+        this.translationTable['project'] = 'v1-project'
         this.translationTable['request'] = 'v1-request'
         this.translationTable['coil'] = 'v1-coil'
         this.translationTable['build-countdown-timer'] = 'v1-build-countdown-timer'

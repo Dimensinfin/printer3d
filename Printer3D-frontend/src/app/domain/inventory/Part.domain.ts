@@ -4,14 +4,16 @@ import { v4 as uuidv4 } from 'uuid'
 import { Node } from '../Node.domain'
 import { IContent } from '@domain/interfaces/IContent.interface'
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
 
 export class Part extends Node implements IContent {
     public id: string
     public label: string
+    public project: string = Printer3DConstants.DEFAULT_PROJECT_NAME
     public description: string
     public material: string = 'PLA'
     public color: string
-    public weight : number=1
+    public weight: number = 1
     public cost: number
     public price: number
     public buildTime: number
@@ -20,7 +22,7 @@ export class Part extends Node implements IContent {
     public imagePath: string
     public modelPath: string
     public active: boolean = true
-    public unavailable:boolean=false
+    public unavailable: boolean = false
 
     constructor(values: Object = {}) {
         super(values)
@@ -50,6 +52,9 @@ export class Part extends Node implements IContent {
     }
     public isActive(): boolean {
         return this.active
+    }
+    public getProject(): string {
+        return this.project
     }
 
     // - I C O N T E N T

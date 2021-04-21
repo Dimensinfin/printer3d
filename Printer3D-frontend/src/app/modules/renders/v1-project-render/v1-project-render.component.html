@@ -1,9 +1,8 @@
-<p>v1-project-render works!</p>
 <!-- C A T A L O G   V A R I A N T -->
 <div *ngIf="getVariant() === '-CATALOG-'">
     <div id="{{getUniqueId()}}" class="cornered-panel" [ngClass]="{'expanded-panel': isExpanded()}">
         <div class="row project-panel">
-            <!-- <button cy-name="edit-button" class="edit-attributes button-enabled" style="padding-left: 5px;" (click)="toggleEdition($event)">
+            <button cy-name="edit-button" class="edit-attributes button-disabled" style="padding-left: 5px;" (click)="toggleEdition($event)">
                 <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px">
                     <title>Editar valores pieza</title>
                     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 7H6.37C3.96 7 2 9.24 2 12s1.96 5 4.37 5h11.26c2.41 0 4.37-2.24 4.37-5s-1.96-5-4.37-5zm0 8H6.37C5.09 15 4 13.63 4 12s1.09-3 2.37-3h11.26C18.91 9 20 10.37 20 12s-1.09 3-2.37 3zM7.24 13.06l-1.87-1.87-.7.7 2.57 2.57 4.22-4.22-.7-.7z"/>
@@ -14,51 +13,28 @@
                     <title>Salvar cambios</title>
                     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/>
                 </svg>
-            </button> -->
-            <!-- <div class="row" style="width: 100%;" (click)="toggleExpanded()"> -->
-            <div class="row">
+            </button>
+            <div class="row" style="width: 100%;" (click)="toggleExpanded()">
                 <div cy-name="label" class="field label-width">
-                    <div cy-field-label="label" class="label">ETIQUETA</div>
+                    <div cy-field-label="label" class="label">PROYECTO</div>
                     <div cy-field-value="label" class="partcontainer-label">{{getProjectName()}}</div>
                 </div>
-                <!-- <div cy-name="description" class="field">
-                    <div cy-field-label="description" class="label">DESCRIPCION</div>
-                    <div cy-field-value="description" class="partcontainer-description">{{getDescription()}}</div>
-                </div> -->
-            </div>
-            <!-- <div class="row right">
-                <div cy-name="buildTime" class="field buildTime-width">
-                    <div cy-field-label="buildTime" class="label">TIEMPO</div>
-                    <div cy-field-value="buildTime" class="partcontainer-buildTime">{{getBuildTime()}}</div>
-                </div>
-                <div cy-name="weight" class="field weight-width">
-                    <div cy-field-label="weight" class="label">PLASTICO</div>
-                    <div cy-field-value="weight" class="partcontainer-buildTime">{{getWeigth()}}</div>
-                </div>
                 <div class="right">
-                    <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;" *ngIf="node.isExpandable()">
+                    <div cy-name="expand-button" class="arrow-box" style="padding-right: 10px;">
                         <svg [ngClass]="{'arrow-expanded': isExpanded()}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                    </svg>
+                        </svg>
                     </div>
                 </div>
-            </div> -->
-            <!-- </div> -->
-        </div>
-        <!-- <div class="row">
-            <div cy-name="imagePath" class="field image-width invisible" *ngIf="imagePathVisible()">
-                <div cy-field-label="imagePath" class="label">IMAGEN</div>
-                <div cy-field-value="imagePath" class="partcontainer-buildTime">{{getImagePath()}}</div>
-            </div>
-            <div cy-name="modelPath" class="field model-file-width right" *ngIf="modelVisible()">
-                <div cy-field-label="modelPath" class="label">FICHERO IMPR.</div>
-                <div cy-field-value="modelPath" class="partcontainer-buildTime">{{getModelPath()}}</div>
             </div>
         </div>
-        <div *ngIf="isExpanded()" class="part-container-expanded">
-            <div *ngFor="let part of getParts()">
-                <v1-part style="width: 100%;" [container]="self" [node]="part" [variant]="'-CATALOG-'"></v1-part>
+        <div *ngIf="isExpanded()" class="project-expanded">
+            <div class="node-panel" *ngFor="let item of getContainers()">
+                <v1-part-container style="width: 100%;" *ngIf="item.getJsonClass() == 'PartContainer'" [container]="container" [node]="item" [variant]="'-CATALOG-'">
+                </v1-part-container>
+                <v1-model style="width: 100%;" *ngIf="item.getJsonClass() == 'Model'" [container]="container" [node]="item" [variant]="'-CATALOG-'">
+                </v1-model>
             </div>
-        </div> -->
+        </div>
         <svg class="left-corner-border" viewBox="0 0 100 100">
             <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
         </svg>

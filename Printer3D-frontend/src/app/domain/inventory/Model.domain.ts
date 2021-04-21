@@ -6,6 +6,7 @@ import { Part } from '@domain/inventory/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
 import { IContent } from '@domain/interfaces/IContent.interface';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 
 export class Model extends Node implements IContent {
     private id: string
@@ -27,6 +28,10 @@ export class Model extends Node implements IContent {
     }
     public isActive(): boolean {
         return this.active
+    }
+    public getProject(): string {
+        if (this.isEmpty(this.partList)) return Printer3DConstants.DEFAULT_PROJECT_NAME
+        else return this.partList[0].getProject()
     }
 
     public addPart(newPart: Part): void {

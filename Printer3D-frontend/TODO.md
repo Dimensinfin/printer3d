@@ -2,6 +2,10 @@
 
 ## Unit Tests pending
 * V1RequestRenderComponent
+* Project
+* Part
+* V1ProjectRender
+* V1CatalogPanel
 * InventoryService
 * BackendService
 * V1CoilRenderComponent

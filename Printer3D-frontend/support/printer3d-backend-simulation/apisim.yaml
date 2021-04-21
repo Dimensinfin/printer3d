@@ -339,8 +339,8 @@ simlet: production-pendingjobs
 delay:
   is: fixedDelay
   timeUnit: milliseconds
-  initial: 2000
-  subsequent: 2000
+  initial: 200
+  subsequent: 200
 
 request:
   - method: GET

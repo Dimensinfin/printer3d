@@ -1,6 +1,7 @@
 [{
         "id": "42f21109-692d-4f82-bbf0-681dcec8b9dd",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "NEO PINK",
@@ -18,6 +19,7 @@
     {
         "id": "cc87064c-2c7b-4a53-8ee0-7bc9f8f02b06",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "PINE GREEN",
@@ -35,6 +37,7 @@
     {
         "id": "e6208515-b49e-438b-9ffd-23eb9bd515a7",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "VERDE TRANSPARENTE",
@@ -52,6 +55,7 @@
     {
         "id": "d94b28ef-a094-4f7f-bd06-34284e50030b",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "AMARILLO RASTA",
@@ -69,6 +73,7 @@
     {
         "id": "d8addef6-0da0-4d65-9583-7a9276a42012",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "AZUL TRANSPARENTE",
@@ -86,6 +91,7 @@
     {
         "id": "80a1de78-41b6-431d-9daa-5a48056511eb",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "MELON YELLOW",
@@ -103,6 +109,7 @@
     {
         "id": "b6d8fe1b-24e9-4865-bd88-99848643fdde",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "PLATA",
@@ -120,6 +127,7 @@
     {
         "id": "40a6a07c-b42c-4d2d-94e7-385b9fbdf827",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "VERDE RASTA",
@@ -137,6 +145,7 @@
     {
         "id": "28de5bcb-cbfc-4f15-8809-687aac7057be",
         "label": "PLETINA SUPERIOR 1.32",
+        "project": "KIT SUSPENSIÓN SLOT.IT",
         "description": "Parte del ''KIT SUSPENSIÓN SLOT.IT'' . Se imprimen en el filamento ESUN-BLUE por su rigidez.",
         "material": "PLA",
         "color": "BLUE",
@@ -154,6 +163,7 @@
     {
         "id": "68970150-ad5c-41e9-a25b-c7c0d2d48be8",
         "label": "TOPE 1.32",
+        "project": "KIT SUSPENSIÓN SLOT.IT",
         "description": "Parte del ''KIT SUSPENSIÓN SLOT.IT'' . Se imprimen en el filamento FILLAMENTUM-NATURAL WHITE.",
         "material": "PLA",
         "color": "NATURAL WHITE",
@@ -171,6 +181,7 @@
     {
         "id": "f145ffde-1847-43fa-a03e-5d16b79ddf50",
         "label": "TOPE LATERAL 1.32",
+        "project": "KIT SUSPENSIÓN SLOT.IT",
         "description": "Parte del ''KIT SUSPENSIÓN SLOT.IT'' . Se imprimen en el filamento SMARTFIL-NEOPINK.",
         "material": "PLA",
         "color": "NEO PINK",
@@ -188,6 +199,7 @@
     {
         "id": "3be8e61d-f20e-4b8d-a0c5-a975769dac03",
         "label": "PLETINA INFERIOR 1.32",
+        "project": "KIT SUSPENSIÓN SLOT.IT",
         "description": "Parte del ''KIT SUSPENSIÓN SLOT.IT'' . Se imprimen en el filamento SMARTFIL-PLATA por su flexibilidad.",
         "material": "PLA",
         "color": "PLATA",
@@ -273,6 +285,7 @@
     {
         "id": "aa806111-b7ec-49d2-86b0-cebdf44f5d92",
         "label": "CAJETÍN X 1.32",
+        "project": "KIT X 1.32",
         "description": "Un cajetín de almacenamiento de piezas y herramientas para la Base X 1.32. Parte del ''KIT X 1.32''",
         "material": "PLA",
         "color": "VERTIGO GALAXY",
@@ -409,6 +422,7 @@
     {
         "id": "9d9b4481-20ef-41f6-a8e0-4bba22041ebc",
         "label": "BASE X 1.32",
+        "project": "KIT X 1.32",
         "description": "Una base S 1.32 ligeramente más grande con enganches modulares para un cajetín de almacenamiento. Parte del ''KIT X 1.32''.",
         "material": "PLA",
         "color": "VERDE RASTA",
@@ -426,6 +440,7 @@
     {
         "id": "85ddca8c-d82c-4b59-9cdf-25d90bb92047",
         "label": "BASE X 1.32",
+        "project": "KIT X 1.32",
         "description": "Una base S 1.32 ligeramente más grande con enganches modulares para un cajetín de almacenamiento. Parte del ''KIT X 1.32''.",
         "material": "PLA",
         "color": "ROJO RASTA",
@@ -528,6 +543,7 @@
     {
         "id": "ce7462e2-692c-4ce3-a871-35e909d039f0",
         "label": "CARCASA INFERIOR ''URBAN DIGIT''",
+        "project": "URBAN DIGIT",
         "description": "Parte de abajo del set ''URBAN DIGIT''.",
         "material": "PLA",
         "color": "BLACK",
@@ -545,6 +561,7 @@
     {
         "id": "92068566-e430-4b7d-9ff7-20efba2995e8",
         "label": "BASTIDORES ''URBAN DIGIT''",
+        "project": "URBAN DIGIT",
         "description": "Parte del set ''URBAN DIGIT''.",
         "material": "PLA",
         "color": "BLACK",
@@ -596,6 +613,7 @@
     {
         "id": "5bad81bd-0c3f-4716-820e-bea8ab1d96b3",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "NATURAL WHITE",
@@ -613,6 +631,7 @@
     {
         "id": "60e46c93-6c7f-4542-9269-498abe919cf6",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "BLUE",
@@ -630,6 +649,7 @@
     {
         "id": "49ac5c87-2cc5-4bca-a3b6-74b0ca0620b5",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "ROSA TRANSPARENTE",
@@ -647,6 +667,7 @@
     {
         "id": "d6040231-b3e1-4dd9-bb5a-6aed6dcde6ba",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "ROJO RASTA",
@@ -664,6 +685,7 @@
     {
         "id": "98f4922a-ca95-4844-9113-0d640350d2d2",
         "label": "BASE S 1.32",
+        "project": "SLOT 1.32",
         "description": "Una base para exposición y ajuste de vehículos de Slot escala 1.32 .",
         "material": "PLA",
         "color": "VERDE PASTEL",

@@ -54,7 +54,7 @@
             </div>
         </div>
         <div *ngIf="isExpanded()" class="part-container-expanded">
-            <div *ngFor="let part of getParts()">
+            <div class="node-panel" *ngFor="let part of getParts()">
                 <v1-part style="width: 100%;" [container]="self" [node]="part" [variant]="'-CATALOG-'"></v1-part>
             </div>
         </div>

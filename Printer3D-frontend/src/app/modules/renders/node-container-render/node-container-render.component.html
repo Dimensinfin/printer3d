@@ -9,7 +9,7 @@
 
         <!-- C A T A L O G -->
         <v1-coil style="width: 100%;" *ngIf="node.getJsonClass() == 'Coil'" [container]="container" [node]="node" [variant]="variant"></v1-coil>
-        <v1-project *ngIf="node.getJsonClass() == 'Project'" [container]="container" [node]="node" [variant]="variant"></v1-project>
+        <v1-project style="width: 100%;" *ngIf="node.getJsonClass() == 'Project'" [container]="container" [node]="node" [variant]="variant"></v1-project>
         <v1-part-container style="width: 100%;" *ngIf="node.getJsonClass() == 'PartContainer'" [container]="container" [node]="node" [variant]="variant"></v1-part-container>
         <v1-part style="width: 100%;" *ngIf="node.getJsonClass() == 'Part'" [container]="container" [node]="node" [variant]="variant"></v1-part>
         <v1-model style="width: 100%;" *ngIf="node.getJsonClass() == 'Model'" [container]="container" [node]="node" [variant]="variant"></v1-model>

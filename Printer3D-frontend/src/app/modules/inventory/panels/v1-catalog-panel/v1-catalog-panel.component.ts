@@ -15,6 +15,8 @@ import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface
 import { PartContainer } from '@domain/inventory/PartContainer.domain'
 import { V3InventoryPageComponent } from '../../pages/v3-inventory-page/v3-inventory-page.component'
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface'
+import { Project } from '@domain/inventory/Project.domain'
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
 
 @Component({
     selector: 'v1-catalog-panel',
@@ -26,7 +28,8 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
     public filterInactive: boolean = true
     private parts: Part[] = []
     private models: Model[] = []
-    private projects: Map<string, PartContainer> = new Map<string, PartContainer>()
+    // private defaultProject: Project = new Project()
+    private projects: Map<string, Project> = new Map<string, Project>()
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
     private items: ICollaboration[] = []
 
@@ -74,34 +77,21 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         this.items = []
     }
     public refresh(): void {
-        // this.clean()
-        // this.downloadParts()
         this.startDownloading()
+        this.packProjects()
         this.completeDowload(this.items)
     }
 
     // - B A C K E N D
     protected downloadParts(): void {
-        console.log("-[V1CatalogPanelComponent.downloadParts]>Filter: " + this.filterInactive)
-         this.backendConnections.push(
+        // console.log("-[V1CatalogPanelComponent.downloadParts]>Filter: " + this.filterInactive)
+        this.backendConnections.push(
             this.backendService.apiv2_InventoryGetParts()
                 .subscribe((response: Part[]) => {
                     console.log('downloadParts.part count: ' + response.length)
                     this.parts = response
                     // Sort the Parts before storing them inside the containers.
                     const partList = this.sortPartsByActive(response)
-                    // Classify Parts on part containers.
-                    partList.forEach(element => {
-                        let hit = this.partContainers.get(element.label)
-                        if (null == hit) {
-                            hit = new PartContainer(element)
-                            this.partContainers.set(element.label, hit)
-                        }
-                        if (this.filterInactive) {  // Filter out inactive items
-                            if (element.isActive()) hit.addPart(element)
-                        } else hit.addPart(element)
-                    })
-                    this.partContainers = this.removeEmptyContainers()
                     this.downloadModels()
                 })
         )
@@ -111,24 +101,74 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
             this.backendService.apiInventoryGetModels_v1(this)
                 .subscribe((response: Model[]) => {
                     this.models = response
-                    // Join the list of Parts and the list of Models in order
-                    this.items = []
-                    for (const item of this.models) {
-                        if (this.filterInactive) {// Filter out inactive items
-                            if (item.isActive()) this.items.push(item)
-                        } else this.items.push(item)
-                    }
-                    // Load the containers on the root for the MVC.
-                    const containers = this.partContainers.values()
-                    const sortedContainers: PartContainer[] = []
-                    for (const container of containers)
-                        sortedContainers.push(container)
-                    for (const container of this.sortPartContainersByLabel(sortedContainers)) {
-                        this.items.push(container)
-                    }
-                    this.completeDowload(this.items)
+                    this.packProjects()
                 })
         )
+    }
+    /**
+     * Compose the list of projects to be rendered.
+     * Projects contain Models and Parts.
+     * There is an special project that contains the Parts and Models not associates to any other project.
+     * Expanded items do not add to the list of rendered nodes but they render their contents themselves.
+     * The <DEFAULT> project is not rendered as a container but their contents added to the list after the MOdels.
+     */
+    protected packProjects(): void {
+        // Set up data structures
+        this.buildPartContainers()
+        this.items = []
+        this.projects = new Map<string, Project>()
+        // Add the Special <DEFAULT> Project for Parts with no project.
+        const defaultProject = new Project({ name: Printer3DConstants.DEFAULT_PROJECT_NAME })
+        this.projects.set(defaultProject.getName(), defaultProject)
+
+        // Add the Models to the beginning of the Project. Do filtering on the process
+        for (const model of this.sortModelsByLabel(this.models)) {
+            if (this.filterInactive) { // Filter out inactive items
+                if (model.isActive()) this.addItemToProject(model)
+            } else this.addItemToProject(model)
+        }
+
+        // Classify parts into projects
+        const containers = this.partContainers.values()
+        const sortedContainers: PartContainer[] = []
+        for (const container of containers)
+            sortedContainers.push(container)
+        for (const container of this.sortPartContainersByLabel(sortedContainers)) {
+            this.addItemToProject(container)
+        }
+
+        // Add project to the list of contents
+        for (const project of this.projects.values()) {
+            if (project.getName() != Printer3DConstants.DEFAULT_PROJECT_NAME) this.items.push(project)
+        }
+
+        // Add models or parts not associated to any project
+        for (let container of defaultProject.getContents())
+            this.items.push(container)
+        this.completeDowload(this.items)
+    }
+    private buildPartContainers(): void {
+        // Classify Parts on part containers.
+        this.parts.forEach(element => {
+            let hit = this.partContainers.get(element.label)
+            if (null == hit) {
+                hit = new PartContainer(element)
+                this.partContainers.set(element.label, hit)
+            }
+            if (this.filterInactive) {  // Filter out inactive items
+                if (element.isActive()) hit.addPart(element)
+            } else hit.addPart(element)
+        })
+        this.partContainers = this.removeEmptyContainers()
+    }
+    private addItemToProject(item: Model | PartContainer): void {
+        const project = this.projects.get(item.getProject())
+        if (project) project.addContainer(item)
+        else {
+            const project = new Project({ name: item.getProject() })
+            this.projects.set(project.getName(), project)
+            project.addContainer(item)
+        }
     }
     private removeEmptyContainers(): Map<string, PartContainer> {
         const filteredContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
@@ -148,6 +188,16 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
     private sortPartContainersByLabel(containers: PartContainer[]): PartContainer[] {
         return containers.sort((container1, container2) =>
             0 - (container2.label > container1.label ? 1 : -1)
+        )
+    }
+    private sortModelsByLabel(containers: Model[]): Model[] {
+        return containers.sort((container1, container2) =>
+            0 - (container2.getLabel() > container1.getLabel() ? 1 : -1)
+        )
+    }
+    private sortProjectsByName(projects: Project[]): Project[] {
+        return projects.sort((container1, container2) =>
+            0 - (container2.getName() > container1.getName() ? 1 : -1)
         )
     }
 }

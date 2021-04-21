@@ -20,18 +20,29 @@ import { Project } from '@domain/inventory/Project.domain'
     styleUrls: ['./v1-project-render.component.scss']
 })
 export class V1ProjectRenderComponent extends NodeContainerRenderComponent {
+    public self: V1ProjectRenderComponent
+
     public getNode(): Project {
         return this.node as Project
-        }
-            public getUniqueId(): string {
+    }
+    public getUniqueId(): string {
         return this.getProjectName()
     }
     public getProjectName(): string {
-        return 'Projectname'
+        if(this.getNode())return this.getNode().getName()
+        return '-'
     }
     public isExpanded(): boolean {
         if (this.getNode())
             if (this.getNode().isExpandable()) return this.getNode().isExpanded()
         return false
+    }
+    public toggleEdition($event?: any): void {
+        console.log('>[V1PartContainerRenderComponent.toggleEdition]')
+    }
+    public getContainers(): any[] {
+        console.log(this.getNode().getContents().length)
+        if (this.getNode()) return this.getNode().getContents()
+        else return []
     }
 }
