@@ -37,10 +37,19 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         super()
     }
 
+    /**
+     * There are two flows when updating the render list.
+     * A - Get the backend data always and remove any expand/collapse state.
+     * B - Keep data and only update the render list.
+     * 
+     * Using the B requires that any sub component change be reflected on this main component to fire the recalculation of all the modified items. That is not being possible on this release so returning back to the A solution.
+     */
     public ngOnInit(): void {
         console.log(">[V3InventoryPageComponent.ngOnInit]")
-        this.clean()
-        this.downloadParts()
+        // - A solution
+        // this.clean()
+        // this.downloadParts()
+        // - A solution      
         super.ngOnInit()
         console.log("<[V3InventoryPageComponent.ngOnInit]")
     }
@@ -77,9 +86,13 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
         this.items = []
     }
     public refresh(): void {
-        this.startDownloading()
-        this.packProjects()
-        this.completeDowload(this.items)
+        // - A solution
+        // this.startDownloading()
+        // this.packProjects()
+        this.clean()
+        this.downloadParts()
+        // this.completeDowload(this.items)
+        // - A solution
     }
 
     // - B A C K E N D
@@ -102,6 +115,9 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                 .subscribe((response: Model[]) => {
                     this.models = response
                     this.packProjects()
+                    // - A solution
+                    this.completeDowload(this.items)
+                    // - A solution
                 })
         )
     }
