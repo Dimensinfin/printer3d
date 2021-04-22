@@ -48,13 +48,13 @@ public class PlasticConsumerManager {
 						.filter( coilEntity -> partEntity.getColor().equals( coilEntity.getColor() ) )
 						.filter( coilEntity -> coilEntity.getWeight() > partEntity.getWeight() * copies )
 						.collect( this.toSingleton() ) // Get the most used coil on the list or fire an exception if there is no material left.
-						.subtractMaterial( (float) (partEntity.getWeight() * copies) )
+						.subtractMaterial( partEntity.getWeight() * copies )
 		);
 	}
 
 	protected <T extends CoilEntity> T processCoilList( final List<T> coils ) {
 		coils.sort( new CoilWeightComparator() );
-		final T target = coils.get( 0 );
+		final var target = coils.get( 0 );
 		LogWrapper.info( MessageFormat.format( "Located coil: {0}", target ) );
 		return target;
 	}

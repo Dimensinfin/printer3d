@@ -80,9 +80,8 @@ public class CoilEntity {
 		return this.destructionTime;
 	}
 
-	public CoilEntity setDestructionTime( final Instant destructionTime ) {
+	public void setDestructionTime( final Instant destructionTime ) {
 		this.destructionTime = destructionTime;
-		return this;
 	}
 
 	public UUID getId() {
@@ -164,13 +163,13 @@ public class CoilEntity {
 	/**
 	 * Subtracts the grams of plastic from the selected Coil.
 	 *
-	 * @param weight the number og grams to remove from the coil estimated weight.
+	 * @param weight the number of grams to remove from the coil estimated weight.
 	 * @return the updated coil instance.
 	 */
-	public CoilEntity subtractMaterial( final Float weight ) {
+	public CoilEntity subtractMaterial( final Integer weight ) {
 		LogWrapper.info( "Selected coil: " + this.toString() );
 		LogWrapper.info( "Subtracting plastic: " + weight );
-		this.weight -= Math.round( weight );
+		this.weight -= weight;
 		return this;
 	}
 
