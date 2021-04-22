@@ -28,7 +28,6 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
     public filterInactive: boolean = true
     private parts: Part[] = []
     private models: Model[] = []
-    // private defaultProject: Project = new Project()
     private projects: Map<string, Project> = new Map<string, Project>()
     private partContainers: Map<string, PartContainer> = new Map<string, PartContainer>()
     private items: ICollaboration[] = []
