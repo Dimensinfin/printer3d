@@ -10,9 +10,15 @@
     line-height: 1.0rem;
     text-transform: uppercase;
     position: relative;
-    height: 50px;
-    width: 150px;
+    height: $button-height;
+    width: $button-width;
     margin: auto;
+}
+
+.button-container {
+    position: relative;
+    height: $button-height;
+    width: $button-width;
 }
 
 .button-label {
