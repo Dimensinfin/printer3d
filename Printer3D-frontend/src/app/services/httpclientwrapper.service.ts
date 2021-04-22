@@ -77,7 +77,7 @@ export class HttpClientWrapperService {
         headers = headers.set('xApp-Version', environment.appVersion)
         headers = headers.set('xApp-Platform', Printer3DConstants.PLATFORM)
         headers = headers.set('xApp-Signature', Printer3DConstants.APPSIGNATURE)
-        headers = headers.set('Access-Control-Allow-Origin', environment.corsDomain)
+        headers = headers.set('xApp-Api-Version', 'API v1');
         if (null != requestHeaders) { // Copy in additional headers.
             for (let key of requestHeaders.keys()) {
                 headers = headers.set(key, requestHeaders.get(key));

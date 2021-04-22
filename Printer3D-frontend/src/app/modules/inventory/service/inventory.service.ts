@@ -44,6 +44,7 @@ export class InventoryService extends BackendService {
                 return coilList
             })
         let headers = new HttpHeaders()
+        headers = headers.set('xApp-Api-Version', 'API v2');
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
                 console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)
@@ -63,7 +64,7 @@ export class InventoryService extends BackendService {
                 return targetCoil
             })
         let headers = new HttpHeaders()
-        headers.set('xapp-name', environment.appName)
+        headers = headers.set('xApp-Api-Version', 'API v2');
         return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updateCoilRequest), headers)
             .pipe(map((data: any) => {
                 console.log(">[InventoryService.apiv2_InventoryUpdateCoil]> Transformation: " + transformer.description)
@@ -78,8 +79,7 @@ export class InventoryService extends BackendService {
             .setTransformation((entrydata: any): PartListResponse => {
                 return new PartListResponse(entrydata)
             })
-        let headers = new HttpHeaders()
-        return this.httpService.wrapHttpGETCall(request, headers)
+        return this.httpService.wrapHttpGETCall(request)
             .pipe(map((data: any) => {
                 console.log(">[InventoryService.apiv1_GetInventoryParts]> Transformation: " + transformer.description)
                 return transformer.transform(data) as PartListResponse
@@ -93,8 +93,7 @@ export class InventoryService extends BackendService {
                 this.isolationService.successNotification('Pieza [' + targetPart.composePartIdentifier() + '] actualizada correctamente.', '/INVENTARIO/NUEVA PIEZA/OK')
                 return targetPart
             })
-        let headers = new HttpHeaders()
-        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart), headers)
+        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(updatingPart))
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiInventoryUpdatePart_v1]> Transformation: " + transformer.description)
                 return transformer.transform(data) as Part

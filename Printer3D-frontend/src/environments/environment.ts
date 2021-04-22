@@ -4,6 +4,5 @@ export const environment = {
     appTitle: '3DPrinterManagement - UI',
     appName: require('../../package.json').name,
     appVersion: require('../../package.json').version,
-    backendVersion: require('../../package.json').backversion,
-    corsDomain: 'http://locahost:5102'
+    backendVersion: require('../../package.json').backversion
 };
