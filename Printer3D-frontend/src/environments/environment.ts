@@ -5,5 +5,5 @@ export const environment = {
     appName: require('../../package.json').name,
     appVersion: require('../../package.json').version,
     backendVersion: require('../../package.json').backversion,
-    corsDomain: 'http://locahost'
+    corsDomain: 'http://locahost:5102'
 };

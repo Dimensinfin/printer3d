@@ -104,11 +104,6 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
                     console.log('-[V1RequestRenderComponent.completeRequest.subscribe]> Label: ' + request.getLabel())
                     this.dockService.clean() // Clean the selection from any feature
                     this.router.navigate(['/'])
-                }, (error) => {
-                    console.log('-[V1RequestRenderComponent.completeRequest.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         )
     }

@@ -61,11 +61,6 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
                 .subscribe((persistedPart: Part) => {
                     this.isolationService.removeFromStorage(Printer3DConstants.PARTIAL_PART_KEY) // Clear the part copy
                     this.closeModal();
-                }, (error) => {
-                    console.log('-[NewPartDialogComponent.savePart.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         );
     }
@@ -77,11 +72,6 @@ export class NewPartDialogComponent extends BackgroundEnabledComponent implement
                     console.log('>[NewPartDialogComponent.savePartAndRepeat]> Reinitialize the form')
                     this.part.createNewId();
                     this.part.color = undefined;
-                }, (error) => {
-                    console.log('-[NewPartDialogComponent.savePart.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         );
     }

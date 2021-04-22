@@ -1,5 +1,14 @@
 [{
         "jsonClass": "PatchChange",
+        "name": "➰ Anotaciones cambio 0.16.0",
+        "changes": [
+            "🐞 Si se intenta poner en marcha una impresión de una pieza de la que no queda filamento se notifica el fallo con una notifcacion de Error indicando que no hay filamento.",
+            "✅ Las piezas disponen de un nuevo campo que permite agruparlas por proyectos.",
+            "✅ El campo de Proyecto de las piezas es editable.",
+            "✅ Si se pone un valor en el campo de Proyecto de una pieza está aparecerá agrupada bajo ese proyecto al igual que los modelos que incluyan esa pieza en su composición."
+        ]
+    }, {
+        "jsonClass": "PatchChange",
         "name": "➰ Anotaciones cambio 0.15.1",
         "changes": [
             "🐞 Corregida la deteccion de pedidos que se pueden completar. La esquina ahora aparece de color verde cuando el pedido se puede completar y de color rojo cuando aún faltan piezas.",

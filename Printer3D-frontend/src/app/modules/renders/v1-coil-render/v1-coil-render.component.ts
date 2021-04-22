@@ -90,11 +90,6 @@ export class V1CoilRenderComponent extends NodeContainerRenderComponent {
                     this.node = updatedCoil
                     this.closeEditing()
                     this.ref.detectChanges()
-                }, (error) => {
-                    console.log('-[V1CoilsPanelComponent.downloadCoils.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         )
     }

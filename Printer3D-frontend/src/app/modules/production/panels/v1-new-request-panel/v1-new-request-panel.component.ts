@@ -85,11 +85,6 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
                     this.dockService.clean() // Clean the selection from any feature
                     this.router.navigate(['/']);
-                }, (error) => {
-                    console.log('-[V3MachineRenderComponent.startBuild.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         )
     }

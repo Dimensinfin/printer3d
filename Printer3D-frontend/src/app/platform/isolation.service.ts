@@ -72,7 +72,7 @@ export class IsolationService {
         let notConf;
         if (null != options) notConf = { ...this.notifierConfiguration, ...options };
         else notConf = this.notifierConfiguration;
-        notConf.toastTimeout = 18000;
+        notConf.toastTimeout = 25000;
         this.notifier.error(message, title, notConf);
     }
     public warningNotification(message: string, title?: string, options?: any): void {

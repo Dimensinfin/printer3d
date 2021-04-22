@@ -147,9 +147,6 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.startBuild.exception]> Error message: ' + JSON.stringify(error.error))
                     this.state = 'EXCEPTION'
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         );
         console.log('<[V3MachineRenderComponent.startBuild]')
@@ -177,10 +174,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.onClear.exception]> Error message: ' + JSON.stringify(error.error))
                     this.state = 'EXCEPTION'
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
-                })
+                 })
         );
     }
     public completeBuild(): void {
@@ -203,9 +197,6 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
                 }, (error) => {
                     console.log('-[V3MachineRenderComponent.completeBuild.exception]> Error message: ' + JSON.stringify(error.error))
                     this.state = 'EXCEPTION'
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         );
     }

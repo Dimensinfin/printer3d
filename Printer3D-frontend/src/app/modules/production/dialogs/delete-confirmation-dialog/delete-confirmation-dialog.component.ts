@@ -56,11 +56,6 @@ export class DeleteConfirmationDialogComponent extends BackgroundEnabledComponen
                     }))
                 .subscribe((request: any) => {
                     this.dialogRef.close('DELETED');
-                }, (error) => {
-                    console.log('-[V1RequestRenderComponent.deleteRequest.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         )
 

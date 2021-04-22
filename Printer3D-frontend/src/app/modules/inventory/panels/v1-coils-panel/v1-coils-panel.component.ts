@@ -93,12 +93,6 @@ export class V1CoilsPanelComponent extends AppPanelComponent implements OnInit, 
                             this.filterActiveCoils(coilList))
                     ) // Notify the completion of the download.
                     this.completeDowload(this.coilList)
-                }, (error) => {
-                    console.log(JSON.stringify(error))
-                    console.log('-[V1CoilsPanelComponent.downloadCoils.exception]> Error message: ' + JSON.stringify(error.error))
-                    if (environment.showexceptions)
-                        if (error instanceof HttpErrorResponse)
-                            this.isolationService.processException(error)
                 })
         )
         console.log("<[V1CoilsPanelComponent.downloadCoils]")
