@@ -1,6 +1,9 @@
 <div style="width: 100%;">
-    <div cy-name="panel-title" class="panel-title">
-        <span>/TRABAJOS/PENDIENTES</span>
+    <div cy-name="panel-title" class="row panel-title">
+        <div cy-name="jobCounter">
+            <div cy-field-value="jobCounter" class="counter">{{nodeCounter()}}</div>
+        </div>
+        <div>/TRABAJOS/PENDIENTES</div>
     </div>
     <hr>
     <viewer-panel cy-name="jobs-list" [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Trabajos...'" [downloader]="self" [variant]="'-JOB-LIST-'">

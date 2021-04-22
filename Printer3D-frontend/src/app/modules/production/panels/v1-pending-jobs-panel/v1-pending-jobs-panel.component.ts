@@ -34,6 +34,11 @@ export class V1PendingJobsPanelComponent extends AppPanelComponent implements On
         console.log("<[V1PendingJobsPanelComponent.ngOnInit]");
     }
 
+    // - I N T E R A C T O N S
+    public nodeCounter(): number {
+        return this.renderNodeList.length
+    }
+
     // - R E F R E S H A B L E
     public clean(): void {
         this.active = true;
