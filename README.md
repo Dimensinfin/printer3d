@@ -38,8 +38,8 @@ The project has Continuous Integration on the CircleCI platform and the producti
 # Printer3D-Frontend
 ## Steps to change to next version
 * Change the field *'~/package.json[version]'*
-* Change the version on the **~/src/index.html** file.
-* Change the version on the build.gradle file.
+* Change the version on the **~/src/index.html** file. Two times, the app version and the message.
+* Change the version on the build.gradle file on the Prnter3D-backend project.
 * Run the npm script **app:banner**
 
 ## Steps to upgrade/update the framework
