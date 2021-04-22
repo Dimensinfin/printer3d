@@ -500,11 +500,11 @@ jobs:
             ./gradlew --version
             sudo snap install figlet
             wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-      - run:
-          name: PRINTER3D-BACKEND - Generate the docker file to be used for application acceptance tests
-          working_directory: Printer3D-backend
-          command: |
-            ./docker-service.sh generate
+      # - run:
+      #     name: PRINTER3D-BACKEND - Generate the docker file to be used for application acceptance tests
+      #     working_directory: Printer3D-backend
+      #     command: |
+      #       ./docker-service.sh generate
       - run:
           name: PRINTER3D-BACKEND - Start the mock services and run tests
           working_directory: Printer3D-backend
@@ -513,10 +513,9 @@ jobs:
             DEFAULT_BACKEND_PORT: 5121
           command: |
             ./docker-service.sh start integration
+            dockerize -wait tcp://localhost:5132 -timeout 3m
             docker ps
-            dockerize -wait tcp://localhost:5122 -timeout 3m
-            docker ps
-            ./gradlew integrationTest
+            ./gradlew integrationTest --info
   acceptancetest-backend-job:
     machine:
       image: ubuntu-2004:202010-01
@@ -543,16 +542,19 @@ jobs:
           command: |
             ./docker-service.sh generate
       - run:
-          name: PRINTER3D-BACKEND - Start the mock services and run tests
+          name: PRINTER3D-BACKEND - Start the mock services
+          working_directory: Printer3D-backend
+          command: |
+            ./docker-service.sh start acceptance
+            dockerize -wait tcp://localhost:5132 -timeout 3m
+            docker ps
+      - run:
+          name: PRINTER3D-BACKEND - Start and run tests
           working_directory: Printer3D-backend
           environment:
             DEFAULT_BACKEND_SERVER: 'http://localhost'
             DEFAULT_BACKEND_PORT: 5121
           command: |
-            ./docker-service.sh start acceptance
-            docker ps
-            dockerize -wait tcp://localhost:5121 -timeout 3m
-            docker ps
             ./gradlew clean
             echo "@B3D01"
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D01"

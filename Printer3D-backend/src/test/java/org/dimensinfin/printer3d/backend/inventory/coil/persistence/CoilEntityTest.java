@@ -106,10 +106,10 @@ public class CoilEntityTest {
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Test
-		final CoilEntity obtained = coilEntity.subtractMaterial( 32.6F );
+		final CoilEntity obtained = coilEntity.subtractMaterial( 32 );
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( TEST_COIL_WEIGHT - 33, obtained.getWeight(), 0.01 );
+		Assertions.assertEquals( TEST_COIL_WEIGHT - 32, obtained.getWeight() );
 	}
 
 	@Test
@@ -125,10 +125,10 @@ public class CoilEntityTest {
 				.withActive( TEST_COIL_ACTIVE )
 				.build();
 		// Test
-		final CoilEntity obtained = coilEntity.subtractMaterial( 19.0F );
+		final CoilEntity obtained = coilEntity.subtractMaterial( 19 );
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( TEST_COIL_WEIGHT - 19, obtained.getWeight(), 0.01 );
+		Assertions.assertEquals( TEST_COIL_WEIGHT - 19, obtained.getWeight() );
 	}
 
 	@Test

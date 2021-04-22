@@ -19,6 +19,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.inventory.part.rest.v2.PartServiceV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ID;
@@ -65,6 +66,7 @@ public class ModelServiceV1Test {
 
 	@Test
 	public void getModels() {
+		// Given
 		final List<ModelEntity> modelEntityList = new ArrayList<>();
 		modelEntityList.add( new ModelEntity.Builder()
 				.withId( UUID.fromString( "9ed337f1-eb5a-48ff-969f-6991e0f75918" ) )
@@ -92,6 +94,83 @@ public class ModelServiceV1Test {
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.size() );
+	}
+
+	@Test
+	public void getModels_missingParts() {
+		// Given
+		final List<UUID> idList = new ArrayList<>();
+		idList.add( UUID.fromString( "e947c043-60d7-4d5a-b9ec-27cb39395b63" ) );
+		idList.add( UUID.fromString( "a1abaae4-3919-4ebe-884a-1f98b18fee75" ) );
+		final ModelEntity modelComplete = new ModelEntity.Builder()
+				.withId( UUID.fromString( "9ed337f1-eb5a-48ff-969f-6991e0f75918" ) )
+				.withLabel( TEST_MODEL_LABEL )
+				.withPrice( TEST_MODEL_PRICE )
+				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
+				.withImagePath( TEST_MODEL_IMAGE_PATH )
+				.withActive( TEST_MODEL_ACTIVE )
+				.build();
+		final ModelEntity modelMissing = new ModelEntity.Builder()
+				.withId( UUID.fromString( "b783c038-04cd-4290-a7c5-9820f9e38991" ) )
+				.withLabel( TEST_MODEL_LABEL )
+				.withPrice( TEST_MODEL_PRICE )
+				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
+				.withImagePath( TEST_MODEL_IMAGE_PATH )
+				.withActive( TEST_MODEL_ACTIVE )
+				.withPartIdList( idList )
+				.build();
+		final List<ModelEntity> modelEntityList = new ArrayList<>();
+		modelEntityList.add( modelComplete );
+		modelEntityList.add( modelMissing );
+		// When
+		Mockito.when( this.modelRepository.findAll() ).thenReturn( modelEntityList );
+		// Test
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository, this.partServiceV2 );
+		final List<Model> obtained = modelServiceV1.getModels();
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 1, obtained.size() );
+	}
+
+	@Test
+	public void getModels_partFound() {
+		// Given
+		final List<UUID> idList = new ArrayList<>();
+		idList.add( UUID.fromString( "e947c043-60d7-4d5a-b9ec-27cb39395b63" ) );
+		idList.add( UUID.fromString( "a1abaae4-3919-4ebe-884a-1f98b18fee75" ) );
+		final ModelEntity modelComplete = new ModelEntity.Builder()
+				.withId( UUID.fromString( "9ed337f1-eb5a-48ff-969f-6991e0f75918" ) )
+				.withLabel( TEST_MODEL_LABEL )
+				.withPrice( TEST_MODEL_PRICE )
+				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
+				.withImagePath( TEST_MODEL_IMAGE_PATH )
+				.withActive( TEST_MODEL_ACTIVE )
+				.build();
+		final ModelEntity modelMissing = new ModelEntity.Builder()
+				.withId( UUID.fromString( "b783c038-04cd-4290-a7c5-9820f9e38991" ) )
+				.withLabel( TEST_MODEL_LABEL )
+				.withPrice( TEST_MODEL_PRICE )
+				.withStockLevel( TEST_MODEL_STOCK_LEVEL )
+				.withImagePath( TEST_MODEL_IMAGE_PATH )
+				.withActive( TEST_MODEL_ACTIVE )
+				.withPartIdList( idList )
+				.build();
+		final List<ModelEntity> modelEntityList = new ArrayList<>();
+		modelEntityList.add( modelComplete );
+		modelEntityList.add( modelMissing );
+		final Part part = Mockito.mock( Part.class );
+		final List<Part> partList = new ArrayList<>();
+		partList.add( part );
+		// When
+		Mockito.when( this.partServiceV2.getPartsV2() ).thenReturn( partList );
+		Mockito.when( this.modelRepository.findAll() ).thenReturn( modelEntityList );
+		Mockito.when( part.getId() ).thenReturn( UUID.fromString( "b783c038-04cd-4290-a7c5-9820f9e38991" ) );
+		// Test
+		final ModelServiceV1 modelServiceV1 = new ModelServiceV1( this.modelRepository, this.partRepository, this.partServiceV2 );
+		final List<Model> obtained = modelServiceV1.getModels();
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 1, obtained.size() );
 	}
 
 	@Test
