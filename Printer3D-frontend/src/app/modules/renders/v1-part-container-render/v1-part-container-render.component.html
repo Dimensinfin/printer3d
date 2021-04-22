@@ -79,45 +79,68 @@
             <button cy-name="save-button" class="save-attributes button-enabled" (click)="saveEditing()">
                 <svg class="save-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>
             </button>
-            <div cy-name="label" class="field">
-                <div cy-field-label="label" class="label">ETIQUETA</div>
-                <div cy-field-value="label" class="partcontainer-label">{{getLabel()}}</div>
-            </div>
-            <div cy-name="description" class="field description-width">
-                <div cy-field-label="description" cy-input-type="textarea" class="labelh">DESCRIPCION</div>
-                <textarea name="description" cols="35" rows="3" class="dsf-input part-description" [(ngModel)]="editPart.description" minlength="5" maxlength="500"></textarea>
-            </div>
-            <div cy-name="buildTime" class="field buildTime-width">
-                <div cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO</div>
-                <div class="dsf-input-container buildTime-width">
-                    <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.buildTime" required min="1" oninput="validity.valid||(value='');" #buildTime="ngModel">
-                    <svg class="left-corner-border" viewBox="0 0 100 100">
-                        <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
-                    </svg>
-                    <svg class="left-corner-clear" viewBox="0 0 100 100">
-                        <path d="M0,0 L0,100 L100,0 L0,0" fill="#180A16" />
-                    </svg>
-                    <div [ngClass]="{'ng-valid': !buildTime.invalid}">
-                        <svg class="left-mark" viewBox="0 0 100 100">
-                            <path d="M0,0 L0,100 L100,0 L0,0"  />
-                        </svg>
+            <div class="column">
+                <div class="row">
+                    <div cy-name="project" class="field">
+                        <div cy-field-label="project" cy-input-type="input" class="label">PROYECTO</div>
+                        <div class="dsf-input-container label-width">
+                            <input name="project" type="text" class="dsf-input" [(ngModel)]="editPart.project" maxlength="50" #project="ngModel">
+                            <svg class="corner-border" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                            </svg>
+                            <svg class="corner-clear" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                            </svg>
+                            <div class="dsf-not-required">
+                                <svg class="corner-mark" viewBox="0 0 100 100">
+                                    <path d="M100,100 L0,100 L100,0 L100,100" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div cy-name="weight" class="field weight-width">
-                <div cy-field-label="weight" cy-input-type="input" class="label">PLASTICO</div>
-                <div class="dsf-input-container weight-width">
-                    <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.weight" required min="1" max="100" oninput="validity.valid||(value='');" #weight="ngModel">
-                    <svg class="left-corner-border" viewBox="0 0 100 100">
+                <div class="row">
+                    <div cy-name="label" class="field">
+                        <div cy-field-label="label" class="label">ETIQUETA</div>
+                        <div cy-field-value="label" class="partcontainer-label">{{getLabel()}}</div>
+                    </div>
+                    <div cy-name="description" class="field description-width">
+                        <div cy-field-label="description" cy-input-type="textarea" class="labelh">DESCRIPCION</div>
+                        <textarea name="description" cols="35" rows="3" class="dsf-input part-description" [(ngModel)]="editPart.description" minlength="5" maxlength="500"></textarea>
+                    </div>
+                    <div cy-name="buildTime" class="field buildTime-width">
+                        <div cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO</div>
+                        <div class="dsf-input-container buildTime-width">
+                            <input name="buildTime" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.buildTime" required min="1" oninput="validity.valid||(value='');" #buildTime="ngModel">
+                            <svg class="left-corner-border" viewBox="0 0 100 100">
                         <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
                     </svg>
-                    <svg class="left-corner-clear" viewBox="0 0 100 100">
+                            <svg class="left-corner-clear" viewBox="0 0 100 100">
                         <path d="M0,0 L0,100 L100,0 L0,0" fill="#180A16" />
                     </svg>
-                    <div [ngClass]="{'ng-valid': !weight.invalid}">
-                        <svg class="left-mark" viewBox="0 0 100 100">
+                            <div [ngClass]="{'ng-valid': !buildTime.invalid}">
+                                <svg class="left-mark" viewBox="0 0 100 100">
                             <path d="M0,0 L0,100 L100,0 L0,0"  />
                         </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div cy-name="weight" class="field weight-width">
+                        <div cy-field-label="weight" cy-input-type="input" class="label">PLASTICO</div>
+                        <div class="dsf-input-container weight-width">
+                            <input name="weight" type="number" class="dsf-input dsf-input-number" [(ngModel)]="editPart.weight" required min="1" max="100" oninput="validity.valid||(value='');" #weight="ngModel">
+                            <svg class="left-corner-border" viewBox="0 0 100 100">
+                                <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                            </svg>
+                            <svg class="left-corner-clear" viewBox="0 0 100 100">
+                                <path d="M0,0 L0,100 L100,0 L0,0" fill="#180A16" />
+                            </svg>
+                            <div [ngClass]="{'ng-valid': !weight.invalid}">
+                                <svg class="left-mark" viewBox="0 0 100 100">
+                                    <path d="M0,0 L0,100 L100,0 L0,0"  />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
