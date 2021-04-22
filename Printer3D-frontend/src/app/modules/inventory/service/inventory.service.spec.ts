@@ -76,7 +76,7 @@ describe('SERVICE InventoryService [Module: INVENTORY]', () => {
             service.apiv2_InventoryGetCoils()
                 .subscribe((response: any) => {
                     expect(response).toBeDefined()
-                    expect(response.length).toBe(22)
+                    expect(response.length).toBe(24)
                 })
             tick(1000)
         }))

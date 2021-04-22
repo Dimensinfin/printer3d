@@ -115,7 +115,7 @@ export class V1CatalogPanelComponent extends AppPanelComponent implements OnInit
                     this.models = response
                     this.packProjects()
                     // - A solution
-                    this.completeDowload(this.items)
+                    // this.completeDowload(this.items)
                     // - A solution
                 })
         )

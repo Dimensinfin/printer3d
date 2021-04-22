@@ -57,6 +57,8 @@ export class SupportService {
         this.translationTable['Get Open Requests'] = 'apiProductionGetOpenRequests_v2'
         this.translationTable['Start Build Job'] = 'apiMachinesStartBuild_v2'
         this.translationTable['Save New Part'] = 'apiNewPart_v1'
+        // - COLORS
+        this.translationTable['red-tag'] = ''
     }
     /**
      * Replaces symbolic names by the application names so if there are version changes the acceptance scritps should not change.

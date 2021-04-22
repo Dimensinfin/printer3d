@@ -242,7 +242,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 }))
                 .subscribe((response: Job[]) => {
                     expect(response).toBeDefined();
-                    expect(response.length).toBe(16, 'Number of Jobs do not match');
+                    expect(response.length).toBe(255, 'Number of Jobs do not match');
                 });
         });
         // it('apiProductionGetOpenRequests_v2.default: get the list jobs required to level the stocks', async () => {

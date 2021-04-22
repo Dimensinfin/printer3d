@@ -1,7 +1,11 @@
 # Printer3DFrontend
 
 ## Unit Tests pending
+* V1CatalogPanelComponent
+* HttpClientWrapper
 * V1RequestRenderComponent
+* V1CoilsPanelComponent
+* PartToUpdateGroupRequest
 * Project
 * Part
 * V1ProjectRender

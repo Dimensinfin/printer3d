@@ -3,8 +3,6 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
 import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
-import { V1PendingJob } from '../../support/page-objects/V1PendingJob.panel';
-import { MachinePanel } from '../../support/page-objects/MachinePanel.panel';
 import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();

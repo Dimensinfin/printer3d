@@ -415,8 +415,8 @@ simlet: inventory-machines-v2
 delay:
   is: fixedDelay
   timeUnit: milliseconds
-  initial: 2000
-  subsequent: 2000
+  initial: 1800
+  subsequent: 1000
 
 request:
   - method: GET
@@ -541,8 +541,8 @@ simlet: accounting-report-amounts-per-week
 delay:
   is: fixedDelay
   timeUnit: milliseconds
-  initial: 2000
-  subsequent: 2000
+  initial: 1100
+  subsequent: 900
 
 request:
   - method: GET

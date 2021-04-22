@@ -57,6 +57,8 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             expect(componentAsAny.parts.length).toBe(0)
             expect(componentAsAny.models).toBeDefined()
             expect(componentAsAny.models.length).toBe(0)
+            expect(componentAsAny.projects).toBeDefined()
+            expect(componentAsAny.projects.size).toBe(0)
             expect(componentAsAny.partContainers).toBeDefined()
             expect(componentAsAny.partContainers.size).toBe(0)
             expect(componentAsAny.items).toBeDefined()
@@ -117,8 +119,8 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             tick(1000)
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
             expect(componentAsAny.backendConnections.length).toBe(2) // This component downloads the Parts and the Requests
-            expect(componentAsAny.dataModelRoot.length).toBe(7)
-            expect(componentAsAny.renderNodeList.length).toBe(7)
+            expect(componentAsAny.dataModelRoot.length).toBe(12)
+            expect(componentAsAny.renderNodeList.length).toBe(12)
             expect(component.isDownloading()).toBeFalse()
         }))
         it('ngOnInit.filter false: validate initialization flow', fakeAsync(() => {
@@ -173,8 +175,8 @@ describe('COMPONENT V1CatalogPanelComponent [Module: PRODUCTION]', () => {
             tick(1000)
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
             expect(componentAsAny.backendConnections.length).toBe(2) // This component downloads the Parts and the Requests
-            expect(componentAsAny.dataModelRoot.length).toBe(8)
-            expect(componentAsAny.renderNodeList.length).toBe(8)
+            expect(componentAsAny.dataModelRoot.length).toBe(12)
+            expect(componentAsAny.renderNodeList.length).toBe(12)
             expect(component.isDownloading()).toBeFalse()
         }))
     })

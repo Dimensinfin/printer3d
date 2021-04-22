@@ -69,8 +69,8 @@ describe('COMPONENT V1PendingJobsPanelComponent [Module: PRODUCTION]', () => {
             const componentAsAny = component as any;
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
             expect(componentAsAny.backendConnections.length).toBe(1);
-            expect(componentAsAny.dataModelRoot.length).toBe(5);
-            expect(componentAsAny.renderNodeList.length).toBe(5);
+            expect(componentAsAny.dataModelRoot.length).toBe(43);
+            expect(componentAsAny.renderNodeList.length).toBe(43);
             expect(component.isDownloading()).toBeFalse();
             jasmine.clock().uninstall()
         });

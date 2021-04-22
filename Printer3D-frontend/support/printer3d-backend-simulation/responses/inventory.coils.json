@@ -116,6 +116,15 @@
         "active": true
     },
     {
+        "id": "bf412e27-e021-424d-a6c9-21845525ac5f",
+        "material": "TPU",
+        "tradeMark": "EOLAS",
+        "color": "SKY BLUE",
+        "weight": 15,
+        "label": "SKY BLUE",
+        "active": false
+    },
+    {
         "id": "8112e3a2-16da-4616-aef0-03118006cd83",
         "material": "TPU",
         "tradeMark": "EOLAS",
