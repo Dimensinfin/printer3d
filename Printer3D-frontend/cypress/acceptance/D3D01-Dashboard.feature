@@ -25,9 +25,9 @@ Feature: [D3D01]-When the application starts show the dashboard page with the he
     Scenario: [D3D01.03]-On the dashboard page there is a dock and a work load
         Given the application Printer3DManager
         When the application starts the default route is "/DASHBOARD"
-        Then the target page has one panel of type "dock"
-        Then the target page has one panel of type "work-load"
-
+        Then the target has 1 "dock"
+        Then the target has 1 "billing-chart"
+        Then the target has 1 "work-load"
 
     @D3D01.04
     Scenario: [D3D01.04]-On the dashboard page the page display area in empty because there is no feature selected.

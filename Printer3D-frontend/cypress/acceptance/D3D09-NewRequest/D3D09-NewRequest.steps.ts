@@ -262,15 +262,15 @@ Given('an amplified viewport', function () {
 });
 
 // - B E S T   P R A C T I C E   I M P L E M E N T A T I O N
-Then('the target page has one panel of type {string} with variant {string}', function (renderName: string, variant: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.get('@target-page').find(tag).get('[ng-reflect-variant="' + variant + '"]').first().should('exist')
-});
+// Then('the target page has one panel of type {string} with variant {string}', function (renderName: string, variant: string) {
+//     const tag = supportService.translateTag(renderName) // Do name replacement
+//     cy.get('@target-page').find(tag).get('[ng-reflect-variant="' + variant + '"]').first().should('exist')
+// });
 
-Then('the target page has one panel of type {string}', function (renderName: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.get('@target-page').find(tag).should('exist')
-});
+// Then('the target page has one panel of type {string}', function (renderName: string) {
+//     const tag = supportService.translateTag(renderName) // Do name replacement
+//     cy.get('@target-page').find(tag).should('exist')
+// });
 When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
     cy.get('@drag-source').trigger('dragstart')
     cy.get('@target-panel').find('[cy-name="' + dropDestination + '"]').trigger('drop')
