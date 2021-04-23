@@ -41,5 +41,32 @@
                 "missing": 1
             }
         ]
+    },
+    {
+        "id": "88d5785a-6bb4-4d89-9b2b-f590a1112d31",
+        "label": "PEDIDO URBAN DIGIT 2021",
+        "requestDate": "2021-04-14T18:51:40.027Z",
+        "closedDate": "2021-04-14T18:53:35.424624Z",
+        "state": "OPEN",
+        "contents": [{
+                "itemId": "72168412-af2d-4969-b1ea-362ea10370f2",
+                "type": "PART",
+                "quantity": 5,
+                "missing": 1
+            },
+            {
+                "itemId": "ce7462e2-692c-4ce3-a871-35e909d039f0",
+                "type": "PART",
+                "quantity": 5,
+                "missing": 5
+            },
+            {
+                "itemId": "92068566-e430-4b7d-9ff7-20efba2995e8",
+                "type": "PART",
+                "quantity": 5,
+                "missing": 5
+            }
+        ],
+        "amount": 0.0
     }
 ]

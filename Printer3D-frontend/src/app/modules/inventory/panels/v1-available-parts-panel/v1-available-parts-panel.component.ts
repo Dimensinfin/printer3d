@@ -35,25 +35,8 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
         console.log("<[V1AvailablePartsPanelComponent.ngOnInit]")
     }
 
-    protected generatePartListing(): void {
-        this.backendConnections.push(
-            this.backendService.apiInventoryParts_v1(new ResponseTransformer().setDescription('Transforms Inventory Part list form backend.')
-                .setTransformation((entrydata: any): PartListResponse => {
-                    return new PartListResponse(entrydata)
-                }))
-                .subscribe((response: PartListResponse) => {
-                    this.completeDowload(this.sortPartsByLabel(
-                        this.filterActiveParts(response.getParts())
-                    )) // Notify the completion of the download.
-                })
-        )
-    }
     // - R E F R E S H A B L E
-    /**
-     * Restart component contents before a refresh.
-     */
     public clean(): void {
-        // this.partContainers = new Map<string, PartContainer>()
     }
     /**
      * When the page gets the list of Parts it should scan it and generate a list of Part Containers with distinct labels. Inside that containers there will be the Parts, each one with their different configurations.
@@ -61,15 +44,29 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
      */
     public refresh(): void {
         this.clean()
-        this.generatePartListing()
+        this.downloadParts()
     }
+
+    // - B A C K E N D
+    protected downloadParts(): void {
+        this.backendConnections.push(
+            this.backendService.apiv2_InventoryGetParts()
+                .subscribe((response: Part[]) => {
+                    console.log('downloadParts.part count: ' + response.length)
+                    this.completeDowload(this.sortPartsByLabel(
+                        this.filterActiveParts(response)
+                    )) // Notify the completion of the download.
+                })
+        )
+    }
+
     private filterActiveParts(parts: Part[]): Part[] {
-            const activeParts = []
-            for (const part of parts) {
-                if (part.active) activeParts.push(part)
-            }
-            return activeParts
- }
+        const activeParts = []
+        for (const part of parts) {
+            if (part.active) activeParts.push(part)
+        }
+        return activeParts
+    }
     private sortPartsByLabel(parts: Part[]): Part[] {
         return parts.sort((part1, part2) => {
             if (part2.label == part1.label)

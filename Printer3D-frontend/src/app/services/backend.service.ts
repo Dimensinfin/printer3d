@@ -82,6 +82,7 @@ export class BackendService {
             }));
     }
     // - I N V E N T O R Y
+    /** @deprecated */
     public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
         const request = this.APIV1 + '/inventory/parts';
         return this.httpService.wrapHttpGETCall(request)

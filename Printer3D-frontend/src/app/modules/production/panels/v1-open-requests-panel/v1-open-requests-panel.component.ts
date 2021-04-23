@@ -78,22 +78,19 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
 
     // - B A C K E N D
     protected downloadParts(): void {
-        console.log('step.03')
+        // console.log("-[V1CatalogPanelComponent.downloadParts]>Filter: " + this.filterInactive)
         this.backendConnections.push(
-            this.backendService.apiInventoryParts_v1(new ResponseTransformer()
-                .setDescription('Transforms response into a list of Parts.')
-                .setTransformation((entrydata: any): PartListResponse => {
-                    console.log('-[V1OpenRequestsPanelComponent.downloadParts]>Processing Parts')
-                    return new PartListResponse(entrydata);
-                }))
-                .subscribe((response: PartListResponse) => {
-                    this.parts = response.getParts();
-                    this.downloadModels();
+            this.backendService.apiv2_InventoryGetParts()
+                .subscribe((response: Part[]) => {
+                    console.log('downloadParts.part count: ' + response.length)
+                    this.parts = response
+                    // Sort the Parts before storing them inside the containers.
+                    const partList = this.sortPartsByActive(response)
+                    this.downloadModels()
                 })
         )
     }
     protected downloadModels(): void {
-        console.log('step.04')
         this.backendConnections.push(
             this.backendService.apiInventoryGetModels_v1(this)
                 .subscribe((response: Model[]) => {
@@ -111,5 +108,12 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
                     this.completeDowload(requestList); // Notify the completion of the download.
                 })
         )
+    }
+    private sortPartsByActive(parts: Part[]): Part[] {
+        return parts.sort((part1, part2) => {
+            if (part1.active && !part2.active) return -1
+            if (!part1.active && part2.active) return 1
+            return 0
+        })
     }
 }
