@@ -245,10 +245,16 @@ jobs:
             dockerize -wait tcp://localhost:5110 -timeout 1m
             docker ps
       - run:
+          name: PRINTER3D-FRONTEND - Restore test configuration
+          working_directory: Printer3D-frontend
+          background: true
+          command: |
+            npm run acceptance:ready
+      - run:
           name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests. Phase 2
           working_directory: Printer3D-frontend
           command: |
-            npm run acceptance:ready
+            # npm run acceptance:ready
             # npm run acceptance:cypress:D06 # Drag and drop does not work on CI.
             npm run acceptance:cypress:D08
             npm run acceptance:cypress:D09

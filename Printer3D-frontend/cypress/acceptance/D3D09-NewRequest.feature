@@ -31,7 +31,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     @D3D09.03
     Scenario: [D3D09.03]-The Parts at the left panel can be dragged and deployed on the box at the right Panel to be added to the Request.
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Given the target is the panel of type "new-request"
         And the target has a drop place named "dropContents"
         # - Drag a part to the drop contents
@@ -50,7 +50,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     Scenario: [D3D09.05]-When a Part or a Model are dropped on the Request the data is displayed on the request content area.
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
@@ -64,21 +64,21 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         # - Check the contents dropped on the request
         Then field named "requestDate" with label "FECHA PEDIDO" is not empty
         And field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "20 €"
+        And field named "price" with label "PRECIO" has contents "21 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 2 "request-content"
         # - Validate the contents columns
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Then column named "CANTIDAD" has contents "1"
-        And column named "PRECIO" has contents "5 €"
-        And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
-        And column named "TERMINACION" has contents "PLA/PLATEADO"
+        And column named "PRECIO" has contents "6 €"
+        And column named "ETIQUETA" has contents "BASE S 1.32"
+        And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
         # - Validate the contents columns
         Given the target the "request-content" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then column named "CANTIDAD" has contents "1"
         And column named "PRECIO" has contents "15 €"
-        And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Verde"
+        And column named "ETIQUETA" has contents "KIT X 1.32 - Rojo Rasta"
         And column named "TERMINACION" has contents "-/-"
         And target has an actionable image named "remove-button"
 
@@ -86,38 +86,37 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     Scenario: [D3D09.06]-If we drag the same part multiple times the number of contents does not change but other fields reflect the new count.
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "1"
-        And field named "price" with label "PRECIO" has contents "5 €"
+        And field named "price" with label "PRECIO" has contents "6 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Then column named "CANTIDAD" has contents "1"
-        And column named "PRECIO" has contents "5 €"
-        And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
-        And column named "TERMINACION" has contents "PLA/PLATEADO"
+        And column named "PRECIO" has contents "6 €"
+        And column named "ETIQUETA" has contents "BASE S 1.32"
+        And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "10 €"
+        And field named "price" with label "PRECIO" has contents "12 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Then column named "CANTIDAD" has contents "2"
-        And column named "PRECIO" has contents "10 €"
-        And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
-        And column named "TERMINACION" has contents "PLA/PLATEADO"
+        And column named "PRECIO" has contents "12 €"
+        And column named "ETIQUETA" has contents "BASE S 1.32"
+        And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
-    # - END OF REVIEW
 
     @D3D09.07
     Scenario: [D3D09.07]-The New request shows two buttons.
@@ -139,7 +138,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And the target panel button with name "cancel" has a label "Cancelar" and is "enabled"
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
@@ -152,7 +151,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Given the target is the panel of type "new-request"
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
@@ -181,7 +180,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Given the target is the panel of type "new-request"
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
@@ -190,7 +189,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Then the button with name "save" has a label "Guardar" and is "enabled"
         And the button with name "cancel" has a label "Cancelar" and is "enabled"
         # - Remove the request contents
-        Given the target the "request-item" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-item" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         And target has an actionable image named "remove-button"
         When target actionable image "remove-button" is clicked
         # - Check that the button is now disabled
@@ -202,50 +201,50 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     Scenario: [D3D09.12]-If the user clicks on the Remove button of a Part assigned to a Request then the number of that type of Parts reduces in 1. The the count reaches 0 then the part is removed from the Report.
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "1"
-        And field named "price" with label "PRECIO" has contents "5 €"
+        And field named "price" with label "PRECIO" has contents "6 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Then column named "CANTIDAD" has contents "1"
-        And column named "PRECIO" has contents "5 €"
-        And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
-        And column named "TERMINACION" has contents "PLA/PLATEADO"
+        And column named "PRECIO" has contents "6 €"
+        And column named "ETIQUETA" has contents "BASE S 1.32"
+        And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "10 €"
+        And field named "price" with label "PRECIO" has contents "12 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Then column named "CANTIDAD" has contents "2"
-        And column named "PRECIO" has contents "10 €"
-        And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
-        And column named "TERMINACION" has contents "PLA/PLATEADO"
+        And column named "PRECIO" has contents "12 €"
+        And column named "ETIQUETA" has contents "BASE S 1.32"
+        And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
         # - Remove one part and check the new values
-        Given the target the "request-item" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-item" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         And target has an actionable image named "remove-button"
         When target actionable image "remove-button" is clicked
         # - Validate the contents columns
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Then column named "CANTIDAD" has contents "1"
-        And column named "PRECIO" has contents "5 €"
-        And column named "ETIQUETA" has contents "PLATAFORMA SLOT 1/32 - Base"
-        And column named "TERMINACION" has contents "PLA/PLATEADO"
+        And column named "PRECIO" has contents "6 €"
+        And column named "ETIQUETA" has contents "BASE S 1.32"
+        And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
         # - Remove one part and check the new values
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         And target has an actionable image named "remove-button"
         When target actionable image "remove-button" is clicked
         # - Validate the contents columns
@@ -256,26 +255,26 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     Scenario: [D3D09.13]-Whe parts or models are added to the Request some accounting fields are updated. The same when items are removed from the Request.
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "1"
-        And field named "price" with label "PRECIO" has contents "5 €"
+        And field named "price" with label "PRECIO" has contents "6 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Select a Part for drag
         Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         # - Drag a part to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "10 €"
+        And field named "price" with label "PRECIO" has contents "12 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Select a Model for drag
@@ -287,16 +286,16 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "3"
-        And field named "price" with label "PRECIO" has contents "25 €"
+        And field named "price" with label "PRECIO" has contents "27 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 2 "request-content"
         # - Remove one part and check the new values
-        Given the target the "request-content" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
+        Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         And target has an actionable image named "remove-button"
         When target actionable image "remove-button" is clicked
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "20 €"
+        And field named "price" with label "PRECIO" has contents "21 €"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 2 "request-content"

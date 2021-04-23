@@ -16,6 +16,7 @@ Feature: [D3D06]-New Feature to display the list of jobs then are required to st
 
     @D3D06 @D3D06.02
     Scenario: [D3D06.02]-Validate the content of the Jobs page once the Jobs feature is clicked.
+        Then the page "ProductionJobListPage" has 2 panels
         Given the target is the panel of type "jobs-list"
         Then the target has 43 "job"
         Given the target is the panel of type "machines"
