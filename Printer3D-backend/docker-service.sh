@@ -23,7 +23,7 @@ generateContainer() {
 # - S T A R T / S T O P
 start() {
   cd "${WORKING_DIRECTORY}" || exit 1;
-  RUN_COMMAND="${DOCKER_COMPOSER_COMMAND}"
+  RUN_COMMAND="${DOCKER_COMPOSER_COMMAND} ${DOCKER_PREFERENCES}"
   $RUN_COMMAND up &
 }
 stop() {

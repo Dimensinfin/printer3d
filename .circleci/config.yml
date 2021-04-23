@@ -106,8 +106,8 @@ jobs:
             cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
-          - v15-frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
-          - v15-frontend-compiled-node-
+          - v15-frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          - v15-frontend-dependencies-
       - run:
           name: PRINTER3D-FRONTEND - Configure BIT as a source for npm
           working_directory: Printer3D-frontend
@@ -136,8 +136,8 @@ jobs:
             cp -vf ~/project/Printer3D-frontend/package.json ~/project/Printer3D-frontend/package.json.cache
       - restore_cache:
           keys:
-          - v15-frontend-compiled-node-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
-          - v15-frontend-compiled-node-
+          - v15-frontend-dependencies-{{ checksum "~/project/Printer3D-frontend/package.json.cache" }}
+          - v15-frontend-dependencies-
       - run:
           name: PRINTER3D-FRONTEND - Run frontend unit tests
           working_directory: Printer3D-frontend
@@ -245,7 +245,7 @@ jobs:
             dockerize -wait tcp://localhost:5110 -timeout 1m
             docker ps
       - run:
-          name: PRINTER3D-FRONTEND - Restore test configuration
+          name: PRINTER3D-FRONTEND - Start the acceptance server
           working_directory: Printer3D-frontend
           background: true
           command: |
@@ -517,6 +517,7 @@ jobs:
           environment:
             DEFAULT_BACKEND_SERVER: 'http://localhost'
             DEFAULT_BACKEND_PORT: 5121
+            DOCKER_PREFERENCES: '--force-recreate --remove-orphans'
           command: |
             ./docker-service.sh start integration
             dockerize -wait tcp://localhost:5131 -timeout 3m
