@@ -1,15 +1,16 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { Observable } from 'rxjs'
+import { Router } from '@angular/router';
 // - TESTING
 import { async } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
-import { ComponentFixture } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component'
 import { routes } from '@app/testing/RouteMockUp.component'
+import { Location } from "@angular/common";
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
@@ -17,16 +18,15 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 import { Feature } from '@domain/Feature.domain'
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
 import { V1DockComponent } from '../../common/v1-dock/v1-dock.component'
-import { SupportBackendService } from '@app/testing/SupportBackend.service'
 import { BackendService } from '@app/services/backend.service'
 import { DockService } from '@app/services/dock.service'
 import { V1RequestRenderComponent } from './v1-request-render.component'
 import { MatDialog } from '@angular/material/dialog'
-import { SupportDockService } from '@app/testing/SupportDock.service'
 import { RequestContentType, RequestState } from '@domain/interfaces/EPack.enumerated'
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain'
 import { Part } from '@domain/inventory/Part.domain'
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 
 describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
     const testPart: Part = new Part({
@@ -56,10 +56,15 @@ describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
         contents: [new RequestItem({ quantity: 1 })]
     })
     let component: V1RequestRenderComponent
-    let dockService: DockService
+    let backendService = { apiProductionRequestsClose_v2: () => { } }
+    let dockService = { clean: () => { } }
+    let matDialog = { open: () => { } }
+    let location: Location;
+    let router: Router;
+
     let dialogRef = {
         afterClosed: () => {
-            return Observable.create((observer) => {
+            return new Observable((observer) => {
                 observer.next({})
                 observer.complete()
             })
@@ -85,22 +90,25 @@ describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
             providers: [
                 { provide: DialogFactoryService, useValue: dialogFactoryService },
                 { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: MatDialog, useValue: {} },
-                { provide: BackendService, useClass: SupportBackendService },
-                { provide: DockService, useClass: SupportDockService },
-                // { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
+                { provide: MatDialog, useValue: matDialog },
+                { provide: BackendService, useValue: backendService },
+                { provide: DockService, useValue: dockService }
             ]
         }).compileComponents()
 
         const fixture = TestBed.createComponent(V1RequestRenderComponent)
         component = fixture.componentInstance
-        dockService = TestBed.inject(DockService)
+        location = TestBed.inject(Location)
+        router = TestBed.inject(Router)
+        router.initialNavigation()
     }))
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
-        it('constructor.none: validate initial state without constructor', () => {
+        it('Should be created', () => {
             expect(component).toBeDefined('component has not been created.')
+        })
+        it('Initial state', () => {
             expect(component.self).toBeDefined()
         })
     })
@@ -160,5 +168,123 @@ describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
         it('isSelected.failure: get the numer of elements in the request', () => {
             expect(component.isSelected()).toBeFalse()
         })
+    })
+    describe('Code Coverage Phase [Interactions]', () => {
+        it('getContents.success: get the Request contents', () => {
+            component.node = testRequestOpen
+            expect(component.getContents()).toBeDefined()
+            expect(component.getContents().length).toBe(1)
+        })
+        it('getContents.failure: get the Request contents', () => {
+            expect(component.getContents()).toBeDefined()
+            expect(component.getContents().length).toBe(0)
+        })
+        it('selectRequest.success: mark seft as selected', () => {
+            const componentAsAny = component as any
+            componentAsAny.container = {
+                addSelection: () => { },
+                subtractSelection: () => { },
+            }
+            component.node = testRequestOpen
+            component.node = testRequestOpen
+            componentAsAny.node.selected = false
+            expect(component.isSelected()).toBeFalse()
+            component.selectRequest()
+            expect(component.isSelected()).toBeTrue()
+        })
+        it('selectRequest.failure: mark seft as selected', () => {
+            const componentAsAny = component as any
+            componentAsAny.container = {
+                addSelection: () => { },
+                subtractSelection: () => { },
+            }
+            expect(component.isSelected()).toBeFalse()
+            component.selectRequest()
+            expect(component.isSelected()).toBeFalse()
+        })
+        it('completeRequest.success: complete a request and collect the amount', fakeAsync(() => {
+            // Given
+            const componentAsAny = component as any
+            componentAsAny.container = {
+                addSelection: () => { },
+                subtractSelection: () => { },
+            }
+            component.node = testRequestCompleted
+            spyOn(backendService, 'apiProductionRequestsClose_v2').and
+                .callFake(function () {
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(testRequestCompleted)
+                        }, 100)
+                    })
+                })
+            spyOn(dockService, 'clean')
+            // Test
+            component.completeRequest()
+            tick(1000)
+            // Assertions
+            expect(dockService.clean).toHaveBeenCalled()
+            expect(location.path()).toBe('/');
+        }))
+        it('deleteRequest.success: delete the customer request from the list', fakeAsync(() => {
+            // Given
+            const componentAsAny = component as any
+            componentAsAny.container = {
+                addSelection: () => { },
+                subtractSelection: () => { },
+            }
+            component.node = testRequestCompleted
+            spyOn(matDialog, 'open').and
+                .callFake(function () {
+                    console.log('step11')
+                    return {
+                        test: true,
+                        afterClosed: () => {
+                            return new Observable(observer => {
+                                setTimeout(() => {
+                                    observer.next('DELETED')
+                                    observer.complete()
+                                }, 100)
+                            })
+                        }
+                    }
+                })
+            // Test
+            console.log('step01')
+            component.deleteRequest()
+            console.log('step02')
+            expect(matDialog.open).toHaveBeenCalled()
+            console.log('step03')
+            tick(1000)
+            // Assertions
+            expect(location.path()).toBe('/production/requestlist');
+        }))
+        it('deleteRequest.cancel: delete the customer request from the list', fakeAsync(() => {
+            // Given
+            spyOn(matDialog, 'open').and
+                .callFake(function () {
+                    console.log('step11')
+                    return {
+                        test: true,
+                        afterClosed: () => {
+                            return new Observable(observer => {
+                                setTimeout(() => {
+                                    observer.next('CANCEL')
+                                    observer.complete()
+                                }, 100)
+                            })
+                        }
+                    }
+                })
+            // Test
+            console.log('step01')
+            component.deleteRequest()
+            console.log('step02')
+            expect(matDialog.open).toHaveBeenCalled()
+            console.log('step03')
+            tick(1000)
+            // Assertions
+            expect(location.path()).toBe('/');
+        }))
     })
 })

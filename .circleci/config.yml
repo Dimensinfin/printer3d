@@ -513,7 +513,7 @@ jobs:
             DEFAULT_BACKEND_PORT: 5121
           command: |
             ./docker-service.sh start integration
-            dockerize -wait tcp://localhost:5132 -timeout 3m
+            dockerize -wait tcp://localhost:5131 -timeout 3m
             docker ps
             ./gradlew integrationTest --info
   acceptancetest-backend-job:
@@ -546,7 +546,7 @@ jobs:
           working_directory: Printer3D-backend
           command: |
             ./docker-service.sh start acceptance
-            dockerize -wait tcp://localhost:5132 -timeout 3m
+            dockerize -wait tcp://localhost:5131 -timeout 3m
             docker ps
       - run:
           name: PRINTER3D-BACKEND - Start and run tests

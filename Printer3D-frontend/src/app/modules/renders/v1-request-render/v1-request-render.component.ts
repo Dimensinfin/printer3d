@@ -78,12 +78,14 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
 
     // - I N T E R A C T I O N S
     public getContents(): ICollaboration[] {
-        const request = this.node as CustomerRequest
-        return request.getContents()
+        if (this.node) return this.getNode().getContents()
+        else return []
     }
     public selectRequest(): void {
-        console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
-        this.select()
+        if (this.getNode()) {
+            this.select()
+            console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
+        }
     }
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
@@ -91,17 +93,12 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
     public completeRequest(): void {
         const request = this.node as CustomerRequest
         this.backendConnections.push(
-            this.backendService.apiProductionRequestsClose_v2(request.getId(),
-                new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
-                    .setTransformation((entrydata: any): CustomerRequest => {
-                        const targetRequest: CustomerRequest = new CustomerRequest(entrydata)
-                        this.isolationService.successNotification(
-                            'Pedido [' + targetRequest.getLabel() + '] completado correctamente.',
-                            '/PRODUCCION/PEDIDO/OK')
-                        return targetRequest
-                    }))
+            this.backendService.apiProductionRequestsClose_v2(request.getId())
                 .subscribe((request: CustomerRequest) => {
-                    console.log('-[V1RequestRenderComponent.completeRequest.subscribe]> Label: ' + request.getLabel())
+                    if (request) console.log('-[V1RequestRenderComponent.completeRequest.subscribe]> Label: ' + request.getLabel())
+                    this.isolationService.successNotification(
+                        'Pedido [' + request.getLabel() + '] completado correctamente.',
+                        '/PRODUCCION/PEDIDO/OK')
                     this.dockService.clean() // Clean the selection from any feature
                     this.router.navigate(['/'])
                 })
@@ -118,6 +115,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
         }
         console.log('-[V1RequestRenderComponent.deleteRequest]> Open dialog')
         const dialogRef = this.matDialog.open(DeleteConfirmationDialogComponent, dialogConfig)
+        console.log('step21')
+        console.log(JSON.stringify(dialogRef))
         dialogRef.afterClosed()
             .subscribe(result => {
                 console.log('[V1RequestRenderComponent.deleteRequest]> Close detected')

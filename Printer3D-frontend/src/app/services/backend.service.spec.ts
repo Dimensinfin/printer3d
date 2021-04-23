@@ -254,16 +254,16 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         //             expect(response).toBeDefined();
         //         });
         // });
-        it('apiProductionRequestsClose_v1.default: complete a request', async () => {
-            const requestId: string = "-REQUEST-ID-"
-            service.apiProductionRequestsClose_v2(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
-                .setTransformation((entrydata: any): CustomerRequest => {
-                    return new CustomerRequest(entrydata);
-                }))
-                .subscribe((response: CustomerRequest) => {
-                    expect(response).toBeDefined();
-                });
-        });
+        // it('apiProductionRequestsClose_v1.default: complete a request', async () => {
+        //     const requestId: string = "-REQUEST-ID-"
+        //     service.apiProductionRequestsClose_v2(requestId, new ResponseTransformer().setDescription('Transforms  Request form backend.')
+        //         .setTransformation((entrydata: any): CustomerRequest => {
+        //             return new CustomerRequest(entrydata);
+        //         }))
+        //         .subscribe((response: CustomerRequest) => {
+        //             expect(response).toBeDefined();
+        //         });
+        // });
         it('apiProductionDeleteRequest_v1.default: delete a request', async () => {
             const requestId: string = "-REQUEST-ID-"
             service.apiProductionDeleteRequest_v2(requestId, new ResponseTransformer().setDescription('Transforms Request form backend.')

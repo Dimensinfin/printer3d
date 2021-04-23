@@ -48,7 +48,6 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
                 V1PartRenderComponent
             ],
             providers: [
-                // { provide: ToastrService, useClass: SupportToastrService },
                 { provide: IsolationService, useValue: isolationService },
                 { provide: InventoryService, useValue: inventoryService },
                 { provide: DialogFactoryService, useValue: dialogFactory },

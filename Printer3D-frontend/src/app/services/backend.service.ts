@@ -247,8 +247,13 @@ export class BackendService {
                 return transformer.transform(data) as CustomerRequest[]
             }))
     }
-    public apiProductionRequestsClose_v2(requestId: string, transformer: ResponseTransformer): Observable<CustomerRequest> {
-        const request = this.APIV2 + '/production/requests/' + requestId + '/close';
+    public apiProductionRequestsClose_v2(requestId: string): Observable<CustomerRequest> {
+        const request = this.APIV2 + '/production/requests/' + requestId + '/close'
+        const transformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+            .setTransformation((entrydata: any): CustomerRequest => {
+                const targetRequest: CustomerRequest = new CustomerRequest(entrydata)
+                return targetRequest
+            })
         return this.httpService.wrapHttpPUTCall(request)
             .pipe(map((data: any) => {
                 console.log(">[BackendService.apiProductionRequestsClose_v2]> Transformation: " + transformer.description);
