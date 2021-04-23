@@ -15,6 +15,7 @@ export class Project extends Node {
         super(values)
         this.jsonClass = 'Project'
     }
+    
     public isExpandable(): boolean {
         return true;
     }

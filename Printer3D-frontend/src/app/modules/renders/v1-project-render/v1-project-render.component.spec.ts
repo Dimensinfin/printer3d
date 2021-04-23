@@ -9,7 +9,7 @@ import { Project } from '@domain/inventory/Project.domain'
 import { Model } from '@domain/inventory/Model.domain'
 import { PartContainer } from '@domain/inventory/PartContainer.domain'
 
-fdescribe('COMPONENT V1ProjectRenderComponent [Module: RENDER]', () => {
+describe('COMPONENT V1ProjectRenderComponent [Module: RENDER]', () => {
     const project = new Project({
         "name": "-PROJECT-NAME-"
     })
@@ -33,6 +33,7 @@ fdescribe('COMPONENT V1ProjectRenderComponent [Module: RENDER]', () => {
             expect(component).toBeDefined('component has not been created.')
         })
     })
+    
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Getters]', () => {
         it('getNode.success: check the return type for the underlying node', () => {
