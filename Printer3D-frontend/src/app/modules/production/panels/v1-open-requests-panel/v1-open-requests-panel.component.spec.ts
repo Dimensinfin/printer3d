@@ -5,9 +5,6 @@ import { async, fakeAsync, tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { BackendService } from '@app/services/backend.service'
-import { SupportBackendService } from '@app/testing/SupportBackend.service'
-import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service'
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
 // - DOMAIN
 import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerated'
 import { V1OpenRequestsPanelComponent } from './v1-open-requests-panel.component'
@@ -25,7 +22,6 @@ describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
     let backendService = {
         apiv2_InventoryGetParts: () => { },
         apiInventoryGetModels_v1: (provider) => { },
-        apiInventoryParts_v1: (transformer) => { },
         apiProductionGetOpenRequests_v2: (provider) => { }
     }
 
@@ -70,12 +66,19 @@ describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
             const componentAsAny = component as any
             console.log('step.01')
             expect(componentAsAny.backendConnections.length).toBe(0)
-            spyOn(backendService, 'apiInventoryParts_v1').and
-                .callFake(function (transformer) {
-                    console.log('step.03.b')
+            spyOn(backendService, 'apiv2_InventoryGetParts').and
+                .callFake(function () {
+                    const transformer: ResponseTransformer = new ResponseTransformer()
+                        .setDescription('Transforms response into a list of Parts.')
+                        .setTransformation((entrydata: any): Part[] => {
+                            const recordList: Part[] = []
+                            for (let entry of entrydata)
+                                recordList.push(new Part(entry));
+                            return recordList
+                        })
                     return new Observable(observer => {
                         setTimeout(() => {
-                            observer.next(transformer.transform(isolationService.directAccessTestResource('inventory.parts')))
+                            observer.next(transformer.transform(isolationService.directAccessTestResource('inventory.parts.v2')))
                         }, 100)
                     })
                 })
@@ -131,8 +134,8 @@ describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
             tick(1000)
             expect(component.getVariant()).toBe(EVariant.DEFAULT)
             expect(componentAsAny.backendConnections.length).toBe(3) // This component downloads the Parts and the Requests
-            expect(componentAsAny.dataModelRoot.length).toBe(2)
-            expect(componentAsAny.renderNodeList.length).toBe(2)
+            expect(componentAsAny.dataModelRoot.length).toBe(3)
+            expect(componentAsAny.renderNodeList.length).toBe(3)
             expect(component.isDownloading()).toBeFalse()
         }))
     })

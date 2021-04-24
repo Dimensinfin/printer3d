@@ -5,9 +5,6 @@ import { async, fakeAsync, tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { BackendService } from '@app/services/backend.service'
-import { SupportBackendService } from '@app/testing/SupportBackend.service'
-import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service'
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
 // - DOMAIN
 import { EVariant } from '@domain/interfaces/EPack.enumerated'
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain'

@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="row">
-        <v1-build-countdown-timer [parent]="self"></v1-build-countdown-timer>
+        <v1-build-countdown-timer [parent]="self" id="{{getUniqueId()}}"></v1-build-countdown-timer>
         <div class="row right" *ngIf="target">
             <div cy-name="start-button" class="button-margins" *ngIf="state=='IDLE'">
                 <div style="position: relative;">

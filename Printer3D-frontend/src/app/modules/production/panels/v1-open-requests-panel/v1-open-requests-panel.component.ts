@@ -78,7 +78,6 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
 
     // - B A C K E N D
     protected downloadParts(): void {
-        // console.log("-[V1CatalogPanelComponent.downloadParts]>Filter: " + this.filterInactive)
         this.backendConnections.push(
             this.backendService.apiv2_InventoryGetParts()
                 .subscribe((response: Part[]) => {

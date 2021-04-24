@@ -1,8 +1,8 @@
 # Printer3DFrontend
 
 ## Unit Tests pending
-* V1RequestRenderComponent
 * BackendService
+* V1RequestRenderComponent
 * V1CatalogPanelComponent
 * HttpClientWrapper
 * V1CoilsPanelComponent

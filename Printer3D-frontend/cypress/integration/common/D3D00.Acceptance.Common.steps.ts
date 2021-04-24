@@ -309,7 +309,9 @@ Then('field named {string} is tested for numeric constraints {float}',
 
 // - C O L U M N S
 Then('column named {string} has contents {string}', function (fieldName: string, fieldContents: string) {
-    cy.get('@target').find('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
+    cy.get('@target').within(($panel) => {
+        cy.get('[cy-name="' + fieldName + '"]').contains(fieldContents, { matchCase: false })
+    })
 })
 
 // - D R A G   &   D R O P
