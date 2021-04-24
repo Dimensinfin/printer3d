@@ -40,10 +40,10 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
     Scenario: [D3D11.04]-Both types of Requests have the next list of fields.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
-        And field named "FECHA" with label "FECHA" has contents "Apr 14, 2021"
-        And field named "ETIQUETA" with label "ETIQUETA" has contents "PEDIDO URBAN DIGIT 2021"
-        And field named "PIEZAS" with label "NRO. PIEZAS" has contents "15"
-        And field named "IMPORTE" with label "IMPORTE" has contents "125 €"
+        And field named "requestDate" with label "FECHA" has contents "Apr 14, 2021"
+        And field named "label" with label "ETIQUETA" has contents "PEDIDO URBAN DIGIT 2021"
+        And field named "partCount" with label "NRO. PIEZAS" has contents "15"
+        And field named "amount" with label "IMPORTE" has contents "125 €"
 
     @D3D11 @D3D11.05
     Scenario: [D3D11.05]-If the user selects a Request by clicking on it then the detailed Request information is shown on the right panel.
@@ -65,16 +65,16 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         Given the target is the panel of type "open-requests"
         Then the target has 3 "request"
         Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
-        And field named "FECHA" with label "FECHA" has contents "Jun 29, 2020"
-        And field named "ETIQUETA" with label "ETIQUETA" has contents "Complete Slot Car Platform P02"
-        And field named "PIEZAS" with label "NRO. PIEZAS" has contents "2"
-        And field named "IMPORTE" with label "IMPORTE" has contents "30 €"
+        And field named "requestDate" with label "FECHA" has contents "Jun 29, 2020"
+        And field named "label" with label "ETIQUETA" has contents "Complete Slot Car Platform P02"
+        And field named "partCount" with label "NRO. PIEZAS" has contents "2"
+        And field named "amount" with label "IMPORTE" has contents "30 €"
         # - Click on a Request to display the details panel
         Given the target is clicked
         Then target is "selected"
         Then the target is the panel of type "request-details"
         Then the target has 1 "request"
-        Given the target the "request" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
+        Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
         Then column named "missing" has contents "1"
         And column named "quantity" has contents "2"
         And column named "label" has contents "KIT X 1.32 - Rojo Rasta"

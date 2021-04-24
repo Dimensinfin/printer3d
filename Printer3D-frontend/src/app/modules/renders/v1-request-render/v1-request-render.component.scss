@@ -14,9 +14,16 @@
     min-width: 50%;
 }
 
+.part-count-width {
+    min-width: 48px;
+}
+
 .date-width {
-    flex-grow: 6;
-    min-width: 15%;
+    min-width: 90px;
+}
+
+.amount-width {
+    margin-right: 10px;
 }
 
 .float-top-right {

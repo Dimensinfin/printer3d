@@ -1,21 +1,21 @@
 <!-- O P E N   R E Q U E S T S -->
 <div #requestInstance *ngIf="getVariant() === '-OPEN-REQUESTS-'">
     <div id="{{getUniqueId()}}" class="row cornered-clickable-panel" (click)="selectRequest()" [ngClass]="{'selected': isSelected()}">
-        <div class="field date-width">
-            <div cy-field-label="FECHA" class="label">FECHA</div>
-            <div cy-field-value="FECHA" cy-name="request-date" class="field-height request-date">{{getRequestDate() | date}}</div>
+        <div cy-name="requestDate" class="field date-width">
+            <div cy-field-label="requestDate" class="label">FECHA</div>
+            <div cy-field-value="requestDate" cy-name="request-date" class="field-height request-date">{{getRequestDate() | date}}</div>
         </div>
-        <div class="field label-width">
-            <div cy-field-label="ETIQUETA" class="label">ETIQUETA</div>
-            <div cy-field-value="ETIQUETA" cy-name="label" class="field-height request-label">{{getLabel()}}</div>
+        <div cy-name="label" class="field label-width">
+            <div cy-field-label="label" class="label">ETIQUETA</div>
+            <div cy-field-value="label" cy-name="label" class="field-height request-label">{{getLabel()}}</div>
         </div>
-        <div class="field part-count-width">
-            <div cy-field-label="PIEZAS" class="label">NRO. PIEZAS</div>
-            <div cy-field-value="PIEZAS" cy-name="part-count" class="field-height request-part-count">{{getContentCount()}}</div>
+        <div cy-name="partCount" class="field right part-count-width">
+            <div cy-field-label="partCount" class="label">NRO. PIEZAS</div>
+            <div cy-field-value="partCount" cy-name="part-count" class="field-height request-part-count">{{getContentCount()}}</div>
         </div>
-        <div class="field amount-width">
-            <div cy-field-label="IMPORTE" class="label">IMPORTE</div>
-            <div cy-field-value="IMPORTE" cy-name="amount" class="field-height request-amount">{{getAmount()}}</div>
+        <div cy-name="amount" class="field right amount-width">
+            <div cy-field-label="amount" class="label">IMPORTE</div>
+            <div cy-field-value="amount" cy-name="amount" class="field-height request-amount">{{getAmount()}}</div>
         </div>
         <svg class="corner-border" viewBox="0 0 100 100">
             <path d="M100,100 L0,100 L100,0 L100,100" fill="blueviolet" />

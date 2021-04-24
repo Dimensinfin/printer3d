@@ -19,11 +19,11 @@ Then('there is a field named {string} with the value {string}', function (fieldN
 Then('the Page Display Area is empty', function () {
     cy.get('app-root').find('router-outlet').children().should('have.length', 0)
 });
-Then('the target panel has a field named {string} with label {string} and contents {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
-        cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
-            .contains(fieldLabel, { matchCase: false })
-        cy.get('@target-field').find('[cy-field-value="' + fieldName + '"]')
-            .contains(fieldValue, { matchCase: false })
-    });
+// Then('the target panel has a field named {string} with label {string} and contents {string}',
+//     function (fieldName: string, fieldLabel: string, fieldValue: string) {
+//         cy.get('@target-panel').get('[cy-name="' + fieldName + '"]').as('target-field')
+//         cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]')
+//             .contains(fieldLabel, { matchCase: false })
+//         cy.get('@target-field').find('[cy-field-value="' + fieldName + '"]')
+//             .contains(fieldValue, { matchCase: false })
+//     });

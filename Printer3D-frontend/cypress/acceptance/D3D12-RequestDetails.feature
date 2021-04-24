@@ -18,12 +18,12 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
     Scenario: [D3D12.01]-Select a Request from the list of requests in the Open state and verify that there is no Close button.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
-        Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
+        Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
         Given the target is clicked
         # - Check the Request details and should not be Close button
         Given the target is the panel of type "request-details"
         And the target has 1 "request"
-        Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
+        Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
         # - Check the buttons and states
         And the target has 1 "buttons"
         And the button with name "delete-button" has a label "Borrar" and is "enabled"
@@ -61,45 +61,42 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
     Scenario: [D3D12.04]-When any Request on the list of Open Requests is hovered the Request Details shows the detailed data.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
-        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
         Given the target is clicked
         # - Check the Request details
         Given the target is the panel of type "request-details"
-        And the target has 1 "request"
-        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        Then field named "requestDate" with label "FECHA" and value "Jun 29, 2020"
-        And field named "label" with label "ETIQUETA" and value "Complete Slot Car Platform P01"
-        And field named "partCount" with label "NRO. PIEZAS" and value "6"
-        And field named "amount" with label "IMPORTE" and value "14 €"
+        And field named "requestDate" with label "FECHA" has contents "Apr 14, 2021"
+        And field named "label" with label "ETIQUETA" has contents "PEDIDO URBAN DIGIT 2021"
+        And field named "partCount" with label "NRO. PIEZAS" has contents "15"
+        And field named "amount" with label "IMPORTE" has contents "125 €"
         And target has a panel labeled "PIEZAS SOLICITADAS" named "contents"
         When the target is the panel of name "contents"
         And the target has 3 "request-item"
         # - Check the details for a Request item
-        Given the target the "request-item" with id "a12ec0be-52a4-424f-81e1-70446bc38372"
-        Then column named "missing" has contents "-"
-        And column named "quantity" has contents "1"
-        And column named "label" has contents "PLATAFORMA SLOT 1/32 - Base"
-        And column named "finishing" has contents "PLA/PLATEADO"
+        Given the target the "request-item" with id "ce7462e2-692c-4ce3-a871-35e909d039f0"
+        Then column named "missing" has contents "5"
+        And column named "quantity" has contents "5"
+        And column named "label" has contents "CARCASA INFERIOR ''URBAN DIGIT''"
+        And column named "finishing" has contents "PLA/BLACK"
 
     @D3D12.05
     Scenario: [D3D12.05]-When the Detailed Request panel shows requests that are open because there are missing Parts then the Missed part should be highlighted and there should be a number with the number of missing parts.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
-        Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
+        Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
         Given the target is clicked
         # - Check the Request details
         Given the target is the panel of type "request-details"
-        And the target has 1 "request"
-        Given the target the "request" with id "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef"
+        And the target has 3 "request-item"
         # - Check the details for a Request item
-        Given the target the "request-item" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
-        Then column named "missing" has contents "1"
-        And column named "quantity" has contents "2"
-        And column named "label" has contents "PLATAFORMA SLOT 1/32 - Verde"
-        And column named "finishing" has contents "-/-"
+        Given the target the "request-item" with id "ce7462e2-692c-4ce3-a871-35e909d039f0"
+        Then column named "missing" has contents "5"
+        And column named "quantity" has contents "5"
+        And column named "label" has contents "CARCASA INFERIOR ''URBAN DIGIT''"
+        And column named "finishing" has contents "PLA/BLACK"
 
     @D3D12.06
-    Scenario: [D3D12.06]-The Request detail always shows a Delete button. If this button is clicked there there is a confirmation dialog.
+    Scenario: [D3D12.06.01]-The Request detail always shows a Delete button. If this button is clicked there there is a confirmation dialog.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -113,6 +110,25 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Check the dialog contents
         Given the target is the panel of name "delete-request-dialog"
         Then column named "confirmation" has contents "¿Realmente desea borrar el Pedido?Complete Slot Car Platform P01"
+        And the target has 2 "buttons"
+        And the button with name "delete-button" has a label "Borrar" and is "enabled"
+        And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
+
+    @D3D12.06
+    Scenario: [D3D12.06.02]-The Request detail always shows a Delete button. If this button is clicked there there is a confirmation dialog.
+        # - Select a request to check its details.
+        Given the target is the panel of type "open-requests"
+        Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
+        Given the target is clicked
+        # - Click on the Delete button
+        Given the target is the panel of type "request-details"
+        Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
+        And the button with name "delete-button" has a label "Borrar" and is "enabled"
+        And the button with name "delete-button" is clicked
+        Then the "Delete Confirmation" dialog opens and blocks the display
+        # - Check the dialog contents
+        Given the target is the panel of name "delete-request-dialog"
+        Then column named "confirmation" has contents "¿Realmente desea borrar el Pedido?PEDIDO URBAN DIGIT 2021"
         And the target has 2 "buttons"
         And the button with name "delete-button" has a label "Borrar" and is "enabled"
         And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
@@ -139,7 +155,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
     Scenario: [D3D12.08]-If the Delete button of the Confirmation dialog is clicked then the Request is deleted, a notification shown and the dialog closes.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
-        Then the target has 2 "request"
+        Then the target has 3 "request"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
         Given the target is clicked
         # - Click on the Delete button

@@ -15,7 +15,7 @@ Given('a job on a Machine', function () {
         .as('target-panel').as('target')
     // Given the drag source the "job" with id "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
     tag = supportService.translateTag('job') // Do name replacement
-    let recordId = "5d16edd1-6de3-4a74-a1bb-4f6cd476bf56"
+    let recordId = "1e238019-f9aa-45ee-a765-e5df22b7219c"
     cy.get('@target').find(tag).find('[id="' + recordId + '"]').as('drag-source')
         .should('have.prop', 'draggable')
         .should('exist')
@@ -25,8 +25,8 @@ Given('a job on a Machine', function () {
         .as('target-panel').as('target')
     // Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
     tag = supportService.translateTag('machine') // Do name replacement
-    recordId = "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
+    let machineId = "e18aa442-19cd-4b08-8ed0-9f1917821fac"
+    cy.get('@target-panel').find(tag).find('[id="' + machineId + '"]').as('target')
         .should('exist')
     // When the drag source is dragged to the drop destination "dropJobs"
     const dropDestination = "dropJobs"

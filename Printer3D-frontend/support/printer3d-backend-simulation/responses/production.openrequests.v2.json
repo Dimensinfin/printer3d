@@ -4,19 +4,19 @@
         "requestDate": "2020-06-29T20:00:00.226181Z",
         "state": "COMPLETED",
         "contents": [{
-                "itemId": "a12ec0be-52a4-424f-81e1-70446bc38372",
+                "itemId": "40a6a07c-b42c-4d2d-94e7-385b9fbdf827",
                 "type": "PART",
                 "quantity": 1,
                 "missing": 0
             },
             {
-                "itemId": "9fd4337d-6a4d-47b3-a7ac-a61bd51fad39",
+                "itemId": "28de5bcb-cbfc-4f15-8809-687aac7057be",
                 "type": "PART",
-                "quantity": 1,
+                "quantity": 4,
                 "missing": 0
             },
             {
-                "itemId": "2f780382-e539-4945-87ea-354bdd7879ce",
+                "itemId": "3be8e61d-f20e-4b8d-a0c5-a975769dac03",
                 "type": "PART",
                 "quantity": 4,
                 "missing": 0

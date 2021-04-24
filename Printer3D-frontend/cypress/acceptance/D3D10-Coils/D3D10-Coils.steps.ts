@@ -23,16 +23,16 @@ Then('the target has {int} {string}', function (count: number, symbolicName: str
     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target').find(tag).should('have.length', count)
 })
-Then('field named {string} with label {string} and value {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target').within(($item) => {
-            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
-        })
-        cy.get('@target').within(($item) => {
-            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
-                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-        })
-    })
+// Then('field named {string} with label {string} and value {string}',
+//     function (fieldName: string, fieldLabel: string, fieldValue: string) {
+//         cy.get('@target').within(($item) => {
+//             cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
+//         })
+//         cy.get('@target').within(($item) => {
+//             cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
+//                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
+//         })
+//     })
 
 // - F O R M S
 Then('form field named {string} with label {string} and contents {string}',
