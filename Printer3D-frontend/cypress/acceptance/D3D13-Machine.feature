@@ -28,9 +28,9 @@ Feature: [D3D13]-[STORY] Steps to define the interactions with a Machine.
         Given the target is the panel of type "machines"
         # - Validate the content for the Machine fields
         Given the target the "machine" with id "e18aa442-19cd-4b08-8ed0-9f1917821fac"
-        Then field named "label" with label "ETIQUETA" and value "Ender 3 Pro - A"
-        # And field named "model" with label "MODEL" and value "Creality 3D Ender 3 Pro"
-        # And field named "characteristics" with label "CARACTERISTICAS" and value "Max size set to 200mm. Has adaptor for flexible plastic filament."
+        Then field named "label" with label "ETIQUETA" has contents "Ender 3 Pro - A"
+        # And field named "model" with label "MODEL" has contents "Creality 3D Ender 3 Pro"
+        # And field named "characteristics" with label "CARACTERISTICAS" has contents "Max size set to 200mm. Has adaptor for flexible plastic filament."
         # - There is a panel for dropping parts and empty
         And the target has a drop place named "dropJobs"
         And the target has a panel labeled "PIEZA EN PRODUCCION" named "buildingPart"

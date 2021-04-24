@@ -237,6 +237,7 @@ jobs:
           command: |
             node -v
             sudo snap install figlet
+            sudo apt-get install net-tools --yes
             wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
             npm config set @bit:registry https://node.bitsrc.io
             npm install
@@ -518,7 +519,7 @@ jobs:
           environment:
             DEFAULT_BACKEND_SERVER: 'http://localhost'
             DEFAULT_BACKEND_PORT: 5121
-            DOCKER_PREFERENCES: '--force-recreate --remove-orphans'
+            # DOCKER_PREFERENCES: '--force-recreate --remove-orphans'
           command: |
             ./docker-service.sh start integration
             dockerize -wait tcp://localhost:5131 -timeout 3m
@@ -574,10 +575,10 @@ jobs:
             ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D05"
             # echo "@P3D07"
             # ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D07"
-            echo "@P3D08"
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D08"
-            echo "@B3D09"
-            ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D09"
+            # echo "@P3D08"
+            # ./gradlew acceptanceTest -Dcucumber.filter.tags="@P3D08"
+            # echo "@B3D09"
+            # ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D09"
             # echo "@B3D10"
             # ./gradlew acceptanceTest -Dcucumber.filter.tags="@B3D10"
   quality-sonarcloud-backend:

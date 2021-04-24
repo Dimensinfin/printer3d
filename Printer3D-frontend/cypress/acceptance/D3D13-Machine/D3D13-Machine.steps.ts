@@ -32,8 +32,7 @@ Given('a job on a Machine', function () {
     const dropDestination = "dropJobs"
     cy.get('@drag-source').scrollIntoView().trigger('dragstart')
     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
-});
-
+})
 
 // - T A R G E T   C O N T E N T S
 Then('the panel {string} has no {string}', function (targetName: string, symbolicName: string) {
@@ -41,129 +40,19 @@ Then('the panel {string} has no {string}', function (targetName: string, symboli
     cy.get('@target').within(($item) => {
         cy.get(tag).should('not.exist')
     })
-});
-Then('field named {string} with label {string} and value {string}',
-    function (fieldName: string, fieldLabel: string, fieldValue: string) {
-        cy.get('@target').within(($item) => {
-            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
-        })
-        cy.get('@target').within(($item) => {
-            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
-                .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-        })
-    });
+})
 Then('the target has a drop place named {string}', function (dropName: string) {
     cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
-});
-
-// - B U T T O N S
-
-// - F O R M S
-// Then('form field named {string} with label {string} and contents {string}',
-//     function (fieldName: string, fieldLabel: string, fieldValue: string) {
-//         cy.get('@target').within(($item) => {
-//             cy.get('[cy-name="' + fieldName + '"]')
-//             cy.get('[cy-field-label="' + fieldName + '"]')
-//                 .contains(fieldLabel, { matchCase: false })
-//             cy.get('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-//                 cy.log(type as string);
-//                 switch (type) {
-//                     case 'input':
-//                         cy.log('input')
-//                         cy.get('input')
-//                             .invoke('val').should('equal', fieldValue)
-//                         break
-//                     case 'select':
-//                         cy.log('select')
-//                         cy.get('select')
-//                             .invoke('val').should('equal', fieldValue)
-//                         break
-//                     case 'textarea':
-//                         cy.log('textarea')
-//                         cy.get('textarea')
-//                             .invoke('val').should('equal', fieldValue)
-//                         break
-//                 }
-//             })
-//         })
-//     });
-// Then('form field named {string} is {string}', function (fieldName: string, state: string) {
-//     cy.get('@target').get('[cy-name="' + fieldName + '"]').as('target-field')
-//     let inputType: string = ''
-//     cy.get('@target-field').find('[cy-field-label="' + fieldName + '"]').invoke('attr', 'cy-input-type').then(type => {
-//         cy.log(type as string);
-//         inputType = type as string
-//     })
-//     let stateClass = 'ng-valid'
-//     if (state == 'invalid') stateClass = 'ng-invalid'
-//     if (state == 'valid') stateClass = 'ng-valid'
-//     if (state == 'indiferent') stateClass = 'dsf-input'
-//     if (inputType != '') {
-//         switch (inputType) {
-//             case 'input':
-//                 cy.log('input')
-//                 cy.get('@target-field').find('input')
-//                     .should('have.class', stateClass)
-//                 break
-//             case 'select':
-//                 cy.log('select')
-//                 cy.get('@target-field').find('select')
-//                     .should('have.class', stateClass)
-//                 break
-//             case 'textarea':
-//                 cy.log('textarea')
-//                 cy.get('@target-field').find('textarea')
-//                     .should('have.class', stateClass)
-//                 break
-//         }
-//     }
-// });
+})
+Then('the build-countdown-timer item has started countdown', function () {
+    cy.wait(2000)
+    cy.get('@target-item').find('v1-build-countdown-timer').should('exist')
+})
+Then('the Job is started and sent to the background', function () {
+    cy.log('>[the Job is started and sent to the background]')
+})
 
 // - M O V E M E N T
 When('the mouse exits the target', function () {
     cy.get('@target').find('[cy-focus="mouseleave"]').trigger('mouseleave')
-});
-
-
-//--------------------------------------
-Then('the target machine has no Job assigned', function () {
-    cy.get('@target-item').get('v1-part')
-        .should('not.exist')
-});
-Given('the target job the {string} with id {string}', function (renderName: string, recordId: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item').as('target-job')
-        .should('exist')
-});
-Given('the target machine the {string} with id {string}', function (renderName: string, recordId: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target-item').as('target-machine')
-        .should('exist')
-});
-When('the target Job is dragged and dropped on the target Machine', function () {
-    cy.get('@target-job').trigger('dragstart')
-    cy.get('@target-machine').find('[cy-name="drop-job"]').trigger('drop')
-});
-Then('the target machine has one Job assigned with id {string}', function (recordId: string) {
-    cy.get('@target-machine').find('v1-pending-job').get('[id="' + recordId + '"]')
-        .should('exist')
-});
-When('there is a click on the target item {string} button', function (buttonName: string) {
-    cy.get('@target-item').find('[cy-name="' + buttonName + '"]')
-        .click('center')
-});
-Then('the Job is started and sent to the background', function () {
-    cy.log('>[the Job is started and sent to the background]')
-});
-Then('the {string} item has a value of {string}', function (renderName: string, timerValue: string) {
-    const tag = supportService.translateTag(renderName) // Do name replacement
-    cy.get('@target-item').find(tag).first().contains(timerValue, { matchCase: false })
-});
-// TODO - replace by a timed action so the new countdown value can be verified.
-Then('the build-countdown-timer item has started countdown', function () {
-    cy.wait(2000)
-    cy.get('@target-item').find('v1-build-countdown-timer').should('exist')
-});
-Then('the target Machine has {string} instances of {string}', function (elementCount: string, elementType: string) {
-    cy.get('@target-machine').find(elementType).should('have.length', elementCount)
-});
+})
