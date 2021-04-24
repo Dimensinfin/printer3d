@@ -254,6 +254,7 @@ jobs:
           name: PRINTER3D-FRONTEND - Run the list of approved acceptance tests. Phase 2
           working_directory: Printer3D-frontend
           command: |
+            netstat -na | grep LISTEN
             # npm run acceptance:ready
             # npm run acceptance:cypress:D06 # Drag and drop does not work on CI.
             npm run acceptance:cypress:D08
@@ -697,27 +698,27 @@ workflows:
             branches:
               only:
                 - test
-      - acceptancetest-frontend-phase03:
-          requires:
-            - acceptancetest-frontend-prepare
-          filters:
-            branches:
-              only:
-                - test
-      - acceptancetest-frontend-phase04:
-          requires:
-            - acceptancetest-frontend-prepare
-          filters:
-            branches:
-              only:
-                - test
-      - acceptancetest-frontend-phase05:
-          requires:
-            - acceptancetest-frontend-prepare
-          filters:
-            branches:
-              only:
-                - test
+      # - acceptancetest-frontend-phase03:
+      #     requires:
+      #       - acceptancetest-frontend-prepare
+      #     filters:
+      #       branches:
+      #         only:
+      #           - test
+      # - acceptancetest-frontend-phase04:
+      #     requires:
+      #       - acceptancetest-frontend-prepare
+      #     filters:
+      #       branches:
+      #         only:
+      #           - test
+      # - acceptancetest-frontend-phase05:
+      #     requires:
+      #       - acceptancetest-frontend-prepare
+      #     filters:
+      #       branches:
+      #         only:
+      #           - test
       - quality-sonarcloud-frontend:
           requires:
             - unittest-frontend-job
