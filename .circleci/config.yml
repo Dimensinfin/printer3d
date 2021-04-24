@@ -508,20 +508,14 @@ jobs:
             ./gradlew --version
             sudo snap install figlet
             wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-      # - run:
-      #     name: PRINTER3D-BACKEND - Generate the docker file to be used for application acceptance tests
-      #     working_directory: Printer3D-backend
-      #     command: |
-      #       ./docker-service.sh generate
       - run:
           name: PRINTER3D-BACKEND - Start the mock services and run tests
           working_directory: Printer3D-backend
           environment:
             DEFAULT_BACKEND_SERVER: 'http://localhost'
             DEFAULT_BACKEND_PORT: 5121
-            # DOCKER_PREFERENCES: '--force-recreate --remove-orphans'
           command: |
-            ./docker-service.sh start integration
+            ./docker-service.sh start acceptance
             dockerize -wait tcp://localhost:5131 -timeout 3m
             docker ps
             ./gradlew integrationTest --info
