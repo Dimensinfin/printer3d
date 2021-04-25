@@ -1,7 +1,5 @@
 // - CORE
-import { Injectable } from '@angular/core';
-import { ErrorHandler } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Injectable, ErrorHandler } from '@angular/core';
 // - DOMAIN
 import { RollbarService } from 'angular-rollbar';
 import { HttpErrorResponse } from '@angular/common/http';

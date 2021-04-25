@@ -1,8 +1,6 @@
 // - CORE
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
-import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { ICollaboration } from '../interfaces/core/ICollaboration.interface';
 import { Node } from '../Node.domain';
 import { Part } from './Part.domain';
 

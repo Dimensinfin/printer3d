@@ -26,6 +26,7 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
 
     // - R E F R E S H A B L E
     public clean(): void {
+        this.startDownloading()
     }
     /**
      * When the page gets the list of Parts it should scan it and generate a list of Part Containers with distinct labels. Inside that containers there will be the Parts, each one with their different configurations.

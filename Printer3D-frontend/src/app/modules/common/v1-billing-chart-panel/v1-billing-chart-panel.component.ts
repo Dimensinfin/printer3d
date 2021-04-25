@@ -1,15 +1,7 @@
 // - CORE
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
-// - ROUTER
-import { Router } from '@angular/router';
-// - SERVICES
-import { DockService } from '@app/services/dock.service';
+import { Component,OnInit } from '@angular/core';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { AppComponent } from '@app/app.component';
 import { WeekData } from '@domain/WeekData.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { BackendService } from '@app/services/backend.service';

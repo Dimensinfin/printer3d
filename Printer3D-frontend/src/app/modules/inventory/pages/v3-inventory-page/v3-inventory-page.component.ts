@@ -1,10 +1,6 @@
 // - CORE
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 // - DOMAIN
-import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { V1CatalogPanelComponent } from '../../panels/v1-catalog-panel/v1-catalog-panel.component';
 import { Model } from '@domain/inventory/Model.domain';
 import { V1NewModelPanelComponent } from '../../panels/v1-new-model-panel/v1-new-model-panel.component';
@@ -14,7 +10,7 @@ import { V1NewModelPanelComponent } from '../../panels/v1-new-model-panel/v1-new
     templateUrl: './v3-inventory-page.component.html',
     styleUrls: ['./v3-inventory-page.component.scss']
 })
-export class V3InventoryPageComponent implements Refreshable {
+export class V3InventoryPageComponent {
     @ViewChild(V1CatalogPanelComponent) private catalogPanel: V1CatalogPanelComponent;
     @ViewChild(V1NewModelPanelComponent) private modelEditingPanel: V1NewModelPanelComponent;
     public selected: Model
@@ -35,8 +31,6 @@ export class V3InventoryPageComponent implements Refreshable {
         if (null != this.modelEditingPanel) this.modelEditingPanel.stopEditing()
     }
     // - R E F R E S H A B L E
-    public clean(): void {
-    }
     public refresh(): void {
         this.selected = undefined
         if (null != this.catalogPanel) this.catalogPanel.refresh();

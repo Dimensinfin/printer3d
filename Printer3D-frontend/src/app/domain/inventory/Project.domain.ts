@@ -1,10 +1,6 @@
-// - CORE
-import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
-import { ICollaboration } from '../interfaces/core/ICollaboration.interface';
 import { Node } from '../Node.domain';
 import { Model } from './Model.domain';
-import { Part } from './Part.domain';
 import { PartContainer } from './PartContainer.domain';
 
 export class Project extends Node {

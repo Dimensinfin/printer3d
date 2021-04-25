@@ -1,6 +1,5 @@
 // - CORE
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog , MatDialogConfig} from '@angular/material/dialog';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';

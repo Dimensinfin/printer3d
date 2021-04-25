@@ -36,6 +36,7 @@ export class AppPanelComponent extends BackgroundEnabledComponent implements IVi
 
     // - I R E F R E S H A B L E
     public clean(): void {
+        this.startDownloading()
     }
     public refresh(): void {
         this.clean()

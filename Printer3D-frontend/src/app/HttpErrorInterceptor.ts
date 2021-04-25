@@ -1,15 +1,8 @@
 // - CORE
-import { Injectable } from '@angular/core';
-import { Injector } from '@angular/core';
-import { HttpInterceptor } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HttpRequest } from '@angular/common/http';
-import { HttpHandler } from '@angular/common/http';
-import { HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { throwError } from 'rxjs';
-import { retry } from 'rxjs/operators';
-import { catchError } from 'rxjs/operators';
+import { Injectable, Injector } from '@angular/core/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http/http';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/internal/operators';
 // - DOMAIN
 import { IsolationService } from './platform/isolation.service';
 
@@ -31,9 +24,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             )
     }
     private printErrorReport(exception: HttpErrorResponse) {
-        let errorName: string = '-'
+        let errorName: string
         let httpStatus
-        let message: string = '-'
+        let message: string
         let cause: string
         // Detect the type of error to extract the corrent information.
         if (this.detectSyntaxError(exception)) {
