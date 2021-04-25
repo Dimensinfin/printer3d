@@ -13,7 +13,7 @@
         "build:stage": "ng build --aot --configuration=stage",
         "build:prod": "ng build --aot --configuration=production",
         "test:dev": "ng test --code-coverage --watch --progress ",
-        "test:prod": "ng test --watch=false --no-progress --browsers=ChromeHeadlessCI",
+        "test:prod": "ng test --code-coverage --watch=false --no-progress --browsers=ChromeHeadlessCI",
         "sonar:prod": "node sonar-scan.js ",
         "check:deploy": "npm run build:prod && npm run test:prod && cypress run",
         "cypress:run": "cypress run ",

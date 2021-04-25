@@ -13,9 +13,10 @@ scanner({
             'sonar.projectDescription': 'Front end Angular application to manage the production jobs on a set of 3D printers.',
             'sonar.sources': './src',
             'sonar.sourceEncoding': 'UTF-8',
-            'sonar.exclusions': '**/node_modules/**',
+            'sonar.exclusions': '**/node_modules/**,**/*.spec.ts',
             'sonar.tests': 'src',
             'sonar.test.inclusions': '**/*.spec.ts',
+            'sonar.coverage.exclusions': '**/*.js,src/main.ts,src/polyfills.ts,**/*environment*.ts,**/*module.ts,src/app/testing/*.ts',
             'sonar.typescript.lcov.reportPaths': 'coverage/Printer3D-frontend/lcov.info'
         }
     },
