@@ -1,5 +1,5 @@
 // - CORE
-import { Injectable, Injector } from '@angular/core/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/internal/operators';
