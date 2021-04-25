@@ -2,10 +2,12 @@
         "jsonClass": "PatchChange",
         "name": "➰ Anotaciones cambio 0.16.0",
         "changes": [
-            "🐞 Si se intenta poner en marcha una impresión de una pieza de la que no queda filamento se notifica el fallo con una notifcacion de Error indicando que no hay filamento.",
+            "🐞 Si se intenta poner en marcha una impresión de una pieza de la que no queda filamento se notifica el fallo con una notificacion de Error indicando que no hay filamento.",
             "✅ Las piezas disponen de un nuevo campo que permite agruparlas por proyectos.",
             "✅ El campo de Proyecto de las piezas es editable.",
-            "✅ Si se pone un valor en el campo de Proyecto de una pieza está aparecerá agrupada bajo ese proyecto al igual que los modelos que incluyan esa pieza en su composición."
+            "✅ Si se pone un valor en el campo de Proyecto de una pieza está aparecerá agrupada bajo ese proyecto al igual que los modelos que incluyan esa pieza en su composición.",
+            "✅ Los paneles de las máquinas ya no se encuentran fijos a la perte superior y es posible moverlos con el scroll de la página. Esto permite acceder a todas las máquinas independeintemente de la altura de la pantalla.",
+            "✅ Ajustados algunos de los tamaños de los campos. Si la información no se ve correctamente ponerse en contacto con el administrador para ajustar de nuevo los valores de anchura de las columnas."
         ]
     }, {
         "jsonClass": "PatchChange",

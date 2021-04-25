@@ -1,5 +1,8 @@
-<div cy-name="panel-title" class="panel-title">
-    <span>/STOCKS DISPONIBLES</span>
+<div cy-name="panel-title" class="row panel-title">
+    <div cy-name="jobCounter">
+        <div cy-field-value="jobCounter" class="counter">{{nodeCounter()}}</div>
+    </div>
+    <div>/STOCKS DISPONIBLES</div>
 </div>
 <hr>
 <viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Elementos...'" [downloader]="self" [variant]="'-SELLABLE-ITEMS-'">

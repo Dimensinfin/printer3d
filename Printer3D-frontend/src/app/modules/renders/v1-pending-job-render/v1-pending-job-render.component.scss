@@ -1,9 +1,15 @@
-// .quantity-width {
-//     width: 46px;
-// }
-// .number-width {
-//     min-width: 35px;
-// }
+.building-label-width {
+    min-width: 200px;
+}
+
+.material-width {
+    margin-right: 15px;
+}
+
+.buildtime-width {
+    margin-right: 10px;
+}
+
 .label-width {
     min-width: 50%;
 }
@@ -39,10 +45,6 @@
     color: white;
     border: 1px solid white;
     padding-left: 12px;
-}
-
-.building-label-width {
-    min-width: 35%;
 }
 
 .last-field {

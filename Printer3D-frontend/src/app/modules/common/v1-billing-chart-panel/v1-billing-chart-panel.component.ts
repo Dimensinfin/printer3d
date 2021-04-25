@@ -1,5 +1,5 @@
 // - CORE
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // - DOMAIN
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 import { WeekData } from '@domain/WeekData.domain';
@@ -38,12 +38,13 @@ export class V1BillingChartPanelComponent extends BackgroundEnabledComponent imp
     }
     // - R E F R E S H A B L E
     public clean(): void {
+        this.yscale = 10
     }
     public refresh(): void {
         this.clean()
         this.getWeekAmounts()
     }
-    // - B A C K E N D
+    // - B A C K E N D  
     private getWeekAmounts(): void {
         const weekDataConverter: WeekAmountToWeekDataConverter = new WeekAmountToWeekDataConverter()
         this.backendConnections.push(

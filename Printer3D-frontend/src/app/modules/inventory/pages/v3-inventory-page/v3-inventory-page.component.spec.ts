@@ -55,10 +55,6 @@ describe('COMPONENT V3InventoryPageComponent [Module: RENDER]', () => {
         })
     })
     describe('Code Coverage Phase [IRefreshable]', () => {
-        it('clean.success: validate the execution of the IRefreshable interface methods', () => {
-            component.clean()
-            expect(component.self).toBeDefined('The self is set on the creation of the component.')
-        })
         it('refresh.success: validate the execution of the IRefreshable interface methods', () => {
             const componentAsAny = component as any
             component.selected = new Model()
