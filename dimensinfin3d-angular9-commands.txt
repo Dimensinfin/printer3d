@@ -6,10 +6,10 @@
                                    
 -- NODE.JS
 -- VERSIONS GLOBAL
-node@v12.16.3
-npm@6.14.4
+node@v14.16.1
+npm@6.14.12
 
-Frameworks/ng916 > @angular/cli@9.1.6
+AngularFrameworks/ng916 > @angular/cli@9.1.6
 
      _                      _                 ____ _     ___
     / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
@@ -20,27 +20,32 @@ Frameworks/ng916 > @angular/cli@9.1.6
     
 
 Angular CLI: 9.1.6
-Node: 12.16.3
+Node: 14.16.1
 OS: linux x64
 
-Angular: 
-... 
-Ivy Workspace: 
+Angular: 9.1.7
+... animations, common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+Ivy Workspace: Yes
 
-Package                      Version
-------------------------------------------------------
-@angular-devkit/architect    0.901.6
-@angular-devkit/core         9.1.6
-@angular-devkit/schematics   9.1.6
-@angular/cli                 9.1.6
-@schematics/angular          9.1.6
-@schematics/update           0.901.6
-rxjs                         6.5.4
-
-Additional dependencies:
-
-
------------------------------------------------------------------
+Package                           Version
+-----------------------------------------------------------
+@angular-devkit/architect         0.901.6
+@angular-devkit/build-angular     0.901.6
+@angular-devkit/build-optimizer   0.901.6
+@angular-devkit/build-webpack     0.901.6
+@angular-devkit/core              9.1.6
+@angular-devkit/schematics        9.1.6
+@angular/cdk                      9.2.4
+@angular/cli                      9.1.6
+@angular/material                 9.2.4
+@ngtools/webpack                  9.1.6
+@schematics/angular               9.1.6
+@schematics/update                0.901.6
+rxjs                              6.5.4
+typescript                        3.8.3
+webpack                           4.42.0
+-----------------------------------------------------------
 -- Create a new application
 ng new Printer3DManager --routing --style scss --skip-git --verbose
 
@@ -52,11 +57,9 @@ ng generate library <libraryname> --prefix <prefix>
         "jwt-decode": "2.2.0",
 
 npm install --save-exact ng-drag-drop@5.0.0
-npm install --save-exact ng6-toastr-notifications
 npm install --save-exact rollbar@2.5.1
 npm install --save-exact express
-npm install --save-exact bootstrap
-npm install --save-exact font-awesome
+npm install --save-exact jwt-decode
 
 
 npm install --save express express-http-proxy
@@ -86,22 +89,6 @@ npm install --save @angular/material
 npm install --save angular-oauth2-oidc
 
 
-
-npm install typedoc --save-dev
-npm install concat --save-dev
-npm install concat-cli --dave-dev
-
-
--- Compile library
-ng build <libraryname> --prod
-npm run buildlib -- to compile the citamed-lib
-
-
-
-
--- Modules to install for NeoCom
-npm install --save @types/node
-npm install --save angular-webstorage-service angular2-notifications bootstrap font-awesome angular-oauth2-oidc
 
 -- SECURITY
 
@@ -149,13 +136,3 @@ gource --fullscreen --start-date "2018-10-07 21:00:00" --output-ppm-stream "Cita
       }
     },
      require('karma-coverage-istanbul-reporter'),
-
-
-
-courtesy_title | first_name | surname   | second_surname | date_of_birth | occupation_description | occupation_company |
-      | 978e0d28-333f-453a-99a1-394e8a332d88 | 
-
--- C O M M A N D S
--- Command to generate the Cucumber steps
-cucumber --tags @D3D01.01 ./cypress/**/*.feature
-

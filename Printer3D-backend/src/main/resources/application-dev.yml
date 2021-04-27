@@ -24,6 +24,8 @@ spring:
     removecoils:
       active: true
       scheduletime: "0 */5 * * * ?"
+  security:
+    originDomains: "http://localhost:5102"
 
 logging:
   logstash:

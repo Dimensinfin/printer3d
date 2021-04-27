@@ -28,6 +28,8 @@ spring:
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+  security:
+    originDomains: "http://localhost:5102"
 
 logging:
   logstash:
