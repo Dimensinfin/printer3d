@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.3'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion" // OAuth2 authentication
     implementation 'com.auth0:java-jwt:3.10.3' // JWT processing library
+    implementation 'net.sf.supercsv:super-csv:2.4.0' // CSV generation library
     // - M E T R I C S
     implementation "io.micrometer:micrometer-registry-prometheus"
     // - L O G G I N G

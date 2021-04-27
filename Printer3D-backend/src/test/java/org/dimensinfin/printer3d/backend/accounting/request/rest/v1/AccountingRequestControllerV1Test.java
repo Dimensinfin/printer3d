@@ -9,20 +9,24 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 
 public class AccountingRequestControllerV1Test {
 
 	private AccountingRequestServiceV1 accountingRequestServiceV1;
+	private RequestsRepositoryV2 requestsRepositoryV2;
 
 	@BeforeEach
 	public void beforeEach() {
 		this.accountingRequestServiceV1 = Mockito.mock( AccountingRequestServiceV1.class );
+		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final AccountingRequestControllerV1 controllerV1 = new AccountingRequestControllerV1( this.accountingRequestServiceV1 );
+		final AccountingRequestControllerV1 controllerV1 = new AccountingRequestControllerV1( this.accountingRequestServiceV1,
+				this.requestsRepositoryV2 );
 		Assertions.assertNotNull( controllerV1 );
 	}
 
@@ -34,7 +38,8 @@ public class AccountingRequestControllerV1Test {
 		// When
 		Mockito.when( this.accountingRequestServiceV1.getRequestsAmountPerWeek( Mockito.anyInt() ) ).thenReturn( weekList );
 		// Test
-		final AccountingRequestControllerV1 controllerV1 = new AccountingRequestControllerV1( this.accountingRequestServiceV1 );
+		final AccountingRequestControllerV1 controllerV1 = new AccountingRequestControllerV1( this.accountingRequestServiceV1,
+				this.requestsRepositoryV2 );
 		final ResponseEntity<List<WeekAmount>> obtained = controllerV1.getRequestsAmountPerWeek( 1 );
 		// Assertions
 		Assertions.assertNotNull( obtained );

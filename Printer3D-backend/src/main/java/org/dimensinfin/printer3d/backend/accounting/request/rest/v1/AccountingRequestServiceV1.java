@@ -23,7 +23,7 @@ public class AccountingRequestServiceV1 {
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public AccountingRequestServiceV1( final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {this.requestsRepositoryV2 = requestsRepositoryV2;}
+	public AccountingRequestServiceV1( @NotNull final RequestsRepositoryV2 requestsRepositoryV2 ) {this.requestsRepositoryV2 = requestsRepositoryV2;}
 
 	// - G E T T E R S   &   S E T T E R S
 
@@ -33,7 +33,7 @@ public class AccountingRequestServiceV1 {
 	 * @param weekCount the desired maximum number of weeks starting from the most recent and backwards.
 	 * @return a list of <code>WeekAmounts</code> with the aggregated Request amounts that were closed during that week.
 	 */
-	public List<WeekAmount> getRequestsAmountPerWeek( final @NotNull Integer weekCount ) {
+	public List<WeekAmount> getRequestsAmountPerWeek( @NotNull final Integer weekCount ) {
 		final Map<YearWeek, Float> weekAggregation = new HashMap<>();
 		this.requestsRepositoryV2.findAll()
 				.stream()
@@ -44,14 +44,15 @@ public class AccountingRequestServiceV1 {
 								Float::sum ) );
 		return this.transformAmountsMap( weekAggregation )
 				.stream()
-				.sorted(new WeekComparator().reversed())
+				.sorted( new WeekComparator().reversed() )
 				.limit( weekCount )
-				.sorted(new WeekComparator())
+				.sorted( new WeekComparator() )
 				.collect( Collectors.toList() );
 	}
 
 	/**
 	 * Return the ordered list of year/week aggregated amounts from the collected data on the Map.
+	 *
 	 * @param weekData the input map data.
 	 * @return an ordered list of <code>WeekAmount</code> in ascending calendar order.
 	 */
