@@ -12,7 +12,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
 
     @D3D02.01
     Scenario: [D3D02.01]-Verify the list of features that should be present.
-        Then there are 8 Features enabled
+        Then there are 9 Features enabled
         Then there is a Feature with label "/FILAMENTOS"
         Then there is a Feature with label "/INVENTARIO"
         Then there is a Feature with label "/PEDIDOS"
@@ -21,6 +21,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then there is a Feature with label "/NUEVA PIEZA"
         Then there is a Feature with label "/NUEVO MODELO"
         Then there is a Feature with label "/NUEVO PEDIDO"
+        Then there is a Feature with label "/EXTRACCIONES"
 
     @D3D02.02
     Scenario: [D3D02.02]-Check that Features that open Dialogs have a corner in blue.
@@ -79,10 +80,10 @@ Feature: [D3D02]-Test the dock contents and configuration.
     Scenario: [D3D02.09]-Check that the New Model feature points to the right page.
         # - Validate the page structure and the loading sign
         When the Feature with label "/NUEVO MODELO" is clicked the destination is the Page "NewModelPage"
+        Then the Feature with label "/NUEVO MODELO" opens a DropPage
         And the page "NewModelPage" has 2 panels
         Given the target is the panel of type "available-parts"
         Then  the target has the title "/PIEZAS/DISPONIBLES"
-        And the target has 13 "part"
         Given the target is the panel of type "new-model"
         Then  the target has the title "/NUEVO MODELO/DEFINICION"
 
@@ -133,3 +134,9 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then the target has the title "/CATALOGO PIEZAS Y MODELOS"
         Then the target has 4 "project"
         Then the target has 8 "part-container"
+
+    @D3D02.14
+    Scenario: [D3D02.14]-Check that the Extractions Feature opens the right page and contains the right number of extractions.
+        When the Feature with label "/EXTRACCIONES" is clicked the destination is the Page "Extractions Page"
+        Then the Feature with label "/EXTRACCIONES" opens a Page
+        Then the target has 1 "extraction"

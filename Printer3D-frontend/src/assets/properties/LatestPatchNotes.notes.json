@@ -1,5 +1,13 @@
 [{
         "jsonClass": "PatchChange",
+        "name": "➰ Anotaciones cambio 0.16.1",
+        "changes": [
+            "✅ Se ha incorporado una nueva Funcionalidad para generar los ficheros de extracción de datos.",
+            "✅ La primera extracción de datos disponible es la lista de Pedidos de Cliente ya entregados."
+        ]
+    },
+    {
+        "jsonClass": "PatchChange",
         "name": "➰ Anotaciones cambio 0.16.0",
         "changes": [
             "🐞 Si se intenta poner en marcha una impresión de una pieza de la que no queda filamento se notifica el fallo con una notificacion de Error indicando que no hay filamento.",
@@ -8,43 +16,6 @@
             "✅ Si se pone un valor en el campo de Proyecto de una pieza está aparecerá agrupada bajo ese proyecto al igual que los modelos que incluyan esa pieza en su composición.",
             "✅ Los paneles de las máquinas ya no se encuentran fijos a la perte superior y es posible moverlos con el scroll de la página. Esto permite acceder a todas las máquinas independeintemente de la altura de la pantalla.",
             "✅ Ajustados algunos de los tamaños de los campos. Si la información no se ve correctamente ponerse en contacto con el administrador para ajustar de nuevo los valores de anchura de las columnas."
-        ]
-    }, {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.15.1",
-        "changes": [
-            "🐞 Corregida la deteccion de pedidos que se pueden completar. La esquina ahora aparece de color verde cuando el pedido se puede completar y de color rojo cuando aún faltan piezas.",
-            "✅ Ahora es posible poner el valor 0 como stock deseado. Esto permite la definición correcta de piezas de un solo uso.",
-            "✅ Incorporado un Manual de Procedimientos que se abre al pulsar sobre el nombre de la aplicación.",
-            "✅ Quitada la limitación de stock al valor 15. Ahora es posible aumentar ese valor hasta 999."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.15.0",
-        "changes": [
-            "✅ Competado el control de calidad.",
-            "✅ Los filamentos acabados o rechazados (no activos) se eliminan definivamente a las 48 horas.",
-            "✅ Las piezas que ya no dispongan de filamento se ocultan de los listados. Lo mismo con los modelos que contienen piezas ocultadas por no poderse fabricar. La compra de un filamente del tipo adecuado activará de nuevo las piezas y modelos.",
-            "✅ Incorporadas otras dos impresoras. Cambiada la página para poder asignar trabajos a todas la impresoras."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.3",
-        "changes": [
-            "✅ Cambiada la limitación de stock del valor 15 al valor 999.",
-            "✅ En el inventario cuando se expande un grupo de piezas se cambia ligeramente el color del fondo.",
-            "✅ Las piezas que no están activas no es posible duplicarlas."
-        ]
-    },
-    {
-        "jsonClass": "PatchChange",
-        "name": "➰ Anotaciones cambio 0.14.2",
-        "changes": [
-            "✅ Ajustados algunos estilos para que los elementos se coloquen más adecuadamente en el caso que las páginas no sean tan anchas como se necesite.",
-            "🐞 Resuelto el problema de que la activación de la edición de un modelo también desplegaba su contenido. Ahora el click en el boton se diferencia del click en el contenido para desplegar las piezas que componen un modelo.",
-            "✅ Incorporado un contador de piezas disponibles en la página de creación de un modelo."
         ]
     }
 ]

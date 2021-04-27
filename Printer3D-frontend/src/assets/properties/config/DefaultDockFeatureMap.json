@@ -55,5 +55,12 @@
         "interaction": "PAGEROUTE",
         "modifier": "DROP",
         "route": "/production/newrequest"
+    },
+    {
+        "label": "/Extracciones",
+        "enabled": true,
+        "active": false,
+        "interaction": "PAGEROUTE",
+        "route": "/extractions"
     }
 ]
