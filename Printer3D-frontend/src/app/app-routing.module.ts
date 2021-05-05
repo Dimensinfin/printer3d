@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   { path: 'inventory', loadChildren: () => import('./modules/inventory/inventory.module').then(m => m.InventoryModule) },
   { path: 'production', loadChildren: () => import('./modules/production/production.module').then(m => m.ProductionModule) },
-  { path: 'extractions', loadChildren: () => import('./modules/extractions/extractions.module').then(m => m.ExtractionsModule) }
+  { path: 'extractions', loadChildren: () => import('./modules/extraction/extraction.module').then(m => m.ExtractionModule) }
 ]
 
 @NgModule({

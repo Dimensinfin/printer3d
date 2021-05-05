@@ -579,3 +579,27 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/inventory.parts.v2.json"
+
+---
+
+simlet: extraction-closed-request
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 700
+  subsequent: 500
+
+request:
+  - method: GET
+  - uriPathPattern: "/api/v1/accounting/requests/data"
+
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: text/csv"
+    - "Content-Disposition: attachment; filename=pedidos-usuario-completados_2021-04-27_16-51.csv"
+  body:
+    type: text
+    file: "${sim.path}/responses/extraction.closed.requests.csv"

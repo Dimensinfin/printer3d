@@ -41,6 +41,16 @@ Then('there are no Features active', function () {
             cy.get('.corner-mark').should('have.length', 0)
         })
 })
+When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (featureLabel: string, symbolicName: string) {
+    const destination = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get(supportService.translateTag('dock'))
+        .find(supportService.translateTag('feature')).find('[cy-name="feature"]')
+        .contains(featureLabel, { matchCase: false }).parent().parent().as('target-feature')
+    cy.get('@target-feature').scrollIntoView().click('center')
+    cy.get('mat-dialog-container')
+        .get(destination).should('exist').as('target-dialog')
+})
+
 
 // - S P I N N E R
 Then('the loading panel shows {string}', function (loadingMessage: string) {

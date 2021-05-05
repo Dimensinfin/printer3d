@@ -31,4 +31,4 @@ const routes: Routes = [
         V1ExtractionsDashboardPageComponent
     ]
 })
-export class ExtractionsModule { }
+export class ExtractionModule { }

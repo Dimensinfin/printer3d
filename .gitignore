@@ -1,3 +1,4 @@
 # Remove projects stored on another repository.
 dimensinfin3dpocs/
 Dimensinfin3DPOCs/
+.git-direct/

@@ -139,4 +139,6 @@ Feature: [D3D02]-Test the dock contents and configuration.
     Scenario: [D3D02.14]-Check that the Extractions Feature opens the right page and contains the right number of extractions.
         When the Feature with label "/EXTRACCIONES" is clicked the destination is the Page "Extractions Page"
         Then the Feature with label "/EXTRACCIONES" opens a Page
+        When the page "Extractions Page" is activated
+        Then  the target has the title "/EXTRACCIONES DE DATOS"
         Then the target has 1 "extraction"
