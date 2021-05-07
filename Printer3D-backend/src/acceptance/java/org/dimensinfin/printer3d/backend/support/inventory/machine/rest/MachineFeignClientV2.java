@@ -14,7 +14,6 @@ import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV2;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
@@ -41,11 +40,11 @@ public class MachineFeignClientV2 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<Machine> startBuild( final String authorizationToken,
-	                                           final UUID machineId,
-	                                           final JobRequest jobRequest ) throws IOException {
+	public ResponseEntity<MachineV2> startBuild( final String authorizationToken,
+	                                             final UUID machineId,
+	                                             final JobRequest jobRequest ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request to start a new build job.";
-		final Response<Machine> response = new Retrofit.Builder()
+		final Response<MachineV2> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()

@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.backend.support;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
@@ -11,7 +12,6 @@ import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
@@ -36,7 +36,7 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<List<MachineV2>> listMachineV2ResponseEntity;
 	private UUID partId;
 	private UUID machineId;
-	private ResponseEntity<Machine> machineResponseEntity;
+	private ResponseEntity<MachineV2> machineResponseEntity;
 	private ResponseEntity<List<Job>> listJobResponseEntity;
 	private ModelRequest modelRequest;
 	private ResponseEntity<Model> modelResponseEntity;
@@ -56,6 +56,7 @@ public class Printer3DWorld extends CommonWorld {
 	private Integer weekCount;
 	private ResponseEntity<List<Coil>> coilV2ListResponseEntity;
 	private ResponseEntity<List<Part>> partListV2ResponseEntity;
+	private ResponseEntity<Resource> closedRequestsDataResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -64,6 +65,15 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setApplicationException( final DimensinfinRuntimeException applicationException ) {
 		this.applicationException = applicationException;
+		return this;
+	}
+
+	public ResponseEntity<Resource> getClosedRequestsDataResponseEntity() {
+		return this.closedRequestsDataResponseEntity;
+	}
+
+	public Printer3DWorld setClosedRequestsDataResponseEntity( final ResponseEntity<Resource> closedRequestsDataResponseEntity ) {
+		this.closedRequestsDataResponseEntity = closedRequestsDataResponseEntity;
 		return this;
 	}
 
@@ -166,11 +176,11 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<Machine> getMachineResponseEntity() {
+	public ResponseEntity<MachineV2> getMachineResponseEntity() {
 		return this.machineResponseEntity;
 	}
 
-	public Printer3DWorld setMachineResponseEntity( final ResponseEntity<Machine> machineResponseEntity ) {
+	public Printer3DWorld setMachineResponseEntity( final ResponseEntity<MachineV2> machineResponseEntity ) {
 		this.machineResponseEntity = machineResponseEntity;
 		return this;
 	}

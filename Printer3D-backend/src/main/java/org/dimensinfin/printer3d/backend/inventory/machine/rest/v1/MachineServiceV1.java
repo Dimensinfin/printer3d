@@ -16,19 +16,21 @@ import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
-import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineConverter;
+import org.dimensinfin.printer3d.backend.inventory.machine.rest.CommonMachineService;
+import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineV2Converter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.rest.PartRestErrors;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobEntity;
 import org.dimensinfin.printer3d.backend.production.job.persistence.JobRepository;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 
 import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
 
 @Service
 @Transactional
-public class MachineServiceV1 {
+public class MachineServiceV1 extends CommonMachineService {
 	public static DimensinfinError errorMACHINENOTFOUND( final UUID machineId ) {
 		return new DimensinfinError.Builder()
 				.withErrorName( "MACHINE_NOT_FOUND" )
@@ -48,16 +50,15 @@ public class MachineServiceV1 {
 	}
 
 	protected final MachineRepository machineRepository;
-	protected final PartRepository partRepository;
 	private final JobRepository jobRepository;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public MachineServiceV1( final MachineRepository machineRepository,
-	                         final PartRepository partRepository,
-	                         final JobRepository jobRepository ) {
+	public MachineServiceV1( @NotNull final PartRepository partRepository,
+	                         @NotNull final MachineRepository machineRepository,
+	                         @NotNull final JobRepository jobRepository ) {
+		super( partRepository );
 		this.machineRepository = Objects.requireNonNull( machineRepository );
-		this.partRepository = Objects.requireNonNull( partRepository );
 		this.jobRepository = Objects.requireNonNull( jobRepository );
 	}
 
@@ -69,11 +70,12 @@ public class MachineServiceV1 {
 	 *
 	 * @param machineId the machine where to cancel the running job.
 	 */
-	public Machine cancelBuild( final @NotNull UUID machineId ) {
+	public MachineV2 cancelBuild( final @NotNull UUID machineId ) {
 		final Optional<MachineEntity> machineOpt = this.machineRepository.findById( machineId );
 		if (machineOpt.isEmpty())
 			throw new DimensinfinRuntimeException( errorMACHINENOTFOUND( machineId ) );
-		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
+		return new MachineEntityToMachineV2Converter( new BuildRecord.Builder().build() )
+				.convert( this.machineRepository.save( machineOpt.get().clearJob() ) );
 	}
 
 	/**
@@ -84,12 +86,18 @@ public class MachineServiceV1 {
 	 *
 	 * @param machineId the machine identifier that has the job to complete.
 	 */
-	public Machine completeBuild( final UUID machineId ) {
-		final MachineEntity machineEntity = this.machineRepository.findById( machineId )
+	public MachineV2 completeBuild( final UUID machineId ) {
+		final var machineEntity = this.machineRepository.findById( machineId )
 				.orElseThrow( () -> new DimensinfinRuntimeException( errorMACHINENOTFOUND( machineId ) ) );
 		this.storeBuiltParts( machineEntity.getCurrentJobPartId(), machineEntity.getCurrentPartInstances() );
 		this.recordJob( machineEntity );
-		return new MachineEntityToMachineConverter( null ).convert( this.machineRepository.save( machineEntity.clearJob() ) );
+		final BuildRecord buildRecord = new BuildRecord.Builder()
+				.withPartCopies( machineEntity.getCurrentPartInstances() )
+				.withPartBuildTime( machineEntity.getCurrentJobPartBuildTime() )
+				.withPart( this.getBuildPart( machineEntity ) ) // Search for the Part instance at the repository.
+				.withJobInstallmentDate( machineEntity.getJobInstallmentDate() )
+				.build();
+		return new MachineEntityToMachineV2Converter( buildRecord ).convert( this.machineRepository.save( machineEntity.clearJob() ) );
 	}
 
 	private void recordJob( final MachineEntity machineEntity ) {
@@ -113,4 +121,5 @@ public class MachineServiceV1 {
 				.incrementStock( currentPartInstances )
 		);
 	}
+
 }

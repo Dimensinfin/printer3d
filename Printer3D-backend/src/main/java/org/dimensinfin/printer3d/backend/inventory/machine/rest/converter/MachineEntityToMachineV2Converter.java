@@ -10,7 +10,6 @@ import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEn
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 
-//@Component
 public class MachineEntityToMachineV2Converter implements Converter<MachineEntity, MachineV2> {
 	private final BuildRecord buildRecord;
 

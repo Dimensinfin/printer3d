@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.printer3d.backend.support.conf.AcceptanceTargetConfig;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -22,9 +22,9 @@ public class MachineFeignClientV1 extends CommonFeignClient {
 		super( acceptanceTargetConfig );
 	}
 
-	public ResponseEntity<Machine> cancelBuild( final String authorizationToken, final UUID machineId ) throws IOException {
+	public ResponseEntity<MachineV2> cancelBuild( final String authorizationToken, final UUID machineId ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request to cancel a build job.";
-		final Response<Machine> response = new Retrofit.Builder()
+		final Response<MachineV2> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
@@ -36,9 +36,9 @@ public class MachineFeignClientV1 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<Machine> completeBuild( final UUID machineId ) throws IOException {
+	public ResponseEntity<MachineV2> completeBuild( final UUID machineId ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request to complete a build job.";
-		final Response<Machine> response = new Retrofit.Builder()
+		final Response<MachineV2> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()

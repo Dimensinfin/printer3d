@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 
 @RestController
 @Validated
@@ -29,14 +29,14 @@ public class MachineControllerV1 {
 	@PutMapping(path = "/inventory/machines/{machineId}/cancelbuild",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Machine> cancelBuild( final @PathVariable @NotNull UUID machineId ) {
+	public ResponseEntity<MachineV2> cancelBuild( final @PathVariable @NotNull UUID machineId ) {
 		return new ResponseEntity<>( this.machineServiceV1.cancelBuild( machineId ), HttpStatus.OK );
 	}
 
 	@PutMapping(path = "/inventory/machines/{machineId}/completebuild",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<Machine> completeBuild( final @PathVariable @NotNull UUID machineId ) {
+	public ResponseEntity<MachineV2> completeBuild( final @PathVariable @NotNull UUID machineId ) {
 		return new ResponseEntity<>( this.machineServiceV1.completeBuild( machineId ), HttpStatus.OK );
 	}
 }

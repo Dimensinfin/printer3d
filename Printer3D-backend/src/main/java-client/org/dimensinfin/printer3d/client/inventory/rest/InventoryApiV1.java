@@ -8,11 +8,10 @@ import javax.validation.constraints.NotNull;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
@@ -25,7 +24,6 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface InventoryApiV1 {
 	// - G E T T E R S   &   S E T T E R S
@@ -40,8 +38,8 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@PUT("api/v1/inventory/machines/{machineId}/cancelbuild")
-	Call<Machine> cancelBuild( @Header("Authorization") final @NotNull String authorizationToken,
-	                           @Path("machineId") final @NotNull UUID machineId );
+	Call<MachineV2> cancelBuild( @Header("Authorization") final @NotNull String authorizationToken,
+	                             @Path("machineId") final @NotNull UUID machineId );
 
 	/**
 	 * Signals the completion of the current build.
@@ -54,7 +52,7 @@ public interface InventoryApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@PUT("api/v1/inventory/machines/{machineId}/completebuild")
-	Call<Machine> completeBuild( @Path("machineId") final @NotNull UUID machineId );
+	Call<MachineV2> completeBuild( @Path("machineId") final @NotNull UUID machineId );
 
 	/**
 	 * Returns the list of Materials with the colors available for each one.
@@ -77,20 +75,20 @@ public interface InventoryApiV1 {
 	@GET("api/v1/inventory/models")
 	Call<List<Model>> getModels( @Header("Authorization") final @NotNull String authorizationToken );
 
-	/**
-	 * Get the list of Parts persisted at the Inventory repository.
-	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
-	 * active Parts.
-	 *
-	 * @param activesOnly Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are
-	 *                    included on the list. If tru only active parts will be returned by the filter.  (optional, default to false)
-	 * @return Call&lt;PartList&gt;
-	 */
-	@Deprecated
-	@Headers({ "Content-Type:application/json" })
-	@GET("api/v1/inventory/parts")
-	Call<PartList> getParts( @Header("Authorization") final @NotNull String authorizationToken,
-	                         @Query("activesOnly") final Boolean activesOnly );
+	//	/**
+	//	 * Get the list of Parts persisted at the Inventory repository.
+	//	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
+	//	 * active Parts.
+	//	 *
+	//	 * @param activesOnly Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are
+	//	 *                    included on the list. If tru only active parts will be returned by the filter.  (optional, default to false)
+	//	 * @return Call&lt;PartList&gt;
+	//	 */
+	//	@Deprecated
+	//	@Headers({ "Content-Type:application/json" })
+	//	@GET("api/v1/inventory/parts")
+	//	Call<PartList> getParts( @Header("Authorization") final @NotNull String authorizationToken,
+	//	                         @Query("activesOnly") final Boolean activesOnly );
 
 	/**
 	 * Creates a new **Coil** instance on the persistence repository.

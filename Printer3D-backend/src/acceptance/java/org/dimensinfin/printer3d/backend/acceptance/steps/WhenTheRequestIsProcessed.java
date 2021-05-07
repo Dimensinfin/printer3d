@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
@@ -29,7 +30,6 @@ import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
@@ -214,6 +214,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.UPDATE_PART );
 	}
 
+	@When("the Extract Closed Requests request is processed")
+	public void the_extract_closed_requests_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.ACCOUNTING_CLOSED_REQUESTS_CSV_DATA );
+	}
+
 	@When("the Get Parts V2 request is processed")
 	public void the_get_parts_v2_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.GET_PARTS_V2 );
@@ -277,13 +282,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setListMachineV2ResponseEntity( machinesV2ResponseEntity );
 				return machinesV2ResponseEntity;
 			case CANCEL_BUILD:
-				final ResponseEntity<Machine> cancelBuildResponseEntity = this.machineFeignClientV1
+				final ResponseEntity<MachineV2> cancelBuildResponseEntity = this.machineFeignClientV1
 						.cancelBuild( this.printer3DWorld.getJwtAuthorizationToken(), this.printer3DWorld.getMachineId() );
 				Assertions.assertNotNull( cancelBuildResponseEntity );
 				this.printer3DWorld.setMachineResponseEntity( cancelBuildResponseEntity );
 				return cancelBuildResponseEntity;
 			case COMPLETE_BUILD:
-				final ResponseEntity<Machine> completeBuildResponseEntity = this.machineFeignClientV1
+				final ResponseEntity<MachineV2> completeBuildResponseEntity = this.machineFeignClientV1
 						.completeBuild( this.printer3DWorld.getMachineId() );
 				Assertions.assertNotNull( completeBuildResponseEntity );
 				this.printer3DWorld.setMachineResponseEntity( completeBuildResponseEntity );
@@ -323,7 +328,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
 				return getRequestsV2ResponseEntity;
 			case START_BUILDV2:
-				final ResponseEntity<Machine> startBuildV2ResponseEntity = this.machineFeignClientV2
+				final ResponseEntity<MachineV2> startBuildV2ResponseEntity = this.machineFeignClientV2
 						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
 								this.printer3DWorld.getMachineId(),
 								this.printer3DWorld.getJobRequest() );
@@ -378,6 +383,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return partListV2ResponseEntity;
 			case SCHEDULER_COIL_RESET:
 				return this.printer3DFeignClientSupport.resetCoilScheduler();
+			case ACCOUNTING_CLOSED_REQUESTS_CSV_DATA:
+				final ResponseEntity<Resource> closedRequestsDataResponseEntity = this.accountFeignClientV1.downloadClosedRequestsData();
+				Assertions.assertNotNull( closedRequestsDataResponseEntity );
+				this.printer3DWorld.setClosedRequestsDataResponseEntity( closedRequestsDataResponseEntity );
+				return closedRequestsDataResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}
