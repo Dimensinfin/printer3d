@@ -16,6 +16,22 @@
         "label": "/Pedidos",
         "enabled": true,
         "active": false,
+        "hasMenu": true,
+        "features": [{
+                "label": "/Pedidos Abiertos",
+                "enabled": true,
+                "active": false,
+                "interaction": "PAGEROUTE",
+                "route": "/production/requestlist/open"
+            },
+            {
+                "label": "/Pedidos Cerrados",
+                "enabled": true,
+                "active": false,
+                "interaction": "PAGEROUTE",
+                "route": "/production/requestlist/closed"
+            }
+        ],
         "interaction": "PAGEROUTE",
         "route": "/production/requestlist"
     },

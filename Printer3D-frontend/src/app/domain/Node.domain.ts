@@ -16,7 +16,9 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable {
         Object.assign(this, values)
         this.jsonClass = 'Node'
         this.uniqueIdentifier = uuidv4()
+        this.decode()
     }
+    public decode():void{}
 
     protected isEmpty(target?: any): boolean {
         if (null == target) return true;

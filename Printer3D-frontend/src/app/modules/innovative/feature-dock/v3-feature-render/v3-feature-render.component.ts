@@ -25,6 +25,13 @@ export class V3FeatureRenderComponent {
         private dialogFactory: DialogFactoryService,
         private dockService: DockService) { }
 
+    public getVariant(): string {
+        return this.variant
+    }
+    public getUniqueId(): string {
+        if (this.node) return this.getNode().getUniqueId()
+        else return '-'
+    }
     public getNode(): Feature {
         if (this.node) return this.node
         else throw new Error('The component still has not the node.')
@@ -77,7 +84,7 @@ export class V3FeatureRenderComponent {
         this.isMenuActive = false
     }
     public isActive(): boolean {
-        console.log('menu state: ' + this.isMenuActive)
+        // console.log('menu state: ' + this.isMenuActive)
         return this.isMenuActive
     }
 }

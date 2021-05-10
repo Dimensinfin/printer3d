@@ -15,7 +15,7 @@ export class Feature extends Node {
 
     constructor(values: Object = {}) {
         super(values)
-        Object.assign(this, values)
+        // Object.assign(this, values)
         this.jsonClass = 'Feature'
     }
     public decode(): void {
