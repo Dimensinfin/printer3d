@@ -1,5 +1,4 @@
 // - CORE
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 // - DOMAIN
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';

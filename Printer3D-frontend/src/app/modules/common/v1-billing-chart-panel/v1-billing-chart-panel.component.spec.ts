@@ -1,21 +1,11 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location } from "@angular/common";
 // - TESTING
 import { async } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { routes } from '@app/testing/RouteMockUp.component';
-// - PROVIDERS
-import { IsolationService } from '@app/platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { AppComponent } from '@app/app.component';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
-import { EVariant } from '@domain/interfaces/EPack.enumerated';
 import { V1BillingChartPanelComponent } from './v1-billing-chart-panel.component';
 
 describe('COMPONENT V1BillingChartPanelComponent [Module: COMMON]', () => {

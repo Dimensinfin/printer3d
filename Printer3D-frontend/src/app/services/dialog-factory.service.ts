@@ -1,9 +1,5 @@
 // - CORE
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
 // - MATERIAL
 import { MatDialogConfig } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';

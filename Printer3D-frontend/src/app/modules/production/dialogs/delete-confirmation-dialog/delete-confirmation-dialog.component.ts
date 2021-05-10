@@ -1,26 +1,15 @@
 // - CORE
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { DialogFactoryService } from '@app/services/dialog-factory.service';
 import { IsolationService } from '@app/platform/isolation.service';
-import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { environment } from '@env/environment';
-import { Part } from '@domain/inventory/Part.domain';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
-import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'delete-confirmation-dialog',

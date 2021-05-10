@@ -1,36 +1,24 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { Printer3DConstants } from '../../../../platform/Printer3DConstants.platform';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';
 // - MATERIAL
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 // - TESTING
-import { inject } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
 import { routes } from '@app/testing/RouteMockUp.component';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
-import { MatDialogHarness } from '@angular/material/dialog/testing';
 import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
-import { Part } from '@domain/inventory/Part.domain';
 import { NewCoilDialogComponent } from './new-coil-dialog.component';
 import { Coil } from '@domain/inventory/Coil.domain';
 

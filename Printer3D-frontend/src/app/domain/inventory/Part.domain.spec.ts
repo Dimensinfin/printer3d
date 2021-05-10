@@ -4,9 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { IsolationService } from '../../platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
 import { Part } from './Part.domain';
-import { ExpectedConditions } from 'protractor';
 
 describe('CLASS Part [Module: DOMAIN]', () => {
     let isolation: SupportIsolationService;

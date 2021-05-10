@@ -1,15 +1,10 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
-// - ROUTER
-import { Router } from '@angular/router';
 // - SERVICES
 import { DockService } from '@app/services/dock.service';
 // - DOMAIN
 import { Feature } from '@domain/Feature.domain';
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { AppComponent } from '@app/app.component';
 
 @Component({
     selector: 'v1-dock',
