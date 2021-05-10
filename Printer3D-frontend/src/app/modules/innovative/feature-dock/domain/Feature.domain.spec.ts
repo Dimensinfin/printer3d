@@ -1,10 +1,10 @@
 // - TESTING
 import { TestBed } from '@angular/core/testing';
 // - PROVIDERS
-import { IsolationService } from '../platform/isolation.service';
+import { IsolationService } from '../../../../platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 
 describe('CLASS Feature [Module: DOMAIN]', () => {
     let isolation: SupportIsolationService;

@@ -12,6 +12,7 @@ import { V1WorkLoadPanelComponent } from './v1-work-load-panel/v1-work-load-pane
 import { V1BillingChartPanelComponent } from './v1-billing-chart-panel/v1-billing-chart-panel.component';
 import { PatchNotesDialogComponent } from './patch-notes-dialog/patch-notes-dialog.component';
 import { SharedModule } from '../shared/shared.module';
+import { FeatureDockModule } from '../innovative/feature-dock/feature-dock.module';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
         NgxChartsModule,
         RendersModule,
         SharedModule,
+        FeatureDockModule
     ],
     declarations: [
         V1DockComponent,

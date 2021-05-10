@@ -15,7 +15,7 @@ import { Location } from "@angular/common";
 import { IsolationService } from '@app/platform/isolation.service'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain'
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain'
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
 import { V1DockComponent } from '../../common/v1-dock/v1-dock.component'
 import { BackendService } from '@app/services/backend.service'

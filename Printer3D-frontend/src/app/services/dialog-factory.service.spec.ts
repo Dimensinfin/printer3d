@@ -16,7 +16,7 @@ import { routes } from '@app/testing/RouteMockUp.component';
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { DialogFactoryService } from './dialog-factory.service';
 import { MatDialog } from '@angular/material/dialog';
 

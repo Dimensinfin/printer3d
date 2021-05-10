@@ -17,7 +17,7 @@ import { IsolationService } from '@app/platform/isolation.service'
 import { V1NewRequestPanelComponent } from '@app/modules/production/panels/v1-new-request-panel/v1-new-request-panel.component'
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
-import { Feature } from '@domain/Feature.domain'
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain'
 import { V1PartContainerRenderComponent } from '../v1-part-container-render/v1-part-container-render.component'
 import { InventoryService } from '@app/modules/inventory/service/inventory.service'
 

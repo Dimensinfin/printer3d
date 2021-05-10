@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 // - SERVICES
 import { DockService } from '@app/services/dock.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 
 @Component({
     selector: 'v1-dock',

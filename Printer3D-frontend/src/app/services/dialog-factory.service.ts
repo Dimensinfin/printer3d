@@ -5,7 +5,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { NewCoilDialogComponent } from '@app/modules/inventory/dialogs/new-coil-dialog/new-coil-dialog.component';
 

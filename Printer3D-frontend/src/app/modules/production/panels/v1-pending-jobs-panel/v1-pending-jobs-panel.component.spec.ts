@@ -10,19 +10,11 @@ import { fakeAsync } from '@angular/core/testing';
 import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component';
-import { routes } from '@app/testing/RouteMockUp.component';
-// - PROVIDERS
-import { IsolationService } from '@app/platform/isolation.service';
-import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { BackendService } from '@app/services/backend.service';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service';
-import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { V1PendingJobsPanelComponent } from './v1-pending-jobs-panel.component';
 import { EVariant } from '@domain/interfaces/EPack.enumerated';
 

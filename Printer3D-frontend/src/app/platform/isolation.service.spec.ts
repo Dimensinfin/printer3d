@@ -10,17 +10,12 @@ import { routes } from '@app/testing/RouteMockUp.component';
 import { LOCAL_STORAGE } from 'ngx-webstorage-service';
 // - PROVIDERS
 import { IsolationService } from '../platform/isolation.service';
-import { ToastrModule } from 'ngx-toastr';
-// import { ToastrModuleComponent } from 'ngx-toastr';
-// import { ToastrConfig } from 'ngx-toastr';
 import { ToastrService } from 'ngx-toastr';
 import { SupportLocalStorage } from '@app/testing/SupportLocalStorage.service';
 import { SupportToastrService } from '@app/testing/SupportToastrService.service';
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain';
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { HttpErrorResponse } from '@angular/common/http';
-// import { ToastrTestingModule } from '@app/testing/ToastrTestingModule.mock';
-// import { SupportToastConfig } from '@app/testing/SupportToastConfig.service';
 
 describe('SERVICE IsolationService [Module: PLATFORM]', () => {
     const TEST_MESSAGE = '-TEST_MESSAGE-';

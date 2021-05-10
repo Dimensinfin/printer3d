@@ -36,6 +36,7 @@ import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { AppErrorHandler } from './AppErrorHandler';
 import { HttpErrorInterceptor } from './HttpErrorInterceptor';
+import { FeatureDockModule } from './modules/innovative/feature-dock/feature-dock.module';
 registerLocaleData(localeEs);
 
 // - ERROR INTERCEPTION
@@ -69,7 +70,8 @@ registerLocaleData(localeEs);
         SharedModule,
         RendersModule,
         InventoryModule,
-        ProductionModule
+        ProductionModule,
+        FeatureDockModule
     ],
     declarations: [
         AppComponent,

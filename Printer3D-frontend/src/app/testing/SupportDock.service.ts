@@ -2,7 +2,7 @@
 import { Observable } from 'rxjs';
 // - DOMAIN
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Feature } from '@domain/Feature.domain';
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 
 export class SupportDockService {
     public readDockConfiguration(transformer: ResponseTransformer): Observable<Feature[]> {

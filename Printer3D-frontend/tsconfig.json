@@ -36,6 +36,9 @@
             ],
             "@bit/innovative.innovative-core.asset-manager/*": [
                 "src/app/modules/innovative/asset-manager/*"
+            ],
+            "@bit/innovative.innovative-core.feature-dock/*": [
+                "src/app/modules/innovative/feature-dock/*"
             ]
         }
     },

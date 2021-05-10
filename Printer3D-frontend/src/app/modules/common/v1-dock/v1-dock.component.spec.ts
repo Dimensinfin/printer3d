@@ -7,7 +7,7 @@ import { TestBed } from '@angular/core/testing'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 // - DOMAIN
 import { V1DockComponent } from './v1-dock.component'
-import { Feature } from '@domain/Feature.domain'
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain'
 import { DockService } from '@app/services/dock.service'
 import { Observable } from 'rxjs'
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer'

@@ -9,15 +9,11 @@ import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component'
 import { routes } from '@app/testing/RouteMockUp.component'
 import { Location } from "@angular/common"
 // - PROVIDERS
-import { IsolationService } from '@app/platform/isolation.service'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 // - DOMAIN
-import { Feature } from '@domain/Feature.domain'
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain'
 import { DockService } from './dock.service'
-import { ResponseTransformer } from './support/ResponseTransformer'
 import { HttpClientWrapperService } from './httpclientwrapper.service'
-import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
-import { features } from 'process'
 import { Observable } from 'rxjs'
 import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 

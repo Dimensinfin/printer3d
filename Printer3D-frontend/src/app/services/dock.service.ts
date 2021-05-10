@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { ResponseTransformer } from './support/ResponseTransformer';
 // - ENVIRONMENT
-import { Feature } from '@domain/Feature.domain';
+import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { Router } from '@angular/router';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 
