@@ -31,9 +31,12 @@
             "@app/*": [
                 "src/app/*"
             ],
-            "@innovative/*": [
-                "node_modules/@bit/innovative.innovative.innovative-core/dist/innovative-core/*"
+            "@bit/innovative.innovative-core.backend-support/*": [
+                "src/app/modules/innovative/backend-support/*"
             ],
+            "@bit/innovative.innovative-core.asset-manager/*": [
+                "src/app/modules/innovative/asset-manager/*"
+            ]
         }
     },
     "angularCompilerOptions": {
