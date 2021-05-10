@@ -7,7 +7,7 @@ export class Feature extends Node {
     public active: boolean
     public enabled: boolean
     private hasMenu: boolean
-    public route: string = '/'
+    public route: string
     public interaction: EInteraction = EInteraction.PAGEROUTE
     public modifier: string
     public dialog: string
@@ -49,7 +49,11 @@ export class Feature extends Node {
         }
     }
     public getRoute(): string {
-        return this.route
+        if (this.route) return this.route
+        else {
+            this.route = '/'
+            return this.route
+        }
     }
     public equals(target: Feature): boolean {
         if (this.label != target.label) return false

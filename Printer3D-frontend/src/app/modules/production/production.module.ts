@@ -24,6 +24,8 @@ import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
     { path: 'newrequest', component: V1NewRequestPageComponent },
+    { path: 'requestlist/open', component: V1OpenRequestsPageComponent },
+    { path: 'requestlist/closed', component: V1OpenRequestsPageComponent },
     { path: 'pendingjobs', component: ProductionJobListPageComponent }
 ];
 
