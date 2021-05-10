@@ -1,4 +1,6 @@
-@import "../../../../styles/_scss_variables.scss";
+// @import "../../../../styles/_scss_variables.scss";
+$library-font-color: white;
+$library-font-family :'Open Sans';
 $feature-color:white;
 $feature-background-color:black;
 $feature-width: 180px;
@@ -20,12 +22,12 @@ $feature-width: 180px;
 }
 
 .feature-label {
-    font-family: $app-font-family, sans-serif;
+    font-family: $library-font-family, sans-serif;
     font-size: 1.1rem;
     line-height: 1.1rem;
-    color: $app-font-color;
+    color: $library-font-color;
     text-transform: uppercase;
-    text-shadow: 0px 0px 2px $app-font-color, 0px 0px 2px $app-font-color;
+    text-shadow: 0px 0px 2px $library-font-color, 0px 0px 2px $library-font-color;
     padding-left: 8px;
 }
 
@@ -69,4 +71,29 @@ $feature-width: 180px;
     top: 0px;
     left: 0px;
     width: 12px;
+}
+
+.menu {
+    visibility: hidden;
+}
+
+.menu-active {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    visibility: visible;
+    opacity: 1.0;
+    z-index: 100;
+}
+
+.menu-feature {
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 4px;
+    background-color: #24264e;
+    width: 240px;
+}
+
+.menu-feature:hover {
+    background-color: #252863;
 }

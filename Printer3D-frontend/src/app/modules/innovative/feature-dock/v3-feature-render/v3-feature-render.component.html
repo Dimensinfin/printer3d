@@ -1,0 +1,64 @@
+<div cy-name="feature" class="row feature" [ngClass]="{'active': node.active, 'disabled': !node.enabled}" (click)="onClick()" (mouseenter)="activateMenu()">
+    <div class="feature-width">
+        <span class="feature-label">{{node.getLabel()}}</span>
+    </div>
+    <div class="corner-aligment">
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg class="corner-mark" viewBox="0 0 100 100" *ngIf="node.active">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
+        </svg>
+    </div>
+    <svg class="corner-top" *ngIf="isMarkVisible()" viewBox="0 0 100 100" [ngClass]="{'blue-mark': node.interaction=='DIALOG', 'blueviolet-mark': node.modifier=='DROP'}">
+        <path d="M0,0 L0,100 L100,0 L0,0"/>
+    </svg>
+    <div *ngIf="hasMenu()" class="menu" (mouseleave)="deactivateMenu()">
+        <div *ngIf="isActive()" class="menu-active">
+            <div *ngFor="let feature of getChildFeatures()">
+                <v2-feature class="menu-feature" [node]="feature" [variant]="'-SUBFEATURE-'"></v2-feature>
+            </div>
+            <!-- <div cy-name="feature" class="row feature menu-feature" [ngClass]="{'active': node.active, 'disabled': !node.enabled}" (click)="onClick()">
+                <div class="feature-width">
+                    <span class="feature-label">{{node.label}}/abiertos</span>
+                </div>
+                <div class="corner-aligment">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <svg class="corner-mark" viewBox="0 0 100 100" *ngIf="node.active">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
+                    </svg>
+                </div>
+                <svg class="corner-top" *ngIf="isMarkVisible()" viewBox="0 0 100 100" [ngClass]="{'blue-mark': node.interaction=='DIALOG', 'blueviolet-mark': node.modifier=='DROP'}">
+                    <path d="M0,0 L0,100 L100,0 L0,0"/>
+                </svg>
+            </div>
+            <div cy-name="feature" class="row feature menu-feature" [ngClass]="{'active': node.active, 'disabled': !node.enabled}" (click)="onClick()">
+                <div class="feature-width">
+                    <span class="feature-label">{{node.label}}/cerrados</span>
+                </div>
+                <div class="corner-aligment">
+                    <svg class="corner-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="corner-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+                    </svg>
+                    <svg class="corner-mark" viewBox="0 0 100 100" *ngIf="node.active">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="green" />
+                    </svg>
+                </div>
+                <svg class="corner-top" *ngIf="isMarkVisible()" viewBox="0 0 100 100" [ngClass]="{'blue-mark': node.interaction=='DIALOG', 'blueviolet-mark': node.modifier=='DROP'}">
+                    <path d="M0,0 L0,100 L100,0 L0,0"/>
+                </svg>
+            </div> -->
+        </div>
+    </div>
+</div>

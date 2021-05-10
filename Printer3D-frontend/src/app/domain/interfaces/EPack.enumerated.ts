@@ -22,11 +22,11 @@ export enum EVariant {
     CHANGE='-CHANGE-',
     NOTE='-NOTE-'
 }
-export enum EInteraction {
-    ACTION = 'ACTION',
-    DIALOG = 'DIALOG',
-    PAGEROUTE = 'PAGEROUTE'
-}
+// export enum EInteraction {
+//     ACTION = 'ACTION',
+//     DIALOG = 'DIALOG',
+//     PAGEROUTE = 'PAGEROUTE'
+// }
 export enum ESeparator {
     RED = 'RED'
     , ORANGE = 'ORANGE'

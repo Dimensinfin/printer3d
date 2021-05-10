@@ -10,7 +10,7 @@ import { NodeContainerRenderComponent } from './node-container-render/node-conta
 import { V1PartRenderComponent } from './v1-part-render/v1-part-render.component'
 import { V1PartContainerRenderComponent } from './v1-part-container-render/v1-part-container-render.component'
 import { V1CoilRenderComponent } from './v1-coil-render/v1-coil-render.component'
-import { V2FeatureRenderComponent } from './v2-feature-render/v2-feature-render.component'
+// import { V2FeatureRenderComponent } from '../innovative/feature-dock/v2-feature-render/v2-feature-render.component'
 import { V1RequestRenderComponent } from './v1-request-render/v1-request-render.component'
 import { V3MachineRenderComponent } from './v3-machine-render/v3-machine-render.component'
 import { V1PartStackRenderComponent } from './v1-part-stack-render/v1-part-stack-render.component'
@@ -32,7 +32,7 @@ import { V1ProjectRenderComponent } from './v1-project-render/v1-project-render.
         V1PartRenderComponent,
         V1PartContainerRenderComponent,
         V1CoilRenderComponent,
-        V2FeatureRenderComponent,
+        // V2FeatureRenderComponent,
         V1RequestRenderComponent,
         V3MachineRenderComponent,
         V1PartStackRenderComponent,
@@ -47,7 +47,7 @@ import { V1ProjectRenderComponent } from './v1-project-render/v1-project-render.
         NodeContainerRenderComponent,
         V1PartRenderComponent,
         V1CoilRenderComponent,
-        V2FeatureRenderComponent,
+        // V2FeatureRenderComponent,
         V1RequestRenderComponent,
         V3MachineRenderComponent,
         V1PartStackRenderComponent,
