@@ -109,10 +109,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests/repository",
@@ -229,8 +226,7 @@
 					"response": []
 				}
 			],
-			"description": "Support calls only available on development environments and not in Production.",
-			"protocolProfileBehavior": {}
+			"description": "Support calls only available on development environments and not in Production."
 		},
 		{
 			"name": "Actuators",
@@ -254,44 +250,322 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Inventory",
 			"item": [
 				{
-					"name": "NewPart",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"weight\": 4,\n  \"cost\": 1.0,\n  \"price\": 5.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+					"name": "V1",
+					"item": [
+						{
+							"name": "GetParts",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+									],
+									"path": [
+										"parts"
+									]
+								},
+								"description": "Get the complete list of parts from the Inventory respository. There is an optional flag to filter out inactive parts."
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"parts"
+						{
+							"name": "NewPart",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"weight\": 4,\n  \"cost\": 1.0,\n  \"price\": 5.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+									],
+									"path": [
+										"parts"
+									]
+								},
+								"description": "Creates a new Part at the Inventory repository."
+							},
+							"response": []
+						},
+						{
+							"name": "GetCoils",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+									],
+									"path": [
+										"coils"
+									]
+								},
+								"description": "Get the complete list of Rolls persisted at the Inventory repository."
+							},
+							"response": []
+						},
+						{
+							"name": "GetModels",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+									],
+									"path": [
+										"models"
+									]
+								},
+								"description": "Get the complete list of **Models** persisted at the Inventory repository."
+							},
+							"response": []
+						},
+						{
+							"name": "NewPart [400]",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n  \"label\": \"PLATAFORMA SLOT 1/32 - Base\",\n  \"project\":\"LONGITUD DEL NOMBRE DE PROYECTO COMPLETAMENTE FUERA DE LOS LIMITES PERMITIDOS\",\n  \"description\": \"Base para la plataforma de slot cars.\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"buildTime\": 30,\n  \"weight\": 4,\n  \"cost\": 1.0,\n  \"price\": 5.0,\n  \"stockLevel\": 2,\n  \"stockAvailable\": 0,\n  \"imagePath\": \"https://ibb.co/3dGbsRh\",\n  \"modelPath\": \"pieza3.sft\",\n  \"active\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{inventoryv1}}"
+									],
+									"path": [
+										"parts"
+									]
+								},
+								"description": "Try to create a new Part but with some data that makes the request invalid."
+							},
+							"response": []
+						}
+					],
+					"description": "Endpoints for the initial version of any endpoint."
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Get Coils V2",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwtToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/coils",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{inventoryv2}}"
+									],
+									"path": [
+										"coils"
+									]
+								},
+								"description": "Get the complete list of Coils available on stock. The request automatically filters out exhausted and empty or rejected coils."
+							},
+							"response": [
+								{
+									"name": "Get Coils V2",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/coils",
+											"host": [
+												"{{backendServer}}{{backendPort}}{{inventoryv2}}"
+											],
+											"path": [
+												"coils"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Request-ID",
+											"value": "f1441d84-d372-414a-b140-664b835be6c8"
+										},
+										{
+											"key": "X-Correlation-ID",
+											"value": "10cff0d5-9a47-4f1a-be18-838ae6f9f6d7"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "896"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 22 Mar 2021 02:14:23 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"2f4fe8d8-fc1b-40fd-b9b2-729100612253\",\n        \"material\": \"PLA\",\n        \"color\": \"BLANCO\",\n        \"colorSet\": \"BLANCO\"\n    },\n    {\n        \"id\": \"cee43a4e-339a-482c-ac60-dd7d13bba5e2\",\n        \"material\": \"PLA\",\n        \"color\": \"NEGRO (uso)\",\n        \"colorSet\": \"NEGRO\"\n    },\n    {\n        \"id\": \"df397fcc-ba76-453c-b896-e58965133787\",\n        \"material\": \"PLA\",\n        \"color\": \"NEGRO\",\n        \"colorSet\": \"NEGRO\"\n    },\n    {\n        \"id\": \"c8afa59f-33e4-4143-a874-1a54a8818b54\",\n        \"material\": \"PLA\",\n        \"color\": \"NEGRO\",\n        \"colorSet\": \"NEGRO\"\n    },\n    {\n        \"id\": \"5d01ccbd-8cb1-4509-8c35-85fda73c4686\",\n        \"material\": \"PLA\",\n        \"color\": \"ROJO\",\n        \"colorSet\": \"ROJO\"\n    },\n    {\n        \"id\": \"be890c79-1d21-415e-8a38-ef20b0288b04\",\n        \"material\": \"PLA\",\n        \"color\": \"AZUL BRILLANTE CLARO\",\n        \"colorSet\": \"AZUL BRILLANTE\"\n    },\n    {\n        \"id\": \"5684eedb-2a96-49e5-b5d7-ca45c4ac8222\",\n        \"material\": \"PLA\",\n        \"color\": \"AZUL BRILLANTE CLARO\",\n        \"colorSet\": \"AZUL BRILLANTE\"\n    }\n]"
+								}
 							]
 						},
-						"description": "Creates a new Part at the Inventory repository."
-					},
-					"response": []
+						{
+							"name": "Get Parts V2",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{inventoryv2}}/parts",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{inventoryv2}}"
+									],
+									"path": [
+										"parts"
+									]
+								},
+								"description": "Returns the simple list of the Parts persisted on the repository."
+							},
+							"response": []
+						}
+					],
+					"description": "Contains the endpoints for the new data backend formats.",
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{jwtToken}}",
+								"type": "string"
+							}
+						]
+					}
 				},
 				{
 					"name": "NewPart-409 Duplicated",
@@ -327,31 +601,7 @@
 					"response": []
 				},
 				{
-					"name": "GetParts",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/parts",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"parts"
-							]
-						},
-						"description": "Get the complete list of parts from the Inventory respository. There is an optional flag to filter out inactive parts."
-					},
-					"response": []
-				},
-				{
-					"name": "NewCoil",
+					"name": "New Coil Minimum",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -363,7 +613,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"8328e3ff-1cee-42f1-bd1d-275353debb6d\",\n  \"material\": \"PLA\",\n  \"color\": \"VERDE TRANSPARENTE\",\n  \"weight\": 450\n}",
+							"raw": "{\n  \"id\": \"8328e3ff-1cee-42f1-bd1d-275353debb7d\",\n  \"material\": \"PLA\",\n  \"tradeMark\": \"ESUN\",\n  \"color\": \"VERDE TRANSPARENTE\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -413,54 +663,6 @@
 							]
 						},
 						"description": "Updates a Coil. All only field allowed to be changed is the weight."
-					},
-					"response": []
-				},
-				{
-					"name": "GetCoils",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/coils",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"coils"
-							]
-						},
-						"description": "Get the complete list of Rolls persisted at the Inventory repository."
-					},
-					"response": []
-				},
-				{
-					"name": "GetModels",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"models"
-							]
-						},
-						"description": "Get the complete list of **Models** persisted at the Inventory repository."
 					},
 					"response": []
 				},
@@ -550,30 +752,6 @@
 							]
 						},
 						"description": "Updates a Model. All the fields are editable but the id. So the endpoint just replaces the contents."
-					},
-					"response": []
-				},
-				{
-					"name": "GetModels",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{inventoryv1}}/models",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{inventoryv1}}"
-							],
-							"path": [
-								"models"
-							]
-						},
-						"description": "Get the complete list of **Models** persisted at the Inventory repository."
 					},
 					"response": []
 				},
@@ -742,8 +920,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Production",
@@ -761,10 +938,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}"
 						},
 						"url": {
 							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
@@ -792,10 +966,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}"
 						},
 						"url": {
 							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
@@ -823,10 +994,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}"
 						},
 						"url": {
 							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
@@ -973,19 +1141,17 @@
 					"response": []
 				}
 			],
-			"description": "Stores Production endpoints",
-			"protocolProfileBehavior": {}
+			"description": "Stores Production endpoints"
 		},
 		{
 			"name": "Accounting",
 			"item": [
 				{
-					"name": "GetWeekRequestAmounts",
+					"name": "Get Amounts Week",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "01739d06-6407-4110-bfa1-5fc5181c7643",
 								"exec": [
 									"1"
 								],
@@ -998,8 +1164,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"url": {
@@ -1016,10 +1182,45 @@
 						"description": "Get the aggregated request amounts for the requests closed during a week. Get the <weekCount> most recent records."
 					},
 					"response": []
+				},
+				{
+					"name": "Export CVS Request Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendServer}}{{backendPort}}{{accountingv1}}/requests/data",
+							"host": [
+								"{{backendServer}}{{backendPort}}{{accountingv1}}"
+							],
+							"path": [
+								"requests",
+								"data"
+							]
+						},
+						"description": "Generates a CVS response that should generate a CSV file at the user browser."
+					},
+					"response": []
 				}
 			],
-			"description": "The API information unit to manage historical, trending and aggregates data mining endpoints.",
-			"protocolProfileBehavior": {}
+			"description": "The API information unit to manage historical, trending and aggregates data mining endpoints."
 		},
 		{
 			"name": "GetParts-filter active",
@@ -1054,6 +1255,5 @@
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
