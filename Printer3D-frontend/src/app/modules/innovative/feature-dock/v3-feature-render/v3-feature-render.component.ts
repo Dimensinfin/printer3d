@@ -58,7 +58,8 @@ export class V3FeatureRenderComponent {
     public onClick() {
         if (this.node) {
             console.log('>[V3FeatureRenderComponent.onClick]> Label: ' + this.getNode().getLabel())
-            if (this.getNode().isEnabled()) // Only interact with enabled Features
+            if (this.getNode().isEnabled()) { // Only interact with enabled Features
+                if (this.getNode().ifHasMenu()) return // Remove additional click on the sub feature parent
                 switch (this.getNode().interaction) {
                     case 'PAGEROUTE':
                         console.log('-[V3FeatureRenderComponent.onClick]> PAGEROUTE')
@@ -75,6 +76,7 @@ export class V3FeatureRenderComponent {
                             })
                         break
                 }
+            }
         }
     }
     public activateMenu() {
