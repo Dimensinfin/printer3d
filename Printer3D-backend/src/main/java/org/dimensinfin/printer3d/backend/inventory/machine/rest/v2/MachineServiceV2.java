@@ -13,34 +13,31 @@ import org.springframework.transaction.annotation.Transactional;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.inventory.machine.domain.PlasticConsumerManager;
-import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineEntity;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineRepository;
 import org.dimensinfin.printer3d.backend.inventory.machine.persistence.MachineUpdaterV2;
+import org.dimensinfin.printer3d.backend.inventory.machine.rest.CommonMachineService;
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.converter.MachineEntityToMachineV2Converter;
 import org.dimensinfin.printer3d.backend.inventory.machine.rest.v1.MachineServiceV1;
-import org.dimensinfin.printer3d.backend.inventory.part.converter.PartEntityToPartConverter;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.rest.PartRestErrors;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.BuildRecord;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 
 @Service
 @Transactional
-public class MachineServiceV2 {
+public class MachineServiceV2 extends CommonMachineService {
 	private final MachineRepository machineRepository;
-	private final PartRepository partRepository;
 	private final PlasticConsumerManager plasticConsumerManager;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public MachineServiceV2( final @NotNull MachineRepository machineRepository,
-	                         final @NotNull PartRepository partRepository,
-	                         final @NotNull PlasticConsumerManager plasticConsumerManager ) {
+	public MachineServiceV2( @NotNull final PartRepository partRepository,
+	                         @NotNull final MachineRepository machineRepository,
+	                         @NotNull final PlasticConsumerManager plasticConsumerManager ) {
+		super( partRepository );
 		this.machineRepository = Objects.requireNonNull( machineRepository );
-		this.partRepository = Objects.requireNonNull( partRepository );
 		this.plasticConsumerManager = plasticConsumerManager;
 	}
 
@@ -96,12 +93,12 @@ public class MachineServiceV2 {
 		LogWrapper.enter();
 		try {
 			// Find the machine and update it.
-			final MachineEntity machineEntity = this.machineRepository.findById( machineId )
+			final var machineEntity = this.machineRepository.findById( machineId )
 					.orElseThrow( () -> new DimensinfinRuntimeException( MachineServiceV1.errorMACHINENOTFOUND( machineId ) ) );
 			final PartEntity jobPartEntity = this.partRepository.findById( jobRequest.getPartId() )
 					.orElseThrow( () -> new DimensinfinRuntimeException( PartRestErrors.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) );
 			this.plasticConsumerManager.subtractPlasticFromCoil( jobPartEntity, jobRequest.getCopies() );
-			final MachineEntity updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update(
+			final var updatedMachineEntity = this.machineRepository.save( new MachineUpdaterV2( machineEntity ).update(
 					jobRequest,
 					jobPartEntity.getBuildTime()
 			) );
@@ -115,16 +112,5 @@ public class MachineServiceV2 {
 		} finally {
 			LogWrapper.exit();
 		}
-	}
-
-	private Part getBuildPart( final MachineEntity machineEntity ) {
-		// Check for completed jobs.
-		if (null != machineEntity.getCurrentJobPartId()) { // Check if the job has completed
-			return new PartEntityToPartConverter().convert(
-					this.partRepository.findById( machineEntity.getCurrentJobPartId() )
-							.orElseThrow(
-									() -> new DimensinfinRuntimeException( PartRestErrors.errorPARTNOTFOUND( machineEntity.getCurrentJobPartId() ) ) )
-			);
-		} else return null;
 	}
 }

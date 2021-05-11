@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.MachineConstants.TEST_MACHINE_ID;
 
@@ -22,28 +22,28 @@ public class MachineControllerV1Test {
 	}
 
 	@Test
-	public void completeBuild() {
+	public void cancelBuild() {
 		// Given
-		final Machine machine = Mockito.mock( Machine.class );
+		final MachineV2 machine = Mockito.mock( MachineV2.class );
 		// When
-		Mockito.when( this.machineServiceV1.completeBuild( Mockito.any( UUID.class ) ) ).thenReturn( machine );
+		Mockito.when( this.machineServiceV1.cancelBuild( Mockito.any( UUID.class ) ) ).thenReturn( machine );
 		// Test
 		final MachineControllerV1 machineControllerV1 = new MachineControllerV1( this.machineServiceV1 );
-		final ResponseEntity<Machine> obtained = machineControllerV1.completeBuild( TEST_MACHINE_ID );
+		final ResponseEntity<MachineV2> obtained = machineControllerV1.cancelBuild( TEST_MACHINE_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
 	}
 
 	@Test
-	public void cancelBuild() {
+	public void completeBuild() {
 		// Given
-		final Machine machine = Mockito.mock( Machine.class );
+		final MachineV2 machine = Mockito.mock( MachineV2.class );
 		// When
-		Mockito.when( this.machineServiceV1.cancelBuild( Mockito.any( UUID.class ) ) ).thenReturn( machine );
+		Mockito.when( this.machineServiceV1.completeBuild( Mockito.any( UUID.class ) ) ).thenReturn( machine );
 		// Test
 		final MachineControllerV1 machineControllerV1 = new MachineControllerV1( this.machineServiceV1 );
-		final ResponseEntity<Machine> obtained = machineControllerV1.cancelBuild( TEST_MACHINE_ID );
+		final ResponseEntity<MachineV2> obtained = machineControllerV1.completeBuild( TEST_MACHINE_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

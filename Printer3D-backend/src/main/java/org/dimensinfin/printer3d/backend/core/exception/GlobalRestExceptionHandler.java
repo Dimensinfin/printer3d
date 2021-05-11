@@ -1,6 +1,8 @@
 package org.dimensinfin.printer3d.backend.core.exception;
 
 import java.text.MessageFormat;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -57,6 +59,13 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
 		final String message = ex.getMessage();
 		final String cause = message.substring( message.indexOf( "[Field" ), message.indexOf( ";", message.indexOf( "[Field" ) ) );
 		final String subcause = message.substring( message.lastIndexOf( "default message [" ), message.lastIndexOf( "]" ) );
+
+		final List<String> errors = ex.getBindingResult()
+				.getFieldErrors()
+				.stream()
+				.map( x -> x.getDefaultMessage() )
+				.collect( Collectors.toList() );
+
 		return new ResponseEntity<>(
 				new ApiError( new DimensinfinRuntimeException( DimensinfinRuntimeException.errorFIELDNOTVALIDREQUEST( ex, cause, subcause ) ) ),
 				HttpStatus.BAD_REQUEST );

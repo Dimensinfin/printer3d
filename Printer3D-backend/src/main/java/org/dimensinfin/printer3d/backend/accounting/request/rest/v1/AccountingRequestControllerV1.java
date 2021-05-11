@@ -44,7 +44,7 @@ public class AccountingRequestControllerV1 {
 	@GetMapping(path = "/accounting/requests/data",
 			consumes = "application/json",
 			produces = "text/csv")
-	public void exportToCSV( final HttpServletResponse response ) {
+	public void downloadClosedRequestsData( final HttpServletResponse response ) {
 		response.setContentType( "text/csv" );
 		final DateFormat dateFormatter = new SimpleDateFormat( "yyyy-MM-dd_HH-mm" );
 		final String currentDateTime = dateFormatter.format( new Date() );

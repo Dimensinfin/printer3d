@@ -9,7 +9,7 @@ import org.dimensinfin.printer3d.backend.Printer3DApplication;
 
 /**
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
- * @since 0.15.1
+ * @since 0.16.1
  */
 public class AccountingRestErrors {
 	public static DimensinfinError errorEXPORTGENERATIONEXCEPTION( final String exceptionMessage ) {
@@ -21,6 +21,6 @@ public class AccountingRestErrors {
 				.build();
 	}
 
-// - C O N S T R U C T O R S
+	// - C O N S T R U C T O R S
 	private AccountingRestErrors() {}
 }

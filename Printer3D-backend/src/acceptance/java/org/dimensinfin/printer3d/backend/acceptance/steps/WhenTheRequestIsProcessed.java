@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Assertions;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
@@ -384,7 +383,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 			case SCHEDULER_COIL_RESET:
 				return this.printer3DFeignClientSupport.resetCoilScheduler();
 			case ACCOUNTING_CLOSED_REQUESTS_CSV_DATA:
-				final ResponseEntity<Resource> closedRequestsDataResponseEntity = this.accountFeignClientV1.downloadClosedRequestsData();
+				final ResponseEntity<String> closedRequestsDataResponseEntity = this.accountFeignClientV1.downloadClosedRequestsData();
 				Assertions.assertNotNull( closedRequestsDataResponseEntity );
 				this.printer3DWorld.setClosedRequestsDataResponseEntity( closedRequestsDataResponseEntity );
 				return closedRequestsDataResponseEntity;

@@ -12,6 +12,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
+import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
@@ -24,6 +25,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface InventoryApiV1 {
 	// - G E T T E R S   &   S E T T E R S

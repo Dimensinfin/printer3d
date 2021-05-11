@@ -10,6 +10,10 @@ import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public interface AccountingApiV1 {
+	@Headers({ "Content-Type:application/json" })
+	@GET("api/v1/accounting/requests/data")
+	Call<String> downloadClosedRequestsData();
+
 	/**
 	 * Get the aggregated request amounts for the requests closed during a week. Get the &lt;weekCount&gt; most recent records.
 	 *
@@ -19,6 +23,5 @@ public interface AccountingApiV1 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v1/accounting/requests/amount/week")
-    Call<List<WeekAmount>> getRequestsAmountPerWeek( final @Query("weekCount") Integer weekCount );
-
+	Call<List<WeekAmount>> getRequestsAmountPerWeek( final @Query("weekCount") Integer weekCount );
 }

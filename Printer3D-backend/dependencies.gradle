@@ -86,6 +86,7 @@ dependencies {
     acceptanceImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
     acceptanceImplementation "io.cucumber:cucumber-picocontainer:$cucumberVersion"
     acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    acceptanceImplementation 'com.squareup.retrofit2:converter-scalars:2.5.0' // Helps processing CSV responses
 }
 task acceptanceTest(type: Test) {
     group = 'verification'

@@ -38,6 +38,13 @@ public class B3D09Accounting extends StepSupport {
 		Assertions.assertNotNull( counter.getBody() );
 	}
 
+	@Then("the CVS response has {int} lines")
+	public void the_cvs_response_has_lines( final Integer lines ) {
+		Assertions.assertNotNull( this.printer3DWorld.getClosedRequestsDataResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getClosedRequestsDataResponseEntity().getBody() );
+		Assertions.assertEquals( lines, this.contentLines( this.printer3DWorld.getClosedRequestsDataResponseEntity().getBody() ) );
+	}
+
 	@Then("the week report has the next contents")
 	public void the_week_report_has_the_next_contents( final List<Map<String, String>> dataTable ) {
 		final ResponseEntity<List<WeekAmount>> weekData = this.printer3DWorld.getListWeekAmountResponseEntity();
@@ -48,5 +55,10 @@ public class B3D09Accounting extends StepSupport {
 			final WeekAmount record = weekData.getBody().get( i );
 			Assertions.assertTrue( new WeekAmountValidator().validate( row, record ) );
 		}
+	}
+
+	private int contentLines( final String reportString ) {
+		final String[] lines = reportString.split( "\r\n|\r|\n" );
+		return lines.length;
 	}
 }

@@ -3,7 +3,6 @@ package org.dimensinfin.printer3d.backend.support;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.acceptance.support.CommonWorld;
@@ -56,7 +55,7 @@ public class Printer3DWorld extends CommonWorld {
 	private Integer weekCount;
 	private ResponseEntity<List<Coil>> coilV2ListResponseEntity;
 	private ResponseEntity<List<Part>> partListV2ResponseEntity;
-	private ResponseEntity<Resource> closedRequestsDataResponseEntity;
+	private ResponseEntity<String> closedRequestsDataResponseEntity;
 
 	// - G E T T E R S   &   S E T T E R S
 	public DimensinfinRuntimeException getApplicationException() {
@@ -68,11 +67,11 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<Resource> getClosedRequestsDataResponseEntity() {
+	public ResponseEntity<String> getClosedRequestsDataResponseEntity() {
 		return this.closedRequestsDataResponseEntity;
 	}
 
-	public Printer3DWorld setClosedRequestsDataResponseEntity( final ResponseEntity<Resource> closedRequestsDataResponseEntity ) {
+	public Printer3DWorld setClosedRequestsDataResponseEntity( final ResponseEntity<String> closedRequestsDataResponseEntity ) {
 		this.closedRequestsDataResponseEntity = closedRequestsDataResponseEntity;
 		return this;
 	}

@@ -17,13 +17,13 @@ public class LogRequestHeaderInterceptor implements HandlerInterceptor {
 	                          @NotNull final Object handler ) {
 		// Filter the requests with the OPTIONS calls because they should not be verified
 		final String meth = request.getMethod();
-		if (meth.equalsIgnoreCase( "OPTIONS" )) return true;
-		// Check that the mandatory headers are present. If not then reject the request.
-		final Enumeration<String> headerNames = request.getHeaderNames();
-		while (headerNames.hasMoreElements()) {
-			final String header = headerNames.nextElement();
-			final String headerValue = request.getHeader( header );
-			LogWrapper.info( MessageFormat.format( "AP [VERIFICATION   ] > {0}={1}", header, headerValue ) );
+		if (!meth.equalsIgnoreCase( "OPTIONS" )) {
+			final Enumeration<String> headerNames = request.getHeaderNames();
+			while (headerNames.hasMoreElements()) {
+				final String header = headerNames.nextElement();
+				final String headerValue = request.getHeader( header );
+				LogWrapper.info( MessageFormat.format( "AP [VERIFICATION   ] > {0}={1}", header, headerValue ) );
+			}
 		}
 		return true;
 	}

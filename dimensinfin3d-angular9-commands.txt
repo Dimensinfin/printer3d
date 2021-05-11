@@ -52,6 +52,23 @@ ng new Printer3DManager --routing --style scss --skip-git --verbose
 -- Create library
 ng generate library <libraryname> --prefix <prefix> 
 
+-- Testing configuration
+"cypress-cucumber-preprocessor": {
+        "nonGlobalStepDefinitions": true,
+        "cucumberJson": {
+            "generate": true,
+            "outputFolder": "cypress/cucumber-json",
+            "filePrefix": "",
+            "fileSuffix": ".cucumber"
+        }
+    },
+
+npm install --save-exact cypress@6.8.0
+cypress open
+npm install --save-exact @bahmutov/add-typescript-to-cypress
+npm install --save-exact @cucumber/cucumber cypress-cucumber-preprocessor @types/cypress-cucumber-preprocessor
+npm install --save-exact @cypress/code-coverage @cypress/webpack-preprocessor
+
 --- Modules for Printer3DManager
         "font-awesome": "4.7.0",
         "jwt-decode": "2.2.0",
