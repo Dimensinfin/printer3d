@@ -5,7 +5,6 @@ import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Machine;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
@@ -67,7 +66,7 @@ public interface InventoryApiV2 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@POST("api/v2/inventory/machines/{machineId}/startbuild")
-	Call<Machine> startBuild( @Header("Authorization") final @NotNull String authorizationToken,
-	                          @Path("machineId") UUID machineId,
-	                          @Body JobRequest job );
+	Call<MachineV2> startBuild( @Header("Authorization") final @NotNull String authorizationToken,
+	                            @Path("machineId") UUID machineId,
+	                            @Body JobRequest job );
 }

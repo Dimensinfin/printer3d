@@ -75,21 +75,6 @@ public interface InventoryApiV1 {
 	@GET("api/v1/inventory/models")
 	Call<List<Model>> getModels( @Header("Authorization") final @NotNull String authorizationToken );
 
-	//	/**
-	//	 * Get the list of Parts persisted at the Inventory repository.
-	//	 * Get the complete list of &lt;b&gt;Parts&lt;/b&gt; persisted at the Inventory repository. If the active filter is active retrieve only the
-	//	 * active Parts.
-	//	 *
-	//	 * @param activesOnly Allows the selection or filtering for not active Parts. By default all active parts are retrieved. If false all parts are
-	//	 *                    included on the list. If tru only active parts will be returned by the filter.  (optional, default to false)
-	//	 * @return Call&lt;PartList&gt;
-	//	 */
-	//	@Deprecated
-	//	@Headers({ "Content-Type:application/json" })
-	//	@GET("api/v1/inventory/parts")
-	//	Call<PartList> getParts( @Header("Authorization") final @NotNull String authorizationToken,
-	//	                         @Query("activesOnly") final Boolean activesOnly );
-
 	/**
 	 * Creates a new **Coil** instance on the persistence repository.
 	 * The 3D printers need and use plastic filament to build the models. The Coils have as main characteristics the type of plastic, the color and
