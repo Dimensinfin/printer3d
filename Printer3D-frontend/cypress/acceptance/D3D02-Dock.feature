@@ -6,6 +6,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
     Other actions can be configured for each action name and can be any of the previous actions.
     [STORY] Add a new Feature button to show the page with the data download buttons.
     [STORY] There are hierarchical features that when hovered generate a list of final Features.
+    [STORY] There are two pages for the Customer Requests. Each one accessible from a different Feature.
 
     Background: Activating the application and getting the Dock.
         Given the application Printer3DManager
@@ -183,3 +184,27 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And the target Feature enabled state is "enabled"
         And the target Feature active state is "inactive"
         And the target Feature target type is "page"
+
+    @D3D02.17
+    Scenario: [D3D02.17]-There are two pages for Requests. One for Open Requests.
+        Given the Feature "/PEDIDOS" is hovered
+        Given there is a Feature with label "/PEDIDOS ABIERTOS"
+        When there is a click on Feature "/PEDIDOS ABIERTOS"
+        Then the Feature with label "/PEDIDOS ABIERTOS" opens a Page
+        And the page "Open Requests Page" has 2 panels
+        Given the target is the panel of type "open-requests"
+        Then  the target has the title "/PEDIDOS/ABIERTOS"
+        Given the target is the panel of type "request-details"
+        Then  the target has the title "/PEDIDOS/DETALLE"
+
+    @D3D02.18
+    Scenario: [D3D02.18]-There are two pages for Requests. Another for Closed Requests.
+        Given the Feature "/PEDIDOS" is hovered
+        Given there is a Feature with label "/PEDIDOS CERRADOS"
+        When there is a click on Feature "/PEDIDOS CERRADOS"
+        Then the Feature with label "/PEDIDOS ABIERTOS" opens a Page
+        And the page "Closed Requests Page" has 2 panels
+        Given the target is the panel of type "closed-requests"
+        Then  the target has the title "/PEDIDOS/CERRADOS"
+        Given the target is the panel of type "request-details"
+        Then  the target has the title "/PEDIDOS/DETALLE"

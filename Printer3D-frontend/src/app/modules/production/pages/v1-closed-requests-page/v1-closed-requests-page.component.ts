@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./v1-closed-requests-page.component.scss']
 })
 export class V1ClosedRequestsPageComponent implements OnInit {
+    public self: V1ClosedRequestsPageComponent
 
   constructor() { }
 
