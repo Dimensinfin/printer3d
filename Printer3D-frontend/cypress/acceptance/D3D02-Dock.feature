@@ -4,6 +4,8 @@ Feature: [D3D02]-Test the dock contents and configuration.
     The Dock contains the links to the feature result pages when it is related to a route interaction.
     If the interaction is a Dialog then the click should open a new dialog and check the user interaction.
     Other actions can be configured for each action name and can be any of the previous actions.
+    [STORY] Add a new Feature button to show the page with the data download buttons.
+    [STORY] There are hierarchical features that when hovered generate a list of final Features.
 
     Background: Activating the application and getting the Dock.
         Given the application Printer3DManager

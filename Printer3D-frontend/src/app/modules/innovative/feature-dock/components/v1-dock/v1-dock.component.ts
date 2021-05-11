@@ -1,10 +1,9 @@
 // - CORE
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-// - SERVICES
-import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service';
+import { Component } from '@angular/core'
+import { OnInit } from '@angular/core'
 // - DOMAIN
-import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
+import { Feature } from '../../domain/Feature.domain'
+import { DockService } from '../../service/dock.service'
 
 @Component({
     selector: 'v1-dock',
@@ -12,24 +11,24 @@ import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Fea
     styleUrls: ['./v1-dock.component.scss']
 })
 export class V1DockComponent implements OnInit {
-    private configuredFeatures: Feature[] = [];
+    private configuredFeatures: Feature[] = []
 
     constructor(private dockService: DockService) { }
 
     public ngOnInit(): void {
-        console.log('>[V1DockComponent.ngOnInit]');
+        console.log('>[V1DockComponent.ngOnInit]')
         this.dockService.readDockConfiguration()
             .subscribe((featureList: Feature[]) => {
-                console.log('<[V1DockComponent.ngOnInit.subscribe]');
+                console.log('<[V1DockComponent.ngOnInit.subscribe]')
                 this.configuredFeatures = featureList
                 console.log('->[V1DockComponent.ngOnInit]> Feature count: ' + this.configuredFeatures.length)
                 this.dockService.clean()
-            });
-        console.log('<[V1DockComponent.ngOnInit]');
+            })
+        console.log('<[V1DockComponent.ngOnInit]')
     }
     // - I N T E R A C T I O N
     public getActiveFeatures(): Feature[] {
-        if (null != this.configuredFeatures) return this.configuredFeatures;
-        else return [];
+        if (null != this.configuredFeatures) return this.configuredFeatures
+        else return []
     }
 }
