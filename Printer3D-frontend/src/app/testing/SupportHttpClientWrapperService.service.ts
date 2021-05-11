@@ -69,7 +69,7 @@ export class SupportHttpClientWrapperService {
         console.log("><[SupportHttpClientWrapperService.wrapHttpGETCall]> request: " + _request);
         return Observable.create((observer) => {
             try {
-                let data = this.decodeRequestPath('GET:' +_request);
+                let data = this.decodeRequestPath('GET:' + _request);
                 if (null == data)
                     observer.next('');
                 else
@@ -85,7 +85,7 @@ export class SupportHttpClientWrapperService {
         console.log("><[SupportHttpClientWrapperService.wrapHttpPUTCall]> request: " + _request);
         return Observable.create((observer) => {
             try {
-                let data = this.decodeRequestPath('PUT:' +_request);
+                let data = this.decodeRequestPath('PUT:' + _request);
                 if (null == data)
                     observer.next('');
                 else
@@ -101,7 +101,7 @@ export class SupportHttpClientWrapperService {
         console.log("><[SupportHttpClientWrapperService.wrapHttpDELETECall]> request: " + _request);
         return Observable.create((observer) => {
             try {
-                let data = this.decodeRequestPath('DELETE:' +_request);
+                let data = this.decodeRequestPath('DELETE:' + _request);
                 if (null == data)
                     observer.next('');
                 else
@@ -181,6 +181,10 @@ export class SupportHttpClientWrapperService {
                 return this.directAccessMockResource('inventory.parts');
             if (request.includes('/inventory/machines'))
                 return this.directAccessMockResource('inventory.machines.v2');
+            if (request.includes('/api/v1/accounting/requests/amount/week'))
+                return this.directAccessMockResource('accounting.week.amounts');
+            if (request.includes('/api/v1/inventory/models'))
+                return this.directAccessMockResource('inventory.models');
         }
         if (request.includes('PUT')) {
             if (request.includes('/inventory/machines/')) {

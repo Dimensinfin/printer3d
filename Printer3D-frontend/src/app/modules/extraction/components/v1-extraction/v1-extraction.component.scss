@@ -1,39 +1,10 @@
 @import "../../../../../styles/_scss_variables.scss";
-// $extraction-color:white;
-// $extraction-background-color:black;
-// $extraction-width: 180px;
-// .extraction {
-//     position: relative;
-//     white-space: nowrap;
-//     padding-top: 9px;
-//     padding-bottom: 9px;
-//     background-color: $extraction-background-color;
-//     width: $extraction-width;
-//     border: 1px solid $extraction-color;
-//     cursor: pointer;
-//     margin-right: 4px;
-//     margin-top: 4px;
-// }
-// .extraction:hover {
-//     background-color: #172E47;
-// }
 a {
     color: $app-front-color;
     text-transform: uppercase;
     text-decoration: none;
 }
 
-// .corner-aligment {
-//     position: relative;
-//     align-self: inherit;
-//     margin-left: auto;
-// }
-// .corner-top {
-//     position: absolute;
-//     top: 0px;
-//     left: 0px;
-//     width: 12px;
-//}
 .button {
     height: 80px;
     width: 200px;
@@ -44,20 +15,3 @@ a {
     width: 200px;
     background-color: #172E47;
 }
-
-// .button-right-mark {
-//     position: absolute;
-//     bottom: 1px;
-//     right: 1px;
-//     width: 10px;
-// }
-// .extraction-button {
-//     text-decoration: none;
-//     position: relative;
-//     float: left;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//     line-height: 1.3rem;
-//     white-space: pre-line;
-// }

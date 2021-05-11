@@ -82,16 +82,6 @@ export class BackendService {
             }));
     }
     // - I N V E N T O R Y
-    /** @deprecated */
-    public apiInventoryParts_v1(transformer: ResponseTransformer): Observable<PartListResponse> {
-        const request = this.APIV1 + '/inventory/parts';
-        return this.httpService.wrapHttpGETCall(request)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiInventoryParts_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as PartListResponse;
-                return response;
-            }));
-    }
     public apiv2_InventoryGetParts(): Observable<Part[]> {
         const request = this.APIV2 + '/inventory/parts'
         const transformer: ResponseTransformer = new ResponseTransformer()

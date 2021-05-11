@@ -1,6 +1,6 @@
 // - DOMAIN
-import { IContent } from './IContent.interface';
+import { IContent } from './IContent.interface'
 
 export interface IContentProvider {
-    findById(id: string, type:string): IContent;
+    findById(id: string, type: string): IContent
 }
