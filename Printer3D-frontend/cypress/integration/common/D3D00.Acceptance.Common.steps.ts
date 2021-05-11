@@ -83,7 +83,7 @@ Then('the {string} dialog opens and blocks the display', function (dialogName: s
 // - D O C K
 Given('one instance of Dock', function () {
     const tag = supportService.translateTag('dock') // Do name replacement
-    cy.get('app-root').find(tag).should('have.length', 1)
+    cy.get('app-root').find(tag).should('have.length', 1).as('target')
 })
 
 // - T A R G E T   S E L E C T I O N

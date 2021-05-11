@@ -65,18 +65,18 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then the Feature with label "/TRABAJOS PND." opens a Page
 
     # CIRCLECI - Failing because -SELLABLE-ITEMS- timeout
-    # @D3D02.08
-    # Scenario: [D3D02.08]-Check that the New Request feature points to the right page components.
-    #     # - Validate the page structure and the loading sign
-    #     When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "NewRequestPage"
-    #     And the loading panel shows "Clasificando Elementos..."
-    #     When the loading panel completes
-    #     And the page "NewRequestPage" has 2 panels
-    #     Given the target is the panel of type "available-request-elements"
-    #     Then  the target has the title "/STOCKS DISPONIBLES"
-    #     And the target has variant "-SELLABLE-ITEMS-"
-    #     Given the target is the panel of type "new-request"
-    #     Then  the target has the title "/NUEVO PEDIDO/DEFINICION"
+    @D3D02.08
+    Scenario: [D3D02.08]-Check that the New Request feature points to the right page components.
+        # - Validate the page structure and the loading sign
+        When the Feature with label "/NUEVO PEDIDO" is clicked the destination is the Page "NewRequestPage"
+        And the loading panel shows "Clasificando Elementos..."
+        When the loading panel completes
+        And the page "NewRequestPage" has 2 panels
+        Given the target is the panel of type "available-request-elements"
+        Then  the target has the title "/STOCKS DISPONIBLES"
+        And the target has variant "-SELLABLE-ITEMS-"
+        Given the target is the panel of type "new-request"
+        Then  the target has the title "/NUEVO PEDIDO/DEFINICION"
 
     @D3D02.09
     Scenario: [D3D02.09]-Check that the New Model feature points to the right page.
@@ -144,3 +144,10 @@ Feature: [D3D02]-Test the dock contents and configuration.
         When the page "Extractions Page" is activated
         Then  the target has the title "/EXTRACCIONES DE DATOS"
         Then the target has 1 "extraction"
+
+    @D3D02.15
+    Scenario: [D3D02.15]-Check an enabled Feature and its graphical attributes.
+        Then there is a Feature with label "/INVENTARIO"
+        And the target Feature enabled state is "enabled"
+        And the target Feature active state is "inactive"
+        And the target Feature target type is "page"

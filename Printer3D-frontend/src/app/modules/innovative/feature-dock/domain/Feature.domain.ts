@@ -8,7 +8,7 @@ export class Feature extends Node {
     public enabled: boolean
     private hasMenu: boolean
     public route: string
-    public interaction: EInteraction = EInteraction.PAGEROUTE
+    public interaction: EInteraction
     public modifier: string
     public dialog: string
     private features: Feature[]

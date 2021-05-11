@@ -2,7 +2,7 @@
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-MAIN-FEATURE-'">
     <div cy-name="feature" class="row feature" [ngClass]="{'active': node.active, 'disabled': !node.enabled}" (click)="onClick()" (mouseenter)="activateMenu()">
         <div class="feature-width">
-            <span class="feature-label">{{getLabel()}}</span>
+            <span cy-name="feature-label" class="feature-label">{{getLabel()}}</span>
         </div>
         <div class="corner-aligment">
             <svg class="corner-border" viewBox="0 0 100 100">
@@ -31,7 +31,7 @@
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-SUBFEATURE-'">
     <div cy-name="feature" class="row feature menu-feature" [ngClass]="{'active': node.active, 'disabled': !node.enabled}" (click)="onClick()" (mouseenter)="activateMenu()">
         <div class="feature-width">
-            <span class="feature-label">{{getLabel()}}</span>
+            <span cy-name="feature-label" class="feature-label">{{getLabel()}}</span>
         </div>
         <div class="corner-aligment">
             <svg class="corner-border" viewBox="0 0 100 100">
