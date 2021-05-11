@@ -35,12 +35,6 @@ When('the Feature with label {string} is clicked the destination is the Page {st
         .scrollIntoView().click()
     cy.get('app-root').find(tag).as('target-page').as('target').should('exist')
 })
-Then('there are no Features active', function () {
-    cy.get('v1-dock')
-        .find('v2-feature').within(($panel) => {
-            cy.get('.corner-mark').should('have.length', 0)
-        })
-})
 When('the Feature with label {string} is clicked the destination is the Dialog {string}', function (featureLabel: string, symbolicName: string) {
     const destination = supportService.translateTag(symbolicName) // Do name replacement
     cy.get(supportService.translateTag('dock'))
