@@ -8,7 +8,6 @@ import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
-import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component'
 import { routes } from '@app/testing/RouteMockUp.component'
 import { Location } from "@angular/common";
 // - PROVIDERS
@@ -17,7 +16,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 // - DOMAIN
 import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain'
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
-import { V1DockComponent } from '../../common/v1-dock/v1-dock.component'
+// import { V1DockComponent } from '../../common/v1-dock/v1-dock.component'
 import { BackendService } from '@app/services/backend.service'
 import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 import { V1RequestRenderComponent } from './v1-request-render.component'
@@ -26,7 +25,6 @@ import { RequestContentType, RequestState } from '@domain/interfaces/EPack.enume
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { RequestItem } from '@domain/production/RequestItem.domain'
 import { Part } from '@domain/inventory/Part.domain'
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
 
 describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
     const testPart: Part = new Part({
@@ -85,7 +83,7 @@ describe('COMPONENT V1RequestRenderComponent [Module: RENDERS]', () => {
             ],
             declarations: [
                 V1RequestRenderComponent,
-                V1DockComponent
+                // V1DockComponent
             ],
             providers: [
                 { provide: DialogFactoryService, useValue: dialogFactoryService },
