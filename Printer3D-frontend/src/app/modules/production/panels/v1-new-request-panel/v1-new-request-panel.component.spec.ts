@@ -21,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Model } from '@domain/inventory/Model.domain'
 import { RequestItem } from '@domain/production/RequestItem.domain'
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
-import { DockService } from '@app/services/dock.service'
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 import { SupportDockService } from '@app/testing/SupportDock.service'
 
 describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {

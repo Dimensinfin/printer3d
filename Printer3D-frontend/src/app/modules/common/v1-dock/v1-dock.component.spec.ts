@@ -8,7 +8,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 // - DOMAIN
 import { V1DockComponent } from './v1-dock.component'
 import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain'
-import { DockService } from '@app/services/dock.service'
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 import { Observable } from 'rxjs'
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
 

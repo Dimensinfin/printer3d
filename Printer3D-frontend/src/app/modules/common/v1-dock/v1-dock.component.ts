@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 // - SERVICES
-import { DockService } from '@app/services/dock.service';
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service';
 // - DOMAIN
 import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 

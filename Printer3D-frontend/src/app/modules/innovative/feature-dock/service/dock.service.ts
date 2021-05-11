@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 // - SERVICES
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
-import { ResponseTransformer } from './support/ResponseTransformer';
+import { ResponseTransformer } from '../../../../services/support/ResponseTransformer';
 // - ENVIRONMENT
 import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { Router } from '@angular/router';

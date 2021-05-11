@@ -13,7 +13,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 // - DOMAIN
 import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain'
 import { DockService } from './dock.service'
-import { HttpClientWrapperService } from './httpclientwrapper.service'
+import { HttpClientWrapperService } from '../../../../services/httpclientwrapper.service'
 import { Observable } from 'rxjs'
 import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 

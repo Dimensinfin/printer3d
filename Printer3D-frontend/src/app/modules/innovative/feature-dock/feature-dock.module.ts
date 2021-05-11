@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 // - APPLICATION MODULES
 // - COMPONENTS
 import { V3FeatureRenderComponent } from './v3-feature-render/v3-feature-render.component';
+import { DockService } from './service/dock.service';
 
 @NgModule({
     imports: [
@@ -14,6 +15,10 @@ import { V3FeatureRenderComponent } from './v3-feature-render/v3-feature-render.
     ],
     exports: [
         V3FeatureRenderComponent
-    ]
+        // DockService
+    ],
+    providers: [
+        { provide: DockService, useClass: DockService }
+    ],
 })
 export class FeatureDockModule { }

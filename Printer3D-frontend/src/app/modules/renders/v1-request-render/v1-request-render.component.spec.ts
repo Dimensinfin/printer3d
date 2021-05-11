@@ -19,7 +19,7 @@ import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Fea
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
 import { V1DockComponent } from '../../common/v1-dock/v1-dock.component'
 import { BackendService } from '@app/services/backend.service'
-import { DockService } from '@app/services/dock.service'
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 import { V1RequestRenderComponent } from './v1-request-render.component'
 import { MatDialog } from '@angular/material/dialog'
 import { RequestContentType, RequestState } from '@domain/interfaces/EPack.enumerated'

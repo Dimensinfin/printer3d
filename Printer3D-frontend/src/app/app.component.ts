@@ -9,7 +9,7 @@ import { environment } from '@env/environment';
 import { Refreshable } from '@domain/interfaces/Refreshable.interface';
 import { BackgroundEnabledComponent } from './modules/shared/core/background-enabled/background-enabled.component';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
-import { DockService } from './services/dock.service';
+import { DockService } from './modules/innovative/feature-dock/service/dock.service';
 import { PatchNotesDialogComponent } from './modules/common/patch-notes-dialog/patch-notes-dialog.component';
 
 @Component({

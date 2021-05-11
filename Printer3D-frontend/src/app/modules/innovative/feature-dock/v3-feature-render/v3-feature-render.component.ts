@@ -2,14 +2,14 @@
 import { Component } from '@angular/core'
 import { Input } from '@angular/core'
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
-import { DockService } from '@app/services/dock.service'
-import { Feature } from '../domain/Feature.domain'
+// import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 // - INNOVATIVE
 // import { DialogFactoryService } from '@bit/innovative.mvc-components.dock-service/dialog-factory.service'
 // import { DockService } from '@bit/innovative.mvc-components.dock-service/dock.service'
 // import { Feature } from '@domain/Feature.domain'
 // - DOMAIN
-// import { Feature } from '../domain/Feature.domain'
+import { Feature } from '../domain/Feature.domain'
+import { DockService } from '../service/dock.service'
 
 @Component({
     selector: 'v2-feature',

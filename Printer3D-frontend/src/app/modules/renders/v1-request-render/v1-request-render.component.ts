@@ -20,7 +20,7 @@ import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface
 import { environment } from '@env/environment'
 import { HttpErrorResponse } from '@angular/common/http'
 import { DeleteConfirmationDialogComponent } from '@app/modules/production/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component'
-import { DockService } from '@app/services/dock.service'
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 
 @Component({
     selector: 'v1-request',

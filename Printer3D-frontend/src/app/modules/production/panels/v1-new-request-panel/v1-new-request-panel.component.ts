@@ -16,7 +16,7 @@ import { RequestItem } from '@domain/production/RequestItem.domain';
 import { Model } from '@domain/inventory/Model.domain';
 import { environment } from '@env/environment';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DockService } from '@app/services/dock.service';
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service';
 
 @Component({
     selector: 'v1-new-request-panel',
