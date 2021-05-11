@@ -57,20 +57,20 @@ export class V3FeatureRenderComponent {
      */
     public onClick() {
         if (this.node) {
-            console.log('><[V1FeatureRenderComponent,onClick]> Label: ' + this.getNode().getLabel())
+            console.log('>[V3FeatureRenderComponent.onClick]> Label: ' + this.getNode().getLabel())
             if (this.getNode().isEnabled()) // Only interact with enabled Features
                 switch (this.getNode().interaction) {
                     case 'PAGEROUTE':
-                        console.log('><[V1FeatureRenderComponent,onClick]> PAGEROUTE')
+                        console.log('-[V3FeatureRenderComponent.onClick]> PAGEROUTE')
                         this.dockService.activateFeature(this.getNode())
                         break
                     case 'DIALOG':
-                        console.log('><[V1FeatureRenderComponent,onClick]> DIALOG')
+                        console.log('-[V3FeatureRenderComponent.onClick]> DIALOG')
                         this.getNode().activate()
                         const dialogRef = this.dialogFactory.processClick(this.getNode())
                         dialogRef?.afterClosed()
                             .subscribe(result => {
-                                console.log('[V1FeatureRenderComponent.onClick]> Close detected')
+                                console.log('-[V3FeatureRenderComponent.onClick]> Close detected')
                                 this.getNode().deactivate()
                             })
                         break

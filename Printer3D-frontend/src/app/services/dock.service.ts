@@ -47,11 +47,14 @@ export class DockService {
      * 1. Deactivate all features
      * 2. Activate the target feature
      * 3. Start a page change
+     * 
+     * The new hierarchical feature implementation should check also for sub features.
+     * Part duplication creates a new feature change on the flow so the exact feature match should be by the Feature contents and not the Node unique id.
      * @param target the new active Feature.
      */
     public activateFeature(target: Feature): void {
-        console.log('><[V1DockComponent.activateFeature]> Feature: ' + JSON.stringify(target));
-        if (null == target) {
+        console.log('>[DockService.activateFeature]> Feature: ' + JSON.stringify(target));
+        if (null == target) { // Deactivate all features and return to the dashboard
             this.activeFeature = undefined
             this.deactivateAllFeatures()
             this.pageChange('/')
