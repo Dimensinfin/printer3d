@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 // - DOMAIN
 import { RequestItem } from '@domain/production/RequestItem.domain';
 import { IContent } from './interfaces/IContent.interface';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 
 export class RequestForm {
     public id: string = uuidv4();
@@ -46,5 +47,11 @@ export class RequestForm {
                 newContentList.push(content)
         }
         this.contents = newContentList;
+    }
+    public calculateTotalAmount(): number {
+        let requestTotalAmount = 0.0
+        for (let content of this.contents)
+            requestTotalAmount += content.getQuantity() * content.getPrice() * Printer3DConstants.IVA_TAX
+        return requestTotalAmount
     }
 }
