@@ -1096,65 +1096,6 @@ components:
           example:
             'pieza3.STL'
 
-    Machine:
-      type: object
-      required:
-        - id
-        - label
-        - model
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: >
-            The unique identifier for a single machine. Used for machine-job identification.
-          example:
-            009ab011-03ad-4e84-9a88-25708d1cfd64
-        label:
-          type: string
-          format: string
-          minLength: 3
-          maxLength: 50
-          description: >
-            The user readable label to be assigned to a single Machine. Can be used instead of the unique identifier UUID.
-          example:
-            'Machine A'
-        model:
-          type: string
-          format: string
-          maxLength: 64
-          description: >
-            The model type of the 3D printer Machine.
-          example:
-            'Creality 3D Ender 3 Pro'
-        characteristics:
-          type: string
-          format: string
-          maxLength: 300
-          description: >
-            A free text with the list of the machine characteristics like special configurations, limits or sizes.
-          example:
-            'Max size set to 200mm. Has adaptor for flexible plastic filament.'
-        currentJobPart:
-          allOf:
-            - $ref: '#/components/schemas/Part'
-        currentPartInstances:
-          type: number
-          format: int32
-          minimum: 1
-          default: 1
-          description: >
-            The is the number of exact identical parts are being built at the same time on a single printer job.
-          example:
-            1
-        jobInstallmentDate:
-          type: string
-          format: date-time
-          description: >
-            The date and time when the job was stared on the machine. The Part infrormation says the time it is expected that the machine will be
-            occupied by this job. If the current time is greater that this point it is expected that the job has finished.
-          example:
-            2020-06-01T22:05:00Z
     MachineList:
       type: array
       items:
@@ -1660,12 +1601,15 @@ components:
         records of version 1 are expected to be closed and not to be returned on the request.
         If anyway the system still has V1 records they are converted to the V2 format (part identifiers are wrapped again) and then processed and
         reported to the frontend.
+        There are additional fields on the Request after the new Request processing flow. Requests have a client and can be on several states until
+        completed and removed from the reports.
       required:
         - id
         - requestDate
         - label
         - contents
         - state
+        - total
       properties:
         id:
           type: string
@@ -1692,6 +1636,34 @@ components:
             The user readable label to be assigned to a single Machine. Can be used instead of the unique identifier UUID.
           example:
             'Machine A'
+        customer:
+          type: string
+          format: string
+          maxLength: 500
+          description: >
+            The customer data (may contain name and address) that is the owner for this request.
+          example:
+            'Jaime García - Calle Petunias 13'
+        completedDate:
+          type: string
+          format: date-time
+          description: >
+            The date and time when the Request is completed and delivered or packaged.
+          example:
+            2020-06-01T22:05:00Z
+        paymentDate:
+          type: string
+          format: date-time
+          description: >
+            The date and time when the Request is paid by the customer. This is the time when the Request is closed and removed from the reports.
+          example:
+            2020-06-01T22:05:00Z
+        paid:
+          type: boolean
+          description: >
+            Flag that reports if the Request is already paid.
+          example:
+            false
         contents:
           type: array
           items:
@@ -1713,6 +1685,30 @@ components:
             Means that the Request can be served to the customer and then closed.
             * **CLOSED** - The Request has been sent to the customer and the Parts removed from the inventory stock. This is the final state for
             the Request.
+        amount:
+          type: number
+          format: float
+          description: >
+            The Request amount that is the sum of the amounts for all the request items. This value is calculated when the record is created or updated.
+          example:
+            12.0
+        iva:
+          type: number
+          format: float
+          description: >
+            The Request tax amount. This is calculated on the front end or can be edited on other tools. This value is calculated when the record
+            is created or updated.
+          example:
+            2.52
+        total:
+          type: number
+          format: float
+          default: 1.0
+          description: >
+            The Request total amount to be paid by the customer on reception of the requested items. This is the only mandatory field since the 'iva'
+            and 'amount' can be calculated from this value.
+          example:
+            14.52
     RequestItem:
       type: object
       description: >
@@ -1729,8 +1725,10 @@ components:
         type:
           type: string
           enum:
+            - UNIDENTIFIED
             - PART
             - MODEL
+          default: UNIDENTIFIED
           description: >
             This field differentiates the repository element pointed by the id. Being the id formats common the type will inform from which
             repository to extract the item data details.
@@ -1744,6 +1742,15 @@ components:
           description: >
             The number of copies of the item that are requested. Each sellable item that has any difference to any other sellable item has a unique
             identifier. Copies means the number of exact elements with the same identifier.
+          example:
+            3
+        missing:
+          type: number
+          format: int32
+          default: 0
+          description: >
+            The number of items that are missing on the stock. If there are not enought items on stock this value should be greater than 0 and the
+            request is not completable.
           example:
             3
 
