@@ -17,14 +17,13 @@ public class RequestV2ToRequestEntityV2Converter implements Converter<RequestV2,
 								Instant.parse( input.getRequestDate() ) :
 								Instant.now()
 				)
-				.withClosedDate(
-						(null != input.getClosedDate()) ?
-								Instant.parse( input.getClosedDate() ) :
-								Instant.now()
-				)
 				.withState( input.getState() )
-				.withAmount( input.getAmount() )
+				.withTotal( input.getAmount() )
 				.withContents( input.getContents() )
-				.build();
+				.build()
+				.setPaymentDate( (null != input.getClosedDate()) ?
+						Instant.parse( input.getClosedDate() ) :
+						Instant.now()
+				);
 	}
 }

@@ -39,7 +39,7 @@ public class AccountingRequestControllerSupport {
 					counter.incrementAndGet();
 					return object;
 				} )
-				.forEach( request -> this.requestsRepositoryV2.save( request.setClosedDate( closeDate ) ) );
+				.forEach( request -> this.requestsRepositoryV2.save( request.setPaymentDate( closeDate ) ) );
 		return new ResponseEntity<>( new CounterResponse.Builder().withRecords( counter.get() ).build(), HttpStatus.OK );
 	}
 }

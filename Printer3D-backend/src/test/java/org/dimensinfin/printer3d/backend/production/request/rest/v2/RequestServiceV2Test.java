@@ -101,7 +101,7 @@ public class RequestServiceV2Test {
 		final RequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( RequestState.CLOSE, obtained.getState() );
+		Assertions.assertEquals( RequestState.CLOSED, obtained.getState() );
 		Assertions.assertTrue( Instant.now().toString().startsWith( obtained.getClosedDate().substring( 0, 15 ) ) );
 	}
 
@@ -199,7 +199,7 @@ public class RequestServiceV2Test {
 		final RequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( RequestState.CLOSE, obtained.getState() );
+		Assertions.assertEquals( RequestState.CLOSED, obtained.getState() );
 		Assertions.assertTrue( Instant.now().toString().startsWith( obtained.getClosedDate().substring( 0, 15 ) ) );
 	}
 
@@ -283,15 +283,15 @@ public class RequestServiceV2Test {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.build();
 		final RequestEntityV2 requestEntityV2Closed = new RequestEntityV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE )
-				.withState( RequestState.CLOSE )
+				.withState( RequestState.CLOSED )
 				.withContents( new ArrayList<>() )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.build();
 		final List<RequestEntityV2> requestList = new ArrayList<>();
 		requestList.add( requestEntityV2Open );
@@ -341,10 +341,10 @@ public class RequestServiceV2Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
-				.withAmount( TEST_REQUEST_AMOUNT )
-				.withClosedDate( TEST_REQUEST_CLOSED_DATE )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.withContents( new ArrayList<>() )
-				.build();
+				.build()
+				.setPaymentDate( TEST_REQUEST_CLOSED_DATE );
 		// When
 		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
 		Mockito.when( this.requestsRepositoryV2.save( Mockito.any( RequestEntityV2.class ) ) ).thenReturn( requestEntity );

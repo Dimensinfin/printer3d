@@ -102,7 +102,7 @@ public class RequestPartCollectorTest {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( RequestState.OPEN )
 				.withContents( contents )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.build();
 		final List<RequestEntityV2> requestList = new ArrayList<>();
 		requestList.add( requestEntityV2 );
@@ -153,7 +153,7 @@ public class RequestPartCollectorTest {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( RequestState.OPEN )
 				.withContents( contents )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.build();
 		final List<RequestEntityV2> requestList = new ArrayList<>();
 		requestList.add( requestEntityV2 );

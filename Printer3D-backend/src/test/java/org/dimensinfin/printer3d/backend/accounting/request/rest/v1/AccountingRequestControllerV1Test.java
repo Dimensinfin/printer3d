@@ -52,7 +52,7 @@ public class AccountingRequestControllerV1Test {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.build();
 		requests.add( requestEntityV2 );
 		// When
@@ -76,7 +76,7 @@ public class AccountingRequestControllerV1Test {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.build();
 		requests.add( requestEntityV2 );
 		// When

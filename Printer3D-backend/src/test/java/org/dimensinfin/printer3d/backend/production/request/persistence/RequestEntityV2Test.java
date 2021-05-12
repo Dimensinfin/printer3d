@@ -24,7 +24,7 @@ public class RequestEntityV2Test {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotal( TEST_REQUEST_AMOUNT )
 				.build();
 		Assertions.assertNotNull( requestEntityV2 );
 	}
@@ -110,7 +110,7 @@ public class RequestEntityV2Test {
 		Assertions.assertEquals( RequestState.OPEN, requestEntityV2.getState() );
 		requestEntityV2.close();
 		// Assertions
-		Assertions.assertEquals( RequestState.CLOSE, requestEntityV2.getState() );
+		Assertions.assertEquals( RequestState.CLOSED, requestEntityV2.getState() );
 	}
 
 	@Test
@@ -122,16 +122,16 @@ public class RequestEntityV2Test {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
-				.withAmount( TEST_REQUEST_AMOUNT )
-				.withClosedDate( TEST_REQUEST_CLOSED_DATE )
-				.build();
+				.withTotal( TEST_REQUEST_AMOUNT )
+				.build()
+				.setPaymentDate( TEST_REQUEST_CLOSED_DATE );
 		// Assertions
 		Assertions.assertEquals( TEST_REQUEST_AMOUNT, requestEntityV2.getAmount() );
 		requestEntityV2.setAmount( 123.0F );
 		Assertions.assertEquals( 123.0F, requestEntityV2.getAmount() );
-		Assertions.assertEquals( TEST_REQUEST_CLOSED_DATE.toString(), requestEntityV2.getClosedDate().toString() );
-		requestEntityV2.setClosedDate( Instant.parse( "2020-07-31T10:54:00.0Z" ) );
-		Assertions.assertEquals( Instant.parse( "2020-07-31T10:54:00.0Z" ).toString(), requestEntityV2.getClosedDate().toString() );
+		Assertions.assertEquals( TEST_REQUEST_CLOSED_DATE.toString(), requestEntityV2.getPaymentDate().toString() );
+		requestEntityV2.setPaymentDate( Instant.parse( "2020-07-31T10:54:00.0Z" ) );
+		Assertions.assertEquals( Instant.parse( "2020-07-31T10:54:00.0Z" ).toString(), requestEntityV2.getPaymentDate().toString() );
 		Assertions.assertNotNull( requestEntityV2.getContents() );
 		Assertions.assertEquals( 0, requestEntityV2.getContents().size() );
 		Assertions.assertEquals( TEST_REQUEST_ID.toString(), requestEntityV2.getId().toString() );

@@ -45,7 +45,7 @@ public class AccountingRequestServiceV1Test {
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
-				.withAmount( 100.0F )
+				.withTotal( 100.0F )
 				.build();
 		final List<RequestEntityV2> requestList = new ArrayList<>();
 		requestList.add( requestEntityV2.close() );

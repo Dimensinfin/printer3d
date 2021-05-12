@@ -2,3 +2,7 @@
 dimensinfin3dpocs/
 Dimensinfin3DPOCs/
 .git-direct/
+
+# - Ignored editing Office files
+.~lock.TETSUO Gestion.xlsx#
+Printer3D-frontend/src/assets/manual/.~lock.Manual-Procedimientos.odt#

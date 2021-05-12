@@ -6,7 +6,6 @@ import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import com.google.gson.annotations.SerializedName;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -25,14 +24,13 @@ public class RequestItem implements Serializable {
 	@NotNull(message = "Request content unique id 'itemId' is a mandatory field and cannot be null.")
 	@SerializedName("itemId")
 	private UUID itemId;
-	//	@NotNull(message = "Request content 'type' should not be null not UNIDENTIFIED.")
 	@SerializedName("type")
 	private RequestContentType type = RequestContentType.UNIDENTIFIED;
 	@NotNull(message = "Request content 'quantity' should not be undefined. Default will be 1.")
 	@SerializedName("quantity")
 	private int quantity;
 	@SerializedName("missing")
-	private int missing;
+	private int missing = 0; // If the stock is not able to fulfill this request items the missing count os stored on this field.
 
 	// - C O N S T R U C T O R S
 	private RequestItem() {}
@@ -62,7 +60,7 @@ public class RequestItem implements Serializable {
 	// - C O R E
 	@Override
 	public String toString() {
-		return new ToStringBuilder( this , ToStringStyle.JSON_STYLE)
+		return new ToStringBuilder( this, ToStringStyle.JSON_STYLE )
 				.append( "itemId", this.itemId )
 				.append( "type", this.type )
 				.append( "quantity", this.quantity )
@@ -81,6 +79,7 @@ public class RequestItem implements Serializable {
 
 		public RequestItem build() {
 			Objects.requireNonNull( this.onConstruction.itemId );
+			Objects.requireNonNull( this.onConstruction.quantity );
 			if (this.onConstruction.type == RequestContentType.UNIDENTIFIED)
 				throw new DimensinfinRuntimeException( DimensinfinRuntimeException.errorRUNTIMEINTERNALERROR(
 						"Request content type found UNIDENTIFIED while constructing a RequestItem."

@@ -1,0 +1,208 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_17_0_2001_printer3d_add_customer_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: customer
+                  type: varchar(500)
+                  constraints:
+                    nullable: true
+                    updatable: true
+            remarks: New column to store the Customer information.
+  - changeSet:
+      id: 0_17_0_2002_printer3d_add_date_completed_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: date_completed
+                  type: timestamp
+                  constraints:
+                    nullable: true
+                    updatable: true
+            remarks: The date and time when the Request is completed and delivered or packaged.
+  - changeSet:
+      id: 0_17_0_2003_printer3d_add_date_paid_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: date_paid
+                  type: timestamp
+                  constraints:
+                    nullable: true
+                    updatable: true
+            remarks: The date and time when the Request is paid by the customer. This is the time when the Request is closed and removed from the reports.
+  - changeSet:
+      id: 0_17_0_2004_printer3d_add_paid_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: paid
+                  type: boolean
+                  constraints:
+                    nullable: true
+                    updatable: true
+            remarks: Flag that reports if the Request is already paid.
+  - changeSet:
+      id: 0_17_0_2005_printer3d_add_date_iva_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: iva
+                  type: float
+                  constraints:
+                    nullable: true
+                    updatable: true
+            remarks: The Request tax amount. This is calculated on the front end or can be edited on other tools. This value is calculated when the record is created or updated.
+  - changeSet:
+      id: 0_17_0_2006_printer3d_add_date_total_column
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: total
+                  type: float
+                  constraints:
+                    nullable: true
+                    updatable: true
+            remarks: The Request total amount to be paid by the customer on reception of the requested items. This is the only mandatory field since the 'iva' and 'amount' can be calculated from this value.
+
+  - changeSet:
+      id: 0_17_0_2007_printer3d_update_dates
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            where: state='CLOSE'
+            remarks: Upgrade the different Request stage dates to the current date.
+            column:
+              - column:
+                  name: date_completed
+                  valueComputed: date_closed
+              - column:
+                  name: date_paid
+                  valueComputed: date_closed
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            where: state='OPEN'
+            remarks: Upgrade the different Request stage dates to the current date.
+            column:
+              - column:
+                  name: date_completed
+                  valueComputed: date_closed
+  - changeSet:
+      id: 0_17_0_2008_printer3d_update_payment
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            where: state='CLOSE'
+            remarks: Update the payment status for closed requests.
+            column:
+              - column:
+                  name: paid
+                  value: true
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            remarks: Update the payment status for closed requests.
+            column:
+              - column:
+                  name: total
+                  valueComputed: amount
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            remarks: Update the payment status for closed requests.
+            column:
+              - column:
+                  name: amount
+                  valueComputed: total * (1.0 - 0.21)
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            remarks: Update the payment status for closed requests.
+            column:
+              - column:
+                  name: iva
+                  valueComputed: total - amount
+  - changeSet:
+      id: 0_17_0_2009_printer3d_update_payment
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            remarks: Update the payment status for closed requests.
+            column:
+              - column:
+                  name: paid
+                  value: false
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            where: state='CLOSE'
+            remarks: Update the payment status for closed requests.
+            column:
+              - column:
+                  name: paid
+                  value: true
+  - changeSet:
+      id: 0_17_0_2010_printer3d_define_constraints
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnDataType: float
+            columnName: amount
+            validate: true
+            remarks: Add not null constraint for new columns.
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnDataType: float
+            columnName: iva
+            validate: true
+            remarks: Add not null constraint for new columns.
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnDataType: float
+            columnName: total
+            validate: true
+            remarks: Add not null constraint for new columns.
+  - changeSet:
+      id: 0_17_0_2011_printer3d_drop_columns
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnName: date_closed
