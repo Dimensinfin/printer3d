@@ -6,6 +6,7 @@ import org.dimensinfin.core.interfaces.Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
+@Deprecated
 public class RequestV2ToRequestEntityV2Converter implements Converter<RequestV2, RequestEntityV2> {
 	@Override
 	public RequestEntityV2 convert( final RequestV2 input ) {
@@ -18,12 +19,8 @@ public class RequestV2ToRequestEntityV2Converter implements Converter<RequestV2,
 								Instant.now()
 				)
 				.withState( input.getState() )
-				.withTotal( input.getAmount() )
+				.withTotal( input.getTotal() )
 				.withContents( input.getContents() )
-				.build()
-				.setPaymentDate( (null != input.getClosedDate()) ?
-						Instant.parse( input.getClosedDate() ) :
-						Instant.now()
-				);
+				.build();
 	}
 }

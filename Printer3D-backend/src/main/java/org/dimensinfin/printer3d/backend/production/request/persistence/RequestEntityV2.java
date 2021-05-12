@@ -156,12 +156,9 @@ public class RequestEntityV2 {
 			Objects.requireNonNull( this.onConstruction.requestDate );
 			Objects.requireNonNull( this.onConstruction.state );
 			Objects.requireNonNull( this.onConstruction.total );
+			if (this.onConstruction.paid) // Set also the payment date to the current date.
+				this.onConstruction.paymentDate = this.onConstruction.requestDate;
 			return this.onConstruction;
-		}
-
-		public RequestEntityV2.Builder withClient( final String customer ) {
-			if (null != customer) this.onConstruction.customer = customer;
-			return this;
 		}
 
 		public RequestEntityV2.Builder withContents( final List<RequestItem> contents ) {
@@ -169,10 +166,10 @@ public class RequestEntityV2 {
 			return this;
 		}
 
-		//		public RequestEntityV2.Builder withClosedDate( final Instant closedDate ) {
-		//			if (null != closedDate) this.onConstruction.paymentDate = closedDate;
-		//			return this;
-		//		}
+		public RequestEntityV2.Builder withCustomerData( final String customer ) {
+			if (null != customer) this.onConstruction.customer = customer;
+			return this;
+		}
 
 		public RequestEntityV2.Builder withId( final UUID id ) {
 			this.onConstruction.id = Objects.requireNonNull( id );
@@ -181,6 +178,11 @@ public class RequestEntityV2 {
 
 		public RequestEntityV2.Builder withLabel( final String label ) {
 			this.onConstruction.label = Objects.requireNonNull( label );
+			return this;
+		}
+
+		public RequestEntityV2.Builder withPaid( final Boolean paid ) {
+			if (null != paid) this.onConstruction.paid = paid;
 			return this;
 		}
 

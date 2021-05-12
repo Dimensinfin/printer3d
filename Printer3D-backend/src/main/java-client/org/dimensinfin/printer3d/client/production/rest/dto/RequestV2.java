@@ -9,6 +9,9 @@ import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
+
 /**
  * This is the data structure that is received/sent over the HTTP interface. When the user creates or changes the Request the service will
  * receive a copy of this structure and then return an updated and persisted copy.
@@ -29,14 +32,14 @@ public class RequestV2 {
 	@Size(min = 3, max = 50)
 	@SerializedName("label")
 	private String label;
+	@SerializedName("customer")
+	private String customer;
 	/**
 	 * To avoid using dates on the frontend this date is set automatically when the record is persisted. This field is only used for output the
 	 * persisted request date that is present at the repository record.
 	 */
 	@SerializedName("requestDate")
 	private String requestDate;
-	@SerializedName("closedDate")
-	private String closedDate;
 	@SerializedName("state")
 	private RequestState state = RequestState.OPEN;
 	/**
@@ -47,23 +50,22 @@ public class RequestV2 {
 	@NotNull(message = "The list of Contents is required on the request.")
 	@SerializedName("contents")
 	private List<RequestItem> contents = new ArrayList<>();
-	@SerializedName("amount")
-	private float amount;
+	@NotNull(message = "The request amounts are set on the front end so should not be undefined.")
+	@SerializedName("total")
+	private float total;
+	@SerializedName("paid")
+	private boolean paid = false;
 
 	// - C O N S T R U C T O R S
 	protected RequestV2() {}
 
 	// - G E T T E R S   &   S E T T E R S
-	public float getAmount() {
-		return this.amount;
-	}
-
-	public String getClosedDate() {
-		return this.closedDate;
-	}
-
 	public List<RequestItem> getContents() {
 		return this.contents;
+	}
+
+	public String getCustomer() {
+		return this.customer;
 	}
 
 	public UUID getId() {
@@ -82,6 +84,14 @@ public class RequestV2 {
 		return this.state;
 	}
 
+	public float getTotal() {
+		return this.total;
+	}
+
+	public boolean isPaid() {
+		return this.paid;
+	}
+
 	// - B U I L D E R
 	public static class Builder {
 		private final RequestV2 onConstruction;
@@ -94,17 +104,10 @@ public class RequestV2 {
 		public RequestV2 build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
+			if (this.onConstruction.contents.isEmpty())
+				throw new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTMISSINGFIELD( "contents" ) );
+			Objects.requireNonNull( this.onConstruction.total );
 			return this.onConstruction;
-		}
-
-		public RequestV2.Builder withAmount( final Float amount ) {
-			if (null != amount) this.onConstruction.amount = amount;
-			return this;
-		}
-
-		public RequestV2.Builder withClosedDate( final String closedDate ) {
-			if (null != closedDate) this.onConstruction.closedDate = closedDate;
-			return this;
 		}
 
 		public RequestV2.Builder withContents( final List<RequestItem> contents ) {
@@ -129,6 +132,11 @@ public class RequestV2 {
 
 		public RequestV2.Builder withState( final RequestState state ) {
 			this.onConstruction.state = Objects.requireNonNull( state );
+			return this;
+		}
+
+		public RequestV2.Builder withTotalAmount( final Float amount ) {
+			if (null != amount) this.onConstruction.total = amount;
 			return this;
 		}
 	}

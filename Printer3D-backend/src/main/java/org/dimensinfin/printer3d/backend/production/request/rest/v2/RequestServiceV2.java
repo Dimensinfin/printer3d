@@ -1,6 +1,6 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 
-import java.text.MessageFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,11 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.dimensinfin.core.exception.DimensinfinError;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
@@ -23,51 +21,17 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestV2ToRequestEntityV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
-import org.dimensinfin.printer3d.backend.production.request.rest.RequestServiceCore;
+import org.dimensinfin.printer3d.backend.production.request.rest.CommonRequestService;
+import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
-import static org.dimensinfin.printer3d.backend.Printer3DApplication.APPLICATION_ERROR_CODE_PREFIX;
-
 @Service
-public class RequestServiceV2 extends RequestServiceCore {
-	private static final RequestEntityV2ToRequestV2Converter requestEntityToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
-
-	public static DimensinfinError errorREQUESTNOTFOUND( final UUID requestId ) {
-		return new DimensinfinError.Builder()
-				.withErrorName( "REQUEST_NOT_FOUND" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".defined.repository.logic" )
-				.withHttpStatus( HttpStatus.NOT_FOUND )
-				.withMessage( MessageFormat.format( "Request record with id [{0}] not found at the repository.", requestId ) )
-				.build();
-	}
-
-	public static DimensinfinError errorREQUESTNOTINCORRECTSTATE( final UUID requestId ) {
-		return new DimensinfinError.Builder()
-				.withErrorName( "REQUEST_NOT_IN_CORRECT_STATE" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
-				.withHttpStatus( HttpStatus.CONFLICT )
-				.withMessage( MessageFormat.format(
-						"Request record with id [{0}] is not on the correct state to perform the requested operation.", requestId ) )
-				.build();
-	}
-
-	public static DimensinfinError errorREQUESTALREADYEXISTS( final UUID requestId ) {
-		return new DimensinfinError.Builder()
-				.withErrorName( "REQUEST_ALREADY_EXISTS" )
-				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".already.exists" )
-				.withHttpStatus( HttpStatus.CONFLICT )
-				.withMessage( MessageFormat.format(
-						"Request with id [{0}] already exists at the repository. This should not be possible and means a development defect.",
-						requestId ) )
-				.build();
-	}
-
+public class RequestServiceV2 extends CommonRequestService {
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
@@ -105,7 +69,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 					.filter( RequestEntityV2::isOpen )
 					.map( requestEntityV2 -> {
 						if (this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
-						return requestEntityToRequestV2Converter.convert( requestEntityV2 );
+						return requestEntityV2ToRequestV2Converter.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
 		} catch (final RuntimeException rte) {
@@ -159,9 +123,9 @@ public class RequestServiceV2 extends RequestServiceCore {
 					this.requestsRepositoryV2.delete( request );
 					deleteCounter.incrementAndGet();
 				} else
-					throw new RepositoryConflictException( errorREQUESTNOTINCORRECTSTATE( requestId ) );
+					throw new RepositoryConflictException( RequestRestErrors.errorREQUESTNOTINCORRECTSTATE( requestId ) );
 			} );
-			if (deleteCounter.get() == 0) throw new DimensinfinRuntimeException( errorREQUESTNOTFOUND( requestId ),
+			if (deleteCounter.get() == 0) throw new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTNOTFOUND( requestId ),
 					"No Request found while trying to delete a request." );
 			return new CounterResponse.Builder().withRecords( deleteCounter.get() ).build();
 		} finally {
@@ -169,16 +133,36 @@ public class RequestServiceV2 extends RequestServiceCore {
 		}
 	}
 
+	/**
+	 * Creates a new Customer Request on the initial state with the minimum fields. The initial Request can have two states, one the default and
+	 * another where the request is pre paid.
+	 *
+	 * @param newRequest the new request Customer Request data.
+	 * @return the persisted Customer request.
+	 */
 	public RequestV2 newRequest( final RequestV2 newRequest ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntityV2> target = this.requestsRepositoryV2.findById( newRequest.getId() );
 			if (target.isPresent())
-				throw new RepositoryConflictException( errorREQUESTALREADYEXISTS( newRequest.getId() ) );
+				throw new RepositoryConflictException( RequestRestErrors.errorREQUESTALREADYEXISTS( newRequest.getId() ) );
 			return new RequestEntityV2ToRequestV2Converter().convert(
 					this.requestsRepositoryV2.save(
-							new RequestV2ToRequestEntityV2Converter().convert( newRequest )
+							new RequestEntityV2.Builder()
+									.withId( newRequest.getId() )
+									.withLabel( newRequest.getLabel() )
+									.withCustomerData( newRequest.getCustomer() )
+									.withRequestDate(
+											(null != newRequest.getRequestDate()) ?
+													Instant.parse( newRequest.getRequestDate() ) :
+													Instant.now()
+									)
+									.withState( newRequest.getState() )
+									.withTotal( newRequest.getTotal() )
+									.withContents( newRequest.getContents() )
+									.withPaid( newRequest.isPaid() )
+									.build()
 					)
 			);
 		} finally {
@@ -196,17 +180,17 @@ public class RequestServiceV2 extends RequestServiceCore {
 	 */
 	private boolean collectItemsFromStock( final RequestEntityV2 requestEntityV2 ) {
 		boolean underStocked = false;
-		for (RequestItem content : requestEntityV2.getContents()) {
+		for (final RequestItem content : requestEntityV2.getContents()) {
 			if (content.getType() == RequestContentType.PART) {
-				int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() );
+				final int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() );
 				if (missing < 0) { // Subtract the request quantity from the stock.
 					underStocked = true;
 					content.setMissing( Math.abs( missing ) );
 				}
 			}
 			if (content.getType() == RequestContentType.MODEL)
-				for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
-					int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() );
+				for (final RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
+					final int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() );
 					if (missing < 0) {// Subtract the request quantity from the stock.
 						underStocked = true;
 						content.setMissing(
@@ -226,13 +210,13 @@ public class RequestServiceV2 extends RequestServiceCore {
 
 	private void removeRequestPartsFromStock( final RequestEntityV2 requestEntityV2 ) {
 		// Update the parts stocks reducing the stock with the Request quantities.
-		for (RequestItem content : Objects.requireNonNull( requestEntityV2 ).getContents()) {
+		for (final RequestItem content : Objects.requireNonNull( requestEntityV2 ).getContents()) {
 			if (content.getType() == RequestContentType.PART)
 				this.decrementStock( content.getItemId(), content.getQuantity() );
 			if (content.getType() == RequestContentType.MODEL) {
 				final Optional<ModelEntity> modelEntityOpt = this.modelRepository.findById( content.getItemId() );
 				modelEntityOpt.ifPresent( modelEntity -> {
-					for (UUID partIdentifier : modelEntity.getPartIdList())
+					for (final UUID partIdentifier : modelEntity.getPartIdList())
 						this.decrementStock( partIdentifier, content.getQuantity() );
 				} );
 			}
@@ -241,7 +225,7 @@ public class RequestServiceV2 extends RequestServiceCore {
 
 	private RequestEntityV2 selectRequestEntity( final UUID requestId ) {
 		return this.requestsRepositoryV2.findById( requestId )
-				.orElseThrow( () -> new DimensinfinRuntimeException( errorREQUESTNOTFOUND( requestId ),
+				.orElseThrow( () -> new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTNOTFOUND( requestId ),
 						"No Request found while trying to complete the Request." ) );
 	}
 }

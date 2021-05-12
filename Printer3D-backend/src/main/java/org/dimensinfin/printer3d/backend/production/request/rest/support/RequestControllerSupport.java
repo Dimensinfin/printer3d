@@ -17,24 +17,22 @@ import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
-import org.dimensinfin.printer3d.backend.production.request.rest.RequestServiceCore;
+import org.dimensinfin.printer3d.backend.production.request.rest.CommonRequestService;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 @RestController
 @Validated
 @Service
-public class RequestControllerSupport  extends RequestServiceCore {
-	private static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
+public class RequestControllerSupport extends CommonRequestService {
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
 	public RequestControllerSupport( final @NotNull PartRepository partRepository,
 	                                 final @NotNull ModelRepository modelRepository,
 	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
-		super( partRepository , modelRepository);
+		super( partRepository, modelRepository );
 		this.requestsRepositoryV2 = requestsRepositoryV2;
 	}
 
@@ -42,13 +40,6 @@ public class RequestControllerSupport  extends RequestServiceCore {
 	@GetMapping("/api/v1/production/requests/repository")
 	public ResponseEntity<List<RequestV2>> getRepositoryRequests() {
 		return new ResponseEntity<>( this.getRepositoryRequestsService(), HttpStatus.OK );
-	}
-
-	private List<RequestV2> getRepositoryRequestsService() {
-		return this.requestsRepositoryV2.findAll()
-				.stream()
-				.map( requestEntityV2ToRequestV2Converter::convert )
-				.collect( Collectors.toList() );
 	}
 
 	@GetMapping(path = "/api/v2/production/requests/delete/all",
@@ -70,5 +61,12 @@ public class RequestControllerSupport  extends RequestServiceCore {
 			throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTSTOREREPOSITORYFAILURE( new SQLException( sqle ) ),
 					"Detected exception while deleting all Requests from the repository." );
 		}
+	}
+
+	private List<RequestV2> getRepositoryRequestsService() {
+		return this.requestsRepositoryV2.findAll()
+				.stream()
+				.map( requestEntityV2ToRequestV2Converter::convert )
+				.collect( Collectors.toList() );
 	}
 }

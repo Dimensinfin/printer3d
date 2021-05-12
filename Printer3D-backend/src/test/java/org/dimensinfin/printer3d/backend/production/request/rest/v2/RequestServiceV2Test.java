@@ -332,7 +332,7 @@ public class RequestServiceV2Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )
 				.withState( TEST_REQUEST_STATE )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotalAmount( TEST_REQUEST_AMOUNT )
 				.withClosedDate( TEST_REQUEST_CLOSED_DATE.toString() )
 				.withContents( new ArrayList<>() )
 				.build();

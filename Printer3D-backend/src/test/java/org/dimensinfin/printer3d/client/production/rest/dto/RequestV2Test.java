@@ -21,33 +21,11 @@ public class RequestV2Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )
 				.withState( TEST_REQUEST_STATE )
-				.withAmount( TEST_REQUEST_AMOUNT )
+				.withTotalAmount( TEST_REQUEST_AMOUNT )
 				.withClosedDate( TEST_REQUEST_CLOSED_DATE.toString() )
 				.withContents( new ArrayList<>() )
 				.build();
 		Assertions.assertNotNull( requestEntityV2 );
-	}
-	@Test
-	public void getterContract() {
-		// Given
-		final RequestV2 requestEntityV2 = new RequestV2.Builder()
-				.withId( TEST_REQUEST_ID )
-				.withLabel( TEST_REQUEST_LABEL )
-				.withRequestDate( TEST_REQUEST_DATE_STRING )
-				.withState( TEST_REQUEST_STATE )
-				.withAmount( TEST_REQUEST_AMOUNT )
-				.withClosedDate( TEST_REQUEST_CLOSED_DATE.toString() )
-				.withContents( new ArrayList<>() )
-				.build();
-		// Assertions
-		Assertions.assertEquals( TEST_REQUEST_AMOUNT, requestEntityV2.getAmount() );
-		Assertions.assertEquals( TEST_REQUEST_CLOSED_DATE.toString(), requestEntityV2.getClosedDate().toString() );
-		Assertions.assertNotNull( requestEntityV2.getContents() );
-		Assertions.assertEquals( 0, requestEntityV2.getContents().size() );
-		Assertions.assertEquals( TEST_REQUEST_ID.toString(), requestEntityV2.getId().toString() );
-		Assertions.assertEquals( TEST_REQUEST_LABEL, requestEntityV2.getLabel() );
-		Assertions.assertEquals( TEST_REQUEST_DATE.toString(), requestEntityV2.getRequestDate().toString() );
-		Assertions.assertEquals( TEST_REQUEST_STATE, requestEntityV2.getState() );
 	}
 
 	@Test
@@ -108,5 +86,28 @@ public class RequestV2Test {
 					.withContents( new ArrayList<>() )
 					.build();
 		} );
+	}
+
+	@Test
+	public void getterContract() {
+		// Given
+		final RequestV2 requestEntityV2 = new RequestV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withRequestDate( TEST_REQUEST_DATE_STRING )
+				.withState( TEST_REQUEST_STATE )
+				.withTotalAmount( TEST_REQUEST_AMOUNT )
+				.withClosedDate( TEST_REQUEST_CLOSED_DATE.toString() )
+				.withContents( new ArrayList<>() )
+				.build();
+		// Assertions
+		Assertions.assertEquals( TEST_REQUEST_AMOUNT, requestEntityV2.getTotal() );
+		Assertions.assertEquals( TEST_REQUEST_CLOSED_DATE.toString(), requestEntityV2.getClosedDate().toString() );
+		Assertions.assertNotNull( requestEntityV2.getContents() );
+		Assertions.assertEquals( 0, requestEntityV2.getContents().size() );
+		Assertions.assertEquals( TEST_REQUEST_ID.toString(), requestEntityV2.getId().toString() );
+		Assertions.assertEquals( TEST_REQUEST_LABEL, requestEntityV2.getLabel() );
+		Assertions.assertEquals( TEST_REQUEST_DATE.toString(), requestEntityV2.getRequestDate().toString() );
+		Assertions.assertEquals( TEST_REQUEST_STATE, requestEntityV2.getState() );
 	}
 }

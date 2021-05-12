@@ -12,7 +12,7 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelReposi
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 
-public class RequestServiceCoreTest {
+public class CommonRequestServiceTest {
 
 	private PartRepository partRepository;
 	private ModelRepository modelRepository;
@@ -25,8 +25,8 @@ public class RequestServiceCoreTest {
 
 	@Test
 	public void constructorContract() {
-		final RequestServiceCore requestServiceCore = new RequestServiceCore( this.partRepository, this.modelRepository );
-		Assertions.assertNotNull( requestServiceCore );
+		final CommonRequestService commonRequestService = new CommonRequestService( this.partRepository, this.modelRepository );
+		Assertions.assertNotNull( commonRequestService );
 	}
 
 	@Test
@@ -38,8 +38,8 @@ public class RequestServiceCoreTest {
 		// When
 		Mockito.when( this.partRepository.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( part ) );
 		// Test
-		final RequestServiceCore requestServiceCore = new RequestServiceCore( this.partRepository, this.modelRepository );
-		requestServiceCore.decrementStock( recordId, quantity );
+		final CommonRequestService commonRequestService = new CommonRequestService( this.partRepository, this.modelRepository );
+		commonRequestService.decrementStock( recordId, quantity );
 		Mockito.verify( this.partRepository, Mockito.times( 1 ) ).save( Mockito.any( PartEntity.class ) );
 	}
 }

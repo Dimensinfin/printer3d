@@ -13,19 +13,21 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelReposi
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
-public class RequestServiceCore {
+public class CommonRequestService {
+	protected static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
 	protected final PartRepository partRepository;
 	protected final ModelRepository modelRepository;
 
 	protected final StockManager stockManager;
 
 	// - C O N S T R U C T O R S
-	public RequestServiceCore( @NotNull final PartRepository partRepository,
-	                           @NotNull final ModelRepository modelRepository ) {
+	public CommonRequestService( @NotNull final PartRepository partRepository,
+	                             @NotNull final ModelRepository modelRepository ) {
 		this.partRepository = partRepository;
 		this.modelRepository = modelRepository;
 		this.stockManager = new StockManager( partRepository );
