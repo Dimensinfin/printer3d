@@ -1609,6 +1609,7 @@ components:
         - label
         - contents
         - state
+        - paid
         - total
       properties:
         id:
