@@ -1,0 +1,155 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_17_0_3001_printer3d_parts_data
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: parts
+            columns:
+              - column:
+                  name: id
+                  value: b3d6e72f-76ca-4207-81ee-f5927426bd87
+              - column:
+                  name: label
+                  value: "CARCASA INFERIOR 'URBAN DIGIT'"
+              - column:
+                  name: description
+                  value: "Parte de abajo del set ''URBAN DIGIT''."
+              - column:
+                  name: cost
+                  value: 5
+              - column:
+                  name: price
+                  value: 10
+              - column:
+                  name: active
+                  value: true
+              - column:
+                  name: stock_level
+                  value: 2
+              - column:
+                  name: build_time
+                  value: 1440
+              - column:
+                  name: stock_available
+                  value: 0
+              - column:
+                  name: image_path
+                  value: "CARCASA INF 1.0"
+              - column:
+                  name: model_path
+                  value: "CARCASA INF 1.0"
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color
+                  value: NEGRO
+              - column:
+                  name: weight
+                  value: 50
+              - column:
+                  name: project
+                  value: "URBAN DIGIT"
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: parts
+            columns:
+              - column:
+                  name: id
+                  value: a5fabca6-3a02-4fc7-ab22-f8bac24f72a5
+              - column:
+                  name: label
+                  value: "CARCASA SUPERIOR 'URBAN DIGIT'"
+              - column:
+                  name: description
+                  value: "Parte de arriba del set ''URBAN DIGIT''."
+              - column:
+                  name: cost
+                  value: 5
+              - column:
+                  name: price
+                  value: 10
+              - column:
+                  name: active
+                  value: true
+              - column:
+                  name: stock_level
+                  value: 2
+              - column:
+                  name: build_time
+                  value: 1440
+              - column:
+                  name: stock_available
+                  value: 0
+              - column:
+                  name: image_path
+                  value: "CARCASA SUP 1.0"
+              - column:
+                  name: model_path
+                  value: "CARCASA SUP 1.0"
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color
+                  value: NEGRO
+              - column:
+                  name: weight
+                  value: 50
+              - column:
+                  name: project
+                  value: "URBAN DIGIT"
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: parts
+            columns:
+              - column:
+                  name: id
+                  value: 2e8a2b63-34da-48b1-8fc0-c6eeebac3394
+              - column:
+                  name: label
+                  value: "BASTIDORES 'URBAN DIGIT'"
+              - column:
+                  name: description
+                  value: "Bastidor de la caja que es parte del set ''URBAN DIGIT''."
+              - column:
+                  name: cost
+                  value: 1
+              - column:
+                  name: price
+                  value: 5
+              - column:
+                  name: active
+                  value: true
+              - column:
+                  name: stock_level
+                  value: 3
+              - column:
+                  name: build_time
+                  value: 1440
+              - column:
+                  name: stock_available
+                  value: 0
+              - column:
+                  name: image_path
+                  value: "BASTIDORES UD 1.0"
+              - column:
+                  name: model_path
+                  value: "BASTIDORES UD 1.0"
+              - column:
+                  name: material
+                  value: PLA
+              - column:
+                  name: color
+                  value: NEGRO
+              - column:
+                  name: weight
+                  value: 10
+              - column:
+                  name: project
+                  value: "URBAN DIGIT"

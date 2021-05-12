@@ -59,3 +59,5 @@ databaseChangeLog:
       file: db/changelog/dml-v0.15.1-01-machines-data.yaml
   - include:
       file: db/changelog/ddl-v0.15.1-02-alter-parts-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.17.0-02-alter-requestsv2-table.yaml

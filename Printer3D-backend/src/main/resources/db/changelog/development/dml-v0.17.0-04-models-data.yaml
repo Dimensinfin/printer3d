@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_17_0_3001_printer3d_parts_data
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: models
+            columns:
+              - column:
+                  name: id
+                  value: b3d6e72f-76ca-4207-81ee-f5927426bd87
+              - column:
+                  name: label
+                  value: "URBAN DIGIT"
+              - column:
+                  name: part_list
+                  value: "[\"b3d6e72f-76ca-4207-81ee-f5927426bd87\",\"a5fabca6-3a02-4fc7-ab22-f8bac24f72a5\"]"
+              - column:
+                  name: price
+                  value: 20
+              - column:
+                  name: stock_level
+                  value: 2
+              - column:
+                  name: image_path
+                  value: "Carcasa ''URBAN DIGIT''."
+              - column:
+                  name: active
+                  value: true

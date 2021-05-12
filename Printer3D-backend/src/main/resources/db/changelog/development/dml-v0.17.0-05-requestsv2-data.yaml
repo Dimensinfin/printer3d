@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_17_0_1002_printer3d_requestsv2_data
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: id
+                  value: 103477e5-de44-4542-90d4-d08e44b2f6c0
+              - column:
+                  name: label
+                  value: "Primera parte pedido URBAN DIGIT."
+              - column:
+                  name: request_date
+                  value: "2021-03-03 17:00:17.353"
+              - column:
+                  name: state
+                  value: CLOSE
+              - column:
+                  name: contents
+                  value: "[{\"type\": \"PART\", \"itemId\": \"2e8a2b63-34da-48b1-8fc0-c6eeebac3394\", \"missing\": 0, \"quantity\": 1}, {\"type\": \"MODEL\", \"itemId\": \"b3d6e72f-76ca-4207-81ee-f5927426bd87\", \"missing\": 0, \"quantity\": 1}]"
+              - column:
+                  name: amount
+                  value: 12
+              - column:
+                  name: date_completed
+                  value: "2020-03-04 13:01:42.553"
+              - column:
+                  name: paid
+                  value: false
+              - column:
+                  name: iva
+                  value: 1.78
+              - column:
+                  name: total
+                  value: 15.78
