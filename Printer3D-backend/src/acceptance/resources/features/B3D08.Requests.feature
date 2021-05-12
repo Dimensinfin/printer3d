@@ -1,4 +1,4 @@
-@P3D08 @Requests
+@B3D08 @Requests
 Feature: [STORY] Create a new Feature to see the list of Open Requests. A request is a need from a customer of a set of parts.
     If the request cannot be completed with stock parts then it is left Open.
 
@@ -14,8 +14,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         Given a clean Parts repository
 
       # - H A P P Y   P A T H
-    @P3D08.H1 @P3D08.01
-    Scenario: [P3D08.01] Validate the creation of a new Request with the data received.
+    @B3D08.H1 @B3D08.01
+    Scenario: [B3D08.01] Validate the creation of a new Request with the data received.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -45,8 +45,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        | 1       |
 
-    @P3D08.H1 @P3D08.02
-    Scenario: [P3D08.02] When a new Request is created the return state is always Open. This state changes to Completed if there are enough Parts at
+    @B3D08.H1 @B3D08.02
+    Scenario: [B3D08.02] When a new Request is created the return state is always Open. This state changes to Completed if there are enough Parts at
     the Inventory stock and only when the Requests is processed during the frontend requesting the lists of Requests.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -91,8 +91,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | id                                   | label                          | requestDate                 | state     |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | COMPLETED |
 
-    @P3D08.H1 @P3D08.05
-    Scenario: [P3D08.05] When a new request cannot be completed because there are not enough Parts at the Inventory the jobs generated to complete the
+    @B3D08.H1 @B3D08.05
+    Scenario: [B3D08.05] When a new request cannot be completed because there are not enough Parts at the Inventory the jobs generated to complete the
     Request have priority 1.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -116,8 +116,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And there are "2" records of priority "1"
         And there are "11" records of priority "2"
 
-    @P3D08.H2 @P3D08.06
-    Scenario: [P3D08.06] When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
+    @B3D08.H2 @B3D08.06
+    Scenario: [B3D08.06] When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -153,8 +153,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | id                                   | label                       | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                           |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars. |
 
-    @P3D08.H2 @P3D08.07
-    Scenario: [P3D08.07] There is an endpoint that allows to delete a Request from the repository. The request should be on OPEN state.
+    @B3D08.H2 @B3D08.07
+    Scenario: [B3D08.07] There is an endpoint that allows to delete a Request from the repository. The request should be on OPEN state.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -175,8 +175,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         Then there is a valid response with return code of "200 OK"
         And the number of records processed is "1"
 
-    @P3D08.H2 @P3D08.08
-    Scenario: [P3D08.08] When a Request is closed the the request amount is calculated with the current price values for the parts contained on the
+    @B3D08.H2 @B3D08.08
+    Scenario: [B3D08.08] When a Request is closed the the request amount is calculated with the current price values for the parts contained on the
     Request.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
@@ -212,8 +212,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | id                                   | label                          | requestDate                 | state | amount |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | CLOSE | 31.00  |
 
-    @P3D08.H2 @P3D08.09
-    Scenario: [P3D08.09] When a Request is closed the the request closed date is the current date and we can calculate the week for aggregation.
+    @B3D08.H2 @B3D08.09
+    Scenario: [B3D08.09] When a Request is closed the the request closed date is the current date and we can calculate the week for aggregation.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -249,8 +249,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | <today>    |
 
     # - E X C E P T I O N S
-    @P3D08.E @P3D08.E.01
-    Scenario: [P3D08.E.01] Before closing a Request we have to be sure there are enough Parts on stock. If not raise an exception.
+    @B3D08.E @B3D08.E.01
+    Scenario: [B3D08.E.01] Before closing a Request we have to be sure there are enough Parts on stock. If not raise an exception.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -276,8 +276,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And the exception response name is "REQUEST_CANNOT_BE_FULFILLED"
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] has not enough resources to be completed. Obsolete state."
 
-    @P3D08.E @P3D08.E.02
-    Scenario: [P3D08.E.02] If there are missing fields on the request of they do fail any of the validations then we report a reject exception.
+    @B3D08.E @B3D08.E.02
+    Scenario: [B3D08.E.02] If there are missing fields on the request of they do fail any of the validations then we report a reject exception.
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
@@ -289,8 +289,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         Then there is a exception response with return code of "400 BAD_REQUEST"
         And the exception response contains the message "The request is not valid. [Field error in object"
 
-    @P3D08.E @P3D08.E.03
-    Scenario: [P3D08.E.03] If the Requests that should be deleted is on the state CLOSED then raise an exception.
+    @B3D08.E @B3D08.E.03
+    Scenario: [B3D08.E.03] If the Requests that should be deleted is on the state CLOSED then raise an exception.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -312,8 +312,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And the exception response name is "REQUEST_NOT_IN_CORRECT_STATE"
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] is not on the correct state to perform the requested operation."
 
-    @P3D08.E @P3D08.E.04
-    Scenario: [P3D08.E.04] When completing a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
+    @B3D08.E @B3D08.E.04
+    Scenario: [B3D08.E.04] When completing a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
     another session).
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa" is processed
         Then there is a exception response with return code of "404 NOT_FOUND"
@@ -321,8 +321,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa] not found at the repository."
         And the exception response has the cause "No Request found while trying to complete the Request."
 
-    @P3D08.E @P3D08.E.05
-    Scenario: [P3D08.E.05] When deleting a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
+    @B3D08.E @B3D08.E.05
+    Scenario: [B3D08.E.05] When deleting a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
     another session).
         When the Delete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa" is processed
         Then there is a exception response with return code of "404 NOT_FOUND"
@@ -330,8 +330,8 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa] not found at the repository."
         And the exception response has the cause "No Request found while trying to delete a Request."
 
-    @P3D08.E @P3D08.E.06
-    Scenario: [P3D08.E.06] If when creating a request we found another Request with the same identifier then report that the action should use the
+    @B3D08.E @B3D08.E.06
+    Scenario: [B3D08.E.06] If when creating a request we found another Request with the same identifier then report that the action should use the
     update endpoint.
         And the next Request Contents List
             | itemId                               | type  | quantity |

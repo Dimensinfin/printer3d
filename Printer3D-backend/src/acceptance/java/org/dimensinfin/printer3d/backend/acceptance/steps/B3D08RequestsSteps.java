@@ -28,12 +28,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ITEM_ID;
 
-public class P3D08RequestsSteps extends StepSupport {
+public class B3D08RequestsSteps extends StepSupport {
 	private final RequestFeignClientV2 requestFeignClientV2;
 	private final RequestFeignClientSupport requestFeignClientSupport;
 
 	// - C O N S T R U C T O R S
-	public P3D08RequestsSteps( final @NotNull Printer3DWorld printer3DWorld,
+	public B3D08RequestsSteps( final @NotNull Printer3DWorld printer3DWorld,
 	                           final @NotNull RequestFeignClientV2 requestFeignClientV2,
 	                           final @NotNull RequestFeignClientSupport requestFeignClientSupport ) {
 		super( printer3DWorld );
