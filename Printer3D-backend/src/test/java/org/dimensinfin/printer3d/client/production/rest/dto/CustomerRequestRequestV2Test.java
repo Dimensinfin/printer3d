@@ -13,10 +13,10 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.Reques
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
 
-public class RequestV2Test {
+public class CustomerRequestRequestV2Test {
 	@Test
 	public void buildContract() {
-		final RequestV2 requestEntityV2 = new RequestV2.Builder()
+		final CustomerRequestRequestV2 requestEntityV2 = new CustomerRequestRequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )
@@ -31,7 +31,7 @@ public class RequestV2Test {
 	@Test
 	public void buildFailure() {
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new RequestV2.Builder()
+			new CustomerRequestRequestV2.Builder()
 					.withId( null )
 					.withLabel( TEST_REQUEST_LABEL )
 					.withRequestDate( TEST_REQUEST_DATE_STRING )
@@ -40,7 +40,7 @@ public class RequestV2Test {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new RequestV2.Builder()
+			new CustomerRequestRequestV2.Builder()
 					.withId( TEST_REQUEST_ID )
 					.withLabel( null )
 					.withRequestDate( TEST_REQUEST_DATE_STRING )
@@ -49,7 +49,7 @@ public class RequestV2Test {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new RequestV2.Builder()
+			new CustomerRequestRequestV2.Builder()
 					.withId( TEST_REQUEST_ID )
 					.withLabel( TEST_REQUEST_LABEL )
 					.withRequestDate( null )
@@ -58,7 +58,7 @@ public class RequestV2Test {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new RequestV2.Builder()
+			new CustomerRequestRequestV2.Builder()
 					.withId( TEST_REQUEST_ID )
 					.withLabel( TEST_REQUEST_LABEL )
 					.withRequestDate( TEST_REQUEST_DATE_STRING )
@@ -71,7 +71,7 @@ public class RequestV2Test {
 	@Test
 	public void buildUnset() {
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new RequestV2.Builder()
+			new CustomerRequestRequestV2.Builder()
 					.withLabel( TEST_REQUEST_LABEL )
 					.withRequestDate( TEST_REQUEST_DATE_STRING )
 					.withState( TEST_REQUEST_STATE )
@@ -79,7 +79,7 @@ public class RequestV2Test {
 					.build();
 		} );
 		Assertions.assertThrows( NullPointerException.class, () -> {
-			new RequestV2.Builder()
+			new CustomerRequestRequestV2.Builder()
 					.withId( TEST_REQUEST_ID )
 					.withRequestDate( TEST_REQUEST_DATE_STRING )
 					.withState( TEST_REQUEST_STATE )
@@ -91,7 +91,7 @@ public class RequestV2Test {
 	@Test
 	public void getterContract() {
 		// Given
-		final RequestV2 requestEntityV2 = new RequestV2.Builder()
+		final CustomerRequestRequestV2 requestEntityV2 = new CustomerRequestRequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )

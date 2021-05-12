@@ -4,14 +4,14 @@ import org.springframework.stereotype.Component;
 
 import org.dimensinfin.core.interfaces.Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 
 @Component
-public class RequestEntityV2ToRequestV2Converter implements Converter<RequestEntityV2, RequestV2> {
+public class RequestEntityV2ToRequestV2Converter implements Converter<RequestEntityV2, CustomerRequestRequestV2> {
 
 	@Override
-	public RequestV2 convert( final RequestEntityV2 input ) {
-		return new RequestV2.Builder()
+	public CustomerRequestRequestV2 convert( final RequestEntityV2 input ) {
+		return new CustomerRequestRequestV2.Builder()
 				.withId( input.getId() )
 				.withLabel( input.getLabel() )
 				.withRequestDate( input.getRequestDate().toString() )

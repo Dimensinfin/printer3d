@@ -26,9 +26,9 @@ import org.dimensinfin.printer3d.backend.production.request.persistence.Requests
 import org.dimensinfin.printer3d.backend.production.request.rest.CommonRequestService;
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 @Service
 public class RequestServiceV2 extends CommonRequestService {
@@ -59,7 +59,7 @@ public class RequestServiceV2 extends CommonRequestService {
 	 * before removal. This service will read first V1 requests and convert them to V2 before joining them with the V2 requests and do the common
 	 * processing and reporting.
 	 */
-	public List<RequestV2> getOpenRequests() {
+	public List<CustomerRequestRequestV2> getOpenRequests() {
 		LogWrapper.enter();
 		try {
 			this.stockManager.startStock(); // Initialize the stock with the current Part stock data
@@ -96,7 +96,7 @@ public class RequestServiceV2 extends CommonRequestService {
 	 * @return Returns the current state of the Request on the repository.
 	 */
 	@Transactional
-	public RequestV2 closeRequest( final UUID requestId ) {
+	public CustomerRequestRequestV2 closeRequest( final UUID requestId ) {
 		LogWrapper.enter();
 		try {
 			this.stockManager.clean().startStock(); // Initialize the stock manager to get the Part prices.
@@ -140,7 +140,7 @@ public class RequestServiceV2 extends CommonRequestService {
 	 * @param newRequest the new request Customer Request data.
 	 * @return the persisted Customer request.
 	 */
-	public RequestV2 newRequest( final RequestV2 newRequest ) {
+	public CustomerRequestRequestV2 newRequest( final CustomerRequestRequestV2 newRequest ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.

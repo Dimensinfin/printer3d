@@ -34,8 +34,8 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import io.cucumber.java.en.When;
 
@@ -316,13 +316,13 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				return updateModelResponseEntity;
 			case NEW_REQUESTV2:
 				Assertions.assertNotNull( this.printer3DWorld.getRequestV2() );
-				final ResponseEntity<RequestV2> newRequestV2ResponseEntity = this.requestFeignClientV2.newRequest(
+				final ResponseEntity<CustomerRequestRequestV2> newRequestV2ResponseEntity = this.requestFeignClientV2.newRequest(
 						this.printer3DWorld.getRequestV2() );
 				Assertions.assertNotNull( newRequestV2ResponseEntity );
 				this.printer3DWorld.setRequestV2ResponseEntity( newRequestV2ResponseEntity );
 				return newRequestV2ResponseEntity;
 			case GET_REQUESTSV2:
-				final ResponseEntity<List<RequestV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
+				final ResponseEntity<List<CustomerRequestRequestV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
 				Assertions.assertNotNull( getRequestsV2ResponseEntity );
 				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
 				return getRequestsV2ResponseEntity;
@@ -348,7 +348,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setCoilResponseEntity( updateCoilResponseEntity );
 				return updateCoilResponseEntity;
 			case CLOSE_REQUEST:
-				final ResponseEntity<RequestV2> closeRequestResponseEntity = this.requestFeignClientV2.closeRequest(
+				final ResponseEntity<CustomerRequestRequestV2> closeRequestResponseEntity = this.requestFeignClientV2.closeRequest(
 						this.printer3DWorld.getRequestId()
 				);
 				Assertions.assertNotNull( closeRequestResponseEntity );

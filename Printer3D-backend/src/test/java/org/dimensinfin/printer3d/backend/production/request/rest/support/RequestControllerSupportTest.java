@@ -15,7 +15,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
@@ -93,7 +93,7 @@ public class RequestControllerSupportTest {
 				this.partRepository,
 				this.modelRepository,
 				this.requestsRepositoryV2 );
-		final ResponseEntity<List<RequestV2>> obtained = requestControllerSupport.getRepositoryRequests();
+		final ResponseEntity<List<CustomerRequestRequestV2>> obtained = requestControllerSupport.getRepositoryRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

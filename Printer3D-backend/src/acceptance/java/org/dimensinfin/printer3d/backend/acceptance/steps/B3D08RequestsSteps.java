@@ -21,8 +21,8 @@ import org.dimensinfin.printer3d.backend.support.production.request.RequestConte
 import org.dimensinfin.printer3d.backend.support.production.request.RequestV2Validator;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientSupport;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -43,14 +43,15 @@ public class B3D08RequestsSteps extends StepSupport {
 
 	@Given("creating the next Request V2 with previous Contents")
 	public void creating_the_next_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
-		final RequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
+		final CustomerRequestRequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() )
+				.convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( request );
 		this.printer3DWorld.setRequestV2( request );
 	}
 
 	@Given("creating the next incomplete Request V2 with previous Contents")
 	public void creating_the_next_incomplete_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
-		final RequestV2 request =
+		final CustomerRequestRequestV2 request =
 				new CucumberTableToRequestV2TestingConverter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( request );
 		this.printer3DWorld.setRequestV2( request );
@@ -59,10 +60,10 @@ public class B3D08RequestsSteps extends StepSupport {
 	@Then("the Request V2 with id {string} has the next list of contents")
 	public void the_Request_V2_with_id_has_the_next_list_of_contents( final String requestId,
 	                                                                  final List<Map<String, String>> dataTable ) {
-		final ResponseEntity<List<RequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
+		final ResponseEntity<List<CustomerRequestRequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
 		Assertions.assertNotNull( requests );
 		Assertions.assertNotNull( requests.getBody() );
-		for (final RequestV2 request : requests.getBody()) {
+		for (final CustomerRequestRequestV2 request : requests.getBody()) {
 			if (request.getId().toString().equalsIgnoreCase( requestId )) {
 				for (final Map<String, String> row : dataTable) {
 					for (final RequestItem content : request.getContents()) {
@@ -76,7 +77,7 @@ public class B3D08RequestsSteps extends StepSupport {
 
 	@Then("the list of Requests on the response is empty")
 	public void the_list_of_Requests_on_the_response_is_empty() throws IOException {
-		final ResponseEntity<List<RequestV2>> requests = this.requestFeignClientV2.getOpenRequests();
+		final ResponseEntity<List<CustomerRequestRequestV2>> requests = this.requestFeignClientV2.getOpenRequests();
 		Assertions.assertNotNull( requests );
 		Assertions.assertNotNull( requests.getBody() );
 		Assertions.assertEquals( 0, requests.getBody().size() );
@@ -100,25 +101,25 @@ public class B3D08RequestsSteps extends StepSupport {
 
 	@Then("the request returned has the next data")
 	public void the_request_returned_has_the_next_data( final List<Map<String, String>> dataTable ) {
-		final ResponseEntity<RequestV2> request = this.printer3DWorld.getRequestV2ResponseEntity();
+		final ResponseEntity<CustomerRequestRequestV2> request = this.printer3DWorld.getRequestV2ResponseEntity();
 		Assertions.assertTrue( new RequestV2Validator().validate( dataTable.get( 0 ), request.getBody() ) );
 	}
 
 	@Then("the resulting list of Requests has a request with id {string} with the next data")
 	public void the_resulting_list_of_Requests_has_a_request_with_id_with_the_next_data( final String requestId,
 	                                                                                     final List<Map<String, String>> dataTable ) {
-		final ResponseEntity<List<RequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
+		final ResponseEntity<List<CustomerRequestRequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
 		Assertions.assertNotNull( requests );
 		Assertions.assertNotNull( requests.getBody() );
-		for (final RequestV2 request : requests.getBody()) {
+		for (final CustomerRequestRequestV2 request : requests.getBody()) {
 			if (request.getId().toString().equalsIgnoreCase( requestId )) {
 				Assertions.assertTrue( new RequestV2Validator().validate( dataTable.get( 0 ), request ) );
 			}
 		}
 	}
 
-	private RequestV2 searchRequest( final String requestId, final List<RequestV2> requests ) {
-		for (final RequestV2 request : requests)
+	private CustomerRequestRequestV2 searchRequest( final String requestId, final List<CustomerRequestRequestV2> requests ) {
+		for (final CustomerRequestRequestV2 request : requests)
 			if (request.getId().toString().equals( requestId )) return request;
 		throw new DimensinfinRuntimeException( RequestServiceV2.errorREQUESTNOTFOUND( UUID.fromString( requestId ) ) );
 	}

@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE_STRING;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
@@ -31,13 +31,13 @@ public class RequestControllerV2Test {
 	public void closeRequest() {
 		// Given
 		final UUID requestId = UUID.randomUUID();
-		final RequestV2 request = Mockito.mock( RequestV2.class );
+		final CustomerRequestRequestV2 request = Mockito.mock( CustomerRequestRequestV2.class );
 		// When
 		Mockito.when( this.requestServiceV2.closeRequest( requestId ) ).thenReturn( request );
 		Mockito.when( request.getId() ).thenReturn( requestId );
 		// Test
 		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
-		final ResponseEntity<RequestV2> obtained = requestControllerV2.closeRequest( requestId );
+		final ResponseEntity<CustomerRequestRequestV2> obtained = requestControllerV2.closeRequest( requestId );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
@@ -70,14 +70,14 @@ public class RequestControllerV2Test {
 	@Test
 	public void getOpenRequestsOnlyV1Requests() {
 		// Given
-		final RequestV2 request = Mockito.mock( RequestV2.class );
-		final List<RequestV2> openRequests = new ArrayList<>();
+		final CustomerRequestRequestV2 request = Mockito.mock( CustomerRequestRequestV2.class );
+		final List<CustomerRequestRequestV2> openRequests = new ArrayList<>();
 		openRequests.add( request );
 		// When
 		Mockito.when( this.requestServiceV2.getOpenRequests() ).thenReturn( openRequests );
 		// Test
 		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
-		final ResponseEntity<List<RequestV2>> obtained = requestControllerV2.getOpenRequests();
+		final ResponseEntity<List<CustomerRequestRequestV2>> obtained = requestControllerV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );
@@ -87,7 +87,7 @@ public class RequestControllerV2Test {
 	@Test
 	public void newRequest() {
 		// Given
-		final RequestV2 request = new RequestV2.Builder()
+		final CustomerRequestRequestV2 request = new CustomerRequestRequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )
@@ -95,10 +95,10 @@ public class RequestControllerV2Test {
 				.withContents( new ArrayList<>() )
 				.build();
 		// When
-		Mockito.when( this.requestServiceV2.newRequest( Mockito.any( RequestV2.class ) ) ).thenReturn( request );
+		Mockito.when( this.requestServiceV2.newRequest( Mockito.any( CustomerRequestRequestV2.class ) ) ).thenReturn( request );
 		// Test
 		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
-		final ResponseEntity<RequestV2> obtained = requestControllerV2.newRequest( request );
+		final ResponseEntity<CustomerRequestRequestV2> obtained = requestControllerV2.newRequest( request );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

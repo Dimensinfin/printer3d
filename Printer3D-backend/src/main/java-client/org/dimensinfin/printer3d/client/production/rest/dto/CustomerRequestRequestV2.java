@@ -24,7 +24,7 @@ import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErro
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.8.0
  */
-public class RequestV2 {
+public class CustomerRequestRequestV2 {
 	@NotNull(message = "Request unique UUID 'id' is a mandatory field and cannot be null.")
 	@SerializedName("id")
 	private UUID id;
@@ -57,7 +57,7 @@ public class RequestV2 {
 	private boolean paid = false;
 
 	// - C O N S T R U C T O R S
-	protected RequestV2() {}
+	protected CustomerRequestRequestV2() {}
 
 	// - G E T T E R S   &   S E T T E R S
 	public List<RequestItem> getContents() {
@@ -94,14 +94,14 @@ public class RequestV2 {
 
 	// - B U I L D E R
 	public static class Builder {
-		private final RequestV2 onConstruction;
+		private final CustomerRequestRequestV2 onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new RequestV2();
+			this.onConstruction = new CustomerRequestRequestV2();
 		}
 
-		public RequestV2 build() {
+		public CustomerRequestRequestV2 build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
 			if (this.onConstruction.contents.isEmpty())
@@ -110,32 +110,32 @@ public class RequestV2 {
 			return this.onConstruction;
 		}
 
-		public RequestV2.Builder withContents( final List<RequestItem> contents ) {
+		public CustomerRequestRequestV2.Builder withContents( final List<RequestItem> contents ) {
 			this.onConstruction.contents = Objects.requireNonNull( contents );
 			return this;
 		}
 
-		public RequestV2.Builder withId( final UUID id ) {
+		public CustomerRequestRequestV2.Builder withId( final UUID id ) {
 			this.onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
-		public RequestV2.Builder withLabel( final String label ) {
+		public CustomerRequestRequestV2.Builder withLabel( final String label ) {
 			this.onConstruction.label = Objects.requireNonNull( label );
 			return this;
 		}
 
-		public RequestV2.Builder withRequestDate( final String requestDate ) {
+		public CustomerRequestRequestV2.Builder withRequestDate( final String requestDate ) {
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}
 
-		public RequestV2.Builder withState( final RequestState state ) {
+		public CustomerRequestRequestV2.Builder withState( final RequestState state ) {
 			this.onConstruction.state = Objects.requireNonNull( state );
 			return this;
 		}
 
-		public RequestV2.Builder withTotalAmount( final Float amount ) {
+		public CustomerRequestRequestV2.Builder withTotalAmount( final Float amount ) {
 			if (null != amount) this.onConstruction.total = amount;
 			return this;
 		}

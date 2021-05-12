@@ -9,9 +9,9 @@ import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 /**
  * This is the data structure that is received/sent over the HTTP interface. When the user creates or changes the Request the service will
@@ -25,7 +25,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.8.0
  */
-public class RequestV2Testing extends RequestV2 {
+public class CustomerRequestRequestV2Testing extends CustomerRequestRequestV2 {
 	@NotNull(message = "Request unique UUID 'id' is a mandatory field and cannot be null.")
 	@SerializedName("id")
 	private UUID id;
@@ -55,7 +55,7 @@ public class RequestV2Testing extends RequestV2 {
 	private float amount;
 
 	// - C O N S T R U C T O R S
-	private RequestV2Testing() {}
+	private CustomerRequestRequestV2Testing() {}
 
 	// - G E T T E R S   &   S E T T E R S
 	public float getAmount() {
@@ -66,72 +66,77 @@ public class RequestV2Testing extends RequestV2 {
 		return this.closedDate;
 	}
 
+	@Override
 	public List<RequestItem> getContents() {
 		return this.contents;
 	}
 
+	@Override
 	public UUID getId() {
 		return this.id;
 	}
 
+	@Override
 	public String getLabel() {
 		return this.label;
 	}
 
+	@Override
 	public String getRequestDate() {
 		return this.requestDate;
 	}
 
+	@Override
 	public RequestState getState() {
 		return this.state;
 	}
 
 	// - B U I L D E R
 	public static class Builder {
-		private final RequestV2Testing onConstruction;
+		private final CustomerRequestRequestV2Testing onConstruction;
 
 		// - C O N S T R U C T O R S
 		public Builder() {
-			this.onConstruction = new RequestV2Testing();
+			this.onConstruction = new CustomerRequestRequestV2Testing();
 		}
 
-		public RequestV2Testing build() {
-//			Objects.requireNonNull( this.onConstruction.id );
-//			Objects.requireNonNull( this.onConstruction.label );
+		public CustomerRequestRequestV2Testing build() {
+			//			Objects.requireNonNull( this.onConstruction.id );
+			//			Objects.requireNonNull( this.onConstruction.label );
 			return this.onConstruction;
 		}
 
-		public RequestV2Testing.Builder withAmount( final Float amount ) {
+		public CustomerRequestRequestV2Testing.Builder withAmount( final Float amount ) {
 			if (null != amount) this.onConstruction.amount = amount;
 			return this;
 		}
 
-		public RequestV2Testing.Builder withClosedDate( final String closedDate ) {
+		public CustomerRequestRequestV2Testing.Builder withClosedDate( final String closedDate ) {
 			if (null != closedDate) this.onConstruction.closedDate = closedDate;
 			return this;
 		}
 
-		public RequestV2Testing.Builder withContents( final List<RequestItem> contents ) {
+		public CustomerRequestRequestV2Testing.Builder withContents( final List<RequestItem> contents ) {
 			this.onConstruction.contents = Objects.requireNonNull( contents );
 			return this;
 		}
 
-		public RequestV2Testing.Builder withId( final UUID id ) {
+		public CustomerRequestRequestV2Testing.Builder withId( final UUID id ) {
 			this.onConstruction.id = Objects.requireNonNull( id );
 			return this;
 		}
 
-		public RequestV2Testing.Builder withLabel( final String label ) {
+		public CustomerRequestRequestV2Testing.Builder withLabel( final String label ) {
 			this.onConstruction.label = Objects.requireNonNull( label );
 			return this;
 		}
 
-		public RequestV2Testing.Builder withRequestDate( final String requestDate ) {
+		public CustomerRequestRequestV2Testing.Builder withRequestDate( final String requestDate ) {
 			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
 			return this;
 		}
 
-		public RequestV2Testing.Builder withState( final RequestState state ) {
+		public CustomerRequestRequestV2Testing.Builder withState( final RequestState state ) {
 			this.onConstruction.state = Objects.requireNonNull( state );
 			return this;
 		}

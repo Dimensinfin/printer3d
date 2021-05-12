@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 
 @RestController
 @Validated
@@ -35,7 +35,7 @@ public class RequestControllerV2 {
 	@GetMapping(path = "/production/requests",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<List<RequestV2>> getOpenRequests() {
+	public ResponseEntity<List<CustomerRequestRequestV2>> getOpenRequests() {
 		return new ResponseEntity<>( this.requestServiceV2.getOpenRequests(), HttpStatus.OK );
 	}
 
@@ -48,7 +48,7 @@ public class RequestControllerV2 {
 	@PutMapping(path = "/production/requests/{requestId}/close",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<RequestV2> closeRequest( final @PathVariable @NotNull UUID requestId ) {
+	public ResponseEntity<CustomerRequestRequestV2> closeRequest( final @PathVariable @NotNull UUID requestId ) {
 		return new ResponseEntity<>( this.requestServiceV2.closeRequest( requestId ), HttpStatus.OK );
 	}
 
@@ -62,7 +62,7 @@ public class RequestControllerV2 {
 	@PostMapping(path = "/production/requests",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<RequestV2> newRequest( final @RequestBody @Valid @NotNull RequestV2 request ) {
+	public ResponseEntity<CustomerRequestRequestV2> newRequest( final @RequestBody @Valid @NotNull CustomerRequestRequestV2 request ) {
 		return new ResponseEntity<>( this.requestServiceV2.newRequest( request ), HttpStatus.CREATED );
 	}
 }

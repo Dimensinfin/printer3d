@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -28,7 +28,7 @@ public interface ProductionApiV2 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@GET("api/v2/production/requests")
-	Call<List<RequestV2>> getOpenRequests();
+	Call<List<CustomerRequestRequestV2>> getOpenRequests();
 
 	/**
 	 * Closes the state of a selected Request.
@@ -38,7 +38,7 @@ public interface ProductionApiV2 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@PUT("api/v2/production/requests/{requestId}/close")
-	Call<RequestV2> closeRequest( @Path("requestId") final @NotNull UUID requestId );
+	Call<CustomerRequestRequestV2> closeRequest( @Path("requestId") final @NotNull UUID requestId );
 
 	/**
 	 * Delete the selected Request form the repository.
@@ -63,5 +63,5 @@ public interface ProductionApiV2 {
 	 */
 	@Headers({ "Content-Type:application/json" })
 	@POST("api/v2/production/requests")
-	Call<RequestV2> newRequest( @Body final @NotNull @Valid RequestV2 request );
+	Call<CustomerRequestRequestV2> newRequest( @Body final @NotNull @Valid CustomerRequestRequestV2 request );
 }

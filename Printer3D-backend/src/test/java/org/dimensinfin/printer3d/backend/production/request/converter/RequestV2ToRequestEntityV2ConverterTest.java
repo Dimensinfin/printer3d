@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE_STRING;
@@ -19,7 +19,7 @@ public class RequestV2ToRequestEntityV2ConverterTest {
 	@Test
 	public void convert() {
 		// Given
-		final RequestV2 request = new RequestV2.Builder()
+		final CustomerRequestRequestV2 request = new CustomerRequestRequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )

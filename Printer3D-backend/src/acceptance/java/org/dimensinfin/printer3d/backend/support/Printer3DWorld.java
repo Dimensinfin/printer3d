@@ -18,10 +18,10 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 import org.dimensinfin.printer3d.client.production.rest.dto.JobRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 public class Printer3DWorld extends CommonWorld {
 	private DimensinfinRuntimeException applicationException;
@@ -42,15 +42,15 @@ public class Printer3DWorld extends CommonWorld {
 	private ResponseEntity<List<Model>> modelListResponseEntity;
 	private UUID modelId;
 	private UUID requestId;
-	private ResponseEntity<RequestV2> requestV2ResponseEntity;
+	private ResponseEntity<CustomerRequestRequestV2> requestV2ResponseEntity;
 	private JobRequest jobRequest;
 	private String selectionLabel;
 	private UpdateGroupPartRequest updateGroupPartRequest;
 	private ResponseEntity<CounterResponse> counterResponseResponseEntity;
 	private UpdateCoilRequest updateCoilRequest;
 	private List<RequestItem> requestContents;
-	private RequestV2 requestV2;
-	private ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity;
+	private CustomerRequestRequestV2 customerRequestRequestV2;
+	private ResponseEntity<List<CustomerRequestRequestV2>> listRequestV2ResponseEntity;
 	private ResponseEntity<List<WeekAmount>> listWeekAmountResponseEntity;
 	private Integer weekCount;
 	private ResponseEntity<List<Coil>> coilV2ListResponseEntity;
@@ -148,11 +148,11 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public ResponseEntity<List<RequestV2>> getListRequestV2ResponseEntity() {
+	public ResponseEntity<List<CustomerRequestRequestV2>> getListRequestV2ResponseEntity() {
 		return this.listRequestV2ResponseEntity;
 	}
 
-	public Printer3DWorld setListRequestV2ResponseEntity( final ResponseEntity<List<RequestV2>> listRequestV2ResponseEntity ) {
+	public Printer3DWorld setListRequestV2ResponseEntity( final ResponseEntity<List<CustomerRequestRequestV2>> listRequestV2ResponseEntity ) {
 		this.listRequestV2ResponseEntity = listRequestV2ResponseEntity;
 		return this;
 	}
@@ -285,20 +285,20 @@ public class Printer3DWorld extends CommonWorld {
 		return this;
 	}
 
-	public RequestV2 getRequestV2() {
-		return this.requestV2;
+	public CustomerRequestRequestV2 getRequestV2() {
+		return this.customerRequestRequestV2;
 	}
 
-	public Printer3DWorld setRequestV2( final RequestV2 requestV2 ) {
-		this.requestV2 = requestV2;
+	public Printer3DWorld setRequestV2( final CustomerRequestRequestV2 customerRequestRequestV2 ) {
+		this.customerRequestRequestV2 = customerRequestRequestV2;
 		return this;
 	}
 
-	public ResponseEntity<RequestV2> getRequestV2ResponseEntity() {
+	public ResponseEntity<CustomerRequestRequestV2> getRequestV2ResponseEntity() {
 		return this.requestV2ResponseEntity;
 	}
 
-	public Printer3DWorld setRequestV2ResponseEntity( final ResponseEntity<RequestV2> requestV2ResponseEntity ) {
+	public Printer3DWorld setRequestV2ResponseEntity( final ResponseEntity<CustomerRequestRequestV2> requestV2ResponseEntity ) {
 		this.requestV2ResponseEntity = requestV2ResponseEntity;
 		return this;
 	}

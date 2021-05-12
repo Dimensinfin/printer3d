@@ -20,10 +20,10 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestV2;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ACTIVE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.ModelConstants.TEST_MODEL_ID;
@@ -98,7 +98,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		final RequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
+		final CustomerRequestRequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( RequestState.CLOSED, obtained.getState() );
@@ -196,7 +196,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		final RequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
+		final CustomerRequestRequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( RequestState.CLOSED, obtained.getState() );
@@ -303,7 +303,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
+		final List<CustomerRequestRequestV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 1, obtained.size() );
@@ -318,7 +318,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		final List<RequestV2> obtained = requestServiceV2.getOpenRequests();
+		final List<CustomerRequestRequestV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 0, obtained.size() );
@@ -327,7 +327,7 @@ public class RequestServiceV2Test {
 	@Test
 	public void newRequest() {
 		// Given
-		final RequestV2 request = new RequestV2.Builder()
+		final CustomerRequestRequestV2 request = new CustomerRequestRequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )
@@ -353,7 +353,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		final RequestV2 obtained = requestServiceV2.newRequest( request );
+		final CustomerRequestRequestV2 obtained = requestServiceV2.newRequest( request );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 	}
@@ -362,7 +362,7 @@ public class RequestServiceV2Test {
 	public void newRequestAlreadyExist() {
 		// Given
 		final RequestEntityV2 requestEntity = Mockito.mock( RequestEntityV2.class );
-		final RequestV2 request = Mockito.mock( RequestV2.class );
+		final CustomerRequestRequestV2 request = Mockito.mock( CustomerRequestRequestV2.class );
 		// When
 		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( requestEntity ) );
 		Mockito.when( request.getId() ).thenReturn( UUID.randomUUID() );
