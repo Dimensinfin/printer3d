@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_17_0_6001_printer3d_update_requests_type_enums
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - sql:
+            sql: CREATE OR REPLACE TYPE printer3d.request_statev2 AS ENUM ('OPEN', 'COMPLETED', 'DELETED', 'DELIVERED', 'PAID', 'CLOSED')
+  - changeSet:
+      id: 0_17_0_6002_printer3d_alter_requestsv2_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columns:
+              - column:
+                  name: statev2
+                  type: request_statev2
+                  constraints:
+                    nullable: true
+                    updatable: true
+            remarks: New column to store the updated request state.
+  - changeSet:
+      id: 0_17_0_6003_printer3d_update_state
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            where: state='CLOSE'
+            remarks: Upgrade the state to the new list of states.
+            column:
+              - column:
+                  name: statev2
+                  value: 'CLOSED'
+        - update:
+            schemaName: printer3d
+            tableName: requestsv2
+            where: state='OPEN'
+            remarks: Upgrade the state to the new list of states.
+            column:
+              - column:
+                  name: statev2
+                  value: 'OPEN'
+  - changeSet:
+      id: 0_17_0_6004_printer3d_define_constraints
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - addNotNullConstraint:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnName: statev2
+            columnDataType: request_statev2
+            validate: true
+            remarks: Add not null constraint to the new state column.
+  - changeSet:
+      id: 0_17_0_6005_printer3d_drop_columns
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - dropColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            columnName: state
+  - changeSet:
+      id: 0_17_0_6006_printer3d_alter_requests_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            oldColumnName: statev2
+            newColumnName: state
+            columnDataType: request_statev2
+            remarks: Replacing the new column by the old column name.
