@@ -5,5 +5,5 @@ package org.dimensinfin.printer3d.client.production.rest.dto;
  * @since 0.8.0
  */
 public enum RequestState {
-	OPEN, COMPLETED, DELETED, DELIVERED, CLOSED
+	OPEN, COMPLETED, DELETED, DELIVERED, PAID, CLOSED
 }

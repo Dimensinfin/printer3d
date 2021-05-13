@@ -86,12 +86,24 @@ public class RequestEntityV2 {
 		return this;
 	}
 
+	public Instant getCompletedDate() {
+		return this.completedDate;
+	}
+
 	public List<RequestItem> getContents() {
 		return this.contents;
 	}
 
+	public String getCustomer() {
+		return this.customer;
+	}
+
 	public UUID getId() {
 		return this.id;
+	}
+
+	public float getIva() {
+		return this.iva;
 	}
 
 	public String getLabel() {
@@ -115,6 +127,10 @@ public class RequestEntityV2 {
 		return this.state;
 	}
 
+	public float getTotal() {
+		return this.total;
+	}
+
 	/**
 	 * Identifies the type of requests for the frontend classification. Requests can be open or closed on the front end but this maps to some of the
 	 * possible  requests states.
@@ -129,6 +145,10 @@ public class RequestEntityV2 {
 	 */
 	public boolean isOpen() {
 		return ((this.state == RequestState.OPEN) || (this.state == RequestState.COMPLETED));
+	}
+
+	public boolean isPaid() {
+		return this.paid;
 	}
 
 	public RequestEntityV2 close() {

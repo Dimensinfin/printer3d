@@ -14,7 +14,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.Reques
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
 
-public class RequestV2ToRequestEntityV2ConverterTest {
+public class CustomerRequestRequestV2ToRequestEntityV2ConverterTest {
 
 	@Test
 	public void convert() {
@@ -26,7 +26,7 @@ public class RequestV2ToRequestEntityV2ConverterTest {
 				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
 				.build();
-		final RequestV2ToRequestEntityV2Converter requestToRequestEntityConverter = new RequestV2ToRequestEntityV2Converter();
+		final CustomerRequestRequestV2ToRequestEntityV2Converter requestToRequestEntityConverter = new CustomerRequestRequestV2ToRequestEntityV2Converter();
 		// Test
 		final RequestEntityV2 obtained = requestToRequestEntityConverter.convert( request );
 		// Assertions

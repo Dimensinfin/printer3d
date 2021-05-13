@@ -7,7 +7,7 @@ import org.dimensinfin.printer3d.backend.production.request.persistence.RequestE
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 
 @Deprecated
-public class RequestV2ToRequestEntityV2Converter implements Converter<CustomerRequestRequestV2, RequestEntityV2> {
+public class CustomerRequestRequestV2ToRequestEntityV2Converter implements Converter<CustomerRequestRequestV2, RequestEntityV2> {
 	@Override
 	public RequestEntityV2 convert( final CustomerRequestRequestV2 input ) {
 		return new RequestEntityV2.Builder()

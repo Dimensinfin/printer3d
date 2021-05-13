@@ -20,6 +20,7 @@ import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictExcept
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToCustomerRequestResponseConverter;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
@@ -27,11 +28,13 @@ import org.dimensinfin.printer3d.backend.production.request.rest.CommonRequestSe
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 @Service
 public class RequestServiceV2 extends CommonRequestService {
+	private static final RequestEntityV2ToCustomerRequestResponseConverter requestEntityV2ToCustomerRequestResponseConverter = new RequestEntityV2ToCustomerRequestResponseConverter();
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
@@ -59,17 +62,17 @@ public class RequestServiceV2 extends CommonRequestService {
 	 * before removal. This service will read first V1 requests and convert them to V2 before joining them with the V2 requests and do the common
 	 * processing and reporting.
 	 */
-	public List<CustomerRequestRequestV2> getOpenRequests() {
+	public List<CustomerRequestResponseV2> getOpenRequests() {
 		LogWrapper.enter();
 		try {
 			this.stockManager.startStock(); // Initialize the stock with the current Part stock data
-			// Get the list of OPEN Requests for processing. Join the old V1 to the new V2 requests after tranformation.
+			// Get the list of OPEN Requests for processing. Join the old V1 to the new V2 requests after transformation.
 			return this.requestsRepositoryV2.findAll()
 					.stream()
 					.filter( RequestEntityV2::isOpen )
 					.map( requestEntityV2 -> {
 						if (this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
-						return requestEntityV2ToRequestV2Converter.convert( requestEntityV2 );
+						return requestEntityV2ToCustomerRequestResponseConverter.convert( requestEntityV2 );
 					} )
 					.collect( Collectors.toList() );
 		} catch (final RuntimeException rte) {

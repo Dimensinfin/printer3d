@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 
 @RestController
 @Validated
@@ -35,7 +36,7 @@ public class RequestControllerV2 {
 	@GetMapping(path = "/production/requests",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<List<CustomerRequestRequestV2>> getOpenRequests() {
+	public ResponseEntity<List<CustomerRequestResponseV2>> getOpenRequests() {
 		return new ResponseEntity<>( this.requestServiceV2.getOpenRequests(), HttpStatus.OK );
 	}
 
