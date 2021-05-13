@@ -63,7 +63,7 @@ public class RequestControllerV2 {
 	@PostMapping(path = "/production/requests",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CustomerRequestRequestV2> newRequest( final @RequestBody @Valid @NotNull CustomerRequestRequestV2 request ) {
+	public ResponseEntity<CustomerRequestResponseV2> newRequest( final @RequestBody @Valid @NotNull CustomerRequestRequestV2 request ) {
 		return new ResponseEntity<>( this.requestServiceV2.newRequest( request ), HttpStatus.CREATED );
 	}
 }

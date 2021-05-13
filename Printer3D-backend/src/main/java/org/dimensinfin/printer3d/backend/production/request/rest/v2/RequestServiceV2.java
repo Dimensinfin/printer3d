@@ -143,14 +143,14 @@ public class RequestServiceV2 extends CommonRequestService {
 	 * @param newRequest the new request Customer Request data.
 	 * @return the persisted Customer request.
 	 */
-	public CustomerRequestRequestV2 newRequest( final CustomerRequestRequestV2 newRequest ) {
+	public CustomerRequestResponseV2 newRequest( final CustomerRequestRequestV2 newRequest ) {
 		LogWrapper.enter();
 		try {
 			// Search for the Part by id. If found reject the request because this should be a new creation.
 			final Optional<RequestEntityV2> target = this.requestsRepositoryV2.findById( newRequest.getId() );
 			if (target.isPresent())
 				throw new RepositoryConflictException( RequestRestErrors.errorREQUESTALREADYEXISTS( newRequest.getId() ) );
-			return new RequestEntityV2ToRequestV2Converter().convert(
+			return new RequestEntityV2ToCustomerRequestResponseConverter().convert(
 					this.requestsRepositoryV2.save(
 							new RequestEntityV2.Builder()
 									.withId( newRequest.getId() )

@@ -17,7 +17,7 @@ public class RequestEntityV2ToRequestV2Converter implements Converter<RequestEnt
 				.withLabel( input.getLabel() )
 				.withRequestDate( input.getRequestDate().toString() )
 				//				.withClosedDate( (null != input.getPaymentDate()) ? input.getPaymentDate().toString() : null )
-				.withState( input.getState() )
+				//				.withState( input.getState() )
 				//				.withAmount( input.getAmount() )
 				.withContents( input.getContents() )
 				.build();

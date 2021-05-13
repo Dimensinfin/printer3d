@@ -1,5 +1,6 @@
 package org.dimensinfin.printer3d.client.production.rest.dto;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -52,7 +53,7 @@ public class CustomerRequestRequestV2 {
 	private List<RequestItem> contents = new ArrayList<>();
 	@NotNull(message = "The request amounts are set on the front end so should not be undefined.")
 	@SerializedName("total")
-	private float total;
+	private Float total;
 	@SerializedName("paid")
 	private boolean paid = false;
 
@@ -66,6 +67,11 @@ public class CustomerRequestRequestV2 {
 
 	public String getCustomer() {
 		return this.customer;
+	}
+
+	public CustomerRequestRequestV2 setCustomer( final String customer ) {
+		this.customer = customer;
+		return this;
 	}
 
 	public UUID getId() {
@@ -104,6 +110,7 @@ public class CustomerRequestRequestV2 {
 		public CustomerRequestRequestV2 build() {
 			Objects.requireNonNull( this.onConstruction.id );
 			Objects.requireNonNull( this.onConstruction.label );
+			if (null == this.onConstruction.requestDate) this.onConstruction.requestDate = Instant.now().toString();
 			if (this.onConstruction.contents.isEmpty())
 				throw new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTMISSINGFIELD( "contents" ) );
 			Objects.requireNonNull( this.onConstruction.total );
@@ -125,13 +132,13 @@ public class CustomerRequestRequestV2 {
 			return this;
 		}
 
-		public CustomerRequestRequestV2.Builder withRequestDate( final String requestDate ) {
-			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
+		public CustomerRequestRequestV2.Builder withPaid( final Boolean paid ) {
+			if (null != paid) this.onConstruction.paid = paid;
 			return this;
 		}
 
-		public CustomerRequestRequestV2.Builder withState( final RequestState state ) {
-			this.onConstruction.state = Objects.requireNonNull( state );
+		public CustomerRequestRequestV2.Builder withRequestDate( final String requestDate ) {
+			if (null != requestDate) this.onConstruction.requestDate = requestDate;
 			return this;
 		}
 

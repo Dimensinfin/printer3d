@@ -23,7 +23,7 @@ public class CustomerRequestRequestV2ToRequestEntityV2ConverterTest {
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )
-				.withState( TEST_REQUEST_STATE )
+				//				.withState( TEST_REQUEST_STATE )
 				.withContents( new ArrayList<>() )
 				.build();
 		final CustomerRequestRequestV2ToRequestEntityV2Converter requestToRequestEntityConverter = new CustomerRequestRequestV2ToRequestEntityV2Converter();

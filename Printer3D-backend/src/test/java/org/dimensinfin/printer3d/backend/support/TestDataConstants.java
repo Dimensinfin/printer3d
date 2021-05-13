@@ -94,10 +94,13 @@ public class TestDataConstants {
 	public static class RequestConstants {
 		public static final UUID TEST_REQUEST_ID = UUID.fromString( "98be9442-edbb-47fe-bc20-60b9e6f4a315" );
 		public static final String TEST_REQUEST_LABEL = "-TEST_REQUEST_LABEL-";
+		public static final String TEST_REQUEST_CUSTOMER = "-TEST_REQUEST_CUSTOMER-";
 		public static final Instant TEST_REQUEST_DATE = Instant.parse( "2020-06-16T16:38:30.562806Z" );
 		public static final String TEST_REQUEST_DATE_STRING = "2020-06-16T16:38:30.562806Z";
 		public static final RequestState TEST_REQUEST_STATE = RequestState.OPEN;
-		public static final float TEST_REQUEST_AMOUNT = 45.67F;
+		public static final float TEST_REQUEST_AMOUNT = 20.0F;
+		public static final float TEST_REQUEST_IVA = 4.20F;
+		public static final float TEST_REQUEST_TOTAL = 24.20F;
 		public static final Instant TEST_REQUEST_CLOSED_DATE = Instant.parse( "2020-06-06T21:54:00.226181Z" );
 	}
 
