@@ -8,20 +8,13 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
     inventory leveling.
 
     Background:
-        Given a clean RequestsV2 repository
-        Given a clean Jobs repository
-        Given a clean Models repository
-        Given a clean Parts repository
         Given a clean Coils repository
         And the following Coils in my service
             | id                                   | material | tradeMark   | color  | label | weight | active |
             | e7a42126-6732-41f0-902b-98a8ebe79eb5 | PLA      | FILLAMENTUM | BLANCO | -     | 500    | true   |
             | 151e6dd4-ab88-4289-9a5d-a68a25ff0b65 | PLA      | FILLAMENTUM | VERDE  | -     | 500    | true   |
             | fccd2177-e6ee-499a-8a53-1e7aa4e101a7 | FLEX     | EASUN       | NEGRO  | -     | 500    | true   |
-
-      # - H A P P Y   P A T H
-    @B3D08.H1 @B3D08.01
-    Scenario: [B3D08.01] Validate the creation of a new Request with the minimal data.
+        Given a clean Parts repository
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -29,24 +22,31 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
             | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
             | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
+        Given a clean Models repository
         And the following Models in my service
             | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
+        Given a clean Jobs repository
+        Given a clean RequestsV2 repository
+
+      # - H A P P Y   P A T H
+    @B3D08.H1 @B3D08.01
+    Scenario: [B3D08.01] Validate the creation of a new Request with the minimal data.
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
         And creating the next Request V2 with previous Contents
-            | id                                   | label                          | requestDate                 | state | total |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  | 15.73 |
+            | id                                   | label                             | requestDate              | state | total |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Primera parte pedido URBAN DIGIT. | 2021-03-03T16:00:17.353Z | OPEN  | 15.73 |
         When the New Request V2 request is processed
         Then there is a valid response with return code of "201 CREATED"
         # - Read back the list of Open requests to check the persisted data
         When the Get Open Requests request is processed
         Then there is a valid response with return code of "200 OK"
         And the resulting list of Requests has a request with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" with the next data
-            | id                                   | label                          | customer | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 |          | 2020-06-29T20:00:00.226181Z | OPEN  |
+            | id                                   | label                             | customer | requestDate              | completedDate | paymentDate | state | paid  | amount | iva  | total |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Primera parte pedido URBAN DIGIT. |          | 2021-03-03T16:00:17.353Z |               |             | OPEN  | false | 13.0   | 2.73 | 15.73 |
         And the Request V2 with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" has the next list of contents
             | itemId                               | type  | quantity | missing |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
@@ -54,30 +54,20 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
     @B3D08.H1 @B3D08.02
     Scenario: [B3D08.02] Validate the creation of a new Request with Customer data.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
-        And the following Models in my service
-            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
         And creating the next Request V2 with previous Contents
-            | id                                   | label                          | customer           | requestDate                 | state | total |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | Test Customer Name | 2020-06-29T20:00:00.226181Z | OPEN  | 15.73 |
+            | id                                   | label                             | customer           | requestDate              | state | total |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Primera parte pedido URBAN DIGIT. | Test Customer Name | 2021-03-03T16:00:17.353Z | OPEN  | 15.73 |
         When the New Request V2 request is processed
         Then there is a valid response with return code of "201 CREATED"
-        When the Get Requests V2 request is processed
+        When the Get Open Requests request is processed
         Then there is a valid response with return code of "200 OK"
         And the resulting list of Requests has a request with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" with the next data
-            | id                                   | label                          | customer | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 |          | 2020-06-29T20:00:00.226181Z | OPEN  |
+            | id                                   | label                             | customer           | requestDate              | completedDate | paymentDate | state | paid  | amount | iva  | total |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Primera parte pedido URBAN DIGIT. | Test Customer Name | 2021-03-03T16:00:17.353Z |               |             | OPEN  | false | 13.0   | 2.73 | 15.73 |
         And the Request V2 with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" has the next list of contents
             | itemId                               | type  | quantity | missing |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
@@ -85,48 +75,28 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
     @B3D08.H1 @B3D08.03
     Scenario: [B3D08.03] Validate the creation of a new Request pre-paid.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
-        And the following Models in my service
-            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
         And creating the next Request V2 with previous Contents
-            | id                                   | label                          | customer           | requestDate                 | state | total | paid |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | Test Customer Name | 2020-06-29T20:00:00.226181Z | OPEN  | 15.73 | true |
+            | id                                   | label                             | customer           | requestDate              | state | total | paid |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Primera parte pedido URBAN DIGIT. | Test Customer Name | 2021-03-03T16:00:17.353Z | OPEN  | 15.73 | true |
         When the New Request V2 request is processed
         Then there is a valid response with return code of "201 CREATED"
-        When the Get Requests V2 request is processed
+        When the Get Open Requests request is processed
         Then there is a valid response with return code of "200 OK"
         And the resulting list of Requests has a request with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" with the next data
-            | id                                   | label                          | customer | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 |          | 2020-06-29T20:00:00.226181Z | OPEN  |
+            | id                                   | label                             | customer           | requestDate              | completedDate | paymentDate | state | paid | amount | iva  | total |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Primera parte pedido URBAN DIGIT. | Test Customer Name | 2021-03-03T16:00:17.353Z |               |             | OPEN  | true | 13.0   | 2.73 | 15.73 |
         And the Request V2 with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" has the next list of contents
             | itemId                               | type  | quantity | missing |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        | 1       |
 
-    @B3D08.H1 @B3D08.02
-    Scenario: [B3D08.02] When a new Request is created the return state is always Open. This state changes to Completed if there are enough Parts at
+    @B3D08.H1 @B3D08.04
+    Scenario: [B3D08.04] When a new Request is created the return state is always Open. This state changes to Completed if there are enough Parts at
     the Inventory stock and only when the Requests is processed during the frontend requesting the lists of Requests.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
-        And the following Models in my service
-            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
@@ -163,13 +133,6 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
     @B3D08.H1 @B3D08.05
     Scenario: [B3D08.05] When a new request cannot be completed because there are not enough Parts at the Inventory the jobs generated to complete the
     Request have priority 1.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 0              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
         And the next Request Contents List
             | itemId                               | type | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 2        |
@@ -187,16 +150,6 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
     @B3D08.H2 @B3D08.06
     Scenario: [B3D08.06] When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
-        And the following Models in my service
-            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
@@ -224,13 +177,6 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
     @B3D08.H2 @B3D08.07
     Scenario: [B3D08.07] There is an endpoint that allows to delete a Request from the repository. The request should be on OPEN state.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
         And the next Request Contents List
             | itemId                               | type | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 1        |
@@ -247,17 +193,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
     @B3D08.H2 @B3D08.08
     Scenario: [B3D08.08] When a Request is closed the the request amount is calculated with the current price values for the parts contained on the
     Request.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
         # - Create a request
-        And the following Models in my service
-            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
@@ -283,17 +219,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
     @B3D08.H2 @B3D08.09
     Scenario: [B3D08.09] When a Request is closed the the request closed date is the current date and we can calculate the week for aggregation.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
         # - Create a request
-        And the following Models in my service
-            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
@@ -320,16 +246,6 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
     # - E X C E P T I O N S
     @B3D08.E @B3D08.E.01
     Scenario: [B3D08.E.01] Before closing a Request we have to be sure there are enough Parts on stock. If not raise an exception.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
-        And the following Models in my service
-            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
         And the next Request Contents List
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
@@ -360,13 +276,6 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
     @B3D08.E @B3D08.E.03
     Scenario: [B3D08.E.03] If the Requests that should be deleted is on the state CLOSED then raise an exception.
-        And the following Parts in my service
-            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
-            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
-            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 10             | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
-            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 10             |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
         And the next Request Contents List
             | itemId                               | type | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 1        |

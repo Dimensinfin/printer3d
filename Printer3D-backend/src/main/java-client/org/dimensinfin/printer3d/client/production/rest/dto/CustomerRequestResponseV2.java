@@ -26,7 +26,7 @@ public class CustomerRequestResponseV2 {
 	// - C O N S T R U C T O R S
 	public CustomerRequestResponseV2() {}
 
-// - G E T T E R S   &   S E T T E R S
+	// - G E T T E R S   &   S E T T E R S
 	public float getAmount() {
 		return this.amount;
 	}

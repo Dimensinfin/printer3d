@@ -26,11 +26,11 @@ public class CucumberTableToCustomerRequestRequestV2Converter extends CucumberTa
 		final CustomerRequestRequestV2.Builder builder = new CustomerRequestRequestV2.Builder();
 		if (null != cucumberRow.get( ID )) builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
 		if (null != cucumberRow.get( LABEL )) builder.withLabel( cucumberRow.get( LABEL ) );
-		if (null != cucumberRow.get( CUSTOMER )) builder.withLabel( cucumberRow.get( CUSTOMER ) );
 		if (null != cucumberRow.get( REQUEST_DATE )) builder.withRequestDate( cucumberRow.get( REQUEST_DATE ) );
 		if (null != cucumberRow.get( PAID )) builder.withPaid( Boolean.parseBoolean( cucumberRow.get( PAID ) ) );
 		if (null != cucumberRow.get( TOTAL )) builder.withTotalAmount( Float.parseFloat( cucumberRow.get( TOTAL ) ) );
 		builder.withContents( this.requestContents );
-		return builder.build();
+		return builder.build()
+				.setCustomer( cucumberRow.get( CUSTOMER ) );
 	}
 }

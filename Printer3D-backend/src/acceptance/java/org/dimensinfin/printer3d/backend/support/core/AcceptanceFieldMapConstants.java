@@ -28,8 +28,11 @@ public class AcceptanceFieldMapConstants {
 	// - R E Q U E S T
 	public static final String CUSTOMER = "customer";
 	public static final String REQUEST_DATE = "requestDate";
+	public static final String COMPLETED_DATE = "completedDate";
+	public static final String PAYMENT_DATE = "paymentDate";
 	public static final String STATE = "state";
 	public static final String PAID = "paid";
+	public static final String IVA = "iva";
 	public static final String TOTAL = "total";
 
 	public static final String QUANTITY = "quantity";
