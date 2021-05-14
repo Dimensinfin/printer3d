@@ -14,10 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
+import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToCustomerRequestRequestV2Converter;
 import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestItemConverter;
-import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestV2Converter;
-import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestV2TestingConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CustomerRequestResponseV2Validator;
+import org.dimensinfin.printer3d.backend.support.production.request.RequestContentValidator;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientSupport;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
@@ -26,6 +26,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ITEM_ID;
 
 public class B3D08RequestsSteps extends StepSupport {
 	private final RequestFeignClientV2 requestFeignClientV2;
@@ -42,37 +43,37 @@ public class B3D08RequestsSteps extends StepSupport {
 
 	@Given("creating the next Request V2 with previous Contents")
 	public void creating_the_next_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
-		final CustomerRequestRequestV2 request = new CucumberTableToRequestV2Converter( this.printer3DWorld.getRequestContents() )
+		final CustomerRequestRequestV2 request = new CucumberTableToCustomerRequestRequestV2Converter( this.printer3DWorld.getRequestContents() )
 				.convert( dataTable.get( 0 ) );
 		Assertions.assertNotNull( request );
 		this.printer3DWorld.setCustomerRequestRequestV2( request );
 	}
 
-	@Given("creating the next incomplete Request V2 with previous Contents")
-	public void creating_the_next_incomplete_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
-		final CustomerRequestRequestV2 request =
-				new CucumberTableToRequestV2TestingConverter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
-		Assertions.assertNotNull( request );
-		this.printer3DWorld.setCustomerRequestRequestV2( request );
-	}
-
-	//	@Then("the Request V2 with id {string} has the next list of contents")
-	//	public void the_Request_V2_with_id_has_the_next_list_of_contents( final String requestId,
-	//	                                                                  final List<Map<String, String>> dataTable ) {
-	//		final ResponseEntity<List<CustomerRequestRequestV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
-	//		Assertions.assertNotNull( requests );
-	//		Assertions.assertNotNull( requests.getBody() );
-	//		for (final CustomerRequestRequestV2 request : requests.getBody()) {
-	//			if (request.getId().toString().equalsIgnoreCase( requestId )) {
-	//				for (final Map<String, String> row : dataTable) {
-	//					for (final RequestItem content : request.getContents()) {
-	//						if (content.getItemId().toString().equalsIgnoreCase( row.get( ITEM_ID ) ))
-	//							Assertions.assertTrue( new RequestContentValidator().validate( row, content ) );
-	//					}
-	//				}
-	//			}
-	//		}
+	//	@Given("creating the next incomplete Request V2 with previous Contents")
+	//	public void creating_the_next_incomplete_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
+	//		final CustomerRequestRequestV2 request =
+	//				new CucumberTableToRequestV2TestingConverter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
+	//		Assertions.assertNotNull( request );
+	//		this.printer3DWorld.setCustomerRequestRequestV2( request );
 	//	}
+
+	@Then("the Request V2 with id {string} has the next list of contents")
+	public void the_Request_V2_with_id_has_the_next_list_of_contents( final String requestId,
+	                                                                  final List<Map<String, String>> dataTable ) {
+		final ResponseEntity<List<CustomerRequestResponseV2>> requests = this.printer3DWorld.getListRequestV2ResponseEntity();
+		Assertions.assertNotNull( requests );
+		Assertions.assertNotNull( requests.getBody() );
+		for (final CustomerRequestResponseV2 request : requests.getBody()) {
+			if (request.getId().toString().equalsIgnoreCase( requestId )) {
+				for (final Map<String, String> row : dataTable) {
+					for (final RequestItem content : request.getContents()) {
+						if (content.getItemId().toString().equalsIgnoreCase( row.get( ITEM_ID ) ))
+							Assertions.assertTrue( new RequestContentValidator().validate( row, content ) );
+					}
+				}
+			}
+		}
+	}
 
 	@Then("the list of Requests on the response is empty")
 	public void the_list_of_Requests_on_the_response_is_empty() throws IOException {

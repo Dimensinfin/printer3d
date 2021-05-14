@@ -12,10 +12,16 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
         Given a clean Jobs repository
         Given a clean Models repository
         Given a clean Parts repository
+        Given a clean Coils repository
+        And the following Coils in my service
+            | id                                   | material | tradeMark   | color  | label | weight | active |
+            | e7a42126-6732-41f0-902b-98a8ebe79eb5 | PLA      | FILLAMENTUM | BLANCO | -     | 500    | true   |
+            | 151e6dd4-ab88-4289-9a5d-a68a25ff0b65 | PLA      | FILLAMENTUM | VERDE  | -     | 500    | true   |
+            | fccd2177-e6ee-499a-8a53-1e7aa4e101a7 | FLEX     | EASUN       | NEGRO  | -     | 500    | true   |
 
       # - H A P P Y   P A T H
     @B3D08.H1 @B3D08.01
-    Scenario: [B3D08.01] Validate the creation of a new Request with the data received.
+    Scenario: [B3D08.01] Validate the creation of a new Request with the minimal data.
         And the following Parts in my service
             | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
             | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
@@ -31,15 +37,78 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
         And creating the next Request V2 with previous Contents
-            | id                                   | label                          | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
+            | id                                   | label                          | requestDate                 | state | total |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  | 15.73 |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
+        # - Read back the list of Open requests to check the persisted data
+        When the Get Open Requests request is processed
+        Then there is a valid response with return code of "200 OK"
+        And the resulting list of Requests has a request with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" with the next data
+            | id                                   | label                          | customer | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 |          | 2020-06-29T20:00:00.226181Z | OPEN  |
+        And the Request V2 with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" has the next list of contents
+            | itemId                               | type  | quantity | missing |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        | 1       |
+
+    @B3D08.H1 @B3D08.02
+    Scenario: [B3D08.02] Validate the creation of a new Request with Customer data.
+        And the following Parts in my service
+            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
+        And the following Models in my service
+            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
+        And the next Request Contents List
+            | itemId                               | type  | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | customer           | requestDate                 | state | total |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | Test Customer Name | 2020-06-29T20:00:00.226181Z | OPEN  | 15.73 |
         When the New Request V2 request is processed
         Then there is a valid response with return code of "201 CREATED"
         When the Get Requests V2 request is processed
         Then there is a valid response with return code of "200 OK"
         And the resulting list of Requests has a request with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" with the next data
-            | id                                   | label                          | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
+            | id                                   | label                          | customer | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 |          | 2020-06-29T20:00:00.226181Z | OPEN  |
+        And the Request V2 with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" has the next list of contents
+            | itemId                               | type  | quantity | missing |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        | 1       |
+
+    @B3D08.H1 @B3D08.03
+    Scenario: [B3D08.03] Validate the creation of a new Request pre-paid.
+        And the following Parts in my service
+            | id                                   | label                                   | material | color  | buildTime | cost | price | stockLevel | stockAvailable | imagePath              | modelPath  | active | description                                                                                                   |
+            | 4e7001ee-6bf5-40b4-9c15-61802e4c59ea | Covid-19 Key                            | PLA      | BLANCO | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | 63fff2bc-a93f-4ee5-b753-185d83a13151 | Covid-19 Key                            | PLA      | VERDE  | 60        | 0.65 | 2.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | This is a key to be used to isolate contact with surfaces and buttons. Use it to open doors and push buttons. |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PLATAFORMA SLOT 1/32 - Base             | PLA      | BLANCO | 30        | 1.0  | 5.00  | 2          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Base para la plataforma de slot cars.                                                                         |
+            | 9fd4337d-6a4d-47b3-a7ac-a61bd51fad39 | PLATAFORMA SLOT 1/32 - Guarda Tornillos | PLA      | BLANCO | 45        | 1.0  | 5.00  | 3          | 2              | https://ibb.co/3dGbsRh | pieza3.STL | true   | Panel para guardar tornillos y destornillador y adaptable para la base de la platforma Slot                   |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | UNION PLATAFORMA                        | FLEX     | NEGRO  | 15        | 0.1  | 1.00  | 10         | 4              |                        |            | true   | Union para las piezas de laplataforma slot                                                                    |
+        And the following Models in my service
+            | id                                   | label               | partIdList                                                                                                                                                                               | price | stockLevel | imagePath              | active |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | SLOT CAR Plataforma | a12ec0be-52a4-424f-81e1-70446bc38372,9fd4337d-6a4d-47b3-a7ac-a61bd51fad39,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce,2f780382-e539-4945-87ea-354bdd7879ce | 4.00  | 3          | https://ibb.co/3dGbsRh | true   |
+        And the next Request Contents List
+            | itemId                               | type  | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | customer           | requestDate                 | state | total | paid |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | Test Customer Name | 2020-06-29T20:00:00.226181Z | OPEN  | 15.73 | true |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
+        When the Get Requests V2 request is processed
+        Then there is a valid response with return code of "200 OK"
+        And the resulting list of Requests has a request with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" with the next data
+            | id                                   | label                          | customer | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 |          | 2020-06-29T20:00:00.226181Z | OPEN  |
         And the Request V2 with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" has the next list of contents
             | itemId                               | type  | quantity | missing |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        | 0       |
@@ -282,9 +351,9 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
-        And creating the next incomplete Request V2 with previous Contents
-            | id                                   | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | 2020-06-29T20:00:00.226181Z | OPEN  |
+#        And creating the next incomplete Request V2 with previous Contents
+#            | id                                   | requestDate                 | state |
+#            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | 2020-06-29T20:00:00.226181Z | OPEN  |
         When the New Request V2 request is processed
         Then there is a exception response with return code of "400 BAD_REQUEST"
         And the exception response contains the message "The request is not valid. [Field error in object"

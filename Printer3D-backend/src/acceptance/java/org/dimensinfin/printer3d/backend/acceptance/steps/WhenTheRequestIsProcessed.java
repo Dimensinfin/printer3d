@@ -146,16 +146,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_MODELS );
 	}
 
-	//	@When("the Get Parts request is processed")
-	//	public void the_Get_Parts_request_is_processed() throws IOException {
-	//		this.processRequestByType( RequestType.GET_PARTS );
-	//	}
-
-	@When("the Get Requests V2 request is processed")
-	public void the_Get_Requests_V2_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_REQUESTSV2 );
-	}
-
 	@When("the New Coil request is processed")
 	public void the_New_Coil_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.NEW_COIL );
@@ -215,6 +205,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	@When("the Extract Closed Requests request is processed")
 	public void the_extract_closed_requests_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.ACCOUNTING_CLOSED_REQUESTS_CSV_DATA );
+	}
+
+	@When("the Get Open Requests request is processed")
+	public void the_get_open_requests_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_OPEN_REQUESTSV2 );
 	}
 
 	@When("the Get Parts V2 request is processed")
@@ -320,7 +315,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newRequestV2ResponseEntity );
 				this.printer3DWorld.setCustomerRequestResponseV2( newRequestV2ResponseEntity );
 				return newRequestV2ResponseEntity;
-			case GET_REQUESTSV2:
+			case GET_OPEN_REQUESTSV2:
 				final ResponseEntity<List<CustomerRequestResponseV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
 				Assertions.assertNotNull( getRequestsV2ResponseEntity );
 				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
