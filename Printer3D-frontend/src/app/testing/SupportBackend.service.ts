@@ -11,7 +11,7 @@ import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
 import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineV2 } from '@domain/production/MachineV2.domain';
-import { RequestForm } from '@domain/RequestForm.domain';
+// import { RequestForm } from '@domain/RequestForm.domain';
 import { JobRequest } from '@domain/dto/JobRequest.dto';
 import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
@@ -54,23 +54,23 @@ export class SupportBackendService {
                 })
         });
     }
-    public apiNewRequest_v1(newRequest: RequestForm, transformer: ResponseTransformer): Observable<RequestForm> {
-        console.log('[SupportBackendService.apiNewRequest_v1]> Transformation: ' + transformer.description)
-        return Observable.create((observer) => {
-            const data = this.directAccessMockResource('newrequest')
-            observer.next(transformer.transform(data));
-            observer.complete();
-        });
-    }
-    public apiNewRequest_v2(newRequest: RequestRequest, transformer: ResponseTransformer): Observable<RequestForm> {
-        console.log('[SupportBackendService.apiNewRequest_v2]> Transformation: ' + transformer.description)
-        return Observable.create((observer) => {
-            const data = this.directAccessMockResource('newrequest')
-            observer.next(transformer.transform(data));
-            observer.complete();
-        });
-    }
-    public apiNewModel_v1(newModel: ModelRequest, transformer: ResponseTransformer): Observable<RequestForm> {
+    // public apiNewRequest_v1(newRequest: RequestForm, transformer: ResponseTransformer): Observable<RequestForm> {
+    //     console.log('[SupportBackendService.apiNewRequest_v1]> Transformation: ' + transformer.description)
+    //     return Observable.create((observer) => {
+    //         const data = this.directAccessMockResource('newrequest')
+    //         observer.next(transformer.transform(data));
+    //         observer.complete();
+    //     });
+    // }
+    // public apiNewRequest_v2(newRequest: RequestRequest, transformer: ResponseTransformer): Observable<RequestForm> {
+    //     console.log('[SupportBackendService.apiNewRequest_v2]> Transformation: ' + transformer.description)
+    //     return Observable.create((observer) => {
+    //         const data = this.directAccessMockResource('newrequest')
+    //         observer.next(transformer.transform(data));
+    //         observer.complete();
+    //     });
+    // }
+    public apiNewModel_v1(newModel: ModelRequest, transformer: ResponseTransformer): Observable<Model> {
         console.log('[SupportBackendService.apiNewRequest_v1]> Transformation: ' + transformer.description)
         return Observable.create((observer) => {
             const data = this.directAccessMockResource('newmodel')

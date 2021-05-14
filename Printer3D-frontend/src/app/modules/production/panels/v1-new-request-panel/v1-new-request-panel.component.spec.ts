@@ -15,7 +15,6 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 import { SupportBackendService } from '@app/testing/SupportBackend.service'
 // - DOMAIN
 import { V1NewRequestPanelComponent } from './v1-new-request-panel.component'
-import { RequestForm } from '@domain/RequestForm.domain'
 import { Part } from '@domain/inventory/Part.domain'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Model } from '@domain/inventory/Model.domain'
@@ -23,6 +22,7 @@ import { RequestItem } from '@domain/production/RequestItem.domain'
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
 import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 import { SupportDockService } from '@app/testing/SupportDock.service'
+import { RequestForm } from '../../domain/RequestForm.domain'
 
 describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
     let fixture: ComponentFixture<V1NewRequestPanelComponent>

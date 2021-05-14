@@ -1,22 +1,22 @@
 // - CORE
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 // - ROUTER
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 // - SERVICES
-import { BackendService } from '@app/services/backend.service';
+import { BackendService } from '@app/services/backend.service'
 // - DOMAIN
-import { IsolationService } from '@app/platform/isolation.service';
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Part } from '@domain/inventory/Part.domain';
-import { RequestForm } from '@domain/RequestForm.domain';
-import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter';
-import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
-import { RequestItem } from '@domain/production/RequestItem.domain';
-import { Model } from '@domain/inventory/Model.domain';
-import { environment } from '@env/environment';
-import { HttpErrorResponse } from '@angular/common/http';
-import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service';
+import { IsolationService } from '@app/platform/isolation.service'
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
+import { Part } from '@domain/inventory/Part.domain'
+import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component'
+import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter'
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
+import { RequestItem } from '@domain/production/RequestItem.domain'
+import { Model } from '@domain/inventory/Model.domain'
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
+import { RequestForm } from '../../domain/RequestForm.domain'
+import { ProductionService } from '../../service/production.service'
+import { CustomerRequestResponse } from '../../domain/dto/CustomerRequestResponse.dto'
 
 @Component({
     selector: 'v1-new-request-panel',
@@ -24,42 +24,44 @@ import { DockService } from '@app/modules/innovative/feature-dock/service/dock.s
     styleUrls: ['./v1-new-request-panel.component.scss']
 })
 export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
-    public self: V1NewRequestPanelComponent;
-    public request: RequestForm = new RequestForm();
+    public self: V1NewRequestPanelComponent
+    public request: RequestForm = new RequestForm()
 
     constructor(
         protected router: Router,
         protected isolationService: IsolationService,
         protected backendService: BackendService,
+        protected productionService: ProductionService,
         protected dockService: DockService) {
-        super();
-        this.self = this;
+        super()
+        this.self = this
     }
 
+    // - G E T T E R S
     public getRequestDate(): Date {
-        return new Date();
+        return new Date()
     }
     public getLabel(): string {
-        return this.request.label;
+        return this.request.label
     }
     public getRequestContents(): RequestItem[] {
-        return this.request.getRequestContents();
+        return this.request.getRequestContents()
     }
     public hasContents(): boolean {
-        if (this.request.contents.length > 0) return true;
+        if (this.request.contents.length > 0) return true
         else return false
     }
     public getContentCount(): number {
-        let count: number = 0
-        for (const content of this.getRequestContents())
-            count += content.getQuantity()
-        return count
+        return this.request.getContentCount()
     }
     public getRequestAmount(): string {
-        let amount: number = 0
-        for (const content of this.getRequestContents())
-            amount += content.getPrice() * content.getQuantity()
-        return amount + ' €'
+        return this.request.getAmount() + '€'
+    }
+    public getRequestIva(): string {
+        return this.request.getIva() + '€'
+    }
+    public getRequestTotal(): string {
+        return this.request.getTotal() + '€'
     }
     public isFormValid(formState: any): boolean {
         return (formState && this.hasContents())
@@ -71,25 +73,25 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         console.log('<>>[V1NewRequestPanelComponent.onDrop]')
     }
     public removeContent(content: RequestItem): void {
-        this.request.removeContent(content);
+        this.request.removeContent(content)
     }
+    /**
+     * Send the new Customer Request to the backend to store on the repository.
+     * Discards the returned new Customer Request instance.
+     * When the persistence completes the Feature is dismissed and the control goes back to the main dashboard page.
+     */
     public saveRequest(): void {
         this.backendConnections.push(
-            this.backendService.apiNewRequest_v2(new RequestFormToRequestConverter().convert(this.request),
-                new ResponseTransformer().setDescription('Do HTTP transformation to "Request" dto instance from response.')
-                    .setTransformation((entrydata: any): CustomerRequest => {
-                        this.isolationService.successNotification('Pedido [' + this.request.label + '] registrado correctamente.', '/PRODUCCION/NUEVO PEDIDO/OK');
-                        return new CustomerRequest(); // Discard the just persisted request and return an empty instance.
-                    }))
-                .subscribe((persistedRequest: CustomerRequest) => {
+            this.productionService.apiv2_NewRequest(this.request)
+                .subscribe((persistedRequest: CustomerRequestResponse) => {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
                     this.dockService.clean() // Clean the selection from any feature
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/'])
                 })
         )
     }
     public cancelRequest(): void {
         this.dockService.clean() // Clean the selection from any feature
-        this.router.navigate(['/']);
+        this.router.navigate(['/'])
     }
 }

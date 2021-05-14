@@ -1,16 +1,17 @@
 // - DOMAIN
 import { RequestFormToRequestConverter } from './RequestFormToRequest.converter';
-import { RequestForm } from '@domain/RequestForm.domain';
+// import { RequestForm } from '@domain/RequestForm.domain';
 import { RequestState, RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { RequestItem } from '@domain/production/RequestItem.domain';
+import { RequestForm } from '@app/modules/production/domain/RequestForm.domain';
 
 describe('CLASS RequestFormToRequestConverter [Module: CONVERTER]', () => {
     // - C O V E R A G E   P H A S E
     describe('Coverage Phase [Methods]', () => {
         it('convert.: convert a RequestForm into a RequestRequest for background connection', () => {
             // Given
-            const contents : RequestItem[]=[]
+            const contents: RequestItem[] = []
             contents.push(new RequestItem({
                 itemId: "fed05e3a-fc43-41a2-95b3-2002e15a98ba",
                 type: RequestContentType.PART,
@@ -23,10 +24,10 @@ describe('CLASS RequestFormToRequestConverter [Module: CONVERTER]', () => {
                 quantity: 10,
                 missing: 0
             }))
-            const form : RequestForm = new RequestForm({
+            const form: RequestForm = new RequestForm({
                 id: "f37a66b0-0b80-47b6-a0e8-42ca5a68eb91",
                 label: "-TEST-REQUEST-FORM-LABEL-",
-                requestDate : new Date(),
+                requestDate: new Date(),
                 contents: contents
             })
             const converter = new RequestFormToRequestConverter();

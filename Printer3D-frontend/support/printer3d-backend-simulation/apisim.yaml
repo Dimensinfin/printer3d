@@ -463,7 +463,7 @@ response:
     - "Content-Type: application/json"
   body:
     type: text
-    file: "${sim.path}/responses/newrequest.json"
+    file: "${sim.path}/responses/newrequest.v2.json"
 
 ---
 

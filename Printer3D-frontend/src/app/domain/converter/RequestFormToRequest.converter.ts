@@ -1,8 +1,9 @@
 // - DOMAIN
 import { Converter } from '@domain/interfaces/Converter.interface';
-import { RequestForm } from '@domain/RequestForm.domain';
+// import { RequestForm } from '@domain/RequestForm.domain';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
+import { RequestForm } from '@app/modules/production/domain/RequestForm.domain';
 
 export class RequestFormToRequestConverter implements Converter<RequestForm, RequestRequest> {
     public convert(input: RequestForm): RequestRequest {
@@ -21,7 +22,7 @@ export class RequestFormToRequestConverter implements Converter<RequestForm, Req
             requestDate: input.requestDate,
             state: 'OPEN',
             contents: requestContents,
-            total: input.calculateTotalAmount()
+            // total: input.calculateTotalAmount()
         })
     }
 }

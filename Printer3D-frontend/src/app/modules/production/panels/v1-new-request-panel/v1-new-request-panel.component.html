@@ -58,16 +58,37 @@
             </div>
             <div class="row">
                 <div cy-name="requestDate" class="field left-margin">
-                    <span cy-field-label="requestDate" class="label">FECHA PEDIDO</span><br>
-                    <span cy-field-value="requestDate" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</span>
+                    <div cy-field-label="requestDate" class="label">FECHA PEDIDO</div>
+                    <div cy-field-value="requestDate" class="field-height request-requestDate">{{ getRequestDate() | date : 'mediumDate' }}</div>
                 </div>
                 <div cy-name="quantity" class="field left left-margin">
-                    <span cy-field-label="quantity" class="label">NRO. PIEZAS</span><br>
-                    <span cy-field-value="quantity" class="field-height request-requestDate">{{getContentCount()}}</span>
+                    <div cy-field-label="quantity" class="label">NRO. PIEZAS</div>
+                    <div cy-field-value="quantity" class="field-height request-requestDate">{{getContentCount()}}</div>
+                </div>
+                <div cy-name="amount" class="field left-margin">
+                    <div cy-field-label="amount" class="label">COSTE</div>
+                    <div cy-field-value="amount" class="field-height request-requestDate">{{getRequestAmount()}}</div>
+                </div>
+                <div cy-name="iva" class="field left-margin">
+                    <div cy-field-label="iva" class="label">IVA</div>
+                    <div cy-field-value="iva" class="field-height request-requestDate">({{getRequestIva()}}) 21%</div>
                 </div>
                 <div cy-name="price" class="field left-margin">
-                    <span cy-field-label="price" class="label">PRECIO</span><br>
-                    <span cy-field-value="price" class="field-height request-requestDate">{{getRequestAmount()}}</span>
+                    <div cy-field-label="price" class="label">PRECIO</div>
+                    <div cy-field-value="price" class="field-height request-requestDate">{{getRequestTotal()}}</div>
+                </div>
+                <div cy-name="paid" class="field right">
+                    <div cy-input-type="checkbox" class="label invisible">PAGADO</div>
+                    <div class="row dsf-input-container numeric-input-width">
+                        <input name="paid" type="checkbox" class="dsf-input checkbox-input" [(ngModel)]="request.paid" #paid="ngModel">
+                        <div cy-field-label="paid" class="label">PEDIDO PAGADO</div>
+                    </div>
+                </div>
+            </div>
+            <div cy-name="customer" class="field field-margins">
+                <span cy-field-label="customer" cy-input-type="textarea" class="label">DATOS CLIENTE</span><br>
+                <div class="dsf-input-container label-width">
+                    <textarea name="customer" type="text" rows="2" class="dsf-input" required [(ngModel)]="request.customer" maxlength="500" #customer="ngModel"></textarea>
                 </div>
             </div>
             <div cy-name="label" class="field field-margins">

@@ -16,17 +16,25 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         When the application completes loading
 
     # - H A P P Y   P A T H
-    @D3D09.02
-    Scenario: [D3D09.02]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
+    @D3D09.01
+    Scenario: [D3D09.01]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
         Given the target is the panel of type "new-request"
         Then  the target has the title "/NUEVO PEDIDO/DEFINICION"
         # - Check the fields contents
         And field named "requestDate" with label "FECHA PEDIDO" is not empty
         And field named "quantity" with label "NRO. PIEZAS" has contents "0"
-        And field named "price" with label "PRECIO" has contents "0 €"
+        And field named "price" with label "PRECIO" has contents "0€"
         And form field named "label" with label "ETIQUETA" is empty
         And form field named "label" is "invalid"
         And the target has a drop place named "dropContents"
+
+    @D3D09.02
+    Scenario: [D3D09.02]-Check the existence and initial values for the additional Request fields.
+        Given the target is the panel of type "new-request"
+        And field named "amount" with label "COSTE" has contents "0€"
+        And field named "iva" with label "IVA" has contents "(0€) 21%"
+        And form field named "paid" with label "PEDIDO PAGADO" has contents "off"
+        And form field named "customer" with label "DATOS CLIENTE" is empty
 
     @D3D09.03
     Scenario: [D3D09.03]-The Parts at the left panel can be dragged and deployed on the box at the right Panel to be added to the Request.
@@ -64,7 +72,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         # - Check the contents dropped on the request
         Then field named "requestDate" with label "FECHA PEDIDO" is not empty
         And field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "21 €"
+        And field named "price" with label "PRECIO" has contents "25.41€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 2 "request-content"
         # - Validate the contents columns

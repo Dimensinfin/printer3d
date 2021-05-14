@@ -1,3 +1,8 @@
+@import "../../../../../styles/_scss_variables.scss";
+.dsf-form {
+    font-family: $app-font-family;
+}
+
 .new-request-panel {
     position: fixed;
     width: 49%;
@@ -5,7 +10,12 @@
 }
 
 .left-margin {
-    margin-left: 20px;
+    margin-left: 4px;
+}
+
+.field-margins {
+    margin-left: 4px;
+    margin-top: 10px;
 }
 
 .date-width {
@@ -38,11 +48,6 @@
 }
 
 .top-margin {
-    margin-top: 10px;
-}
-
-.field-margins {
-    margin-left: 20px;
     margin-top: 10px;
 }
 
