@@ -40,7 +40,7 @@ public class AccountingRequestServiceV1 {
 				.filter( RequestEntityV2::isClosed )
 				.forEach( request ->
 						weekAggregation.merge( YearWeek.from( request.getPaymentDate().atZone( ZoneId.systemDefault() ) ),
-								request.getAmount(),
+								request.getTotal(),
 								Float::sum ) );
 		return this.transformAmountsMap( weekAggregation )
 				.stream()

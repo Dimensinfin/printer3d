@@ -20,7 +20,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.backend.production.request.rest.CommonRequestService;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 
 @RestController
 @Validated
@@ -38,8 +38,8 @@ public class RequestControllerSupport extends CommonRequestService {
 
 	// - G E T T E R S   &   S E T T E R S
 	@GetMapping("/api/v1/production/requests/repository")
-	public ResponseEntity<List<CustomerRequestRequestV2>> getRepositoryRequests() {
-		return new ResponseEntity<>( this.getRepositoryRequestsService(), HttpStatus.OK );
+	public ResponseEntity<List<CustomerRequestResponseV2>> getRepositoryRequests() {
+		return new ResponseEntity<>( this.getAllRepositoryRequests(), HttpStatus.OK );
 	}
 
 	@GetMapping(path = "/api/v2/production/requests/delete/all",
@@ -63,10 +63,10 @@ public class RequestControllerSupport extends CommonRequestService {
 		}
 	}
 
-	private List<CustomerRequestRequestV2> getRepositoryRequestsService() {
+	private List<CustomerRequestResponseV2> getAllRepositoryRequests() {
 		return this.requestsRepositoryV2.findAll()
 				.stream()
-				.map( requestEntityV2ToRequestV2Converter::convert )
+				.map( requestEntityV2ToCustomerRequestResponseConverter::convert )
 				.collect( Collectors.toList() );
 	}
 }

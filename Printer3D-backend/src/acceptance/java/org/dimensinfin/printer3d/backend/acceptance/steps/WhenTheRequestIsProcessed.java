@@ -32,9 +32,8 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.FinishingsResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
-import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.Job;
 
 import io.cucumber.java.en.When;
@@ -147,10 +146,10 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.GET_MODELS );
 	}
 
-	@When("the Get Parts request is processed")
-	public void the_Get_Parts_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_PARTS );
-	}
+	//	@When("the Get Parts request is processed")
+	//	public void the_Get_Parts_request_is_processed() throws IOException {
+	//		this.processRequestByType( RequestType.GET_PARTS );
+	//	}
 
 	@When("the Get Requests V2 request is processed")
 	public void the_Get_Requests_V2_request_is_processed() throws IOException {
@@ -254,12 +253,12 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( updateGroupPartResponseEntity );
 				this.printer3DWorld.setCounterResponseResponseEntity( updateGroupPartResponseEntity );
 				return updateGroupPartResponseEntity;
-			case GET_PARTS:
-				final ResponseEntity<PartList> partListResponseEntity = this.partFeignClientV1
-						.getParts( this.printer3DWorld.getJwtAuthorizationToken() );
-				Assertions.assertNotNull( partListResponseEntity );
-				this.printer3DWorld.setPartListResponseEntity( partListResponseEntity );
-				return partListResponseEntity;
+			//			case GET_PARTS:
+			//				final ResponseEntity<PartList> partListResponseEntity = this.partFeignClientV1
+			//						.getParts( this.printer3DWorld.getJwtAuthorizationToken() );
+			//				Assertions.assertNotNull( partListResponseEntity );
+			//				this.printer3DWorld.setPartListResponseEntity( partListResponseEntity );
+			//				return partListResponseEntity;
 			case NEW_COIL:
 				Assertions.assertNotNull( this.printer3DWorld.getCoil() );
 				final ResponseEntity<Coil> newCoilResponseEntity = this.coilFeignClientV1
@@ -315,14 +314,14 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setModelResponseEntity( updateModelResponseEntity );
 				return updateModelResponseEntity;
 			case NEW_REQUESTV2:
-				Assertions.assertNotNull( this.printer3DWorld.getRequestV2() );
-				final ResponseEntity<CustomerRequestRequestV2> newRequestV2ResponseEntity = this.requestFeignClientV2.newRequest(
-						this.printer3DWorld.getRequestV2() );
+				Assertions.assertNotNull( this.printer3DWorld.getCustomerRequestRequestV2() );
+				final ResponseEntity<CustomerRequestResponseV2> newRequestV2ResponseEntity = this.requestFeignClientV2.newRequest(
+						this.printer3DWorld.getCustomerRequestRequestV2() );
 				Assertions.assertNotNull( newRequestV2ResponseEntity );
-				this.printer3DWorld.setRequestV2ResponseEntity( newRequestV2ResponseEntity );
+				this.printer3DWorld.setCustomerRequestResponseV2( newRequestV2ResponseEntity );
 				return newRequestV2ResponseEntity;
 			case GET_REQUESTSV2:
-				final ResponseEntity<List<CustomerRequestRequestV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
+				final ResponseEntity<List<CustomerRequestResponseV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
 				Assertions.assertNotNull( getRequestsV2ResponseEntity );
 				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
 				return getRequestsV2ResponseEntity;
@@ -348,11 +347,11 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				this.printer3DWorld.setCoilResponseEntity( updateCoilResponseEntity );
 				return updateCoilResponseEntity;
 			case CLOSE_REQUEST:
-				final ResponseEntity<CustomerRequestRequestV2> closeRequestResponseEntity = this.requestFeignClientV2.closeRequest(
+				final ResponseEntity<CustomerRequestResponseV2> closeRequestResponseEntity = this.requestFeignClientV2.closeRequest(
 						this.printer3DWorld.getRequestId()
 				);
 				Assertions.assertNotNull( closeRequestResponseEntity );
-				this.printer3DWorld.setRequestV2ResponseEntity( closeRequestResponseEntity );
+				this.printer3DWorld.setCustomerRequestResponseV2( closeRequestResponseEntity );
 				return closeRequestResponseEntity;
 			case DELETE_REQUEST:
 				Assertions.assertNotNull( this.printer3DWorld.getRequestId() );

@@ -15,6 +15,7 @@ import org.threeten.extra.YearWeek;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
@@ -22,11 +23,14 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.Reques
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
 
 public class AccountingRequestServiceV1Test {
-
+	private final List<RequestItem> contents = new ArrayList<>();
 	private RequestsRepositoryV2 requestsRepositoryV2;
 
 	@BeforeEach
 	public void beforeEach() {
+		final RequestItem requestItem = Mockito.mock( RequestItem.class );
+		this.contents.clear();
+		this.contents.add( requestItem );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 	}
 
@@ -44,7 +48,7 @@ public class AccountingRequestServiceV1Test {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
-				.withContents( new ArrayList<>() )
+				.withContents( this.contents )
 				.withTotal( 100.0F )
 				.build();
 		final List<RequestEntityV2> requestList = new ArrayList<>();

@@ -4,7 +4,7 @@ public enum RequestType {
 	NEW_PART,
 	UPDATE_PART,
 	UPDATE_GROUP_PART,
-	GET_PARTS,
+	//	GET_PARTS,
 	GET_PARTS_V2,
 	NEW_COIL,
 	GET_COILS_V2,

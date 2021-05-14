@@ -3,7 +3,6 @@ package org.dimensinfin.printer3d.client.production.rest.dto;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,6 +10,7 @@ import javax.validation.constraints.Size;
 import com.google.gson.annotations.SerializedName;
 
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.utility.DimObjects;
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
 
 /**
@@ -108,27 +108,27 @@ public class CustomerRequestRequestV2 {
 		}
 
 		public CustomerRequestRequestV2 build() {
-			Objects.requireNonNull( this.onConstruction.id );
-			Objects.requireNonNull( this.onConstruction.label );
+			DimObjects.requireNonNull( this.onConstruction.id );
+			DimObjects.requireNonNull( this.onConstruction.label );
 			if (null == this.onConstruction.requestDate) this.onConstruction.requestDate = Instant.now().toString();
 			if (this.onConstruction.contents.isEmpty())
 				throw new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTMISSINGFIELD( "contents" ) );
-			Objects.requireNonNull( this.onConstruction.total );
+			DimObjects.requireNonNull( this.onConstruction.total );
 			return this.onConstruction;
 		}
 
 		public CustomerRequestRequestV2.Builder withContents( final List<RequestItem> contents ) {
-			this.onConstruction.contents = Objects.requireNonNull( contents );
+			this.onConstruction.contents = DimObjects.requireNonNull( contents );
 			return this;
 		}
 
 		public CustomerRequestRequestV2.Builder withId( final UUID id ) {
-			this.onConstruction.id = Objects.requireNonNull( id );
+			this.onConstruction.id = DimObjects.requireNonNull( id );
 			return this;
 		}
 
 		public CustomerRequestRequestV2.Builder withLabel( final String label ) {
-			this.onConstruction.label = Objects.requireNonNull( label );
+			this.onConstruction.label = DimObjects.requireNonNull( label );
 			return this;
 		}
 

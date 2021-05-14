@@ -49,7 +49,7 @@ public class RequestControllerV2 {
 	@PutMapping(path = "/production/requests/{requestId}/close",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<CustomerRequestRequestV2> closeRequest( final @PathVariable @NotNull UUID requestId ) {
+	public ResponseEntity<CustomerRequestResponseV2> closeRequest( final @PathVariable @NotNull UUID requestId ) {
 		return new ResponseEntity<>( this.requestServiceV2.closeRequest( requestId ), HttpStatus.OK );
 	}
 

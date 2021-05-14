@@ -13,13 +13,13 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelReposi
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
+import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToCustomerRequestResponseConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 public class CommonRequestService {
-	protected static final RequestEntityV2ToRequestV2Converter requestEntityV2ToRequestV2Converter = new RequestEntityV2ToRequestV2Converter();
+	protected static final RequestEntityV2ToCustomerRequestResponseConverter requestEntityV2ToCustomerRequestResponseConverter = new RequestEntityV2ToCustomerRequestResponseConverter();
 	protected final PartRepository partRepository;
 	protected final ModelRepository modelRepository;
 
@@ -41,6 +41,7 @@ public class CommonRequestService {
 		} );
 	}
 
+	@Deprecated
 	protected float calculateRequestAmount( final RequestEntityV2 requestEntityV2 ) {
 		float amount = 0.0F;
 		for (final RequestItem item : requestEntityV2.getContents()) {

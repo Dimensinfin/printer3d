@@ -15,20 +15,26 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
-import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_TOTAL;
 
 public class RequestControllerSupportTest {
+	private final List<RequestItem> contents = new ArrayList<>();
 	private RequestsRepositoryV2 requestsRepositoryV2;
 	private PartRepository partRepository;
 	private ModelRepository modelRepository;
 
 	@BeforeEach
 	public void beforeEach() {
+		final RequestItem requestItem = Mockito.mock( RequestItem.class );
+		this.contents.clear();
+		this.contents.add( requestItem );
 		this.partRepository = Mockito.mock( PartRepository.class );
 		this.modelRepository = Mockito.mock( ModelRepository.class );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
@@ -82,7 +88,8 @@ public class RequestControllerSupportTest {
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
-				.withContents( new ArrayList<>() )
+				.withContents( this.contents )
+				.withTotal( TEST_REQUEST_TOTAL )
 				.build();
 		final List<RequestEntityV2> requestListV2 = new ArrayList<>();
 		requestListV2.add( requestEntityV2 );
@@ -93,7 +100,7 @@ public class RequestControllerSupportTest {
 				this.partRepository,
 				this.modelRepository,
 				this.requestsRepositoryV2 );
-		final ResponseEntity<List<CustomerRequestRequestV2>> obtained = requestControllerSupport.getRepositoryRequests();
+		final ResponseEntity<List<CustomerRequestResponseV2>> obtained = requestControllerSupport.getRepositoryRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

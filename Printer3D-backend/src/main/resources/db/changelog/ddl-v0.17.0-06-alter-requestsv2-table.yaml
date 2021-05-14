@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Adam Antinoo (adamantinoo.git@gmail.com)
       changes:
         - sql:
-            sql: CREATE OR REPLACE TYPE printer3d.request_statev2 AS ENUM ('OPEN', 'COMPLETED', 'DELETED', 'DELIVERED', 'PAID', 'CLOSED')
+            sql: CREATE TYPE printer3d.request_statev2 AS ENUM ('OPEN', 'COMPLETED', 'DELETED', 'DELIVERED', 'PAID', 'CLOSED')
   - changeSet:
       id: 0_17_0_6002_printer3d_alter_requestsv2_table
       author: Adam Antinoo (adamantinoo.git@gmail.com)
@@ -15,7 +15,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: statev2
-                  type: request_statev2
+                  type: printer3d.request_statev2
                   constraints:
                     nullable: true
                     updatable: true
@@ -50,7 +50,7 @@ databaseChangeLog:
             schemaName: printer3d
             tableName: requestsv2
             columnName: statev2
-            columnDataType: request_statev2
+            columnDataType: printer3d.request_statev2
             validate: true
             remarks: Add not null constraint to the new state column.
   - changeSet:
@@ -70,5 +70,5 @@ databaseChangeLog:
             tableName: requestsv2
             oldColumnName: statev2
             newColumnName: state
-            columnDataType: request_statev2
+            columnDataType: printer3d.request_statev2
             remarks: Replacing the new column by the old column name.

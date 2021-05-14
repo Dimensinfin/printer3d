@@ -1,20 +1,21 @@
 package org.dimensinfin.printer3d.backend.support.inventory.part.rest;
 
 import java.io.IOException;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.support.conf.ITargetConfiguration;
 import org.dimensinfin.printer3d.backend.support.core.CommonFeignClient;
 import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConverter;
+import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV1;
+import org.dimensinfin.printer3d.client.inventory.rest.InventoryApiV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 
 import retrofit2.Response;
@@ -28,27 +29,27 @@ public class PartFeignClientV1 extends CommonFeignClient {
 
 	public Integer countParts( final String authorizationToken ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the count of the part list.";
-		final Response<PartList> response = new Retrofit.Builder()
+		final Response<List<Part>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
-				.create( InventoryApiV1.class )
-				.getParts( authorizationToken, false )
+				.create( InventoryApiV2.class )
+				.getParts( authorizationToken )
 				.execute();
 		if (response.isSuccessful()) {
-			return response.body().getCount();
+			return response.body().size();
 		} else
 			throw new DimensinfinRuntimeException( new RestExceptionMessageConverter().convert( response.errorBody().string() ) );
 	}
 
-	public ResponseEntity<PartList> getParts( final String authorizationToken ) throws IOException {
+	public ResponseEntity<List<Part>> getParts( final String authorizationToken ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the list of all parts including not active.";
-		final Response<PartList> response = new Retrofit.Builder()
+		final Response<List<Part>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
-				.create( InventoryApiV1.class )
-				.getParts( authorizationToken, false )
+				.create( InventoryApiV2.class )
+				.getParts( authorizationToken )
 				.execute();
 		if (response.isSuccessful()) {
 			return new ResponseEntity<>( response.body(), HttpStatus.valueOf( response.code() ) );

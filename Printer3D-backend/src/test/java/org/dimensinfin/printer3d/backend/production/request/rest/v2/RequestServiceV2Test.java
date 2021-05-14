@@ -48,6 +48,7 @@ import static org.dimensinfin.printer3d.backend.support.TestDataConstants.Reques
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE_STRING;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_IVA;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_TOTAL;
@@ -81,6 +82,7 @@ public class RequestServiceV2Test {
 				.withState( RequestState.OPEN )
 				.withContents( contents )
 				.withRequestDate( Instant.now() )
+				.withTotal( 15.0F )
 				.build();
 		final PartEntity partEntity = new PartEntity.Builder()
 				.withId( partId )
@@ -107,7 +109,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		final CustomerRequestRequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
+		final CustomerRequestResponseV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( RequestState.CLOSED, obtained.getState() );
@@ -126,6 +128,7 @@ public class RequestServiceV2Test {
 				.withState( RequestState.OPEN )
 				.withContents( contents )
 				.withRequestDate( Instant.now() )
+				.withTotal( 15.0F )
 				.build();
 		final PartEntity partEntity = new PartEntity.Builder()
 				.withId( partId )
@@ -167,6 +170,7 @@ public class RequestServiceV2Test {
 				.withState( RequestState.OPEN )
 				.withContents( contents )
 				.withRequestDate( Instant.now() )
+				.withTotal( 15.0F )
 				.build();
 		final PartEntity partEntity = new PartEntity.Builder()
 				.withId( partId )
@@ -205,7 +209,7 @@ public class RequestServiceV2Test {
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		final CustomerRequestRequestV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
+		final CustomerRequestResponseV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( RequestState.CLOSED, obtained.getState() );
@@ -286,36 +290,61 @@ public class RequestServiceV2Test {
 	@Test
 	public void getOpenRequests() {
 		// Given
+		final RequestItem item = new RequestItem.Builder()
+				.withItemId( UUID.fromString( "bf3cdc04-c1f3-46db-940c-9a0d551a5496" ) )
+				.withQuantity( 1 )
+				.withType( RequestContentType.PART )
+				.build();
+		final List<RequestItem> contentsLocal = new ArrayList<>();
+		contentsLocal.add( item );
 		final RequestEntityV2 requestEntityV2Open = new RequestEntityV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
+				.withCustomerData( TEST_REQUEST_CUSTOMER )
 				.withRequestDate( TEST_REQUEST_DATE )
 				.withState( TEST_REQUEST_STATE )
-				.withContents( new ArrayList<>() )
-				.withTotal( TEST_REQUEST_AMOUNT )
+				.withContents( contentsLocal )
+				.withPaid( false )
+				.withTotal( TEST_REQUEST_TOTAL )
 				.build();
 		final RequestEntityV2 requestEntityV2Closed = new RequestEntityV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
+				.withCustomerData( TEST_REQUEST_CUSTOMER )
 				.withRequestDate( TEST_REQUEST_DATE )
-				.withState( RequestState.CLOSED )
-				.withContents( new ArrayList<>() )
-				.withTotal( TEST_REQUEST_AMOUNT )
+				.withState( TEST_REQUEST_STATE )
+				.withContents( contentsLocal )
+				.withPaid( false )
+				.withTotal( TEST_REQUEST_TOTAL )
 				.build();
+		requestEntityV2Closed.signalCompleted();
 		final List<RequestEntityV2> requestList = new ArrayList<>();
 		requestList.add( requestEntityV2Open );
 		requestList.add( requestEntityV2Closed );
+		final PartEntity part = new PartEntity.Builder()
+				.withId( UUID.fromString( "bf3cdc04-c1f3-46db-940c-9a0d551a5496" ) )
+				.withLabel( TEST_PART_LABEL )
+				.withMaterial( TEST_PART_MATERIAL )
+				.withColor( TEST_PART_COLOR )
+				.withBuildTime( 10 )
+				.withCost( 1.0F )
+				.withPrice( 1.0F )
+				.withStockLevel( 1 )
+				.build();
+		final List<PartEntity> partList = new ArrayList<>();
+		partList.add( part );
 		// When
 		Mockito.when( this.requestsRepositoryV2.findAll() ).thenReturn( requestList );
+		Mockito.when( this.partRepository.findAll() ).thenReturn( partList );
 		// Tests
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
 				this.requestsRepositoryV2,
 				this.modelRepository );
-		//		final List<CustomerRequestRequestV2> obtained = requestServiceV2.getOpenRequests();
-		//		// Assertions
-		//		Assertions.assertNotNull( obtained );
-		//		Assertions.assertEquals( 1, obtained.size() );
+		final List<CustomerRequestResponseV2> obtained = requestServiceV2.getOpenRequests();
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( 2, obtained.size() );
 	}
 
 	//	@Test
@@ -380,5 +409,58 @@ public class RequestServiceV2Test {
 		Assertions.assertEquals( TEST_REQUEST_ID, obtained.getId() );
 		Assertions.assertEquals( TEST_REQUEST_LABEL, obtained.getLabel() );
 		Assertions.assertEquals( TEST_REQUEST_CUSTOMER, obtained.getCustomer() );
+		Assertions.assertEquals( TEST_REQUEST_DATE, obtained.getRequestDate() );
+		Assertions.assertEquals( null, obtained.getCompletedDate() );
+		Assertions.assertEquals( null, obtained.getPaymentDate() );
+		Assertions.assertEquals( RequestState.OPEN, obtained.getState() );
+		Assertions.assertFalse( obtained.isPaid() );
+		Assertions.assertNotNull( obtained.getContents() );
+		Assertions.assertEquals( 1, obtained.getContents().size() );
+		Assertions.assertEquals( TEST_REQUEST_AMOUNT, obtained.getAmount() );
+		Assertions.assertEquals( TEST_REQUEST_IVA, obtained.getIva() );
+		Assertions.assertEquals( TEST_REQUEST_TOTAL, obtained.getTotal() );
+	}
+
+	@Test
+	public void newRequest_paid() {
+		// Given
+		final CustomerRequestRequestV2 request = new CustomerRequestRequestV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withRequestDate( TEST_REQUEST_DATE_STRING )
+				.withContents( this.contents )
+				.withTotalAmount( TEST_REQUEST_TOTAL )
+				.withPaid( true )
+				.build()
+				.setCustomer( TEST_REQUEST_CUSTOMER );
+		// When
+		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
+		Mockito.when( this.requestsRepositoryV2.save( Mockito.any( RequestEntityV2.class ) ) ).thenAnswer( new Answer() {
+			@Override
+			public Object answer( final InvocationOnMock invocation ) {
+				return invocation.getArguments()[0];
+			}
+		} );
+		// Test
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
+				this.requestsRepositoryV2,
+				this.modelRepository );
+		final CustomerRequestResponseV2 obtained = requestServiceV2.newRequest( request );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( TEST_REQUEST_ID, obtained.getId() );
+		Assertions.assertEquals( TEST_REQUEST_LABEL, obtained.getLabel() );
+		Assertions.assertEquals( TEST_REQUEST_CUSTOMER, obtained.getCustomer() );
+		Assertions.assertEquals( TEST_REQUEST_DATE, obtained.getRequestDate() );
+		Assertions.assertNull( obtained.getCompletedDate() );
+		Assertions.assertNotNull( obtained.getPaymentDate() );
+		Assertions.assertEquals( RequestState.OPEN, obtained.getState() );
+		Assertions.assertTrue( obtained.isPaid() );
+		Assertions.assertNotNull( obtained.getContents() );
+		Assertions.assertEquals( 1, obtained.getContents().size() );
+		Assertions.assertEquals( TEST_REQUEST_AMOUNT, obtained.getAmount() );
+		Assertions.assertEquals( TEST_REQUEST_IVA, obtained.getIva() );
+		Assertions.assertEquals( TEST_REQUEST_TOTAL, obtained.getTotal() );
 	}
 }

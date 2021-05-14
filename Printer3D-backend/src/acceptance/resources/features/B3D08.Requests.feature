@@ -208,7 +208,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
         Then there is a valid response with return code of "200 OK"
-        And the request returned has the next data
+        And the Request Response returned has the next data
             | id                                   | label                          | requestDate                 | state | amount |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | CLOSE | 31.00  |
 
@@ -244,7 +244,7 @@ Feature: [STORY] Create a new Feature to see the list of Open Requests. A reques
 
         When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
         Then there is a valid response with return code of "200 OK"
-        And the request returned has the next data
+        And the Request Response returned has the next data
             | id                                   | label                          | dateClosed |
             | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | <today>    |
 

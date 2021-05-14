@@ -16,6 +16,7 @@ import org.dimensinfin.printer3d.backend.support.core.RestExceptionMessageConver
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.ProductionApiV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -27,9 +28,9 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
-	public ResponseEntity<List<CustomerRequestRequestV2>> getOpenRequests() throws IOException {
+	public ResponseEntity<List<CustomerRequestResponseV2>> getOpenRequests() throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the list of Open v2 requests.";
-		final Response<List<CustomerRequestRequestV2>> response = new Retrofit.Builder()
+		final Response<List<CustomerRequestResponseV2>> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
@@ -42,9 +43,9 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 		} else throw new IOException( ENDPOINT_MESSAGE + " Failed." );
 	}
 
-	public ResponseEntity<CustomerRequestRequestV2> closeRequest( final UUID requestId ) throws IOException {
+	public ResponseEntity<CustomerRequestResponseV2> closeRequest( final UUID requestId ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request to close an specific Request.";
-		final Response<CustomerRequestRequestV2> response = new Retrofit.Builder()
+		final Response<CustomerRequestResponseV2> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()
@@ -76,9 +77,9 @@ public class RequestFeignClientV2 extends CommonFeignClient {
 		}
 	}
 
-	public ResponseEntity<CustomerRequestRequestV2> newRequest( final CustomerRequestRequestV2 newRequest ) throws IOException {
+	public ResponseEntity<CustomerRequestResponseV2> newRequest( final CustomerRequestRequestV2 newRequest ) throws IOException {
 		final String ENDPOINT_MESSAGE = "Request the creation of a new Request.";
-		final Response<CustomerRequestRequestV2> response = new Retrofit.Builder()
+		final Response<CustomerRequestResponseV2> response = new Retrofit.Builder()
 				.baseUrl( this.acceptanceTargetConfig.getBackendServer() )
 				.addConverterFactory( GSON_CONVERTER_FACTORY )
 				.build()

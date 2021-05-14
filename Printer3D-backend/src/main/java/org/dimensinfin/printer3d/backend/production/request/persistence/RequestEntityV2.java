@@ -3,7 +3,6 @@ package org.dimensinfin.printer3d.backend.production.request.persistence;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +17,9 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
+import org.dimensinfin.core.utility.DimObjects;
+import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
@@ -42,6 +44,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class RequestEntityV2 {
+	private static final Float IVA_TAX = 0.21F;
 	@Id
 	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
@@ -71,7 +74,7 @@ public class RequestEntityV2 {
 	@Column(name = "iva", nullable = false)
 	private float iva = 0.0F;
 	@Column(name = "total", nullable = false)
-	private float total = 0.0F;
+	private Float total;
 
 	// - C O N S T R U C T O R S
 	private RequestEntityV2() {}
@@ -106,17 +109,17 @@ public class RequestEntityV2 {
 		return this.iva;
 	}
 
+	public RequestEntityV2 setIva( final float iva ) {
+		this.iva = iva;
+		return this;
+	}
+
 	public String getLabel() {
 		return this.label;
 	}
 
 	public Instant getPaymentDate() {
 		return this.paymentDate;
-	}
-
-	public RequestEntityV2 setPaymentDate( final Instant paymentDate ) {
-		this.paymentDate = paymentDate;
-		return this;
 	}
 
 	public Instant getRequestDate() {
@@ -129,6 +132,11 @@ public class RequestEntityV2 {
 
 	public float getTotal() {
 		return this.total;
+	}
+
+	public RequestEntityV2 setTotal( final Float total ) {
+		this.total = total;
+		return this;
 	}
 
 	/**
@@ -151,14 +159,33 @@ public class RequestEntityV2 {
 		return this.paid;
 	}
 
+	public RequestEntityV2 setPaid( final boolean paid ) {
+		this.paid = paid;
+		return this;
+	}
+
 	public RequestEntityV2 close() {
 		this.state = RequestState.CLOSED;
 		this.paymentDate = Instant.now();
 		return this;
 	}
 
-	public void signalCompleted() {
+	public RequestEntityV2 signalCompleted() {
 		this.state = RequestState.COMPLETED;
+		this.completedDate = Instant.now();
+		return this;
+	}
+
+	public void signalPaid() {
+		this.state = RequestState.CLOSED;
+		this.paid = true;
+		this.paymentDate = Instant.now();
+	}
+
+	public RequestEntityV2 updateAmounts() {
+		this.amount = this.total / (1 + IVA_TAX);
+		this.iva = this.amount * IVA_TAX;
+		return this;
 	}
 
 	// - B U I L D E R
@@ -171,18 +198,21 @@ public class RequestEntityV2 {
 		}
 
 		public RequestEntityV2 build() {
-			Objects.requireNonNull( this.onConstruction.id );
-			Objects.requireNonNull( this.onConstruction.label );
-			Objects.requireNonNull( this.onConstruction.requestDate );
-			Objects.requireNonNull( this.onConstruction.state );
-			Objects.requireNonNull( this.onConstruction.total );
+			DimObjects.requireNonNull( this.onConstruction.id );
+			DimObjects.requireNonNull( this.onConstruction.label );
+			DimObjects.requireNonNull( this.onConstruction.requestDate );
+			DimObjects.requireNonNull( this.onConstruction.state );
+			DimObjects.requireNonNull( this.onConstruction.total );
+			this.onConstruction.updateAmounts();
 			if (this.onConstruction.paid) // Set also the payment date to the current date.
 				this.onConstruction.paymentDate = this.onConstruction.requestDate;
+			if (this.onConstruction.contents.isEmpty())
+				throw new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTMISSINGFIELD( "contents" ) );
 			return this.onConstruction;
 		}
 
 		public RequestEntityV2.Builder withContents( final List<RequestItem> contents ) {
-			if (null != contents) this.onConstruction.contents = contents;
+			this.onConstruction.contents = DimObjects.requireNonNull( contents );
 			return this;
 		}
 
@@ -192,12 +222,12 @@ public class RequestEntityV2 {
 		}
 
 		public RequestEntityV2.Builder withId( final UUID id ) {
-			this.onConstruction.id = Objects.requireNonNull( id );
+			this.onConstruction.id = DimObjects.requireNonNull( id );
 			return this;
 		}
 
 		public RequestEntityV2.Builder withLabel( final String label ) {
-			this.onConstruction.label = Objects.requireNonNull( label );
+			this.onConstruction.label = DimObjects.requireNonNull( label );
 			return this;
 		}
 
@@ -207,17 +237,17 @@ public class RequestEntityV2 {
 		}
 
 		public RequestEntityV2.Builder withRequestDate( final Instant requestDate ) {
-			this.onConstruction.requestDate = Objects.requireNonNull( requestDate );
+			this.onConstruction.requestDate = DimObjects.requireNonNull( requestDate );
 			return this;
 		}
 
 		public RequestEntityV2.Builder withState( final RequestState state ) {
-			this.onConstruction.state = Objects.requireNonNull( state );
+			this.onConstruction.state = DimObjects.requireNonNull( state );
 			return this;
 		}
 
 		public RequestEntityV2.Builder withTotal( final Float total ) {
-			this.onConstruction.total = Objects.requireNonNull( total );
+			this.onConstruction.total = DimObjects.requireNonNull( total );
 			return this;
 		}
 	}

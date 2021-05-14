@@ -1,30 +1,42 @@
 package org.dimensinfin.printer3d.backend.production.request.converter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_DATE_STRING;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_ID;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_STATE;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_TOTAL;
 
 public class CustomerRequestRequestV2ToRequestEntityV2ConverterTest {
+	private final List<RequestItem> contents = new ArrayList<>();
 
-	@Test
+	//	@BeforeEach
+	public void beforeEach() {
+		final RequestItem requestItem = Mockito.mock( RequestItem.class );
+		this.contents.clear();
+		this.contents.add( requestItem );
+	}
+
+	//	@Test
 	public void convert() {
 		// Given
 		final CustomerRequestRequestV2 request = new CustomerRequestRequestV2.Builder()
 				.withId( TEST_REQUEST_ID )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withRequestDate( TEST_REQUEST_DATE_STRING )
-				//				.withState( TEST_REQUEST_STATE )
-				.withContents( new ArrayList<>() )
+				.withContents( this.contents )
+				.withTotalAmount( TEST_REQUEST_TOTAL )
+				.withPaid( false )
 				.build();
 		final CustomerRequestRequestV2ToRequestEntityV2Converter requestToRequestEntityConverter = new CustomerRequestRequestV2ToRequestEntityV2Converter();
 		// Test

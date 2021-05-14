@@ -21,7 +21,6 @@ import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToCustomerRequestResponseConverter;
-import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToRequestV2Converter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.backend.production.request.rest.CommonRequestService;
@@ -34,7 +33,6 @@ import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
 @Service
 public class RequestServiceV2 extends CommonRequestService {
-	private static final RequestEntityV2ToCustomerRequestResponseConverter requestEntityV2ToCustomerRequestResponseConverter = new RequestEntityV2ToCustomerRequestResponseConverter();
 	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
@@ -99,17 +97,16 @@ public class RequestServiceV2 extends CommonRequestService {
 	 * @return Returns the current state of the Request on the repository.
 	 */
 	@Transactional
-	public CustomerRequestRequestV2 closeRequest( final UUID requestId ) {
+	@Deprecated
+	public CustomerRequestResponseV2 closeRequest( final UUID requestId ) {
 		LogWrapper.enter();
 		try {
 			this.stockManager.clean().startStock(); // Initialize the stock manager to get the Part prices.
-			final Optional<RequestEntityV2> targetV2 = this.requestsRepositoryV2.findById( requestId );
-			final RequestEntityV2 requestEntityV2 = this.selectRequestEntity( requestId );
+			final var requestEntityV2 = this.selectRequestEntity( requestId );
 			if (this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be closed now. Data on frontend may be obsolete.
 				this.removeRequestPartsFromStock( requestEntityV2 );
-				requestEntityV2.setAmount( this.calculateRequestAmount( requestEntityV2 ) );
-				targetV2.ifPresent( requestEntityV2lambda -> this.requestsRepositoryV2.save( requestEntityV2lambda.close() ) );
-				return new RequestEntityV2ToRequestV2Converter().convert( requestEntityV2.close() );
+				this.requestsRepositoryV2.save( requestEntityV2.signalCompleted() );
+				return new RequestEntityV2ToCustomerRequestResponseConverter().convert( requestEntityV2.close() );
 			} else
 				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTCANNOTBEFULFILLED( requestEntityV2.getId() ) );
 		} finally {
@@ -166,6 +163,7 @@ public class RequestServiceV2 extends CommonRequestService {
 									.withContents( newRequest.getContents() )
 									.withPaid( newRequest.isPaid() )
 									.build()
+									.updateAmounts()
 					)
 			);
 		} finally {

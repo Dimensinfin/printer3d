@@ -14,16 +14,21 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
 import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_LABEL;
+import static org.dimensinfin.printer3d.backend.support.TestDataConstants.RequestConstants.TEST_REQUEST_TOTAL;
 
 public class AccountingRequestControllerSupportTest {
-
+	private final List<RequestItem> contents = new ArrayList<>();
 	private RequestsRepositoryV2 requestsRepositoryV2;
 
 	@BeforeEach
 	public void beforeEach() {
+		final RequestItem requestItem = Mockito.mock( RequestItem.class );
+		this.contents.clear();
+		this.contents.add( requestItem );
 		this.requestsRepositoryV2 = Mockito.mock( RequestsRepositoryV2.class );
 	}
 
@@ -43,15 +48,17 @@ public class AccountingRequestControllerSupportTest {
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
-				.withContents( new ArrayList<>() )
+				.withContents( this.contents )
 				.withRequestDate( Instant.now() )
+				.withTotal( TEST_REQUEST_TOTAL )
 				.build();
 		final RequestEntityV2 requestEntityV202 = new RequestEntityV2.Builder()
 				.withId( UUID.randomUUID() )
 				.withLabel( TEST_REQUEST_LABEL )
 				.withState( RequestState.OPEN )
-				.withContents( new ArrayList<>() )
+				.withContents( this.contents )
 				.withRequestDate( Instant.now() )
+				.withTotal( 15.0F )
 				.build();
 		final List<RequestEntityV2> requestEntityList = new ArrayList<>();
 		requestEntityList.add( requestEntityV201 );
