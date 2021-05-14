@@ -30,6 +30,7 @@ import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestReque
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
+import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
 @Service
 public class RequestServiceV2 extends CommonRequestService {
@@ -158,7 +159,7 @@ public class RequestServiceV2 extends CommonRequestService {
 													Instant.parse( newRequest.getRequestDate() ) :
 													Instant.now()
 									)
-									.withState( newRequest.getState() )
+									.withState( RequestState.OPEN )
 									.withTotal( newRequest.getTotal() )
 									.withContents( newRequest.getContents() )
 									.withPaid( newRequest.isPaid() )
@@ -169,44 +170,6 @@ public class RequestServiceV2 extends CommonRequestService {
 		} finally {
 			LogWrapper.exit();
 		}
-	}
-
-	/**
-	 * For each of the requests found get the contents and subtract the required number of items from the stock values. If any of the subtractions
-	 * results in a negative value then the Request should be kept open and this is signaled by the returned boolean.
-	 * Extract the Ids from the stock. Check if stock goes negative. For Models this expands to the BOM.
-	 *
-	 * @param requestEntityV2 the request entity that should be processed
-	 * @return true if there are missing items. This means the Request should be kept open. If false the Request can be COMPLETED.
-	 */
-	private boolean collectItemsFromStock( final RequestEntityV2 requestEntityV2 ) {
-		boolean underStocked = false;
-		for (final RequestItem content : requestEntityV2.getContents()) {
-			if (content.getType() == RequestContentType.PART) {
-				final int missing = this.stockManager.minus( content.getItemId(), content.getQuantity() );
-				if (missing < 0) { // Subtract the request quantity from the stock.
-					underStocked = true;
-					content.setMissing( Math.abs( missing ) );
-				}
-			}
-			if (content.getType() == RequestContentType.MODEL)
-				for (final RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
-					final int missing = this.stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() );
-					if (missing < 0) {// Subtract the request quantity from the stock.
-						underStocked = true;
-						content.setMissing(
-								Math.min(
-										content.getQuantity(),
-										Math.max(
-												modelContent.getMissing(),
-												(int) Math.ceil( (float) Math.abs( missing ) / (float) modelContent.getQuantity() )
-										)
-								)
-						);
-					}
-				}
-		}
-		return !underStocked;
 	}
 
 	private void removeRequestPartsFromStock( final RequestEntityV2 requestEntityV2 ) {

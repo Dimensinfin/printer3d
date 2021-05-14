@@ -86,11 +86,6 @@ public class CustomerRequestRequestV2Testing extends CustomerRequestRequestV2 {
 		return this.requestDate;
 	}
 
-	@Override
-	public RequestState getState() {
-		return this.state;
-	}
-
 	// - B U I L D E R
 	public static class Builder {
 		private final CustomerRequestRequestV2Testing onConstruction;
@@ -101,8 +96,6 @@ public class CustomerRequestRequestV2Testing extends CustomerRequestRequestV2 {
 		}
 
 		public CustomerRequestRequestV2Testing build() {
-			//			Objects.requireNonNull( this.onConstruction.id );
-			//			Objects.requireNonNull( this.onConstruction.label );
 			return this.onConstruction;
 		}
 

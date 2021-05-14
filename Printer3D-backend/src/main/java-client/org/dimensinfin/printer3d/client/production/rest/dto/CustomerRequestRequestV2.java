@@ -41,8 +41,6 @@ public class CustomerRequestRequestV2 {
 	 */
 	@SerializedName("requestDate")
 	private String requestDate;
-	@SerializedName("state")
-	private RequestState state = RequestState.OPEN;
 	/**
 	 * This field has changed from version 1 to be flexible on the type of elements it contains. Version 1 records can be transformed to version
 	 * 2 on the flow so the client will be able to reuse old records until they are closed. Anyway there are two Request repositories that need
@@ -84,10 +82,6 @@ public class CustomerRequestRequestV2 {
 
 	public String getRequestDate() {
 		return this.requestDate;
-	}
-
-	public RequestState getState() {
-		return this.state;
 	}
 
 	public float getTotal() {
