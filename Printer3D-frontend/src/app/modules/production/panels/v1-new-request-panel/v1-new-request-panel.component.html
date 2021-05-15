@@ -1,7 +1,7 @@
 <div class="new-request-panel" style="position: fixed;">
     <form #newRequestForm="ngForm" class="dsf-form" autocomplete="off">
         <div class="column" style="position: relative;">
-            <div class="row" style="background-color: black;">
+            <div cy-name="header" class="row" style="background-color: black;">
                 <div class="panel-title header-title">
                     <span>/NUEVO PEDIDO/DEFINICION</span>
                 </div>
@@ -88,7 +88,7 @@
             <div cy-name="customer" class="field field-margins">
                 <span cy-field-label="customer" cy-input-type="textarea" class="label">DATOS CLIENTE</span><br>
                 <div class="dsf-input-container label-width">
-                    <textarea name="customer" type="text" rows="2" class="dsf-input" required [(ngModel)]="request.customer" maxlength="500" #customer="ngModel"></textarea>
+                    <textarea name="customer" type="text" rows="2" class="dsf-input" [(ngModel)]="request.customer" maxlength="500" #customer="ngModel"></textarea>
                 </div>
             </div>
             <div cy-name="label" class="field field-margins">

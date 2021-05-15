@@ -115,11 +115,18 @@ Given('target is {string}', function (selecState: string) {
 Then('the button with name {string} has a label {string} and is {string}', function (
     buttonName: string, buttonLabel: string, buttonState: string) {
     if (buttonState == 'disabled')
-        cy.get('@target').get('[disabled]')
-            .get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
-    else
-        cy.get('@target').get('[cy-name="' + buttonName + '"]')
-            .contains(buttonLabel, { matchCase: false })
+        cy.get('@target').get('[disabled]').parent().within(($item) => {
+            cy.get('[cy-name="' + buttonName + '"]').contains(buttonLabel, { matchCase: false })
+        })
+    else {
+        cy.get('@target').within(($item) => {
+            cy.get('[cy-name="' + buttonName + '"]')
+                .contains(buttonLabel, { matchCase: false })
+        })
+        cy.get('@target').get('[cy-name="' + buttonName + '"]').within(($item) => {
+            cy.get('[disabled]').should('not.exist')
+        })
+    }
 })
 When('the button with name {string} is clicked', function (buttonName: string) {
     cy.get('@target').within(($item) => {
@@ -161,7 +168,9 @@ Then('the dialog {string} closes', function (dialogName: string) {
 
 // - T A R G E T   C O N T E N T S
 Then('the target has the title {string}', function (title: string) {
-    cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
+    cy.get('@target').within(($item) => {
+        cy.get('.panel-title').contains(title, { matchCase: false })
+    })
 })
 Then('the target has {int} {string}', function (count: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
@@ -329,6 +338,9 @@ Given('the drag source the {string} with id {string}', function (symbolicName: s
 When('the drag source is dragged to the drop destination {string}', function (dropDestination: string) {
     cy.get('@drag-source').scrollIntoView().trigger('dragstart')
     cy.get('@target').find('[cy-name="' + dropDestination + '"]').trigger('drop')
+})
+Then('the target has a drop place named {string}', function (dropName: string) {
+    cy.get('@target').find('[cy-name="' + dropName + '"]').should('exist')
 })
 
 // - F O R M   F I E L D S

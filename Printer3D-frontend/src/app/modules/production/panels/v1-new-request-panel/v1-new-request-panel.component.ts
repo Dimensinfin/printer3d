@@ -48,7 +48,7 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         return this.request.getRequestContents()
     }
     public hasContents(): boolean {
-        if (this.request.contents.length > 0) return true
+        if (this.getRequestContents().length > 0) return true
         else return false
     }
     public getContentCount(): number {

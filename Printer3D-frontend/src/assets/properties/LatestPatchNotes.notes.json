@@ -1,9 +1,19 @@
 [{
         "jsonClass": "PatchChange",
+        "name": "➰ Anotaciones cambio 0.17.0",
+        "changes": [
+            "✅ Hay nuevas funcionalidades que cuando se posiciona el cursor encima se despliegan para mostrar nuevas opciones. Esto aplica a la funcionalidad de /PEDIDOS que ahora permite seleccionar dos páginas, una para los pedidos sin entregar y otra para los pedidos ya cerrados.",
+            "✅ Se han incorporado nuevos datos al Pedido. Datos del cliente que lo ha solicitado y un boton para indicar que el pedido se ha cobrado ya por adelantado.",
+            "✅ Los datos del pedido ahora calculan los importes con los impuestos, indicando los valores de importe, iva y total."
+        ]
+    }, {
+        "jsonClass": "PatchChange",
         "name": "➰ Anotaciones cambio 0.16.1",
         "changes": [
             "✅ Se ha incorporado una nueva Funcionalidad para generar los ficheros de extracción de datos.",
-            "✅ La primera extracción de datos disponible es la lista de Pedidos de Cliente ya entregados."
+            "✅ La primera extracción de datos disponible es la lista de Pedidos de Cliente ya entregados.",
+            "✅ La lista de Trabajos Pendientes ahora tiene un contador del número de trabajos en la cola.",
+            "✅ Los rollos de filamento inactivos tienen la esquina de color rojo."
         ]
     },
     {

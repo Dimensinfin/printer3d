@@ -17,7 +17,14 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
 
     # - H A P P Y   P A T H
     @D3D09.01
-    Scenario: [D3D09.01]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
+    Scenario: [D3D09.01]-The right panel is the Request definition panel. It should have a header with the title and buttons.
+        Given the target has a panel labeled "header"
+        Then the target has the title "/NUEVO PEDIDO/DEFINICION"
+        And the button with name "save" has a label "Guardar" and is "disabled"
+        And the button with name "cancel" has a label "Cancelar" and is "enabled"
+
+    @D3D09.02.1
+    Scenario: [D3D09.02]-The right panel is the Request definition panel. It should have the New Request fields and a place to drop Parts.
         Given the target is the panel of type "new-request"
         Then  the target has the title "/NUEVO PEDIDO/DEFINICION"
         # - Check the fields contents
@@ -28,7 +35,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And form field named "label" is "invalid"
         And the target has a drop place named "dropContents"
 
-    @D3D09.02
+    @D3D09.02.2
     Scenario: [D3D09.02]-Check the existence and initial values for the additional Request fields.
         Given the target is the panel of type "new-request"
         And field named "amount" with label "COSTE" has contents "0€"
@@ -56,22 +63,18 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
 
     @D3D09.05
     Scenario: [D3D09.05]-When a Part or a Model are dropped on the Request the data is displayed on the request content area.
-        # - Select a Part for drag
-        Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Select a Model for drag
         Given the target is the panel of type "available-request-elements"
         And the drag source the "model" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         # - Drag a model to the drop contents
         Given the target is the panel of type "new-request"
         When the drag source is dragged to the drop destination "dropContents"
-
         # - Check the contents dropped on the request
         Then field named "requestDate" with label "FECHA PEDIDO" is not empty
         And field named "quantity" with label "NRO. PIEZAS" has contents "2"
+        And field named "amount" with label "COSTE" has contents "21€"
+        And field named "iva" with label "IVA" has contents "(4.41€) 21%"
         And field named "price" with label "PRECIO" has contents "25.41€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 2 "request-content"
@@ -93,14 +96,12 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     @D3D09.06
     Scenario: [D3D09.06]-If we drag the same part multiple times the number of contents does not change but other fields reflect the new count.
         # - Select a Part for drag
-        Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "1"
-        And field named "price" with label "PRECIO" has contents "6 €"
+        And field named "amount" with label "COSTE" has contents "6€"
+        And field named "iva" with label "IVA" has contents "(1.26€) 21%"
+        And field named "price" with label "PRECIO" has contents "7.26€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
@@ -110,12 +111,13 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And column named "ETIQUETA" has contents "BASE S 1.32"
         And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        # - Add another identical part
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "12 €"
+        And field named "amount" with label "COSTE" has contents "12€"
+        And field named "iva" with label "IVA" has contents "(2.52€) 21%"
+        And field named "price" with label "PRECIO" has contents "14.52€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
@@ -145,11 +147,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Then the target panel button with name "save" has a label "Guardar" and is "disabled"
         And the target panel button with name "cancel" has a label "Cancelar" and is "enabled"
         # - Select a Part for drag
-        Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Check the state of the buttons
         Then the button with name "save" has a label "Guardar" and is "enabled"
         And the button with name "cancel" has a label "Cancelar" and is "enabled"
@@ -158,11 +156,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     Scenario: [D3D09.09]-If the Save button is active and it is clicked then the Request is persisted on the backend, a notification shown and the page clears.
         Given the target is the panel of type "new-request"
         # - Select a Part for drag
-        Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         And "Pedido de Prueba P01" is set on form field "label"
         # - Check the state of the buttons
         Then the button with name "save" has a label "Guardar" and is "enabled"
@@ -171,7 +165,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Then the Request is persisted at the backend
         And there is a Notification panel
         And the active page is set to Dasboard
-        And there are no Features active
+        And there are 0 Features active
 
     @D3D09.10
     Scenario: [D3D09.10]-If the Cancel button is clicked then the page clears.
@@ -181,7 +175,7 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And the button with name "cancel" has a label "Cancelar" and is "enabled"
         When the button with name "cancel" is clicked
         And the active page is set to Dasboard
-        And there are no Features active
+        And there are 0 Features active
 
     @D3D09.11
     Scenario: [D3D09.11]-If all the parts or models added to a Request are removed then the Save button deactivates.
@@ -208,14 +202,12 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
     @D3D09.12
     Scenario: [D3D09.12]-If the user clicks on the Remove button of a Part assigned to a Request then the number of that type of Parts reduces in 1. The the count reaches 0 then the part is removed from the Report.
         # - Select a Part for drag
-        Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "1"
-        And field named "price" with label "PRECIO" has contents "6 €"
+        And field named "amount" with label "COSTE" has contents "6€"
+        And field named "iva" with label "IVA" has contents "(1.26€) 21%"
+        And field named "price" with label "PRECIO" has contents "7.26€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
@@ -225,12 +217,13 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         And column named "ETIQUETA" has contents "BASE S 1.32"
         And column named "TERMINACION" has contents "PLA/AZUL TRANSPARENTE"
         And target has an actionable image named "remove-button"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        # - Select a Part for drag
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Check the contents dropped on the request
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "12 €"
+        And field named "amount" with label "COSTE" has contents "12€"
+        And field named "iva" with label "IVA" has contents "(2.52€) 21%"
+        And field named "price" with label "PRECIO" has contents "14.52€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Validate the contents columns
@@ -244,6 +237,14 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Given the target the "request-item" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         And target has an actionable image named "remove-button"
         When target actionable image "remove-button" is clicked
+        # - Check the contents dropped on the request
+        Given the target is the panel of type "new-request"
+        Then field named "quantity" with label "NRO. PIEZAS" has contents "1"
+        And field named "amount" with label "COSTE" has contents "6€"
+        And field named "iva" with label "IVA" has contents "(1.26€) 21%"
+        And field named "price" with label "PRECIO" has contents "7.26€"
+        And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
+        And the target has 1 "request-content"
         # - Validate the contents columns
         Given the target the "request-content" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
         Then column named "CANTIDAD" has contents "1"
@@ -260,29 +261,25 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         Then the target has no "request-content"
 
     @D3D09.13
-    Scenario: [D3D09.13]-Whe parts or models are added to the Request some accounting fields are updated. The same when items are removed from the Request.
+    Scenario: [D3D09.13]-When parts or models are added to the Request some accounting fields are updated. The same when items are removed from the Request.
         # - Select a Part for drag
-        Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "1"
-        And field named "price" with label "PRECIO" has contents "6 €"
+        And field named "amount" with label "COSTE" has contents "6€"
+        And field named "iva" with label "IVA" has contents "(1.26€) 21%"
+        And field named "price" with label "PRECIO" has contents "7.26€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Select a Part for drag
-        Given the target is the panel of type "available-request-elements"
-        And the drag source the "part" with id "d8addef6-0da0-4d65-9583-7a9276a42012"
-        # - Drag a part to the drop contents
-        Given the target is the panel of type "new-request"
-        When the drag source is dragged to the drop destination "dropContents"
+        Given the part "d8addef6-0da0-4d65-9583-7a9276a42012" is dropped into drop "dropContents"
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "12 €"
+        And field named "amount" with label "COSTE" has contents "12€"
+        And field named "iva" with label "IVA" has contents "(2.52€) 21%"
+        And field named "price" with label "PRECIO" has contents "14.52€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 1 "request-content"
         # - Select a Model for drag
@@ -294,7 +291,9 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "3"
-        And field named "price" with label "PRECIO" has contents "27 €"
+        And field named "amount" with label "COSTE" has contents "27€"
+        And field named "iva" with label "IVA" has contents "(5.67€) 21%"
+        And field named "price" with label "PRECIO" has contents "32.67€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 2 "request-content"
         # - Remove one part and check the new values
@@ -304,6 +303,8 @@ Feature: [D3D09]-[STORY] There is a Feature to create user Requests. It can acce
         # - Check the contents dropped on the request
         Given the target is the panel of type "new-request"
         Then field named "quantity" with label "NRO. PIEZAS" has contents "2"
-        And field named "price" with label "PRECIO" has contents "21 €"
+        And field named "amount" with label "COSTE" has contents "21€"
+        And field named "iva" with label "IVA" has contents "(4.41€) 21%"
+        And field named "price" with label "PRECIO" has contents "25.41€"
         And the target has a panel labeled "CONTENIDO PEDIDO" named "requestContents"
         And the target has 2 "request-content"
