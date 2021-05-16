@@ -14,7 +14,7 @@ import { Model } from '@domain/inventory/Model.domain'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
 import { Observable } from 'rxjs'
-import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter'
+import { DataToRequestConverter } from '@app/modules/production/domain/DataToRequest.converter'
 
 describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
     let component: V1OpenRequestsPanelComponent

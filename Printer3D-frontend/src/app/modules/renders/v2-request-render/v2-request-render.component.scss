@@ -1,0 +1,20 @@
+.date-width {
+    min-width: 80px;
+}
+
+.amount-width {
+    min-width: 56px;
+}
+
+.total-width {
+    min-width: 56px;
+    margin-right: 10px;
+}
+
+.completed-request {
+    fill: green;
+}
+
+.open-request {
+    fill: red;
+}

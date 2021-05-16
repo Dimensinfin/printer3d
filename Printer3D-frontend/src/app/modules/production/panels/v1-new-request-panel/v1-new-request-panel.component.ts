@@ -82,7 +82,7 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
      */
     public saveRequest(): void {
         this.backendConnections.push(
-            this.productionService.apiv2_NewRequest(this.request)
+            this.productionService.apiv2_ProductionNewRequest(this.request)
                 .subscribe((persistedRequest: CustomerRequestResponse) => {
                     console.log('>[V1NewRequestPanelComponent.saveRequest]> Clear the page')
                     this.dockService.clean() // Clean the selection from any feature

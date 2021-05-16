@@ -13,9 +13,9 @@ const supportService = new SupportService();
 //     cy.get('@target').trigger('mouseenter')
 // });
 // - T A R G E T   M A R K S
-Then('the target item has a mark {string}', function (markname: string) {
-    cy.get('@target').parent().find('[cy-field-mark="REQUEST"]').get('.' + markname).should('exist')
-})
+// Then('the target item has a mark {string}', function (markname: string) {
+//     cy.get('@target').parent().find('[cy-field-mark="REQUEST"]').get('.' + markname).should('exist')
+// })
 
 // // - T A R G E T   S E L E C T I O N
 // Then('on the target panel there is one {string}', function (renderName: string) {

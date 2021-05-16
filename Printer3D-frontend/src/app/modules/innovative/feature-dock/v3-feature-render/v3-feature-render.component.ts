@@ -32,7 +32,7 @@ export class V3FeatureRenderComponent {
         else throw new Error('The component still has not the node.')
     }
     public isMarkVisible(): boolean {
-        console.log('-[V3FeatureRenderComponent.isMarkVisible]>mark state: ' + this.getNode().interaction)
+        // console.log('-[V3FeatureRenderComponent.isMarkVisible]>mark state: ' + this.getNode().interaction)
         if (this.getNode().interaction == 'DIALOG') return true
         if (this.getNode().modifier == 'DROP') return true
         return false

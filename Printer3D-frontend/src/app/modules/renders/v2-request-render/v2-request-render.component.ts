@@ -1,10 +1,5 @@
 // - CORE
 import { Component } from '@angular/core'
-import { OnInit } from '@angular/core'
-import { OnDestroy } from '@angular/core'
-import { Input } from '@angular/core'
-import { ViewChild } from '@angular/core'
-import { Subscription } from 'rxjs'
 import { MatDialog } from '@angular/material/dialog'
 import { MatDialogConfig } from '@angular/material/dialog'
 // - ROUTER
@@ -13,22 +8,20 @@ import { Router } from '@angular/router'
 import { NodeContainerRenderComponent } from '../node-container-render/node-container-render.component'
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
 import { BackendService } from '@app/services/backend.service'
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
 import { IsolationService } from '@app/platform/isolation.service'
 import { RequestState } from '@domain/interfaces/EPack.enumerated'
 import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface'
-import { environment } from '@env/environment'
-import { HttpErrorResponse } from '@angular/common/http'
 import { DeleteConfirmationDialogComponent } from '@app/modules/production/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component'
 import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
+import { CustomerRequestResponse } from '@app/modules/production/domain/dto/CustomerRequestResponse.dto'
 
 @Component({
-    selector: 'v1-request',
-    templateUrl: './v1-request-render.component.html',
-    styleUrls: ['./v1-request-render.component.scss']
+  selector: 'v2-request',
+  templateUrl: './v2-request-render.component.html',
+  styleUrls: ['./v2-request-render.component.scss']
 })
-export class V1RequestRenderComponent extends NodeContainerRenderComponent {
-    public self: V1RequestRenderComponent
+export class V2RequestRenderComponent  extends NodeContainerRenderComponent {
+    public self: V2RequestRenderComponent
 
     constructor(
         protected router: Router,
@@ -41,8 +34,8 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
     }
 
     // - G E T T E R S
-    public getNode(): CustomerRequest {
-        return this.node as CustomerRequest
+    public getNode(): CustomerRequestResponse {
+        return this.node as CustomerRequestResponse
     }
     public getUniqueId(): string {
         if (this.node) return this.getNode().getId()
@@ -65,7 +58,11 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
      * @returns the totl amount price for this request
      */
     public getAmount(): string {
-        if (this.node) return this.getNode().getAmount() + ' €'
+        if (this.node) return this.getNode().getAmount().toFixed(2) + ' €'
+        else return '- €'
+    }
+    public getTotal():string {
+        if (this.node) return this.getNode().getTotal().toFixed(2) + ' €'
         else return '- €'
     }
     public isCompleted(): boolean {
@@ -74,6 +71,9 @@ export class V1RequestRenderComponent extends NodeContainerRenderComponent {
     }
     public isSelected(): boolean {
         if (this.getNode()) return this.getNode().isSelected()
+        else return false
+    }public isPaid():boolean {
+        if (this.node) return this.getNode().isPaid()
         else return false
     }
 

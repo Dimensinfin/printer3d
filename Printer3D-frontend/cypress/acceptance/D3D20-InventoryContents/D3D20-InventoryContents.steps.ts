@@ -25,10 +25,10 @@ When('the target item is expanded', function () {
     cy.get('@target').parents().closest('node-container').first()
         .find('.arrow-box').find('.arrow-expanded').should('exist')
 });
-Then('the target item has a {string} tag', function (tagColor: string) {
-    const colorTag = '.' + tagColor + '-mark'
-    cy.get('@target').find(colorTag).should('exist')
-});
+// Then('the target item has a {string} tag', function (tagColor: string) {
+//     const colorTag = '.' + tagColor + '-mark'
+//     cy.get('@target').find(colorTag).should('exist')
+// });
 
 // - E D I T I N G
 Then('the target item has a form field named {string} with label {string} and contents {string}',

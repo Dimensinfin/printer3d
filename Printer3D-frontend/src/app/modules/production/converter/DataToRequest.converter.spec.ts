@@ -1,6 +1,6 @@
 // - DOMAIN
 import { CustomerRequest } from '../production/CustomerRequest.domain';
-import { DataToRequestConverter } from './DataToRequest.converter';
+import { DataToRequestConverter } from '../../modules/production/converter/DataToRequest.converter';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
 import { Model } from '@domain/inventory/Model.domain';

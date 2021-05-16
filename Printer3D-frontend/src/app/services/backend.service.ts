@@ -27,7 +27,8 @@ import { WeekAmount } from '@domain/dto/WeekAmount.dto';
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { Model } from '@domain/inventory/Model.domain';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
-import { DataToRequestConverter } from '@domain/converter/DataToRequest.converter';
+import { DataToRequestConverter } from '@app/modules/production/converter/DataToRequest.converter';
+// import { DataToRequestConverter } from '@app/modules/production/domain/DataToRequest.converter';
 
 @Injectable({
     providedIn: 'root'
@@ -216,28 +217,28 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiProductionGetOpenRequests_v2(provider: IContentProvider): Observable<CustomerRequest[]> {
-        const request = this.APIV2 + '/production/requests'
-        const transformer = new ResponseTransformer()
-            .setDescription('Transforms response into a list of Requests.')
-            .setTransformation((entrydata: any): CustomerRequest[] => {
-                console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
-                // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
-                const requestList: CustomerRequest[] = []
-                const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
-                for (let index = 0; index < entrydata.length; index++) {
-                    requestList.push(requestConverter.convert(entrydata[index]))
-                }
-                return requestList
-            })
-        let headers = new HttpHeaders()
-        headers = headers.set('xApp-Api-Version', 'API v2');
-        return this.httpService.wrapHttpGETCall(request, headers)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiProductionGetOpenRequests_v2]> Transformation: " + transformer.description);
-                return transformer.transform(data) as CustomerRequest[]
-            }))
-    }
+    // public apiProductionGetOpenRequests_v2(provider: IContentProvider): Observable<CustomerRequest[]> {
+    //     const request = this.APIV2 + '/production/requests'
+    //     const transformer = new ResponseTransformer()
+    //         .setDescription('Transforms response into a list of Requests.')
+    //         .setTransformation((entrydata: any): CustomerRequest[] => {
+    //             console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
+    //             // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
+    //             const requestList: CustomerRequest[] = []
+    //             const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
+    //             for (let index = 0; index < entrydata.length; index++) {
+    //                 requestList.push(requestConverter.convert(entrydata[index]))
+    //             }
+    //             return requestList
+    //         })
+    //     let headers = new HttpHeaders()
+    //     headers = headers.set('xApp-Api-Version', 'API v2');
+    //     return this.httpService.wrapHttpGETCall(request, headers)
+    //         .pipe(map((data: any) => {
+    //             console.log(">[BackendService.apiProductionGetOpenRequests_v2]> Transformation: " + transformer.description);
+    //             return transformer.transform(data) as CustomerRequest[]
+    //         }))
+    // }
     public apiProductionRequestsClose_v2(requestId: string): Observable<CustomerRequest> {
         const request = this.APIV2 + '/production/requests/' + requestId + '/close'
         const transformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')

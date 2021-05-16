@@ -69,15 +69,6 @@ Then('there are {int} Features active', function (featuresActive: number) {
             cy.get('.corner-mark').should('have.length', featuresActive)
         })
 })
-Then('the Feature {string} is hovered', function (featureLabel:string) {
-    const tagDock = supportService.translateTag('dock')
-    const tagFeature = supportService.translateTag('feature')
-    cy.get(tagDock).find(tagFeature).find('[cy-name="feature-label"]').contains(featureLabel, { matchCase: false })
-        .parent().parent().as('target-feature')
-
-    cy.get('@target-feature').trigger('mouseenter')
-})
-
 
 // ---------------------
 Then('the Feature with label {string} opens a Dialog', function (label: string) {

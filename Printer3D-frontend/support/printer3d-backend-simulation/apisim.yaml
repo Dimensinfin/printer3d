@@ -77,6 +77,29 @@ responses:
 
 ---
 
+simlet: production-open-requests-v3
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 500
+  subsequent: 500
+
+request:
+- uriPathPattern: "/api/v2/production/requests/open"
+- method: GET
+
+response:
+  from: stub
+  status: 200
+  headers:
+  - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.openrequests.v3.json"
+
+---
+
 simlet: production-open-requests
 
 request:

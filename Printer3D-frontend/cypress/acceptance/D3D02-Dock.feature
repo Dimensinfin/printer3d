@@ -53,7 +53,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And the target Feature enabled state is "enabled"
         And the target Feature active state is "active"
         When there is a click on Feature "/NUEVA PIEZA"
-        Then there are 1 Features active
+        Then there are 2 Features active
         Then there is a Feature with label "/NUEVA PIEZA"
         And the target Feature enabled state is "enabled"
         And the target Feature active state is "active"
@@ -83,7 +83,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Then the Feature with label "/PEDIDOS" opens a Page
         Then the Feature with label "/TRABAJOS PND." opens a Page
 
-    CIRCLECI - Failing because -SELLABLE-ITEMS- timeout
+    # CIRCLECI - Failing because -SELLABLE-ITEMS- timeout
     @D3D02.08
     Scenario: [D3D02.08]-Check that the New Request feature points to the right page components.
         # - Validate the page structure and the loading sign

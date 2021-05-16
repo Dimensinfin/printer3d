@@ -44,6 +44,14 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
     cy.get('mat-dialog-container')
         .get(destination).should('exist').as('target-dialog')
 })
+Then('the Feature {string} is hovered', function (featureLabel:string) {
+    const tagDock = supportService.translateTag('dock')
+    const tagFeature = supportService.translateTag('feature')
+    cy.get(tagDock).find(tagFeature).find('[cy-name="feature-label"]').contains(featureLabel, { matchCase: false })
+        .parent().parent().as('target-feature')
+
+    cy.get('@target-feature').trigger('mouseenter')
+})
 
 
 // - S P I N N E R
