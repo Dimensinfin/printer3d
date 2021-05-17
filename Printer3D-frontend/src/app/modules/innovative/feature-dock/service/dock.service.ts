@@ -58,34 +58,28 @@ export class DockService {
             this.activeFeature = undefined
             this.deactivateAllFeatures()
             this.pageChange('/')
-        } else
-            if (this.activeFeature) { // There is a previous active feature
-                if (!this.activeFeature.equals(target)) {
-                    // Change the active feature following the requirements.
-                    // 1. Deactivate all Features and activate this target
-                    for (let feature of this.featureList) {
-                        feature.deactivate()
-                        if (feature.ifHasMenu()) {
-                            for (let subfeature of feature.getChildFeatures()) {
-                                subfeature.deactivate()
-                                if (target.equals(subfeature)) {
-                                    feature.activate() // Activate also the parent
-                                    subfeature.activate()
-                                    this.activeFeature = subfeature
-                                }
-                            }
-                        } else
-                            if (target.equals(feature)) {
-                                feature.activate()
-                                this.activeFeature = feature
-                            }
+        } else {
+            // Change the active feature following the requirements.
+            // 1. Deactivate all Features and activate this target
+            for (let feature of this.featureList) {
+                feature.deactivate()
+                if (feature.ifHasMenu()) {
+                    for (let subfeature of feature.getChildFeatures()) {
+                        subfeature.deactivate()
+                        if (target.equals(subfeature)) {
+                            console.log('-[DockService.activateFeature]>activate parent feature: ' + feature.getLabel())
+                            feature.activate() // Activate also the parent
+                            subfeature.activate()
+                            this.activeFeature = subfeature
+                        }
                     }
-                }
-            } else {
-                // 1. Activate the selected feature
-                target.activate()
-                this.activeFeature = target
+                } else
+                    if (target.equals(feature)) {
+                        feature.activate()
+                        this.activeFeature = feature
+                    }
             }
+        }
         // IMPROVEMENT: Do not detect if the Feature target is the same.
         // 2. Page change
         if (this.activeFeature) this.pageChange(this.activeFeature.getRoute())
