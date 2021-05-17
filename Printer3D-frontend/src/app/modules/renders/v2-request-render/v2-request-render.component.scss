@@ -1,3 +1,7 @@
+.additional-margin {
+    margin-right: 16px;
+}
+
 .date-width {
     min-width: 80px;
 }
@@ -11,10 +15,25 @@
     margin-right: 10px;
 }
 
-.completed-request {
-    fill: green;
+.request-total {
+    font-weight: bold;
 }
 
-.open-request {
-    fill: red;
+// - BUTTON POSITIONING
+.float-top-right {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+
+.below-top-right {
+    position: absolute;
+    top: 52px;
+    right: 6px;
+}
+
+.edit-button-location {
+    position: absolute;
+    top: 98px;
+    right: 6px;
 }

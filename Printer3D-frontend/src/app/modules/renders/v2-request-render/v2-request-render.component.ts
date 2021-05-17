@@ -14,13 +14,14 @@ import { ICollaboration } from '@domain/interfaces/core/ICollaboration.interface
 import { DeleteConfirmationDialogComponent } from '@app/modules/production/dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component'
 import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 import { CustomerRequestResponse } from '@app/modules/production/domain/dto/CustomerRequestResponse.dto'
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
 
 @Component({
-  selector: 'v2-request',
-  templateUrl: './v2-request-render.component.html',
-  styleUrls: ['./v2-request-render.component.scss']
+    selector: 'v2-request',
+    templateUrl: './v2-request-render.component.html',
+    styleUrls: ['./v2-request-render.component.scss']
 })
-export class V2RequestRenderComponent  extends NodeContainerRenderComponent {
+export class V2RequestRenderComponent extends NodeContainerRenderComponent {
     public self: V2RequestRenderComponent
 
     constructor(
@@ -45,6 +46,10 @@ export class V2RequestRenderComponent  extends NodeContainerRenderComponent {
         if (this.node) return this.getNode().getRequestDate()
         else return undefined
     }
+    public getCustomer(): string {
+        if (this.node) return this.getNode().getCustomer()
+        else return '-'
+    }
     public getLabel(): string {
         if (this.node) return this.getNode().getLabel()
         else return '-'
@@ -61,7 +66,11 @@ export class V2RequestRenderComponent  extends NodeContainerRenderComponent {
         if (this.node) return this.getNode().getAmount().toFixed(2) + ' €'
         else return '- €'
     }
-    public getTotal():string {
+    public getIva(): string {
+        if (this.node) return (this.getNode().getAmount() * Printer3DConstants.IVA_TAX).toFixed(2) + ' €'
+        else return '- €'
+    }
+    public getTotal(): string {
         if (this.node) return this.getNode().getTotal().toFixed(2) + ' €'
         else return '- €'
     }
@@ -72,7 +81,7 @@ export class V2RequestRenderComponent  extends NodeContainerRenderComponent {
     public isSelected(): boolean {
         if (this.getNode()) return this.getNode().isSelected()
         else return false
-    }public isPaid():boolean {
+    } public isPaid(): boolean {
         if (this.node) return this.getNode().isPaid()
         else return false
     }
@@ -91,7 +100,7 @@ export class V2RequestRenderComponent  extends NodeContainerRenderComponent {
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
      */
-    public completeRequest(): void {
+    public deliverRequest(): void {
         const request = this.node as CustomerRequest
         this.backendConnections.push(
             this.backendService.apiProductionRequestsClose_v2(request.getId())

@@ -18,6 +18,9 @@ Given('the application Printer3DManager', function () {
 When('the application completes loading', function () {
     cy.wait(2000)
 })
+Then('the active page is set to Dashboard', function () {
+    cy.visit('/')
+})
 
 // - F E A T U R E   S E L E C T I O N
 When('there is a click on Feature {string}', function (featureLabel: string) {
@@ -44,13 +47,20 @@ When('the Feature with label {string} is clicked the destination is the Dialog {
     cy.get('mat-dialog-container')
         .get(destination).should('exist').as('target-dialog')
 })
-Then('the Feature {string} is hovered', function (featureLabel:string) {
+Then('the Feature {string} is hovered', function (featureLabel: string) {
     const tagDock = supportService.translateTag('dock')
     const tagFeature = supportService.translateTag('feature')
     cy.get(tagDock).find(tagFeature).find('[cy-name="feature-label"]').contains(featureLabel, { matchCase: false })
         .parent().parent().as('target-feature')
 
     cy.get('@target-feature').trigger('mouseenter')
+})
+Then('there are {int} Features active', function (featuresActive: number) {
+    const tagDock = supportService.translateTag('dock')
+    const tagFeature = supportService.translateTag('feature')
+    cy.get(tagDock).find(tagFeature).within(($panel) => {
+        cy.get('.corner-mark').should('have.length', featuresActive)
+    })
 })
 
 
@@ -143,6 +153,12 @@ When('the button with name {string} is clicked', function (buttonName: string) {
     })
     cy.wait(100)
 })
+Then('the button with name {string} has {string} tag', function (buttonName: string, tagColor: string) {
+    const colorTag = '.' + tagColor + '-mark'
+    cy.get('@target').get('[cy-name="' + buttonName + '"]').within(($item) => {
+        cy.get(colorTag).should('exist')
+    })
+})
 
 // - I M A G E   B U T T O N S
 Then('target has an actionable image named {string}', function (buttonName: string) {
@@ -225,10 +241,11 @@ Then('the target item has a {string} tag', function (tagColor: string) {
 Then('field named {string} with label {string} has contents {string}',
     function (fieldName: string, fieldLabel: string, fieldValue: string) {
         cy.get('@target').within(($item) => {
-            cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
+            cy.get('[cy-name="' + fieldName + '"]')
+                .find('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
         })
         cy.get('@target').within(($item) => {
-            cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
+            cy.get('[cy-name="' + fieldName + '"]')
                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
         })
     })

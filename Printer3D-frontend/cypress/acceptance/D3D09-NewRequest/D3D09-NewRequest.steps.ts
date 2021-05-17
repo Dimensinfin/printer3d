@@ -8,13 +8,6 @@ import { SupportService } from '../../support/SupportService.support'
 const supportService = new SupportService()
 
 // - N E W E S T
-Then('there are {int} Features active', function (featuresActive: number) {
-    const tagDock = supportService.translateTag('dock')
-    const tagFeature = supportService.translateTag('feature')
-    cy.get(tagDock).find(tagFeature).within(($panel) => {
-        cy.get('.corner-mark').should('have.length', featuresActive)
-    })
-})
 Given('the target has a panel labeled {string}', function (fieldName: string) {
     cy.get('@target').within(($item) => {
         cy.get('[cy-name="' + fieldName + '"]').as('target')

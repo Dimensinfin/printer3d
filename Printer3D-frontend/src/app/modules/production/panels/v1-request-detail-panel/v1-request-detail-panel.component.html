@@ -3,5 +3,5 @@
 </div>
 <hr>
 <div *ngIf="selectedRequest">
-    <v1-request style="width: 100%;" *ngIf="selectedRequest" [container]="container" [node]="selectedRequest" [variant]="'-DETAILED-REQUEST-'"></v1-request>
+    <v2-request *ngIf="selectedRequest" [container]="container" [node]="selectedRequest" [variant]="'-DETAILED-REQUEST-'"></v2-request>
 </div>

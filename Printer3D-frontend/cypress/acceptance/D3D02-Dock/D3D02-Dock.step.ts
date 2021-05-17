@@ -62,13 +62,6 @@ Then('the target Feature target type is {string}', function (targetType: string)
     if (targetType == 'drop')
         cy.get('@target-feature').find('.corner-top').parent().find('.blueviolet-mark').should('exist')
 })
-Then('there are {int} Features active', function (featuresActive: number) {
-    const tagDock = supportService.translateTag('dock')
-    const tagFeature = supportService.translateTag('feature')
-   cy.get(tagDock)        .find(tagFeature).within(($panel) => {
-            cy.get('.corner-mark').should('have.length', featuresActive)
-        })
-})
 
 // ---------------------
 Then('the Feature with label {string} opens a Dialog', function (label: string) {

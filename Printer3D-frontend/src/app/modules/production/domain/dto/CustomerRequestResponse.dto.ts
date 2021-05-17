@@ -6,6 +6,7 @@ import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
 
 export class CustomerRequestResponse extends Node {
     private id: string
+    private customer: string
     private label: string
     private requestDate: string
     private state: RequestState = RequestState.OPEN
@@ -20,6 +21,9 @@ export class CustomerRequestResponse extends Node {
 
     public getId(): string {
         return this.id
+    }
+    public getCustomer(): string {
+        return this.customer
     }
     public getLabel(): string {
         return this.label

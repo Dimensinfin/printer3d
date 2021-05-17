@@ -48,6 +48,3 @@ Then('the target panel has no {string}', function (renderName: string) {
 Then('the Model is persisted at the backend', function () {
     cy.log('The Model is being persisted at the backend.')
 })
-Then('the active page is set to Dashboard', function () {
-    cy.visit('/')
-})

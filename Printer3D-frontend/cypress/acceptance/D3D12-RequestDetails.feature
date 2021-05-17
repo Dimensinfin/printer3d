@@ -6,16 +6,18 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
     There is a button CLOSE to close the request and update the associated Parts stocks. This update is done at the background.
     Closed Requests do not apear on the Open Request list anymore.
     There is a Delete button that will remove the Request from the backend respository. This action requires a confirmation dialog.
+    [STORY] The new Customer request Card displays more data about the Request. Added tax and total amount calculations.
 
     Background: Application landing page
         Given the application Printer3DManager
-        Given there is a click on Feature "/PEDIDOS"
+        Given the Feature "/PEDIDOS" is hovered
+        When there is a click on Feature "/PEDIDOS ABIERTOS"
         Then the page "Open Requests Page" is activated
         When the application completes loading
 
     # - H A P P Y   P A T H
     @D3D12.01
-    Scenario: [D3D12.01]-Select a Request from the list of requests in the Open state and verify that there is no Close button.
+    Scenario: [D3D12.01]-Select a Request from the list of requests in the Open state and verify that there is no Deliver button.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
@@ -25,11 +27,14 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         And the target has 1 "request"
         Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
         # - Check the buttons and states
-        And the target has 1 "buttons"
+        And the target has 2 "buttons"
         And the button with name "delete-button" has a label "Borrar" and is "enabled"
+        And the button with name "delete-button" has "ko" tag
+        And the button with name "edit-button" has a label "Editar" and is "enabled"
+        And the button with name "edit-button" has "edit" tag
 
     @D3D12.02
-    Scenario: [D3D12.02]-Select a Request from the list of requests in the Completed state and verify that there is a Complete button.
+    Scenario: [D3D12.02]-Select a Request from the list of requests in the Completed state and verify that there is a Deliver button.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -37,12 +42,15 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Check the buttons and states
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        And the target has 2 "buttons"
-        And the button with name "complete-button" has a label "Completar" and is "enabled"
+        And the target has 3 "buttons"
+        And the button with name "deliver-button" has a label "Entregar" and is "enabled"
+        And the button with name "deliver-button" has "ok" tag
         And the button with name "delete-button" has a label "Borrar" and is "enabled"
+        And the button with name "edit-button" has a label "Editar" and is "enabled"
+        And the button with name "edit-button" has "edit" tag
 
     @D3D12.03
-    Scenario: [D3D12.03]-If the Complete button is clicked the request is updated on the backend, a notification is shown and the page closes and returns to the Dashboard.
+    Scenario: [D3D12.03]-If the Deliver button is clicked the request is updated on the backend, a notification is shown and the page closes and returns to the Dashboard.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
@@ -50,15 +58,16 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Click on the Complete button
         Given the target is the panel of type "request-details"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        And the button with name "complete-button" has a label "Completar" and is "enabled"
-        And the button with name "complete-button" is clicked
+        And the button with name "deliver-button" has a label "Entregar" and is "enabled"
+        And the button with name "deliver-button" has "ok" tag
+        And the button with name "deliver-button" is clicked
         Then the Request is updated on the backend
         And there is a Notification panel
-        And the active page is set to Dasboard
-        And there are no Features active
+        And the active page is set to Dashboard
+        Then there are 0 Features active
 
     @D3D12.04
-    Scenario: [D3D12.04]-When any Request on the list of Open Requests is hovered the Request Details shows the detailed data.
+    Scenario: [D3D12.04]-When any Request on the list of Open Requests is clicked the Request Details shows the detailed data.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
@@ -66,9 +75,13 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         # - Check the Request details
         Given the target is the panel of type "request-details"
         And field named "requestDate" with label "FECHA" has contents "Apr 14, 2021"
+        And field named "customer" with label "DATOS COMPRADOR" is empty
         And field named "label" with label "ETIQUETA" has contents "PEDIDO URBAN DIGIT 2021"
         And field named "partCount" with label "NRO. PIEZAS" has contents "15"
-        And field named "amount" with label "IMPORTE" has contents "125 €"
+        And field named "amount" with label "IMPORTE" has contents "125.00 €"
+        And field named "iva" with label "IVA" has contents "26.25 €"
+        And field named "total" with label "TOTAL" has contents "151.25 €"
+        And field named "paid" with label "PAGADO" has contents "on"
         And target has a panel labeled "PIEZAS SOLICITADAS" named "contents"
         When the target is the panel of name "contents"
         And the target has 3 "request-item"

@@ -31,7 +31,7 @@
         "deliveredDate": null,
         "paymentDate": null,
         "state": "OPEN",
-        "paid": false,
+        "paid": true,
         "contents": [{
                 "itemId": "72168412-af2d-4969-b1ea-362ea10370f2",
                 "type": "PART",

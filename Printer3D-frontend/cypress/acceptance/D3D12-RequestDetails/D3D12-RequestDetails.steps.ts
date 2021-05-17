@@ -12,9 +12,9 @@ const supportService = new SupportService();
 Then('the Request is updated on the backend', function () {
     cy.log('>[the Request is updated on the backend]')
 })
-Then('the active page is set to Dasboard', function () {
-    cy.visit('/')
-})
+// Then('the active page is set to Dasboard', function () {
+//     cy.visit('/')
+// })
 Given('the target is the panel of name {string}', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]')
         .as('target-panel').as('target')
