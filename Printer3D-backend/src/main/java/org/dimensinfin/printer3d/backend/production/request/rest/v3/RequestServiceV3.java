@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v3;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
@@ -53,6 +54,7 @@ public class RequestServiceV3 extends CommonRequestService {
 			return this.requestsRepositoryV2.findAll()
 					.stream()
 					.filter( RequestEntityV2::isOpen )
+					.sorted( Comparator.comparing( RequestEntityV2::getRequestDate ) )
 					.map( requestEntityV2 -> {
 						if (this.collectItemsFromStock( requestEntityV2 )) requestEntityV2.signalCompleted();
 						return requestEntityV2ToCustomerRequestResponseConverter.convert( requestEntityV2 );
