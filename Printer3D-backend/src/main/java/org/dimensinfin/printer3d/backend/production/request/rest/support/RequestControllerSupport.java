@@ -26,14 +26,11 @@ import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRespo
 @Validated
 @Service
 public class RequestControllerSupport extends CommonRequestService {
-	private final RequestsRepositoryV2 requestsRepositoryV2;
-
 	// - C O N S T R U C T O R S
-	public RequestControllerSupport( final @NotNull PartRepository partRepository,
-	                                 final @NotNull ModelRepository modelRepository,
-	                                 final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
-		super( partRepository, modelRepository );
-		this.requestsRepositoryV2 = requestsRepositoryV2;
+	public RequestControllerSupport( @NotNull final PartRepository partRepository,
+	                                 @NotNull final ModelRepository modelRepository,
+	                                 @NotNull final RequestsRepositoryV2 requestsRepositoryV2 ) {
+		super( partRepository, modelRepository, requestsRepositoryV2 );
 	}
 
 	// - G E T T E R S   &   S E T T E R S

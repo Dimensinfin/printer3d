@@ -21,7 +21,6 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
@@ -107,8 +106,8 @@ public class RequestServiceV2Test {
 		// Test
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		final CustomerRequestResponseV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -153,8 +152,8 @@ public class RequestServiceV2Test {
 		// Test
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> requestServiceV2.closeRequest( TEST_REQUEST_ID ) );
 	}
 
@@ -207,8 +206,8 @@ public class RequestServiceV2Test {
 		// Test
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		final CustomerRequestResponseV2 obtained = requestServiceV2.closeRequest( TEST_REQUEST_ID );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -223,8 +222,8 @@ public class RequestServiceV2Test {
 		// Test
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> requestServiceV2.closeRequest( TEST_REQUEST_ID ) );
 	}
 
@@ -236,55 +235,9 @@ public class RequestServiceV2Test {
 	public void constructorContract() {
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		Assertions.assertNotNull( requestServiceV2 );
-	}
-
-	@Test
-	public void deleteRequestV2() {
-		// Given
-		final RequestEntityV2 requestEntityV2 = Mockito.mock( RequestEntityV2.class );
-		// When
-		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( requestEntityV2 ) );
-		Mockito.when( requestEntityV2.isOpen() ).thenReturn( true );
-		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
-				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
-		final CounterResponse obtained = requestServiceV2.deleteRequest( TEST_REQUEST_ID );
-		// Assertions
-		Assertions.assertNotNull( obtained );
-		Assertions.assertEquals( 1, obtained.getRecords() );
-	}
-
-	@Test
-	public void deleteRequestV2Closed() {
-		// Given
-		final RequestEntityV2 requestEntityV2 = Mockito.mock( RequestEntityV2.class );
-		// When
-		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.of( requestEntityV2 ) );
-		Mockito.when( requestEntityV2.isOpen() ).thenReturn( false );
-		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
-				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
-		Assertions.assertThrows( RepositoryConflictException.class, () -> requestServiceV2.deleteRequest( TEST_REQUEST_ID ) );
-	}
-
-	@Test
-	public void deleteRequestV2NotFound() {
-		// When
-		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
-		// Test
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
-				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
-		// Exceptions
-		Assertions.assertThrows( DimensinfinRuntimeException.class, () -> requestServiceV2.deleteRequest( TEST_REQUEST_ID ) );
 	}
 
 	@Test
@@ -339,27 +292,12 @@ public class RequestServiceV2Test {
 		// Tests
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		final List<CustomerRequestResponseV2> obtained = requestServiceV2.getOpenRequests();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertEquals( 2, obtained.size() );
-	}
-
-	//	@Test
-	public void getOpenRequestsException() {
-		// When
-		Mockito.when( this.requestsRepositoryV2.findAll() ).thenThrow( RuntimeException.class );
-		// Tests
-		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
-				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
-		//		final List<CustomerRequestRequestV2> obtained = requestServiceV2.getOpenRequests();
-		//		// Assertions
-		//		Assertions.assertNotNull( obtained );
-		//		Assertions.assertEquals( 0, obtained.size() );
 	}
 
 	@Test
@@ -373,9 +311,46 @@ public class RequestServiceV2Test {
 		// Test
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		Assertions.assertThrows( RepositoryConflictException.class, () -> requestServiceV2.newRequest( request ) );
+	}
+
+	@Test
+	public void newRequest_nodate() {
+		// Given
+		final CustomerRequestRequestV2 request = new CustomerRequestRequestV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withContents( this.contents )
+				.withTotalAmount( TEST_REQUEST_TOTAL )
+				.withPaid( false )
+				.build()
+				.setCustomer( TEST_REQUEST_CUSTOMER );
+		// When
+		Mockito.when( this.requestsRepositoryV2.findById( Mockito.any( UUID.class ) ) ).thenReturn( Optional.empty() );
+		Mockito.when( this.requestsRepositoryV2.save( Mockito.any( RequestEntityV2.class ) ) ).thenAnswer( i -> i.getArguments()[0] );
+		// Test
+		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
+				this.partRepository,
+				this.modelRepository,
+				this.requestsRepositoryV2 );
+		final CustomerRequestResponseV2 obtained = requestServiceV2.newRequest( request );
+		// Assertions
+		Assertions.assertNotNull( obtained );
+		Assertions.assertEquals( TEST_REQUEST_ID, obtained.getId() );
+		Assertions.assertEquals( TEST_REQUEST_LABEL, obtained.getLabel() );
+		Assertions.assertEquals( TEST_REQUEST_CUSTOMER, obtained.getCustomer() );
+		Assertions.assertNotNull( obtained.getRequestDate() );
+		Assertions.assertNull( obtained.getDeliveredDate() );
+		Assertions.assertNull( obtained.getPaymentDate() );
+		Assertions.assertEquals( RequestState.OPEN, obtained.getState() );
+		Assertions.assertFalse( obtained.isPaid() );
+		Assertions.assertNotNull( obtained.getContents() );
+		Assertions.assertEquals( 1, obtained.getContents().size() );
+		Assertions.assertEquals( TEST_REQUEST_AMOUNT, obtained.getAmount() );
+		Assertions.assertEquals( TEST_REQUEST_IVA, obtained.getIva() );
+		Assertions.assertEquals( TEST_REQUEST_TOTAL, obtained.getTotal() );
 	}
 
 	@Test
@@ -401,8 +376,8 @@ public class RequestServiceV2Test {
 		// Test
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		final CustomerRequestResponseV2 obtained = requestServiceV2.newRequest( request );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -410,7 +385,7 @@ public class RequestServiceV2Test {
 		Assertions.assertEquals( TEST_REQUEST_LABEL, obtained.getLabel() );
 		Assertions.assertEquals( TEST_REQUEST_CUSTOMER, obtained.getCustomer() );
 		Assertions.assertEquals( TEST_REQUEST_DATE, obtained.getRequestDate() );
-		Assertions.assertEquals( null, obtained.getCompletedDate() );
+		Assertions.assertEquals( null, obtained.getDeliveredDate() );
 		Assertions.assertEquals( null, obtained.getPaymentDate() );
 		Assertions.assertEquals( RequestState.OPEN, obtained.getState() );
 		Assertions.assertFalse( obtained.isPaid() );
@@ -444,8 +419,8 @@ public class RequestServiceV2Test {
 		// Test
 		final RequestServiceV2 requestServiceV2 = new RequestServiceV2(
 				this.partRepository,
-				this.requestsRepositoryV2,
-				this.modelRepository );
+				this.modelRepository,
+				this.requestsRepositoryV2 );
 		final CustomerRequestResponseV2 obtained = requestServiceV2.newRequest( request );
 		// Assertions
 		Assertions.assertNotNull( obtained );
@@ -453,7 +428,7 @@ public class RequestServiceV2Test {
 		Assertions.assertEquals( TEST_REQUEST_LABEL, obtained.getLabel() );
 		Assertions.assertEquals( TEST_REQUEST_CUSTOMER, obtained.getCustomer() );
 		Assertions.assertEquals( TEST_REQUEST_DATE, obtained.getRequestDate() );
-		Assertions.assertNull( obtained.getCompletedDate() );
+		Assertions.assertNull( obtained.getDeliveredDate() );
 		Assertions.assertNotNull( obtained.getPaymentDate() );
 		Assertions.assertEquals( RequestState.OPEN, obtained.getState() );
 		Assertions.assertTrue( obtained.isPaid() );

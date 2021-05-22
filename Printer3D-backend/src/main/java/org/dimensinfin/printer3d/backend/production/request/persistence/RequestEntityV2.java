@@ -56,8 +56,8 @@ public class RequestEntityV2 {
 	private String customer;
 	@Column(name = "request_date", columnDefinition = "TIMESTAMP", nullable = false)
 	private Instant requestDate;
-	@Column(name = "date_completed", columnDefinition = "TIMESTAMP")
-	private Instant completedDate;
+	@Column(name = "date_delivered", columnDefinition = "TIMESTAMP")
+	private Instant deliveredDate;
 	@Column(name = "date_paid", columnDefinition = "TIMESTAMP")
 	private Instant paymentDate;
 	@Enumerated(EnumType.STRING)
@@ -89,16 +89,16 @@ public class RequestEntityV2 {
 		return this;
 	}
 
-	public Instant getCompletedDate() {
-		return this.completedDate;
-	}
-
 	public List<RequestItem> getContents() {
 		return this.contents;
 	}
 
 	public String getCustomer() {
 		return this.customer;
+	}
+
+	public Instant getDeliveredDate() {
+		return this.deliveredDate;
 	}
 
 	public UUID getId() {
@@ -164,6 +164,7 @@ public class RequestEntityV2 {
 		return this;
 	}
 
+	@Deprecated
 	public RequestEntityV2 close() {
 		this.state = RequestState.CLOSED;
 		this.paymentDate = Instant.now();
@@ -172,7 +173,22 @@ public class RequestEntityV2 {
 
 	public RequestEntityV2 signalCompleted() {
 		this.state = RequestState.COMPLETED;
-		this.completedDate = Instant.now();
+		return this;
+	}
+
+	public RequestEntityV2 signalDeleted() {
+		this.state = RequestState.DELETED;
+		this.deliveredDate = Instant.now();
+		return this;
+	}
+
+	public RequestEntityV2 signalDelivered() {
+		this.deliveredDate = Instant.now();
+		if (this.paid) {
+			this.state = RequestState.CLOSED;
+			if (null == this.paymentDate) // Validate in case the payment date is empty
+				this.paymentDate = this.requestDate;
+		} else this.state = RequestState.DELIVERED;
 		return this;
 	}
 
@@ -232,7 +248,10 @@ public class RequestEntityV2 {
 		}
 
 		public RequestEntityV2.Builder withPaid( final Boolean paid ) {
-			if (null != paid) this.onConstruction.paid = paid;
+			if (null != paid) {
+				this.onConstruction.paid = paid;
+				if (this.onConstruction.paid) this.onConstruction.paymentDate = Instant.now();
+			}
 			return this;
 		}
 

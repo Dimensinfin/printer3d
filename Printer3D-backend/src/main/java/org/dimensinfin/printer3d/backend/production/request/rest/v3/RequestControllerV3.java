@@ -1,12 +1,16 @@
 package org.dimensinfin.printer3d.backend.production.request.rest.v3;
 
 import java.util.List;
+import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +40,19 @@ public class RequestControllerV3 {
 			produces = "application/json")
 	public ResponseEntity<List<CustomerRequestResponseV2>> getOpenRequestsV3() {
 		return new ResponseEntity<>( this.requestServiceV3.getOpenRequestsV3(), HttpStatus.OK );
+	}
+
+	@DeleteMapping(path = "/production/requests/{requestId}",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<CustomerRequestResponseV2> deleteRequest( final @PathVariable @NotNull UUID requestId ) {
+		return new ResponseEntity<>( this.requestServiceV3.deleteRequest( requestId ), HttpStatus.OK );
+	}
+
+	@PatchMapping(path = "/production/requests/{requestId}/deliver",
+			consumes = "application/json",
+			produces = "application/json")
+	public ResponseEntity<CustomerRequestResponseV2> deliverRequest( final @PathVariable @NotNull UUID requestId ) {
+		return new ResponseEntity<>( this.requestServiceV3.deliverRequest( requestId ), HttpStatus.CREATED );
 	}
 }

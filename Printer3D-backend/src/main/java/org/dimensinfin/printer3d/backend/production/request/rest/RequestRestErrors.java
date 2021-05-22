@@ -33,9 +33,9 @@ public class RequestRestErrors {
 				.build();
 	}
 
-	public static DimensinfinError errorREQUESTNOTINCORRECTSTATE( final UUID requestId ) {
+	public static DimensinfinError errorREQUESTINCORRECTSTATE( final UUID requestId ) {
 		return new DimensinfinError.Builder()
-				.withErrorName( "REQUEST_NOT_IN_CORRECT_STATE" )
+				.withErrorName( "REQUEST_INCORRECT_STATE" )
 				.withErrorCode( APPLICATION_ERROR_CODE_PREFIX + ".logic.exception" )
 				.withHttpStatus( HttpStatus.CONFLICT )
 				.withMessage( MessageFormat.format(

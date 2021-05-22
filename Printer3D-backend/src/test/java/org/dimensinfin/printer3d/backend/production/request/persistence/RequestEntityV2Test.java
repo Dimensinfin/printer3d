@@ -250,7 +250,7 @@ public class RequestEntityV2Test {
 		Assertions.assertEquals( TEST_REQUEST_CUSTOMER, requestEntityV2.getCustomer() );
 		Assertions.assertEquals( TEST_REQUEST_DATE, requestEntityV2.getRequestDate() );
 		Assertions.assertEquals( RequestState.OPEN, requestEntityV2.getState() );
-		Assertions.assertEquals( null, requestEntityV2.getCompletedDate() );
+		Assertions.assertEquals( null, requestEntityV2.getDeliveredDate() );
 		Assertions.assertEquals( null, requestEntityV2.getPaymentDate() );
 		Assertions.assertFalse( requestEntityV2.isPaid() );
 		Assertions.assertNotNull( requestEntityV2.getContents() );
@@ -281,17 +281,6 @@ public class RequestEntityV2Test {
 		Assertions.assertEquals( TEST_REQUEST_TOTAL + 10, requestEntityV2.getTotal() );
 		requestEntityV2.setPaid( true );
 		Assertions.assertTrue( requestEntityV2.isPaid() );
-
-		Assertions.assertNull( requestEntityV2.getCompletedDate() );
-		requestEntityV2.signalCompleted();
-		Assertions.assertNotNull( requestEntityV2.getCompletedDate() );
-		Assertions.assertEquals( RequestState.COMPLETED, requestEntityV2.getState() );
-
-		Assertions.assertEquals( null, requestEntityV2.getPaymentDate() );
-		requestEntityV2.signalPaid();
-		Assertions.assertNotNull( requestEntityV2.getPaymentDate() );
-		Assertions.assertEquals( RequestState.CLOSED, requestEntityV2.getState() );
-		Assertions.assertTrue( requestEntityV2.isPaid() );
 	}
 
 	@Test
@@ -309,10 +298,52 @@ public class RequestEntityV2Test {
 				.build();
 		// Assertions
 		Assertions.assertEquals( RequestState.OPEN, requestEntityV2.getState() );
-		Assertions.assertNull( requestEntityV2.getCompletedDate() );
+		Assertions.assertNull( requestEntityV2.getDeliveredDate() );
 		requestEntityV2.signalCompleted();
-		Assertions.assertNotNull( requestEntityV2.getCompletedDate() );
 		Assertions.assertEquals( RequestState.COMPLETED, requestEntityV2.getState() );
+	}
+
+	@Test
+	public void signalDelivered_notpaid() {
+		// Test
+		final RequestEntityV2 requestEntityV2 = new RequestEntityV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withCustomerData( TEST_REQUEST_CUSTOMER )
+				.withRequestDate( TEST_REQUEST_DATE )
+				.withState( TEST_REQUEST_STATE )
+				.withContents( this.contents )
+				.withPaid( false )
+				.withTotal( TEST_REQUEST_TOTAL )
+				.build();
+		// Assertions
+		Assertions.assertEquals( RequestState.OPEN, requestEntityV2.getState() );
+		Assertions.assertNull( requestEntityV2.getDeliveredDate() );
+		requestEntityV2.signalDelivered();
+		Assertions.assertEquals( RequestState.DELIVERED, requestEntityV2.getState() );
+		Assertions.assertNotNull( requestEntityV2.getDeliveredDate() );
+	}
+
+	@Test
+	public void signalDelivered_paid() {
+		// Test
+		final RequestEntityV2 requestEntityV2 = new RequestEntityV2.Builder()
+				.withId( TEST_REQUEST_ID )
+				.withLabel( TEST_REQUEST_LABEL )
+				.withCustomerData( TEST_REQUEST_CUSTOMER )
+				.withRequestDate( TEST_REQUEST_DATE )
+				.withState( TEST_REQUEST_STATE )
+				.withContents( this.contents )
+				.withPaid( true )
+				.withTotal( TEST_REQUEST_TOTAL )
+				.build();
+		// Assertions
+		Assertions.assertEquals( RequestState.OPEN, requestEntityV2.getState() );
+		Assertions.assertNull( requestEntityV2.getDeliveredDate() );
+		requestEntityV2.signalDelivered();
+		Assertions.assertEquals( RequestState.CLOSED, requestEntityV2.getState() );
+		Assertions.assertNotNull( requestEntityV2.getDeliveredDate() );
+		Assertions.assertNotNull( requestEntityV2.getPaymentDate() );
 	}
 
 	@Test

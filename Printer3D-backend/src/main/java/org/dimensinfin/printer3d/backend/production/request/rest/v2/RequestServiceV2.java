@@ -3,10 +3,8 @@ package org.dimensinfin.printer3d.backend.production.request.rest.v2;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +15,6 @@ import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.logging.LogWrapper;
 import org.dimensinfin.printer3d.backend.core.exception.Printer3DErrorInfo;
 import org.dimensinfin.printer3d.backend.core.exception.RepositoryConflictException;
-import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToCustomerRequestResponseConverter;
@@ -25,23 +22,18 @@ import org.dimensinfin.printer3d.backend.production.request.persistence.RequestE
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.backend.production.request.rest.CommonRequestService;
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
-import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestState;
 
 @Service
 public class RequestServiceV2 extends CommonRequestService {
-	private final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
 	public RequestServiceV2( final @NotNull PartRepository partRepository,
-	                         final @NotNull RequestsRepositoryV2 requestsRepositoryV2,
-	                         final @NotNull ModelRepository modelRepository ) {
-		super( partRepository, modelRepository );
-		this.requestsRepositoryV2 = requestsRepositoryV2;
+	                         final @NotNull ModelRepository modelRepository,
+	                         final @NotNull RequestsRepositoryV2 requestsRepositoryV2 ) {
+		super( partRepository, modelRepository, requestsRepositoryV2 );
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -61,6 +53,7 @@ public class RequestServiceV2 extends CommonRequestService {
 	 * before removal. This service will read first V1 requests and convert them to V2 before joining them with the V2 requests and do the common
 	 * processing and reporting.
 	 */
+	@Deprecated
 	public List<CustomerRequestResponseV2> getOpenRequests() {
 		LogWrapper.enter();
 		try {
@@ -105,30 +98,11 @@ public class RequestServiceV2 extends CommonRequestService {
 			this.stockManager.clean().startStock(); // Initialize the stock manager to get the Part prices.
 			final var requestEntityV2 = this.selectRequestEntity( requestId );
 			if (this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be closed now. Data on frontend may be obsolete.
-				this.removeRequestPartsFromStock( requestEntityV2 );
+				//				this.removeRequestPartsFromStock( requestEntityV2 );
 				this.requestsRepositoryV2.save( requestEntityV2.signalCompleted() );
 				return new RequestEntityV2ToCustomerRequestResponseConverter().convert( requestEntityV2.close() );
 			} else
 				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTCANNOTBEFULFILLED( requestEntityV2.getId() ) );
-		} finally {
-			LogWrapper.exit();
-		}
-	}
-
-	public CounterResponse deleteRequest( final UUID requestId ) {
-		LogWrapper.enter();
-		try {
-			final AtomicInteger deleteCounter = new AtomicInteger( 0 );
-			this.requestsRepositoryV2.findById( requestId ).ifPresent( request -> {
-				if (request.isOpen()) {
-					this.requestsRepositoryV2.delete( request );
-					deleteCounter.incrementAndGet();
-				} else
-					throw new RepositoryConflictException( RequestRestErrors.errorREQUESTNOTINCORRECTSTATE( requestId ) );
-			} );
-			if (deleteCounter.get() == 0) throw new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTNOTFOUND( requestId ),
-					"No Request found while trying to delete a request." );
-			return new CounterResponse.Builder().withRecords( deleteCounter.get() ).build();
 		} finally {
 			LogWrapper.exit();
 		}
@@ -170,26 +144,5 @@ public class RequestServiceV2 extends CommonRequestService {
 		} finally {
 			LogWrapper.exit();
 		}
-	}
-
-	private void removeRequestPartsFromStock( final RequestEntityV2 requestEntityV2 ) {
-		// Update the parts stocks reducing the stock with the Request quantities.
-		for (final RequestItem content : Objects.requireNonNull( requestEntityV2 ).getContents()) {
-			if (content.getType() == RequestContentType.PART)
-				this.decrementStock( content.getItemId(), content.getQuantity() );
-			if (content.getType() == RequestContentType.MODEL) {
-				final Optional<ModelEntity> modelEntityOpt = this.modelRepository.findById( content.getItemId() );
-				modelEntityOpt.ifPresent( modelEntity -> {
-					for (final UUID partIdentifier : modelEntity.getPartIdList())
-						this.decrementStock( partIdentifier, content.getQuantity() );
-				} );
-			}
-		}
-	}
-
-	private RequestEntityV2 selectRequestEntity( final UUID requestId ) {
-		return this.requestsRepositoryV2.findById( requestId )
-				.orElseThrow( () -> new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTNOTFOUND( requestId ),
-						"No Request found while trying to complete the Request." ) );
 	}
 }

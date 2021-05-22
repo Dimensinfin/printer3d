@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
+import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelEntity;
 import org.dimensinfin.printer3d.backend.inventory.model.persistence.ModelRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartEntity;
@@ -15,6 +16,7 @@ import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartReposito
 import org.dimensinfin.printer3d.backend.production.domain.StockManager;
 import org.dimensinfin.printer3d.backend.production.request.converter.RequestEntityV2ToCustomerRequestResponseConverter;
 import org.dimensinfin.printer3d.backend.production.request.persistence.RequestEntityV2;
+import org.dimensinfin.printer3d.backend.production.request.persistence.RequestsRepositoryV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestContentType;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
 
@@ -24,12 +26,15 @@ public class CommonRequestService {
 	protected final ModelRepository modelRepository;
 
 	protected final StockManager stockManager;
+	protected final RequestsRepositoryV2 requestsRepositoryV2;
 
 	// - C O N S T R U C T O R S
 	public CommonRequestService( @NotNull final PartRepository partRepository,
-	                             @NotNull final ModelRepository modelRepository ) {
+	                             @NotNull final ModelRepository modelRepository,
+	                             @NotNull final RequestsRepositoryV2 requestsRepositoryV2 ) {
 		this.partRepository = partRepository;
 		this.modelRepository = modelRepository;
+		this.requestsRepositoryV2 = requestsRepositoryV2;
 		this.stockManager = new StockManager( partRepository );
 	}
 
@@ -111,5 +116,11 @@ public class CommonRequestService {
 					.withQuantity( targetContent.getValue() * modelQuantity )
 					.withType( RequestContentType.PART ).build() );
 		return resultContents;
+	}
+
+	protected RequestEntityV2 selectRequestEntity( final UUID requestId ) {
+		return this.requestsRepositoryV2.findById( requestId )
+				.orElseThrow( () -> new DimensinfinRuntimeException( RequestRestErrors.errorREQUESTNOTFOUND( requestId ),
+						"No Request found while trying to deliver the Request." ) );
 	}
 }

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
-import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
@@ -58,23 +57,6 @@ public class RequestControllerV2Test {
 	public void constructorContract() {
 		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
 		Assertions.assertNotNull( requestControllerV2 );
-	}
-
-	@Test
-	public void deleteRequest() {
-		// Given
-		final UUID requestId = UUID.randomUUID();
-		final CounterResponse counterResponse = Mockito.mock( CounterResponse.class );
-		// When
-		Mockito.when( this.requestServiceV2.deleteRequest( Mockito.any( UUID.class ) ) ).thenReturn( counterResponse );
-		Mockito.when( counterResponse.getRecords() ).thenReturn( 1 );
-		// Test
-		final RequestControllerV2 requestControllerV2 = new RequestControllerV2( this.requestServiceV2 );
-		final ResponseEntity<CounterResponse> obtained = requestControllerV2.deleteRequest( requestId );
-		// Assertions
-		Assertions.assertNotNull( obtained );
-		Assertions.assertNotNull( obtained.getBody() );
-		Assertions.assertEquals( 1, obtained.getBody().getRecords() );
 	}
 
 	@Test
