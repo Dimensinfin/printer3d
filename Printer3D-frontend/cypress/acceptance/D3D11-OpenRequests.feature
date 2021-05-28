@@ -16,8 +16,8 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
 
     # - H A P P Y   P A T H
     @D3D11.01
-    Scenario: [D3D11.01]-Validate the page structure. Two panels and the panel titles.
-        Then the page "Open Requests Page" has 2 panels
+    Scenario: [D3D11.01]-Validate the page structure. Two sections and the panel titles.
+        Then the page "Open Requests Page" has 2 sections
         Given the target is the panel of type "open-requests"
         Then the target has the title "/PEDIDOS/ABIERTOS"
         Given the target is the panel of type "request-details"
@@ -25,7 +25,7 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
 
     @D3D11.02
     Scenario: [D3D11.02]-If the cursor clicks on a Request on the left panel then the Request details is shown on the right.
-        And the page "Open Requests Page" has 2 panels
+        And the page "Open Requests Page" has 2 sections
         # - Validate the structure for the Requests panel
         Given the target is the panel of type "open-requests"
         Then the target has the title "/PEDIDOS/ABIERTOS"
@@ -60,21 +60,6 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
     @D3D11.05
     Scenario: [D3D11.05]-If the user selects a Request by clicking on it then the detailed Request information is shown on the right panel.
         Given the target is the panel of type "open-requests"
-        Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
-        # - Click on a Request to display the details panel
-        Given the target is clicked
-        Then target is "selected"
-        Then the target is the panel of type "request-details"
-        Then the target has 1 "request"
-        Given the target the "request-item" with id "72168412-af2d-4969-b1ea-362ea10370f2"
-        Then column named "missing" has contents "1"
-        And column named "quantity" has contents "5"
-        And column named "label" has contents "CARCASA SUPERIOR ''URBAN DIGIT''"
-        And column named "finishing" has contents "PLA/BLACK"
-
-    @D3D11.06
-    Scenario: [D3D11.06]-During the Request processing when downloaded convert RequestV1 to RequestV2 for rendering. There is no difference on rendering except for Parts and Models on the Request Details.
-        Given the target is the panel of type "open-requests"
         Then the target has 3 "request"
         Given the target the "request" with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a"
         And field named "requestDate" with label "FECHA" has contents "Mar 3, 2021"
@@ -89,6 +74,16 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         Then the target is the panel of type "request-details"
         Then the target has 1 "request"
         Given the target the "request" with id "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a"
+        Then field named "requestDate" with label "FECHA" has contents "Mar 3, 2021"
+        And field named "customer" with label "DATOS COMPRADOR" has contents "Test Customer Name"
+        And field named "label" with label "ETIQUETA" has contents "Primera parte pedido URBAN DIGIT."
+        And field named "paid" with label "PAGADO" has contents "off"
+        And field named "partCount" with label "NRO. PIEZAS" has contents "2"
+        And field named "amount" with label "IMPORTE" has contents "30.00 €"
+        And field named "iva" with label "IVA" has contents "6.30 €"
+        And field named "total" with label "TOTAL" has contents "36.30 €"
+        # - Validate one of the request items
+        Given the target the "request-item" with id "0f789845-cdc6-48ce-a0ce-cbaf63cffab5"
         Then column named "missing" has contents "1"
         And column named "quantity" has contents "2"
         And column named "label" has contents "KIT X 1.32 - Rojo Rasta"

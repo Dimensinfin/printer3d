@@ -19,6 +19,26 @@
     font-weight: bold;
 }
 
+.column-missing-width {
+    min-width: 40px;
+}
+
+.column-quantity-width {
+    min-width: 46px;
+}
+
+.column-price-width {
+    min-width: 40px;
+}
+
+.column-label-width {
+    min-width: 50%;
+}
+
+.column-material-width {
+    min-width: 50px;
+}
+
 // - BUTTON POSITIONING
 .float-top-right {
     position: absolute;

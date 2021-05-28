@@ -86,6 +86,12 @@ Then('the page {string} has {int} panels', function (symbolicName: string, panel
         .children()
         .should('have.length', panelCount)
 })
+Then('the page {string} has {int} sections', function (symbolicName: string, sectionsCount: number) {
+    const tag = supportService.translateTag(symbolicName) // Do name replacement
+    cy.get('app-root').find(tag).within(($item) => {
+        cy.get('section').should('have.length', sectionsCount)
+    })
+})
 Then('the {string} dialog opens and blocks the display', function (dialogName: string) {
     const tag = supportService.translateTag(dialogName) // Do name replacement
     cy.get('app-root').get('mat-dialog-container').get(tag).as('target-panel').as('target').as('target-dialog')
