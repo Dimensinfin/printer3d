@@ -20,8 +20,8 @@
         </v1-pending-job>
 
         <!-- P R O D U C T I O N  -->
-        <v1-request style="width: 100%;" *ngIf="node.getJsonClass() == 'Request'" [container]="container" [node]="node" [variant]="variant">
-        </v1-request>
+        <!-- <v1-request style="width: 100%;" *ngIf="node.getJsonClass() == 'Request'" [container]="container" [node]="node" [variant]="variant">
+        </v1-request> -->
         <v2-request style="width: 100%;" *ngIf="node.getJsonClass() == 'CustomerRequestResponse'" [container]="container" [node]="node" [variant]="variant">
         </v2-request>
     </div>

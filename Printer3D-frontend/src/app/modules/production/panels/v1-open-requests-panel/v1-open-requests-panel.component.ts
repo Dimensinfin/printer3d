@@ -104,7 +104,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
     protected downloadRequests(): void {
         console.log('step.05')
         this.backendConnections.push(
-            this.productionService.apiv2_ProductionGetOpenRequests(this)
+            this.productionService.apiv3_ProductionGetOpenRequests(this)
                 .subscribe((requestList: CustomerRequestResponse[]) => {
                     console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Requests received: ' + requestList.length)
                     this.completeDowload(requestList); // Notify the completion of the download.

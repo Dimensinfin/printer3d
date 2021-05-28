@@ -37,69 +37,6 @@ responses:
 
 ---
 
-simlet: inventory-deleterequest
-
-request:
-- uriPathPattern: "/api/v2/production/requests/{requestId}"
-- method: DELETE
-
-responses:
-- when:
-    request:
-    - where: cookie
-      named: apiProductionGetOpenRequests_v2
-      equals: "404-REQUEST_NOT_FOUND"
-  # then
-  from: stub
-  status: 404
-  headers:
-  - "Content-Type: application/json"
-  body: |+
-    {
-      "timestamp": "2020-07-14T07:41:22.117152Z",
-      "httpStatus": "404 NOT_FOUND",
-      "httpStatusCode": 404,
-      "httpStatusName": "NOT_FOUND",
-      "errorName": "REQUEST_NOT_FOUND",
-      "errorCode": "dimensinfin.printer3d.defined.repository.logic",
-      "cause": "No Request found while trying to delete the request.",
-      "message": "Request record with id [{0}] not found at the repository."
-    }
-  # otherwise
-- from: stub
-  status: 200
-  headers:
-  - "Content-Type: application/json"
-  body: |+
-    {
-      "records": 1
-    }
-
----
-
-simlet: production-open-requests-v3
-
-delay:
-  is: fixedDelay
-  timeUnit: milliseconds
-  initial: 500
-  subsequent: 500
-
-request:
-- uriPathPattern: "/api/v2/production/requests/open"
-- method: GET
-
-response:
-  from: stub
-  status: 200
-  headers:
-  - "Content-Type: application/json"
-  body:
-    type: text
-    file: "${sim.path}/responses/production.openrequests.v3.json"
-
----
-
 simlet: production-open-requests
 
 request:
@@ -626,3 +563,103 @@ response:
   body:
     type: text
     file: "${sim.path}/responses/extraction.closed.requests.csv"
+
+---
+
+simlet: production-request-deliver
+
+request:
+  - method: PUT
+  - where: uriPathPattern
+    matchesIgnoreCase: "/api/v3/production/requests/{requestId}/deliver"
+  
+response:
+  from: stub
+  status: 200
+  headers:
+    - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.request.delivered.v3.json"
+
+---
+
+simlet: production-open-requests-v3
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 500
+  subsequent: 500
+
+request:
+- uriPathPattern: "/api/v3/production/requests/open"
+- method: GET
+
+response:
+  from: stub
+  status: 200
+  headers:
+  - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.openrequests.v3.json"
+
+---
+
+simlet: production-request-delete
+
+request:
+- method: DELETE
+- uriPathPattern: "/api/v3/production/requests/{requestId}"
+
+responses:
+- when:
+    request:
+    - where: cookie
+      named: apiProductionGetOpenRequests_v2
+      equals: "404-REQUEST_NOT_FOUND"
+  # then
+  from: stub
+  status: 404
+  headers:
+  - "Content-Type: application/json"
+  body: |+
+    {
+      "timestamp": "2020-07-14T07:41:22.117152Z",
+      "httpStatus": "404 NOT_FOUND",
+      "httpStatusCode": 404,
+      "httpStatusName": "NOT_FOUND",
+      "errorName": "REQUEST_NOT_FOUND",
+      "errorCode": "dimensinfin.printer3d.defined.repository.logic",
+      "cause": "No Request found while trying to delete the request.",
+      "message": "Request record with id [{0}] not found at the repository."
+    }
+- when:
+    request:
+    - where: cookie
+      named: apiProductionGetOpenRequests_v2
+      equals: "409-CONFLICT"
+  # then
+  from: stub
+  status: 409
+  headers:
+  - "Content-Type: application/json"
+  body: |+
+    {
+      "message": "Request record with id [103477e5-de44-4542-90d4-d08e44b2f6c0] is not on the correct state to perform the requested operation.",
+      "errorCode": "dimensinfin.printer3d.logic.exception",
+      "httpStatus": "409 CONFLICT",
+      "errorName": "REQUEST_INCORRECT_STATE",
+      "httpStatusCode": 409,
+      "httpStatusName": "CONFLICT",
+      "timestamp": "2021-05-28T14:13:26.953736Z"
+    }
+  # otherwise
+- from: stub
+  status: 200
+  headers:
+  - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.request.deleted.v3.json"

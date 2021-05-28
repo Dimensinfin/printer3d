@@ -10,6 +10,7 @@ export const Printer3DConstants = {
     BACKENDPATH: '',
     APIVERSION1: '/api/v1',
     APIVERSION2: '/api/v2',
+    APIVERSION3: '/api/v3',
     APPSIGNATURE: "S000.01.001-20200518",
     PLATFORM: 'Angular 9.1.7 - RxJs 6.5.4 - Rollbar 2.16.1',
     COPYRIGHT: '© 2020 Dimensinfin Industries',

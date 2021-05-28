@@ -253,15 +253,15 @@ export class BackendService {
                 return response;
             }));
     }
-    public apiProductionDeleteRequest_v2(requestId: string, transformer: ResponseTransformer): Observable<any> {
-        const request = this.APIV2 + '/production/requests/' + requestId;
-        return this.httpService.wrapHttpDELETECall(request)
-            .pipe(map((data: any) => {
-                console.log(">[BackendService.apiProductionDeleteRequest_v1]> Transformation: " + transformer.description);
-                const response = transformer.transform(data);
-                return response;
-            }));
-    }
+    // public apiProductionDeleteRequest_v2(requestId: string, transformer: ResponseTransformer): Observable<any> {
+    //     const request = this.APIV2 + '/production/requests/' + requestId;
+    //     return this.httpService.wrapHttpDELETECall(request)
+    //         .pipe(map((data: any) => {
+    //             console.log(">[BackendService.apiProductionDeleteRequest_v1]> Transformation: " + transformer.description);
+    //             const response = transformer.transform(data);
+    //             return response;
+    //         }));
+    // }
 
     // - A C C O U N T I N G
     public apiAccountingRequestAmountsPerWeek_v1(weeks: number, transformer: ResponseTransformer): Observable<WeekAmount[]> {

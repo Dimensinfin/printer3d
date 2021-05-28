@@ -16,5 +16,11 @@
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
+    },
+    "/api/v3/*": {
+        "target": "http://localhost:5110",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }

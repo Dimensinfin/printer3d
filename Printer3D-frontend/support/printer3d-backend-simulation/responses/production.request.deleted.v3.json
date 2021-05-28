@@ -1,0 +1,25 @@
+{
+    "id": "3cf59765-e4e4-45cd-8684-7046095ceb01",
+    "label": "Order from Postman 01",
+    "customer": "No data",
+    "requestDate": "2021-05-18T13:31:02.107Z",
+    "deliveredDate": "2021-05-28T14:11:31.897476Z",
+    "state": "DELETED",
+    "paid": false,
+    "contents": [{
+            "itemId": "2e8a2b63-34da-48b1-8fc0-c6eeebac3394",
+            "type": "PART",
+            "quantity": 1,
+            "missing": 1
+        },
+        {
+            "itemId": "b3d6e72f-76ca-4207-81ee-f5927426bd87",
+            "type": "MODEL",
+            "quantity": 1,
+            "missing": 1
+        }
+    ],
+    "amount": 13.22314,
+    "iva": 2.7768593,
+    "total": 16.0
+}

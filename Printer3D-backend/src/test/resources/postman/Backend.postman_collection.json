@@ -926,112 +926,263 @@
 			"name": "Production",
 			"item": [
 				{
-					"name": "NewRequest",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}"
-						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{productionv1}}"
-							],
-							"path": [
-								"requests"
-							]
-						},
-						"description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
-					},
-					"response": []
+					"name": "V1",
+					"item": [
+						{
+							"name": "New Request V1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"partList\": [\n    {\n      \"partId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"quantity\": 1\n    }\n  ],\n  \"state\": \"OPEN\"\n}"
+								},
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv1}}/requests",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv1}}"
+									],
+									"path": [
+										"requests"
+									]
+								},
+								"description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
+							},
+							"response": []
+						}
+					]
 				},
 				{
-					"name": "NewRequest V2",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"label\": \"Order from Office 03\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}"
-						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{productionv2}}"
+					"name": "V2",
+					"item": [
+						{
+							"name": "New Request V2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"requestDate\", new Date());"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"requests"
-							]
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"3cf59765-e4e4-45cd-8684-7046095ceb01\",\n    \"label\": \"Order from Postman 01\",\n    \"customer\": \"No data\",\n    \"requestDate\": \"{{requestDate}}\",\n    \"contents\": [\n        {\n            \"itemId\": \"2e8a2b63-34da-48b1-8fc0-c6eeebac3394\",\n            \"type\": \"PART\",\n            \"quantity\": 1,\n            \"missing\": 1\n        },\n        {\n            \"itemId\": \"b3d6e72f-76ca-4207-81ee-f5927426bd87\",\n            \"type\": \"MODEL\",\n            \"quantity\": 1,\n            \"missing\": 1\n        }\n    ],\n    \"total\": 16.0\n}"
+								},
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv2}}"
+									],
+									"path": [
+										"requests"
+									]
+								},
+								"description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the\n        Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
+							},
+							"response": []
 						},
-						"description": "Customers that buy Parts will fill a request form. This form is processed and if all the Parts requested are found at the stock then the\n        Request can be send and it will be closed. If there are missing Parts then priority jobs will be listed and the Requests stays open."
-					},
-					"response": []
+						{
+							"name": "NewRequest V2-400 Bad Request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}"
+								},
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv2}}"
+									],
+									"path": [
+										"requests"
+									]
+								},
+								"description": "If the request to create a new requst has not all the required fields or they do not pass the validations then we reject the request\n            with a bad format request exception. The response message should explain the cause for the rejection."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Requests V2",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv2}}"
+									],
+									"path": [
+										"requests"
+									]
+								},
+								"description": "        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state.\n        This method is compatible with the implementation of Requests V1 until the repository V1 is deprecated and defiled.\n        The process now extends to support Models that are packs of Parts. The new extension expands the list from the Model BOM to check agains\n        the current stock of Parts to check for run out of instances. Complete requests continue to be marked COMPLETED.\n        During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in\n        the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.\n"
+							},
+							"response": []
+						}
+					]
 				},
 				{
-					"name": "NewRequest V2-400 Bad Request",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"33edb6fc-c41f-40df-b969-46266665911c\",\n  \"requestDate\": \"2020-06-16T01:13:50.083419+02:00\",\n  \"contents\": [\n    {\n      \"itemId\": \"f655ceec-d203-4631-be7d-c73535f6469e\",\n      \"type\": \"MODEL\",\n      \"quantity\": 3\n    },{\n      \"itemId\": \"8128a07b-b270-4097-99f6-7a6960122f6c\",\n      \"type\": \"PART\",\n      \"quantity\": 2\n    }\n  ],  \"state\": \"OPEN\"\n}"
+					"name": "V3",
+					"item": [
+						{
+							"name": "Get Open Requests V3",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv3}}/requests/open",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv3}}"
+									],
+									"path": [
+										"requests",
+										"open"
+									]
+								},
+								"description": "Get the complete list of **Open Requests** persisted at the Production repository. Open requests are those that are in the **OPEN** or **COMPLETED** states, meaning that are still on production and not delivered to the customer.\n\nDuring the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed."
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{productionv2}}"
-							],
-							"path": [
-								"requests"
-							]
+						{
+							"name": "Get Closed Requests V3",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv3}}/requests/closed",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv3}}"
+									],
+									"path": [
+										"requests",
+										"closed"
+									]
+								}
+							},
+							"response": []
 						},
-						"description": "If the request to create a new requst has not all the required fields or they do not pass the validations then we reject the request\n            with a bad format request exception. The response message should explain the cause for the rejection."
-					},
-					"response": []
-				},
-				{
-					"name": "GetRequests V2",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendServer}}{{backendPort}}{{productionv2}}/requests",
-							"host": [
-								"{{backendServer}}{{backendPort}}{{productionv2}}"
-							],
-							"path": [
-								"requests"
-							]
+						{
+							"name": "Deliver Request V3",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv3}}/requests/103477e5-de44-4542-90d4-d08e44b2f6c0/deliver",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv3}}"
+									],
+									"path": [
+										"requests",
+										"103477e5-de44-4542-90d4-d08e44b2f6c0",
+										"deliver"
+									]
+								},
+								"description": "Changes the state of the Customer Request to the DELIVERED state. This means that the Request is fulfilled and that all elements are available and packaged ready to be delivered to the Customer.\n\nAt this moment the Request may be unpaid and then the request moved to the **DELIVERED** state and it is left pending payment registration or it is paid and then the Request ends its flow because it can be moved directly to the **CLOSED** state after registering delivery date."
+							},
+							"response": []
 						},
-						"description": "        Get the complete list of **Requests** persisted at the Production repository and that are on an Open state.\n        This method is compatible with the implementation of Requests V1 until the repository V1 is deprecated and defiled.\n        The process now extends to support Models that are packs of Parts. The new extension expands the list from the Model BOM to check agains\n        the current stock of Parts to check for run out of instances. Complete requests continue to be marked COMPLETED.\n        During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in\n        the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.\n"
-					},
-					"response": []
+						{
+							"name": "Delete Request V3",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv3}}/requests/3cf59765-e4e4-45cd-8684-7046095ceb01",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv3}}"
+									],
+									"path": [
+										"requests",
+										"3cf59765-e4e4-45cd-8684-7046095ceb01"
+									]
+								},
+								"description": "Requests have no other relations with repository records so they can be deleted safely. If the user select to remove a Request because it should be modified of because no longer required the record can be deleted without impact. Deleted requests will be markes and removed from listings and later anotehr process will definitively remove the record from the repository."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Request V3 - CONFLICT",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{backendServer}}{{backendPort}}{{productionv3}}/requests/103477e5-de44-4542-90d4-d08e44b2f6c0",
+									"host": [
+										"{{backendServer}}{{backendPort}}{{productionv3}}"
+									],
+									"path": [
+										"requests",
+										"103477e5-de44-4542-90d4-d08e44b2f6c0"
+									]
+								},
+								"description": "Requests have no other relations with repository records so they can be deleted safely. If the user select to remove a Request because it should be modified of because no longer required the record can be deleted without impact. Deleted requests will be marked and removed from listings and later another process will definitively remove the record from the repository.\n\nThis request will fail with HTTP error 409 - CONFLICT beacuse DELIVERED requests cannot be deleted."
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "CloseRequest",
@@ -1254,6 +1405,12 @@
 				"description": "Get the list of active Parts from the Inventory repository."
 			},
 			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "requestDate",
+			"value": ""
 		}
 	]
 }

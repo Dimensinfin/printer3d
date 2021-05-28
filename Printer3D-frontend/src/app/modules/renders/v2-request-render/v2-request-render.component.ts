@@ -85,18 +85,19 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
         if (this.node) return this.getNode().isPaid()
         else return false
     }
-
-    // - I N T E R A C T I O N S
     public getContents(): ICollaboration[] {
         if (this.node) return this.getNode().getContents()
         else return []
     }
+
+    // - I N T E R A C T I O N S
     public selectRequest(): void {
         if (this.getNode()) {
             this.select()
             console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
         }
     }
+    public editRequest():void{}
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
      */
@@ -125,8 +126,8 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
         }
         console.log('-[V1RequestRenderComponent.deleteRequest]> Open dialog')
         const dialogRef = this.matDialog.open(DeleteConfirmationDialogComponent, dialogConfig)
-        console.log('step21')
-        console.log(JSON.stringify(dialogRef))
+        // console.log('step21')
+        // console.log(JSON.stringify(dialogRef))
         dialogRef.afterClosed()
             .subscribe(result => {
                 console.log('[V1RequestRenderComponent.deleteRequest]> Close detected')

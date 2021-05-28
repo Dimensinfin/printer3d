@@ -22,13 +22,15 @@ import { DataToRequestConverter } from '../converter/DataToRequest.converter'
 export class ProductionService extends BackendService {
     private PRODUCTIONAPIV1: string
     private PRODUCTIONAPIV2: string
+    private PRODUCTIONAPIV3: string
 
     constructor(
         protected httpService: HttpClientWrapperService,
         protected isolationService: IsolationService) {
         super(httpService)
-        this.PRODUCTIONAPIV1 = Printer3DConstants.APIVERSION1
+        this.PRODUCTIONAPIV1 = Printer3DConstants.APIVERSION1 + '/production'
         this.PRODUCTIONAPIV2 = Printer3DConstants.APIVERSION2 + '/production'
+        this.PRODUCTIONAPIV3 = Printer3DConstants.APIVERSION3 + '/production'
     }
     /**
      * Persists a new Customer Request into the backend repository. Accepts a UI request form that is converted to the backend request api structure if required. This Production services is compliant with backend version 0.17 and others.
@@ -48,9 +50,9 @@ export class ProductionService extends BackendService {
                 console.log(">[ProductionService.apiv2_NewRequest]> Transformation: " + transformer.description)
                 return transformer.transform(data) as CustomerRequestResponse
             }))
-    }    
-    public apiv2_ProductionGetOpenRequests(provider: IContentProvider): Observable<CustomerRequestResponse[]> {
-        const request = this.PRODUCTIONAPIV2 + '/requests/open'
+    }
+    public apiv3_ProductionGetOpenRequests(provider: IContentProvider): Observable<CustomerRequestResponse[]> {
+        const request = this.PRODUCTIONAPIV3 + '/requests/open'
         const transformer = new ResponseTransformer()
             .setDescription('Transforms response into a list of "CustomerRequests".')
             .setTransformation((entrydata: any): CustomerRequestResponse[] => {
@@ -58,17 +60,41 @@ export class ProductionService extends BackendService {
                 // Extract requests from the response and convert them to the CustomerRequest V2 format. Resolve contents id references.
                 const requestList: CustomerRequestResponse[] = []
                 const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
-                for (let index = 0; index < entrydata.length; index++) {
+                for (let index = 0; index <entrydata.length; index++) {
                     requestList.push(requestConverter.convert(entrydata[index]))
                 }
                 return requestList
             })
         let headers = new HttpHeaders()
-        headers = headers.set('xApp-Api-Version', 'API v2');
+        headers = headers.set('xApp-Api-Version', 'API v2')
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
-                console.log(">[ProductionService.apiv2_ProductionGetOpenRequests]> Transformation: " + transformer.description);
+                console.log(">[ProductionService.apiv2_ProductionGetOpenRequests]> Transformation: " + transformer.description)
                 return transformer.transform(data) as CustomerRequestResponse[]
+            }))
+    }
+    public apiv3_ProductionRequestsDeliver(requestId: string): Observable<CustomerRequestResponse> {
+        const request = this.PRODUCTIONAPIV3 + '/requests/' + requestId + '/deliver'
+        const transformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+            .setTransformation((entrydata: any): CustomerRequestResponse => {
+                return new CustomerRequestResponse(entrydata)
+            })
+        return this.httpService.wrapHttpPUTCall(request)
+            .pipe(map((data: any) => {
+                console.log(">[ProductionService.apiv3_ProductionRequestsDeliver]> Transformation: " + transformer.description)
+                return transformer.transform(data) as CustomerRequestResponse
+            }))
+    }
+    public apiv3_ProductionDeleteRequest(requestId: string): Observable<CustomerRequestResponse> {
+        const request = this.PRODUCTIONAPIV3 + '/requests/' + requestId
+        const transformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+            .setTransformation((entrydata: any): CustomerRequestResponse => {
+                return new CustomerRequestResponse(entrydata)
+            })
+        return this.httpService.wrapHttpDELETECall(request)
+            .pipe(map((data: any) => {
+                console.log(">[ProductionService.apiv3_ProductionDeleteRequest]> Transformation: " + transformer.description)
+                return transformer.transform(data)
             }))
     }
 }
