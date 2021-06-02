@@ -1,6 +1,9 @@
 # Printer3DFrontend
 
 ## Unit Tests pending
+* v1ClosedRequestsPage
+* V1ClosedRequestsPanel
+* ProductionService
 * V3FeatureRenderComponent
 * Other feature module elements
 * BackendService

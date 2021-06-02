@@ -1,4 +1,16 @@
-<div class="row">
-    <v1-closed-requests-panel cy-name="open-request-list" style="width: 50%; margin-right: 10px;" [page]="self"></v1-closed-requests-panel>
-    <v1-request-detail-panel cy-name="request-details" style="width: 50%"></v1-request-detail-panel>
+<div class="column">
+    <section>
+        <div cy-name="open-request-list" style="width: 50%; margin-right: 10px;">
+            FILTER BUTTONS
+        </div>
+    </section>
+    <div class="row">
+        <section>
+            <v1-closed-requests-panel cy-name="open-request-list" style="width: 50%; margin-right: 10px;" [page]="self"></v1-closed-requests-panel>
+        </section>
+        <div class="section-separator"></div>
+        <section>
+            <v1-request-detail-panel cy-name="request-details" style="width: 50%"></v1-request-detail-panel>
+        </section>
+    </div>
 </div>

@@ -663,3 +663,26 @@ responses:
   body:
     type: text
     file: "${sim.path}/responses/production.request.deleted.v3.json"
+
+---
+
+simlet: production-closed-requests-v3
+
+delay:
+  is: fixedDelay
+  timeUnit: milliseconds
+  initial: 800
+  subsequent: 500
+
+request:
+- uriPathPattern: "/api/v3/production/requests/closed"
+- method: GET
+
+response:
+  from: stub
+  status: 200
+  headers:
+  - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.closedrequests.v3.json"
