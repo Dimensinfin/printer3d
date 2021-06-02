@@ -1,26 +1,23 @@
 // - CORE
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core'
+import { Subscription } from 'rxjs'
 // - SERVICES
-import { BackendService } from '@app/services/backend.service';
+import { BackendService } from '@app/services/backend.service'
 // - DOMAIN
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer';
-import { Refreshable } from '@domain/interfaces/Refreshable.interface';
-import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component';
-import { PartListResponse } from '@domain/dto/PartListResponse.dto';
-import { Part } from '@domain/inventory/Part.domain';
-import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
-import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component';
-import { Model } from '@domain/inventory/Model.domain';
-// import { DataToRequestConverter } from '@app/modules/production/domain/DataToRequest.converter';
-import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
-import { IContent } from '@domain/interfaces/IContent.interface';
-import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
-import { ProductionService } from '../../service/production.service';
-import { CustomerRequestResponse } from '../../domain/dto/CustomerRequestResponse.dto';
+import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
+import { Refreshable } from '@domain/interfaces/Refreshable.interface'
+import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component'
+import { PartListResponse } from '@domain/dto/PartListResponse.dto'
+import { Part } from '@domain/inventory/Part.domain'
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
+import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component'
+import { Model } from '@domain/inventory/Model.domain'
+// import { DataToRequestConverter } from '@app/modules/production/domain/DataToRequest.converter'
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
+import { IContent } from '@domain/interfaces/IContent.interface'
+import { IContentProvider } from '@domain/interfaces/IContentProvider.interface'
+import { ProductionService } from '../../service/production.service'
+import { CustomerRequestResponse } from '../../domain/dto/CustomerRequestResponse.dto'
 /**
  * To display some of the Request details we should have access to the list of Parts because the Request List from the backend will not have the Part details but only the Part identifier.
  * The Process should lookup on the Parts list for the Part instance.
@@ -31,28 +28,28 @@ import { CustomerRequestResponse } from '../../domain/dto/CustomerRequestRespons
     styleUrls: ['./v1-open-requests-panel.component.scss']
 })
 export class V1OpenRequestsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IContentProvider {
-    @Input() page: V1OpenRequestsPageComponent;
+    @Input() page: V1OpenRequestsPageComponent
     private parts: Part[] = []
     private models: Model[] = []
 
     constructor(protected productionService: ProductionService,
         protected backendService: BackendService) {
-        super();
+        super()
     }
 
     public ngOnInit(): void {
-        console.log(">[V1OpenRequestsPanelComponent.ngOnInit]");
+        console.log(">[V1OpenRequestsPanelComponent.ngOnInit]")
         super.ngOnInit()
-        console.log("<[V1OpenRequestsPanelComponent.ngOnInit]");
+        console.log("<[V1OpenRequestsPanelComponent.ngOnInit]")
     }
 
     // - I V I E W E R
     public fireSelectionChanged(): void {
-        this.page.selectRequest(this.selection.getFirstSelected() as CustomerRequest);
+        this.page.selectRequest(this.selection.getFirstSelected() as CustomerRequest)
     }
     // - E V E N T S
     public selectRequest(request: CustomerRequest): void {
-        this.page.selectRequest(request);
+        this.page.selectRequest(request)
     }
 
     // - R E F R E S H A B L E
@@ -107,7 +104,7 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
             this.productionService.apiv3_ProductionGetOpenRequests(this)
                 .subscribe((requestList: CustomerRequestResponse[]) => {
                     console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Requests received: ' + requestList.length)
-                    this.completeDowload(requestList); // Notify the completion of the download.
+                    this.completeDowload(requestList) // Notify the completion of the download.
                 })
         )
     }

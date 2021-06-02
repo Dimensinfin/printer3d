@@ -60,7 +60,7 @@ export class ProductionService extends BackendService {
                 // Extract requests from the response and convert them to the CustomerRequest V2 format. Resolve contents id references.
                 const requestList: CustomerRequestResponse[] = []
                 const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
-                for (let index = 0; index <entrydata.length; index++) {
+                for (let index = 0; index < entrydata.length; index++) {
                     requestList.push(requestConverter.convert(entrydata[index]))
                 }
                 return requestList
@@ -95,6 +95,28 @@ export class ProductionService extends BackendService {
             .pipe(map((data: any) => {
                 console.log(">[ProductionService.apiv3_ProductionDeleteRequest]> Transformation: " + transformer.description)
                 return transformer.transform(data)
+            }))
+    }
+    public apiv3_ProductionGetClosedRequests(provider: IContentProvider): Observable<CustomerRequestResponse[]> {
+        const request = this.PRODUCTIONAPIV3 + '/requests/closed'
+        const transformer = new ResponseTransformer()
+            .setDescription('Transforms response into a list of "CustomerRequests".')
+            .setTransformation((entrydata: any): CustomerRequestResponse[] => {
+                console.log('-[ProductionService.apiv3_ProductionGetClosedRequests]>Processing Requests')
+                // Extract requests from the response and convert them to the CustomerRequest V2 format. Resolve contents id references.
+                const requestList: CustomerRequestResponse[] = []
+                const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
+                for (let index = 0; index < entrydata.length; index++) {
+                    requestList.push(requestConverter.convert(entrydata[index]))
+                }
+                return requestList
+            })
+        let headers = new HttpHeaders()
+        headers = headers.set('xApp-Api-Version', 'API v2')
+        return this.httpService.wrapHttpGETCall(request, headers)
+            .pipe(map((data: any) => {
+                console.log(">[ProductionService.apiv3_ProductionGetClosedRequests]> Transformation: " + transformer.description)
+                return transformer.transform(data) as CustomerRequestResponse[]
             }))
     }
 }

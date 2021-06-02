@@ -9,6 +9,7 @@ import { Node } from '@domain/Node.domain';
 import { IColorTheme } from '@domain/interfaces/core/IColorTheme.interface';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
 import { ISelectable } from '@domain/interfaces/core/ISelectable.interface';
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 
 @Component({
     selector: 'node-container',
@@ -18,8 +19,7 @@ import { ISelectable } from '@domain/interfaces/core/ISelectable.interface';
 export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
     @Input() container: IViewer;
     @Input() node: Node;
-    @Input() variant: EVariant = EVariant.DEFAULT;
-    // @Input() colorScheme: string = 'panel-white';  // The name of the panel style to be rendered.
+    @Input() variant: string = Printer3DConstants.APIVERSION3
     @Input() index: number = 1;
     @Input() selectOnHover: boolean = false
 
@@ -27,8 +27,8 @@ export class NodeContainerRenderComponent extends BackgroundEnabledComponent {
     public getNode(): Node {
         return this.node;
     }
-    public getVariant(): EVariant {
-        return this.variant;
+    public getVariant(): string {
+        return this.variant
     }
     /**
      * Pass the container panel the node that is being entered so if there is additional data it can be exported to another panel.

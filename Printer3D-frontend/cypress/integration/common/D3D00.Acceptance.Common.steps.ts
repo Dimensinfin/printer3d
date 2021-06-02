@@ -63,7 +63,6 @@ Then('there are {int} Features active', function (featuresActive: number) {
     })
 })
 
-
 // - S P I N N E R
 Then('the loading panel shows {string}', function (loadingMessage: string) {
     cy.get('@target-page').find('.loading-message')

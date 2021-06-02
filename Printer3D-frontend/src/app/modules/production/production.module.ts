@@ -22,6 +22,7 @@ import { V1RequestableElementsPanelComponent } from './panels/v1-requestable-ele
 import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { V1ClosedRequestsPageComponent } from './pages/v1-closed-requests-page/v1-closed-requests-page.component';
 import { V1ClosedRequestsPanelComponent } from './panels/v1-closed-requests-panel/v1-closed-requests-panel.component';
+import { V1CommonRequestsPanelComponent } from './panels/v1-common-requests-panel/v1-common-requests-panel.component';
 
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
@@ -52,7 +53,8 @@ const routes: Routes = [
         V1RequestableElementsPanelComponent,
         DeleteConfirmationDialogComponent,
         V1ClosedRequestsPageComponent,
-        V1ClosedRequestsPanelComponent
+        V1ClosedRequestsPanelComponent,
+        V1CommonRequestsPanelComponent
     ],
     exports: [
         ProductionJobListPageComponent,
