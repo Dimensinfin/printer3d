@@ -12,8 +12,8 @@ import { IContent } from '@domain/interfaces/IContent.interface'
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
 
 @Component({
-  selector: 'v1-common-requests-panel',
-  templateUrl: './empty.html'
+    selector: 'v1-common-requests-panel',
+    templateUrl: './empty.html'
 })
 export class V1CommonRequestsPanelComponent extends AppPanelComponent implements OnInit, Refreshable, IContentProvider {
     protected parts: Part[] = []
@@ -31,6 +31,7 @@ export class V1CommonRequestsPanelComponent extends AppPanelComponent implements
         this.clean()
         this.downloadParts()
     }
+
     // - I C O N T E N T P R O V I D E R
     /**
      * Now identifier can belong to Parts or Models, the second parameter determined the type for the search.
@@ -45,6 +46,7 @@ export class V1CommonRequestsPanelComponent extends AppPanelComponent implements
                 if (model.getId() == id) return model
         return undefined
     }
+
     // - B A C K E N D
     protected downloadParts(): void {
         this.backendConnections.push(
@@ -72,6 +74,7 @@ export class V1CommonRequestsPanelComponent extends AppPanelComponent implements
      */
     protected downloadRequests(): void {
     }
+
     private sortPartsByActive(parts: Part[]): Part[] {
         return parts.sort((part1, part2) => {
             if (part1.active && !part2.active) return -1

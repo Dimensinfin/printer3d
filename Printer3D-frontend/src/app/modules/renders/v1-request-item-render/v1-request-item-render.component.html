@@ -1,30 +1,30 @@
 <!-- D E T A I L 4 R E Q U E S T  -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-DETAIL4REQUEST-'" class="row">
-    <div class="field column-missing-width ">
+    <div class="field column-missing-width">
         <span cy-name="missing" class="field-height part-missed-count" [ngClass]="{'has-missing': hasMissing()}">{{getMissing()}}</span>
     </div>
-    <div class="field column-quantity-width ">
+    <div class="field column-quantity-width">
         <span cy-name="quantity" class="field-height part-required">{{getRequired()}}</span>
     </div>
-    <div class="field column-label-width ">
+    <div class="field column-label-width">
         <span cy-name="label" class="field-height part-label">{{getLabel()}}</span>
     </div>
-    <div class="field column-material-width ">
+    <div class="column-material-width">
         <span cy-name="finishing" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
     </div>
 </div>
 <!-- N E W   R E Q U E S T  -->
 <div id="{{getUniqueId()}}" *ngIf="getVariant() === '-NEW-REQUEST-'" class="row">
-    <div class="field column-quantity-width ">
+    <div class="field column-quantity-width">
         <span cy-name="CANTIDAD" class="field-height part-required">{{getRequired()}}</span>
     </div>
-    <div class="field column-price-width ">
+    <div class="field column-price-width">
         <span cy-name="PRECIO" class="field-height part-required">{{getPrice()}}</span>
     </div>
-    <div class="field column-label-width ">
+    <div class="field column-label-width">
         <span cy-name="ETIQUETA" class="field-height part-label">{{getLabel()}}</span>
     </div>
-    <div class="field column-material-width ">
+    <div class="field column-material-width">
         <span cy-name="TERMINACION" class="field-height part-material">{{getMaterial()}}/{{getColor()}}</span>
     </div>
     <div cy-name="remove-button" class="field remove-width right" (click)="removeContent()">

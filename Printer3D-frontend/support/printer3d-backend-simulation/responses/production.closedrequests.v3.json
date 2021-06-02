@@ -1,6 +1,7 @@
 [{
         "id": "103477e5-de44-4542-90d4-d08e44b2f6c0",
         "label": "Primera parte pedido URBAN DIGIT.",
+        "customer": "Test Customer Name",
         "requestDate": "2021-03-03T16:00:17.353Z",
         "deliveredDate": "2021-06-02T11:16:36.730004Z",
         "state": "DELIVERED",

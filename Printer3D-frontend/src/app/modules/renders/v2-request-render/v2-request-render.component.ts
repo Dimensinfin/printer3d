@@ -135,4 +135,5 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
                     this.router.navigate(['/production/requestlist'])
             })
     }
+    public payRequest():void{}
 }

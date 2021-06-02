@@ -272,3 +272,173 @@
         </svg>
     </div>
 </div>
+<!-- D E T A I L E D   R E Q U E S T -->
+<div *ngIf="getVariant() === '-DETAILED-CLOSED-REQUEST-'">
+    <div id="{{getUniqueId()}}" class="column cornered-panel">
+        <div class="row">
+            <div class="column">
+                <div cy-name="requestDate" class="field date-width">
+                    <div cy-field-label="requestDate" class="label">FECHA</div>
+                    <div cy-field-value="requestDate" class="field-height request-date">{{getRequestDate() | date}}</div>
+                </div>
+                <div cy-name="customer" class="field label-width">
+                    <div cy-field-label="customer" class="label">DATOS COMPRADOR</div>
+                    <div cy-field-value="customer" class="field-height request-label">{{getCustomer()}}</div>
+                </div>
+                <div cy-name="label" class="field label-width">
+                    <div cy-field-label="label" class="label">ETIQUETA</div>
+                    <div cy-field-value="label" class="field-height request-label">{{getLabel()}}</div>
+                </div>
+                <div cy-name="partCount" class="field part-count-width">
+                    <div cy-field-label="partCount" class="label">NRO. PIEZAS</div>
+                    <div cy-field-value="partCount" class="field-height request-part-count">{{getContentCount()}}</div>
+                </div>
+                <div class="row">
+                    <div cy-name="amount" class="field additional-margin amount-width">
+                        <div cy-field-label="amount" class="label">IMPORTE</div>
+                        <div cy-field-value="amount" class="field-height request-amount">{{getAmount()}}</div>
+                    </div>
+                    <div cy-name="iva" class="field additional-margin amount-width">
+                        <div cy-field-label="iva" class="label">IVA</div>
+                        <div cy-field-value="iva" class="field-height request-amount">{{getIva()}}</div>
+                    </div>
+                    <div cy-name="total" class="field additional-margin amount-width">
+                        <div cy-field-label="total" class="label">TOTAL</div>
+                        <div cy-field-value="total" class="field-height request-total">{{getTotal()}}</div>
+                    </div>
+                    <div *ngIf="isPaid()">
+                        <div cy-name="paid" class="field part-count-width">
+                            <div cy-field-label="paid" class="label">PAGADO</div>
+                            <div cy-field-value="paid" class="field-height request-part-count">
+                                <i class="fa fa-check" aria-hidden="true"><span class="invisible">on</span></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!isPaid()">
+                        <div cy-name="paid" class="field part-count-width">
+                            <div cy-field-label="paid" class="label">PAGADO</div>
+                            <div cy-field-value="paid" class="field-height request-part-count">
+                                <i class="fa fa-times" aria-hidden="true"><span class="invisible">off</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 162px;">
+                <div cy-name="pay-button" class="float-top-right" *ngIf="!isPaid()">
+                    <div style="position: relative;">
+                        <button class="button ok-button" (click)="payRequest()">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            &nbsp;&nbsp;COBRAR
+                        </button>
+                        <svg class="button-right-border" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        </svg>
+                        <svg class="button-right-clear" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                        </svg>
+                        <svg class="button-left-border" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                        </svg>
+                        <svg class="button-left-clear" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                        </svg>
+                        <div>
+                            <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            </svg>
+                            <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                                <path d="M0,0 L0,100 L100,0 L0,0"  />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div cy-name="delete-button" class="below-top-right">
+                    <div style="position: relative;">
+                        <button class="button cancel-button" (click)="deleteRequest()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Borrar
+                    </button>
+                        <svg class="button-right-border" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                        </svg>
+                        <svg class="button-right-clear" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                        </svg>
+                        <svg class="button-left-border" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                        </svg>
+                        <svg class="button-left-clear" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                        </svg>
+                        <div>
+                            <svg class="button-right-mark ko-mark" viewBox="0 0 100 100">
+                                <path d="M100,100 L0,100 L100,0 L100,100" />
+                            </svg>
+                            <svg class="button-left-mark ko-mark" viewBox="0 0 100 100">
+                                <path d="M0,0 L0,100 L100,0 L0,0"  />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div cy-name="edit-button" class="edit-button-location">
+                    <div style="position: relative;">
+                        <button class="button cancel-button" (click)="editRequest()">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Editar
+                    </button>
+                        <svg class="button-right-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                        <svg class="button-right-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                    </svg>
+                        <svg class="button-left-border" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                    </svg>
+                        <svg class="button-left-clear" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                    </svg>
+                        <div>
+                            <svg class="button-right-mark edit-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                            <svg class="button-left-mark edit-mark" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0"  />
+                        </svg>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div cy-name="contents" class="">
+            <span cy-field-label="contents" class="label">PIEZAS SOLICITADAS</span>
+            <div class="row">
+                <div class="field column-missing-width">
+                    <div class="label">FALTAN</div>
+                </div>
+                <div class="field column-quantity-width">
+                    <div class="label">PEDIDAS</div>
+                </div>
+                <div class="field column-label-width">
+                    <div class="label">ETIQUETA</div>
+                </div>
+                <div class="field column-material-width">
+                    <div class="label">MATERIAL/COLOR</div>
+                </div>
+            </div>
+            <div *ngFor="let content of getContents()">
+                <v1-request-item [container]="self" [node]="content" [variant]="'-DETAIL4REQUEST-'"></v1-request-item>
+            </div>
+        </div>
+        <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+        <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+        <svg cy-field-mark="REQUEST" class="corner-mark green-mark" viewBox="0 0 100 100" [ngClass]="{'orangered-mark': !isCompleted()}">
+            <path d="M100,100 L0,100 L100,0 L100,100" />
+        </svg>
+    </div>
+</div>
