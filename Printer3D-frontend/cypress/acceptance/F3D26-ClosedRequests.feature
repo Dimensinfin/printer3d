@@ -62,13 +62,39 @@ Feature: [F3D26]-This page lists the delivered customer requests.
     #     And field named "amount" with label "IMPORTE" has contents "125.00 €"
     #     And field named "total" with label "TOTAL+IVA" has contents "151.25 €"
 
-    @F3D26.05
-    Scenario: [F3D26.05]-The Closed Requests Details panel on initialization is empty.
-        Given the target is the panel of type "request-details"
-        Then the target has 0 "request"
+    # @F3D26.05
+    # Scenario: [F3D26.05]-The Closed Requests Details panel on initialization is empty.
+    #     Given the target is the panel of type "request-details"
+    #     Then the target has 0 "request"
 
-    @F3D26.06
-    Scenario: [F3D26.06]-If the user selects a Request by clicking on it then the detailed Request information is shown on the right panel.
+    # @F3D26.06
+    # Scenario: [F3D26.06]-If the user selects a Request by clicking on it then the detailed Request information is shown on the right panel.
+    #     Given the target is the panel of type "closed-requests"
+    #     Then the target has 2 "request"
+    #     Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
+    #     # - Click on a Request to display the details panel
+    #     Given the target is clicked
+    #     Then target is "selected"
+    #     Then the target is the panel of type "request-details"
+    #     Then the target has 1 "request"
+    #     Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
+    #     Then field named "requestDate" with label "FECHA" has contents "Mar 3, 2021"
+    #     And field named "customer" with label "DATOS COMPRADOR" has contents "Test Customer Name"
+    #     And field named "label" with label "ETIQUETA" has contents "Primera parte pedido URBAN DIGIT."
+    #     And field named "paid" with label "PAGADO" has contents "off"
+    #     And field named "partCount" with label "NRO. PIEZAS" has contents "15"
+    #     And field named "amount" with label "IMPORTE" has contents "125.00 €"
+    #     And field named "iva" with label "IVA" has contents "26.25 €"
+    #     And field named "total" with label "TOTAL" has contents "151.25 €"
+    #     # - Validate one of the request items
+    #     Given the target the "request-item" with id "ce7462e2-692c-4ce3-a871-35e909d039f0"
+    #     Then column named "missing" has contents "-"
+    #     And column named "quantity" has contents "5"
+    #     And column named "label" has contents "CARCASA INFERIOR ''URBAN DIGIT''"
+    #     And column named "finishing" has contents "PLA/BLACK"
+
+    @F3D26.07
+    Scenario: [F3D26.07]-Unpaid Customer requests have a PAY button.
         Given the target is the panel of type "closed-requests"
         Then the target has 2 "request"
         Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
@@ -78,20 +104,42 @@ Feature: [F3D26]-This page lists the delivered customer requests.
         Then the target is the panel of type "request-details"
         Then the target has 1 "request"
         Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
-        Then field named "requestDate" with label "FECHA" has contents "Mar 3, 2021"
-        And field named "customer" with label "DATOS COMPRADOR" has contents "Test Customer Name"
-        And field named "label" with label "ETIQUETA" has contents "Primera parte pedido URBAN DIGIT."
-        And field named "paid" with label "PAGADO" has contents "off"
-        And field named "partCount" with label "NRO. PIEZAS" has contents "15"
-        And field named "amount" with label "IMPORTE" has contents "125.00 €"
-        And field named "iva" with label "IVA" has contents "26.25 €"
-        And field named "total" with label "TOTAL" has contents "151.25 €"
-        # - Validate one of the request items
-        Given the target the "request-item" with id "ce7462e2-692c-4ce3-a871-35e909d039f0"
-        Then column named "missing" has contents "-"
-        And column named "quantity" has contents "5"
-        And column named "label" has contents "CARCASA INFERIOR ''URBAN DIGIT''"
-        And column named "finishing" has contents "PLA/BLACK"
+        Then the target has 1 "buttons"
+        And the button with name "pay-button" has a label "Cobrar" and is "enabled"
+
+    @F3D26.08
+    Scenario: [F3D26.08]-Paid Customer requests have no buttons.
+        Given the target is the panel of type "closed-requests"
+        Then the target has 2 "request"
+        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        # - Click on a Request to display the details panel
+        Given the target is clicked
+        Then target is "selected"
+        Then the target is the panel of type "request-details"
+        Then the target has 1 "request"
+        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        And the target has 0 "buttons"
+
+
+
+# Then the button with name "pay-button" has a label "Cobrar" and is "enabled"
+
+
+
+# Then field named "requestDate" with label "FECHA" has contents "Mar 3, 2021"
+# And field named "customer" with label "DATOS COMPRADOR" has contents "Test Customer Name"
+# And field named "label" with label "ETIQUETA" has contents "Primera parte pedido URBAN DIGIT."
+# And field named "paid" with label "PAGADO" has contents "off"
+# And field named "partCount" with label "NRO. PIEZAS" has contents "15"
+# And field named "amount" with label "IMPORTE" has contents "125.00 €"
+# And field named "iva" with label "IVA" has contents "26.25 €"
+# And field named "total" with label "TOTAL" has contents "151.25 €"
+# # - Validate one of the request items
+# Given the target the "request-item" with id "ce7462e2-692c-4ce3-a871-35e909d039f0"
+# Then column named "missing" has contents "-"
+# And column named "quantity" has contents "5"
+# And column named "label" has contents "CARCASA INFERIOR ''URBAN DIGIT''"
+# And column named "finishing" has contents "PLA/BLACK"
 
 # @D3D11.07
 # Scenario: [D3D11.07]-The Request has a new field that shows the payment state.
