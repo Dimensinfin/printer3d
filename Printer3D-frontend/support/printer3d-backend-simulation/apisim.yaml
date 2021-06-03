@@ -678,8 +678,21 @@ request:
 - uriPathPattern: "/api/v3/production/requests/closed"
 - method: GET
 
-response:
+responses:
+- when:
+    request:
+    - where: cookie
+      named: apiv3_ProductionGetClosedRequests
+      equals: "200-REQUEST_PAYD"
+  # then
   from: stub
+  status: 200
+  headers:
+  - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.closedrequests.v3.payd.json"
+- from: stub
   status: 200
   headers:
   - "Content-Type: application/json"

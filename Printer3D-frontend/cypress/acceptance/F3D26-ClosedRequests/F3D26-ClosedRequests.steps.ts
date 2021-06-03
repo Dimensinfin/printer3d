@@ -15,3 +15,7 @@ Given('the target is the panel of name {string}', function (fieldName: string) {
     cy.get('@target').find('[cy-name="' + fieldName + '"]')
         .as('target-panel').as('target')
 })
+// - D I A L O G
+Then('the dialog closes', function () {
+    cy.get('@target-dialog').should('not.exist')
+})

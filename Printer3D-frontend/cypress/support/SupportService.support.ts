@@ -63,6 +63,7 @@ export class SupportService {
         this.translationTable['Get Open Requests'] = 'apiProductionGetOpenRequests_v2'
         this.translationTable['Start Build Job'] = 'apiMachinesStartBuild_v2'
         this.translationTable['Save New Part'] = 'apiNewPart_v1'
+        this.translationTable['Get Closed Requests'] = 'apiv3_ProductionGetClosedRequests'
         // - COLORS
         // this.translationTable['red-tag'] = ''
     }

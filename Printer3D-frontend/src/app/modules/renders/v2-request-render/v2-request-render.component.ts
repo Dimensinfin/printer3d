@@ -150,7 +150,8 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
                 console.log('[V1RequestRenderComponent.payRequest]> Close detected')
                 if (result == 'PAYD') {
                     // this.unselect()
-                    this.router.navigate(['/production/requestlist'])
+                    // this.router.navigate(['/'])
+                    this.router.navigate(['/production/requestlist/closed'])
                 }
             })
     }
