@@ -93,32 +93,56 @@ Feature: [F3D26]-This page lists the delivered customer requests.
     #     And column named "label" has contents "CARCASA INFERIOR ''URBAN DIGIT''"
     #     And column named "finishing" has contents "PLA/BLACK"
 
-    @F3D26.07
-    Scenario: [F3D26.07]-Unpaid Customer requests have a PAY button.
-        Given the target is the panel of type "closed-requests"
-        Then the target has 2 "request"
-        Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
-        # - Click on a Request to display the details panel
-        Given the target is clicked
-        Then target is "selected"
-        Then the target is the panel of type "request-details"
-        Then the target has 1 "request"
-        Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
-        Then the target has 1 "buttons"
-        And the button with name "pay-button" has a label "Cobrar" and is "enabled"
+    # @F3D26.07
+    # Scenario: [F3D26.07]-Unpaid Customer requests have a PAY button.
+    #     Given the target is the panel of type "closed-requests"
+    #     Then the target has 2 "request"
+    #     Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
+    #     # - Click on a Request to display the details panel
+    #     Given the target is clicked
+    #     Then target is "selected"
+    #     Then the target is the panel of type "request-details"
+    #     Then the target has 1 "request"
+    #     Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
+    #     Then the target has 1 "buttons"
+    #     And the button with name "pay-button" has a label "Cobrar" and is "enabled"
 
-    @F3D26.08
-    Scenario: [F3D26.08]-Paid Customer requests have no buttons.
+    # @F3D26.08
+    # Scenario: [F3D26.08]-Paid Customer requests have no buttons.
+    #     Given the target is the panel of type "closed-requests"
+    #     Then the target has 2 "request"
+    #     Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+    #     # - Click on a Request to display the details panel
+    #     Given the target is clicked
+    #     Then target is "selected"
+    #     Then the target is the panel of type "request-details"
+    #     Then the target has 1 "request"
+    #     Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+    #     And the target has 0 "buttons"
+
+    @F3D26.09
+    Scenario: [F3D26.09]-If the Payd button is clicked then there is a confirmation dialog.
+        # - Select a request to check its details.
         Given the target is the panel of type "closed-requests"
-        Then the target has 2 "request"
-        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        # - Click on a Request to display the details panel
+        Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
         Given the target is clicked
-        Then target is "selected"
-        Then the target is the panel of type "request-details"
-        Then the target has 1 "request"
-        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
-        And the target has 0 "buttons"
+        # - Click on the Complete button
+        Given the target is the panel of type "request-details"
+        Given the target the "request" with id "103477e5-de44-4542-90d4-d08e44b2f6c0"
+        Then the button with name "pay-button" has a label "Cobrar" and is "enabled"
+        And the button with name "pay-button" has "ok" tag
+        And the button with name "pay-button" is clicked
+        Then the "Pay Confirmation" dialog opens and blocks the display
+        # - Check the dialog contents
+        Given the target is the panel of name "pay-confirmation-dialog"
+        Then column named "confirmation" has contents "¿Realmente desea marcar el Pedido como cobrado?Primera parte pedido URBAN DIGIT."
+        And the target has 2 "buttons"
+        And the button with name "confirm-button" has a label "Cobrar" and is "enabled"
+        And the button with name "cancel-button" has a label "Cancelar" and is "enabled"
+
+#    Then the Request is updated on the backend
+#     And there is a Notification panel
+
 
 
 

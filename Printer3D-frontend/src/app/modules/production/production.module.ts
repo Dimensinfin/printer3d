@@ -23,6 +23,7 @@ import { DeleteConfirmationDialogComponent } from './dialogs/delete-confirmation
 import { V1ClosedRequestsPageComponent } from './pages/v1-closed-requests-page/v1-closed-requests-page.component';
 import { V1ClosedRequestsPanelComponent } from './panels/v1-closed-requests-panel/v1-closed-requests-panel.component';
 import { V1CommonRequestsPanelComponent } from './panels/v1-common-requests-panel/v1-common-requests-panel.component';
+import { PayConfirmationDialogComponent } from './dialogs/pay-confirmation-dialog/pay-confirmation-dialog.component';
 
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
@@ -54,7 +55,8 @@ const routes: Routes = [
         DeleteConfirmationDialogComponent,
         V1ClosedRequestsPageComponent,
         V1ClosedRequestsPanelComponent,
-        V1CommonRequestsPanelComponent
+        V1CommonRequestsPanelComponent,
+        PayConfirmationDialogComponent
     ],
     exports: [
         ProductionJobListPageComponent,
@@ -64,7 +66,8 @@ const routes: Routes = [
         V1NewRequestPanelComponent,
         V1OpenRequestsPageComponent,
         V1OpenRequestsPanelComponent,
-        V1RequestDetailPanelComponent
+        V1RequestDetailPanelComponent,
+        PayConfirmationDialogComponent
     ]
 })
 export class ProductionModule { }

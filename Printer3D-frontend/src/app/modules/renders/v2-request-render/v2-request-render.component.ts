@@ -15,6 +15,7 @@ import { DeleteConfirmationDialogComponent } from '@app/modules/production/dialo
 import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
 import { CustomerRequestResponse } from '@app/modules/production/domain/dto/CustomerRequestResponse.dto'
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
+import { PayConfirmationDialogComponent } from '@app/modules/production/dialogs/pay-confirmation-dialog/pay-confirmation-dialog.component'
 
 @Component({
     selector: 'v2-request',
@@ -97,7 +98,7 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
             console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
         }
     }
-    public editRequest():void{}
+    public editRequest(): void { }
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
      */
@@ -126,8 +127,6 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
         }
         console.log('-[V1RequestRenderComponent.deleteRequest]> Open dialog')
         const dialogRef = this.matDialog.open(DeleteConfirmationDialogComponent, dialogConfig)
-        // console.log('step21')
-        // console.log(JSON.stringify(dialogRef))
         dialogRef.afterClosed()
             .subscribe(result => {
                 console.log('[V1RequestRenderComponent.deleteRequest]> Close detected')
@@ -135,5 +134,24 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
                     this.router.navigate(['/production/requestlist'])
             })
     }
-    public payRequest():void{}
+    public payRequest(): void {
+        const request = this.node as CustomerRequest
+        let dialogConfig: MatDialogConfig
+        dialogConfig = new MatDialogConfig()
+        dialogConfig.disableClose = false
+        dialogConfig.id = "pay-request-confirmation-dialog"
+        dialogConfig.data = {
+            request: request
+        }
+        console.log('-[V1RequestRenderComponent.payRequest]> Open dialog')
+        const dialogRef = this.matDialog.open(PayConfirmationDialogComponent, dialogConfig)
+        dialogRef.afterClosed()
+            .subscribe(result => {
+                console.log('[V1RequestRenderComponent.payRequest]> Close detected')
+                if (result == 'PAYD') {
+                    // this.unselect()
+                    this.router.navigate(['/production/requestlist'])
+                }
+            })
+    }
 }

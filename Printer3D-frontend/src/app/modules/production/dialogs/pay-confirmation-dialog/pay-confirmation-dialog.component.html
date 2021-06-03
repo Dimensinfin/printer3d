@@ -1,0 +1,67 @@
+<div cy-name="pay-confirmation-dialog" id="modal-content-wrapper">
+    <header id="modal-header">
+        <div class="panel-title header-title">/PRODUCCION/COBRO PEDIDO</div>
+    </header>
+    <section id="modal-body">
+        <div cy-name="confirmation">
+            <h2 class="confirmation-message">¿Realmente desea marcar el Pedido como cobrado?<br><span class="request-identifier">{{requestName()}}</span></h2>
+        </div>
+    </section>
+    <footer id="modal-footer">
+        <div class="centered-container button-row">
+            <div class="button-container">
+                <button cy-name="confirm-button" type="submit" class="button ok-button" (click)="paydRequest()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Cobrar
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#240F21" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="#240F21" />
+                </svg>
+                <div>
+                    <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
+            <div style="width: 15px;">&nbsp;</div>
+            <div class="button-container" style="margin-bottom: 20px;">
+                <button cy-name="cancel-button" type="button" class="button cancel-button" (click)="closeModal()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Cancelar
+                </button>
+                <svg class="button-right-border" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                </svg>
+                <svg class="button-right-clear" viewBox="0 0 100 100">
+                    <path d="M100,100 L0,100 L100,0 L100,100" fill="#240F21" />
+                </svg>
+                <svg class="button-left-border" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                </svg>
+                <svg class="button-left-clear" viewBox="0 0 100 100">
+                    <path d="M0,0 L0,100 L100,0 L0,0" fill="#240F21" />
+                </svg>
+                <div>
+                    <svg class="button-right-mark orangered-mark" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" />
+                    </svg>
+                    <svg class="button-left-mark orangered-mark" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

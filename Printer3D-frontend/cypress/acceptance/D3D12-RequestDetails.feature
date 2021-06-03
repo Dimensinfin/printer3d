@@ -109,7 +109,7 @@ Feature: [D3D12]-[STORY] When a request is selected then we can see the details.
         And column named "finishing" has contents "PLA/BLACK"
 
     @D3D12.06
-    Scenario: [D3D12.06.01]-The Request detail for a COMPLETED request always shows a Delete button. If this button is clicked there there is a confirmation dialog.
+    Scenario: [D3D12.06.01]-The Request detail for a COMPLETED request always shows a Delete button. If this button is clicked then there is a confirmation dialog.
         # - Select a request to check its details.
         Given the target is the panel of type "open-requests"
         Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
