@@ -98,7 +98,12 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
             console.log('>[V1RequestRenderComponent.selectRequest]> Label: ' + this.getLabel())
         }
     }
-    public editRequest(): void { }
+    /**
+     * Open the Cutomer Request page for editing passing the unique request identifier.
+     */
+    public editRequest(): void { 
+        this.router.navigate(['/production/editrequest/'+this.getNode().getUniqueId()])
+    }
     /**
      * Completes the request by requesting the backend to process the associated Parts. The number os Parts is subtracted from the stocks and the Request is set to the CLOSED state.
      */
