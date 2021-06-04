@@ -4,7 +4,11 @@
         "changes": [
             "✅ Hay nuevas funcionalidades que cuando se posiciona el cursor encima se despliegan para mostrar nuevas opciones. Esto aplica a la funcionalidad de /PEDIDOS que ahora permite seleccionar dos páginas, una para los pedidos sin entregar y otra para los pedidos ya cerrados.",
             "✅ Se han incorporado nuevos datos al Pedido. Datos del cliente que lo ha solicitado y un boton para indicar que el pedido se ha cobrado ya por adelantado.",
-            "✅ Los datos del pedido ahora calculan los importes con los impuestos, indicando los valores de importe, iva y total."
+            "✅ Los datos del pedido ahora calculan los importes con los impuestos, indicando los valores de importe, iva y total.",
+            "✅ Los pedidos abierto corresponden a los pedidos que les faltan piezas y aquellos completos que no se han entregado.",
+            "✅ Los pedidos cerrados corresponden a los entregados, pagados o no.",
+            "✅ Los pedidos entregados pero no pagados tienen ahora un boton para indicar que el pago se ha realizado.",
+            "✅ Los pedidos abiertos ahora son editables pero una vez entregados no se pueden modificar."
         ]
     }, {
         "jsonClass": "PatchChange",

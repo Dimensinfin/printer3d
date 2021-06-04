@@ -148,9 +148,7 @@ export class V2RequestRenderComponent extends NodeContainerRenderComponent {
         dialogRef.afterClosed()
             .subscribe(result => {
                 console.log('[V1RequestRenderComponent.payRequest]> Close detected')
-                if (result == 'PAYD') {
-                    // this.unselect()
-                    // this.router.navigate(['/'])
+                if (result == 'PAID') {
                     this.router.navigate(['/production/requestlist/closed'])
                 }
             })

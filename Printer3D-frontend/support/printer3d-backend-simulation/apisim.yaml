@@ -683,7 +683,7 @@ responses:
     request:
     - where: cookie
       named: apiv3_ProductionGetClosedRequests
-      equals: "200-REQUEST_PAYD"
+      equals: "200-REQUEST_PAID"
   # then
   from: stub
   status: 200
@@ -691,7 +691,7 @@ responses:
   - "Content-Type: application/json"
   body:
     type: text
-    file: "${sim.path}/responses/production.closedrequests.v3.payd.json"
+    file: "${sim.path}/responses/production.closedrequests.v3.paid.json"
 - from: stub
   status: 200
   headers:
@@ -699,3 +699,62 @@ responses:
   body:
     type: text
     file: "${sim.path}/responses/production.closedrequests.v3.json"
+
+---
+
+simlet: production-request-paid
+
+request:
+- method: PATCH
+- uriPathPattern: "/api/v3/production/requests/{requestId}/paid"
+
+responses:
+- when:
+    request:
+    - where: cookie
+      named: apiProductionGetOpenRequests_v2
+      equals: "404-REQUEST_NOT_FOUND"
+  # then
+  from: stub
+  status: 404
+  headers:
+  - "Content-Type: application/json"
+  body: |+
+    {
+      "timestamp": "2020-07-14T07:41:22.117152Z",
+      "httpStatus": "404 NOT_FOUND",
+      "httpStatusCode": 404,
+      "httpStatusName": "NOT_FOUND",
+      "errorName": "REQUEST_NOT_FOUND",
+      "errorCode": "dimensinfin.printer3d.defined.repository.logic",
+      "cause": "No Request found while trying to delete the request.",
+      "message": "Request record with id [{0}] not found at the repository."
+    }
+- when:
+    request:
+    - where: cookie
+      named: apiProductionGetOpenRequests_v2
+      equals: "409-CONFLICT"
+  # then
+  from: stub
+  status: 409
+  headers:
+  - "Content-Type: application/json"
+  body: |+
+    {
+      "message": "Request record with id [103477e5-de44-4542-90d4-d08e44b2f6c0] is not on the correct state to perform the requested operation.",
+      "errorCode": "dimensinfin.printer3d.logic.exception",
+      "httpStatus": "409 CONFLICT",
+      "errorName": "REQUEST_INCORRECT_STATE",
+      "httpStatusCode": 409,
+      "httpStatusName": "CONFLICT",
+      "timestamp": "2021-05-28T14:13:26.953736Z"
+    }
+  # otherwise
+- from: stub
+  status: 200
+  headers:
+  - "Content-Type: application/json"
+  body:
+    type: text
+    file: "${sim.path}/responses/production.request.deleted.v3.json"

@@ -142,7 +142,7 @@ Feature: [F3D26]-This page lists the delivered customer requests.
         Then the "Pay Confirmation" dialog opens and blocks the display
         # - Click on the Charge of the Confirmation dialog
         Given the target is the panel of name "pay-confirmation-dialog"
-        Given response "200-REQUEST_PAYD" for "Get Closed Requests"
+        Given response "200-REQUEST_PAID" for "Get Closed Requests"
         When the button with name "confirm-button" is clicked
         Then the Request is updated on the backend
         And there is a Notification panel

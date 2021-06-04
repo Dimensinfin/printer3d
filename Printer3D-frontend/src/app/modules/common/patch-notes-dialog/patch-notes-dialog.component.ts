@@ -45,7 +45,7 @@ export class PatchNotesDialogComponent extends AppPanelComponent implements OnIn
     private processPathNotes(): void {
         console.log(">[PatchNotesDialogComponent.processPathNotes]")
         this.backendConnections.push(
-            this.httpWrapper.wrapHttpRESOURCECall('/assets/properties/LatestPatchNotes.notes.json')
+            this.httpWrapper.wrapHttpRESOURCECall('/assets/changenotes/LatestPatchNotes.notes.json')
                 .subscribe((changes: any) => {
                     console.log('-[PatchNotesDialogComponent.processPathNotes]> Nodes downloaded: ' + changes.length)
                     const patchNotes = []
@@ -56,6 +56,5 @@ export class PatchNotesDialogComponent extends AppPanelComponent implements OnIn
                 })
         )
         console.log("<[PatchNotesDialogComponent.processPathNotes]")
-
     }
 }

@@ -30,14 +30,14 @@ export class PayConfirmationDialogComponent extends BackgroundEnabledComponent {
     public requestName(): string {
         return this.request.getLabel()
     }
-    public paydRequest(): void {
+    public paidRequest(): void {
         this.backendConnections.push(
-            this.productionService.apiv3_ProductionDeleteRequest(this.request.getId())
+            this.productionService.apiv3_ProductionPayRequest(this.request.getId())
                 .subscribe((request: any) => {
                     this.isolationService.infoNotification(
                         'Pedido [' + this.request.getLabel() + '] pagado correctamente.',
                         '/PRODUCCION/PEDIDO/OK')
-                    this.dialogRef.close('PAYD');
+                    this.dialogRef.close('PAID');
                 })
         )
 

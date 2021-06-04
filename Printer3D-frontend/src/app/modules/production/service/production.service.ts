@@ -119,4 +119,16 @@ export class ProductionService extends BackendService {
                 return transformer.transform(data) as CustomerRequestResponse[]
             }))
     }
+    public apiv3_ProductionPayRequest(requestId: string): Observable<CustomerRequestResponse> {
+        const request = this.PRODUCTIONAPIV3 + '/requests/' + requestId + '/paid'
+        const transformer: ResponseTransformer = new ResponseTransformer().setDescription('Do HTTP transformation to "Request".')
+            .setTransformation((entrydata: any): CustomerRequestResponse => {
+                return new CustomerRequestResponse(entrydata)
+            })
+        return this.httpService.wrapHttpPATCHCall(request, JSON.stringify(requestId))
+            .pipe(map((data: any) => {
+                console.log(">[ProductionService.apiv3_ProductionPayRequest]> Transformation: " + transformer.description)
+                return transformer.transform(data)
+            }))
+    }
 }
