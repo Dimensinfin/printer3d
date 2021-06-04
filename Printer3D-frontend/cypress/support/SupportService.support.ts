@@ -20,6 +20,7 @@ export class SupportService {
         this.translationTable['Patch Notes'] = 'patch-notes-dialog'
         this.translationTable['Extractions Page'] = 'v1-extractions-dashboard-page'
         this.translationTable['Pay Confirmation'] = 'pay-confirmation-dialog'
+        this.translationTable['Open Request Edit Page'] = 'v1-edit-request-page'       
         // - PANELS
         this.translationTable['app-component'] = 'app-root'
         this.translationTable['dock'] = 'v1-dock'
@@ -39,6 +40,7 @@ export class SupportService {
         this.translationTable['jobs-list'] = 'v1-pending-jobs-panel'
         this.translationTable['work-load'] = 'v1-work-load-panel'
         this.translationTable['request-filter-buttons'] = 'div'
+        this.translationTable['edit-request'] = 'v1-edit-request-panel'
         // - RENDERS
         this.translationTable['feature'] = 'v2-feature'
         this.translationTable['job'] = 'v1-pending-job'

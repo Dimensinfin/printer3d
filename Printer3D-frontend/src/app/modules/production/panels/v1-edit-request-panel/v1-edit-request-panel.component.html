@@ -1,0 +1,58 @@
+<p>v1-edit-request-panel works!</p>
+<!-- <div cy-name="panel-title" class="row panel-title">
+    <div>/PEDIDO/EDICION/DETALLE</div>
+</div>
+<hr> -->
+
+
+
+
+
+<div class="new-request-panel" style="position: fixed;">
+    <form #editRequestForm="ngForm" class="dsf-form" autocomplete="off">
+        <div class="column" style="position: relative;">
+            <div cy-name="header" class="row" style="background-color: black;">
+                <div class="panel-title header-title">
+                    <div>/PEDIDO/EDICION/DETALLE</div>
+                </div>
+                <div class="button-container">
+                    <button cy-name="save" class="button ok-button" [disabled]="!isFormValid(editRequestForm.form.valid)" (click)="saveRequest()">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Guardar
+                    </button>
+                    <svg class="button-right-border" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+                    </svg>
+                    <svg class="button-right-clear" viewBox="0 0 100 100">
+                        <path d="M100,100 L0,100 L100,0 L100,100" fill="black" />
+                    </svg>
+                    <svg class="button-left-border" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="white" />
+                    </svg>
+                    <svg class="button-left-clear" viewBox="0 0 100 100">
+                        <path d="M0,0 L0,100 L100,0 L0,0" fill="black" />
+                    </svg>
+                    <div *ngIf="isFormValid(editRequestForm.form.valid)">
+                        <svg class="button-right-mark ok-mark" viewBox="0 0 100 100">
+                            <path d="M100,100 L0,100 L100,0 L100,100" />
+                        </svg>
+                        <svg class="button-left-mark ok-mark" viewBox="0 0 100 100">
+                            <path d="M0,0 L0,100 L100,0 L0,0" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <svg class="corner-border" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="white" />
+        </svg>
+            <svg class="corner-clear" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="#180A16" />
+        </svg>
+            <svg class="corner-mark" viewBox="0 0 100 100">
+            <path d="M100,100 L0,100 L100,0 L100,100" fill="orangered" />
+        </svg>
+        </div>
+    </form>
+</div>

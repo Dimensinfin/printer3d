@@ -24,10 +24,13 @@ import { V1ClosedRequestsPageComponent } from './pages/v1-closed-requests-page/v
 import { V1ClosedRequestsPanelComponent } from './panels/v1-closed-requests-panel/v1-closed-requests-panel.component';
 import { V1CommonRequestsPanelComponent } from './panels/v1-common-requests-panel/v1-common-requests-panel.component';
 import { PayConfirmationDialogComponent } from './dialogs/pay-confirmation-dialog/pay-confirmation-dialog.component';
+import { V1EditRequestPageComponent } from './pages/v1-edit-request-page/v1-edit-request-page.component';
+import { V1EditRequestPanelComponent } from './panels/v1-edit-request-panel/v1-edit-request-panel.component';
 
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
     { path: 'newrequest', component: V1NewRequestPageComponent },
+    { path: 'editrequest/:requestid', component: V1EditRequestPageComponent },
     { path: 'requestlist/open', component: V1OpenRequestsPageComponent },
     { path: 'requestlist/closed', component: V1ClosedRequestsPageComponent },
     { path: 'pendingjobs', component: ProductionJobListPageComponent }
@@ -56,7 +59,9 @@ const routes: Routes = [
         V1ClosedRequestsPageComponent,
         V1ClosedRequestsPanelComponent,
         V1CommonRequestsPanelComponent,
-        PayConfirmationDialogComponent
+        PayConfirmationDialogComponent,
+        V1EditRequestPageComponent,
+        V1EditRequestPanelComponent
     ],
     exports: [
         ProductionJobListPageComponent,
