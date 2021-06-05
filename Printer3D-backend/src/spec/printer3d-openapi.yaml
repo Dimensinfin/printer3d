@@ -1,41 +1,35 @@
 ---
 openapi: 3.0.2
 info:
-  title: 3D Printer Queue Management API
+  title: TETSUO PRINTER 3D API
   description: >
     # Summary
 
-    ### This is the OpenApi specification active and matching the latest published backend application version seen on the Heroku Production servers.
+    ##
+    The APi specification file defines the Tetsuo 3D public endpoints available on the backend server located on the server URLs.
+    This is the OpenApi specification active and matching the latest published backend application version seen on the Heroku Production servers.
     This API defines all the client REST endpoints public and available to other systems. The API definition follows the OpenApi 3.0 specification
     and there are provisioning for automatic code generation for this API clients.
 
     # System Description
 
-    The system is composed of 4 subsystems interconnected by interchange lines. The first system represents the *external user demand*. This system
-    has a catalog of items and generates a queue of Requests. This is connected to the second subsystem that is the *Storage* system. The storage
-    contains the elements available to other systems or the elements to generate Parts and Models. This second system connects with the third
-    subsystem called *Production* that is the responsible to calculate and control the elements to be produced and the tool to build them. The input
-    are the demands from Storage to keep the stocks or to fulfill the customer Requests. And finally this reports to the four subsystem to buy
-    materials and tools to maintain the Production operative and at the right levels.
+    The system is composed of 4 subsystems interconnected by interchange endpoints.
 
 
-    Not all the systems have an application implementation. There are two main applications. One called **frontend** to deal with the Graphical User
-    Interface to create any of the items persisted on the backend and to control the Storage and another called **backend** to persist all the
-    system data and to run the different Production algorithms that are required to fulfil the demands on a proper service basis.
+    The first system represents the *external user demand*. This system has a catalog of items and generates a queue of Jobs to be fulfilled to reach the current demand. This is connected to the second subsystem that is the *Storage* system. The storage contains the elements available to other systems or the elements to generate Parts and Models. This second system connects with the third subsystem called *Production* that is the responsible to calculate and control the elements to be produced and the tool to build them. The input are the demands from Storage to keep the stocks or to fulfill the Customer Requests. Finally there is the four subsystem that will store and archive usage data to keep track of Production and the generated *Accounting* that will process this data to generate trends and analisys.
 
 
-    This API is the communication channel between the backend and the frontend and represents a contract so the two applications can be developed
-    independently but having the assurance that they will interface properly when deployed into their corresponding hardware.
+    Not all the systems have an application implementation. There are two main applications. One called *FRONTEND* to deal with the Graphical User Interface to create any of the items persisted on the backend and to present the users with anlitical or progress flow data and another called *BACKEND* to persist all the system data and to run the different Production algorithms that are required to fulfil the demands on a proper service basis.
+
+
+    This API is the communication channel between the frontend and the backend and represents a contract so the two applications can be developed independently but having the assurance that they will interface properly when deployed into their corresponding hardware.
 
     # API Description
 
-    The API will expose endpoints aggregated by the information unit. Entities under the same information unit share part of the path. For example
-    the Inventory is an information unit that will report the existence of different types of elements like Parts or Materials. All these entities
-    are part of the system Inventory.
+    The API will expose endpoints aggregated by the information unit. Entities under the same information unit share part of the path. For example the Inventory is an information unit that will report the existence of different types of elements like Parts or Materials. All these entities are part of the system Inventory.
 
 
-    Each of the subsystems can be view as an autonomous information section sharing the same repository and server. We have currently identified
-    two of those information sections, the **Inventory** and the **Production**
+    Each of the subsystems can be view as an autonomous information section sharing the same repository and server. We have currently identified 3 of those information sections, the *INVENTORY*, the *PRODUCTION* and the *ACCOUNTING* units.
 
     ## INFORMATION UNITS
 
@@ -107,7 +101,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.14.0
+  version: 0.17.0
 servers:
   - url: https://printer3d-backend-stage.herokuapp.com
     description: OpenAPI 0.17.0 for 3D Printer Queue Management Backend Service. Stage environment
@@ -121,7 +115,7 @@ tags:
       The API information unit that manages physical Inventory contents.
   - name: Production
     description: >
-      The API information unit that manages the Production requirements and needs from the adjacent units of **Inventory** and **Market**.
+      The API information unit that manages the Production requirements and needs from the adjacent units of **Inventory** and **Accounting**.
   - name: Accounting
     description: >
       The API information unit to manage historical, trending and aggregated data mining endpoints.
@@ -162,6 +156,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/WeekAmountList'
 
+  # - I N V E N T O R Y
   # - P A R T S
   /api/v1/inventory/parts:
     post:
@@ -235,6 +230,7 @@ paths:
       summary: Get the list of Parts persisted at the Inventory repository.
       description: >
         Get the complete list of <b>Parts</b> persisted at the Inventory repository. If the active filter is active retrieve only the active Parts.
+      deprecated: true
       operationId: getParts
       parameters:
         - in: query
@@ -355,6 +351,7 @@ paths:
       summary: Get the list of Models persisted at the Inventory repository.
       description: >
         Get the complete list of **Models** persisted at the Inventory repository.
+      deprecated: true
       operationId: getModels
       responses:
         200:
@@ -675,22 +672,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Machine'
 
+  # - P R O D U C T I O N
   # - R E Q U E S T S
   /api/v2/production/requests:
     post:
       tags:
         - Production
-      summary: Creates a new Request instance at the persistence repository. There is a new version where the Requests adds additional fields.
+      summary: Creates a new Request instance at the persistence repository.
       description: >
-        This is an entity used by the customers to report the items they want to buy. The **Request** contains the list of
-            specific Part models along with the material and color that are required by the customer. Also Requests can contain Models that are packaged
-            sets of Parts that are sell together. Requests are processed by order of arrival when the list of current open requests is solicited by the
-            frontend. The system will follow the first come/first served pattern. Then Part build jobs generated by Requests have a higher priority than
-            other jobs generated by inventory leveling.
-            A **Request** can be on different states. It starts on the state **OPEN** when the request is created. When the frontend requests the list of
-            open requests then it is compared against the current stock levels. If all the items on the request are available then it moves to the state
-            **COMPLETED**. If the user at the frontend delivers the request to the customer the the request moves to the next state of **DELIVERED**. Once
-            in DELIVERED the requests wits to be paid in not paid beforehand. Once paid it moves to the final state of **CLOSED**.
+        This is an entity used by the customers to report the items they want to buy. The **Request** contains the list of specific **Part** along with the material and color that are required by the customer. Also Requests can contain **Models** that are packaged sets of Parts that are sell together. Requests are processed by order of arrival when the list of current open requests is solicited by the frontend. The system will follow the first come/first served pattern. Then Part build jobs generated by Requests have a higher priority than other jobs generated by inventory leveling.
+
+
+        A **Request** can be on different states. It starts on the state **OPEN** when the request is created. When the frontend requests the list of open requests then it is compared against the current stock levels. If all the items on the request are available then it moves to the state **COMPLETED**. The rest of the states require the used interactions to move the request along its lifecycle. If the user at the frontend delivers the request to the customer the the request is moved to the next state of **DELIVERED**. Once in DELIVERED the requests waits to be paid if not alreadt paid beforehand when created. Once the user signals it paid paid it moves to the final state of **CLOSED**.
       operationId: newRequest
       requestBody:
         description: >

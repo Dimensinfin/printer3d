@@ -82,6 +82,24 @@ public class RequestServiceV3 extends CommonRequestService {
 		}
 	}
 
+	public CustomerRequestResponseV2 chargeRequest( final UUID requestId, final Optional<Float> chargedAmount ) {
+		LogWrapper.enter();
+		try {
+			// Remove the request contents from the stocks.
+			//			this.stockManager.clean().startStock(); // Initialize the stock manager to get the Part prices.
+			final var requestEntityV2 = this.selectRequestEntity( requestId );
+			//			if (this.collectItemsFromStock( requestEntityV2 )) { // Check that the Request can be delivered now. Data on frontend may be obsolete.
+			//				this.removeRequestPartsFromStock( requestEntityV2 );
+			return new RequestEntityV2ToCustomerRequestResponseConverter().convert(
+					this.requestsRepositoryV2.save( requestEntityV2.signalPaid( chargedAmount ) )
+			);
+			//			} else
+			//				throw new DimensinfinRuntimeException( Printer3DErrorInfo.errorREQUESTCANNOTBEFULFILLED( requestEntityV2.getId() ) );
+		} finally {
+			LogWrapper.exit();
+		}
+	}
+
 	public CustomerRequestResponseV2 deleteRequest( final UUID requestId ) {
 		LogWrapper.enter();
 		try {

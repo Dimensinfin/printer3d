@@ -3,6 +3,7 @@ package org.dimensinfin.printer3d.backend.production.request.persistence;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -171,6 +172,7 @@ public class RequestEntityV2 {
 		return this;
 	}
 
+	@Deprecated
 	public RequestEntityV2 signalCompleted() {
 		this.state = RequestState.COMPLETED;
 		return this;
@@ -189,6 +191,15 @@ public class RequestEntityV2 {
 			if (null == this.paymentDate) // Validate in case the payment date is empty
 				this.paymentDate = this.requestDate;
 		} else this.state = RequestState.DELIVERED;
+		return this;
+	}
+
+	public RequestEntityV2 signalPaid( final Optional<Float> chargedAmount ) {
+		if (chargedAmount.isPresent()) { // Use the new total amount to recalculate the final Request payment data.
+			this.total = chargedAmount.get();
+			this.updateAmounts();
+		}
+		this.state = RequestState.COMPLETED;
 		return this;
 	}
 
