@@ -24,6 +24,7 @@ import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignCl
 import org.dimensinfin.printer3d.backend.support.inventory.part.rest.PartFeignClientV2;
 import org.dimensinfin.printer3d.backend.support.production.job.rest.JobFeignClientV1;
 import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
+import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV3;
 import org.dimensinfin.printer3d.backend.support.rest.Printer3DFeignClientSupport;
 import org.dimensinfin.printer3d.client.accounting.rest.dto.WeekAmount;
 import org.dimensinfin.printer3d.client.core.dto.CounterResponse;
@@ -50,6 +51,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	private final RequestFeignClientV2 requestFeignClientV2;
 	private final AccountFeignClientV1 accountFeignClientV1;
 	private final Printer3DFeignClientSupport printer3DFeignClientSupport;
+	private final RequestFeignClientV3 requestFeignClientV3;
 
 	// - C O N S T R U C T O R S
 	public WhenTheRequestIsProcessed( @NotNull final Printer3DWorld printer3DWorld,
@@ -63,7 +65,8 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 	                                  @NotNull final ModelFeignClientV1 modelFeignClientV1,
 	                                  @NotNull final RequestFeignClientV2 requestFeignClientV2,
 	                                  @NotNull final AccountFeignClientV1 accountFeignClientV1,
-	                                  @NotNull final Printer3DFeignClientSupport printer3DFeignClientSupport ) {
+	                                  @NotNull final Printer3DFeignClientSupport printer3DFeignClientSupport,
+	                                  @NotNull final RequestFeignClientV3 requestFeignClientV3 ) {
 		super( printer3DWorld );
 		this.partFeignClientV1 = Objects.requireNonNull( partFeignClientV1 );
 		this.partFeignClientV2 = partFeignClientV2;
@@ -76,6 +79,7 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.requestFeignClientV2 = requestFeignClientV2;
 		this.accountFeignClientV1 = accountFeignClientV1;
 		this.printer3DFeignClientSupport = printer3DFeignClientSupport;
+		this.requestFeignClientV3 = requestFeignClientV3;
 	}
 
 	@When("the Accounting Week Income request is processed")
@@ -202,14 +206,25 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 		this.processRequestByType( RequestType.UPDATE_PART );
 	}
 
+	@When("the Deliver Request endpoint is called for Request {string}")
+	public void the_deliver_request_endpoint_is_called_for_request( final String requestId ) throws IOException {
+		this.printer3DWorld.setRequestId( UUID.fromString( requestId ) );
+		this.processRequestByType( RequestType.DELIVER_REQUEST );
+	}
+
 	@When("the Extract Closed Requests request is processed")
 	public void the_extract_closed_requests_request_is_processed() throws IOException {
 		this.processRequestByType( RequestType.ACCOUNTING_CLOSED_REQUESTS_CSV_DATA );
 	}
 
+	@When("the Get Closed Requests request is processed")
+	public void the_get_closed_requests_request_is_processed() throws IOException {
+		this.processRequestByType( RequestType.GET_CLOSED_REQUESTSV3 );
+	}
+
 	@When("the Get Open Requests request is processed")
 	public void the_get_open_requests_request_is_processed() throws IOException {
-		this.processRequestByType( RequestType.GET_OPEN_REQUESTSV2 );
+		this.processRequestByType( RequestType.GET_OPEN_REQUESTSV3 );
 	}
 
 	@When("the Get Parts V2 request is processed")
@@ -315,11 +330,6 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( newRequestV2ResponseEntity );
 				this.printer3DWorld.setCustomerRequestResponseV2( newRequestV2ResponseEntity );
 				return newRequestV2ResponseEntity;
-			case GET_OPEN_REQUESTSV2:
-				final ResponseEntity<List<CustomerRequestResponseV2>> getRequestsV2ResponseEntity = this.requestFeignClientV2.getOpenRequests();
-				Assertions.assertNotNull( getRequestsV2ResponseEntity );
-				this.printer3DWorld.setListRequestV2ResponseEntity( getRequestsV2ResponseEntity );
-				return getRequestsV2ResponseEntity;
 			case START_BUILDV2:
 				final ResponseEntity<MachineV2> startBuildV2ResponseEntity = this.machineFeignClientV2
 						.startBuild( this.printer3DWorld.getJwtAuthorizationToken(),
@@ -381,6 +391,23 @@ public class WhenTheRequestIsProcessed extends StepSupport {
 				Assertions.assertNotNull( closedRequestsDataResponseEntity );
 				this.printer3DWorld.setClosedRequestsDataResponseEntity( closedRequestsDataResponseEntity );
 				return closedRequestsDataResponseEntity;
+			case DELIVER_REQUEST:
+				final ResponseEntity<CustomerRequestResponseV2> deliverRequestsDataResponseEntity = this.requestFeignClientV3.deliverRequest(
+						this.printer3DWorld.getRequestId()
+				);
+				Assertions.assertNotNull( deliverRequestsDataResponseEntity );
+				this.printer3DWorld.setDeliverRequestsDataResponseEntity( deliverRequestsDataResponseEntity );
+				return deliverRequestsDataResponseEntity;
+			case GET_OPEN_REQUESTSV3:
+				final ResponseEntity<List<CustomerRequestResponseV2>> openRequestsV2ResponseEntity = this.requestFeignClientV3.getOpenRequests();
+				Assertions.assertNotNull( openRequestsV2ResponseEntity );
+				this.printer3DWorld.setListRequestV2ResponseEntity( openRequestsV2ResponseEntity );
+				return openRequestsV2ResponseEntity;
+			case GET_CLOSED_REQUESTSV3:
+				final ResponseEntity<List<CustomerRequestResponseV2>> closedRequestsV2ResponseEntity = this.requestFeignClientV3.getClosedRequests();
+				Assertions.assertNotNull( closedRequestsV2ResponseEntity );
+				this.printer3DWorld.setListRequestV2ResponseEntity( closedRequestsV2ResponseEntity );
+				return closedRequestsV2ResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
 		}

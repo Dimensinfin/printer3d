@@ -14,12 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 import org.dimensinfin.printer3d.backend.production.request.rest.RequestRestErrors;
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
-import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToCustomerRequestRequestV2Converter;
-import org.dimensinfin.printer3d.backend.support.production.request.CucumberTableToRequestItemConverter;
 import org.dimensinfin.printer3d.backend.support.production.request.CustomerRequestResponseV2Validator;
 import org.dimensinfin.printer3d.backend.support.production.request.RequestContentValidator;
-import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientSupport;
-import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV2;
+import org.dimensinfin.printer3d.backend.support.production.request.converter.CucumberTableToCustomerRequestRequestV2Converter;
+import org.dimensinfin.printer3d.backend.support.production.request.converter.CucumberTableToRequestItemConverter;
+import org.dimensinfin.printer3d.backend.support.production.request.rest.RequestFeignClientV3;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 import org.dimensinfin.printer3d.client.production.rest.dto.RequestItem;
@@ -29,16 +28,13 @@ import io.cucumber.java.en.Then;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ITEM_ID;
 
 public class B3D08RequestsSteps extends StepSupport {
-	private final RequestFeignClientV2 requestFeignClientV2;
-	private final RequestFeignClientSupport requestFeignClientSupport;
+	private final RequestFeignClientV3 requestFeignClientV3;
 
 	// - C O N S T R U C T O R S
 	public B3D08RequestsSteps( final @NotNull Printer3DWorld printer3DWorld,
-	                           final @NotNull RequestFeignClientV2 requestFeignClientV2,
-	                           final @NotNull RequestFeignClientSupport requestFeignClientSupport ) {
+	                           final @NotNull RequestFeignClientV3 requestFeignClientV3 ) {
 		super( printer3DWorld );
-		this.requestFeignClientV2 = Objects.requireNonNull( requestFeignClientV2 );
-		this.requestFeignClientSupport = Objects.requireNonNull( requestFeignClientSupport );
+		this.requestFeignClientV3 = Objects.requireNonNull( requestFeignClientV3 );
 	}
 
 	@Given("creating the next Request V2 with previous Contents")
@@ -48,14 +44,6 @@ public class B3D08RequestsSteps extends StepSupport {
 		Assertions.assertNotNull( request );
 		this.printer3DWorld.setCustomerRequestRequestV2( request );
 	}
-
-	//	@Given("creating the next incomplete Request V2 with previous Contents")
-	//	public void creating_the_next_incomplete_Request_V2_with_previous_Contents( final List<Map<String, String>> dataTable ) {
-	//		final CustomerRequestRequestV2 request =
-	//				new CucumberTableToRequestV2TestingConverter( this.printer3DWorld.getRequestContents() ).convert( dataTable.get( 0 ) );
-	//		Assertions.assertNotNull( request );
-	//		this.printer3DWorld.setCustomerRequestRequestV2( request );
-	//	}
 
 	@Then("the Request V2 with id {string} has the next list of contents")
 	public void the_Request_V2_with_id_has_the_next_list_of_contents( final String requestId,
@@ -77,7 +65,7 @@ public class B3D08RequestsSteps extends StepSupport {
 
 	@Then("the list of Requests on the response is empty")
 	public void the_list_of_Requests_on_the_response_is_empty() throws IOException {
-		final ResponseEntity<List<CustomerRequestResponseV2>> requests = this.requestFeignClientV2.getOpenRequests();
+		final ResponseEntity<List<CustomerRequestResponseV2>> requests = this.requestFeignClientV3.getOpenRequests();
 		Assertions.assertNotNull( requests );
 		Assertions.assertNotNull( requests.getBody() );
 		Assertions.assertEquals( 0, requests.getBody().size() );
@@ -97,6 +85,13 @@ public class B3D08RequestsSteps extends StepSupport {
 		Assertions.assertNotNull( this.printer3DWorld.getCounterResponseResponseEntity() );
 		Assertions.assertNotNull( this.printer3DWorld.getCounterResponseResponseEntity().getBody() );
 		Assertions.assertEquals( Integer.parseInt( recordCount ), this.printer3DWorld.getCounterResponseResponseEntity().getBody().getRecords() );
+	}
+
+	@Then("the number of Requests found is {int}")
+	public void the_number_of_requests_found_is( final Integer requestCount ) {
+		Assertions.assertNotNull( this.printer3DWorld.getListRequestV2ResponseEntity() );
+		Assertions.assertNotNull( this.printer3DWorld.getListRequestV2ResponseEntity().getBody() );
+		Assertions.assertEquals( requestCount, this.printer3DWorld.getListRequestV2ResponseEntity().getBody().size() );
 	}
 
 	@Then("the Request Response returned has the next data")

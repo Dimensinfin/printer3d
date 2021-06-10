@@ -186,11 +186,12 @@ public class RequestEntityV2 {
 
 	public RequestEntityV2 signalDelivered() {
 		this.deliveredDate = Instant.now();
+		this.state = RequestState.DELIVERED;
 		if (this.paid) {
 			this.state = RequestState.CLOSED;
 			if (null == this.paymentDate) // Validate in case the payment date is empty
 				this.paymentDate = this.requestDate;
-		} else this.state = RequestState.DELIVERED;
+		}
 		return this;
 	}
 

@@ -23,7 +23,7 @@ public class RequestEntityV2ToCustomerRequestResponseConverter implements Conver
 				.setIva( input.getIva() )
 				.setTotal( input.getTotal() )
 				.setPaid( input.isPaid() )
-				.setCompletedDate( input.getCompletedDate() )
+				.setDeliveredDate( input.getDeliveredDate() )
 				.setPaymentDate( input.getPaymentDate() );
 	}
 }

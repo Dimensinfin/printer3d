@@ -72,3 +72,14 @@ databaseChangeLog:
             newColumnName: state
             columnDataType: printer3d.request_statev2
             remarks: Replacing the new column by the old column name.
+  - changeSet:
+      id: 0_17_0_6007_printer3d_alter_requests_table
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - renameColumn:
+            schemaName: printer3d
+            tableName: requestsv2
+            oldColumnName: date_completed
+            newColumnName: date_delivered
+            columnDataType: timestamp
+            remarks: Replacing the completed date column by the new name matching the status to delivered date.

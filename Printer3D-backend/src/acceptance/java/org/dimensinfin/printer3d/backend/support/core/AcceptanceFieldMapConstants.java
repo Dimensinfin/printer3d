@@ -28,7 +28,7 @@ public class AcceptanceFieldMapConstants {
 	// - R E Q U E S T
 	public static final String CUSTOMER = "customer";
 	public static final String REQUEST_DATE = "requestDate";
-	public static final String COMPLETED_DATE = "completedDate";
+	public static final String DELIVERED_DATE = "deliveredDate";
 	public static final String PAYMENT_DATE = "paymentDate";
 	public static final String STATE = "state";
 	public static final String PAID = "paid";
@@ -42,7 +42,6 @@ public class AcceptanceFieldMapConstants {
 	public static final String MACHINE_CURRENT_PART_INSTANCES = "currentPartInstances";
 	public static final String PART_ID_LIST = "partIdList";
 	public static final String PART_ID = "partId";
-	//	public static final String CLOSED_DATE = "dateClosed";
 	public static final String PART_REQUEST_LIST = "partRequestList";
 	public static final String PART_COPIES = "partCopies";
 	public static final String JOB_INSTALLMENT_DATE = "jobInstallmentDate";

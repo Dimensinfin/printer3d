@@ -39,7 +39,7 @@ public class PartControllerV2Test {
 		Mockito.when( this.partServiceV2.getPartsV2() ).thenReturn( partList );
 		// Test
 		final PartControllerV2 partControllerV2 = new PartControllerV2( this.partServiceV2 );
-		final ResponseEntity<List<Part>> obtained = partControllerV2.getParts();
+		final ResponseEntity<List<Part>> obtained = partControllerV2.getPartsV2();
 		// Assertions
 		Assertions.assertNotNull( obtained );
 		Assertions.assertNotNull( obtained.getBody() );

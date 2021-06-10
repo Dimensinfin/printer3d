@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Assertions;
 
 import org.dimensinfin.printer3d.backend.support.Printer3DWorld;
 import org.dimensinfin.printer3d.backend.support.inventory.coil.CoilValidator;
-import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToCoilConverter;
-import org.dimensinfin.printer3d.backend.support.inventory.coil.CucumberTableToUpdateCoilRequestConverter;
+import org.dimensinfin.printer3d.backend.support.inventory.coil.converter.CucumberTableToCoilConverter;
+import org.dimensinfin.printer3d.backend.support.inventory.coil.converter.CucumberTableToUpdateCoilRequestConverter;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 

@@ -38,7 +38,7 @@ public class PartControllerV2 {
 	@GetMapping(path = "/inventory/parts",
 			consumes = "application/json",
 			produces = "application/json")
-	public ResponseEntity<List<Part>> getParts() {
+	public ResponseEntity<List<Part>> getPartsV2() {
 		return new ResponseEntity<>( this.partServiceV2.getPartsV2(), HttpStatus.OK );
 	}
 }

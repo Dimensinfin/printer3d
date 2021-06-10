@@ -110,6 +110,19 @@ public class B3D01PartsSteps extends StepSupport {
 		);
 	}
 
+	@Then("we have Part with id {string} with the next values")
+	public void we_have_part_with_id_with_the_next_values( final String partId, final List<Map<String, String>> dataTable ) {
+		Assertions.assertNotNull( this.printer3DWorld.getPartListV2ResponseEntity() );
+		Assertions.assertFalse( this.printer3DWorld.getPartListV2ResponseEntity().getBody().isEmpty() );
+		for (final Part partRecord : this.printer3DWorld.getPartListV2ResponseEntity().getBody()) {
+			if (partRecord.getId().toString().equalsIgnoreCase( partId )) {
+				Assertions.assertTrue(
+						new PartValidator().validate( dataTable.get( 0 ), partRecord )
+				);
+			}
+		}
+	}
+
 	@Then("we have the next list of Parts at the repository")
 	public void we_have_the_next_list_of_Parts_at_the_repository( final List<Map<String, String>> dataTable ) {
 		Assertions.assertNotNull( this.printer3DWorld.getPartListResponseEntity() );

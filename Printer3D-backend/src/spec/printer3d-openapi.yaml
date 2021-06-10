@@ -260,7 +260,7 @@ paths:
       description: >
         Get the valid list of <b>Parts</b> persisted at the Inventory repository. Only the Parts that can be built because those that have no Coil
         will be removed from the listing.
-      operationId: getPartsV1
+      operationId: getPartsV2
       responses:
         200:
           description: >
@@ -687,7 +687,7 @@ paths:
       operationId: newRequest
       requestBody:
         description: >
-          Contains the **CustomerRequest** field values filled at the UI.
+          Contains the **CustomerRequestRequest** field values filled at the UI.
         content:
           application/json:
             schema:
@@ -714,7 +714,8 @@ paths:
       summary: Updates an Open Request instance at the persistence repository.
       description: >
         An open Request can be edited at the UI. The user can decide to reduce the number of Parts initially requested or he can add or remove
-        Parts from the Request. Once the Request is completed and closed it is not editable..
+        Parts from the Request. Once the Request is completed and closed it is not editable.
+      deprecated: true
       operationId: updateRequest
       requestBody:
         description: >
@@ -742,6 +743,7 @@ paths:
         the current stock of Parts to check for run out of instances. Complete requests continue to be marked COMPLETED.
         During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in
         the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.
+      deprecated: true
       operationId: getOpenRequests
       responses:
         200:
@@ -762,6 +764,7 @@ paths:
         Requests have no other relations with repository records so they can be deleted safely. If the user select to remove a Request because it
         should be modified of because no longer required the record ban be deleted without impact. Only OPEN Requests can be deleted. CLOSED are no
         longer available for update or deletion.
+      deprecated: true
       operationId: deleteRequest
       parameters:
         - in: path
@@ -801,28 +804,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DimensinfinError'
-  /api/v3/production/requests/open:
-    get:
-      tags:
-        - Production
-      summary: Get the list of Open Requests persisted at the repository.
-      description: >
-        Get the complete list of **Open Requests** persisted at the Production repository. Open requests are those that are in the **OPEN** or
-            **COMPLETED** states, meaning that are still on production and not delivered to the customer.
-        During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in
-            the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.
-      operationId: getOpenRequestsV3
-      responses:
-        200:
-          description: >
-            The list of Requests in the Open set of states as transformed from the repository stored copy.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CustomerRequestResponseV2'
-  #  /api/v3/production/requests/closed:
 
   /api/v2/production/requests/{requestId}/close:
     put:
@@ -833,6 +814,7 @@ paths:
         When the Request is closed is the moment where the Parts that compose the request are subtracted from the Parts inventory. The close should
         be able to close requests on the old repository and also on the new repository. So the identifier should be searched on both repositories
         to locate the right instance to be closed.
+      deprecated: true
       operationId: closeRequest
       parameters:
         - in: path
@@ -863,6 +845,116 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DimensinfinError'
+  /api/v3/production/requests/open:
+    get:
+      tags:
+        - Production
+      summary: Get the list of Open Requests persisted at the repository.
+      description: >
+        Get the complete list of **Open Requests** persisted at the Production repository. Open requests are those that are in the **OPEN** or
+            **COMPLETED** states, meaning that are still on production and not delivered to the customer.
+        During the processing each of the requests in FIFO sequence is processed against the Part stocks. If there are stocks for all the Parts in
+            the request the state changes to COMPLETED during this request. The Part stocks are updated for each Request processed.
+      operationId: getOpenRequestsV3
+      responses:
+        200:
+          description: >
+            The list of Requests in the Open set of states as transformed from the repository stored copy.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerRequestResponseV2'
+  /api/v3/production/requests/closed:
+    get:
+      tags:
+        - Production
+      summary: Get the list of Closed Requests persisted at the repository.
+      description: >
+        Returns a first pack of the *Closed* Customer Requests. A closed Request is a request that was completed and then delivered to the Customer. Because all requests over time will end on this state the list of closed requests will grow endlessly. The default implementation will deliver all the requests that are unpaid and all of them paid on the current month.
+      operationId: getClosedRequestsV3
+      responses:
+        200:
+          description: >
+            The list of Requests in the Closed set of states as transformed from the repository stored copy.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerRequestResponseV2'
+  /api/v3/production/requests/{requestId}/deliver:
+    put:
+      tags:
+        - Production
+      summary: Moves the selected Request to the DELIVERED state.
+      description: >
+        Changes the current state of the selected **Request** from the current state to the **DELIVERED** state. This change is only possible if the request is not already closed or delverend and completed if there are enough parts on the stock to fulfill the Request.
+
+
+        At this point the inventory is updated and the Request contents are substracted from the stock levels.
+      operationId: deliverRequest
+      parameters:
+        - in: path
+          name: requestId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Request we are delivering.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      responses:
+        200:
+          description: >
+            The updated Custoemr request contents at the backed repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerRequestResponseV2'
+  /api/v3/production/requests/{requestId}/charge:
+    put:
+      tags:
+        - Production
+      summary: Moves the selected Request to the PAID state.
+      description: >
+        This is the action corresponding to the Customer paying the request items. When the reques is paid is when we fix the different amounts that until this moment are baing calculated from the Request contents. This moves the Request to the final state of **CLOSED** because PAID is a virtual state that automatically transforms into CLOSED.
+      operationId: chargeRequest
+      parameters:
+        - in: path
+          name: requestId
+          required: true
+          style: simple
+          explode: false
+          description: The unique id (uuid) of the Request we are charging to the Customer.
+          schema:
+            type: string
+            format: uuid
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+      requestBody:
+        description: >
+          The body for charged requests is optional. If defined it will contain the new total amount charged to the customer and this amount is the one to be used on the Request accounting calculations.
+        content:
+          application/json:
+            schema:
+              type: number
+              format: float
+              description: >
+                This is the new total amount charged for the selected request.
+              example:
+                16.70
+      responses:
+        200:
+          description: >
+            The updated Custoemr request contents at the backed repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerRequestResponseV2'
 
   # - J O B S
   /api/v1/production/jobs/pending:
