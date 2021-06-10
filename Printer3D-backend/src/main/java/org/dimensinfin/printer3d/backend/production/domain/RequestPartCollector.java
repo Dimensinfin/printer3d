@@ -1,6 +1,7 @@
 package org.dimensinfin.printer3d.backend.production.domain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,16 +46,17 @@ public class RequestPartCollector {
 			this.requestsRepositoryV2.findAll()
 					.stream()
 					.filter( RequestEntityV2::isOpen )
+					.sorted( Comparator.comparing( RequestEntityV2::getRequestDate ) )
 					.forEach( requestEntityV2 -> {
 						// Subtract the Parts from the inventory
 						LogWrapper.info( "Processing Request: " + requestEntityV2.getId().toString() );
-						for (RequestItem content : requestEntityV2.getContents()) {
+						for (final RequestItem content : requestEntityV2.getContents()) {
 							LogWrapper.info( "Processing Content: " + content.getItemId().toString() );
 							if (content.getType() == RequestContentType.PART) {
 								stockManager.minus( content.getItemId(), content.getQuantity() ); // Subtract the request
 							}
 							if (content.getType() == RequestContentType.MODEL) {
-								for (RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
+								for (final RequestItem modelContent : this.modelBOM( content.getItemId(), content.getQuantity() )) {
 									stockManager.minus( modelContent.getItemId(), modelContent.getQuantity() ); // Subtract the request
 								}
 							}
@@ -77,12 +79,12 @@ public class RequestPartCollector {
 		final Map<UUID, Integer> contents = new HashMap<>();
 		final ModelEntity model = this.modelRepository.findById( modelId )
 				.orElseThrow( () -> new DimensinfinRuntimeException( Printer3DErrorInfo.errorMODELNOTFOUND( modelId ) ) );
-		for (UUID contentId : model.getPartIdList()) {
+		for (final UUID contentId : model.getPartIdList()) {
 			contents.putIfAbsent( contentId, 0 );
 			contents.put( contentId, contents.get( contentId ) + 1 );
 		}
 		final List<RequestItem> resultContents = new ArrayList<>();
-		for (Map.Entry<UUID, Integer> targetContent : contents.entrySet())
+		for (final Map.Entry<UUID, Integer> targetContent : contents.entrySet())
 			resultContents.add( new RequestItem.Builder()
 					.withItemId( targetContent.getKey() )
 					.withQuantity( targetContent.getValue() * modelQuantity )
