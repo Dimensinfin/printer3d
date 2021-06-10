@@ -362,13 +362,23 @@ Feature: [FEATURE] Manage the interactions with the Request entity. Requests hav
         And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] is not on the correct state to perform the requested operation."
 
     @B3D08.E @B3D08.E.04
-    Scenario: [B3D08.E.04] When completing a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
+    Scenario: [B3D08.E.04] When delivering a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on
     another session).
-        When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa" is processed
+            # - Create the request
+        Given the next Request Contents List
+            | itemId                               | type  | quantity |
+            | 9b8a20ba-259c-4ee9-9478-19354e75dcd1 | MODEL | 1        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                             | requestDate              | total | state |
+            | 9d656f6e-d6c7-4783-91d8-984543900a53 | Primera parte pedido URBAN DIGIT. | 2021-05-12T10:00:00.000Z | 35    | OPEN  |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
+            # - Deliver the request
+        When the Deliver Request endpoint is called for Request "9d656f6e-d6c7-4783-91d8-984543900000"
         Then there is a exception response with return code of "404 NOT_FOUND"
         And the exception response name is "REQUEST_NOT_FOUND"
-        And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8aaa] not found at the repository."
-        And the exception response has the cause "No Request found while trying to complete the Request."
+        And the exception response has the message "Request record with id [9d656f6e-d6c7-4783-91d8-984543900000] not found at the repository."
+        And the exception response has the cause "No Request found while trying to deliver the Request."
 
     @B3D08.E @B3D08.E.05
     Scenario: [B3D08.E.05] When deleting a Request we can raise the NOT FOUND exception of the request is not on the repository (deleted on

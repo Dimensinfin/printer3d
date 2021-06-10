@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.support.production.request;
+package org.dimensinfin.printer3d.backend.support.production.request.converter;
 
 import java.util.Map;
 import java.util.UUID;
@@ -17,7 +17,7 @@ public class CucumberTableToRequestItemConverter extends CucumberTableConverter<
 	public RequestItem convert( final Map<String, String> cucumberRow ) {
 		return new RequestItem.Builder()
 				.withItemId( UUID.fromString( cucumberRow.get( ITEM_ID ) ) )
-				.withType( RequestContentType.valueOf( cucumberRow.get(TYPE) ) )
+				.withType( RequestContentType.valueOf( cucumberRow.get( TYPE ) ) )
 				.withQuantity( Integer.parseInt( cucumberRow.get( QUANTITY ) ) )
 				.build();
 	}

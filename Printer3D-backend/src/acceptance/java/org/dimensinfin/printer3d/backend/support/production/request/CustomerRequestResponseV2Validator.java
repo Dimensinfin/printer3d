@@ -6,12 +6,13 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 
 import org.dimensinfin.acceptance.support.Validator;
+import org.dimensinfin.printer3d.backend.support.core.CommonValidator;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestResponseV2;
 
 import static io.micrometer.core.instrument.Statistic.TOTAL;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.AMOUNT;
-import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.COMPLETED_DATE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.CUSTOMER;
+import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.DELIVERED_DATE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.ID;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.IVA;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.LABEL;
@@ -20,7 +21,7 @@ import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapC
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.REQUEST_DATE;
 import static org.dimensinfin.printer3d.backend.support.core.AcceptanceFieldMapConstants.STATE;
 
-public class CustomerRequestResponseV2Validator implements Validator<CustomerRequestResponseV2> {
+public class CustomerRequestResponseV2Validator extends CommonValidator implements Validator<CustomerRequestResponseV2> {
 
 	@Override
 	public boolean validate( final Map<String, String> rowData, final CustomerRequestResponseV2 record ) {
@@ -31,25 +32,14 @@ public class CustomerRequestResponseV2Validator implements Validator<CustomerReq
 				Instant.parse( rowData.get( REQUEST_DATE ) ),
 				Instant.parse( record.getRequestDate().toString() )
 		);
-		//		if (null != rowData.get( COMPLETED_DATE )) {
-		//			if (rowData.get( COMPLETED_DATE ).equalsIgnoreCase( "<today>" ))
-		//				Assertions.assertTrue( record.getCompletedDate().startsWith(
-		//						Instant.now().toString().substring( 0, 15 )
-		//						)
-		//				);
-		//			else
-		//				Assertions.assertEquals(
-		//						Instant.parse( rowData.get( COMPLETED_DATE ) ),
-		//						Instant.parse( record.getCompletedDate() )
-		//				);
-		//		}
-		if (null != rowData.get( COMPLETED_DATE )) Assertions.assertEquals(
-				Instant.parse( rowData.get( COMPLETED_DATE ) ),
-				Instant.parse( record.getCompletedDate().toString() )
+		//		fieldValidation(DELIVERED_DATE)
+		if (null != rowData.get( DELIVERED_DATE )) Assertions.assertEquals(
+				this.cucumberDataReplacer( rowData.get( DELIVERED_DATE ), record.getDeliveredDate().toString() ),
+				record.getDeliveredDate().toString()
 		);
 		if (null != rowData.get( PAYMENT_DATE )) Assertions.assertEquals(
-				Instant.parse( rowData.get( PAYMENT_DATE ) ),
-				Instant.parse( record.getPaymentDate().toString() )
+				this.cucumberDataReplacer( rowData.get( PAYMENT_DATE ), record.getPaymentDate().toString() ),
+				record.getPaymentDate().toString()
 		);
 		if (null != rowData.get( STATE )) Assertions.assertEquals( rowData.get( STATE ), record.getState().name() );
 		if (null != rowData.get( PAID )) Assertions.assertEquals( Boolean.parseBoolean( rowData.get( PAID ) ), record.isPaid() );
