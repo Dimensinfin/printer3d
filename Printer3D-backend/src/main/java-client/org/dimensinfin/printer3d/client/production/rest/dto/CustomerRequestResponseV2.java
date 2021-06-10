@@ -14,7 +14,7 @@ public class CustomerRequestResponseV2 {
 	private String label;
 	private String customer;
 	private Instant requestDate;
-	private Instant completedDate;
+	private Instant deliveredDate;
 	private Instant paymentDate;
 	private RequestState state = RequestState.OPEN;
 	private boolean paid = false;
@@ -36,15 +36,6 @@ public class CustomerRequestResponseV2 {
 		return this;
 	}
 
-	public Instant getCompletedDate() {
-		return this.completedDate;
-	}
-
-	public CustomerRequestResponseV2 setCompletedDate( final Instant completedDate ) {
-		this.completedDate = completedDate;
-		return this;
-	}
-
 	public List<RequestItem> getContents() {
 		return this.contents;
 	}
@@ -60,6 +51,15 @@ public class CustomerRequestResponseV2 {
 
 	public CustomerRequestResponseV2 setCustomer( final String customer ) {
 		this.customer = customer;
+		return this;
+	}
+
+	public Instant getDeliveredDate() {
+		return this.deliveredDate;
+	}
+
+	public CustomerRequestResponseV2 setDeliveredDate( final Instant deliveredDate ) {
+		this.deliveredDate = deliveredDate;
 		return this;
 	}
 
@@ -134,17 +134,4 @@ public class CustomerRequestResponseV2 {
 		this.paid = paid;
 		return this;
 	}
-	//	// - B U I L D E R
-	//	public static class Builder {
-	//		private final CustomerRequestResponseV2 onConstruction;
-	//
-	//		// - C O N S T R U C T O R S
-	//		public Builder() {
-	//			this.onConstruction = new CustomerRequestResponseV2();
-	//		}
-	//
-	//		public CustomerRequestResponseV2 build() {
-	//			return this.onConstruction;
-	//		}
-	//	}
 }

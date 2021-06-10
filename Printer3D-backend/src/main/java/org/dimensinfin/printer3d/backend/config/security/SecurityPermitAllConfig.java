@@ -28,6 +28,7 @@ public class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * This configuration disables the security completely but leaving active the CORS detection.
+	 * The other bean determines the correct CORS configuration.
 	 *
 	 * @param http the security service
 	 */

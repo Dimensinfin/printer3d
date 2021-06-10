@@ -111,6 +111,9 @@ public class RequestServiceV2 extends CommonRequestService {
 	/**
 	 * Creates a new Customer Request on the initial state with the minimum fields. The initial Request can have two states, one the default and
 	 * another where the request is pre paid.
+	 * None of the Request fields is generated at the backend so it can happen that the request unique id is already in use by another request. This
+	 * will generate a 409 CONFLICT response because of the already existing request with the same id.
+	 * Other exceptions that can be generates should be intercepted and converted to the application specific 400 BAD_REQUEST message.
 	 *
 	 * @param newRequest the new request Customer Request data.
 	 * @return the persisted Customer request.

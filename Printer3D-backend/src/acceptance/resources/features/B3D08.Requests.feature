@@ -316,21 +316,21 @@ Feature: [FEATURE] Manage the interactions with the Request entity. Requests hav
 
     # - E X C E P T I O N S
     @B3D08.E @B3D08.E.01
-    Scenario: [B3D08.E.01] Before closing a Request we have to be sure there are enough Parts on stock. If not raise an exception.
-        And the next Request Contents List
+    Scenario: [B3D08.E.01] Before delivering a Request we have to be sure there are enough Parts on stock. If not raise an exception.
+            # - Create the request
+        Given the next Request Contents List
             | itemId                               | type  | quantity |
-            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
-            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
+            | 9b8a20ba-259c-4ee9-9478-19354e75dcd1 | MODEL | 3        |
         And creating the next Request V2 with previous Contents
-            | id                                   | label                          | requestDate                 | state |
-            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | 2020-06-29T20:00:00.226181Z | OPEN  |
+            | id                                   | label                             | requestDate              | total | state |
+            | 9d656f6e-d6c7-4783-91d8-984543900a53 | Primera parte pedido URBAN DIGIT. | 2021-05-12T10:00:00.000Z | 35    | OPEN  |
         When the New Request V2 request is processed
         Then there is a valid response with return code of "201 CREATED"
-
-        When the Complete Request request for request "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a" is processed
+            # - Deliver the request
+        When the Deliver Request endpoint is called for Request "9d656f6e-d6c7-4783-91d8-984543900a53"
         Then there is a exception response with return code of "409 CONFLICT"
         And the exception response name is "REQUEST_CANNOT_BE_FULFILLED"
-        And the exception response has the message "Request record with id [d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a] has not enough resources to be completed. Obsolete state."
+        And the exception response has the message "Request record with id [9d656f6e-d6c7-4783-91d8-984543900a53] has not enough resources to be completed. Obsolete state."
 
     @B3D08.E @B3D08.E.02
     Scenario: [B3D08.E.02] If there are missing fields on the request of they do fail any of the validations then we report a reject exception.
