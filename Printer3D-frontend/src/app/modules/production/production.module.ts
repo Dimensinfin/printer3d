@@ -26,6 +26,7 @@ import { V1CommonRequestsPanelComponent } from './panels/v1-common-requests-pane
 import { PayConfirmationDialogComponent } from './dialogs/pay-confirmation-dialog/pay-confirmation-dialog.component';
 import { V1EditRequestPageComponent } from './pages/v1-edit-request-page/v1-edit-request-page.component';
 import { V1EditRequestPanelComponent } from './panels/v1-edit-request-panel/v1-edit-request-panel.component';
+import { V2ProductionJobListPageComponent } from './pages/v2-production-job-list-page/v2-production-job-list-page.component';
 
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
@@ -33,7 +34,7 @@ const routes: Routes = [
     { path: 'editrequest/:requestid', component: V1EditRequestPageComponent },
     { path: 'requestlist/open', component: V1OpenRequestsPageComponent },
     { path: 'requestlist/closed', component: V1ClosedRequestsPageComponent },
-    { path: 'pendingjobs', component: ProductionJobListPageComponent }
+    { path: 'pendingjobs', component: V2ProductionJobListPageComponent }
 ];
 
 @NgModule({
@@ -61,7 +62,8 @@ const routes: Routes = [
         V1CommonRequestsPanelComponent,
         PayConfirmationDialogComponent,
         V1EditRequestPageComponent,
-        V1EditRequestPanelComponent
+        V1EditRequestPanelComponent,
+        V2ProductionJobListPageComponent
     ],
     exports: [
         ProductionJobListPageComponent,
