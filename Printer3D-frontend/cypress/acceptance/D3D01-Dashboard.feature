@@ -41,4 +41,4 @@ Feature: [D3D01]-When the application starts show the dashboard page with the he
         When the application completes loading
         When the application starts the default route is "/DASHBOARD"
         Given the target is the panel of type "work-load"
-        Then the target panel has a field named "work-load" with label "TOTAL MINUTOS" and contents "1207H50M"
+        Then field named "work-load" with label "TOTAL MINUTOS" has contents "1207H50M"
