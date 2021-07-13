@@ -29,7 +29,7 @@ import { BackendService } from '@app/services/backend.service';
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
 import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog.component';
 
-describe('COMPONENT DeleteConfirmationDialogComponent [Module: PRODUCTION]', () => {
+xdescribe('COMPONENT DeleteConfirmationDialogComponent [Module: PRODUCTION]', () => {
     let component: DeleteConfirmationDialogComponent;
     let fixture: ComponentFixture<DeleteConfirmationDialogComponent>;
     let backendService: SupportBackendService

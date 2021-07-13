@@ -24,7 +24,7 @@ import { DockService } from '@app/modules/innovative/feature-dock/service/dock.s
 import { SupportDockService } from '@app/testing/SupportDock.service'
 import { RequestForm } from '../../domain/RequestForm.domain'
 
-describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
+xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
     let fixture: ComponentFixture<V1NewRequestPanelComponent>
     let component: V1NewRequestPanelComponent
     let isolationService: SupportIsolationService

@@ -198,10 +198,10 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                 .subscribe((response: MachineV2[]) => {
                     console.log(response)
                     expect(response).toBeDefined()
-                    expect(response.length).toBe(4)
+                    expect(response.length).toBe(8)
                     expect(response[0]).toBeDefined()
                     expect(response[0] instanceof MachineV2)
-                    expect(response.length).toBe(4, 'Number of Machines do not match.')
+                    expect(response.length).toBe(8, 'Number of Machines do not match.')
                 })
         })
         it('apiMachinesStartBuild_v2.default: start a build jot on a Machine', async () => {
@@ -274,33 +274,33 @@ describe('SERVICE BackendService [Module: CORE]', () => {
                     expect(response.length).toBe(255, 'Number of Jobs do not match')
                 })
         })
-        it('apiProductionGetOpenRequests_v2.default: get the list jobs required to level the stocks', async () => {
-            service.apiProductionGetOpenRequests_v2(new TestContentProvider(service))
-                .subscribe((response: any) => {
-                    expect(response).toBeDefined()
-                    expect(response.length).toBe(0)
-                    expect(response[0] instanceof CustomerRequest)
-                })
-        })
-        it('apiProductionRequestsClose_v2.default: complete a request', async () => {
-            const requestId: string = "-REQUEST-ID-"
-            service.apiProductionRequestsClose_v2(requestId)
-                .subscribe((response: CustomerRequest) => {
-                    expect(response).toBeDefined()
-                    expect(response instanceof CustomerRequest)
-                })
-        })
-        it('apiProductionDeleteRequest_v1.default: delete a request', async () => {
-            const requestId: string = "-REQUEST-ID-"
-            service.apiProductionDeleteRequest_v2(requestId, new ResponseTransformer().setDescription('Transforms Request form backend.')
-                .setTransformation((entrydata: any): CustomerRequest => {
-                    return new CustomerRequest(entrydata)
-                }))
-                .subscribe((response: CustomerRequest) => {
-                    expect(response).toBeDefined()
-                    expect(response instanceof CustomerRequest)
-                })
-        })
+        // it('apiProductionGetOpenRequests_v2.default: get the list jobs required to level the stocks', async () => {
+        //     service.apiProductionGetOpenRequests_v2(new TestContentProvider(service))
+        //         .subscribe((response: any) => {
+        //             expect(response).toBeDefined()
+        //             expect(response.length).toBe(0)
+        //             expect(response[0] instanceof CustomerRequest)
+        //         })
+        // })
+        // it('apiProductionRequestsClose_v2.default: complete a request', async () => {
+        //     const requestId: string = "-REQUEST-ID-"
+        //     service.apiProductionRequestsClose_v2(requestId)
+        //         .subscribe((response: CustomerRequest) => {
+        //             expect(response).toBeDefined()
+        //             expect(response instanceof CustomerRequest)
+        //         })
+        // })
+        // it('apiProductionDeleteRequest_v1.default: delete a request', async () => {
+        //     const requestId: string = "-REQUEST-ID-"
+        //     service.apiProductionDeleteRequest_v2(requestId, new ResponseTransformer().setDescription('Transforms Request form backend.')
+        //         .setTransformation((entrydata: any): CustomerRequest => {
+        //             return new CustomerRequest(entrydata)
+        //         }))
+        //         .subscribe((response: CustomerRequest) => {
+        //             expect(response).toBeDefined()
+        //             expect(response instanceof CustomerRequest)
+        //         })
+        // })
     })
     describe('Code Coverage Phase [ACCOUNTING]', () => {
         it('apiNewRequest_v2.default: get the persisted part', async () => {

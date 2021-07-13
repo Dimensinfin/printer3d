@@ -1,5 +1,6 @@
 // - CORE
 import { Component, Input } from '@angular/core'
+import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform'
 // - DOMAIN
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
 
@@ -9,7 +10,7 @@ import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
     styleUrls: ['./v1-request-detail-panel.component.scss']
 })
 export class V1RequestDetailPanelComponent {
-    @Input() variant: string = '-DEFAULT-'
+    @Input() variant: string = Printer3DConstants.DEFAULT_VARIANT
     public selectedRequest: CustomerRequest
     public container: V1RequestDetailPanelComponent
 

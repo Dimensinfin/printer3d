@@ -5,7 +5,9 @@ export const Printer3DConstants = {
     JWTTOKEN_KEY: '-JWTTOKEN_KEY-',
     JWTTOKEN_EXPIRATION_TIME_KEY: '-JWTTOKEN_EXPIRATION_TIME_KEY-',
     DEFAULT_PROJECT_NAME: '<DEFAULT>',
+    DEFAULT_VARIANT: '-DEFAULT-',
     IVA_TAX: 0.21,
+    COPYRIGHT: '© 2020 Dimensinfin Industries',
     // - E N D P O I N T   P A T H   C O N S T A N T S
     BACKENDPATH: '',
     APIVERSION1: '/api/v1',
@@ -13,5 +15,4 @@ export const Printer3DConstants = {
     APIVERSION3: '/api/v3',
     APPSIGNATURE: "S000.01.001-20200518",
     PLATFORM: 'Angular 9.1.7 - RxJs 6.5.4 - Rollbar 2.16.1',
-    COPYRIGHT: '© 2020 Dimensinfin Industries',
 }
