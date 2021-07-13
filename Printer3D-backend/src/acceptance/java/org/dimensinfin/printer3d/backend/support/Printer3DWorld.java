@@ -15,7 +15,6 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.MachineV2;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Model;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.ModelRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.PartList;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateCoilRequest;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.UpdateGroupPartRequest;
 import org.dimensinfin.printer3d.client.production.rest.dto.CustomerRequestRequestV2;
@@ -28,8 +27,6 @@ public class Printer3DWorld extends CommonWorld {
 	private DimensinfinRuntimeException applicationException;
 	private Part part;
 	private ResponseEntity<Part> partResponseEntity;
-	@Deprecated
-	private ResponseEntity<PartList> partListResponseEntity;
 	private Coil coil;
 	private ResponseEntity<Coil> coilResponseEntity;
 	private ResponseEntity<FinishingsResponse> finishingsResponseEntity;
@@ -264,17 +261,6 @@ public class Printer3DWorld extends CommonWorld {
 
 	public Printer3DWorld setPartId( final UUID partId ) {
 		this.partId = partId;
-		return this;
-	}
-
-	@Deprecated
-	public ResponseEntity<PartList> getPartListResponseEntity() {
-		return this.partListResponseEntity;
-	}
-
-	@Deprecated
-	public Printer3DWorld setPartListResponseEntity( final ResponseEntity<PartList> partListResponseEntity ) {
-		this.partListResponseEntity = partListResponseEntity;
 		return this;
 	}
 

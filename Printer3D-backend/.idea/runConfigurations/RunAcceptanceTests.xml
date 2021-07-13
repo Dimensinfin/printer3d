@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="RunAcceptanceTests" type="JUnit" factoryName="JUnit">
-    <module name="Dimensinfin3D.Printer3D-backend.acceptance" />
+    <module name="Printer3D-backend.acceptance" />
     <useClassPathOnly />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" value="11-OpenJDK" />
