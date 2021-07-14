@@ -1,13 +1,11 @@
 export class BackendInfoResponse {
-    // private version: string;
-    private build: any;
-    // private ff: string="gghwfj"
+    private build: any
 
     constructor(values: Object = {}) {
-        Object.assign(this, values);
+        Object.assign(this, values)
     }
 
     public getVersion(): string {
-        return '<' + this.build.version + ' backend';
+        return '<' + this.build.version + ' backend'
     }
 }

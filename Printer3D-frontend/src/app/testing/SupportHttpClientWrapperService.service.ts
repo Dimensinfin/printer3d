@@ -1,15 +1,9 @@
 // - CORE
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
 // - HTTP PACKAGE
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 // - SERVICES
-import { IsolationService } from '@app/platform/isolation.service';
-import { includes } from 'cypress/types/lodash';
 // - DOMAIN
 
 @Injectable({
