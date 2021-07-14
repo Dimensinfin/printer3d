@@ -12,6 +12,7 @@ export class RequestForm {
     public requestDate: Date = new Date()
     public contents: RequestItem[] = []
     public paid: boolean = false
+    private total: number
 
     constructor(values: Object = {}) {
         Object.assign(this, values)
@@ -35,6 +36,9 @@ export class RequestForm {
         for (const content of this.contents)
             count += content.getQuantity()
         return count
+    }
+    public setTotal(newTotal: number): void {
+        this.total = newTotal
     }
 
     // - I N T E R A C T I O N S

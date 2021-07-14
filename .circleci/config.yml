@@ -498,7 +498,7 @@ jobs:
           working_directory: Printer3D-backend
           environment:
             PORT: 5121
-            DATABASE_URL: "jdbc:postgresql://0.0.0.0:5432/postgres"
+            DATABASE_URL: "jdbc:postgresql://0.0.0.0:5131/postgres"
             DB_USER: inno-user
             DB_PASSWORD: inno-password
             NEOCOM_BANNER_LOCATION: "./build/resources/main/app-banner.txt"
