@@ -529,6 +529,13 @@ jobs:
           environment:
             DEFAULT_BACKEND_SERVER: 'http://localhost'
             DEFAULT_BACKEND_PORT: 5121
+            PORT: 5121
+            DATABASE_URL: "jdbc:postgresql://0.0.0.0:5131/postgres"
+            DB_USER: inno-user
+            DB_PASSWORD: inno-password
+            NEOCOM_BANNER_LOCATION: "./build/resources/main/app-banner.txt"
+            SPRING_PROFILES_ACTIVE: acceptance
+            DOCKERIZE_VERSION: v0.3.0
           command: |
             ./gradlew integrationTest --info
   acceptancetest-backend-job:
