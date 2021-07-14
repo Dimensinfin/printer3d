@@ -110,8 +110,8 @@ task integrationTest(type: Test) {
     environment "SPRING_PROFILES_ACTIVE", "dev"
     environment "PORT", "5123"
     environment "DATABASE_URL", "jdbc:postgresql://0.0.0.0:5131/postgres"
-    environment "DB_USER", "adamantinoo"
-    environment "DB_PASSWORD", "z.iliada.2020"
+    environment "DB_USER", "printer3d-user"
+    environment "DB_PASSWORD", "printer3d-password"
     environment "NEOCOM_BANNER_LOCATION", "./build/resources/main/app-banner.txt"
     testClassesDirs = sourceSets.integration.output.classesDirs
     classpath = sourceSets.integration.runtimeClasspath
