@@ -109,7 +109,7 @@ task integrationTest(type: Test) {
     group = 'verification'
     environment "SPRING_PROFILES_ACTIVE", "dev"
     environment "PORT", "5123"
-    environment "DATABASE_URL", "jdbc:postgresql://0.0.0.0:5432/postgres"
+    environment "DATABASE_URL", "jdbc:postgresql://0.0.0.0:5131/postgres"
     environment "DB_USER", "adamantinoo"
     environment "DB_PASSWORD", "z.iliada.2020"
     environment "NEOCOM_BANNER_LOCATION", "./build/resources/main/app-banner.txt"
