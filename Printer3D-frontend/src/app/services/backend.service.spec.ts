@@ -399,7 +399,7 @@ describe('SERVICE BackendService [Module: CORE]', () => {
         //         })
         // })
     })
-    describe('Code Coverage Phase [ACCOUNTING]', () => {
+    xdescribe('Code Coverage Phase [ACCOUNTING]', () => {
         it('apiNewRequest_v2.default: get the persisted part', async () => {
             service.apiAccountingRequestAmountsPerWeek_v1(4, new ResponseTransformer().setDescription('Transforms data into WeekAmount.')
                 .setTransformation((entrydata: any): any => {

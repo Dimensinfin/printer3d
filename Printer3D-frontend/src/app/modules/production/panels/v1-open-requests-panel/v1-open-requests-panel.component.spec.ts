@@ -5,6 +5,7 @@ import { async, fakeAsync, tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { BackendService } from '@app/services/backend.service'
+import { ProductionService } from '../../service/production.service'
 // - DOMAIN
 import { EVariant, RequestContentType } from '@domain/interfaces/EPack.enumerated'
 import { V1OpenRequestsPanelComponent } from './v1-open-requests-panel.component'
@@ -14,15 +15,19 @@ import { Model } from '@domain/inventory/Model.domain'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
 import { Observable } from 'rxjs'
-// import { DataToRequestConverter } from '@app/modules/production/domain/DataToRequest.converter'
+import { CustomerRequestResponse } from '../../domain/dto/CustomerRequestResponse.dto'
+import { DataToRequestConverter } from '../../converter/DataToRequest.converter'
 
-xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
+describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
     let component: V1OpenRequestsPanelComponent
     let isolationService: SupportIsolationService = new SupportIsolationService()
     let backendService = {
         apiv2_InventoryGetParts: () => { },
         apiInventoryGetModels_v1: (provider) => { },
         apiProductionGetOpenRequests_v2: (provider) => { }
+    }
+    let productionService = {
+        apiv3_ProductionGetOpenRequests: (provider) => { }
     }
 
     beforeEach(async(() => {
@@ -34,7 +39,8 @@ xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
                 V1OpenRequestsPanelComponent,
             ],
             providers: [
-                { provide: BackendService, useValue: backendService }
+                { provide: BackendService, useValue: backendService },
+                { provide: ProductionService, useValue: productionService },
             ]
         }).compileComponents()
 
@@ -50,8 +56,6 @@ xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
         it('Initial state', () => {
             expect(component).toBeDefined('component has not been created.')
             const componentAsAny = component as any
-            expect(componentAsAny.backendConnections).toBeDefined()
-            expect(componentAsAny.backendConnections.length).toBe(0)
             expect(component.page).toBeUndefined()
             expect(componentAsAny.parts).toBeDefined()
             expect(componentAsAny.parts.length).toBe(0)
@@ -62,7 +66,7 @@ xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
 
     // - O N I N I A T I Z A T I O N   P H A S E
     describe('On Initialization Phase', () => {
-        xit('ngOnInit: validate initialization flow', fakeAsync(() => {
+        it('ngOnInit: validate initialization flow', fakeAsync(() => {
             const componentAsAny = component as any
             console.log('step.01')
             expect(componentAsAny.backendConnections.length).toBe(0)
@@ -106,29 +110,27 @@ xdescribe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
                         }, 100)
                     })
                 })
-            // spyOn(backendService, 'apiProductionGetOpenRequests_v2').and
-            //     .callFake(function (provider) {
-            //         console.log('step.05.b')
-            //         const transformer = new ResponseTransformer()
-            //             .setDescription('Transforms response into a list of Requests.')
-            //             .setTransformation((entrydata: any): CustomerRequest[] => {
-            //                 console.log('-[V1OpenRequestsPanelComponent.downloadRequests]>Processing Requests')
-            //                 // Extract requests from the response and convert them to the Request V2 format. Resolve contents id references.
-            //                 const requestList: CustomerRequest[] = []
-            //                 console.log('step.06')
-            //                 const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
-            //                 for (let index = 0; index < entrydata.length; index++) {
-            //                     console.log('step.07')
-            //                     requestList.push(requestConverter.convert(entrydata[index]))
-            //                 }
-            //                 return requestList
-            //             })
-            //         return new Observable(observer => {
-            //             setTimeout(() => {
-            //                 observer.next(transformer.transform(isolationService.directAccessTestResource('production.openrequests.v2')))
-            //             }, 100)
-            //         })
-            //     })
+            spyOn(productionService, 'apiv3_ProductionGetOpenRequests').and
+                .callFake(function (provider) {
+                    console.log('step.05.b')
+                    const transformer = new ResponseTransformer()
+                        .setDescription('Transforms response into a list of "CustomerRequests".')
+                        .setTransformation((entrydata: any): CustomerRequestResponse[] => {
+                            console.log('-[ProductionService.apiv2_ProductionGetOpenRequests]>Processing Requests')
+                            // Extract requests from the response and convert them to the CustomerRequest V2 format. Resolve contents id references.
+                            const requestList: CustomerRequestResponse[] = []
+                            const requestConverter: DataToRequestConverter = new DataToRequestConverter(provider)
+                            for (let index = 0; index < entrydata.length; index++) {
+                                requestList.push(requestConverter.convert(entrydata[index]))
+                            }
+                            return requestList
+                        })
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(transformer.transform(isolationService.directAccessTestResource('production.openrequests.v3')))
+                        }, 100)
+                    })
+                })
             console.log('step.02')
             component.ngOnInit()
             tick(1000)

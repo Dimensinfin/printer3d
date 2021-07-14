@@ -1,18 +1,14 @@
 // - CORE
 import { Component, OnInit, Input } from '@angular/core'
-import { Subscription } from 'rxjs'
 // - SERVICES
 import { BackendService } from '@app/services/backend.service'
 // - DOMAIN
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
 import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component'
-import { PartListResponse } from '@domain/dto/PartListResponse.dto'
 import { Part } from '@domain/inventory/Part.domain'
 import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
 import { V1OpenRequestsPageComponent } from '../../pages/v1-open-requests-page/v1-open-requests-page.component'
 import { Model } from '@domain/inventory/Model.domain'
-// import { DataToRequestConverter } from '@app/modules/production/domain/DataToRequest.converter'
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
 import { IContent } from '@domain/interfaces/IContent.interface'
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface'
@@ -32,7 +28,8 @@ export class V1OpenRequestsPanelComponent extends AppPanelComponent implements O
     private parts: Part[] = []
     private models: Model[] = []
 
-    constructor(protected productionService: ProductionService,
+    constructor(
+        protected productionService: ProductionService,
         protected backendService: BackendService) {
         super()
     }

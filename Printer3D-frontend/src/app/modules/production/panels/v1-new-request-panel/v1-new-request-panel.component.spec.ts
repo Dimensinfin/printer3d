@@ -1,8 +1,10 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
+import { Observable } from 'rxjs'
 // - TESTING
-import { async } from '@angular/core/testing'
+import { async, fakeAsync, tick } from '@angular/core/testing'
 import { ComponentFixture } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -12,24 +14,36 @@ import { Location } from "@angular/common"
 import { IsolationService } from '@app/platform/isolation.service'
 import { BackendService } from '@app/services/backend.service'
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
-import { SupportBackendService } from '@app/testing/SupportBackend.service'
+import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
+import { SupportHttpClientWrapperService } from '@app/testing/SupportHttpClientWrapperService.service'
+import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service'
+import { ProductionService } from '../../service/production.service'
 // - DOMAIN
 import { V1NewRequestPanelComponent } from './v1-new-request-panel.component'
 import { Part } from '@domain/inventory/Part.domain'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Model } from '@domain/inventory/Model.domain'
 import { RequestItem } from '@domain/production/RequestItem.domain'
 import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
-import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
-import { SupportDockService } from '@app/testing/SupportDock.service'
 import { RequestForm } from '../../domain/RequestForm.domain'
 
-xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
+describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
     let fixture: ComponentFixture<V1NewRequestPanelComponent>
     let component: V1NewRequestPanelComponent
     let isolationService: SupportIsolationService
     let location: Location
     let router: Router
+    let backendService = {
+        apiv2_InventoryGetParts: () => { },
+        apiInventoryGetModels_v1: (provider) => { },
+        apiProductionGetOpenRequests_v2: (provider) => { },
+        apiNewRequest_v2: () => { }
+    }
+    let productionService = {
+        apiv2_ProductionNewRequest: () => { }
+    }
+    let dockService = {
+        clean: () => { }
+    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -44,21 +58,26 @@ xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
             ],
             providers: [
                 { provide: IsolationService, useClass: SupportIsolationService },
-                { provide: BackendService, useClass: SupportBackendService },
-                { provide: DockService, useClass: SupportDockService }
+                { provide: BackendService, useValue: backendService },
+                { provide: ProductionService, useValue: productionService },
+                { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService },
+                { provide: DockService, useValue: dockService }
             ]
         }).compileComponents()
 
         fixture = TestBed.createComponent(V1NewRequestPanelComponent)
         component = fixture.componentInstance
-        isolationService = TestBed.get(SupportIsolationService)
-        location = TestBed.get(Location)
-        router = TestBed.get(Router)
+        isolationService = TestBed.inject(SupportIsolationService)
+        location = TestBed.inject(Location)
+        router = TestBed.inject(Router)
         router.initialNavigation()
     }))
 
     // - C O N S T R U C T I O N   P H A S E
     describe('Construction Phase', () => {
+        it('Should be created', () => {
+            expect(component).toBeDefined('component has not been created.')
+        })
         it('constructor.none: validate initial state without constructor', () => {
             expect(component).toBeDefined('component has not been created.')
             expect(component.self).toBeDefined()
@@ -67,7 +86,7 @@ xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
     })
 
     // - C O D E   C O V E R A G E   P H A S E
-    describe('Code Coverage Phase [Methods]', () => {
+    describe('Code Coverage Phase [Getters]', () => {
         it('getRequestDate: get the request date to be used when saving the Request', () => {
             expect(component.getRequestDate()).toBeDefined()
         })
@@ -86,7 +105,7 @@ xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
             component.onDrop({ dragData: new Part({ id: 'eae3112d-b16d-49ad-8a88-1d15aa0592ab', price: 10 }) })
             component.onDrop({ dragData: new Part({ id: 'eae3112d-b16d-49ad-8a88-1d15aa0592ab', price: 10 }) })
             component.onDrop({ dragData: new Part({ id: 'eae3112d-b16d-49ad-8a88-1d15aa0592ab', price: 10 }) })
-            expect(component.getRequestAmount()).toBe('30 €')
+            expect(component.getRequestAmount()).toBe('30€')
         })
         it('getRequestContents.Part: get the contents associated to the Request', () => {
             expect(component.getRequestContents()).toBeDefined()
@@ -114,6 +133,8 @@ xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
             expect(component.isFormValid(true)).toBeTrue()
             expect(component.isFormValid(false)).toBeFalse()
         })
+    })
+    describe('Code Coverage Phase [Interactions]', () => {
         it('onDrop: validate the drop of elements', () => {
             expect(component.getRequestContents().length).toBe(0)
             component.onDrop({ dragData: new Part({ id: "5f27847f-2951-49fb-ae2d-2b7cc8728dd1" }) })
@@ -146,37 +167,28 @@ xdescribe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
             component.removeContent(item)
             expect(component.getRequestContents().length).toBe(1)
         })
-        it('saveRequest.success: save the Request to the backend', async () => {
-            jasmine.clock().install()
+        it('saveRequest.success: save the Request to the backend', fakeAsync(() => {
+            spyOn(productionService, 'apiv2_ProductionNewRequest').and
+                .callFake(function () {
+                    return new Observable(observer => {
+                        setTimeout(() => {
+                            observer.next(isolationService.directAccessTestResource('newrequest.v2'))
+                        }, 100)
+                    })
+                })
             const componentAsAny = component as any
             expect(componentAsAny.backendConnections.length).toBe(0)
-            fixture.ngZone.run(() => {
-                component.saveRequest()
-                jasmine.clock().tick(200)
-                expect(componentAsAny.backendConnections.length).toBe(1)
-                expect(location.path()).toBe('/')
-            })
-            jasmine.clock().uninstall()
-        })
-        xit('saveRequest.error: save the Request to the backend', async () => {
-            jasmine.clock().install()
-            const componentAsAny = component as any
-            expect(componentAsAny.backendConnections.length).toBe(0)
-            spyOn(componentAsAny.backendService, 'apiNewRequest_v2').and.throwError('-ERROR-MESSAGE-')
-            spyOn(componentAsAny.isolationService, 'processException')
-            fixture.ngZone.run(() => {
-                component.saveRequest()
-                jasmine.clock().tick(200)
-                expect(componentAsAny.backendConnections.length).toBe(1)
-                expect(componentAsAny.isolationService.processException).toHaveBeenCalled()
-            })
-            jasmine.clock().uninstall()
-        })
-        it('cancelRequest: cancel the request', () => {
-            fixture.ngZone.run(() => {
-                component.cancelRequest()
-                expect(location.path()).toBe('/')
-            })
-        })
+            component.saveRequest()
+            tick(1000)
+            expect(componentAsAny.backendConnections.length).toBe(1)
+            expect(location.path()).toBe('/')
+        }))
+        it('cancelRequest: cancel the request', fakeAsync(() => {
+            spyOn(dockService, 'clean')
+            component.cancelRequest()
+            tick(1000)
+            expect(location.path()).toBe('/')
+            expect(dockService.clean).toHaveBeenCalled()
+        }))
     })
 })

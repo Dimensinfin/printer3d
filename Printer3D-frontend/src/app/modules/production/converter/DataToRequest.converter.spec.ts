@@ -1,8 +1,13 @@
 // - DOMAIN
-import { IContentProvider } from '@domain/interfaces/IContentProvider.interface'
-import { RequestContentType } from '@domain/interfaces/EPack.enumerated'
-import { Model } from '@domain/inventory/Model.domain'
-import { Part } from '@domain/inventory/Part.domain'
+// import { CustomerRequest } from '../production/CustomerRequest.domain';
+// import { DataToRequestConverter } from '../../modules/production/converter/DataToRequest.converter';
+import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
+import { RequestContentType } from '@domain/interfaces/EPack.enumerated';
+import { Model } from '@domain/inventory/Model.domain';
+import { Part } from '@domain/inventory/Part.domain';
+import { DataToRequestConverter } from './DataToRequest.converter';
+import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
+import { CustomerRequestResponse } from '../domain/dto/CustomerRequestResponse.dto';
 
 xdescribe('CLASS DataToRequestConverter [Module: CONVERTERS]', () => {
     // - C O V E R A G E   P H A S E
@@ -17,37 +22,37 @@ xdescribe('CLASS DataToRequestConverter [Module: CONVERTERS]', () => {
                     return null
                 }
             } as IContentProvider
-            // const instance = new DataToRequestConverter(contentProvider)
-            // const request: CustomerRequest = instance.convert({
-            //     "id": "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef",
-            //     "label": "Complete Slot Car Platform P02",
-            //     "requestDate": "2020-06-29T20:00:00.226181Z",
-            //     "state": "OPEN",
-            //     "contents": [{
-            //         "itemId": "ed36cdfb-e5ae-4275-a163-63b4be4d952c",
-            //         "type": "PART",
-            //         "quantity": 2,
-            //         "missing": 1
-            //     },
-            //     {
-            //         "itemId": "0f789845-cdc6-48ce-a0ce-cbaf63cffab5",
-            //         "type": "MODEL",
-            //         "quantity": 2,
-            //         "missing": 1
-            //     }
-            //     ]
-            // })
-            // expect(instance).toBeDefined()
-            // expect(request).toBeDefined()
-            // expect(request.getId()).toBe("bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef")
-            // expect(request.getLabel()).toBe("Complete Slot Car Platform P02")
-            // expect(request.getRequestDate()).toBeDefined()
-            // expect(request.getState()).toBe('OPEN')
-            // expect(request.getContentCount()).toBe(4)
-            // expect(request.getContents()[0]).toBeDefined()
-            // expect(request.getContents().length).toBe(2)
-            // expect(request.getContents()[0].getType()).toBe(RequestContentType.PART)
-            // expect(request.getContents()[1].getType()).toBe(RequestContentType.MODEL)
-        })
-    })
-})
+            const instance = new DataToRequestConverter(contentProvider);
+            const request: CustomerRequestResponse = instance.convert({
+                "id": "bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef",
+                "label": "Complete Slot Car Platform P02",
+                "requestDate": "2020-06-29T20:00:00.226181Z",
+                "state": "OPEN",
+                "contents": [{
+                    "itemId": "ed36cdfb-e5ae-4275-a163-63b4be4d952c",
+                    "type": "PART",
+                    "quantity": 2,
+                    "missing": 1
+                },
+                {
+                    "itemId": "0f789845-cdc6-48ce-a0ce-cbaf63cffab5",
+                    "type": "MODEL",
+                    "quantity": 2,
+                    "missing": 1
+                }
+                ]
+            })
+            expect(instance).toBeDefined();
+            expect(request).toBeDefined();
+            expect(request.getId()).toBe("bb451b4b-64f3-47aa-8d8c-8fdcdb6108ef");
+            expect(request.getLabel()).toBe("Complete Slot Car Platform P02");
+            expect(request.getRequestDate()).toBeDefined()
+            expect(request.getState()).toBe('OPEN')
+            expect(request.getContentCount()).toBe(4)
+            expect(request.getContents()[0]).toBeDefined()
+            expect(request.getContents().length).toBe(2)
+            expect(request.getContents()[0].getType()).toBe(RequestContentType.PART)
+            expect(request.getContents()[1].getType()).toBe(RequestContentType.MODEL)
+        });
+    });
+});
