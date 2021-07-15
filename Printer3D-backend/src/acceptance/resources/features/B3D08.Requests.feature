@@ -150,11 +150,11 @@ Feature: [FEATURE] Manage the interactions with the Request entity. Requests hav
 
         When the Get Jobs request is processed
         Then there is a valid response with return code of "200 OK"
-        And the list of jobs has "26" records
+        And the list of jobs has "30" records
         And there are "2" records of priority "1"
-        And there are "24" records of priority "2"
+        And there are "28" records of priority "2"
 
-    @B3D08.H2 @B3D08.06
+    @B3D08.H1 @B3D08.06
     Scenario: [B3D08.06] An open request is verified to be in COMPLETED and then their contents delivered that means that they are removed from the stocks.
             # - Create the request
         Given the next Request Contents List
@@ -338,9 +338,9 @@ Feature: [FEATURE] Manage the interactions with the Request entity. Requests hav
             | itemId                               | type  | quantity |
             | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
             | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
-#        And creating the next incomplete Request V2 with previous Contents
-#            | id                                   | requestDate                 | state |
-#            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | 2020-06-29T20:00:00.226181Z | OPEN  |
+        And creating the next incomplete Request V2 with previous Contents
+            | id                                   | requestDate                 | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | 2020-06-29T20:00:00.226181Z | OPEN  |
         When the New Request V2 request is processed
         Then there is a exception response with return code of "400 BAD_REQUEST"
         And the exception response contains the message "The request is not valid. [Field error in object"

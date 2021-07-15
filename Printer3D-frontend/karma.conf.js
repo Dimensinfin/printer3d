@@ -20,12 +20,12 @@ module.exports = function(config) {
             reports: ['html', 'lcovonly', 'text-summary'],
             fixWebpackSourcePaths: true,
             thresholds: {
-                emitWarning: false,
+                emitWarning: true,
                 global: {
-                    statements: 90,
-                    branches: 74,
-                    functions: 90,
-                    lines: 90
+                    statements: 80,
+                    branches: 72,
+                    functions: 80,
+                    lines: 80
                 }
             },
             verbose: false
@@ -36,7 +36,7 @@ module.exports = function(config) {
                 flags: ['--no-sandbox']
             }
         },
-        reporters: ['progress', 'kjhtml'],
+        reporters: ['progress', 'kjhtml', 'coverage-istanbul'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,

@@ -1,5 +1,4 @@
 // - DOMAIN
-import { CustomerRequest } from '@domain/production/CustomerRequest.domain';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
 import { IContent } from '@domain/interfaces/IContent.interface';
 import { RequestItem } from '@domain/production/RequestItem.domain';

@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_17_0_7001_printer3d_alter_machine_label
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - update:
+            schemaName: printer3d
+            tableName: machines
+            where: id='e18aa442-19cd-4b08-8ed0-9f1917821fac'
+            remarks: Upgrade the label to the new set of labels.
+            column:
+              - column:
+                  name: label
+                  value: 'Ender 3 Pro - 01'
+        - update:
+            schemaName: printer3d
+            tableName: machines
+            where: id='d55a5ca6-b1f5-423c-9a47-007439534744'
+            remarks: Upgrade the label to the new set of labels.
+            column:
+              - column:
+                  name: label
+                  value: 'Ender 3 Pro - 02'
+        - update:
+            schemaName: printer3d
+            tableName: machines
+            where: id='d05be7f8-716b-430a-b588-84d0b77bcf43'
+            remarks: Upgrade the label to the new set of labels.
+            column:
+              - column:
+                  name: label
+                  value: 'Ender 3 Pro - 03'
+        - update:
+            schemaName: printer3d
+            tableName: machines
+            where: id='7728aef4-811e-4177-8adb-8f3daf8dc809'
+            remarks: Upgrade the label to the new set of labels.
+            column:
+              - column:
+                  name: label
+                  value: 'Ender 3 Pro - 04'

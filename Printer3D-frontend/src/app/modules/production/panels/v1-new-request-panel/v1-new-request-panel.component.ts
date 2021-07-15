@@ -78,6 +78,8 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
      * When the persistence completes the Feature is dismissed and the control goes back to the main dashboard page.
      */
     public saveRequest(): void {
+        // Fill the default Total amount for the request if not updated by the user.
+        this.request.setTotal(this.request.getTotal())
         this.backendConnections.push(
             this.productionService.apiv2_ProductionNewRequest(this.request)
                 .subscribe((persistedRequest: CustomerRequestResponse) => {

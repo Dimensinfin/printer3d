@@ -73,3 +73,7 @@ databaseChangeLog:
       file: db/changelog/development/dml-v0.17.0-05-requestsv2-data.yaml
   - include:
       file: db/changelog/ddl-v0.17.0-06-alter-requestsv2-table.yaml
+  - include:
+      file: db/changelog/ddl-v0.17.0-07-alter-machines-table.yaml
+  - include:
+      file: db/changelog/dml-v0.17.0-08-machines-data.yaml

@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0_17_0_7001_printer3d_machines_data
+      author: Adam Antinoo (adamantinoo.git@gmail.com)
+      changes:
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: id
+                  value: c7f351c9-a4dc-40a2-8c3b-b4bcaaa6e884
+              - column:
+                  name: label
+                  value: Ender 3 Pro - 05
+              - column:
+                  name: model
+                  value: Creality 3D Ender 3 Pro
+              - column:
+                  name: characteristics
+                  value: >
+                    Max size set to 200mm.
+                    Has adaptor for flexible plastic filament.
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: id
+                  value: de9328ca-46ab-4861-b621-c5de4aa8e8c8
+              - column:
+                  name: label
+                  value: Ender 3 Pro - 06
+              - column:
+                  name: model
+                  value: Creality 3D Ender 3 Pro
+              - column:
+                  name: characteristics
+                  value: >
+                    Max size set to 200mm.
+                    Has adaptor for flexible plastic filament.
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: id
+                  value: d552b0aa-c49d-43a0-96f5-c34d9defcac3
+              - column:
+                  name: label
+                  value: Ender 3 Pro - 07
+              - column:
+                  name: model
+                  value: Creality 3D Ender 3 Pro
+              - column:
+                  name: characteristics
+                  value: >
+                    Max size set to 200mm.
+                    Has adaptor for flexible plastic filament.
+        - insert:
+            dbms: 'postgresql'
+            schemaName: printer3d
+            tableName: machines
+            columns:
+              - column:
+                  name: id
+                  value: 8a9fd957-e2e2-472a-8c45-f8c7b1463027
+              - column:
+                  name: label
+                  value: Ender 3 Pro - 08
+              - column:
+                  name: model
+                  value: Creality 3D Ender 3 Pro
+              - column:
+                  name: characteristics
+                  value: >
+                    Max size set to 200mm.
+                    Has adaptor for flexible plastic filament.

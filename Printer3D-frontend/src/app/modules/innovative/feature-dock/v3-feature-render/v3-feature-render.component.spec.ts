@@ -4,28 +4,20 @@ import { Observable } from 'rxjs'
 import { Routes } from '@angular/router'
 // - TESTING
 import { async } from '@angular/core/testing'
-import { fakeAsync } from '@angular/core/testing'
-import { tick } from '@angular/core/testing'
-import { ComponentFixture } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
-// - INNOVATIVE
-// import { DockService } from '@bit/innovative.mvc-components.dock-service/dock.service'
-// import { DialogFactoryService } from '@bit/innovative.mvc-components.dock-service/dialog-factory.service'
 // - DOMAIN
 import { V3FeatureRenderComponent } from './v3-feature-render.component'
 import { DockService } from '../service/dock.service'
 import { Feature } from '../domain/Feature.domain'
 import { DialogFactoryService } from '@app/services/dialog-factory.service'
-// import { Feature } from '../domain/FeatureExtended.domain'
 
 const routes: Routes = [
     { path: '', redirectTo: '/', pathMatch: 'full' },
 ]
 
-xdescribe('COMPONENT V3FeatureRenderComponent [Module: RENDERS]', () => {
+describe('COMPONENT V3FeatureRenderComponent [Module: RENDERS]', () => {
     let component: V3FeatureRenderComponent
-    let dockService: DockService
     let dialogRef = {
         afterClosed: () => {
             return Observable.create((observer) => {
@@ -40,6 +32,9 @@ xdescribe('COMPONENT V3FeatureRenderComponent [Module: RENDERS]', () => {
             return dialogRef
         }
     }
+    let dockService = {
+        activateFeature: () => { }
+    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -49,12 +44,10 @@ xdescribe('COMPONENT V3FeatureRenderComponent [Module: RENDERS]', () => {
             ],
             declarations: [
                 V3FeatureRenderComponent,
-                // V1DockComponent
             ],
             providers: [
                 { provide: DialogFactoryService, useValue: dialogFactoryService },
-                { provide: DockService, useClass: DockService },
-                // { provide: HttpClientWrapperService, useClass: SupportHttpClientWrapperService }
+                { provide: DockService, useValue: dockService },
             ]
         }).compileComponents()
 

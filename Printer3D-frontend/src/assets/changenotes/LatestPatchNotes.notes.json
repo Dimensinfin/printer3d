@@ -3,6 +3,7 @@
         "name": "➰ Anotaciones cambio 0.17.0",
         "changes": [
             "✅ Hay nuevas funcionalidades que cuando se posiciona el cursor encima se despliegan para mostrar nuevas opciones. Esto aplica a la funcionalidad de /PEDIDOS que ahora permite seleccionar dos páginas, una para los pedidos sin entregar y otra para los pedidos ya cerrados.",
+            "✅ Los Pedidos de Cliente aún no son editables. Pero se puede suplir esa funcionalidad siguiendo el procedimiento descrito en la sección 2.4 Cambios en Pedido del Manual de Procedimientos.",
             "✅ Se han incorporado nuevos datos al Pedido. Datos del cliente que lo ha solicitado y un boton para indicar que el pedido se ha cobrado ya por adelantado.",
             "✅ Los datos del pedido ahora calculan los importes con los impuestos, indicando los valores de importe, iva y total.",
             "✅ Los pedidos abierto corresponden a los pedidos que les faltan piezas y aquellos completos que no se han entregado.",

@@ -36,10 +36,11 @@ export class AppComponent extends BackgroundEnabledComponent implements OnInit {
      */
     public ngOnInit(): void {
         this.backendConnections.push(
-            this.backendService.apiActuatorInfo(new ResponseTransformer().setDescription('Transforms backend info data into json fields.')
+            this.backendService.apiActuatorInfo(/*new ResponseTransformer().setDescription('Transforms backend info data into json fields.')
                 .setTransformation((entrydata: any): BackendInfoResponse => {
                     return new BackendInfoResponse(entrydata);
-                }))
+                }))*/
+            )
                 .subscribe((backendInfo: BackendInfoResponse) => {
                     console.log('info: '+JSON.stringify(backendInfo))
                     this.backendVersion = backendInfo.getVersion();

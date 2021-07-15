@@ -53,7 +53,7 @@ describe('COMPONENT V2MachinesPanelComponent [Module: SHARED]', () => {
             jasmine.clock().tick(1000);
             expect(componentAsAny.backendConnections.length).toBe(1);
             expect(component.machines).toBeDefined();
-            expect(component.machines.length).toBe(4);
+            expect(component.machines.length).toBe(8);
             jasmine.clock().uninstall()
         });
     });

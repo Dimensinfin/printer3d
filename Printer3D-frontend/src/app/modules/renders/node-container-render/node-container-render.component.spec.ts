@@ -1,10 +1,6 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 // - TESTING
-import { async } from '@angular/core/testing';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/testing';
-import { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - PROVIDERS
 import { Node } from '@domain/Node.domain';

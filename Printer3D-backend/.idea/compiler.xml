@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="/mnt/disk-b/data/UbuntuExtension/adam/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.2.6.RELEASE/51c9bff7a5dc15403529a77f5861be643082ecea/spring-boot-configuration-processor-2.2.6.RELEASE.jar" />
         </processorPath>
-        <module name="Dimensinfin3D.Printer3D-backend.main" />
+        <module name="Printer3D-backend.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11" />

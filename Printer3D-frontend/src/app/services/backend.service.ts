@@ -7,12 +7,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service';
 import { ResponseTransformer } from './support/ResponseTransformer';
 // - ENVIRONMENT
-import { environment } from '@env/environment';
-import { PartListResponse } from '@domain/dto/PartListResponse.dto';
 import { Part } from '@domain/inventory/Part.domain';
 import { Coil } from '@domain/inventory/Coil.domain';
 import { FinishingResponse } from '@domain/dto/FinishingResponse.dto';
-import { CoilListResponse } from '@domain/dto/CoilListResponse.dto';
 import { MachineV2 } from '@domain/production/MachineV2.domain';
 import { Job } from '@domain/production/Job.domain';
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto';
@@ -22,13 +19,10 @@ import { ModelRequest } from '@domain/dto/ModelRequest.dto';
 import { ModelForm } from '@domain/inventory/ModelForm.domain';
 import { RequestRequest } from '@domain/dto/RequestRequest.dto';
 import { UpdateGroupRequest } from '@domain/dto/UpdateGroupRequest.dto';
-import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto';
 import { WeekAmount } from '@domain/dto/WeekAmount.dto';
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { Model } from '@domain/inventory/Model.domain';
 import { IContentProvider } from '@domain/interfaces/IContentProvider.interface';
-import { DataToRequestConverter } from '@app/modules/production/converter/DataToRequest.converter';
-// import { DataToRequestConverter } from '@app/modules/production/domain/DataToRequest.converter';
 
 @Injectable({
     providedIn: 'root'
@@ -36,21 +30,27 @@ import { DataToRequestConverter } from '@app/modules/production/converter/DataTo
 export class BackendService {
     private APIV1: string;
     private APIV2: string;
+    private APIV3: string;
 
     constructor(
         protected httpService: HttpClientWrapperService) {
         this.APIV1 = Printer3DConstants.BACKENDPATH + Printer3DConstants.APIVERSION1;
         this.APIV2 = Printer3DConstants.BACKENDPATH + Printer3DConstants.APIVERSION2;
+        this.APIV3 = Printer3DConstants.BACKENDPATH + Printer3DConstants.APIVERSION3;
     }
     // - A C T U A T O R - A P I
-    public apiActuatorInfo(transformer: ResponseTransformer): Observable<BackendInfoResponse> {
-        const request = Printer3DConstants.BACKENDPATH + '/actuator/info';
+    public apiActuatorInfo(): Observable<BackendInfoResponse> {
+        const request = Printer3DConstants.BACKENDPATH + '/actuator/info'
+        const transformer :   ResponseTransformer= new ResponseTransformer().setDescription('Transforms backend data into a set of fields.')
+        .setTransformation((entrydata: any): BackendInfoResponse => {
+            return new BackendInfoResponse(entrydata)
+        })
         return this.httpService.wrapHttpGETCall(request)
             .pipe(map((data: any) => {
-                console.log(">[BackendService.apiActuatorInfo]> Transformation: " + transformer.description);
-                const response = transformer.transform(data) as BackendInfoResponse;
+                console.log(">[BackendService.apiActuatorInfo]> Transformation: " + transformer.description)
+                const response = transformer.transform(data) as BackendInfoResponse
                 return response;
-            }));
+            }))
     }
     // - B A C K E N D - A P I
     // - N E W   E N T I T I E S
@@ -174,7 +174,7 @@ export class BackendService {
             }));
     }
     public apiInventoryGetModels_v1(itemContainer: IContentProvider): Observable<Model[]> {
-        const request = this.APIV1 + '/inventory/models';
+        const request = this.APIV1 + '/inventory/models'
         const transformer = new ResponseTransformer()
             .setDescription('Transforms response into a list of Models.')
             .setTransformation((entrydata: any): Model[] => {
@@ -195,7 +195,7 @@ export class BackendService {
                 console.log(">[BackendService.apiInventoryGetModels_v1]> Transformation: " + transformer.description);
                 const response = transformer.transform(data) as any;
                 return response;
-            }));
+            }))
     }
 
     // - P R O D U C T I O N
