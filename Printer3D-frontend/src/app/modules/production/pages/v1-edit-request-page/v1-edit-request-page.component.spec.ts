@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { V1EditRequestPageComponent } from './v1-edit-request-page.component';
 
-describe('V1EditRequestPageComponent', () => {
+xdescribe('V1EditRequestPageComponent', () => {
   let component: V1EditRequestPageComponent;
   let fixture: ComponentFixture<V1EditRequestPageComponent>;
 
