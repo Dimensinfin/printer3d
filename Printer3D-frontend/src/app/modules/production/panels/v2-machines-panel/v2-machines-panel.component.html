@@ -1,9 +1,13 @@
-<div>
+<div class="stiky-section">
     <div class="panel-title">
         <span>/MAQUINAS</span>
     </div>
     <hr>
-    <div *ngFor="let machine of machines">
-        <v3-machine [node]="machine"></v3-machine>
+    <div class="row">
+        <div *ngFor="let machine of machines">
+            <div style="margin-right: 4px;">
+                <v3-machine [node]="machine"></v3-machine>
+            </div>
+        </div>
     </div>
 </div>

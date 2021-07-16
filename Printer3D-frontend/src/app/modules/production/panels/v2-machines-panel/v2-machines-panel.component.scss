@@ -1,3 +1,11 @@
+.stiky-section {
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+    opacity: 1.0;
+    background-color: black;
+}
+
 $container-height: 209px;
 $panel-background-color: #180A16;
 .panel-block {

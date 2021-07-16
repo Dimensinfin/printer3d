@@ -75,6 +75,7 @@ $feature-width: 180px;
 
 .menu {
     visibility: hidden;
+    z-index: 50;
 }
 
 .menu-active {
