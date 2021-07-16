@@ -8,9 +8,9 @@ import { SupportService } from '../../support/SupportService.support';
 
 const supportService = new SupportService();
 
-Then('the target Machine has no instances of {string}', function (panelName: string) {
-    cy.get('@target-machine').find(panelName).should('not.exist')
-});
+// Then('the target Machine has no instances of {string}', function (panelName: string) {
+//     cy.get('@target-machine').find(panelName).should('not.exist')
+// });
 Then('the target panel button with name {string} has a label {string} and is {string}', function (
     buttonName: string, buttonLabel: string, buttonState: string) {
     if (buttonState == 'disabled')

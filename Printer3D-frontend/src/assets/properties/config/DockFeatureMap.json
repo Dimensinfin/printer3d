@@ -43,34 +43,41 @@
         "route": "/production/pendingjobs"
     },
     {
-        "label": "/Nuevo Filamento",
+        "label": "/Nuevos Datos",
         "enabled": true,
         "active": false,
-        "interaction": "DIALOG",
-        "route": "NewCoilDialog"
-    },
-    {
-        "label": "/Nueva Pieza",
-        "enabled": true,
-        "active": false,
-        "interaction": "DIALOG",
-        "route": "NewPartDialog"
-    },
-    {
-        "label": "/Nuevo Modelo",
-        "enabled": true,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "modifier": "DROP",
-        "route": "/inventory/newmodel"
-    },
-    {
-        "label": "/Nuevo Pedido",
-        "enabled": true,
-        "active": false,
-        "interaction": "PAGEROUTE",
-        "modifier": "DROP",
-        "route": "/production/newrequest"
+        "hasMenu": true,
+        "features": [{
+                "label": "/Nuevo Filamento",
+                "enabled": true,
+                "active": false,
+                "interaction": "DIALOG",
+                "route": "NewCoilDialog"
+            },
+            {
+                "label": "/Nueva Pieza",
+                "enabled": true,
+                "active": false,
+                "interaction": "DIALOG",
+                "route": "NewPartDialog"
+            },
+            {
+                "label": "/Nuevo Modelo",
+                "enabled": true,
+                "active": false,
+                "interaction": "PAGEROUTE",
+                "modifier": "DROP",
+                "route": "/inventory/newmodel"
+            },
+            {
+                "label": "/Nuevo Pedido",
+                "enabled": true,
+                "active": false,
+                "interaction": "PAGEROUTE",
+                "modifier": "DROP",
+                "route": "/production/newrequest"
+            }
+        ]
     },
     {
         "label": "/Extracciones",

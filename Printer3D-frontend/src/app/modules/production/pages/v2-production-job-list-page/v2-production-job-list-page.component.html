@@ -1,9 +1,16 @@
-<div class="row stiky-header">
-    <div *ngFor="let machine of machines">
-        <v3-machine [node]="machine" [variant]="'-DOCKED-MACHINES-'"></v3-machine>
+<section>
+    <div class="row stiky-header">
+        <v2-machines-panel></v2-machines-panel>
     </div>
-    <hr class="separator-bottom">
-</div>
+</section>
+<!-- <div *ngFor="let machine of machines">
+    <v3-machine [node]="machine" [variant]="'-DOCKED-MACHINES-'"></v3-machine>
+</div> -->
+<hr class="separator-bottom">
+
+
 <div stylex="top: 70px;">
-    <v1-pending-jobs-panel></v1-pending-jobs-panel>
+    <section>
+        <v1-pending-jobs-panel></v1-pending-jobs-panel>
+    </section>
 </div>

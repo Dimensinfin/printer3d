@@ -24,7 +24,7 @@ export class DockService {
         protected httpService: HttpClientWrapperService) { }
 
     public readDockConfiguration(): Observable<Feature[]> {
-        const request = '/assets/properties/config/DefaultDockFeatureMap.json'
+        const request = '/assets/properties/config/DockFeatureMap.json'
         const transformer = new ResponseTransformer().setDescription('Do property transformation to "Feature" list.')
             .setTransformation((entrydata: any): Feature[] => {
                 let results: Feature[] = []

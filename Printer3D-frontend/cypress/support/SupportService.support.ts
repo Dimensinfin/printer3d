@@ -9,7 +9,7 @@ export class SupportService {
         this.translationTable['New Part'] = 'new-part-dialog'
         this.translationTable['New Coil'] = 'new-coil-dialog'
         this.translationTable['ProductionJobListPage'] = 'production-job-list-page'
-        this.translationTable['Production Jobs Page'] = 'production-job-list-page'
+        this.translationTable['Production Jobs Page'] = 'v2-production-job-list-page'
         this.translationTable['NewRequestPage'] = 'v1-new-request-page'
         this.translationTable['Open Requests Page'] = 'v1-open-requests-page'
         this.translationTable['Closed Requests Page'] = 'v1-closed-requests-page'

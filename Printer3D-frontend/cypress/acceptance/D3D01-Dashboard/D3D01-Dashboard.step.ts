@@ -8,7 +8,7 @@ import { SupportService } from '../../support/SupportService.support';
 const supportService = new SupportService();
 
 // - N E W   I M P L E M E N T A T I O N
-Given('the application starts the default route is {string}', function (pageRoute: string) {
+Given('the application starts the route is {string}', function (pageRoute: string) {
     cy.get('app-root').as('target-page').find('.page-path').contains(pageRoute, { matchCase: false })
     cy.get('app-root').find('router-outlet').children().should('have.length', 0)
 });

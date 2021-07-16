@@ -223,24 +223,6 @@ Then('the target item has a {string} tag', function (tagColor: string) {
     const colorTag = '.' + tagColor + '-mark'
     cy.get('@target').find(colorTag).should('exist')
 })
-// Then('active {string} shows a {string} corner', function (symbolicName: string, tagColor: string) {
-//     const tag = supportService.translateTag(symbolicName) // Do name replacement
-//     cy.get('@target-panel').find(tag).find('[cy-field-value="status"]')
-//         .contains('true', { matchCase: false }).first().as('target-item').parents().closest('.row').as('target')
-//     const colorTag = '.' + tagColor + '-mark'
-//     cy.get('@target').find(colorTag).should('exist')
-// })
-// Then('inactive {string} shows an {string} corner', function (symbolicName: string, tagColor: string) {
-//     const tag = supportService.translateTag(symbolicName) // Do name replacement
-//     const colorTag = '.' + tagColor + '-mark'
-//     cy.get('@target').find(colorTag).should('exist')
-//     // const fieldName = 'active'
-//     // const fieldValue = 'FUERA PROD.'
-//     // cy.get('@target-panel').find(tag).find('[cy-field-value="' + fieldName + '"]')
-//     //     .contains(fieldValue, { matchCase: false }).first().as('target-item').parents().closest('.row').within(($item) => {
-//     //         cy.get('.corner-mark').should('have.class', 'orangered-mark')
-//     //     })
-// })
 
 // - F I E L D S
 Then('field named {string} with label {string} has contents {string}',
