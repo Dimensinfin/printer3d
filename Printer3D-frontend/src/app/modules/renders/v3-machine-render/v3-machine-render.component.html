@@ -5,9 +5,12 @@
             <img class="machine-image" src="/assets/media/Creality3DEnder3Pro.png" alt="Imagen de una impresora">
         </div> -->
         <div class="column" class="machine-production-column">
-            <div cy-name="label" class="cy-field-value">
-                <div cy-field-label="label" class="label">ETIQUETA</div>
-                <div cy-field-value="label" cy-name="machine-label" class="field-height machine-label">{{getLabel()}}</div>
+            <div class="row">
+                <div cy-name="label" class="cy-field-value">
+                    <div cy-field-label="label" class="label">ETIQUETA</div>
+                    <div cy-field-value="label" cy-name="machine-label" class="field-height machine-label">{{getLabel()}}</div>
+                </div>
+                <v1-build-countdown-timer class="right" [parent]="self" id="{{getUniqueId()}}"></v1-build-countdown-timer>
             </div>
             <div cy-name="buildingPart" class="field machine-part-width">
                 <div cy-field-label="buildingPart" class="label">PIEZA EN PRODUCCION</div>
@@ -23,7 +26,7 @@
         </div>
     </div>
     <div class="column">
-        <v1-build-countdown-timer [parent]="self" id="{{getUniqueId()}}"></v1-build-countdown-timer>
+        <!-- <v1-build-countdown-timer [parent]="self" id="{{getUniqueId()}}"></v1-build-countdown-timer> -->
         <div class="row right" *ngIf="target">
             <div cy-name="start-button" class="button-margins" *ngIf="state=='IDLE'">
                 <div style="position: relative;">

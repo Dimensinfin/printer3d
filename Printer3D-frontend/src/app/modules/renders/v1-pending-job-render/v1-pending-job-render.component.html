@@ -51,23 +51,27 @@
                 </div>
             </div>
         </form>
-        <div *ngIf="!isEditable()">
-            <div cy-name="quantity-data" class="field quantity-width">
-                <div cy-field-label="quantity-data" class="label">CANTIDAD</div>
-                <div cy-field-value="quantity-data" class="field-height job-label">{{getCopies()}}</div>
+        <div class="column">
+            <div *ngIf="!isEditable()">
+                <div cy-name="quantity-data" class="field quantity-width">
+                    <div cy-field-label="quantity-data" class="label">CANTIDAD</div>
+                    <div cy-field-value="quantity-data" class="field-height job-label">{{getCopies()}}</div>
+                </div>
             </div>
-        </div>
-        <div cy-name="label" class="field building-label-width">
-            <div cy-field-label="label" class="label">ETIQUETA</div>
-            <div cy-field-value="label" class="field-height job-label">{{getLabel()}}</div>
-        </div>
-        <div cy-name="material" class="field right material-width">
-            <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
-            <div cy-field-value="material" class="part-material">{{getMaterial()}}/{{getColor()}}</div>
-        </div>
-        <div cy-name="buildTime" class="field buildtime-width">
-            <div cy-field-label="buildTime" class="label">TIEMPO</div>
-            <div cy-field-value="buildTime" class="part-buildtime">{{getBuildTime()}}</div>
+            <div cy-name="label" class="field building-label-width">
+                <div cy-field-label="label" class="label">ETIQUETA</div>
+                <div cy-field-value="label" class="field-height job-field-value">{{getLabel()}}</div>
+            </div>
+            <div class="row">
+                <div cy-name="material" class="field right--- material-width---">
+                    <div cy-field-label="material" class="label">MATERIAL/COLOR</div>
+                    <div cy-field-value="material" class="part-material job-field-value">{{getMaterial()}}/{{getColor()}}</div>
+                </div>
+                <div cy-name="buildTime" class="field buildtime-width---">
+                    <div cy-field-label="buildTime" class="label">TIEMPO</div>
+                    <div cy-field-value="buildTime" class="part-buildtime job-field-value">{{getBuildTime()}}</div>
+                </div>
+            </div>
         </div>
     </div>
     <svg class="corner-border" viewBox="0 0 100 100">
