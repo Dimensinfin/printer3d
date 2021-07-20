@@ -112,6 +112,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Unit Tests pending
 * NeoCom.domain
 * V1PartRender
+* V2ProductionJobListPage
 * ProductionJobListPage
 * V2MachinesPanel
 

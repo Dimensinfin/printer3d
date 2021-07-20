@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { RendersModule } from '../renders/renders.module';
 // - COMPONENTS
-import { ProductionJobListPageComponent } from './pages/production-job-list-page/production-job-list-page.component';
 import { V1PendingJobsPanelComponent } from './panels/v1-pending-jobs-panel/v1-pending-jobs-panel.component';
 import { V2MachinesPanelComponent } from './panels/v2-machines-panel/v2-machines-panel.component';
 import { V1NewRequestPageComponent } from './pages/v1-new-request-page/v1-new-request-page.component';
@@ -47,7 +46,6 @@ const routes: Routes = [
         RendersModule
     ],
     declarations: [
-        ProductionJobListPageComponent,
         V1PendingJobsPanelComponent,
         V2MachinesPanelComponent,
         V1NewRequestPageComponent,
@@ -66,7 +64,6 @@ const routes: Routes = [
         V2ProductionJobListPageComponent
     ],
     exports: [
-        ProductionJobListPageComponent,
         V1PendingJobsPanelComponent,
         V2MachinesPanelComponent,
         V1NewRequestPageComponent,
