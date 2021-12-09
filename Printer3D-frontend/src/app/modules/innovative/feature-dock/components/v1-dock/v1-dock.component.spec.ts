@@ -12,7 +12,7 @@ import { DockService } from '@app/modules/innovative/feature-dock/service/dock.s
 import { Observable } from 'rxjs'
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
 
-describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
+describe('COMPONENT V1DockComponent [Module: INNOVATIVE]', () => {
     let component: V1DockComponent
     let isolationService: SupportIsolationService = new SupportIsolationService()
     let dockService = {
@@ -30,7 +30,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
             return new Observable(observer => {
                 setTimeout(() => {
                     observer.next(transformer.transform(
-                        isolationService.directAccessAssetResource('properties/config/DefaultDockFeatureMap'))
+                        isolationService.directAccessAssetResource('properties/config/DockFeatureMap'))
                     )
                 }, 100)
             })
@@ -73,7 +73,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
             component.ngOnInit()
             spyOn(dockService, 'clean')
             tick(1000)
-            expect(componentAsAny.configuredFeatures.length).toBe(9)
+            expect(componentAsAny.configuredFeatures.length).toBe(6)
             expect(dockService.clean).toHaveBeenCalled()
         }))
     })
@@ -90,7 +90,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
             spyOn(dockService, 'clean')
             tick(1000)
             expect(component.getActiveFeatures()).toBeDefined()
-            expect(component.getActiveFeatures().length).toBe(9)
+            expect(component.getActiveFeatures().length).toBe(6)
         }))
     })
 })

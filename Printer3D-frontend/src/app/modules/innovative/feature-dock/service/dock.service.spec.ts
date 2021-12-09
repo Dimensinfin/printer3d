@@ -28,7 +28,7 @@ describe('service DockService [Module: SERVICES]', () => {
             console.log('DockService->spyOn.wrapHttpRESOURCECall')
             return new Observable(observer => {
                 setTimeout(() => {
-                    observer.next(isolationService.directAccessAssetResource('properties/config/DefaultDockFeatureMap'))
+                    observer.next(isolationService.directAccessAssetResource('properties/config/DockFeatureMap'))
                 }, 100)
             })
         }
@@ -78,33 +78,33 @@ describe('service DockService [Module: SERVICES]', () => {
                     console.log('Code Coverage Phase [DOCK]->spyOn.wrapHttpRESOURCECall')
                     return new Observable(observer => {
                         setTimeout(() => {
-                            observer.next(isolationService.directAccessAssetResource('properties/config/DefaultDockFeatureMap'))
+                            observer.next(isolationService.directAccessAssetResource('properties/config/DockFeatureMap'))
                         }, 100)
                     })
                 })
             service.readDockConfiguration()
                 .subscribe((response: Feature[]) => {
                     expect(response).toBeDefined()
-                    expect(response.length).toBe(9)
+                    expect(response.length).toBe(6)
                 })
             tick(1100)
-            expect(serviceAsAny.featureList.length).toBe(9)
+            expect(serviceAsAny.featureList.length).toBe(6)
         }))
         it('activateFeature.null: no feature selected for activation', fakeAsync(() => {
             const serviceAsAny = service as any
             service.readDockConfiguration()
                 .subscribe((response: Feature[]) => {
                     expect(response).toBeDefined()
-                    expect(response.length).toBe(9)
+                    expect(response.length).toBe(6)
                 })
             tick(100)
-            expect(serviceAsAny.featureList.length).toBe(9)
+            expect(serviceAsAny.featureList.length).toBe(6)
             serviceAsAny.activeFeature = serviceAsAny.featureList[3]
             expect(serviceAsAny.activeFeature).toBeDefined()
             service.activateFeature(null)
             tick(100)
             expect(serviceAsAny.activeFeature).toBeUndefined()
-            expect(serviceAsAny.featureList.length).toBe(9)
+            expect(serviceAsAny.featureList.length).toBe(6)
             expect(location.path()).toBe('/')
         }))
         it('activateFeature.new feature: activate a new selected feature', fakeAsync(() => {
@@ -113,10 +113,10 @@ describe('service DockService [Module: SERVICES]', () => {
             service.readDockConfiguration()
                 .subscribe((response: Feature[]) => {
                     expect(response).toBeDefined()
-                    expect(response.length).toBe(9)
+                    expect(response.length).toBe(6)
                 })
             tick(100)
-            expect(serviceAsAny.featureList.length).toBe(9)
+            expect(serviceAsAny.featureList.length).toBe(6)
             expect(serviceAsAny.featureList[3]).toBeDefined()
             expect(serviceAsAny.featureList[3].active).toBeFalse()
             spyOn(serviceAsAny.featureList[3], 'activate').and.callThrough()
@@ -137,10 +137,10 @@ describe('service DockService [Module: SERVICES]', () => {
             service.readDockConfiguration()
                 .subscribe((response: Feature[]) => {
                     expect(response).toBeDefined()
-                    expect(response.length).toBe(9)
+                    expect(response.length).toBe(6)
                 })
             tick(100)
-            expect(serviceAsAny.featureList.length).toBe(9)
+            expect(serviceAsAny.featureList.length).toBe(6)
             service.activateFeature(serviceAsAny.featureList[3])
             tick(100)
             expect(serviceAsAny.activeFeature).toBeDefined()
@@ -163,10 +163,10 @@ describe('service DockService [Module: SERVICES]', () => {
             service.readDockConfiguration()
                 .subscribe((response: Feature[]) => {
                     expect(response).toBeDefined()
-                    expect(response.length).toBe(9)
+                    expect(response.length).toBe(6)
                 })
             tick(100)
-            expect(serviceAsAny.featureList.length).toBe(9)
+            expect(serviceAsAny.featureList.length).toBe(6)
             service.activateFeature(serviceAsAny.featureList[3])
             tick(100)
             expect(serviceAsAny.activeFeature).toBeDefined()
