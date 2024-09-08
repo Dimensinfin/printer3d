@@ -1,9 +1,3 @@
-# - IntelliJ configuration files ignorable
-.idea/workspace.xml
-.idea/modules/*.iml
-.idea/sonarIssues.xml
-.idea/sonarlint
-
 # - Build and compilation ignorable files
 .gradle/
 build/

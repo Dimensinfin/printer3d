@@ -1,0 +1,6 @@
+# - IntelliJ configuration files ignorable
+.idea/*.xml
+.idea/workspace.xml
+.idea/modules/*.iml
+.idea/sonarIssues.xml
+.idea/sonarlint
