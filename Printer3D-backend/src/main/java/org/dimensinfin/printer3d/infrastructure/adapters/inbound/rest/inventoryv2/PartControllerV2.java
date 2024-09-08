@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.part.rest.v2;
+package org.dimensinfin.printer3d.infrastructure.adapters.inbound.rest.inventoryv2;
 
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.dimensinfin.printer3d.application.ports.inbound.InventoryV2UseCases;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 /**
@@ -21,12 +22,12 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 @Validated
 @RequestMapping("/api/v2")
 public class PartControllerV2 {
-	private final PartServiceV2 partServiceV2;
+	private final InventoryV2UseCases inventoryV2UseCases;
 
 	// - C O N S T R U C T O R S
 	@Autowired
-	public PartControllerV2( @NotNull final PartServiceV2 partServiceV2 ) {
-		this.partServiceV2 = partServiceV2;
+	public PartControllerV2( @NotNull final InventoryV2UseCases inventoryV2UseCases ) {
+		this.inventoryV2UseCases = inventoryV2UseCases;
 	}
 
 	// - G E T T E R S   &   S E T T E R S
@@ -39,6 +40,6 @@ public class PartControllerV2 {
 			consumes = "application/json",
 			produces = "application/json")
 	public ResponseEntity<List<Part>> getPartsV2() {
-		return new ResponseEntity<>( this.partServiceV2.getPartsV2(), HttpStatus.OK );
+		return new ResponseEntity<>( this.inventoryV2UseCases.getPartsUseCaseV2().execute(), HttpStatus.OK );
 	}
 }

@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.application.usecases;
+package org.dimensinfin.printer3d.application.ports.outbound;
 
 import java.util.List;
 

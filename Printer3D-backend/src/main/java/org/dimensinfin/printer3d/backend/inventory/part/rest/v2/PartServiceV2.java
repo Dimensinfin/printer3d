@@ -20,6 +20,7 @@ import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
  * @since 0.6.0
  */
+@Deprecated
 @Service
 public class PartServiceV2 {
 	private final PartRepository partRepository;
@@ -37,6 +38,7 @@ public class PartServiceV2 {
 	}
 
 	// - G E T T E R S   &   S E T T E R S
+	@Deprecated
 	public List<Part> getPartsV2() {
 		final List<Coil> coils = this.coilRepository.findAll()
 				.stream()
