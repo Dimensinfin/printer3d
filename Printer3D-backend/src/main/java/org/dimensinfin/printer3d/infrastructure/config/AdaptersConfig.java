@@ -10,7 +10,7 @@ import org.dimensinfin.printer3d.application.ports.outbound.PartPort;
 import org.dimensinfin.printer3d.backend.inventory.coil.persistence.CoilRepository;
 import org.dimensinfin.printer3d.backend.inventory.part.persistence.PartRepository;
 import org.dimensinfin.printer3d.infrastructure.adapters.outbound.persistence.coil.CoilAdapter;
-import org.dimensinfin.printer3d.infrastructure.adapters.outbound.persistence.coil.PartAdapter;
+import org.dimensinfin.printer3d.infrastructure.adapters.outbound.persistence.part.PartAdapter;
 
 @Configuration
 public class AdaptersConfig {

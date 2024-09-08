@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.part.rest.v2;
+package org.dimensinfin.printer3d.infrastructure.adapters.inbound.rest.inventoryv2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,26 +9,29 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
+import org.dimensinfin.printer3d.application.ports.inbound.InventoryV2UseCases;
+import org.dimensinfin.printer3d.application.usecases.GetPartsUseCase;
 import org.dimensinfin.printer3d.client.inventory.rest.dto.Part;
 
 public class PartControllerV2Test {
 
-	private PartServiceV2 partServiceV2;
+	private InventoryV2UseCases inventoryV2UseCases;
 
 	@BeforeEach
 	public void beforeEach() {
-		this.partServiceV2 = Mockito.mock( PartServiceV2.class );
+		this.inventoryV2UseCases = Mockito.mock( InventoryV2UseCases.class );
 	}
 
 	@Test
 	public void constructorContract() {
-		final PartControllerV2 partControllerV2 = new PartControllerV2( this.partServiceV2 );
+		final PartControllerV2 partControllerV2 = new PartControllerV2( this.inventoryV2UseCases );
 		Assertions.assertNotNull( partControllerV2 );
 	}
 
 	@Test
 	public void getParts() {
 		// Given
+		final GetPartsUseCase useCase=Mockito.mock( GetPartsUseCase.class);
 		final Part part = Mockito.mock( Part.class );
 		final List<Part> partList = new ArrayList<>();
 		partList.add( part );
@@ -36,9 +39,10 @@ public class PartControllerV2Test {
 		partList.add( part );
 		partList.add( part );
 		// When
-		Mockito.when( this.partServiceV2.getPartsV2() ).thenReturn( partList );
+		Mockito.when( this.inventoryV2UseCases.getPartsUseCaseV2() ).thenReturn( useCase );
+		Mockito.when( useCase.execute() ).thenReturn( partList );
 		// Test
-		final PartControllerV2 partControllerV2 = new PartControllerV2( this.partServiceV2 );
+		final PartControllerV2 partControllerV2 = new PartControllerV2( this.inventoryV2UseCases );
 		final ResponseEntity<List<Part>> obtained = partControllerV2.getPartsV2();
 		// Assertions
 		Assertions.assertNotNull( obtained );

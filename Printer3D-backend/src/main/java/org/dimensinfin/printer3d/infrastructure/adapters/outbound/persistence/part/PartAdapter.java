@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.infrastructure.adapters.outbound.persistence.coil;
+package org.dimensinfin.printer3d.infrastructure.adapters.outbound.persistence.part;
 
 import java.util.List;
 import java.util.stream.Collectors;
