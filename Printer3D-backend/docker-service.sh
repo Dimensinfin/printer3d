@@ -11,6 +11,7 @@ DOCKER_COMPOSER_COMMAND="docker-compose --file src/test/scripts/printer3d-docker
 generateContainer() {
   cd "${WORKING_DIRECTORY}" || exit 1;
   rm -v "${DOCKER_DIRECTORY}"/*.jar
+  export JAVA_HOME=/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home
   ./gradlew clean bootJar
   cp ./build/libs/*.jar "$DOCKER_DIRECTORY"
   cp ./build/resources/main/app-banner.txt "$DOCKER_DIRECTORY"

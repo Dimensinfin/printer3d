@@ -1,14 +1,16 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Printer3D - App [INTEGRATION]" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="azul-11" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <envs>
-      <env name="PORT" value="5121" />
-      <env name="JDBC_DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5131/postgres" />
-      <env name="DB_USER" value="printer3d-user" />
       <env name="DB_PASSWORD" value="printer3d-password" />
+      <env name="DB_USER" value="printer3d-user" />
+      <env name="JDBC_DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5132/postgres" />
+      <env name="PORT" value="5121" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="org.dimensinfin.printer3d.backend.Printer3DApplication" />
-    <module name="printer3d-backend.main" />
-    <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=local" />
+    <module name="Printer3D-backend.main" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=integration" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

@@ -20,7 +20,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: ${DATABASE_URL}
+    url: ${JDBC_DATABASE_URL}
     driver-class-name: org.postgresql.Driver
     platform: postgres
     username: ${DB_USER}
@@ -36,3 +36,7 @@ logging:
     enabled: true
   request:
     headers: true
+#  level:
+#    org.springframework.core.env: trace
+#    org.springframework.core.env.AbstractPropertyResolver: trace
+#    org.springframework.core.env.PropertySourcesPropertyResolver: trace
