@@ -25,6 +25,7 @@ generateContainer() {
 start() {
   cd "${WORKING_DIRECTORY}" || exit 1;
   RUN_COMMAND="${DOCKER_COMPOSER_COMMAND} ${DOCKER_PREFERENCES}"
+  echo 'Running -> '$RUN_COMMAND
   $RUN_COMMAND up &
 }
 stop() {
