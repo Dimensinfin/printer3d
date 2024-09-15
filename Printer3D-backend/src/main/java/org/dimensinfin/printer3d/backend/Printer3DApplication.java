@@ -44,7 +44,7 @@ public class Printer3DApplication {
 			try {
 				final File resource = new File( System.getenv( "NEOCOM_BANNER_LOCATION" ) );
 				return new String( Files.readAllBytes( resource.toPath() ) );
-			} catch (final IOException ioe) {
+			} catch (final NullPointerException | IOException ioe) {
 				LogWrapper.error( ioe );
 				return "        ___      ___      ___  \n" +
 						"__   __/ _ \\    / _ \\    / _ \\ \n" +
