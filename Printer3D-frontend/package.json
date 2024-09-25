@@ -50,8 +50,8 @@
     "env:local": "NODE_ENV=local . ./.deploy/generate.env.sh",
     "env:stage": "NODE_ENV=stage . ./.deploy/generate.env.sh",
     "start:local": "export NODE_ENV=local && ng serve --progress --proxy-config proxy.conf.json --port 5100",
-    "version:generate": "gitversion /showvariable AssemblySemFileVer > .version.json && cat .version.json",
-    "version:update": "npm run version:generate && npm version --allow-same-version `cat .version.json`",
+    "version:generate": "gitversion /showvariable AssemblySemFileVer > .version.txt && cat .version.txt",
+    "version:update": "npm run version:generate && npm version --allow-same-version `cat .version.txt`",
     "tag": "npm run version:update && figlet Printer3d-F `gitversion /showvariable AssemblySemFileVer` > .app-banner.txt && cat .app-banner.txt",
     "serve:local": "export NODE_ENV=local && export PORT=5100 && npm run tag && npm run env:local && npm run build:dev && npm start"
   },
