@@ -1,14 +1,16 @@
 {
-    "settings": {
-        "appname": "Tetsuo3D - UI",
-        "port": 5100,
-        "applicationhome": "/dist/Printer3D-frontend",
-        "backendproxy": "http://localhost:5110/",
-        "apppath": "/app",
-        "apipath": "/api"
-    },
-    "pages": {
-        "staticpublic": "./public",
-        "homepage": "/home-development.html"
-    }
+  "environment": "local",
+  "version": "0.18.0-6",
+  "settings": {
+    "appname": "Tetsuo3D - UI",
+    "port": "8080",
+    "applicationhome": "/dist/Printer3D-frontend",
+    "backendproxy": "http://localhost:5110/local",
+    "apppath": "/app",
+    "apipath": "/api"
+  },
+  "pages": {
+    "staticpublic": "./public",
+    "homepage": "/home-development.html"
+  }
 }

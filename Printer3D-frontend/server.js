@@ -28,7 +28,7 @@ var options = {
 };
 // - S E R V E R   C O N F I G U R A T I O N
 app.locals.appname = config.get('settings.appname');
-app.locals.version = require('./package.json').version;
+app.locals.version = config.get('version');
 app.locals.port = process.env.PORT || config.get('settings.port');
 app.locals.applicationhome = config.get('settings.applicationhome');
 app.locals.backendproxy = config.get('settings.backendproxy');
@@ -90,8 +90,9 @@ const END_BOLD = "\x1b[0m"
     // - L I S T E N
 app.listen(process.env.PORT || app.locals.port || 3000, function() {
     exec('git describe --tags', (err, stdout, stderr) => {
-        console.log("Node Express server version: v12.16.3");
-        console.log("Running environment: " + START_YELLOW + process.env.NODE_ENV + END_BOLD);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      console.log("Node Express server version: v12.16.3");
+      console.log("Running environment: " + START_YELLOW + process.env.NODE_ENV + END_BOLD);
         console.log("Current build: " + START_YELLOW + stdout.replace("\n", "") + END_BOLD)
         console.log("Listening on port: " + START_YELLOW + app.locals.port + END_BOLD);
         console.log("Serving application: " + START_YELLOW + app.locals.appname + END_BOLD);
@@ -104,7 +105,7 @@ app.listen(process.env.PORT || app.locals.port || 3000, function() {
             'Backend: ' + START_GREEN + app.locals.backendproxy + 'api' + END_BOLD);
         console.log("Proxy redirection for " + START_YELLOW + "/" + END_BOLD + ": " +
             'Local: ' + START_GREEN + app.locals.applicationhome + END_BOLD);
-        const filename = 'app-banner.txt'
+        const filename = '.app-banner.txt'
         fs.readFile(filename, 'utf8', function(err, data) {
             if (err) throw err;
             console.log(data)

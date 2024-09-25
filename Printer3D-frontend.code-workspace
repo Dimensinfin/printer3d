@@ -1,7 +1,17 @@
 {
     "folders": [
         {
-            "path": "."
+            "name": "Printer3D-frontend",
+            "path": "Printer3D-frontend"
+        },
+        {
+            "path": "../neocom-infinity/neocom-infinity-nest"
+        },
+        {
+            "path": "../neocom-infinity/neocom-domain"
+        },
+        {
+            "path": "../neocom-infinity/neocom-infinity-frontend"
         }
     ],
     "settings": {
@@ -26,6 +36,9 @@
         ],
         "json.schemas": [],
         "html.format.endWithNewline": true,
-        "json.format.enable": false
+        "json.format.enable": false,
+        "[json]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
     },
 }

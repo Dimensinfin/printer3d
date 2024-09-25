@@ -1,5 +1,6 @@
 # MacOS files
-.DS_Store	
+.DS_Store
+
 # Remove projects stored on another repository.
 dimensinfin3dpocs/
 Dimensinfin3DPOCs/
@@ -8,5 +9,7 @@ Dimensinfin3DPOCs/
 # - Ignored editing Office files
 .~lock.TETSUO Gestion.xlsx#
 Printer3D-frontend/src/assets/manual/.~lock.Manual-Procedimientos.odt#
-
 Printer3D-backend/extraction.csv
+
+# - On development in other branch
+.deploy/
