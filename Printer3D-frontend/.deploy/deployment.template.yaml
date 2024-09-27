@@ -5,7 +5,7 @@ metadata:
   namespace: $NAMESPACE
 spec:
   selector:
-    app: "$IMAGE_NAME"
+    app: "$KUBERNETES_NAME"
     version: "$VERSION"
     environment: "$ENVIRONMENT"
   type: NodePort
@@ -39,20 +39,20 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "$IMAGE_NAME"
+  name: "$KUBERNETES_NAME"
   namespace: "$NAMESPACE"
   labels:
-    app: "$IMAGE_NAME"
+    app: "$KUBERNETES_NAME"
     version: "$VERSION"
     environment: "$ENVIRONMENT"
 spec:
   selector:
     matchLabels:
-      app: "$IMAGE_NAME"
+      app: "$KUBERNETES_NAME"
   template:
     metadata:
       labels:
-        app: "$IMAGE_NAME"
+        app: "$KUBERNETES_NAME"
         version: "$VERSION"
         environment: "$ENVIRONMENT"
     spec:
