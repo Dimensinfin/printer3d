@@ -1,6 +1,7 @@
 {
   "environment": "$ENVIRONMENT",
   "version": "$VERSION",
+  "production": "$PRODUCTION",
   "settings": {
     "appname": "Tetsuo3D - UI",
     "port": "$PORT",
