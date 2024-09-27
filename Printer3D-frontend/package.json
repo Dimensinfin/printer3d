@@ -10,7 +10,6 @@
     "app:banner": "npm run app:banner:generate &&  npm run app:banner:copy",
     "serve:dev": "ng serve --progress --proxy-config proxy.conf.json --port 5100",
     "build:dev": "ng build ",
-    "build:stage": "ng build --aot --configuration=stage",
     "build:prod": "ng build --aot --configuration=production",
     "test:dev": "ng test --code-coverage --watch --progress ",
     "test:prod": "ng test --code-coverage --watch=false --no-progress --browsers=ChromeHeadlessCI",
@@ -49,11 +48,11 @@
     "heroku-postbuild": "ng build --configuration=${NODE_ENV}",
     "env:local": "NODE_ENV=local . ./.deploy/generate.env.sh",
     "env:stage": "NODE_ENV=stage . ./.deploy/generate.env.sh",
-    "start:local": "export NODE_ENV=local && ng serve --progress --proxy-config proxy.conf.json --port 5100",
     "version:generate": "gitversion /showvariable AssemblySemFileVer > .version.txt && cat .version.txt",
     "version:update": "npm run version:generate && npm version --allow-same-version `cat .version.txt`",
     "tag": "npm run version:update && figlet Printer3d-F `gitversion /showvariable AssemblySemFileVer` > .app-banner.txt && cat .app-banner.txt",
-    "serve:local": "export NODE_ENV=local && export PORT=5100 && npm run tag && npm run env:local && npm run build:dev && npm start"
+    "serve:local": "export NODE_ENV=local && export PORT=5100 && npm run tag && npm run env:local && npm run build:dev && npm start",
+    "build:stage": "ng build --aot --configuration=stage"
   },
   "private": true,
   "engines": {
