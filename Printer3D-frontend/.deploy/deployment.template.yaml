@@ -5,7 +5,7 @@ metadata:
   namespace: $NAMESPACE
 spec:
   selector:
-    app: "$MODULE_NAME"
+    app: "$IMAGE_NAME"
     version: "$VERSION"
     environment: "$ENVIRONMENT"
   type: NodePort
@@ -30,6 +30,7 @@ data:
   PRODUCTION: "$PRODUCTION"
   VERSION: "$VERSION"
   MODULE_NAME: "$MODULE_NAME"
+  IMAGE_NAME: "$IMAGE_NAME"
   APPLICATION_HOME: "$APPLICATION_HOME"
   BACKEND_PROXY: "$BACKEND_PROXY"
 
@@ -38,25 +39,25 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "$MODULE_NAME"
+  name: "$IMAGE_NAME"
   namespace: "$NAMESPACE"
   labels:
-    app: "$MODULE_NAME"
+    app: "$IMAGE_NAME"
     version: "$VERSION"
     environment: "$ENVIRONMENT"
 spec:
   selector:
     matchLabels:
-      app: "$MODULE_NAME"
+      app: "$IMAGE_NAME"
   template:
     metadata:
       labels:
-        app: "$MODULE_NAME"
+        app: "$IMAGE_NAME"
         version: "$VERSION"
         environment: "$ENVIRONMENT"
     spec:
       containers:
-      - name: "$MODULE_NAME"
+      - name: "$IMAGE_NAME"
         image: adamantinoo/$IMAGE_TAG
         env:
         - name: NODE_ENV
