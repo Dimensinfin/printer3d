@@ -5,8 +5,9 @@ metadata:
   namespace: $NAMESPACE
 spec:
   selector:
-    app: $APP_CODE-$ENV
-    version: $VERSION
+    app: "$MODULE_NAME"
+    version: "$VERSION"
+    environment: "$ENVIRONMENT"
   type: NodePort
   ports:
     - protocol: TCP
