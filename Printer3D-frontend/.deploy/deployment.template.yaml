@@ -13,7 +13,7 @@ spec:
     - protocol: TCP
       port: $PORT
       targetPort: $PORT
-      nodePort: $EXPOSED_PORT
+      nodePort: $EXPOSE_PORT
 
 ---
 
