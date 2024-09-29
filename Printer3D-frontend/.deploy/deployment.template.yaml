@@ -24,6 +24,7 @@ metadata:
   namespace: $NAMESPACE
 data:
   NODE_ENV: "$NODE_ENV"
+  APP_NAME: "$APP_NAME"
   PORT: "$PORT"
   ENVIRONMENT: "$ENVIRONMENT"
   NODE_VERSION: "$NODE_VERSION"
@@ -65,6 +66,11 @@ spec:
             configMapKeyRef:
               name: $FRONTEND_CONFIG_MAP
               key: NODE_ENV
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: APP_NAME
         - name: PORT
           valueFrom:
             configMapKeyRef:

@@ -1,6 +1,6 @@
 {
   "name": "printer3d-frontend",
-  "version": "0.18.0-6",
+  "version": "0.18.0-15",
   "scripts": {
     "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @F3D25.01",
     "docker:start": "docker-compose -f ./support/printer3d-docker-frontend/docker-compose.yml up & ",
@@ -51,7 +51,7 @@
     "version:generate": "gitversion /showvariable AssemblySemFileVer > .version.txt && cat .version.txt",
     "version:update": "npm run version:generate && npm version --allow-same-version `cat .version.txt`",
     "tag": "npm run version:update && figlet Printer3d-F `gitversion /showvariable AssemblySemFileVer` > .app-banner.txt && cat .app-banner.txt",
-    "serve:local": "export NODE_ENV=local && export PORT=5100 && npm run tag && npm run env:local && npm run build:dev && npm start",
+    "serve:local": "npm run tag && npm run build:dev && . ./config/.env.local ; npm start",
     "build:stage": "ng build --aot --configuration=stage"
   },
   "private": true,
@@ -88,6 +88,7 @@
     "angular-rollbar": "1.0.0",
     "compression": "1.7.4",
     "config": "3.3.1",
+    "env-cmd": "^10.1.0",
     "express": "4.17.1",
     "express-http-proxy": "1.6.0",
     "jwt-decode": "2.2.0",

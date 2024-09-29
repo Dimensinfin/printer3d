@@ -39,6 +39,9 @@
         "json.format.enable": false,
         "[json]": {
             "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+            "editor.defaultFormatter": "vscode.typescript-language-features"
         }
     },
 }
