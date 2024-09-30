@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-secret
+  namespace: stage
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: stage
+  POSTGRES_USER: printer3d
+  POSTGRES_PASSWORD: z.iliada.2020
