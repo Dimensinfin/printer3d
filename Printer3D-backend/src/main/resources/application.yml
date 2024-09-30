@@ -29,10 +29,7 @@ spring:
       active: true
       scheduletime: "0 0 * * * ?"
   security:
-    originDomains:
-      - "https://printer3d-frontend-stage.herokuapp.com/"
-      - "http://printer3d-stage-frontend-sv/"
-      - "http://printer3d-production-frontend-sv/"
+    originDomains: "http://printer3d-frontend-stage-svc/"
 
 logging:
   logstash:

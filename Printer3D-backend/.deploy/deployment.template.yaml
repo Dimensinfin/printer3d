@@ -58,6 +58,11 @@ spec:
         - name: $IMAGE_NAME
           image: adamantinoo/$IMAGE_TAG
           env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: $BACKEND_CONFIG_MAP
+                  key: PORT
             - name: SPRING_DATASOURCE_URL
               valueFrom:
                 configMapKeyRef:
