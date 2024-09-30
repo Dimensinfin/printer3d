@@ -4,7 +4,7 @@ server:
 info:
   tags:
     application: ${archivesBaseName}
-    port: \${PORT}
+    port: ${PORT}
     version: ${version}
 
 spring:
@@ -15,11 +15,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
   datasource:
-    url: \${SPRING_DATASOURCE_URL}
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
     platform: postgres
-    username: \${SPRING_DATASOURCE_USERNAME}
-    password: \${SPRING_DATASOURCE_PASSWORD}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml
@@ -29,7 +29,10 @@ spring:
       active: true
       scheduletime: "0 0 * * * ?"
   security:
-    originDomains: "https://printer3d-frontend-stage.herokuapp.com/"
+    originDomains:
+      - "https://printer3d-frontend-stage.herokuapp.com/"
+      - "http://printer3d-stage-frontend-sv/"
+      - "http://printer3d-production-frontend-sv/"
 
 logging:
   logstash:

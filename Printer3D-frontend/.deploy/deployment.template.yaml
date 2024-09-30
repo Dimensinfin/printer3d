@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: $PROJECT_NAME-$ENVIRONMENT-svc
+  name: $IMAGE_NAME-$ENVIRONMENT-svc
   namespace: $NAMESPACE
 spec:
   selector:
