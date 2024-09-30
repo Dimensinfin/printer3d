@@ -1,49 +1,79 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: neocom-$APP_CODE-svc
+  name: $PROJECT_NAME-$ENVIRONMENT-svc
   namespace: $NAMESPACE
 spec:
   selector:
-    app: $APP_CODE-$ENV
+    app: "$KUBERNETES_NAME"
     version: $VERSION
+    environment: "$ENVIRONMENT"
   type: NodePort
   ports:
     - protocol: TCP
-      port: 8000
+      port: $PORT
       targetPort: $PORT
-      nodePort: 32100
+      nodePort: $EXPOSE_PORT
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: $BACKEND_CONFIG_MAP
+  namespace: $NAMESPACE
+data:
+  APP_NAME: "$APP_NAME"
+  PORT: "$PORT"
+  ENVIRONMENT: "$ENVIRONMENT"
+  VERSION: "$VERSION"
+  MODULE_NAME: "$MODULE_NAME"
+  IMAGE_NAME: "$IMAGE_NAME"
+  SPRING_DATASOURCE_URL: "$SPRING_DATASOURCE_URL"
+  SPRING_DATASOURCE_USERNAME: "$SPRING_DATASOURCE_USERNAME"
+  SPRING_DATASOURCE_PASSWORD: "$SPRING_DATASOURCE_PASSWORD"
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $APP_CODE-$ENV
+  name: "$KUBERNETES_NAME"
   namespace: $NAMESPACE
   labels:
-    app: $APP_CODE-$ENV
+    app: "$KUBERNETES_NAME"
     version: "$VERSION"
-    port: "$PORT"
-    module: $MODULE_NAME
+    environment: "$ENVIRONMENT"
 spec:
   selector:
     matchLabels:
-      app: $APP_CODE-$ENV
+      app: "$KUBERNETES_NAME"
   template:
     metadata:
       labels:
-        app: $APP_CODE-$ENV
+        app: "$KUBERNETES_NAME"
         version: "$VERSION"
-        port: "$PORT"
-        module: $MODULE_NAME
+        environment: "$ENVIRONMENT"
     spec:
       containers:
-        - name: $APP_CODE-$ENV
+        - name: $IMAGE_NAME
           image: adamantinoo/$IMAGE_TAG
           env:
-            - name: NODE_ENV
-              value: $ENV
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: $BACKEND_CONFIG_MAP
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: $BACKEND_CONFIG_MAP
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: $BACKEND_CONFIG_MAP
+                  key: SPRING_DATASOURCE_PASSWORD
           ports:
             - containerPort: $PORT
           imagePullPolicy: Always
