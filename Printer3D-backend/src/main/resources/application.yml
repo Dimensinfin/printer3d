@@ -29,7 +29,7 @@ spring:
       active: true
       scheduletime: "0 0 * * * ?"
   security:
-    originDomains: "http://printer3d-frontend-stage-svc/"
+    originDomains: "http://localhost/"
 
 logging:
   logstash:
