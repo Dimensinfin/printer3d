@@ -22,6 +22,12 @@
         },
         {
             "path": "../neocom-infinity/neocom-infinity-backend"
+        },
+        {
+            "path": ".deploy"
+        },
+        {
+            "path": ".teamcity"
         }
     ],
     "settings": {
