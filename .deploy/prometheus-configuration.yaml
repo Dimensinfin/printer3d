@@ -1,0 +1,7 @@
+namespaceOverride: prometheus
+operator.networkPolicy.ingressNSMatchLabels:
+  - stage
+  - develop
+  - production
+operator.kubeletService.namespace: prometheus
+operator.namespaces: develop, stage, production

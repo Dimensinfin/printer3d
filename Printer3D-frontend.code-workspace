@@ -28,6 +28,9 @@
         },
         {
             "path": ".teamcity"
+        },
+        {
+            "path": "../../.kube"
         }
     ],
     "settings": {
