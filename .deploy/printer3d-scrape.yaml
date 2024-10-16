@@ -1,0 +1,15 @@
+    - job_name: 'printer3d-backend-stage'
+      kubernetes_sd_configs:
+        - role: service
+          namespaces:
+            names:
+              - stage
+      relabel_configs:
+        - source_labels: printer3d-backend-stage-svc
+          action: keep
+          regex: printer3d-backend-stage-svc
+        - source_labels: stage
+          action: keep
+          regex: stage
+      metrics_path: /metrics
+      scheme: http
