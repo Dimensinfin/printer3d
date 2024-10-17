@@ -1,13 +1,13 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Printer3D - App [DEV]" type="Application" factoryName="Application">
+  <configuration default="false" name="Printer3D - App [LOCAL]" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="azul-11" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <envs>
+      <env name="DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5132/postgres" />
+      <env name="DB_PASSWORD" value="printer3d-password" />
+      <env name="DB_USER" value="printer3d-user" />
+      <env name="NEOCOM_BANNER_LOCATION" value="./.app-banner" />
       <env name="PORT" value="5120" />
-      <env name="DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5432/postgres" />
-      <env name="DB_USER" value="adamantinoo" />
-      <env name="DB_PASSWORD" value="z.iliada.2020" />
-      <env name="NEOCOM_BANNER_LOCATION" value="./build/resources/main/app-banner.txt" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="org.dimensinfin.printer3d.backend.Printer3DApplication" />
     <module name="Printer3D-backend.main" />
