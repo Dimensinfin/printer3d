@@ -1,0 +1,4 @@
+'Printer3D' project is selected to export. All its subprojects and dependencies are exported.
+'<Root project> / T.Generate Common Environment' template is exported because 'Printer3D / C1.Create Image P3DF' is based on it
+'<Root project> / T.Extend Environment' template is exported because 'Printer3D / C1.Create Image P3DF' is based on it
+'<Root project> / T.Build Java Gradle' template is exported because 'Printer3D / A2.Build P3DB' is based on it

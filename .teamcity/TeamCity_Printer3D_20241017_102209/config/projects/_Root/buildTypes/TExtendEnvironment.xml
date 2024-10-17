@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="06a2adf5-4a17-4e4d-a189-1d89ad07d452" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>T.Extend Environment</name>
+  <description>Extend the environment for the creation of any image.</description>
+  <settings>
+    <parameters>
+      <param name="MODULE_NAME" value="" />
+      <param name="env.DEPLOY_DIR" value="" />
+      <param name="env.TAG" value="" />
+      <param name="env.WORKING_DIR" value="" />
+    </parameters>
+    <build-runners>
+      <runner id="simpleRunner" name="S2. Extend Environment" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# E X T E N D    E N V I R O N M E N T 
+# Extend the environment for Node modules using the metaframework configuration scripts.
+# Define the Docker image to be generated
+#
+# - define workspace
+echo '>>> extend workspace'
+PROJECT_ROOT=%teamcity.build.checkoutDir%
+cd $PROJECT_ROOT
+export PROJECT_DIRECTORY=$PROJECT_ROOT/%MODULE_NAME%
+export WORKING_DIR=$PROJECT_DIRECTORY
+export DEPLOY_DIR=$WORKING_DIR/.deploy
+export TAG=%IMAGE_NAME%:%env.VERSION%
+echo "PROJECT_ROOT->$PROJECT_ROOT"
+echo "PROJECT_DIRECTORY->$PROJECT_DIRECTORY"
+echo 'WORKING_DIR->'$WORKING_DIR
+echo 'DEPLOY_DIR->'$DEPLOY_DIR
+echo 'IMAGE_NAME->'%IMAGE_NAME%
+echo 'TAG->'$TAG
+echo "##teamcity[setParameter name='env.NODE_ENV' value='$ENVIRONMENT']"
+echo "##teamcity[setParameter name='env.WORKING_DIR' value='$WORKING_DIR']"
+echo "##teamcity[setParameter name='env.DEPLOY_DIR' value='$DEPLOY_DIR']"
+echo "##teamcity[setParameter name='env.TAG' value='$TAG']"
+echo "<<<<<"]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers />
+    <cleanup />
+  </settings>
+</template>
+

@@ -1,7 +1,33 @@
 {
     "folders": [
         {
-            "path": "."
+            "name": "Printer3D-frontend",
+            "path": "Printer3D-frontend"
+        },
+        {
+            "name": "Printer3D-backend",
+            "path": "Printer3D-backend"
+        },
+        {
+            "name": "neocom-infinity-nest",
+            "path": "../neocom-infinity/neocom-infinity-nest"
+        },
+        {
+            "name": "neocom-domain",
+            "path": "../neocom-infinity/neocom-domain"
+        },
+        {
+            "name": "neocom-infinity-frontend",
+            "path": "../neocom-infinity/neocom-infinity-frontend"
+        },
+        {
+            "path": "../neocom-infinity/neocom-infinity-backend"
+        },
+        {
+            "path": ".deploy"
+        },
+        {
+            "path": ".teamcity"
         }
     ],
     "settings": {
@@ -26,6 +52,12 @@
         ],
         "json.schemas": [],
         "html.format.endWithNewline": true,
-        "json.format.enable": false
+        "json.format.enable": false,
+        "[json]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+            "editor.defaultFormatter": "vscode.typescript-language-features"
+        }
     },
 }

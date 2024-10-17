@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vcs-root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="52b9ce63-c93f-4f54-9457-bd092a8e86ec" type="jetbrains.git" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Dimensinfin/printer3d</name>
+  <param name="agentCleanFilesPolicy" value="ALL_UNTRACKED" />
+  <param name="agentCleanPolicy" value="ON_BRANCH_CHANGE" />
+  <param name="authMethod" value="PASSWORD" />
+  <param name="branch" value="main" />
+  <param name="ignoreKnownHosts" value="true" />
+  <param name="push_url" value="https://github.com/Dimensinfin/printer3d.git" />
+  <param name="reportTagRevisions" value="true" />
+  <param name="secure:password" value="zxx4c96fd608356ed5042cc9f709c0140666760588158f267892b8dddf12bf743b12f97beaa3971e272775d03cbe80d301b" />
+  <param name="submoduleCheckout" value="CHECKOUT" />
+  <param name="teamcity:branchSpec" value="+:*" />
+  <param name="url" value="https://github.com/Dimensinfin/printer3d.git" />
+  <param name="useAlternates" value="AUTO" />
+  <param name="username" value="AdamAntinoo" />
+  <param name="usernameStyle" value="USERID" />
+</vcs-root>
+

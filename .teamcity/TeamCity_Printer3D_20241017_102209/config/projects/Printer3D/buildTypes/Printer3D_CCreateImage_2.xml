@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="359295cd-edad-4983-aa4a-7b0b8386a22e" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>C. Create Image</name>
+  <description>Template to generate the environment settings and the variables.</description>
+  <settings>
+    <parameters>
+      <param name="APP_CODE" value="neo%PROJECT_CODE%" />
+      <param name="JAVA_VERSION" value="17" />
+      <param name="MODULE_NAME" value="&lt;module&gt;" />
+      <param name="NODE_VERSION" value="18.0.0" />
+      <param name="PORT" value="999" />
+      <param name="PROJECT_CODE" value="&lt;code&gt;" />
+      <param name="PROJECT_NAME" value="neocom-infinity-%MODULE_NAME%" />
+      <param name="env.BRANCH" value="" />
+      <param name="env.ENV" value="" />
+      <param name="env.ENVIRONMENT" value="" />
+      <param name="env.IMAGE_NAME" value="" />
+      <param name="env.SEMVERSION" value="" />
+      <param name="env.TAG" value="" />
+      <param name="env.VERSION" value="" />
+      <param name="env.WORKING_DIR" value="" />
+    </parameters>
+    <build-runners>
+      <runner id="S1_Get_Environment_1" name="S1. Get Environment" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# G E T   E N V I R O N M E N T
+# Extract the deployment environment from the branch/tag being processed along with the buid version
+#
+# - define the deployment environment
+echo '>>> Identifying Environment'
+# - set default value to 'deployment'
+export ENVIRONMENT='deployment'
+export BRANCH=%teamcity.build.branch%
+echo "BRANCH->$BRANCH"
+if [[ "$BRANCH" =~ ^(.*)main ]];
+then 
+    export ENVIRONMENT='production'
+else 
+	export ENVIRONMENT='deployment'
+fi
+echo 'ENVIRONMENT->'$ENVIRONMENT
+echo "##teamcity[setParameter name='env.ENVIRONMENT' value='$ENVIRONMENT']"
+echo "##teamcity[setParameter name='env.BRANCH' value='$BRANCH']"
+# - generate common environment
+. ./.deploy/global-configuration.$ENVIRONMENT.sh
+echo "<<<<<"
+
+# - define workspace
+echo '>>> define workspace'
+export PROJECT_ROOT=%teamcity.build.checkoutDir%/%PROJECT_NAME%
+cd $PROJECT_ROOT
+export WORKING_DIR=$PROJECT_ROOT
+export DEPLOY_DIR=$WORKING_DIR/.deploy
+export SOURCES_DIR=$PROJECT_ROOT/src
+echo "PROJECT_ROOT->$PROJECT_ROOT"
+echo "WORKING_DIR->$WORKING_DIR"
+echo "DEPLOY_DIR->$DEPLOY_DIR"
+echo "SOURCES_DIR->$SOURCES_DIR"
+echo "<<<<<"
+
+# - define the deployment environment
+echo '>>> Identifying Environment'
+export IMAGE_NAME=%PROJECT_NAME%
+export ENV=$ENVIRONMENT
+echo "IMAGE_NAME->$IMAGE_NAME"
+echo "ENV->$ENV"
+echo "##teamcity[setParameter name='env.WORKING_DIR' value='$WORKING_DIR']"
+echo "##teamcity[setParameter name='env.IMAGE_NAME' value='$IMAGE_NAME']"
+echo "##teamcity[setParameter name='env.ENV' value='$ENV']"
+echo "<<<<<"
+
+# - Get version codes
+echo '>>> Identifying version'
+export SEMVER=`gitversion /showvariable MajorMinorPatch`
+export VMETA=`gitversion /showvariable CommitsSinceVersionSource`
+export SEMVERSION=$SEMVER
+export VERSION=`gitversion /showvariable AssemblySemFileVer`
+echo 'SEMVERSION->'$SEMVERSION
+echo 'VERSION->'$VERSION
+echo "##teamcity[setParameter name='env.SEMVERSION' value='$SEMVERSION']"
+echo "##teamcity[setParameter name='env.VERSION' value='$VERSION']"
+echo "<<<<<"]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers />
+    <cleanup />
+  </settings>
+</template>
+

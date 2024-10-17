@@ -112,6 +112,7 @@ task setVersion(type: Exec) {
     }
 }
 compileJava.dependsOn setVersion
+bootJar.dependsOn setVersion
 
 task cleanResources(type: Delete, dependsOn: clean) {
     group = 'coverage'

@@ -1,0 +1,15 @@
+FROM node:$NODE_VERSION-alpine
+# Set the environment ot be used to configure the service. development-integration-production
+ENV NODE_ENV=$NODE_ENV
+
+COPY ./node_modules /app/node_modules
+COPY ./dist /app/dist
+COPY package.json /app
+COPY .app-banner.txt /app
+COPY server.js /app
+
+WORKDIR /app
+# Expose the port on which the app will run
+EXPOSE $PORT
+# Start the server using the production build
+CMD ["node", "server.js"]

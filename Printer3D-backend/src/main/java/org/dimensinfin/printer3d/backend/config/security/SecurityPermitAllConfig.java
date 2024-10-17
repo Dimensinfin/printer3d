@@ -36,7 +36,7 @@ public class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
 	protected void configure( final HttpSecurity http ) throws Exception {
 		http.authorizeRequests()
 				.anyRequest().permitAll()
-				.and().cors()
+//				.and().cors()
 				.and().csrf().disable();
 	}
 }
