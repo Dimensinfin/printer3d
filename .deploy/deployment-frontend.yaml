@@ -1,0 +1,117 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: printer3d-frontend-develop-svc
+  namespace: develop
+spec:
+  selector:
+    app: "printer3d-frontend"
+    version: "0.18.0-25"
+    environment: "develop"
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+      nodePort: 30201
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: printer3d-frontend-environment
+  namespace: develop
+data:
+  NODE_ENV: "develop"
+  APP_NAME: "Tetsuo3D-UI"
+  PORT: "9000"
+  ENVIRONMENT: "develop"
+  NODE_VERSION: "10.24.1"
+  PRODUCTION: "false"
+  VERSION: "0.18.0-25"
+  MODULE_NAME: "Printer3D-frontend"
+  IMAGE_NAME: "printer3d-frontend"
+  APPLICATION_HOME: "/dist/Printer3D-frontend"
+  BACKEND_PROXY: "http://printer3d-backend-stage-svc:9000/"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "printer3d-frontend"
+  namespace: "develop"
+  labels:
+    app: "printer3d-frontend"
+    version: "0.18.0-25"
+    environment: "develop"
+spec:
+  selector:
+    matchLabels:
+      app: "printer3d-frontend"
+  template:
+    metadata:
+      labels:
+        app: "printer3d-frontend"
+        version: "0.18.0-25"
+        environment: "develop"
+    spec:
+      containers:
+      - name: "printer3d-frontend"
+        image: adamantinoo/printer3d-frontend:0.18.0-25
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: NODE_ENV
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: APP_NAME
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: PORT
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: ENVIRONMENT
+        - name: NODE_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: NODE_VERSION
+        - name: PRODUCTION
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: PRODUCTION
+        - name: VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: VERSION
+        - name: MODULE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: MODULE_NAME
+        - name: APPLICATION_HOME
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: APPLICATION_HOME
+        - name: BACKEND_PROXY
+          valueFrom:
+            configMapKeyRef:
+              name: printer3d-frontend-environment
+              key: BACKEND_PROXY
+        ports:
+        - containerPort: 9000
+        imagePullPolicy: Always
+      serviceAccountName: default

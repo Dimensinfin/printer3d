@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: printer3d-backend-stage-svc-monitor
+  name: printer3d-backend-develop-svc-monitor
   namespace: monitoring
 spec:
   selector:
@@ -9,7 +9,7 @@ spec:
       app: printer3d-backend
   namespaceSelector:
     matchNames:
-    - stage
+    - develop
   endpoints:
   - port: "8080"
     path: "/actuator/prometheus"
