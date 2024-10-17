@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgres-secret
-  namespace: stage
+  namespace: develop
   labels:
     app: postgres
 data:

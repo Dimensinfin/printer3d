@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="15203e5b-bb60-46ef-b246-1e5037f20738" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>T.Build Java Gradle</name>
+  <settings>
+    <options>
+      <option name="artifactRules" value="%MODULE_NAME%/build =&gt; %MODULE_NAME%/build" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="A1_Build_NIB" name="Compile NIB" type="gradle-runner">
+        <parameters>
+          <param name="teamcity.build.workingDir" value="neocom-infinity-backend" />
+          <param name="teamcity.coverage.emma.include.source" value="true" />
+          <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
+          <param name="teamcity.coverage.idea.includePatterns" value="*" />
+          <param name="teamcity.coverage.jacoco.patterns" value="+:*" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="teamcity.tool.jacoco" value="%teamcity.tool.jacoco.DEFAULT%" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean compileJava compileTestJava compileAcceptanceJava compileIntegrationJava" />
+          <param name="ui.gradleRunner.gradle.wrapper.useWrapper" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers />
+    <build-extensions>
+      <extension id="perfmon" type="perfmon">
+        <parameters>
+          <param name="teamcity.perfmon.feature.enabled" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</template>
+

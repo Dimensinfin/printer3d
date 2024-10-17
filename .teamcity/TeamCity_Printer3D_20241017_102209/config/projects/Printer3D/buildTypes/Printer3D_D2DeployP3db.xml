@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="419a577d-864a-4710-80b2-2d67a86c4cb0" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>D2.Deploy P3DB</name>
+  <description>Deploy at Kubernetes the image for the application printer3d-backend</description>
+  <settings>
+    <inherits>
+      <ref id="TGenerateCommonEnvironment" />
+      <ref id="TExtendEnvironment" />
+    </inherits>
+    <options>
+      <option name="allowPersonalBuildTriggering" value="false" />
+      <option name="artifactRules" value=".deploy =&gt; .deploy" />
+      <option name="buildConfigurationType" value="DEPLOYMENT" />
+      <option name="maximumNumberOfBuilds" value="1" />
+    </options>
+    <parameters>
+      <param name="EXPOSE_PORT" value="30202" />
+      <param name="IMAGE_NAME" value="printer3d-backend" />
+      <param name="MODULE_NAME" value="Printer3D-backend" />
+      <param name="SPRING_DATASOURCE_PASSWORD" value="z.iliada.2020" />
+      <param name="SPRING_DATASOURCE_URL" value="jdbc:postgresql://postgres-sv:5432/stage" />
+      <param name="SPRING_DATASOURCE_USERNAME" value="printer3d" />
+    </parameters>
+    <build-runners order="S1_Get_Environment_1, simpleRunner, Generate_image_NIN">
+      <runner id="Generate_image_NIN" name="S2. Deploy P3DB to Kubernetes" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# D E P L O Y   K U B E R N E T E S
+# Deploy the image to the Kubernetes namespace
+#
+# - variables required to be on the environment.
+# APP_CODE - the application internal code.
+# PROJECT_NAME - The project prefix to be used to identify project elements.
+# ENVIRONMENT - the selector between a deployment and a production release.
+# NAMESPACE - the destination Kubernetes namespace.
+# PORT - the standard service port of the application under the declared service. It is static for an application.
+# EXPOSE_PORT - the port number exposed to the localhost. It should change depending on the ENV.
+# VERSION - the image version that is assigned to the pod.
+# MODULE_NAME - the infinity module name. It is the long directory name of the software module.
+# IMAGE_TAG - the Docker repository image tag name. Usually the module+version.
+# IMAGE_NAME - the image name to be used on the pod.
+# KUBERNETES_NAME - the names to be used at Kubernetes because the need to use lowercase.
+export APP_CODE=%APP_CODE%
+export PROJECT_NAME=%PROJECT_NAME%
+export NAMESPACE=$ENVIRONMENT
+export PORT=%PORT%
+export EXPOSE_PORT=%EXPOSE_PORT%
+export VERSION=%env.VERSION%
+export MODULE_NAME=%MODULE_NAME%
+export IMAGE_TAG=%env.TAG%
+export IMAGE_NAME=%IMAGE_NAME%
+export KUBERNETES_NAME=%IMAGE_NAME%
+
+# - environment definition to be mapped on kubernetes maps
+# PORT - already declared.
+# VERSION - already declared.
+# MODULE_NAME - already declared.
+# SPRING_DATASOURCE_URL - The connection string to the database repository.
+# SPRING_DATASOURCE_USERNAME - The repository schema user name.
+# SPRING_DATASOURCE_PASSWORD - The repository schema password.
+export SPRING_DATASOURCE_URL=%SPRING_DATASOURCE_URL%
+export SPRING_DATASOURCE_USERNAME=%SPRING_DATASOURCE_USERNAME%
+export SPRING_DATASOURCE_PASSWORD=%SPRING_DATASOURCE_PASSWORD%
+
+# - define environment map
+export BACKEND_CONFIG_MAP=%IMAGE_NAME%-environment
+
+# - Generate kubernetes deployment file from template
+cat  %env.DEPLOY_DIR%/deployment.template.yaml | envsubst > %env.DEPLOY_DIR%/deployment.yaml
+echo ">>> DEPLOYMENT"
+cat %env.DEPLOY_DIR%/deployment.yaml
+echo "<<<<<"
+
+kubectl apply -f %env.DEPLOY_DIR%/deployment.yaml]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Printer3D_DimensinfinPrinter3d" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:refs/heads/develop" />
+          <param name="enableQueueOptimization" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <dependencies>
+      <depend-on sourceBuildTypeId="Printer3D_C2CreateImageP3db">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

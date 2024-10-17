@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: postgres-volume
-  namespace: stage
+  namespace: develop
   labels:
     type: local
     app: postgres
@@ -13,7 +13,7 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: /Users/adam/.stage-storage/postgresql
+    path: /Users/adam/.kubernetes-storage/develop/postgresql
   persistentVolumeReclaimPolicy: Retain
 
 ---
@@ -22,7 +22,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-volume-claim
-  namespace: stage
+  namespace: develop
   labels:
     app: postgres
 spec:
