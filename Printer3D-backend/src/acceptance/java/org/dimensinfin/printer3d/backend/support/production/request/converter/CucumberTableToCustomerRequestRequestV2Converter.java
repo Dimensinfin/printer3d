@@ -2,6 +2,7 @@ package org.dimensinfin.printer3d.backend.support.production.request.converter;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.dimensinfin.acceptance.support.converter.CucumberTableConverter;
@@ -24,11 +25,12 @@ public class CucumberTableToCustomerRequestRequestV2Converter extends CucumberTa
 	@Override
 	public CustomerRequestRequestV2 convert( final Map<String, String> cucumberRow ) {
 		final CustomerRequestRequestV2.Builder builder = new CustomerRequestRequestV2.Builder();
-		if (null != cucumberRow.get( ID )) builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
-		if (null != cucumberRow.get( LABEL )) builder.withLabel( cucumberRow.get( LABEL ) );
-		if (null != cucumberRow.get( REQUEST_DATE )) builder.withRequestDate( cucumberRow.get( REQUEST_DATE ) );
-		if (null != cucumberRow.get( PAID )) builder.withPaid( Boolean.parseBoolean( cucumberRow.get( PAID ) ) );
-		if (null != cucumberRow.get( TOTAL )) builder.withTotalAmount( Float.parseFloat( cucumberRow.get( TOTAL ) ) );
+		if ( null != cucumberRow.get( ID ) ) builder.withId( UUID.fromString( cucumberRow.get( ID ) ) );
+		if ( null != cucumberRow.get( LABEL ) ) builder.withLabel( cucumberRow.get( LABEL ) );
+		if ( null != cucumberRow.get( REQUEST_DATE ) ) builder.withRequestDate( this.dynamicDateConversion( cucumberRow.get( REQUEST_DATE ) ) );
+		if ( null != cucumberRow.get( PAID ) ) builder.withPaid( Boolean.parseBoolean( cucumberRow.get( PAID ) ) );
+		if ( Objects.nonNull( cucumberRow.get( TOTAL ) ) ) builder.withTotalAmount( Float.parseFloat( cucumberRow.get( TOTAL ) ) );
+		else builder.withTotalAmount( 0.0F );
 		builder.withContents( this.requestContents );
 		return builder.build()
 				.setCustomer( cucumberRow.get( CUSTOMER ) );

@@ -311,7 +311,28 @@ Feature: [FEATURE] Manage the interactions with the Request entity. Requests hav
 #            | id                                   | label                          | dateClosed |
 #            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | <today>    |
 
-
+    @B3D08.H2 @B3D08.10
+    Scenario: [B3D08.10] Requests should be processed ordered on the request date from older to newest.
+        # - Create a request
+        Given the next Request Contents List
+            | itemId                               | type  | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART  | 1        |
+            | 85403a7a-4bf8-4e99-bbc1-8283ea91f99b | MODEL | 2        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                          | requestDate | state |
+            | d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a | Complete Slot Car Platform P02 | <yesterday> | OPEN  |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
+        # - Create a second request
+        Given the next Request Contents List
+            | itemId                               | type | quantity |
+            | a12ec0be-52a4-424f-81e1-70446bc38372 | PART | 1        |
+            | 2f780382-e539-4945-87ea-354bdd7879ce | PART | 5        |
+        And creating the next Request V2 with previous Contents
+            | id                                   | label                     | requestDate | state |
+            | 839b68e6-7c97-4575-9c9f-3812854f239d | Set of bases for slot car | <now>       | OPEN  |
+        When the New Request V2 request is processed
+        Then there is a valid response with return code of "201 CREATED"
 
 
     # - E X C E P T I O N S

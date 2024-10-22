@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11
 COPY ./*.jar /usr/app/
-COPY ./app-banner.txt /usr/app/
+COPY ./.app-banner /usr/app/
 WORKDIR /usr/app
 ENV PORT=9500
 ENV DB_USER=printer3d-user

@@ -1,0 +1,519 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dineug/erd-editor/main/json-schema/schema.json",
+  "version": "3.0.0",
+  "settings": {
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": -61,
+    "scrollLeft": -1,
+    "zoomLevel": 1,
+    "show": 431,
+    "database": 4,
+    "databaseName": "printer3d",
+    "canvasType": "ERD",
+    "language": 1,
+    "tableNameCase": 4,
+    "columnNameCase": 2,
+    "bracketType": 1,
+    "relationshipDataTypeSync": true,
+    "relationshipOptimization": false,
+    "columnOrder": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "maxWidthComment": -1,
+    "ignoreSaveSettings": 0
+  },
+  "doc": {
+    "tableIds": [
+      "KXX9BRXJDtnpITm7yjyLY"
+    ],
+    "relationshipIds": [],
+    "indexIds": [],
+    "memoIds": []
+  },
+  "collections": {
+    "tableEntities": {
+      "KXX9BRXJDtnpITm7yjyLY": {
+        "id": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "requestsv2",
+        "comment": "Stores the customer requests to be manufactured and serviced.",
+        "columnIds": [
+          "EH-UNiVylZp-7qquONkuw",
+          "xqdXfKYHWcsHOAtD3Wr6M",
+          "2d9wmS0r9vB6itmlXrCjS",
+          "rMuw8SShX-6G12GHfi8Yj",
+          "_aJ9H-XrhfsjJO1LRRGIb",
+          "kfhkZSc9XdNgr7AjpyaUv",
+          "cL1OTiF8cRkZwlWPHaUhL",
+          "8S3rCc37XGAbbrzKG5ZzF",
+          "3Q1oRN3rYE9CAMMoTAs7R",
+          "kui7FtvCWofngebao1YUE",
+          "ypjO9gMNGsHnBwvGEfeND",
+          "ps3ciC3qRTEuAiyA7qPv7"
+        ],
+        "seqColumnIds": [
+          "EH-UNiVylZp-7qquONkuw",
+          "xqdXfKYHWcsHOAtD3Wr6M",
+          "2d9wmS0r9vB6itmlXrCjS",
+          "1XoP7zcgR0rzJQ6gaNQca",
+          "rMuw8SShX-6G12GHfi8Yj",
+          "_aJ9H-XrhfsjJO1LRRGIb",
+          "kfhkZSc9XdNgr7AjpyaUv",
+          "cL1OTiF8cRkZwlWPHaUhL",
+          "8S3rCc37XGAbbrzKG5ZzF",
+          "3Q1oRN3rYE9CAMMoTAs7R",
+          "kui7FtvCWofngebao1YUE",
+          "ypjO9gMNGsHnBwvGEfeND",
+          "ps3ciC3qRTEuAiyA7qPv7"
+        ],
+        "ui": {
+          "x": 104,
+          "y": 63,
+          "zIndex": 2,
+          "widthName": 65,
+          "widthComment": 363,
+          "color": ""
+        },
+        "meta": {
+          "updateAt": 1729601596791,
+          "createAt": 1729600491023
+        }
+      }
+    },
+    "tableColumnEntities": {
+      "EH-UNiVylZp-7qquONkuw": {
+        "id": "EH-UNiVylZp-7qquONkuw",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "id",
+        "comment": "unique request identifier",
+        "dataType": "UUID",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 140,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729600746911,
+          "createAt": 1729600626069
+        }
+      },
+      "xqdXfKYHWcsHOAtD3Wr6M": {
+        "id": "xqdXfKYHWcsHOAtD3Wr6M",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "label",
+        "comment": "",
+        "dataType": "VARCHAR(50)",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 83,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729600708729,
+          "createAt": 1729600686457
+        }
+      },
+      "2d9wmS0r9vB6itmlXrCjS": {
+        "id": "2d9wmS0r9vB6itmlXrCjS",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "request_date",
+        "comment": "the request date and time",
+        "dataType": "TIMESTAMP",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 77,
+          "widthComment": 148,
+          "widthDataType": 71,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729600762057,
+          "createAt": 1729600722242
+        }
+      },
+      "1XoP7zcgR0rzJQ6gaNQca": {
+        "id": "1XoP7zcgR0rzJQ6gaNQca",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "state",
+        "comment": "the request state from the possible values of request_state",
+        "dataType": "ENUM",
+        "default": "OPEN",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 336,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729600882376,
+          "createAt": 1729600764225
+        }
+      },
+      "rMuw8SShX-6G12GHfi8Yj": {
+        "id": "rMuw8SShX-6G12GHfi8Yj",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "contents",
+        "comment": "the serialized set of contents that define this request",
+        "dataType": "JSON",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 301,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729600862501,
+          "createAt": 1729600809330
+        }
+      },
+      "_aJ9H-XrhfsjJO1LRRGIb": {
+        "id": "_aJ9H-XrhfsjJO1LRRGIb",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "amount",
+        "comment": "the request invoice value",
+        "dataType": "FLOAT",
+        "default": "0.0",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 143,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601426936,
+          "createAt": 1729600930251
+        }
+      },
+      "kfhkZSc9XdNgr7AjpyaUv": {
+        "id": "kfhkZSc9XdNgr7AjpyaUv",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "date_delivered",
+        "comment": "The date and time when the Request is completed and delivered or packaged.",
+        "dataType": "TIMESTAMP",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 86,
+          "widthComment": 442,
+          "widthDataType": 71,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601602379,
+          "createAt": 1729600986530
+        }
+      },
+      "cL1OTiF8cRkZwlWPHaUhL": {
+        "id": "cL1OTiF8cRkZwlWPHaUhL",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "customer",
+        "comment": "Stores the Customer information.",
+        "dataType": "VARCHAR(500)",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 190,
+          "widthDataType": 90,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601211744,
+          "createAt": 1729601085544
+        }
+      },
+      "8S3rCc37XGAbbrzKG5ZzF": {
+        "id": "8S3rCc37XGAbbrzKG5ZzF",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "date_paid",
+        "comment": "The date and time when the Request is paid by the customer",
+        "dataType": "TIMESTAMP",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 345,
+          "widthDataType": 71,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601194778,
+          "createAt": 1729601169417
+        }
+      },
+      "3Q1oRN3rYE9CAMMoTAs7R": {
+        "id": "3Q1oRN3rYE9CAMMoTAs7R",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "paid",
+        "comment": "lag that reports if the Request is already paid.",
+        "dataType": "BOOLEAN",
+        "default": "false",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 260,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601259580,
+          "createAt": 1729601229829
+        }
+      },
+      "kui7FtvCWofngebao1YUE": {
+        "id": "kui7FtvCWofngebao1YUE",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "iva",
+        "comment": "The Request tax amount.",
+        "dataType": "FLOAT",
+        "default": "0.0",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 143,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601332257,
+          "createAt": 1729601271065
+        }
+      },
+      "ypjO9gMNGsHnBwvGEfeND": {
+        "id": "ypjO9gMNGsHnBwvGEfeND",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "total",
+        "comment": "The Request total amount to be paid by the customer on reception of the requested items.",
+        "dataType": "FLOAT",
+        "default": "0.0",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 512,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601346680,
+          "createAt": 1729601305418
+        }
+      },
+      "ps3ciC3qRTEuAiyA7qPv7": {
+        "id": "ps3ciC3qRTEuAiyA7qPv7",
+        "tableId": "KXX9BRXJDtnpITm7yjyLY",
+        "name": "state",
+        "comment": "Stores the new updated request state. printer3d.request_statev2",
+        "dataType": "ENUM",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 370,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1729601577900,
+          "createAt": 1729601470080
+        }
+      }
+    },
+    "relationshipEntities": {},
+    "indexEntities": {},
+    "indexColumnEntities": {},
+    "memoEntities": {}
+  },
+  "lww": {
+    "settings.databaseName": [
+      "settings",
+      -1,
+      -1,
+      {
+        "databaseName": 1729600485060
+      }
+    ],
+    "KXX9BRXJDtnpITm7yjyLY": [
+      "tableEntities",
+      1729600491020,
+      -1,
+      {
+        "name": 1729600636364,
+        "comment": 1729600658778
+      }
+    ],
+    "EH-UNiVylZp-7qquONkuw": [
+      "tableColumnEntities",
+      1729600626064,
+      -1,
+      {
+        "name": 1729600664029,
+        "dataType": 1729600746909,
+        "options(notNull)": 1729600671930,
+        "comment": 1729600684127
+      }
+    ],
+    "xqdXfKYHWcsHOAtD3Wr6M": [
+      "tableColumnEntities",
+      1729600686456,
+      -1,
+      {
+        "name": 1729600691155,
+        "dataType": 1729600704343,
+        "options(notNull)": 1729600708728
+      }
+    ],
+    "2d9wmS0r9vB6itmlXrCjS": [
+      "tableColumnEntities",
+      1729600722241,
+      -1,
+      {
+        "name": 1729600731751,
+        "dataType": 1729600739299,
+        "options(notNull)": 1729600751610,
+        "comment": 1729600762056
+      }
+    ],
+    "1XoP7zcgR0rzJQ6gaNQca": [
+      "tableColumnEntities",
+      1729600764225,
+      1729601563419,
+      {
+        "name": 1729600769634,
+        "dataType": 1729600782187,
+        "options(notNull)": 1729600786307,
+        "comment": 1729600823666,
+        "default": 1729600882375
+      }
+    ],
+    "rMuw8SShX-6G12GHfi8Yj": [
+      "tableColumnEntities",
+      1729600809330,
+      -1,
+      {
+        "name": 1729600831800,
+        "dataType": 1729600839084,
+        "options(notNull)": 1729600842363,
+        "comment": 1729600862500
+      }
+    ],
+    "_aJ9H-XrhfsjJO1LRRGIb": [
+      "tableColumnEntities",
+      1729600930250,
+      -1,
+      {
+        "name": 1729600933568,
+        "dataType": 1729600939885,
+        "comment": 1729600954574,
+        "default": 1729600965034,
+        "options(notNull)": 1729601426936
+      }
+    ],
+    "kfhkZSc9XdNgr7AjpyaUv": [
+      "tableColumnEntities",
+      1729600986530,
+      -1,
+      {
+        "name": 1729601602378,
+        "dataType": 1729600997117,
+        "comment": 1729601158595
+      }
+    ],
+    "cL1OTiF8cRkZwlWPHaUhL": [
+      "tableColumnEntities",
+      1729601085539,
+      -1,
+      {
+        "name": 1729601092380,
+        "dataType": 1729601108640,
+        "comment": 1729601211744
+      }
+    ],
+    "8S3rCc37XGAbbrzKG5ZzF": [
+      "tableColumnEntities",
+      1729601169417,
+      -1,
+      {
+        "name": 1729601173634,
+        "dataType": 1729601180913,
+        "comment": 1729601194777
+      }
+    ],
+    "3Q1oRN3rYE9CAMMoTAs7R": [
+      "tableColumnEntities",
+      1729601229828,
+      -1,
+      {
+        "name": 1729601232991,
+        "dataType": 1729601236317,
+        "options(notNull)": 1729601244599,
+        "comment": 1729601256833,
+        "default": 1729601259580
+      }
+    ],
+    "kui7FtvCWofngebao1YUE": [
+      "tableColumnEntities",
+      1729601271064,
+      -1,
+      {
+        "name": 1729601273937,
+        "dataType": 1729601279946,
+        "comment": 1729601291853,
+        "options(notNull)": 1729601325916,
+        "default": 1729601332257
+      }
+    ],
+    "ypjO9gMNGsHnBwvGEfeND": [
+      "tableColumnEntities",
+      1729601305417,
+      -1,
+      {
+        "name": 1729601308776,
+        "dataType": 1729601315009,
+        "options(notNull)": 1729601327053,
+        "default": 1729601335157,
+        "comment": 1729601346679
+      }
+    ],
+    "ps3ciC3qRTEuAiyA7qPv7": [
+      "tableColumnEntities",
+      1729601470079,
+      -1,
+      {
+        "name": 1729601577899,
+        "dataType": 1729601479601,
+        "comment": 1729601525513,
+        "options(notNull)": 1729601548111
+      }
+    ]
+  }
+}

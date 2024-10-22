@@ -19,7 +19,7 @@ services:
     container_name: printer3d-backend-acceptance-postgres
     image: "postgres:11.2"
     ports:
-      - "5131:5432"
+      - "5133:5432"
     environment:
       - CURRENT_UID=1000
       - POSTGRES_DB=postgres
@@ -33,7 +33,7 @@ services:
       - "5121:9500"
     environment:
       - SPRING_PROFILES_ACTIVE=acceptance
-      - DATABASE_URL=jdbc:postgresql://printer3d-backend-acceptance-postgres:5432/postgres
-      - DB_USER=printer3d-user
-      - DB_PASSWORD=printer3d-password
-      - NEOCOM_BANNER_LOCATION=./app-banner.txt
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://printer3d-backend-acceptance-postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=printer3d-user
+      - SPRING_DATASOURCE_PASSWORD=printer3d-password
+      - NEOCOM_BANNER_LOCATION=./.app-banner
