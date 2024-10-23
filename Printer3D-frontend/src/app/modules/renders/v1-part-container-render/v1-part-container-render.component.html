@@ -102,11 +102,11 @@
                 <div class="row">
                     <div cy-name="label" class="field">
                         <div cy-field-label="label" class="label">ETIQUETA</div>
-                        <div cy-field-value="label" class="partcontainer-label">{{getLabel()}}</div>
+                        <div cy-field-value="label" class="partcontainer-label" style="white-space: nowrap">{{getLabel()}}</div>
                     </div>
                     <div cy-name="description" class="field description-width">
-                        <div cy-field-label="description" cy-input-type="textarea" class="labelh">DESCRIPCION</div>
-                        <textarea name="description" cols="35" rows="3" class="dsf-input part-description" [(ngModel)]="editPart.description" minlength="5" maxlength="500"></textarea>
+                        <div cy-field-label="description" cy-input-type="textarea" class="label">DESCRIPCION</div>
+                        <textarea cy-field-value="description" name="description" cols="35" rows="3" class="dsf-input part-description" [(ngModel)]="editPart.description" minlength="5" maxlength="500"></textarea>
                     </div>
                     <div cy-name="buildTime" class="field buildTime-width">
                         <div cy-field-label="buildTime" cy-input-type="input" class="label">TIEMPO</div>

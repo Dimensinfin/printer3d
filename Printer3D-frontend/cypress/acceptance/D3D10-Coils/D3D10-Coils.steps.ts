@@ -8,31 +8,11 @@ import { SupportService } from '../../support/SupportService.support'
 const supportService = new SupportService()
 
 // - T A R G E T   S E L E C T I O N
-Given('the target the {string} with id {string}', function (symbolicName: string, recordId: string) {
-    const tag = supportService.translateTag(symbolicName) // Do name replacement
-    cy.log('>[the {string} is activated]> Translation: ' + tag)
-    cy.get('@target-panel').find(tag).find('[id="' + recordId + '"]').as('target')
-        .should('exist')
-})
-// - T A R G E T   C O N T E N T S
-// Then('the target has the title {string}', function (title: string) {
-//     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
-// })
 Then('the target has {int} {string}', function (count: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
     cy.get('@target').find(tag).should('have.length', count)
 })
-// Then('field named {string} with label {string} and value {string}',
-//     function (fieldName: string, fieldLabel: string, fieldValue: string) {
-//         cy.get('@target').within(($item) => {
-//             cy.get('[cy-field-label="' + fieldName + '"]').contains(fieldLabel, { matchCase: false })
-//         })
-//         cy.get('@target').within(($item) => {
-//             cy.get('.label').contains(fieldLabel, { matchCase: false }).parent()
-//                 .find('[cy-field-value="' + fieldName + '"]').contains(fieldValue, { matchCase: false })
-//         })
-//     })
 
 // - F O R M S
 Then('form field named {string} with label {string} and contents {string}',
