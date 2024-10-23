@@ -100,7 +100,7 @@ apply from: './jacoco.gradle'
 
 // - T A S K S
 task setVersion(type: Exec) {
-    description 'Stores the current assembly version into an external file'
+    description 'Stores the current assembly version into an external file.'
     group = 'release'
     workingDir "${projectDir}"
     commandLine 'gitversion', '/showvariable', 'AssemblySemFileVer'
@@ -113,6 +113,22 @@ task setVersion(type: Exec) {
 }
 compileJava.dependsOn setVersion
 bootJar.dependsOn setVersion
+
+task generateBanner(type: Exec) {
+    description 'Generates the banner matching the current version.'
+    group = 'release'
+    workingDir "${projectDir}"
+    commandLine 'figlet', rootProject.file('.version').text.trim()
+    standardOutput = new ByteArrayOutputStream()
+    doLast {
+        def result = standardOutput.toString()
+        println "$result"
+        new File(".app-banner").text = result
+    }
+}
+generateBanner.dependsOn setVersion
+compileJava.dependsOn generateBanner
+bootJar.dependsOn generateBanner
 
 task cleanResources(type: Delete, dependsOn: clean) {
     group = 'coverage'

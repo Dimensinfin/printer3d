@@ -28,3 +28,4 @@ kubectl apply -f develop.postgres.yaml
 
 ## PRINTER3D BACKEND
 kubectl apply -f deployment-backend.yaml
+	

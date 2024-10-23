@@ -29,7 +29,7 @@ spring:
       active: true
       scheduletime: "0 0 * * * ?"
   security:
-    originDomains: "http://localhost/"
+    originDomains: "http://localhost/" # CORS is disabled so no need to continue configuring that security.
 
 logging:
   logstash:

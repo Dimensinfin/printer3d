@@ -32,7 +32,7 @@ public abstract class CucumberTableConverter<T> implements Converter<List<Map<St
 
 	protected boolean containsAnyField( Set<String> keys, Map<String, String> cucumberRow ) {
 		for (String key : keys) {
-			if (StringUtils.isNotEmpty( cucumberRow.get( key ) )) {
+			if ( StringUtils.isNotEmpty( cucumberRow.get( key ) ) ) {
 				return Boolean.TRUE;
 			}
 		}
@@ -40,7 +40,7 @@ public abstract class CucumberTableConverter<T> implements Converter<List<Map<St
 	}
 
 	protected String cucumberDataMap( final CommonWorld world, final String cucumberData ) {
-		if (cucumberData.contains( "world" )) {
+		if ( cucumberData.contains( "world" ) ) {
 			final String key = this.cleanKey( cucumberData.split( ":" )[1] );
 			switch (key) {
 				case "id":
@@ -51,11 +51,15 @@ public abstract class CucumberTableConverter<T> implements Converter<List<Map<St
 	}
 
 	protected String dynamicDateConversion( final String reference ) {
-		if (reference.equalsIgnoreCase( "<today>" ))
-			return Instant.now().toString();
-		if (reference.equalsIgnoreCase( "<yesterday>" ))
-			return Instant.now().minus( Period.ofDays( 1 ) ).toString();
-		return reference;
+		switch (reference) {
+			case "<today>":
+			case "<now>":
+				return Instant.now().toString();
+			case "<yesterday>":
+				return Instant.now().minus( Period.ofDays( 1 ) ).toString();
+			default:
+				return reference;
+		}
 	}
 
 	protected List<String> getListFromCucumberValue( String value ) {

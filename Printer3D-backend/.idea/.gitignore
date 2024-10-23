@@ -1,6 +1,9 @@
 # - IntelliJ configuration files ignorable
-*.xml
+modules/
+compiler.xml
+gradle.xml
+jarRepositories.xml
+misc.xml
+modules.xml
+vcs.xml
 workspace.xml
-modules/*.iml
-sonarIssues.xml
-sonarlint

@@ -4,5 +4,5 @@
     "projectId": "c6rdzc",
     "video": false,
     "integrationFolder": "cypress",
-    "baseUrl": "http://localhost:5100"
+    "baseUrl": "http://localhost:5103"
 }

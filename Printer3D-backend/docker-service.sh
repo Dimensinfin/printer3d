@@ -6,7 +6,10 @@ ENVIRONMENT=$2
 WORKING_DIRECTORY="$(dirname "$0")"
 DOCKER_DIRECTORY="${WORKING_DIRECTORY}/src/main/resources/docker"
 DOCKER_COMPOSER_COMMAND="docker-compose --file src/test/scripts/printer3d-docker-${ENVIRONMENT}/docker-compose.yml"
-
+# - S E T   J A V A.  V E R S I O N
+setJavaVersion(){
+  export JAVA_HOME="/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home"
+}
 # - G E N E R A T E   C O N T A I N E R
 generateContainer() {
   cd "${WORKING_DIRECTORY}" || exit 1;
@@ -14,8 +17,8 @@ generateContainer() {
   export JAVA_HOME=/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home
   ./gradlew clean bootJar
   cp ./build/libs/*.jar "$DOCKER_DIRECTORY"
-  cp ./build/resources/main/app-banner.txt "$DOCKER_DIRECTORY"
-  cp ./build/resources/main/app-banner.txt ./build/libs/app-banner.txt
+  cp ./.app-banner "$DOCKER_DIRECTORY"
+  cp ./.app-banner ./build/libs/.app-banner
   cd "$DOCKER_DIRECTORY" || exit 1;
   mv -v printer3d-backend-*.jar "printer3d-backend-acceptance.jar"
   echo "${DOCKER_DIRECTORY}/Dockerfile"
@@ -46,6 +49,7 @@ recycle() {
 
 case $COMMAND in
 'generate')
+  setJavaVersion
   generateContainer
   ;;
 'start')
@@ -58,7 +62,7 @@ case $COMMAND in
   recycle
   ;;
 *)
-  echo "Usage: $0 { generate | start | stop | recycle }"
+  echo "Usage: $0 { generate | start | stop | recycle } development|acceptance"
   echo
   exit 1
   ;;

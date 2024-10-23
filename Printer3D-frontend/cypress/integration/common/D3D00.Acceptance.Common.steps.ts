@@ -16,7 +16,7 @@ Given('the application Printer3DManager', function () {
     cy.get('app-root').as('target-page').as('target')
 })
 When('the application completes loading', function () {
-    cy.wait(2000)
+    cy.wait(3000)
 })
 Then('the active page is set to Dashboard', function () {
     cy.visit('/')
