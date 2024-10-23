@@ -1,0 +1,117 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: $IMAGE_NAME-$ENVIRONMENT-svc
+  namespace: $NAMESPACE
+spec:
+  selector:
+    app: "$KUBERNETES_NAME"
+    version: "$VERSION"
+    environment: "$ENVIRONMENT"
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: $PORT
+      targetPort: $PORT
+      nodePort: $EXPOSE_PORT
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: $FRONTEND_CONFIG_MAP
+  namespace: $NAMESPACE
+data:
+  NODE_ENV: "$NODE_ENV"
+  APP_NAME: "$APP_NAME"
+  PORT: "$PORT"
+  ENVIRONMENT: "$ENVIRONMENT"
+  NODE_VERSION: "$NODE_VERSION"
+  PRODUCTION: "$PRODUCTION"
+  VERSION: "$VERSION"
+  MODULE_NAME: "$MODULE_NAME"
+  IMAGE_NAME: "$IMAGE_NAME"
+  APPLICATION_HOME: "$APPLICATION_HOME"
+  BACKEND_PROXY: "$BACKEND_PROXY"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "$KUBERNETES_NAME"
+  namespace: "$NAMESPACE"
+  labels:
+    app: "$KUBERNETES_NAME"
+    version: "$VERSION"
+    environment: "$ENVIRONMENT"
+spec:
+  selector:
+    matchLabels:
+      app: "$KUBERNETES_NAME"
+  template:
+    metadata:
+      labels:
+        app: "$KUBERNETES_NAME"
+        version: "$VERSION"
+        environment: "$ENVIRONMENT"
+    spec:
+      containers:
+      - name: "$IMAGE_NAME"
+        image: adamantinoo/$IMAGE_TAG
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: NODE_ENV
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: APP_NAME
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: PORT
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: ENVIRONMENT
+        - name: NODE_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: NODE_VERSION
+        - name: PRODUCTION
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: PRODUCTION
+        - name: VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: VERSION
+        - name: MODULE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: MODULE_NAME
+        - name: APPLICATION_HOME
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: APPLICATION_HOME
+        - name: BACKEND_PROXY
+          valueFrom:
+            configMapKeyRef:
+              name: $FRONTEND_CONFIG_MAP
+              key: BACKEND_PROXY
+        ports:
+        - containerPort: $PORT
+        imagePullPolicy: Always
+      serviceAccountName: default

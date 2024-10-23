@@ -20,15 +20,15 @@ public class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
 	public CorsConfigurationSource corsConfigurationSource() {
 		final CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins( Arrays.asList( this.allowedOrigins, "https://printer3d-frontend.herokuapp.com/" ) );
-		configuration.setAllowedMethods( Arrays.asList( "OPTIONS", "GET", "POST", "PATCH" ) );
+		configuration.setAllowedMethods( Arrays.asList( "OPTIONS", "GET", "POST", "PATCH", "PUT" ) );
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration( "/**", configuration );
 		return source;
 	}
 
 	/**
-	 * This configuration disables the security completely but leaving active the CORS detection.
-	 * The other bean determines the correct CORS configuration.
+	 * This configuration disables the security completely but leaving active the CORS detection. The other bean determines the correct CORS
+	 * configuration.
 	 *
 	 * @param http the security service
 	 */
@@ -36,7 +36,7 @@ public class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
 	protected void configure( final HttpSecurity http ) throws Exception {
 		http.authorizeRequests()
 				.anyRequest().permitAll()
-				.and().cors()
+//				.and().cors()
 				.and().csrf().disable();
 	}
 }

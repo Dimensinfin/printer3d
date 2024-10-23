@@ -49,6 +49,13 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
     @D3D11.04
     Scenario: [D3D11.04]-Both types of Requests have the next list of fields.
         Given the target is the panel of type "open-requests"
+        Given the target the "request" with id "a00f7e7a-56c4-4dc1-a630-2b2a62b54eb9"
+        And field named "requestDate" with label "FECHA" has contents "Jun 29, 2020"
+        And field named "label" with label "ETIQUETA" has contents "Complete Slot Car Platform P01"
+        And field named "paid" with label "PAG." has contents "off"
+        And field named "partCount" with label "NRO. PIEZAS" has contents "9"
+        And field named "amount" with label "IMPORTE" has contents "14.00 €"
+        And field named "total" with label "TOTAL+IVA" has contents "16.94 €"
         Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
         And field named "requestDate" with label "FECHA" has contents "Apr 14, 2021"
         And field named "label" with label "ETIQUETA" has contents "PEDIDO URBAN DIGIT 2021"
@@ -96,3 +103,11 @@ Feature: [D3D11]-[STORY] Create a new Feature to see the list of Open Requests. 
         And field named "paid" with label "PAG." has contents "off"
         Given the target the "request" with id "88d5785a-6bb4-4d89-9b2b-f590a1112d31"
         And field named "paid" with label "PAG." has contents "on"
+
+    @D3D11.07
+    Scenario: [D3D11.08]-Requests should be listed by order of creation descending. First request is listed top.
+        Given the target is the panel of type "open-requests"
+        Given the target is the request at position 1
+        Then the element id is "d8e2cc31-4a5b-4f9a-a494-ca21956e8d2a"
+        Given the target is the request at position 2
+        Then the element id is "88d5785a-6bb4-4d89-9b2b-f590a1112d31"

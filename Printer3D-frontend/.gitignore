@@ -1,10 +1,13 @@
 # - Ignore angular packages
 node_modules/
+package-lock.json
 
 # - Ignore generated code and data
 .scannerwork/
 coverage/
 dist/
+.version.txt
+.app-banner.txt
 
 # - Ignore external utilities code folders
 support/apisimulator-http-1.4/
@@ -13,3 +16,6 @@ support/apisimulator-http-1.7/
 support/apisimulator-http-1.8/
 support/sonar-scanner-4.4.0.2170-linux
 support/**/*.log
+
+# UPGRADE
+cypress-acceptance/

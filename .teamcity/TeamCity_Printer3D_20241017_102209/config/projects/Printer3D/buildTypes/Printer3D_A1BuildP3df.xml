@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="9906e1c2-e86d-4a46-84ef-d3c7eaffa6f6" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>A1.Build P3DF</name>
+  <description>Compile and build the Printer3D frontend.</description>
+  <settings ref="TGenerateCommonEnvironment">
+    <options>
+      <option name="artifactRules" value="%MODULE_NAME%/.deploy =&gt; %MODULE_NAME%/.deploy&#xA;%MODULE_NAME%/config =&gt; %MODULE_NAME%/config&#xA;%MODULE_NAME%/package.json =&gt; %MODULE_NAME%/package.json" />
+    </options>
+    <disabled-settings>
+      <setting-ref ref="B1_Generate_environment" />
+      <setting-ref ref="S1_Get_Environment_1_1" />
+    </disabled-settings>
+    <parameters>
+      <param name="MODULE_NAME" value="Printer3D-frontend" />
+      <param name="NODE_VERSION" value="10.24.1" />
+    </parameters>
+    <build-runners>
+      <runner id="S1_Get_Environment_1_1" name="S1. Get Environment" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# G E T   E N V I R O N M E N T
+# Extract the deployment environment from the branch/tag being processed along with the buid version
+#
+# - define workspace
+echo '>>> define workspace'
+export PROJECT_ROOT=%teamcity.build.checkoutDir%/%MODULE_NAME%
+cd $PROJECT_ROOT
+export WORKING_DIR=$PROJECT_ROOT
+export DEPLOY_DIR=$WORKING_DIR/.deploy
+export SOURCES_DIR=$PROJECT_ROOT/src
+echo "PROJECT_ROOT->$PROJECT_ROOT"
+echo "WORKING_DIR->$WORKING_DIR"
+echo "DEPLOY_DIR->$DEPLOY_DIR"
+echo "SOURCES_DIR->$SOURCES_DIR"
+echo "<<<<<"
+
+# - define the deployment environment
+echo '>>> Identifying Environment'
+# - set default value to 'deployment'
+export ENVIRONMENT='develop'
+export BRANCH=%teamcity.build.branch%
+echo "BRANCH->$BRANCH"
+if [[ "$BRANCH" =~ ^(.*)main ]];
+then 
+    export ENVIRONMENT='production'
+else 
+	export ENVIRONMENT='develop'
+fi
+echo "ENVIRONMENT->$ENVIRONMENT"
+export IMAGE_NAME=%PROJECT_NAME%
+export ENV=$ENVIRONMENT
+echo "IMAGE_NAME->$IMAGE_NAME"
+echo "ENV->$ENV"
+echo "##teamcity[setParameter name='env.WORKING_DIR' value='$WORKING_DIR']"
+echo "##teamcity[setParameter name='env.BRANCH' value='$BRANCH']"
+echo "##teamcity[setParameter name='env.ENVIRONMENT' value='$ENVIRONMENT']"
+echo "##teamcity[setParameter name='env.IMAGE_NAME' value='$IMAGE_NAME']"
+echo "##teamcity[setParameter name='env.ENV' value='$ENV']"
+echo "<<<<<"
+
+# - Get version codes
+echo '>>> Identifying version'
+export VERSION=`gitversion /showvariable AssemblySemFileVer`
+echo 'VERSION->'$VERSION
+echo "##teamcity[setParameter name='env.VERSION' value='$VERSION']"
+echo "<<<<<"]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="B1_Generate_environment" name="B1. Generate environment" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# G E N E R A T E   E N V I R O N M E N T
+# Get the environment configuration and generate all the environment settings to be used on next steps.
+#
+# - Generate environment from configuration
+export PROJECT_ROOT=%teamcity.build.checkoutDir%/%PROJECT_NAME%
+cd $PROJECT_ROOT
+echo 'ENVIRONMENT->'$ENVIRONMENT
+npm run env:$ENVIRONMENT
+nvm use %NVM_VERSION%]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="nodejs_runner" name="B2. Compile P3DF" type="nodejs-runner">
+        <parameters>
+          <param name="plugin.docker.imageId" value="node:%NPM_VERSION%-slim" />
+          <param name="plugin.docker.imagePlatform" value="linux" />
+          <param name="shellScript"><![CDATA[npm install
+npm run build:%env.ENVIRONMENT%]]></param>
+          <param name="teamcity.build.workingDir" value="%MODULE_NAME%" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Printer3D_DimensinfinPrinter3d" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers />
+    <cleanup />
+  </settings>
+</build-type>
+

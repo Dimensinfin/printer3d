@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="c687e746-cdc3-4c57-b784-36d94be59dd3" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>A2.Build P3DB</name>
+  <description>Compile and build the Printer3D backend.</description>
+  <settings ref="NeocomInfinity_ABuildJavaGradle">
+    <parameters>
+      <param name="MODULE_NAME" value="Printer3D-backend" />
+    </parameters>
+    <build-runners>
+      <runner id="A1_Build_NIB" name="Compile NIB" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home" />
+          <param name="teamcity.build.workingDir" value="Printer3D-backend" />
+          <param name="teamcity.coverage.emma.include.source" value="true" />
+          <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
+          <param name="teamcity.coverage.idea.includePatterns" value="*" />
+          <param name="teamcity.coverage.jacoco.classpath" value="+:*" />
+          <param name="teamcity.coverage.jacoco.patterns" value="+:*" />
+          <param name="teamcity.coverage.runner" value="JACOCO" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="teamcity.tool.jacoco" value="%teamcity.tool.jacoco.0.8.7%" />
+          <param name="ui.gradleRUnner.gradle.build.file" value="build.gradle" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean compileJava compileTestJava compileAcceptanceJava compileIntegrationJava" />
+          <param name="ui.gradleRunner.gradle.wrapper.useWrapper" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Printer3D_DimensinfinPrinter3d" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers />
+    <cleanup />
+  </settings>
+</build-type>
+

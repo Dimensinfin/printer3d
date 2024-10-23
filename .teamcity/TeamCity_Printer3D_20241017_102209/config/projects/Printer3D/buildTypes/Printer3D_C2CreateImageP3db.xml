@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="e7da6c20-8fc4-40a5-94c3-6b7cc7893583" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>C2.Create Image P3DB</name>
+  <description>Create a new docker image for the application neocom-infinity-nest</description>
+  <settings>
+    <inherits>
+      <ref id="TGenerateCommonEnvironment" />
+      <ref id="TExtendEnvironment" />
+    </inherits>
+    <options>
+      <option name="artifactRules" value="+:Printer3D-backend/build =&gt; build" />
+    </options>
+    <parameters>
+      <param name="IMAGE_NAME" value="printer3d-backend" />
+      <param name="MODULE_NAME" value="Printer3D-backend" />
+      <param name="PROJECT_NAME" value="printer3d" />
+      <param name="SPRING_DATASOURCE_PASSWORD" value="z.iliada.2020" />
+      <param name="SPRING_DATASOURCE_URL" value="jdbc:postgresql://postgres-sv:5432/stage" />
+      <param name="SPRING_DATASOURCE_USERNAME" value="adamantinoo" />
+      <param name="env.JAR_NAME" value="" />
+      <param name="env.NEOCOM_DATABASE_URL" value="" />
+      <param name="env.REDIS_CACHE_URL" value="" />
+      <param name="env.SPRING_DATASOURCE_URL" value="" />
+    </parameters>
+    <build-runners order="S1_Get_Environment_1, simpleRunner, S3_Build_executable, Generate_image_NIN, Publish_Tag_the_image">
+      <runner id="S3_Build_executable" name="Build executable" type="gradle-runner">
+        <parameters>
+          <param name="target.jdk.home" value="/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home" />
+          <param name="teamcity.build.workingDir" value="Printer3D-backend" />
+          <param name="teamcity.coverage.emma.include.source" value="true" />
+          <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
+          <param name="teamcity.coverage.idea.includePatterns" value="*" />
+          <param name="teamcity.coverage.jacoco.classpath" value="+:*" />
+          <param name="teamcity.coverage.jacoco.patterns" value="+:*" />
+          <param name="teamcity.coverage.runner" value="JACOCO" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="teamcity.tool.jacoco" value="%teamcity.tool.jacoco.0.8.7%" />
+          <param name="ui.gradleRunner.gradle.tasks.names" value="clean bootJar" />
+          <param name="ui.gradleRunner.gradle.wrapper.useWrapper" value="true" />
+        </parameters>
+      </runner>
+      <runner id="Generate_image_NIN" name="Generate image SpringBoot" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# G E N E R A T E   D O C K E R   I M A G E   S P R I N G B O O T
+# Create a docker image for the SpringBoot backend
+#
+echo ">>> validate script variables"
+echo 'checkoutDir->'%teamcity.build.checkoutDir%
+echo 'PROJECT_NAME->'%PROJECT_NAME%
+echo 'ENVIRONMENT->'%env.ENVIRONMENT%
+echo 'WORKING_DIR->'%env.WORKING_DIR%
+echo 'DEPLOY_DIR->'%env.DEPLOY_DIR%
+echo 'MODULE_NAME->'%MODULE_NAME%
+echo 'IMAGE_NAME->'%IMAGE_NAME%
+echo 'VERSION->'%env.VERSION%
+echo 'PORT->'%PORT%
+echo "<<<<<"
+
+echo '>>> generate banner'
+export BANNER_LOCATION=%env.WORKING_DIR%/src/main/resources/app-banner.txt
+echo 'BANNER_LOCATION->'$BANNER_LOCATION
+figlet %PROJECT_NAME% %env.VERSION% > $BANNER_LOCATION
+cat $BANNER_LOCATION
+figlet %env.ENVIRONMENT%
+echo "<<<<<"
+
+echo '>>> generate springboot configuration environment'
+export HOST_IP="host.docker.internal"
+export SPRING_DATASOURCE_URL=%SPRING_DATASOURCE_URL%
+export SPRING_DATASOURCE_USERNAME=%SPRING_DATASOURCE_USERNAME%
+export SPRING_DATASOURCE_PASSWORD=%SPRING_DATASOURCE_PASSWORD%
+export PORT=%PORT%
+export ENVIRONMENT=%env.ENVIRONMENT%
+echo "<<<<<"
+
+# - build the jar
+echo '>>> building the executable'
+export JAR_NAME="%IMAGE_NAME%-%env.VERSION%.jar"
+echo "##teamcity[setParameter name='env.JAR_NAME' value='$JAR_NAME']"
+
+echo '>>> building image'
+cd %env.WORKING_DIR%
+cat %env.DEPLOY_DIR%/dockerfile.template | envsubst > %env.DEPLOY_DIR%/Dockerfile
+docker build -f %env.DEPLOY_DIR%/Dockerfile -t %IMAGE_NAME% %env.WORKING_DIR%
+echo "<<<<<"]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="Publish_Tag_the_image" name="Publish &amp; Tag the image" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# P U B L I S H    I M A G E
+# Publish the image to the external repository
+# - tag the image
+echo ">>> Tagging image->adamantinoo/%env.TAG%"
+docker tag %IMAGE_NAME% adamantinoo/%env.TAG%
+docker tag %IMAGE_NAME% %PROJECT_NAME%/%env.TAG%
+docker push adamantinoo/%env.TAG%
+echo "<<<<<"]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Printer3D_DimensinfinPrinter3d" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers />
+    <dependencies>
+      <depend-on sourceBuildTypeId="Printer3D_A2BuildP3db">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="b63431f8-d746-4374-9a93-46aaafdc7fe6" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>C1.Create Image P3DF</name>
+  <description>Create a new docker image for the application neocom-infinity-frontend</description>
+  <settings>
+    <inherits>
+      <ref id="TGenerateCommonEnvironment" />
+      <ref id="TExtendEnvironment" />
+    </inherits>
+    <options>
+      <option name="artifactRules" value="Printer3D-frontend/.deploy =&gt; Printer3D-frontend/.deploy&#xA;Printer3D-frontend/config =&gt; Printer3D-frontend/config" />
+    </options>
+    <parameters>
+      <param name="IMAGE_NAME" value="printer3d-frontend" />
+      <param name="MODULE_NAME" value="Printer3D-frontend" />
+    </parameters>
+    <build-runners>
+      <runner id="P2_Generate_Image" name="S3. Generate Image Angular" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# G E N E R A T E   D O C K E R   I M A G E   A N G U L A R
+# Create a docker image for the NestJS backend
+#
+echo ">>> validate script variables"
+echo 'checkoutDir->'%teamcity.build.checkoutDir%
+echo 'PROJECT_NAME->'%PROJECT_NAME%
+echo 'ENVIRONMENT->'%env.ENVIRONMENT%
+echo 'NODE_ENV->'%env.ENVIRONMENT%
+echo 'WORKING_DIR->'%env.WORKING_DIR%
+echo 'DEPLOY_DIR->'%env.DEPLOY_DIR%
+echo 'MODULE_NAME->'%MODULE_NAME%
+echo 'IMAGE_NAME->'%IMAGE_NAME%
+echo 'VERSION->'%env.VERSION%
+echo 'PORT->'%PORT%
+echo "<<<<<"
+
+echo '>>> install nvm'
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && \. "/usr/local/opt/nvm/etc/bash_completion"
+nvm use %NVM_VERSION%
+export NODE_VERSION=`node -v`
+echo 'NODE_VERSION->'$NODE_VERSION
+echo "<<<<<"
+
+echo '>>> add configuration environment'
+cd %env.WORKING_DIR%
+. %env.DEPLOY_DIR%/generate.env.sh %env.ENVIRONMENT%
+printenv | sort
+echo "<<<<<"
+
+echo '>>> install node packages'
+npm install
+npm run tag
+npm run build:%env.ENVIRONMENT%
+echo "<<<<<"
+
+echo '>>> building image'
+cat %env.DEPLOY_DIR%/dockerfile.template | envsubst > %env.DEPLOY_DIR%/Dockerfile
+docker build -f %env.DEPLOY_DIR%/Dockerfile -t %IMAGE_NAME% %env.WORKING_DIR%
+echo "<<<<<"]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="Publish_Tag_the_image" name="S4. Publish &amp; Tag the image" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[# P U B L I S H    I M A G E
+# Publish the image to the external repository
+# - tag the image
+echo ">>> Tagging image->adamantinoo/%env.TAG%"
+docker tag %IMAGE_NAME% adamantinoo/%env.TAG%
+docker tag %IMAGE_NAME% %PROJECT_NAME%/%env.TAG%
+docker push adamantinoo/%env.TAG%
+echo "<<<<<"]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Printer3D_DimensinfinPrinter3d" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers />
+    <cleanup />
+  </settings>
+</build-type>
+

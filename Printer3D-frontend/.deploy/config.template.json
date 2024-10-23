@@ -1,0 +1,17 @@
+{
+  "environment": "$ENVIRONMENT",
+  "version": "$VERSION",
+  "production": "$PRODUCTION",
+  "settings": {
+    "appname": "Tetsuo3D - UI",
+    "port": "$PORT",
+    "applicationhome": "$APPLICATION_HOME",
+    "backendproxy": "$BACKEND_PROXY",
+    "apppath": "/app",
+    "apipath": "/api"
+  },
+  "pages": {
+    "staticpublic": "./public",
+    "homepage": "/home-development.html"
+  }
+}

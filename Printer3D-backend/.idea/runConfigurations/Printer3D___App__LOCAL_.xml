@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Printer3D - App [LOCAL]" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="azul-11" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <envs>
+      <env name="DATABASE_URL" value="jdbc:postgresql://0.0.0.0:5132/postgres" />
+      <env name="DB_PASSWORD" value="printer3d-password" />
+      <env name="DB_USER" value="printer3d-user" />
+      <env name="NEOCOM_BANNER_LOCATION" value="./.app-banner" />
+      <env name="PORT" value="5120" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="org.dimensinfin.printer3d.backend.Printer3DApplication" />
+    <module name="Printer3D-backend.main" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=dev --server.port=5120" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

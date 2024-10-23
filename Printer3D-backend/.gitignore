@@ -7,6 +7,9 @@
 # - Build and compilation ignorable files
 .gradle/
 build/
+bin/
 out/
 target/
 coverage/
+.version
+.app-banner

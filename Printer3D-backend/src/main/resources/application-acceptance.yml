@@ -15,24 +15,17 @@ spring:
   jackson:
     serialization.indent_output: true
   jpa:
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-  datasource:
-    url: ${DATABASE_URL}
-    driver-class-name: org.postgresql.Driver
-    platform: postgres
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    show-sql: true
   liquibase:
     liquibase-schema: public
     change-log: classpath:/db/changelog/db.changelog-master.yaml
-  security:
-    originDomains: "http://localhost:5102"
 
 logging:
   logstash:
     enabled: true
   request:
     headers: true
+#  level:
+#    org.springframework.core.env: trace
+#    org.springframework.core.env.AbstractPropertyResolver: trace
+#    org.springframework.core.env.PropertySourcesPropertyResolver: trace

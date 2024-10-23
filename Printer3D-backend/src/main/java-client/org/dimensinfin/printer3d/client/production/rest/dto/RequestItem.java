@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dimensinfin.core.exception.DimensinfinRuntimeException;
 
 /**
- * Now a Request item can be of different types. So there is a need to use an isolation class that will contain the neutral data and be ale to
+ * Now a Request item can be of different types. So there is a need to use an isolation class that will contain the neutral data and be able to
  * locate the detail record form the right repository. So the list of Parts now is transformed to a list of items.
  * A request item then has the type of item and the quantity of the same items.
  *
