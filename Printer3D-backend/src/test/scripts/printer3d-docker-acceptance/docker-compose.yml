@@ -30,7 +30,7 @@ services:
     container_name: printer3d-backend-acceptance-app
     image: dimensinfin/printer3d.backend
     ports:
-      - "5121:9500"
+      - "5123:9500"
     environment:
       - SPRING_PROFILES_ACTIVE=acceptance
       - SPRING_DATASOURCE_URL=jdbc:postgresql://printer3d-backend-acceptance-postgres:5432/postgres
