@@ -15,9 +15,9 @@ Given('the target the {string} with id {string}', function (symbolicName: string
         .should('exist')
 })
 // - T A R G E T   C O N T E N T S
-Then('the target has the title {string}', function (title: string) {
-    cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
-})
+// Then('the target has the title {string}', function (title: string) {
+//     cy.get('@target').find('.panel-title').contains(title, { matchCase: false })
+// })
 Then('the target has {int} {string}', function (count: number, symbolicName: string) {
     const tag = supportService.translateTag(symbolicName) // Do name replacement
     cy.log('>[translation]> ' + symbolicName + ' -> ' + tag)
