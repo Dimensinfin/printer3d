@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  namespace: develop
+  namespace: production
 spec:
   replicas: 1
   selector:
@@ -28,4 +28,4 @@ spec:
       volumes:
         - name: postgresdata
           persistentVolumeClaim:
-            claimName: postgres-volume-claim-develop
+            claimName: postgres-volume-claim-production

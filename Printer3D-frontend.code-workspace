@@ -5,10 +5,6 @@
             "path": "Printer3D-frontend"
         },
         {
-            "name": "Printer3D-backend",
-            "path": "Printer3D-backend"
-        },
-        {
             "path": ".deploy"
         },
         {
