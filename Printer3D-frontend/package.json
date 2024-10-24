@@ -84,9 +84,7 @@
     "@bit/innovative.innovative-core.interfaces": "^0.1.2",
     "@bit/innovative.innovative-core.isolation-service": "^0.1.1",
     "@bit/innovative.innovative-core.testing-support": "^0.1.1",
-    "@swimlane/ngx-charts": "14.0.0",
-    "@types/uuid": "7.0.3",
-    "angular-rollbar": "1.0.0",
+    "@types/uuid": "^10.0.0",
     "compression": "1.7.4",
     "config": "3.3.1",
     "env-cmd": "^10.1.0",
@@ -94,17 +92,15 @@
     "express-http-proxy": "1.6.0",
     "jwt-decode": "2.2.0",
     "ng-drag-drop": "5.0.0",
-    "ngx-toastr": "12.0.1",
     "ngx-webstorage-service": "4.1.0",
     "npm": "6.14.5",
     "path": "0.12.7",
     "request": "2.88.2",
-    "rollbar": "2.18.0",
     "rxjs": "6.5.4",
     "tslib": "1.10.0",
-    "uuid": "8.0.0",
+    "uuid": "^10.0.0",
     "wait-on": "5.0.0",
-    "zone.js": "0.10.2"
+    "zone.js": "^0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.901.6",
@@ -120,7 +116,6 @@
     "@types/node": "12.11.1",
     "chai": "4.2.0",
     "chromedriver": "81.0.0",
-    "codelyzer": "5.1.2",
     "cucumber": "6.0.5",
     "cypress": "6.8.0",
     "cypress-cucumber-preprocessor": "2.3.1",
@@ -133,9 +128,8 @@
     "karma-jasmine-html-reporter": "1.4.2",
     "nyc": "15.0.1",
     "protractor": "5.4.3",
-    "sonarqube-scanner": "2.7.0",
     "ts-node": "8.3.0",
     "tslint": "6.1.0",
-    "typescript": "3.8.3"
+    "typescript": "^3.8.3"
   }
 }
