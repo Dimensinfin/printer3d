@@ -1,6 +1,6 @@
 {
   "name": "printer3d-frontend",
-  "version": "0.19.0-3",
+  "version": "0.19.0-11",
   "scripts": {
     "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @F3D25.01",
     "docker:start": "docker-compose -f ./support/printer3d-docker-frontend/docker-compose.yml up & ",
@@ -41,8 +41,8 @@
     "heroku-postbuild": "ng build --configuration=${NODE_ENV}",
     "serve:local-old": "npm run tag && npm run build:dev && . ./config/.env.local ; npm start",
     "build:stage": "ng build --aot --configuration=stage",
-    "build:develop": "ng build --aot --configuration=develop",
-    "acceptance:ready": "npm run env:local && . ./config/.env.local && npm run tag && npm run build:develop && export NODE_ENV=acceptance && export PORT=5103 && npm start",
+    "build:develop": "ng build --configuration=develop",
+    "acceptance:start": "npm run env:local && . ./config/.env.local && npm run tag && npm run build:develop && export NODE_ENV=acceptance && export PORT=5103 && npm start",
     "cypress:open": "cypress open ",
     "version:generate": "gitversion /showvariable AssemblySemFileVer > .version && cat .version",
     "version:update": "npm run version:generate && npm version --allow-same-version `cat .version`",
