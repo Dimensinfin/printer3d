@@ -9,7 +9,6 @@
 		"app:banner:copy": "cp ./app-banner.txt ../Printer3D-backend/src/main/resources",
 		"app:banner": "npm run app:banner:generate &&  npm run app:banner:copy",
 		"build:prod": "ng build --aot --configuration=production",
-		"test:dev": "ng test --code-coverage --watch --progress ",
 		"test:prod": "ng test --code-coverage --watch=false --no-progress --browsers=ChromeHeadlessCI",
 		"sonar:prod": "node sonar-scan.js ",
 		"check:deploy": "npm run build:prod && npm run test:prod && cypress run",
@@ -53,6 +52,7 @@
 		"env:production": "NODE_ENV=production . ./.deploy/generate.env.sh",
 		"check": "dotenv -p NODE_ENV",
 		"serve:local": "npm run env:local && npm run tag && ng serve --progress --proxy-config proxy.conf.json --port 5101",
+		"test:dev": "NODE_OPTIONS=--openssl-legacy-provider ng test --code-coverage --watch --progress ",
 		"acceptance:prepare": "dotenv -- ./support/simulator_backend.sh start",
 		"acceptance:simulator": "bash ./support/simulator-backend.sh start &",
 		"acceptance:cypress:D01": "cypress run --spec ./cypress/acceptance/D3D01-Dashboard.feature"
@@ -90,6 +90,7 @@
 		"@types/uuid": "^10.0.0",
 		"compression": "1.7.4",
 		"config": "3.3.1",
+		"dotenv-cli": "^7.4.2",
 		"env-cmd": "^10.1.0",
 		"express": "4.17.1",
 		"express-http-proxy": "1.6.0",
