@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async, fakeAsync, tick } from '@angular/core/testing'
+import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { BackendService } from '@app/services/backend.service'
@@ -30,7 +30,7 @@ describe('COMPONENT V1OpenRequestsPanelComponent [Module: PRODUCTION]', () => {
         apiv3_ProductionGetOpenRequests: (provider) => { }
     }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async, fakeAsync } from '@angular/core/testing'
+import { fakeAsync, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { Extraction } from '@domain/extraction/Extraction.domain'
 // - DOMAIN
@@ -11,7 +11,7 @@ describe('COMPONENT V1ExtractionsDashboardPageComponent [Module: COMMON]', () =>
     const extraction = new Extraction({ id: '-ID-', label: '-LABEL-', link: '-LINK-' })
     let component: V1ExtractionsDashboardPageComponent
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [

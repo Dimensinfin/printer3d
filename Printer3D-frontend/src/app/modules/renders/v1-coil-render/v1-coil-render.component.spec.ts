@@ -5,7 +5,7 @@ import { Subject } from 'rxjs'
 import { Router } from '@angular/router'
 import { ChangeDetectorRef } from '@angular/core'
 // - TESTING
-import { async } from '@angular/core/testing'
+import { waitForAsync } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
@@ -33,7 +33,7 @@ describe('COMPONENT V1CoilRenderComponent [Module: RENDER]', () => {
     let isolationService: SupportIsolationService = new SupportIsolationService()
     let inventoryService: SupportInventoryService = new SupportInventoryService()
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

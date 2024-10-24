@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async, discardPeriodicTasks } from '@angular/core/testing'
+import { discardPeriodicTasks, waitForAsync } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
@@ -14,7 +14,7 @@ const TEST_TIME: number = 1 * 3600 + 12 * 60
 describe('COMPONENT V1BuildCountdownTimerPanelComponent [Module: SHARED]', () => {
     let component: V1BuildCountdownTimerPanelComponent
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

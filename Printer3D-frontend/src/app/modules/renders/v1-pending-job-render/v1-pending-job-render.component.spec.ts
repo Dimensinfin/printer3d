@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 // - TESTING
 import { TestBed } from '@angular/core/testing';
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service';
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
@@ -44,7 +44,7 @@ describe('COMPONENT V1PendingJobRenderComponent [Module: RENDER]', () => {
         aggregatedCount: 8
     })
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

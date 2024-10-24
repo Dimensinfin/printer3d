@@ -2,7 +2,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Subscription } from 'rxjs';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';

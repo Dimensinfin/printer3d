@@ -2,7 +2,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { Observable } from 'rxjs'
 // - TESTING
-import { async } from '@angular/core/testing'
+import { waitForAsync } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
@@ -20,7 +20,7 @@ describe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {
     let dialogRef = { close: () => { } }
     // let isolationService: SupportIsolationService = new SupportIsolationService()
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

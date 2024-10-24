@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async } from '@angular/core/testing'
+import { waitForAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
@@ -11,7 +11,7 @@ import { V1NewRequestPageComponent } from './v1-new-request-page.component'
 describe('COMPONENT V1NewRequestPageComponent [Module: INVENTORY]', () => {
     let component: V1NewRequestPageComponent
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

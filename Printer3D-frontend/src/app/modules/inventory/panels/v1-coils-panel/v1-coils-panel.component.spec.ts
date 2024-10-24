@@ -2,7 +2,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { of } from 'rxjs'
 // - TESTING
-import { async, tick, fakeAsync } from '@angular/core/testing'
+import { tick, fakeAsync, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { IsolationService } from '@app/platform/isolation.service'
@@ -21,7 +21,7 @@ describe('COMPONENT V1CoilsPanelComponent [Module: INVENTORY]', () => {
     let isolationService: SupportIsolationService = new SupportIsolationService()
     let inventoryService: SupportInventoryService = new SupportInventoryService()
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

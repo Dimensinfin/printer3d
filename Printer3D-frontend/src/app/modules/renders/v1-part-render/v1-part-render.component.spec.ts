@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { Observable } from 'rxjs'
 import { ChangeDetectorRef } from '@angular/core'
 // - TESTING
-import { async, fakeAsync, tick } from '@angular/core/testing'
+import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { routes } from '@app/testing/RouteMockUp.component'
@@ -37,7 +37,7 @@ describe('COMPONENT V1PartRenderComponent [Module: RENDER]', () => {
     let inventoryService = { apiv1_InventoryUpdatePart: () => { } }
     let dialogFactory = { processClick: () => { } }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

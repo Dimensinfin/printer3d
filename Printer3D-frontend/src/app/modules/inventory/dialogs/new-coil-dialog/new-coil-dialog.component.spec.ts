@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
@@ -26,7 +26,7 @@ describe('COMPONENT NewCoilDialogComponent [Module: INVENTORY]', () => {
     let component: NewCoilDialogComponent;
     let fixture: ComponentFixture<NewCoilDialogComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

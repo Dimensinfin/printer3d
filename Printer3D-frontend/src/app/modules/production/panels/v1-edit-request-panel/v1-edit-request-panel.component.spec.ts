@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { V1EditRequestPanelComponent } from './v1-edit-request-panel.component';
 
@@ -6,7 +6,7 @@ xdescribe('V1EditRequestPanelComponent', () => {
   let component: V1EditRequestPanelComponent;
   let fixture: ComponentFixture<V1EditRequestPanelComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ V1EditRequestPanelComponent ]
     })

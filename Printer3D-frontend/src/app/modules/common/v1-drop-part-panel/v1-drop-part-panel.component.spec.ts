@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
@@ -18,7 +18,7 @@ import { PartStack } from '@domain/PartStack.domain';
 describe('COMPONENT V1DropPartPanelComponent [Module: PRODUCTION]', () => {
     let component: V1DropPartPanelComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [
