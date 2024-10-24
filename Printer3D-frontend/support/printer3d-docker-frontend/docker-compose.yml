@@ -4,7 +4,7 @@ services:
     container_name: printer3d-frontent-development-backend-apisimulator
     image: apimastery/apisimulator:1.8
     ports:
-      - "5110:6090"
+      - "5111:6090"
     volumes:
       - ./../printer3d-backend-simulation:/printer3d-backend-simulation
     command: "bin/apisimulator start /printer3d-backend-simulation -p 6090"

@@ -13,6 +13,9 @@
         },
         {
             "path": ".teamcity"
+        },
+        {
+            "path": "ProjectControl"
         }
     ],
     "settings": {
