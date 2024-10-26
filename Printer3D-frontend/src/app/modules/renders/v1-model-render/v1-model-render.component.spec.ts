@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { V1ModelRenderComponent } from './v1-model-render.component';
@@ -11,7 +11,7 @@ import { PartStack } from '@domain/PartStack.domain';
 describe('COMPONENT V1ModelRenderComponent [Module: RENDER]', () => {
     let component: V1ModelRenderComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

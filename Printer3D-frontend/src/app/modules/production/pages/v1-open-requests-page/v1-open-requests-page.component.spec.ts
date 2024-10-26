@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async } from '@angular/core/testing'
+import { waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - DOMAIN
 import { Project } from '@domain/inventory/Project.domain'
@@ -13,7 +13,7 @@ import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
 describe('COMPONENT V1OpenRequestsPageComponent [Module: PRODUCTION]', () => {
     let component: V1OpenRequestsPageComponent
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [

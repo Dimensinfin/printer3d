@@ -6,6 +6,6 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: stage
+  POSTGRES_DB: develop
   POSTGRES_USER: printer3d
   POSTGRES_PASSWORD: z.iliada.2020

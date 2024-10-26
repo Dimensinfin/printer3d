@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 // - TESTING
-import { async, fakeAsync, tick } from '@angular/core/testing'
+import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { ComponentFixture } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -45,7 +45,7 @@ describe('COMPONENT V1NewRequestPanelComponent [Module: PRODUCTION]', () => {
         clean: () => { }
     }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

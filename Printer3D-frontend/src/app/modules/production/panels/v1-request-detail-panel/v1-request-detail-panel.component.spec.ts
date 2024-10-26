@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { V1RequestDetailPanelComponent } from './v1-request-detail-panel.component';
@@ -11,7 +11,7 @@ import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 describe('COMPONENT V1RequestDetailPanelComponent [Module: PRODUCTION]', () => {
     let component: V1RequestDetailPanelComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

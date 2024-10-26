@@ -1,13 +1,12 @@
 // - CORE
 import { Injectable, ErrorHandler } from '@angular/core';
 // - DOMAIN
-import { RollbarService } from 'angular-rollbar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {
-    constructor(private rollbar: RollbarService) { }
+    constructor() { }
     /**
      * Process all errors reported by the application, being them typos, syntactic or functional errors.
      * The method should filter them and report on console what is expected for development fixing and registering onto Rollbar for application production
@@ -15,8 +14,6 @@ export class AppErrorHandler implements ErrorHandler {
      */
     public handleError(error: any): void {
         // Register the exception
-        if (environment.production)
-            this.rollbar.error(error);
         console.log('>[Exception]> Message: ' + JSON.stringify(error))
         // Process the error received to identify recoverable exceptions that can be reported to user.
         if (error instanceof Error) {

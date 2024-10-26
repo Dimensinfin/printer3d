@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async, fakeAsync, tick } from '@angular/core/testing'
+import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - PROVIDERS
 import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
@@ -38,7 +38,7 @@ describe('COMPONENT V1DockComponent [Module: SHARED]', () => {
         clean: () => { }
     }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [

@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { SupportBackendService } from '@app/testing/SupportBackend.service';
@@ -13,7 +13,7 @@ import { V2MachinesPanelComponent } from './v2-machines-panel.component';
 describe('COMPONENT V2MachinesPanelComponent [Module: SHARED]', () => {
     let component: V2MachinesPanelComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [
