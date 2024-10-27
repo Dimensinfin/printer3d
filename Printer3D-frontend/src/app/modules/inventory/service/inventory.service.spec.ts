@@ -4,7 +4,7 @@ import { Observable} from 'rxjs'
 import { Router } from '@angular/router'
 // - TESTING
 import { inject } from '@angular/core/testing'
-import { async } from '@angular/core/testing'
+import { waitForAsync } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
 import { ComponentFixture } from '@angular/core/testing'

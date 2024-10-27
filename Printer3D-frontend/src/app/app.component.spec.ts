@@ -5,7 +5,7 @@ import { Router } from '@angular/router'
 import { Printer3DConstants } from './platform/Printer3DConstants.platform'
 // - TESTING
 import { inject } from '@angular/core/testing'
-import { async } from '@angular/core/testing'
+import { waitForAsync } from '@angular/core/testing'
 import { fakeAsync } from '@angular/core/testing'
 import { tick } from '@angular/core/testing'
 import { ComponentFixture } from '@angular/core/testing'
@@ -30,7 +30,7 @@ describe('COMPONENT AppComponent [Module: CORE]', () => {
     let dialog = { open: (dialog: any, config: any) => { } }
     let backendService: any = {apiActuatorInfo: () => { }}
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

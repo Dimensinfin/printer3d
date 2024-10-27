@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 // - TESTING
 import { inject } from '@angular/core/testing';
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
@@ -34,7 +34,7 @@ describe('COMPONENT NewPartDialogComponent [Module: INVENTORY]', () => {
     let component: NewPartDialogComponent;
     let isolationService: SupportIsolationService;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

@@ -2,7 +2,7 @@
 import { NO_ERRORS_SCHEMA, ɵbypassSanitizationTrustStyle } from '@angular/core'
 import { Router } from '@angular/router'
 // - TESTING
-import { async, fakeAsync, tick } from '@angular/core/testing'
+import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { RouteMockUpComponent } from '@app/testing/RouteMockUp.component'
@@ -34,7 +34,7 @@ describe('service DockService [Module: SERVICES]', () => {
         }
     }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

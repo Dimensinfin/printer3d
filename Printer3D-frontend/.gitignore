@@ -6,8 +6,11 @@ package-lock.json
 .scannerwork/
 coverage/
 dist/
-.version.txt
-.app-banner.txt
+
+# - ingone deployment files
+.env
+.version
+.app-banner
 
 # - Ignore external utilities code folders
 support/apisimulator-http-1.4/

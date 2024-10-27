@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 // - TESTING
 import { inject } from '@angular/core/testing';
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { tick } from '@angular/core/testing';
 import { ComponentFixture } from '@angular/core/testing';
@@ -25,7 +25,7 @@ describe('COMPONENT DialogFactoryService [Module: CORE]', () => {
     let isolationService: SupportIsolationService;
     let dialog = { open: (dialog: any, config: any) => { } };
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

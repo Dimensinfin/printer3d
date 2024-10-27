@@ -116,7 +116,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         And the loading panel shows "Clasificando Pedidos..."
         When the loading panel completes
         Then the target Feature "/PEDIDOS" changes to state "active"
-        And the page "Open Requests Page" has 2 panels
+        And the page "Open Requests Page" has 3 panels
         Given the target is the panel of type "open-requests"
         Then  the target has the title "/PEDIDOS/ABIERTOS"
         Given the target is the panel of type "request-details"
@@ -191,7 +191,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given there is a Feature with label "/PEDIDOS ABIERTOS"
         When there is a click on Feature "/PEDIDOS ABIERTOS"
         Then the Feature with label "/PEDIDOS ABIERTOS" opens a Page
-        And the page "Open Requests Page" has 2 panels
+        And the page "Open Requests Page" has 3 panels
         Given the target is the panel of type "open-requests"
         Then  the target has the title "/PEDIDOS/ABIERTOS"
         Given the target is the panel of type "request-details"
@@ -203,7 +203,7 @@ Feature: [D3D02]-Test the dock contents and configuration.
         Given there is a Feature with label "/PEDIDOS CERRADOS"
         When there is a click on Feature "/PEDIDOS CERRADOS"
         Then the Feature with label "/PEDIDOS ABIERTOS" opens a Page
-        And the page "Closed Requests Page" has 2 panels
+        And the page "Closed Requests Page" has 3 panels
         Given the target is the panel of type "closed-requests"
         Then  the target has the title "/PEDIDOS/CERRADOS"
         Given the target is the panel of type "request-details"

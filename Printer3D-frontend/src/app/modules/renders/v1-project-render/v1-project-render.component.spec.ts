@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async } from '@angular/core/testing'
+import { waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - DOMAIN
 import { V1ProjectRenderComponent } from './v1-project-render.component'
@@ -15,7 +15,7 @@ describe('COMPONENT V1ProjectRenderComponent [Module: RENDER]', () => {
     })
     let component: V1ProjectRenderComponent
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [

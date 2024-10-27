@@ -3,10 +3,3 @@ echo '> Source environment'
 cat ./config/.env.$NODE_ENV
 . ./config/.env.$NODE_ENV
 echo '<<<<<<<<<<<< end environment'
-# echo '> Current environment'
-# printenv | sort
-# echo '<<<<<<<<<<<< end environment'
-# cat ./.deploy/config.template.json | envsubst > ./config/default.json
-# echo '> New configuration'
-# cat ./config/default.json
-# echo '<<<<<<<<<<<< end configuration'

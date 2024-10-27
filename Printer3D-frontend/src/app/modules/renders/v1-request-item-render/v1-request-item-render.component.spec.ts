@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Printer3DConstants } from '../../../platform/Printer3DConstants.platform';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { V1RequestItemRenderComponent } from './v1-request-item-render.component';
@@ -16,7 +16,7 @@ import { Model } from '@domain/inventory/Model.domain';
 describe('COMPONENT V1RequestItemRenderComponent [Module: RENDER]', () => {
     let component: V1RequestItemRenderComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

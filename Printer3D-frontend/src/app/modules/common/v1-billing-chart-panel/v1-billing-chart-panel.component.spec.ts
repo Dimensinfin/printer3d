@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { BackendService } from '@app/services/backend.service';
@@ -11,7 +11,7 @@ import { V1BillingChartPanelComponent } from './v1-billing-chart-panel.component
 describe('COMPONENT V1BillingChartPanelComponent [Module: COMMON]', () => {
     let component: V1BillingChartPanelComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

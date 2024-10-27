@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 // - TESTING
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 // - DOMAIN
 import { V1WorkLoadPanelComponent } from './v1-work-load-panel.component';
@@ -12,7 +12,7 @@ import { EVariant } from '@domain/interfaces/EPack.enumerated';
 describe('COMPONENT V1WorkLoadPanelComponent [Module: SHARED]', () => {
     let component: V1WorkLoadPanelComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

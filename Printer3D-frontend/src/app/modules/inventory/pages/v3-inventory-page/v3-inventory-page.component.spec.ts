@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async, fakeAsync, tick } from '@angular/core/testing'
+import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - DOMAIN
 import { V3InventoryPageComponent } from './v3-inventory-page.component'
@@ -10,7 +10,7 @@ import { Model } from '@domain/inventory/Model.domain'
 describe('COMPONENT V3InventoryPageComponent [Module: RENDER]', () => {
     let component: V3InventoryPageComponent
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [

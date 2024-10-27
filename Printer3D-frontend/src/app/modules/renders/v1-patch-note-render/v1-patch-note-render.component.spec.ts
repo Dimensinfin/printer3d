@@ -1,7 +1,7 @@
 // - CORE
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 // - TESTING
-import { async, fakeAsync, tick } from '@angular/core/testing'
+import { fakeAsync, tick, waitForAsync } from '@angular/core/testing'
 import { TestBed } from '@angular/core/testing'
 // - DOMAIN
 import { V1PatchNoteRenderComponent } from './v1-patch-note-render.component'
@@ -10,7 +10,7 @@ import { Node } from '@domain/Node.domain'
 describe('COMPONENT V1PatchNoteRenderComponent [Module: RENDER]', () => {
     let component: V1PatchNoteRenderComponent
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [

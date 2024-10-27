@@ -105,7 +105,7 @@ app.listen(process.env.PORT || app.locals.port || 3000, function () {
       'Backend: ' + START_GREEN + app.locals.backendproxy + 'api' + END_BOLD)
     console.log("Proxy redirection for " + START_YELLOW + "/" + END_BOLD + ": " +
       'Local: ' + START_GREEN + app.locals.applicationhome + END_BOLD)
-    const filename = '.app-banner.txt'
+    const filename = '.app-banner'
     fs.readFile(filename, 'utf8', function (err, data) {
       if (err) throw err
       console.log(data)
