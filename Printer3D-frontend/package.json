@@ -1,6 +1,6 @@
 {
   "name": "printer3d-frontend",
-  "version": "0.19.0-14",
+  "version": "0.19.0-0",
   "scripts": {
     "cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @F3D25.01",
     "docker:start": "docker-compose -f ./support/printer3d-docker-frontend/docker-compose.yml up & ",
@@ -51,7 +51,7 @@
     "env:develop": "NODE_ENV=develop . ./.deploy/generate.env.sh",
     "env:production": "NODE_ENV=production . ./.deploy/generate.env.sh",
     "check": "dotenv -p NODE_ENV",
-    "serve:local": "npm run env:local && npm run tag && ng serve --progress --proxy-config proxy.conf.json --port 5101",
+    "serve:local": "npm run env:local && npm run tag && dotenv -- ng serve --progress --proxy-config proxy.conf.json --port 5101",
     "test:dev": "NODE_OPTIONS=--openssl-legacy-provider ng test --code-coverage --watch --progress ",
     "acceptance:prepare": "dotenv -- ./support/simulator_backend.sh start",
     "acceptance:simulator": "bash ./support/simulator-backend.sh start &",
