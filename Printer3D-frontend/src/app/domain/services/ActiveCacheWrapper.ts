@@ -24,6 +24,7 @@ export class ActiveCacheWrapper<T> {
 		return this.refresh()
 	}
 	public accessContainer(): Observable<T> {
+		console.log('>[Containers.07]')
 		return this._subject.asObservable()
 	}
 	public refresh(): ActiveCacheWrapper<T> {
@@ -31,17 +32,20 @@ export class ActiveCacheWrapper<T> {
 		// if (this._loadState) {
 		// 	this._subject.next(this.currentData)
 		// } else {
+      console.log('>[Containers.09]')
 			this.fireDownloader()
 		// }
 		return this
 	}
 
 	private fireDownloader(): Observable<T> {
-		console.log('>[ActiveCacheWrapper.fireDownloader]')
+    console.log('>[Containers.10]')
+    console.log('>[ActiveCacheWrapper.fireDownloader]')
 		// Start a new download and return the new observable to the caller.
 		return this._downloader().pipe(
 			map((data: T) => {
-				// Store into the subject the new data. But only if not null.
+        console.log('>[Containers.20]')
+        // Store into the subject the new data. But only if not null.
 				console.log('>[ActiveCacheWrapper.fireDownloader]> data: ' + JSON.stringify(data))
 				if (null == data) {
 					this._subject.next(data)

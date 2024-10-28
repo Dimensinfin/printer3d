@@ -17,6 +17,7 @@ export class V3CoilsPageComponent implements OnInit {
 
 	public fireUpdate() {
 		console.log('>[V3CoilsPageComponent.connectCoils]')
+    this.containerService.fireUpdate(null)
 		// this.inventoryService.apiv2_InventoryGetCoils().subscribe((coilList: Coil[]) => {
 		// 	console.log('-[V3CoilsPageComponent.connectCoils]> Nodes downloaded: ' + coilList.length)
 		// 	const targetCoils: Coil[] = []

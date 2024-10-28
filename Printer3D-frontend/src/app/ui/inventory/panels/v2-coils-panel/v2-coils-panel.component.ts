@@ -18,6 +18,7 @@ export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, 
 	}
 
 	ngOnInit(): void {
+		console.log('>[Containers.02]')
 		console.log('>[V2CoilsPanelComponent.ngOnInit]')
 		super.ngOnInit()
 		console.log('<[V2CoilsPanelComponent.ngOnInit]')
@@ -26,15 +27,19 @@ export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, 
 	// - R E F R E S H A B L E
 	public clean(): void {}
 	public refresh(): void {
+		console.log('>[Containers.03]')
+		console.log('>[V2CoilsPanelComponent.refresh]')
 		this.clean()
 		this.connectCoils()
-		this.fireUpdate()
+		// this.fireUpdate()
+		console.log('<[V2CoilsPanelComponent.refresh]')
 	}
 	/**
 	 * Connect to the Coils data container provider to listen for any chnage on the list of Coils
 	 */
 	private connectCoils() {
-		console.log('>[V2CoilsPanelComponent.connectCoils]')
+    console.log('>[Containers.04]')
+    console.log('>[V2CoilsPanelComponent.connectCoils]')
 		this.backendConnections.push(
 			this.containerService
 				.connectCoils()
@@ -50,6 +55,7 @@ export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, 
 		console.log('<[V2CoilsPanelComponent.connectCoils]')
 	}
 	private fireUpdate(): void {
+		console.log('>[Containers.06]')
 		this.containerService.fireUpdate(this.containerService.connectCoils())
 	}
 }

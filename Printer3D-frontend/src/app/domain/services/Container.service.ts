@@ -11,20 +11,24 @@ export class ContainerService {
 	private coilsContainer: ActiveCacheWrapper<Coil[]>
 
 	constructor(private readonly inventoryService: InventoryService) {
+		console.log('>[Containers.01]')
 		this.coilsContainer = new ActiveCacheWrapper<Coil[]>()
 			.setTimedCache(false) // Contents do not expire.
 			.setReturnObsoletes(false) // If the content is expired then wait for a new request.
 			.setDownloader((): Observable<Coil[]> => {
-				return this.inventoryService.apiv2_InventoryGetCoils()
+        console.log('>[Containers.11]')
+        return this.inventoryService.apiv2_InventoryGetCoils()
 			})
-      .build()
+      // .build()
 	}
 
 	public connectCoils(): ActiveCacheWrapper<Coil[]> {
+		console.log('>[Containers.05]')
 		return this.coilsContainer
 	}
 	public fireUpdate(target: ActiveCacheWrapper<any>): void {
-		target.refresh()
+    console.log('>[Containers.08]')
+    this.coilsContainer.refresh()
 	}
 	/**
 	 *@deprecated

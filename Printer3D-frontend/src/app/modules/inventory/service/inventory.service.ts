@@ -34,7 +34,8 @@ export class InventoryService extends BackendService {
     }
     // - C O I L S
     public apiv2_InventoryGetCoils(): Observable<Coil[]> {
-        const request = this.INVENTORYAPIV2 + '/inventory/coils'
+      console.log('>[Containers.12]')
+      const request = this.INVENTORYAPIV2 + '/inventory/coils'
         const transformer: ResponseTransformer = new ResponseTransformer().setDescription('Transforms the list of Coils from the backend.')
             .setTransformation((entrydata: any): Coil[] => {
                 const coilList: Coil[] = []
@@ -47,7 +48,8 @@ export class InventoryService extends BackendService {
         headers = headers.set('xApp-Api-Version', 'API v2');
         return this.httpService.wrapHttpGETCall(request, headers)
             .pipe(map((data: any) => {
-                console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)
+              console.log('>[Containers.13]')
+              console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)
                 return transformer.transform(data) as Coil[]
             }))
     }
