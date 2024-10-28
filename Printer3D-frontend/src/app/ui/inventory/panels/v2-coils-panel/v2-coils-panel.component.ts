@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component'
 import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 import { Coil } from '@domain/inventory/Coil.domain'
+import { ActiveCacheWrapper } from '@domain/services/ActiveCacheWrapper'
 import { ContainerService } from '@domain/services/Container.service'
 import { BehaviorSubject, Observable } from 'rxjs'
 
@@ -11,7 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 	styleUrls: ['./v2-coils-panel.component.scss'],
 })
 export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
-	private coilContainer: Observable<Coil[]>
+	private containerCoils: ActiveCacheWrapper<Coil[]>
 
 	constructor(protected readonly containerService: ContainerService) {
 		super()
@@ -31,31 +32,30 @@ export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, 
 		console.log('>[V2CoilsPanelComponent.refresh]')
 		this.clean()
 		this.connectCoils()
-		// this.fireUpdate()
+		this.fireUpdate()
 		console.log('<[V2CoilsPanelComponent.refresh]')
 	}
 	/**
 	 * Connect to the Coils data container provider to listen for any chnage on the list of Coils
 	 */
 	private connectCoils() {
-    console.log('>[Containers.04]')
-    console.log('>[V2CoilsPanelComponent.connectCoils]')
+		console.log('>[Containers.04]')
+		console.log('>[V2CoilsPanelComponent.connectCoils]')
+		this.containerCoils = this.containerService.connectCoils()
+		const containerSubscription: Observable<Coil[]> = this.containerCoils.accessContainer()
 		this.backendConnections.push(
-			this.containerService
-				.connectCoils()
-				.accessContainer()
-				.subscribe(
-					data => {
-						if (data instanceof Array) this.completeDowload(data)
-					},
-					error => console.log(error),
-					() => console.log('Subscription finished'),
-				),
+			containerSubscription.subscribe(
+				data => {
+					if (data instanceof Array) this.completeDowload(data)
+				},
+				error => console.log(error),
+				() => console.log('Subscription finished'),
+			),
 		)
 		console.log('<[V2CoilsPanelComponent.connectCoils]')
 	}
 	private fireUpdate(): void {
-		console.log('>[Containers.06]')
-		this.containerService.fireUpdate(this.containerService.connectCoils())
+		console.log('>[Containers.07]')
+		this.containerCoils.refresh()
 	}
 }

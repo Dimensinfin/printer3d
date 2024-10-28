@@ -17,7 +17,15 @@ export class ContainerService {
 			.setReturnObsoletes(false) // If the content is expired then wait for a new request.
 			.setDownloader((): Observable<Coil[]> => {
         console.log('>[Containers.11]')
-        return this.inventoryService.apiv2_InventoryGetCoils()
+        const nest= this.inventoryService.apiv2_InventoryGetCoils()
+        .subscribe(
+          data => {
+            console.log('>[Containers.05]'+JSON.stringify(data))
+          },
+          error => console.log(error),
+          () => console.log('Subscription finished'),
+        )
+        return null
 			})
       // .build()
 	}

@@ -47,11 +47,11 @@ export class InventoryService extends BackendService {
         let headers = new HttpHeaders()
         headers = headers.set('xApp-Api-Version', 'API v2');
         return this.httpService.wrapHttpGETCall(request, headers)
-            .pipe(map((data: any) => {
-              console.log('>[Containers.13]')
-              console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)
-                return transformer.transform(data) as Coil[]
-            }))
+            // .pipe(map((data: any) => {
+            //   console.log('>[Containers.13]')
+            //   console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)
+            //     return transformer.transform(data) as Coil[]
+            // }))
     }
     public apiv2_InventoryUpdateCoil(updatingCoil: Coil): Observable<Coil> {
         const request = this.INVENTORYAPIV1 + '/inventory/coils'
