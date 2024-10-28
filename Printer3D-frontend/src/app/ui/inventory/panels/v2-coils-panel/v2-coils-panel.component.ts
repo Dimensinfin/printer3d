@@ -3,6 +3,7 @@ import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.
 import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 import { Coil } from '@domain/inventory/Coil.domain'
 import { ContainerService } from '@domain/services/Container.service'
+import { BehaviorSubject, Observable } from 'rxjs'
 
 @Component({
 	selector: 'v2-coils-panel',
@@ -10,6 +11,8 @@ import { ContainerService } from '@domain/services/Container.service'
 	styleUrls: ['./v2-coils-panel.component.scss'],
 })
 export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
+	private coilContainer: Observable<Coil[]>
+
 	constructor(protected readonly containerService: ContainerService) {
 		super()
 	}
@@ -25,6 +28,7 @@ export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, 
 	public refresh(): void {
 		this.clean()
 		this.connectCoils()
+		this.fireUpdate()
 	}
 	/**
 	 * Connect to the Coils data container provider to listen for any chnage on the list of Coils
@@ -32,12 +36,20 @@ export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, 
 	private connectCoils() {
 		console.log('>[V2CoilsPanelComponent.connectCoils]')
 		this.backendConnections.push(
-			this.containerService.connectCoils().subscribe(
-				data => console.log(data),
-				error => console.log(error),
-				() => console.log('Subscription finished'),
-			),
+			this.containerService
+				.connectCoils()
+				.accessContainer()
+				.subscribe(
+					data => {
+						if (data instanceof Array) this.completeDowload(data)
+					},
+					error => console.log(error),
+					() => console.log('Subscription finished'),
+				),
 		)
 		console.log('<[V2CoilsPanelComponent.connectCoils]')
+	}
+	private fireUpdate(): void {
+		this.containerService.fireUpdate(this.containerService.connectCoils())
 	}
 }
