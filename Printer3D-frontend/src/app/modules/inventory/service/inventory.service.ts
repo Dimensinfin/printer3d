@@ -10,8 +10,6 @@ import { Printer3DConstants } from "@app/platform/Printer3DConstants.platform"
 import { BackendService } from "@app/services/backend.service"
 import { Coil } from '@domain/inventory/Coil.domain'
 import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
-import { CoilListResponse } from '@domain/dto/CoilListResponse.dto'
-import { environment } from '@env/environment'
 import { UpdateCoilRequest } from '@domain/dto/UpdateCoilRequest.dto'
 import { IsolationService } from '@app/platform/isolation.service'
 import { CoilToUpdateCoilRequestConverter } from '@domain/converter/CoilToUpdateCoilRequest.converter'
@@ -47,11 +45,11 @@ export class InventoryService extends BackendService {
         let headers = new HttpHeaders()
         headers = headers.set('xApp-Api-Version', 'API v2');
         return this.httpService.wrapHttpGETCall(request, headers)
-            // .pipe(map((data: any) => {
-            //   console.log('>[Containers.13]')
-            //   console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)
-            //     return transformer.transform(data) as Coil[]
-            // }))
+            .pipe(map((data: any) => {
+              console.log('>[Containers.13]')
+              console.log(">[InventoryService.apiv2_InventoryGetCoils]> Transformation: " + transformer.description)
+                return transformer.transform(data) as Coil[]
+            }))
     }
     public apiv2_InventoryUpdateCoil(updatingCoil: Coil): Observable<Coil> {
         const request = this.INVENTORYAPIV1 + '/inventory/coils'

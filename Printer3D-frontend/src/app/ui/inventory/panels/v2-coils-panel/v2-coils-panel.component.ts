@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component'
 import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 import { Coil } from '@domain/inventory/Coil.domain'
-import { ActiveCacheWrapper } from '@domain/services/ActiveCacheWrapper'
+import { ActiveContainerWrapper } from '@domain/services/ActiveCacheWrapper'
 import { ContainerService } from '@domain/services/Container.service'
 import { BehaviorSubject, Observable } from 'rxjs'
 
@@ -12,7 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 	styleUrls: ['./v2-coils-panel.component.scss'],
 })
 export class V2CoilsPanelComponent extends AppPanelComponent implements OnInit, Refreshable {
-	private containerCoils: ActiveCacheWrapper<Coil[]>
+	private containerCoils: ActiveContainerWrapper<Coil[]>
 
 	constructor(protected readonly containerService: ContainerService) {
 		super()

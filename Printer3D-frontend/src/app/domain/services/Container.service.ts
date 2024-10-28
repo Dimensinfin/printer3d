@@ -1,58 +1,31 @@
 import { Injectable } from '@angular/core'
 import { InventoryService } from '@app/modules/inventory/service/inventory.service'
+import { Observable } from 'rxjs'
+import { ActiveContainerWrapper } from './ActiveCacheWrapper'
+
 import { Coil } from '@domain/inventory/Coil.domain'
-import { BehaviorSubject, Observable, Subscription } from 'rxjs'
-import { ActiveCacheWrapper } from './ActiveCacheWrapper'
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ContainerService {
-	private coilsContainer: ActiveCacheWrapper<Coil[]>
+	private coilsContainer: ActiveContainerWrapper<Coil[]>
 
-	constructor(private readonly inventoryService: InventoryService) {
-		console.log('>[Containers.01]')
-		this.coilsContainer = new ActiveCacheWrapper<Coil[]>()
+	constructor(private readonly inventoryService: InventoryService) {}
+
+  public fireUpdate(target: ActiveContainerWrapper<any>): void {
+		target.refresh()
+	}
+
+	public connectCoils(): ActiveContainerWrapper<Coil[]> {
+		return this.coilsContainer
+	}
+  private createContainers():void{
+		this.coilsContainer = new ActiveContainerWrapper<Coil[]>()
 			.setTimedCache(false) // Contents do not expire.
 			.setReturnObsoletes(false) // If the content is expired then wait for a new request.
 			.setDownloader((): Observable<Coil[]> => {
-        console.log('>[Containers.11]')
-        const nest= this.inventoryService.apiv2_InventoryGetCoils()
-        .subscribe(
-          data => {
-            console.log('>[Containers.05]'+JSON.stringify(data))
-          },
-          error => console.log(error),
-          () => console.log('Subscription finished'),
-        )
-        return null
+				return this.inventoryService.apiv2_InventoryGetCoils()
 			})
-      // .build()
-	}
-
-	public connectCoils(): ActiveCacheWrapper<Coil[]> {
-		console.log('>[Containers.05]')
-		return this.coilsContainer
-	}
-	public fireUpdate(target: ActiveCacheWrapper<any>): void {
-    console.log('>[Containers.08]')
-    this.coilsContainer.refresh()
-	}
-	/**
-	 *@deprecated
-	 * @param newCoils
-	 */
-	public updateCoils(newCoils: Coil[]): void {
-		this.coilsContainer.updateContents(newCoils)
-	}
-	/**
-	 * @deprecated
-	 * @param coilList
-	 */
-	public accessCoils(coilList: Coil[]) {
-		this.coilsContainer.updateContents(coilList)
-	}
-	private downloadCoils() {
-		this.inventoryService.apiv2_InventoryGetCoils().subscribe(data => this.coilsContainer.updateContents(data))
-	}
+  }
 }
