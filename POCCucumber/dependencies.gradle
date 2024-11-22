@@ -1,0 +1,118 @@
+// - P R O D U C T   V E R S I O N S
+ext {
+    loggerVersion = '1.7.26'
+    retrofitVersion = '2.5.0'
+    micrometerVersion = '1.1.0'
+    resilience4jVersion = '0.17.0'
+    springfox = '2.9.2'
+    jacksonVersion = '2.9.8'
+}
+
+// - S P R I N G B O O T
+ext {
+    set('springBootAdminVersion', "2.2.1")
+    set('springCloudVersion', "Hoxton.SR3")
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-actuator-autoconfigure'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'de.codecentric:spring-boot-admin-starter-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
+dependencyManagement {
+    imports {
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    // - C O R E
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'net.logstash.logback:logstash-logback-encoder:4.11' // Configurable logging
+    implementation 'javax.validation:validation-api:2.0.1.Final' // Validation annotations
+    implementation 'commons-codec:commons-codec:1.10' // Base64 decoding
+    implementation 'org.apache.commons:commons-lang3:3.9'
+    // - R E S T
+    implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.3'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion" // OAuth2 authentication
+    implementation 'com.auth0:java-jwt:3.10.3' // JWT processing library
+    implementation 'net.sf.supercsv:super-csv:2.4.0' // CSV generation library
+    // - M E T R I C S
+    implementation "io.micrometer:micrometer-registry-prometheus"
+    // - L O G G I N G
+    implementation "com.github.piomin:logstash-logging-spring-boot-starter:1.2.2.RELEASE"
+    implementation 'net.logstash.logback:logstash-logback-encoder:4.11'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1' // Retrofit logs
+    // - D A T A B A S E
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.liquibase:liquibase-core'
+    implementation 'com.vladmihalcea:hibernate-types-52:2.4.2'
+    // - D I M E N S I N F I N
+    implementation 'org.bitbucket.dimensinfin:core-lib:3.2.1'
+    implementation 'org.bitbucket.dimensinfin:annotations:0.3.1'
+
+    implementation 'org.threeten:threeten-extra:1.5.0'
+}
+
+// - U N I T   T E S T I N G
+test {
+    useJUnitPlatform()
+    dependsOn cleanTest
+    testLogging.showStandardStreams = true
+}
+dependencies {
+    // T E S T I N G
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.2'
+    testImplementation 'org.mockito:mockito-core:3.7.0'
+    testImplementation 'org.mockito:mockito-inline:3.7.0'
+    testImplementation 'com.openpojo:openpojo:0.8.12'
+    testImplementation 'org.assertj:assertj-core:3.19.0'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.10'
+}
+
+// - A C C E P T A N C E   T E S T I N G
+ext {
+    cucumberVersion = '6.9.1'
+}
+dependencies {
+    acceptanceImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+    acceptanceImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
+    acceptanceImplementation "io.cucumber:cucumber-picocontainer:$cucumberVersion"
+    acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    acceptanceImplementation 'com.squareup.retrofit2:converter-scalars:2.5.0' // Helps processing CSV responses
+}
+task acceptanceTest(type: Test) {
+    group = 'verification'
+    testClassesDirs = sourceSets.acceptance.output.classesDirs
+    classpath = sourceSets.acceptance.runtimeClasspath
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+}
+
+// - I N T E G R A T I O N   T E S T I N G
+dependencies {
+    integrationImplementation 'org.springframework.boot:spring-boot-starter-test'
+    integrationImplementation 'com.h2database:h2'
+    integrationImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    // - D A T A B A S E
+    integrationImplementation 'org.postgresql:postgresql'
+    integrationImplementation 'org.liquibase:liquibase-core'
+    integrationImplementation 'com.vladmihalcea:hibernate-types-52:2.4.2'
+}
+task integrationTest(type: Test) {
+    group = 'verification'
+    environment "SPRING_PROFILES_ACTIVE", "acceptance"
+    environment "PORT", "5123"
+    environment "DATABASE_URL", "jdbc:postgresql://0.0.0.0:5131/postgres"
+    environment "DB_USER", "printer3d-user"
+    environment "DB_PASSWORD", "printer3d-password"
+    environment "NEOCOM_BANNER_LOCATION", "./build/resources/main/app-banner.txt"
+    testClassesDirs = sourceSets.integration.output.classesDirs
+    classpath = sourceSets.integration.runtimeClasspath
+}

@@ -1,0 +1,192 @@
+// - P L U G I N S
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:2.2.2.RELEASE'
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE")
+    }
+}
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'maven-publish'
+    id 'project-report'
+    id 'idea'
+    id 'jacoco'
+    id "org.sonarqube" version "3.0"
+    id "org.hidetake.swagger.generator" version "2.18.2"
+}
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+// - P R O J E C T   D E F I N I T I O N
+group = 'org.dimensinfin.printer3d'
+if (file('.version').exists()) {
+    version = rootProject.file('.version').text.trim()
+} else {
+    version = '0.0.0'
+}
+
+archivesBaseName = 'printer3d-backend'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+// - S O U R C E S
+def swaggerGenerated = "$buildDir/generated/"
+sourceSets {
+    main.java {
+        srcDirs += 'src/main/java-client'
+    }
+    test.java {
+        srcDirs += "src/test/java-common"
+    }
+    acceptance {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDirs += 'src/acceptance/java'
+        }
+    }
+    acceptance {
+        resources {
+            srcDirs += 'src/acceptance/resources'
+        }
+    }
+    integration {
+        java {
+            compileClasspath += main.output + test.output + acceptance.output
+            runtimeClasspath += main.output + test.output + acceptance.output
+            srcDirs += 'src/integration/java'
+        }
+    }
+}
+
+// - C O N F I G U R A T I O N S
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    acceptanceImplementation.extendsFrom testImplementation
+    acceptanceRuntime.extendsFrom testRuntime
+    integrationImplementation.extendsFrom acceptanceImplementation
+    integrationRuntime.extendsFrom acceptanceRuntime
+}
+
+// - S P R I N G B O O T
+springBoot {
+    buildInfo()
+}
+processResources {
+    filesMatching('application.properties') {
+        expand(project.properties)
+    }
+}
+
+// - D E P E N D E N C I E S
+apply from: './dependencies.gradle'
+// - C O V E R A G E
+apply from: './jacoco.gradle'
+
+// - T A S K S
+task setVersion(type: Exec) {
+    description 'Stores the current assembly version into an external file.'
+    group = 'release'
+    workingDir "${projectDir}"
+    commandLine 'gitversion', '/showvariable', 'AssemblySemFileVer'
+    standardOutput = new ByteArrayOutputStream()
+    doLast {
+        def result = standardOutput.toString()
+        println "version > $result"
+        new File(".version").text = result
+    }
+}
+compileJava.dependsOn setVersion
+bootJar.dependsOn setVersion
+
+task generateBanner(type: Exec) {
+    description 'Generates the banner matching the current version.'
+    group = 'release'
+    workingDir "${projectDir}"
+    commandLine 'figlet', rootProject.file('.version').text.trim()
+    standardOutput = new ByteArrayOutputStream()
+    doLast {
+        def result = standardOutput.toString()
+        println "$result"
+        new File(".app-banner").text = result
+    }
+}
+generateBanner.dependsOn setVersion
+compileJava.dependsOn generateBanner
+bootJar.dependsOn generateBanner
+
+task cleanResources(type: Delete, dependsOn: clean) {
+    group = 'coverage'
+    delete fileTree("${projectDir}/src/main/resources/docker") {
+        include '**/*.jar'
+    }
+}
+
+// - S W A G G E R   C L I E N T
+task swaggerGenerate(type: GenerateSwaggerCode) {
+    group = 'openapi'
+    language = 'java'
+
+    inputFile = file(new File(projectDir, 'src/spec/printer3d-openapi.yaml'))
+    outputDir = file(swaggerGenerated)
+    configFile = file('src/spec/openapi-config.json')
+}
+task swaggerBuild(type: Delete, dependsOn: swaggerGenerate) {
+    delete "$swaggerGenerated/docs"
+    delete "$swaggerGenerated/gradle"
+    delete "$swaggerGenerated/src/test/"
+    delete "$swaggerGenerated/src/main/AndroidManifest.xml"
+    delete fileTree("$swaggerGenerated").include('*')
+}
+task swaggerDelete(type: Delete) {
+    group = 'openapi'
+    delete "$swaggerGenerated"
+}
+clean.doFirst {
+    delete "$swaggerGenerated"
+}
+dependencies {
+    swaggerCodegen 'org.openapitools:openapi-generator-cli:3.0.0'     // or OpenAPI Generator.
+    compileOnly 'io.swagger:swagger-annotations:1.5.17'
+    compileOnly 'com.squareup.retrofit2:retrofit:2.3.0'
+    compileOnly 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compileOnly 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    compileOnly 'org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.1'
+    compileOnly 'org.apache.httpcomponents:httpclient:4.5.4'
+    compileOnly 'org.threeten:threetenbp:1.4.4'
+}
+
+// - R U N N I N G
+bootRun {
+    systemProperty "spring.profiles.active", "acceptance"
+}
+
+// - S O N A R C L O U D
+sonarqube {
+    properties {
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.organization", "dimensinfin3d"
+        property "sonar.projectKey", "dimensinfin3d_dimensinfin3d"
+        property "sonar.projectName", "Printer3D - backend"
+        property "sonar.projectVersion", project.version
+        property "sonar.projectDescription", "Back end Spring Boot server to service the Printer3D repository and do some data management."
+        property "sonar.sourceEncoding", "UTF-8"
+
+        property "sonar.login", "760417486be1e97e4566898079652a8ac326af3d"
+    }
+}
