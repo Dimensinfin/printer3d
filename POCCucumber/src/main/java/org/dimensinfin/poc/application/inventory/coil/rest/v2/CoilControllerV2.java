@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend.inventory.coil.rest.v2;
+package org.dimensinfin.poc.application.inventory.coil.rest.v2;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.core.utility.DimObjects;
-import org.dimensinfin.printer3d.client.inventory.rest.dto.Coil;
+import org.dimensinfin.poc.domain.Coil;
+import org.dimensinfin.poc.infrastructure.adapters.DimObjects;
 
 /**
  * @author Adam Antinoo (adamantinoo.git@gmail.com)

@@ -1,4 +1,4 @@
-package org.dimensinfin.printer3d.backend;
+package org.dimensinfin;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import org.dimensinfin.logging.LogWrapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This is the spring boot application starter. Once the application instance is created then the spring boot will create all the beans and
@@ -18,6 +18,7 @@ import org.dimensinfin.logging.LogWrapper;
  * @author Adam Antinoo
  * @since 0.9.0
  */
+@Slf4j
 @EnableDiscoveryClient
 @EnableScheduling
 @SpringBootApplication
@@ -25,10 +26,10 @@ public class Printer3DApplication {
 	public static final String APPLICATION_ERROR_CODE_PREFIX = "dimensinfin.printer3d";
 
 	public static void main( final String[] args ) {
-		LogWrapper.enter();
+		log.info( "ENTER" );
 		SpringApplication.run( Printer3DApplication.class, args );
 		new LogoPrinter().print();
-		LogWrapper.exit();
+		log.info( "EXIT" );
 	}
 
 	private static final class LogoPrinter {
@@ -37,15 +38,15 @@ public class Printer3DApplication {
 		}
 
 		private void printVersion( final String bannerData ) {
-			LogWrapper.info( "\n\n" + bannerData + "\n" );
+			log.info( "\n\n" + bannerData + "\n" );
 		}
 
 		private String readAllBytes() {
 			try {
-				final File resource = new File( System.getenv( "NEOCOM_BANNER_LOCATION" ) );
+				final File resource = new File( System.getenv( "BANNER_LOCATION" ) );
 				return new String( Files.readAllBytes( resource.toPath() ) );
 			} catch (final NullPointerException | IOException ioe) {
-				LogWrapper.error( ioe );
+				log.error( ioe.toString() );
 				return "        ___      ___      ___  \n" +
 						"__   __/ _ \\    / _ \\    / _ \\ \n" +
 						"\\ \\ / / | | |  | | | |  | | | |\n" +

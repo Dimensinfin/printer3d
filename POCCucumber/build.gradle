@@ -44,32 +44,31 @@ targetCompatibility = '11'
 // - S O U R C E S
 def swaggerGenerated = "$buildDir/generated/"
 sourceSets {
-    main.java {
-        srcDirs += 'src/main/java-client'
-    }
-    test.java {
-        srcDirs += "src/test/java-common"
-    }
     acceptance {
         java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDirs += 'src/acceptance/java'
+            compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath + configurations.annotationProcessor
+            runtimeClasspath += output + compileClasspath
+            srcDir 'src/acceptance/java'
         }
-    }
-    acceptance {
-        resources {
-            srcDirs += 'src/acceptance/resources'
-        }
-    }
-    integration {
-        java {
-            compileClasspath += main.output + test.output + acceptance.output
-            runtimeClasspath += main.output + test.output + acceptance.output
-            srcDirs += 'src/integration/java'
-        }
+        resources.srcDir 'src/acceptance/resources'
     }
 }
+
+configurations {
+    acceptanceImplementation.extendsFrom testImplementation
+    acceptanceRuntimeOnly.extendsFrom testRuntimeOnly
+    acceptanceImplementation.extendsFrom configurations.annotationProcessor
+}
+
+task acceptanceTest(type: Test) {
+    description = 'Runs the acceptance tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.acceptance.output.classesDirs
+    classpath = sourceSets.acceptance.runtimeClasspath
+    shouldRunAfter test
+}
+
+check.dependsOn acceptanceTest
 
 // - C O N F I G U R A T I O N S
 configurations {
@@ -77,10 +76,10 @@ configurations {
     runtimeClasspath {
         extendsFrom developmentOnly
     }
+//    testImplementation.extendsFrom implementation
+//    testRuntime.extendsFrom runtime
     acceptanceImplementation.extendsFrom testImplementation
     acceptanceRuntime.extendsFrom testRuntime
-    integrationImplementation.extendsFrom acceptanceImplementation
-    integrationRuntime.extendsFrom acceptanceRuntime
 }
 
 // - S P R I N G B O O T
@@ -160,16 +159,16 @@ task swaggerDelete(type: Delete) {
 clean.doFirst {
     delete "$swaggerGenerated"
 }
-dependencies {
-    swaggerCodegen 'org.openapitools:openapi-generator-cli:3.0.0'     // or OpenAPI Generator.
-    compileOnly 'io.swagger:swagger-annotations:1.5.17'
-    compileOnly 'com.squareup.retrofit2:retrofit:2.3.0'
-    compileOnly 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compileOnly 'com.squareup.retrofit2:converter-scalars:2.3.0'
-    compileOnly 'org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.1'
-    compileOnly 'org.apache.httpcomponents:httpclient:4.5.4'
-    compileOnly 'org.threeten:threetenbp:1.4.4'
-}
+//dependencies {
+//    swaggerCodegen 'org.openapitools:openapi-generator-cli:3.0.0'     // or OpenAPI Generator.
+//    compileOnly 'io.swagger:swagger-annotations:1.5.17'
+//    compileOnly 'com.squareup.retrofit2:retrofit:2.3.0'
+//    compileOnly 'com.squareup.retrofit2:converter-gson:2.3.0'
+//    compileOnly 'com.squareup.retrofit2:converter-scalars:2.3.0'
+//    compileOnly 'org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.1'
+//    compileOnly 'org.apache.httpcomponents:httpclient:4.5.4'
+//    compileOnly 'org.threeten:threetenbp:1.4.4'
+//}
 
 // - R U N N I N G
 bootRun {
