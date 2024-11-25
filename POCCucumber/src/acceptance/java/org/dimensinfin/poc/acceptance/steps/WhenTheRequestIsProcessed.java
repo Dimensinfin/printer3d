@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,10 +12,12 @@ import org.dimensinfin.poc.acceptance.support.RequestType;
 import org.dimensinfin.poc.domain.Coil;
 
 import io.cucumber.java.en.When;
+import lombok.extern.slf4j.Slf4j;
 
-//@Slf4j
+@Slf4j
 public class WhenTheRequestIsProcessed {
 	protected Printer3DWorld printer3DWorld;
+	private ResponseEntity<Coil> coilV2ListResponseEntity;
 
 	// - C O N S T R U C T O R S
 	@Autowired
@@ -34,7 +35,7 @@ public class WhenTheRequestIsProcessed {
 			case GET_COILS_V2:
 				final ResponseEntity<Coil> coilV2ListResponseEntity = new RestTemplate()
 						.getForEntity( "http://localhost:9000/api/v2/inventory/coils", Coil.class );
-				this.printer3DWorld.setCoilV2ListResponseEntity( coilV2ListResponseEntity );
+				this.coilV2ListResponseEntity = coilV2ListResponseEntity;
 				return coilV2ListResponseEntity;
 			default:
 				throw new NotImplementedException( "Request {} not implemented.", requestType.name() );
@@ -44,11 +45,11 @@ public class WhenTheRequestIsProcessed {
 	private void processRequestByType( final RequestType requestType ) throws IOException {
 		try {
 			final ResponseEntity<?> response = this.processRequest( requestType );
-			this.printer3DWorld.setHttpStatus( response.getStatusCode() );
+			//			this.printer3DWorld.setHttpStatus( response.getStatusCode() );
 		} catch (final RuntimeException runtime) {
-			this.printer3DWorld.setHttpStatus( HttpStatus.BAD_GATEWAY );
-			this.printer3DWorld.setApplicationException( runtime );
-//			log.error( runtime.toString() );
+			//			this.printer3DWorld.setHttpStatus( HttpStatus.BAD_GATEWAY );
+			//			this.printer3DWorld.setApplicationException( runtime );
+			//			log.error( runtime.toString() );
 		}
 	}
 }
