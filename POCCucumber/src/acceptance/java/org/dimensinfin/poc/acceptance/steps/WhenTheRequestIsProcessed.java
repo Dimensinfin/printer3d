@@ -8,14 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import org.dimensinfin.Printer3DWorld;
+import org.dimensinfin.poc.acceptance.support.Printer3DWorld;
 import org.dimensinfin.poc.acceptance.support.RequestType;
 import org.dimensinfin.poc.domain.Coil;
 
 import io.cucumber.java.en.When;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 public class WhenTheRequestIsProcessed {
 	protected Printer3DWorld printer3DWorld;
 
@@ -49,7 +48,7 @@ public class WhenTheRequestIsProcessed {
 		} catch (final RuntimeException runtime) {
 			this.printer3DWorld.setHttpStatus( HttpStatus.BAD_GATEWAY );
 			this.printer3DWorld.setApplicationException( runtime );
-			log.error( runtime.toString() );
+//			log.error( runtime.toString() );
 		}
 	}
 }

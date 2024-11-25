@@ -13,7 +13,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
 @CucumberContextConfiguration
 @ContextConfiguration(name = "steps", classes = { CucumberLauncherAcc.class })
 @SpringBootTest(classes = { Printer3DApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ActiveProfiles({ "acceptance" })
+//@ActiveProfiles({ "acceptance" })
 @EnableAutoConfiguration
 public class CucumberBootstrap {
 }

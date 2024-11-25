@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
-import org.dimensinfin.Printer3DWorld;
+import org.dimensinfin.poc.acceptance.support.Printer3DWorld;
 
 public abstract class StepSupport {
 	private static final Map<String, UUID> machineIdentifiers = new HashMap<>();

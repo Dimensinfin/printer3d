@@ -1,4 +1,4 @@
-package org.dimensinfin;
+package org.dimensinfin.poc.acceptance.support;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

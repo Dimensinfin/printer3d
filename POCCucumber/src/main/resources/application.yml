@@ -6,33 +6,3 @@ info:
     application: ${archivesBaseName}
     port: ${PORT}
     version: ${version}
-
-spring:
-  jpa:
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-  datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    driver-class-name: org.postgresql.Driver
-    platform: postgres
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-  liquibase:
-    liquibase-schema: public
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
-  scheduler:
-    enable: true
-    removecoils:
-      active: true
-      scheduletime: "0 0 * * * ?"
-  security:
-    originDomains: "http://localhost/" # CORS is disabled so no need to continue configuring that security.
-
-logging:
-  logstash:
-    enabled: true
-  request:
-    headers: false
