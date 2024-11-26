@@ -1,5 +1,5 @@
 # Base image
-FROM adoptopenjdk/openjdk11 AS BASEIMAGE
+FROM adoptopenjdk/openjdk11 AS baseimage
 
 WORKDIR /app
 
@@ -8,18 +8,7 @@ COPY ./build/libs/$JAR_NAME /app
 COPY ./build/resources /app/resources
 
 # Create a second image that has only the build files and the configuration.
-FROM adoptopenjdk/openjdk11 AS RUNNER
-# ENV PORT=$PORT
-# ENV NEOCOM_DATABASE_URL="$NEOCOM_DATABASE_URL"
-# ENV SPRING_DATASOURCE_URL="$SPRING_DATASOURCE_URL"
-# ENV SPRING_DATASOURCE_USERNAME="$SPRING_DATASOURCE_USERNAME"
-# ENV SPRING_DATASOURCE_PASSWORD="$SPRING_DATASOURCE_PASSWORD"
-# ENV APPLICATION_DIRECTORY="/app/NeoCom.Infinity.Integration"
-# ENV NEOCOM_BANNER_LOCATION="./resources/main/app-banner.txt"
-# ENV PROFILE="$ENVIRONMENT"
-# ENV PROPERTIES_DIRECTORY="/resources/main/properties-staging"
-# ENV REDIS_URL="$REDIS_CACHE_URL"
-# ENV SDE_DATABASE_PATH="/resources/main/sde.db"
+FROM adoptopenjdk/openjdk11 AS runner
 
 COPY --from=BASEIMAGE /app/resources /app/resources
 COPY --from=BASEIMAGE /app/$JAR_NAME /app
