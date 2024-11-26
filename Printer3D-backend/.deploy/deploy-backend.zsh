@@ -19,11 +19,13 @@ export_env_variables() {
 compile_application() {
     echo "Compiling the ${APP_CODE} application..."
     echo "Move to directory ${WORKING_DIR}"
-    (cd "${WORKING_DIR}" && ./gradlew clean bootJar)
+    ./gradlew clean bootJar
     if [[ $? -ne 0 ]]; then
         echo "Error compiling the application."
         exit 1
     fi
+    echo "Generated application..."
+    ls -la ../build/libs/*.jar
     echo "Compilation successful."
 }
 
@@ -31,8 +33,6 @@ compile_application() {
 build_docker_image() {
     echo "Building the Docker image..."
     echo "IMAGE_NAME->"$IMAGE_NAME
-    cd "${WORKING_DIR}"
-    echo "Move to directory ${WORKING_DIR}"
     (envsubst <${DEPLOY_DIR}/dockerfile.template >${DEPLOY_DIR}/Dockerfile &&
         docker build -f ${DEPLOY_DIR}/Dockerfile -t ${IMAGE_NAME} .)
     if [[ $? -ne 0 ]]; then
@@ -63,7 +63,6 @@ tag_and_push_docker_image() {
 deploy_to_kubernetes() {
     echo "Deploying to Kubernetes..."
     echo "Prepare environment..."
-    NAMESPACE=$ENVIRONMENT
     echo "NAMESPACE->"$NAMESPACE
     echo "BACKEND_CONFIG_MAP->"$BACKEND_CONFIG_MAP
     echo "PORT->"$PORT
@@ -84,10 +83,23 @@ deploy_to_kubernetes() {
     echo "Deployment to Kubernetes successful."
 }
 
+# Move to the working directory for processing
+move_directory() {
+    echo "Move to directory ${WORKING_DIR}"
+    cd "${WORKING_DIR}"
+    if [[ $? -ne 0 ]]; then
+        echo "Error moving to processing directory."
+        exit 1
+    fi
+}
+
 # Main script execution
 main() {
     # Export environment variables from .env file
     export_env_variables
+
+    # Move to the working directory for processing
+    move_directory
 
     # Compile the application
     compile_application
