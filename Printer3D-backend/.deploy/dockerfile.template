@@ -10,8 +10,8 @@ COPY ./build/resources /app/resources
 # Create a second image that has only the build files and the configuration.
 FROM adoptopenjdk/openjdk11 AS runner
 
-COPY --from=BASEIMAGE /app/resources /app/resources
-COPY --from=BASEIMAGE /app/$JAR_NAME /app
+COPY --from=baseimage /app/resources /app/resources
+COPY --from=baseimage /app/$JAR_NAME /app
 
 WORKDIR /app
 

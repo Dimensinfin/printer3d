@@ -4,17 +4,6 @@
 export ENVIRONMENT=${1:-develop} # Accepts the first argument or defaults to 'develop'
 export NAMESPACE=$ENVIRONMENT
 
-# Function to generate the version from gitversion
-generate_version() {
-    VERSION=$(gitversion /showvariable AssemblySemFileVer 2>/dev/null)
-    if [[ $? -ne 0 ]]; then
-        echo "Error getting version from gitversion."
-        exit 1
-    fi
-    echo "Version to deploy: ${VERSION}"
-    export VERSION=${VERSION}
-}
-
 # Function to export environment variables from .env file
 export_env_variables() {
     if [[ -f .env ]]; then
@@ -97,19 +86,16 @@ deploy_to_kubernetes() {
 
 # Main script execution
 main() {
-    # Generate version
-    # generate_version
-
     # Export environment variables from .env file
     export_env_variables
 
-    # # Compile the application
-    # compile_application
+    # Compile the application
+    compile_application
 
-    # # Build the Docker image
-    # build_docker_image
+    # Build the Docker image
+    build_docker_image
 
-    # # Tag and push the Docker image
+    # Tag and push the Docker image
     tag_and_push_docker_image
 
     # Deploy to Kubernetes
