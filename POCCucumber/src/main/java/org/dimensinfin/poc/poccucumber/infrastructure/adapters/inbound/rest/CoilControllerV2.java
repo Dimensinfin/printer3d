@@ -1,7 +1,8 @@
-package org.dimensinfin.poc.application.inventory.coil.rest.v2;
+package org.dimensinfin.poc.poccucumber.infrastructure.adapters.inbound.rest;
 
-import java.text.MessageFormat;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.dimensinfin.poc.domain.Coil;
-import org.dimensinfin.poc.infrastructure.adapters.DimObjects;
+import org.dimensinfin.poc.poccucumber.domain.Coil;
+import org.dimensinfin.poc.poccucumber.application.usecases.CoilServiceV2;
 
 /**
  * @author Adam Antinoo (adamantinoo.git@gmail.com)
@@ -24,10 +25,8 @@ public class CoilControllerV2 {
 	private final CoilServiceV2 coilServiceV2;
 
 	// - C O N S T R U C T O R S
-	public CoilControllerV2( final CoilServiceV2 coilServiceV2 ) {
-		this.coilServiceV2 = DimObjects.requireNonNull( coilServiceV2,
-				MessageFormat.format( "Injectable component {0} not available.", "CoilServiceV2" )
-		);
+	public CoilControllerV2( @NotNull final CoilServiceV2 coilServiceV2 ) {
+		this.coilServiceV2 = coilServiceV2;
 	}
 
 	// - G E T T E R S   &   S E T T E R S

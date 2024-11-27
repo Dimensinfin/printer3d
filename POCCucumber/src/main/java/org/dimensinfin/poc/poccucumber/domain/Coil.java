@@ -1,4 +1,4 @@
-package org.dimensinfin.poc.domain;
+package org.dimensinfin.poc.poccucumber.domain;
 
 import lombok.Builder;
 
