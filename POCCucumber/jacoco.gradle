@@ -1,0 +1,17 @@
+// - J A C O C O
+jacocoTestReport {
+    doFirst {
+        delete fileTree(dir: "${buildDir}/resources/main/docker")
+    }
+    reports { xml.enabled true }
+    dependsOn test
+}
+test {
+    jacoco {
+        excludes = [
+        ]
+    }
+}
+plugins.withType(JacocoPlugin) {
+    tasks["test"].finalizedBy 'jacocoTestReport'
+}

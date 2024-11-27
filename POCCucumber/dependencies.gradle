@@ -1,0 +1,107 @@
+// - P R O D U C T   V E R S I O N S
+ext {
+    loggerVersion = '1.7.26'
+    retrofitVersion = '2.5.0'
+    micrometerVersion = '1.1.0'
+    resilience4jVersion = '0.17.0'
+    springfox = '2.9.2'
+    jacksonVersion = '2.9.8'
+}
+
+// - S P R I N G B O O T
+ext {
+//    set('springBootAdminVersion', "2.2.1")
+//    set('springCloudVersion', "Hoxton.SR3")
+    set('postgresVersion', '42.5.0')
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
+//dependencyManagement {
+//    imports {
+//        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+//        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+//    }
+//}
+
+dependencies {
+    // - C O R E
+    compileOnly 'org.projectlombok:lombok:1.18.24' // Use the latest version
+    annotationProcessor 'org.projectlombok:lombok:1.18.24' // Use the latest version
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'javax.validation:validation-api:2.0.1.Final' // Validation annotations
+//    implementation 'commons-codec:commons-codec:1.10' // Base64 decoding
+//    implementation 'org.apache.commons:commons-lang3:3.9'
+    // - R E S T
+//    implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.3'
+//    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion" // OAuth2 authentication
+//    implementation 'com.auth0:java-jwt:3.10.3' // JWT processing library
+//    implementation 'net.sf.supercsv:super-csv:2.4.0' // CSV generation library
+    // - M E T R I C S
+//    implementation "io.micrometer:micrometer-registry-prometheus"
+    // - L O G G I N G
+//    implementation "com.github.piomin:logstash-logging-spring-boot-starter:1.2.2.RELEASE"
+//    implementation 'net.logstash.logback:logstash-logback-encoder:4.11'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1' // Retrofit logs
+    // - D A T A B A S E
+//    runtimeOnly "org.postgresql:postgresql:$postgresVersion"
+//    implementation 'org.liquibase:liquibase-core'
+//    implementation 'com.vladmihalcea:hibernate-types-52:2.4.2'
+    // - D I M E N S I N F I N
+//    implementation 'org.bitbucket.dimensinfin:core-lib:3.2.1'
+//    implementation 'org.bitbucket.dimensinf in:annotations:0.3.1'
+
+//    implementation 'org.threeten:threeten-extra:1.5.0'
+//    compileOnly 'org.projectlombok:lombok:1.18.36'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+}
+
+// - U N I T   T E S T I N G
+test {
+    useJUnitPlatform()
+    dependsOn cleanTest
+    testLogging.showStandardStreams = true
+}
+ext {
+    junitVersion = '5.8.1'
+    mockitoVersion = '4.11.0'
+}
+dependencies {
+    // T E S T I N G
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
+    testImplementation 'com.openpojo:openpojo:0.9.1'
+    testImplementation 'org.assertj:assertj-core:3.19.0'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.17.3'
+}
+
+// - A C C E P T A N C E   T E S T I N G
+ext {
+    cucumberVersion = '7.3.2'
+    junitPlatformSuiteVersion = '1.11.3'
+}
+dependencies {
+    acceptanceImplementation "io.cucumber:cucumber-spring:$cucumberVersion"
+    acceptanceImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+//    acceptanceImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
+    acceptanceImplementation "io.cucumber:cucumber-junit-platform-engine:$cucumberVersion"
+    acceptanceImplementation "org.junit.platform:junit-platform-suite:$junitPlatformSuiteVersion"
+//    acceptanceImplementation "org.junit.platform:junit-platform-suite-api:$junitPlatformSuiteVersion"
+//    acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
+//    acceptanceImplementation 'com.squareup.retrofit2:converter-scalars:2.5.0' // Helps processing CSV responses
+}
+task acceptanceTest(type: Test) {
+    description = 'Runs the acceptance tests.'
+    group = 'verification'
+    useJUnitPlatform()
+    testClassesDirs = sourceSets.acceptance.output.classesDirs
+    classpath = sourceSets.acceptance.runtimeClasspath
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
+    include "**/CucumberLauncherTests*"
+    shouldRunAfter test // Ensure it runs after unit tests
+}

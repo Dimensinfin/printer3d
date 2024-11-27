@@ -1,0 +1,14 @@
+{
+  "name": "sse-client",
+  "version": "0.20.0-28",
+  "description": "A simple SSE client to dump to console all data received from the backend SSE server.",
+  "main": "sse-client.js",
+  "scripts": {
+    "version:generate": "gitversion /showvariable AssemblySemFileVer > .version && cat .version",
+    "version:update": "npm run version:generate && npm version --allow-same-version `cat .version`",
+    "start": "npm run version:update && node sse-client.js"
+  },
+  "dependencies": {
+    "eventsource": "^2.0.2"
+  }
+}

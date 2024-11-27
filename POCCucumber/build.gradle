@@ -1,0 +1,109 @@
+// - P L U G I N S
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.9' // Use the latest 2.7.x version
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'idea'
+}
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+// - P R O J E C T   D E F I N I T I O N
+group = 'org.dimensinfin.poc.poccucumber'
+if (file('.version').exists()) {
+    version = rootProject.file('.version').text.trim()
+} else {
+    version = '0.0.0'
+    new File(".version").text = version
+}
+
+archivesBaseName = 'printer3d-poc'
+
+java {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
+
+// Optional: If you want to specify the Java version for the Gradle wrapper
+tasks.withType(JavaCompile) {
+    options.release = 11
+}
+
+// - S O U R C E S
+sourceSets {
+    acceptance {
+        java {
+//            compileClasspath += main.output + test.output
+//            runtimeClasspath += main.output + test.output
+            srcDirs += 'src/acceptance/java'
+        }
+    }
+    acceptance {
+        resources {
+            srcDirs += 'src/acceptance/resources'
+        }
+    }
+}
+sourceSets.acceptance.compileClasspath += sourceSets.main.output
+sourceSets.acceptance.runtimeClasspath += sourceSets.main.output
+// - C O N F I G U R A T I O N S
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    acceptanceCompileOnly.extendsFrom compileOnly
+    acceptanceImplementation.extendsFrom testImplementation
+    acceptanceRuntime.extendsFrom testRuntime
+    acceptanceRuntimeOnly.extendsFrom testRuntimeOnly
+    acceptanceAnnotationProcessor.extendsFrom annotationProcessor
+}
+
+// - D E P E N D E N C I E S
+apply from: './dependencies.gradle'
+
+// - T A S K S
+tasks.withType(ProcessResources) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE // or DuplicatesStrategy.EXCLUDE
+}
+task setVersion(type: Exec) {
+    description 'Stores the current assembly version into an external file.'
+    group = 'release'
+    workingDir "${projectDir}"
+    commandLine 'gitversion', '/showvariable', 'AssemblySemFileVer'
+    standardOutput = new ByteArrayOutputStream()
+    doLast {
+        def result = standardOutput.toString()
+        println "version > $result"
+        new File(".version").text = result
+    }
+}
+compileJava.dependsOn setVersion
+bootJar.dependsOn setVersion
+
+task generateBanner(type: Exec) {
+    description 'Generates the banner matching the current version.'
+    group = 'release'
+    doFirst {
+        workingDir "${projectDir}"
+        commandLine 'figlet', rootProject.file('.version').text.trim()
+        standardOutput = new ByteArrayOutputStream()
+    }
+    doLast {
+        def result = standardOutput.toString()
+        println "$result"
+        new File(".app-banner").text = result
+    }
+}
+generateBanner.dependsOn setVersion
+compileJava.dependsOn generateBanner
+bootJar.dependsOn generateBanner
+
+task cleanResources(type: Delete, dependsOn: clean) {
+    group = 'release'
+    delete fileTree("${projectDir}/src/main/resources/docker") {
+        include '**/*.jar'
+    }
+}
