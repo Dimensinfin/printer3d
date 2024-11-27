@@ -1,36 +1,17 @@
 // - P L U G I N S
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
-    dependencies {
-        classpath 'org.springframework.cloud:spring-cloud-contract-gradle-plugin:2.2.2.RELEASE'
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE")
-    }
-}
 plugins {
-    id 'org.springframework.boot' version '2.2.6.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
-    id 'maven-publish'
-    id 'project-report'
+    id 'org.springframework.boot' version '2.7.9' // Use the latest 2.7.x version
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'idea'
-    id 'jacoco'
-//    id "org.sonarqube" version "3.0"
-//    id "org.hidetake.swagger.generator" version "2.18.2"
 }
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url 'https://jitpack.io' }
 }
 
 // - P R O J E C T   D E F I N I T I O N
-group = 'org.dimensinfin.printer3d'
+group = 'org.dimensinfin.poc.poccucumber'
 if (file('.version').exists()) {
     version = rootProject.file('.version').text.trim()
 } else {
@@ -38,7 +19,7 @@ if (file('.version').exists()) {
     new File(".version").text = version
 }
 
-archivesBaseName = 'printer3d-backend'
+archivesBaseName = 'printer3d-poc'
 
 java {
     sourceCompatibility = '11'
@@ -54,11 +35,11 @@ tasks.withType(JavaCompile) {
 sourceSets {
     acceptance {
         java {
-            compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath + configurations.annotationProcessor
-            runtimeClasspath += output + compileClasspath
             srcDir 'src/acceptance/java'
         }
-        resources.srcDir 'src/acceptance/resources'
+        resources{
+            srcDir 'src/acceptance/resources'
+        }
     }
 }
 
@@ -68,26 +49,15 @@ configurations {
     runtimeClasspath {
         extendsFrom developmentOnly
     }
+    acceptanceCompileOnly.extendsFrom compileOnly
     acceptanceImplementation.extendsFrom testImplementation
     acceptanceRuntime.extendsFrom testRuntime
     acceptanceRuntimeOnly.extendsFrom testRuntimeOnly
     acceptanceAnnotationProcessor.extendsFrom testAnnotationProcessor
 }
 
-// - S P R I N G B O O T
-//springBoot {
-//    buildInfo()
-//}
-//processResources {
-//    filesMatching('application.properties') {
-//        expand(project.properties)
-//    }
-//}
-
 // - D E P E N D E N C I E S
 apply from: './dependencies.gradle'
-// - C O V E R A G E
-apply from: './jacoco.gradle'
 
 // - T A S K S
 tasks.withType(ProcessResources) {
@@ -111,9 +81,11 @@ bootJar.dependsOn setVersion
 task generateBanner(type: Exec) {
     description 'Generates the banner matching the current version.'
     group = 'release'
-    workingDir "${projectDir}"
-    commandLine 'figlet', rootProject.file('.version').text.trim()
-    standardOutput = new ByteArrayOutputStream()
+    doFirst {
+        workingDir "${projectDir}"
+        commandLine 'figlet', rootProject.file('.version').text.trim()
+        standardOutput = new ByteArrayOutputStream()
+    }
     doLast {
         def result = standardOutput.toString()
         println "$result"
@@ -125,7 +97,7 @@ compileJava.dependsOn generateBanner
 bootJar.dependsOn generateBanner
 
 task cleanResources(type: Delete, dependsOn: clean) {
-    group = 'coverage'
+    group = 'release'
     delete fileTree("${projectDir}/src/main/resources/docker") {
         include '**/*.jar'
     }

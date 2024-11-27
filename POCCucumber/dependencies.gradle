@@ -10,43 +10,36 @@ ext {
 
 // - S P R I N G B O O T
 ext {
-    set('springBootAdminVersion', "2.2.1")
-    set('springCloudVersion', "Hoxton.SR3")
+//    set('springBootAdminVersion', "2.2.1")
+//    set('springCloudVersion', "Hoxton.SR3")
     set('postgresVersion', '42.5.0')
 }
 dependencies {
-//    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-//    implementation 'org.springframework.boot:spring-boot-actuator-autoconfigure'
-//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation 'de.codecentric:spring-boot-admin-starter-client'
-//    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
-//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    compileOnly 'org.projectlombok:lombok:1.18.24' // Use the latest version
-    annotationProcessor 'org.projectlombok:lombok:1.18.24' // Use the latest version
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
-dependencyManagement {
-    imports {
-        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
-}
+//dependencyManagement {
+//    imports {
+//        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+//        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+//    }
+//}
 
 dependencies {
     // - C O R E
+    compileOnly 'org.projectlombok:lombok:1.18.24' // Use the latest version
+    annotationProcessor 'org.projectlombok:lombok:1.18.24' // Use the latest version
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
-    implementation 'net.logstash.logback:logstash-logback-encoder:4.11' // Configurable logging
-    implementation 'javax.validation:validation-api:2.0.1.Final' // Validation annotations
-    implementation 'commons-codec:commons-codec:1.10' // Base64 decoding
-    implementation 'org.apache.commons:commons-lang3:3.9'
+//    implementation 'net.logstash.logback:logstash-logback-encoder:4.11' // Configurable logging
+//    implementation 'javax.validation:validation-api:2.0.1.Final' // Validation annotations
+//    implementation 'commons-codec:commons-codec:1.10' // Base64 decoding
+//    implementation 'org.apache.commons:commons-lang3:3.9'
     // - R E S T
-    implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.3'
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion" // OAuth2 authentication
-    implementation 'com.auth0:java-jwt:3.10.3' // JWT processing library
-    implementation 'net.sf.supercsv:super-csv:2.4.0' // CSV generation library
+//    implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.3'
+//    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion" // OAuth2 authentication
+//    implementation 'com.auth0:java-jwt:3.10.3' // JWT processing library
+//    implementation 'net.sf.supercsv:super-csv:2.4.0' // CSV generation library
     // - M E T R I C S
 //    implementation "io.micrometer:micrometer-registry-prometheus"
     // - L O G G I N G
@@ -80,15 +73,11 @@ dependencies {
     // T E S T I N G
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
-//    testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-//    testImplementation 'org.mockito:mockito-inline:3.7.0'
     testImplementation 'com.openpojo:openpojo:0.9.1'
     testImplementation 'org.assertj:assertj-core:3.19.0'
     testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.17.3'
-//    testImplementation 'org.projectlombok:lombok:1.18.36'
-//    testAnnotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 // - A C C E P T A N C E   T E S T I N G
@@ -105,16 +94,7 @@ dependencies {
     acceptanceImplementation "org.junit.platform:junit-platform-suite-api:$junitPlatformSuiteVersion"
     acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
     acceptanceImplementation 'com.squareup.retrofit2:converter-scalars:2.5.0' // Helps processing CSV responses
-//    acceptanceImplementation "org.postgresql:postgresql:$postgresVersion"
-//    acceptanceImplementation 'org.projectlombok:lombok:1.18.36'
-//    acceptanceAnnotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
-//task acceptanceTest(type: Test) {
-//    group = 'verification'
-//    testClassesDirs = sourceSets.acceptance.output.classesDirs
-//    classpath = sourceSets.acceptance.runtimeClasspath
-//    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
-//}
 task acceptanceTest(type: Test) {
     description = 'Runs the acceptance tests.'
     group = 'verification'
@@ -123,6 +103,6 @@ task acceptanceTest(type: Test) {
     classpath = sourceSets.acceptance.runtimeClasspath
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
     systemProperty("cucumber.junit-platform.naming-strategy", "long")
-//    include "**/CucumberLauncherTests*"
-//    shouldRunAfter test // Ensure it runs after unit tests
+    include "**/CucumberLauncherTests*"
+    shouldRunAfter test // Ensure it runs after unit tests
 }
