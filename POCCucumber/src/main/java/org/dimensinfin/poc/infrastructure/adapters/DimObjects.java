@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 0.14.0
  */
 @Slf4j
+@Deprecated
 public class DimObjects {
 	public static <T> T requireNonNull( final T target ) {
 		final String message = "Null Pointer validation detected unexpected null value.";

@@ -66,7 +66,7 @@ test {
     testLogging.showStandardStreams = true
 }
 ext {
-    junitVersion = '5.5.2'
+    junitVersion = '5.8.1'
     mockitoVersion = '4.11.0'
 }
 dependencies {
@@ -82,18 +82,18 @@ dependencies {
 
 // - A C C E P T A N C E   T E S T I N G
 ext {
-    cucumberVersion = '7.11.0'
+    cucumberVersion = '7.3.2'
     junitPlatformSuiteVersion = '1.11.3'
 }
 dependencies {
     acceptanceImplementation "io.cucumber:cucumber-spring:$cucumberVersion"
-    acceptanceImplementation "io.cucumber:cucumber-java:$cucumberVersion"
-    acceptanceImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
+//    acceptanceImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+//    acceptanceImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
     acceptanceImplementation "io.cucumber:cucumber-junit-platform-engine:$cucumberVersion"
-    acceptanceImplementation "org.junit.platform:junit-platform-suite:$junitPlatformSuiteVersion"
-    acceptanceImplementation "org.junit.platform:junit-platform-suite-api:$junitPlatformSuiteVersion"
-    acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
-    acceptanceImplementation 'com.squareup.retrofit2:converter-scalars:2.5.0' // Helps processing CSV responses
+//    acceptanceImplementation "org.junit.platform:junit-platform-suite:$junitPlatformSuiteVersion"
+//    acceptanceImplementation "org.junit.platform:junit-platform-suite-api:$junitPlatformSuiteVersion"
+//    acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
+//    acceptanceImplementation 'com.squareup.retrofit2:converter-scalars:2.5.0' // Helps processing CSV responses
 }
 task acceptanceTest(type: Test) {
     description = 'Runs the acceptance tests.'

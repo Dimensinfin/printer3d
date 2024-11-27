@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="POCCucumberApp" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="PORT" value="9001" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="org.dimensinfin.poc.poccucumber.POCCucumberApp" />
+    <module name="Printer3D-backend.main" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.dimensinfin.poc.poccucumber.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

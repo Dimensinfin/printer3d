@@ -22,8 +22,6 @@ public class POCCucumberApp {
 	public static final String APPLICATION_ERROR_CODE_PREFIX = "dimensinfin.poccucumber";
 
 	public static void main( final String[] args ) {
-		log.info( "ENTER" );
 		SpringApplication.run( POCCucumberApp.class, args );
-		log.info( "EXIT" );
 	}
 }
