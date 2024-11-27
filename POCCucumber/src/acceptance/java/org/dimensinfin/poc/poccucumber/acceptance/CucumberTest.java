@@ -1,8 +1,15 @@
 package org.dimensinfin.poc.poccucumber.acceptance;
 
-import io.cucumber.junit.platform.engine.Cucumber;
+import org.junit.platform.suite.api.ConfigurationParameter;
+import org.junit.platform.suite.api.IncludeEngines;
+import org.junit.platform.suite.api.SelectClasspathResource;
+import org.junit.platform.suite.api.Suite;
 
-@Cucumber
+import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
+
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "org.dimensinfin.poc.poccucumber.acceptance.steps")
 public class CucumberTest {
-	// This class will be empty, it serves as a glue for Cucumber
 }

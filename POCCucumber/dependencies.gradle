@@ -31,7 +31,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24' // Use the latest version
     annotationProcessor 'org.projectlombok:lombok:1.18.24' // Use the latest version
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
-//    implementation 'net.logstash.logback:logstash-logback-encoder:4.11' // Configurable logging
     implementation 'javax.validation:validation-api:2.0.1.Final' // Validation annotations
 //    implementation 'commons-codec:commons-codec:1.10' // Base64 decoding
 //    implementation 'org.apache.commons:commons-lang3:3.9'
@@ -87,10 +86,10 @@ ext {
 }
 dependencies {
     acceptanceImplementation "io.cucumber:cucumber-spring:$cucumberVersion"
-//    acceptanceImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+    acceptanceImplementation "io.cucumber:cucumber-java:$cucumberVersion"
 //    acceptanceImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
     acceptanceImplementation "io.cucumber:cucumber-junit-platform-engine:$cucumberVersion"
-//    acceptanceImplementation "org.junit.platform:junit-platform-suite:$junitPlatformSuiteVersion"
+    acceptanceImplementation "org.junit.platform:junit-platform-suite:$junitPlatformSuiteVersion"
 //    acceptanceImplementation "org.junit.platform:junit-platform-suite-api:$junitPlatformSuiteVersion"
 //    acceptanceImplementation "com.squareup.retrofit2:converter-gson:2.3.0"
 //    acceptanceImplementation 'com.squareup.retrofit2:converter-scalars:2.5.0' // Helps processing CSV responses
