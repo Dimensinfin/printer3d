@@ -6,4 +6,4 @@ Feature: Manage the Coils on the Inventory information section
         Given a clean Coils repository
         When the Get Coils v2 request is processed
         Then there is a valid response with return code of "200 OK"
-        And the list of Coils has 1 items
+        And the list of Coils has 0 items

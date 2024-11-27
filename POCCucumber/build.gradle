@@ -58,7 +58,7 @@ configurations {
     acceptanceImplementation.extendsFrom testImplementation
     acceptanceRuntime.extendsFrom testRuntime
     acceptanceRuntimeOnly.extendsFrom testRuntimeOnly
-    acceptanceAnnotationProcessor.extendsFrom testAnnotationProcessor
+    acceptanceAnnotationProcessor.extendsFrom annotationProcessor
 }
 
 // - D E P E N D E N C I E S

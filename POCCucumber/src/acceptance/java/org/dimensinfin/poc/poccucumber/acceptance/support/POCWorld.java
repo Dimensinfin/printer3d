@@ -1,16 +1,22 @@
 package org.dimensinfin.poc.poccucumber.acceptance.support;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import io.cucumber.spring.ScenarioScope;
+import org.dimensinfin.poc.poccucumber.domain.Coil;
 
-//@Getter
-//@Setter
+import io.cucumber.spring.ScenarioScope;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @ScenarioScope
 @Component
 public class POCWorld {
-	//	private ResponseEntity<Coil> coilV2ListResponseEntity;
+	private List<Coil> coils;
 	private HttpStatus httpStatus;
 	private RuntimeException applicationException;
 }
