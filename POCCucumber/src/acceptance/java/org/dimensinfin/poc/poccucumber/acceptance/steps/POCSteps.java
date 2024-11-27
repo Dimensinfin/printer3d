@@ -1,9 +1,7 @@
 package org.dimensinfin.poc.poccucumber.acceptance.steps;
 
-import org.dimensinfin.poc.poccucumber.acceptance.support.POCWorld;
+import io.cucumber.spring.CucumberContextConfiguration;
 
-public class POCSteps extends StepSupport {
-	public POCSteps( final POCWorld world ) {
-		super( world );
-	}
+@CucumberContextConfiguration
+public class POCSteps {
 }

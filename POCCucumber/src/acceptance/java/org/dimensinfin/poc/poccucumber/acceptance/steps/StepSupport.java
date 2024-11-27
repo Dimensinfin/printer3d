@@ -4,10 +4,8 @@ import javax.validation.constraints.NotNull;
 
 import org.dimensinfin.poc.poccucumber.acceptance.support.POCWorld;
 
-import io.cucumber.spring.CucumberContextConfiguration;
 import lombok.Getter;
 
-@CucumberContextConfiguration
 public abstract class StepSupport {
 	@Getter
 	private POCWorld POCWorld;
