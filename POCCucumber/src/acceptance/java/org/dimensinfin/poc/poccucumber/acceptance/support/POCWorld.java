@@ -4,11 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import io.cucumber.spring.ScenarioScope;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+//@Getter
+//@Setter
 @ScenarioScope
 @Component
 public class POCWorld {

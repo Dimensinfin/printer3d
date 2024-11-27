@@ -35,14 +35,19 @@ tasks.withType(JavaCompile) {
 sourceSets {
     acceptance {
         java {
-            srcDir 'src/acceptance/java'
+//            compileClasspath += main.output + test.output
+//            runtimeClasspath += main.output + test.output
+            srcDirs += 'src/acceptance/java'
         }
-        resources{
-            srcDir 'src/acceptance/resources'
+    }
+    acceptance {
+        resources {
+            srcDirs += 'src/acceptance/resources'
         }
     }
 }
-
+sourceSets.acceptance.compileClasspath += sourceSets.main.output
+sourceSets.acceptance.runtimeClasspath += sourceSets.main.output
 // - C O N F I G U R A T I O N S
 configurations {
     developmentOnly
