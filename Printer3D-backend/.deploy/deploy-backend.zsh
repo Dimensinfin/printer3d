@@ -1,5 +1,17 @@
 #!/bin/zsh
 
+# - Set the path locations from the script place
+# Get the directory of the currently running script
+# Move one level up from the script's directory
+local BASE_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+
+# Print the base directory
+echo "Base directory: $BASE_DIR"
+
+# You can now use $BASE_DIR to reference files relative to the script's location
+# For example, if you have a file named 'config.txt' in the same directory as the script:
+CONFIG_FILE="$BASE_DIR/config.txt"
+
 # Set default environment
 export ENVIRONMENT=${1:-develop} # Accepts the first argument or defaults to 'develop'
 export NAMESPACE=$ENVIRONMENT
@@ -84,6 +96,7 @@ deploy_to_kubernetes() {
 
 # Move to the working directory for processing
 move_directory() {
+    echo "Current directory: $(pwd)"
     local destination="$1"
     echo "Move to directory $destination"
     cd $destination
@@ -105,14 +118,14 @@ main() {
     compile_application
 
     # Build the Docker image
-    build_docker_image
+    # build_docker_image
 
     # Tag and push the Docker image
-    tag_and_push_docker_image
+    # tag_and_push_docker_image
 
     # Deploy to Kubernetes
     deploy_to_kubernetes
 }
 
 # Run the main function
-main
+# main
