@@ -1,0 +1,11 @@
+<div cy-name="panel-title" class="panel-title">
+    <div class="row">
+        <div class="row" style="flex-grow: 1;">
+            <div>/AUTO REFRESH COILS</div>
+        </div>
+    </div>
+    <hr>
+    <viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Descargando Lista de Filamentos...'" [downloader]="self"
+                  [variant]="'-POC-LIST-'">
+    </viewer-panel>
+</div>

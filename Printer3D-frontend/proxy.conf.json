@@ -1,24 +1,24 @@
 {
     "/actuator/*": {
-        "target": "http://localhost:5110",
+        "target": "http://localhost:5111",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
     "/api/v1/*": {
-        "target": "http://localhost:5110",
+        "target": "http://localhost:5111",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
     "/api/v2/*": {
-        "target": "http://localhost:5110",
+        "target": "http://localhost:5111",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
     "/api/v3/*": {
-        "target": "http://localhost:5110",
+        "target": "http://localhost:5111",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
