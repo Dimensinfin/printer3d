@@ -22,17 +22,38 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-12-02T11:48:29.878341+01:00[Europe/Madrid]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-12-02T12:09:35.448805+01:00[Europe/Madrid]")
 @Validated
 @Tag(name = "PartRest", description = "the PartRest API")
 public interface PartRestApi {
+
+    /**
+     * POST /v1/parts : Create a new Part on the repository.
+     *
+     * @return Create a new Part on the Inventory repository.  (status code 201)
+     */
+    @Operation(
+        operationId = "createPart",
+        summary = "Create a new Part on the repository.",
+        tags = { "PartRest" },
+        responses = {
+            @ApiResponse(responseCode = "201", description = "Create a new Part on the Inventory repository. ", content = @Content(mediaType = "application/json", schema = @Schema(implementation =  PartDto.class)))
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = "/v1/parts",
+        produces = { "application/json" }
+    )
+    ResponseEntity<PartDto> createPart(
+        
+    );
+
 
     /**
      * GET /v1/parts : Get all Parts on the repository.

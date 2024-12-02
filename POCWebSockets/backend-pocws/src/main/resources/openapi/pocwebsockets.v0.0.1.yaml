@@ -19,6 +19,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PartList'
+    post:
+      tags:
+        - PartRest
+      summary: Create a new Part on the repository.
+      operationId: createPart
+      responses:
+        201:
+          description: >
+            Create a new Part on the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Part'
+
 
 # - S C H E M A S
 components:
