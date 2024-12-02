@@ -1,0 +1,5 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/org/dimensinfin/poc/generated/infrastructure/ports/inbound/api/PartRestApi.java
+src/main/java/org/dimensinfin/poc/generated/infrastructure/ports/inbound/domain/PartDto.java

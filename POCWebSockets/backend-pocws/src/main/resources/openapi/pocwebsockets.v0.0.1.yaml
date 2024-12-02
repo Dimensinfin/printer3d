@@ -24,6 +24,13 @@ paths:
         - PartRest
       summary: Create a new Part on the repository.
       operationId: createPart
+      requestBody:
+        description: >
+          Contains the Part fields to be used to create a new Part record at the repository.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Part'
       responses:
         201:
           description: >

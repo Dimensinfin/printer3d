@@ -6,4 +6,6 @@ import org.dimensinfin.poc.backend_pocws.domain.Part;
 
 public interface PartAdapter {
 	List<Part> getAll();
+
+	Part save( Part part );
 }
