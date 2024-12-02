@@ -8,7 +8,7 @@ import org.dimensinfin.poc.backend_pocws.application.usecases.CreatePartUseCase;
 import org.dimensinfin.poc.backend_pocws.application.usecases.GetPartsUseCase;
 
 @Configuration
-public class UseCaseConfiguration {
+public class UseCaseConfig {
 	@Bean
 	public GetPartsUseCase getPartsUseCase( final PartAdapter partAdapter ) {
 		return new GetPartsUseCase( partAdapter );

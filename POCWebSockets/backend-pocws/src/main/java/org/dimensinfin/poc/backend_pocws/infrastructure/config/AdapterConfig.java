@@ -9,10 +9,10 @@ import org.dimensinfin.poc.backend_pocws.infrastructure.adapters.outbound.part.P
 import org.dimensinfin.poc.backend_pocws.infrastructure.adapters.outbound.websockets.TopicAdapterImplementation;
 
 @Configuration
-public class AdapterConfiguration {
+public class AdapterConfig {
 	@Bean
-	public PartAdapter getPartAdapter() {
-		return new PartAdapterImplementation();
+	public PartAdapter getPartAdapter( final TopicAdapter topicAdapter ) {
+		return new PartAdapterImplementation( topicAdapter );
 	}
 
 	@Bean
