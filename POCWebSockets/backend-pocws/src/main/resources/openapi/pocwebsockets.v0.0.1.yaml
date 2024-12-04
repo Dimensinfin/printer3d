@@ -2,7 +2,7 @@ openapi: "3.0.0"
 info:
   title: Parts API
   description: API for managing parts
-  version: 1.0.3
+  version: 1.0.2
 paths:
   # - P A R T S
   /v1/parts:
@@ -30,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Part'
+              $ref: '#/components/schemas/NewPart'
       responses:
         201:
           description: >
@@ -44,6 +44,20 @@ paths:
 # - S C H E M A S
 components:
   schemas:
+    NewPart:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example:
+            Lowerside
+        weight:
+          type: integer
+          format: int32
+          example:
+            20
     Part:
       type: object
       required:

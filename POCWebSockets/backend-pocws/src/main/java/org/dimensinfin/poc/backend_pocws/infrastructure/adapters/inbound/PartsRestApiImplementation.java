@@ -9,6 +9,7 @@ import org.dimensinfin.poc.backend_pocws.application.usecases.CreatePartUseCase;
 import org.dimensinfin.poc.backend_pocws.application.usecases.GetPartsUseCase;
 import org.dimensinfin.poc.backend_pocws.infrastructure.adapters.converters.ConverterFactory;
 import org.dimensinfin.poc.generated.infrastructure.ports.inbound.api.PartRestApi;
+import org.dimensinfin.poc.generated.infrastructure.ports.inbound.domain.NewPartDto;
 import org.dimensinfin.poc.generated.infrastructure.ports.inbound.domain.PartDto;
 
 import jakarta.validation.constraints.NotNull;
@@ -25,7 +26,7 @@ public class PartsRestApiImplementation implements PartRestApi {
 	}
 
 	@Override
-	public ResponseEntity<PartDto> createPart( final PartDto partDto ) {
+	public ResponseEntity<PartDto> createPart( final NewPartDto partDto ) {
 		return ResponseEntity.ok(
 				ConverterFactory.toPartDto( this.createPartUseCase.execute(
 								ConverterFactory.toPart( partDto )

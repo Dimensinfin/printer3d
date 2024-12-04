@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import org.dimensinfin.poc.generated.infrastructure.ports.inbound.domain.NewPartDto;
 import org.dimensinfin.poc.generated.infrastructure.ports.inbound.domain.PartDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +50,7 @@ public interface PartRestApi {
 			consumes = { "application/json" }
 	)
 	ResponseEntity<PartDto> createPart(
-			@Parameter(name = "PartDto", description = "Contains the Part fields to be used to create a new Part record at the repository. ", schema = @Schema(description = "")) @Valid @RequestBody(required = false) PartDto partDto
+			@Parameter(name = "NewPartDto", description = "Contains the Part fields to be used to create a new Part record at the repository. ", schema = @Schema(description = "")) @Valid @RequestBody(required = false) NewPartDto partDto
 	);
 
 
