@@ -1,8 +1,8 @@
 server:
-  port: ${PORT}
+  port: 9001
 
 info:
   tags:
     application: ${archivesBaseName}
-    port: ${PORT}
+    #    port: ${PORT}
     version: ${version}
