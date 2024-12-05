@@ -1,49 +1,50 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "outDir": "./dist/out-tsc",
-        "sourceMap": true,
-        "declaration": false,
-        "downlevelIteration": true,
-        "experimentalDecorators": true,
-        "module": "es2020",
-        "moduleResolution": "node",
-        "importHelpers": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "es2020",
-        "lib": [
-            "es2018",
-            "dom"
+      "outDir": "./dist/out-tsc",
+      "sourceMap": true,
+      "declaration": false,
+      "downlevelIteration": true,
+      "experimentalDecorators": true,
+      "module": "es2020",
+      "moduleResolution": "node",
+      "importHelpers": true,
+      "allowSyntheticDefaultImports": true,
+      "target": "ES2022",
+      "lib": [
+        "es2018",
+        "dom"
+      ],
+      "types": [
+        "jasmine",
+        "node",
+        "cypress"
+      ],
+      "baseUrl": "./",
+      "paths": {
+        "@env/*": [
+          "src/environments/*"
         ],
-        "types": [
-            "jasmine",
-            "node",
-            "cypress"
+        "@domain/*": [
+          "src/app/domain/*"
         ],
-        "baseUrl": "./",
-        "paths": {
-            "@env/*": [
-                "src/environments/*"
-            ],
-            "@domain/*": [
-                "src/app/domain/*"
-            ],
-            "@app/*": [
-                "src/app/*"
-            ],
-            "@production/*": [
-                "src/app/modules/production/*"
-            ],
-            "@bit/innovative.innovative-core.backend-support/*": [
-                "src/app/modules/innovative/backend-support/*"
-            ],
-            "@bit/innovative.innovative-core.asset-manager/*": [
-                "src/app/modules/innovative/asset-manager/*"
-            ],
-            "@bit/innovative.innovative-core.feature-dock/*": [
-                "src/app/modules/innovative/feature-dock/*"
-            ]
-        }
+        "@app/*": [
+          "src/app/*"
+        ],
+        "@production/*": [
+          "src/app/modules/production/*"
+        ],
+        "@bit/innovative.innovative-core.backend-support/*": [
+          "src/app/modules/innovative/backend-support/*"
+        ],
+        "@bit/innovative.innovative-core.asset-manager/*": [
+          "src/app/modules/innovative/asset-manager/*"
+        ],
+        "@bit/innovative.innovative-core.feature-dock/*": [
+          "src/app/modules/innovative/feature-dock/*"
+        ]
+      },
+      "useDefineForClassFields": false
     },
     "angularCompilerOptions": {
         "fullTemplateTypeCheck": true,
