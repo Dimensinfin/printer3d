@@ -18,7 +18,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service';
 // - DOMAIN
 import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { DialogFactoryService } from './dialog-factory.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 describe('COMPONENT DialogFactoryService [Module: CORE]', () => {
     let service: DialogFactoryService;

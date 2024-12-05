@@ -1,12 +1,12 @@
 // - CORE
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 // - SERVICES
 import { ProductionService } from '../../service/production.service';
 // - DOMAIN
 import { IsolationService } from '@app/platform/isolation.service';
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { CustomerRequestResponse } from '../../domain/dto/CustomerRequestResponse.dto';
 
 @Component({

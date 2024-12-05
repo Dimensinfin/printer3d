@@ -6,7 +6,7 @@ import { OnInit } from '@angular/core'
 import { Refreshable } from '@domain/interfaces/Refreshable.interface'
 import { AppPanelComponent } from '@app/modules/shared/core/app-panel/app-panel.component'
 import { EVariant } from '@domain/interfaces/EPack.enumerated'
-import { MatDialogRef } from '@angular/material/dialog'
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog'
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service'
 import { PatchChange } from '@domain/PatchChange.domain'
 

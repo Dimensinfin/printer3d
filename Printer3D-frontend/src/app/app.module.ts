@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 // - ADDITIONAL PACKAGES
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { ToastrModule } from 'ngx-toastr';
 import { NgDragDropModule } from 'ng-drag-drop';
 // - SERVICES

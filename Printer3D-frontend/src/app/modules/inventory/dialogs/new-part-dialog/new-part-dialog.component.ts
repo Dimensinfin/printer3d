@@ -7,9 +7,9 @@ import { Subscription } from 'rxjs';
 import { Printer3DConstants } from '@app/platform/Printer3DConstants.platform';
 import { v4 as uuidv4 } from 'uuid';
 // - MATERIAL
-import { MatDialogConfig } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 // - SERVICES
 import { IsolationService } from '@app/platform/isolation.service';
 import { BackendService } from '@app/services/backend.service';
