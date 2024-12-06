@@ -26,7 +26,6 @@ repositories {
 }
 
 dependencies {
-//    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
 }
@@ -35,7 +34,6 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-webflux-core:1.6.14") // For WebFlux support
     implementation("org.springdoc:springdoc-openapi-data-rest:1.6.14") // For Data REST support
     implementation("javax.annotation:javax.annotation-api:1.3.2") // Java Annotation API
-//    implementation("javax.validation:validation-api:2.0.1.Final") // Java Validation API
 }
 dependencies {
     compileOnly("org.projectlombok:lombok")

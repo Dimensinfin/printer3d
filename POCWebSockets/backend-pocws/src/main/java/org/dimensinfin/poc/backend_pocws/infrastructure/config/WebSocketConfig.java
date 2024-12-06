@@ -17,14 +17,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureMessageBroker( final MessageBrokerRegistry config ) {
-		config.enableSimpleBroker( "/topic" );
 		config.setApplicationDestinationPrefixes( "/app" );
+		config.enableSimpleBroker( "/topic" );
 	}
 
 	@Override
-	public void registerStompEndpoints( StompEndpointRegistry registry ) {
-		log.info( "Activating web sockets..." );
-		registry.addEndpoint( "/printer-sockets" ).setAllowedOriginPatterns( "*" ).withSockJS();
+	public void registerStompEndpoints(final  StompEndpointRegistry registry ) {
+		log.info( "Registering stomp endpoints..." );
+		registry.addEndpoint( "/printer-sockets" );
+//		registry.addEndpoint( "/printer-sockets" ).setAllowedOriginPatterns( "*" ).withSockJS();
+		log.info("Registered endpoint: /printer-sockets");
 	}
 
 }
