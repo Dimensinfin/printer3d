@@ -1,0 +1,85 @@
+openapi: "3.0.0"
+info:
+  title: Parts API
+  description: API for managing parts
+  version: 1.0.2
+paths:
+  # - P A R T S
+  /v1/parts:
+    get:
+      tags:
+        - PartRest
+      summary: Get all Parts on the repository.
+      operationId: listParts
+      responses:
+        200:
+          description: >
+            The list of Parts persisted at the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartList'
+    post:
+      tags:
+        - PartRest
+      summary: Create a new Part on the repository.
+      operationId: createPart
+      requestBody:
+        description: >
+          Contains the Part fields to be used to create a new Part record at the repository.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPart'
+      responses:
+        201:
+          description: >
+            Create a new Part on the Inventory repository.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Part'
+
+
+# - S C H E M A S
+components:
+  schemas:
+    NewPart:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example:
+            Lowerside
+        weight:
+          type: integer
+          format: int32
+          example:
+            20
+    Part:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          example:
+            4e7001ee-6bf5-40b4-9c15-61802e4c59ea
+        name:
+          type: string
+          example:
+            Lowerside
+        weight:
+          type: integer
+          format: int32
+          example:
+            20
+    PartList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Part'
+      description: A list of Parts.
