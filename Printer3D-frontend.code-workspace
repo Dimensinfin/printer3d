@@ -17,7 +17,7 @@
             "path": "POCCucumber"
         },
         {
-            "path": "POCWebSockets"
+            "path": "POCWebSockets/frontend-pocws"
         }
     ],
     "settings": {
