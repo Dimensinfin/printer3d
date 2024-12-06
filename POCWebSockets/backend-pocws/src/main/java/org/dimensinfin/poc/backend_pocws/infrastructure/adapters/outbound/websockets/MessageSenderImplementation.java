@@ -30,7 +30,7 @@ public class MessageSenderImplementation {
 
 			final Part message = Part.builder()
 					.id( UUID.randomUUID() )
-					.name( "Message" )
+					.name( "Message:" +UUID.randomUUID().toString())
 					.build();
 			messagingTemplate.convertAndSend("/topic", message );
 		}
