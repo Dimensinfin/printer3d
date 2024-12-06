@@ -156,17 +156,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -182,7 +171,6 @@
       }
     }
   },
-  "defaultProject": "Printer3D-frontend",
   "cli": {
     "analytics": "b071ea4f-e4c4-404e-a0c9-03e6d8b0854d"
   }

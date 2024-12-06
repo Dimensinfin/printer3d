@@ -11,7 +11,7 @@ import { SupportIsolationService } from '@app/testing/SupportIsolation.service'
 import { HttpClientWrapperService } from '@app/services/httpclientwrapper.service'
 // - DOMAIN
 import { PatchNotesDialogComponent } from './patch-notes-dialog.component'
-import { MatDialogRef } from '@angular/material/dialog'
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog'
 import { EVariant } from '@domain/interfaces/EPack.enumerated'
 
 describe('COMPONENT PatchNotesDialogComponent [Module: RENDER]', () => {

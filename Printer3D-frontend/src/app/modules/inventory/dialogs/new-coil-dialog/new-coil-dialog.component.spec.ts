@@ -3,8 +3,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 // - MATERIAL
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 // - TESTING
 import { waitForAsync } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';

@@ -21,8 +21,8 @@ import { BackendService } from './services/backend.service'
 import { SupportBackendService } from './testing/SupportBackend.service'
 import { HttpClientWrapperService } from './services/httpclientwrapper.service'
 import { SupportHttpClientWrapperService } from './testing/SupportHttpClientWrapperService.service'
-import { MatDialogRef } from '@angular/material/dialog'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { BackendInfoResponse } from '@domain/dto/BackendInfoResponse.dto'
 
 describe('COMPONENT AppComponent [Module: CORE]', () => {

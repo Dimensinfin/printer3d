@@ -1,10 +1,10 @@
 // - CORE
 import { Injectable, Injector } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/internal/operators';
 // - DOMAIN
 import { IsolationService } from './platform/isolation.service';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class HttpErrorInterceptor implements HttpInterceptor {

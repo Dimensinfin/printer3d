@@ -1,6 +1,6 @@
 // - CORE
 import { Component, OnInit } from '@angular/core';
-import { MatDialog , MatDialogConfig} from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog , MatLegacyDialogConfig as MatDialogConfig} from '@angular/material/legacy-dialog';
 // - SERVICES
 import { BackendService } from '@app/services/backend.service';
 // - DOMAIN
