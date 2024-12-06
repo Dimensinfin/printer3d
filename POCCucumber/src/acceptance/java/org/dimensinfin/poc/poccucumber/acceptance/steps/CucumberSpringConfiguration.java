@@ -13,10 +13,10 @@ import io.cucumber.spring.CucumberContextConfiguration;
 
 @CucumberContextConfiguration
 @ContextConfiguration(name = "steps", classes = { POCCucumberApp.class })
-@SpringBootTest(classes = { POCCucumberApp.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = { POCCucumberApp.class }, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles({ "acceptance" })
 @EnableAutoConfiguration
 public class CucumberSpringConfiguration {
 	@Autowired
-	protected TestRestTemplate testRestTemplate;
+	public static TestRestTemplate testRestTemplate;
 }

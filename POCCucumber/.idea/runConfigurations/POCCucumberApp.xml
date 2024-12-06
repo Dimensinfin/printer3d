@@ -5,6 +5,7 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="org.dimensinfin.poc.poccucumber.POCCucumberApp" />
     <module name="Printer3D-backend.main" />
+    <option name="VM_PARAMETERS" value="-Dserver.-port=9001" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.dimensinfin.poc.poccucumber.*" />

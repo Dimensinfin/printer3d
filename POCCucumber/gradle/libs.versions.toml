@@ -1,0 +1,8 @@
+[versions]
+mockito = "2.16.0"
+loggerVersion = '1.7.26'
+retrofitVersion = '2.5.0'
+micrometerVersion = '1.1.0'
+resilience4jVersion = '0.17.0'
+springfox = '2.9.2'
+jacksonVersion = '2.9.8'

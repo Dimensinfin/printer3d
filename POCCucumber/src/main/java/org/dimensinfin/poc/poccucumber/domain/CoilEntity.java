@@ -1,20 +1,17 @@
 package org.dimensinfin.poc.poccucumber.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Coil implements Serializable {
+public class CoilEntity implements Serializable {
 	private static final long serialVersionUID = 4711864502082811040L;
-	@JsonProperty("name")
+	private UUID id;
 	private String name;
 }

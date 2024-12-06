@@ -102,6 +102,6 @@ task acceptanceTest(type: Test) {
     classpath = sourceSets.acceptance.runtimeClasspath
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
     systemProperty("cucumber.junit-platform.naming-strategy", "long")
-    include "**/CucumberLauncherTests*"
+    include "**/*Test*"
     shouldRunAfter test // Ensure it runs after unit tests
 }
