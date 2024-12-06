@@ -24,7 +24,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void registerStompEndpoints(final  StompEndpointRegistry registry ) {
 		log.info( "Registering stomp endpoints..." );
-//		registry.addEndpoint( "/printer-sockets" );
 		registry.addEndpoint( "/printer-sockets" ).setAllowedOriginPatterns( "*" ).withSockJS();
 		log.info("Registered endpoint: /printer-sockets");
 	}

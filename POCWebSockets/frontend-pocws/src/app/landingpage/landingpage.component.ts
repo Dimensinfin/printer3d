@@ -8,30 +8,30 @@ import { Subscription } from 'rxjs'
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.scss'],
 })
-export class LandingpageComponent implements OnInit, OnDestroy {
+export class LandingpageComponent {
   public connected: boolean = false
   public receivedMessages: string[] = []
   private topicSubscription!: Subscription
 
   constructor(private stompService: StompMessagingService) {
-    console.log('Connecting to websockets server...')
+    // console.log('Connecting to websockets server...')
   }
 
-  ngOnInit() {
-    console.log("Connecting to topic...")
-    this.topicSubscription = this.stompService
-      .watch('/topic/part')
-      .subscribe((message: Message) => {
-        console.log("Received message for topic parts")
-        this.receivedMessages.push(message.body)
-      })
-  }
-  ngOnDestroy() {
-    console.log("Disconnect from topic...")
-   this.topicSubscription.unsubscribe()
-  }
+  // ngOnInit() {
+  //   console.log("Connecting to topic...")
+  //   this.topicSubscription = this.stompService
+  //     .watch('/topic/part')
+  //     .subscribe((message: Message) => {
+  //       console.log("Received message for topic parts")
+  //       this.receivedMessages.push(message.body)
+  //     })
+  // }
+  // ngOnDestroy() {
+  //   console.log("Disconnect from topic...")
+  //  this.topicSubscription.unsubscribe()
+  // }
 
-  sendMessage() {
-    // this.stompService.send('/topic/your-topic', JSON.stringify({ text: 'Hello, STOMP!' }))
-  }
+  // sendMessage() {
+  //   // this.stompService.send('/topic/your-topic', JSON.stringify({ text: 'Hello, STOMP!' }))
+  // }
 }

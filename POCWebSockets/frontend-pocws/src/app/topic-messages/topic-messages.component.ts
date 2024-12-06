@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { StompMessagingService } from '../stomp-adapter/stomp-messaging-service.service'
 import { Client, Message } from '@stomp/stompjs'
+import { Part } from './Part.domain'
 
 @Component({
   selector: 'app-topic-messages',
@@ -9,6 +10,7 @@ import { Client, Message } from '@stomp/stompjs'
 })
 export class TopicMessagesComponent implements OnInit {
   public message: string
+  public parts: Part[]=[]
   private client: Client
 
   constructor() {
@@ -18,9 +20,11 @@ export class TopicMessagesComponent implements OnInit {
     this.client.configure({
       brokerURL: 'ws://localhost:9052/printer-sockets/websocket',
       onConnect: () => {
-        this.client.subscribe('/topic', (message: Message) => {
+        this.client.subscribe('/topic/parts', (message: Message) => {
           this.message = message.body
           console.log('Received message:', this.message)
+          const newPart = new Part(JSON.parse(this.message))
+          this.parts.push(newPart)
         })
       },
       onChangeState(state) {
