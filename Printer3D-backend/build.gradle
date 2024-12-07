@@ -35,6 +35,7 @@ if (file('.version').exists()) {
     version = rootProject.file('.version').text.trim()
 } else {
     version = '0.0.0'
+    new File(".app-banner").text = version
 }
 
 archivesBaseName = 'printer3d-backend'
@@ -117,9 +118,11 @@ bootJar.dependsOn setVersion
 task generateBanner(type: Exec) {
     description 'Generates the banner matching the current version.'
     group = 'release'
-    workingDir "${projectDir}"
-    commandLine 'figlet', rootProject.file('.version').text.trim()
-    standardOutput = new ByteArrayOutputStream()
+    doFirst {
+        workingDir "${projectDir}"
+        commandLine 'figlet', rootProject.file('.version').text.trim()
+        standardOutput = new ByteArrayOutputStream()
+    }
     doLast {
         def result = standardOutput.toString()
         println "$result"

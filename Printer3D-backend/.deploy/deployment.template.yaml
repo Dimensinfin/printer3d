@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: $IMAGE_NAME-$ENVIRONMENT-svc
   namespace: $NAMESPACE
+  labels:
+    app: "$KUBERNETES_NAME"
 spec:
   selector:
     app: "$KUBERNETES_NAME"
@@ -22,6 +24,8 @@ kind: ConfigMap
 metadata:
   name: $BACKEND_CONFIG_MAP
   namespace: $NAMESPACE
+  labels:
+    app: "$KUBERNETES_NAME"
 data:
   PORT: "$PORT"
   ENVIRONMENT: "$ENVIRONMENT"
@@ -56,7 +60,8 @@ spec:
     spec:
       containers:
         - name: $IMAGE_NAME
-          image: adamantinoo/$IMAGE_TAG
+          image: adamantinoo/$TAG
+          imagePullPolicy: Always
           env:
             - name: PORT
               valueFrom:
@@ -80,5 +85,4 @@ spec:
                   key: SPRING_DATASOURCE_PASSWORD
           ports:
             - containerPort: $PORT
-          imagePullPolicy: Always
       serviceAccountName: default

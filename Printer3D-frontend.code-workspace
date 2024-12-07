@@ -18,6 +18,9 @@
         },
         {
             "path": "POCWebSockets/frontend-pocws"
+        },
+        {
+            "path": "Printer3D-backend/.deploy"
         }
     ],
     "settings": {
@@ -51,6 +54,12 @@
         },
         "[typescript]": {
             "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[shellscript]": {
+            "editor.defaultFormatter": "foxundermoon.shell-format"
+        },
+        "[dotenv]": {
+            "editor.defaultFormatter": "foxundermoon.shell-format"
         }
     },
 }
