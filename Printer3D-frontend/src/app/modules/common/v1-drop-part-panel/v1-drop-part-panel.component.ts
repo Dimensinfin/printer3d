@@ -1,9 +1,6 @@
 // - CORE
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
 // - DOMAIN
 import { Part } from '@domain/inventory/Part.domain';
 import { PartStack } from '@domain/PartStack.domain';
@@ -25,7 +22,7 @@ export class V1DropPartPanelComponent implements OnInit {
         this.droppedParts = initialPartList
     }
     public addPart(newPart: Part): void {
-        for (let part of this.droppedParts) {
+        for (const part of this.droppedParts) {
             if (newPart.getId() == part.getId()) { // If the part is on the list increment the stack
                 part.incrementStack()
                 return
@@ -39,7 +36,7 @@ export class V1DropPartPanelComponent implements OnInit {
      */
     public removePart(part2Remove: Part): void {
         const newPartList: PartStack[] = []
-        for (let part of this.droppedParts) {
+        for (const part of this.droppedParts) {
             if (part2Remove.getId() == part.getId()) {
                 if (part.decrementStack() > 0) newPartList.push(part)
             } else
@@ -48,8 +45,8 @@ export class V1DropPartPanelComponent implements OnInit {
         this.droppedParts = newPartList;
     }
     public onDrop(drop: any): void {
-        console.log('>[V1DropPartPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop))
-        this.addPart(drop.dragData as Part)
+        console.log('>[V1DropPartPanelComponent.onDrop]> Drop data: ' + JSON.stringify(drop.item.data))
+        this.addPart(drop.item.data as Part)
         console.log('<[V1DropPartPanelComponent.onDrop]')
     }
     public getDroppedParts(): PartStack[] {
@@ -60,7 +57,7 @@ export class V1DropPartPanelComponent implements OnInit {
      */
     public getPartIdList(): string[] {
         const ids: string[] = []
-        for (let stack of this.droppedParts)
+        for (const stack of this.droppedParts)
             for (let index = 0; index < stack.getCount(); index++)
                 ids.push(stack.getId())
         return ids

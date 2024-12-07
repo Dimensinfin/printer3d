@@ -12,12 +12,14 @@ import { V1BillingChartPanelComponent } from './v1-billing-chart-panel/v1-billin
 import { PatchNotesDialogComponent } from './patch-notes-dialog/patch-notes-dialog.component';
 import { SharedModule } from '../shared/shared.module';
 import { FeatureDockModule } from '../innovative/feature-dock/feature-dock.module';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
     imports: [
         CommonModule,
         NgDragDropModule.forRoot(),
         NgxChartsModule,
+        DragDropModule,
         RendersModule,
         SharedModule,
         FeatureDockModule
