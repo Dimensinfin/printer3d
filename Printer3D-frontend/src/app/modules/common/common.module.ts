@@ -1,7 +1,6 @@
 // - CORE
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgDragDropModule } from 'ng-drag-drop';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 // - APPLICATION MODULES
 import { RendersModule } from '../renders/renders.module';
@@ -17,7 +16,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 @NgModule({
     imports: [
         CommonModule,
-        NgDragDropModule.forRoot(),
         NgxChartsModule,
         DragDropModule,
         RendersModule,

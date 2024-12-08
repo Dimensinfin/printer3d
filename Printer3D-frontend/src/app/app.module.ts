@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
-import { NgDragDropModule } from 'ng-drag-drop';
 // - SERVICES
 import { IsolationService } from './platform/isolation.service';
 import { DialogFactoryService } from './services/dialog-factory.service';
@@ -32,7 +31,6 @@ import { ProductionModule } from './modules/production/production.module';
 // - LOCALES
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
-import { AppErrorHandler } from './AppErrorHandler';
 import { HttpErrorInterceptor } from './HttpErrorInterceptor';
 import { FeatureDockModule } from './modules/innovative/feature-dock/feature-dock.module';
 registerLocaleData(localeEs);
@@ -51,7 +49,6 @@ registerLocaleData(localeEs);
         HttpClientModule,
         ToastrModule.forRoot(),
         MatDialogModule,
-        NgDragDropModule.forRoot(),
         // - APPLICATION MODULES
         AppCommonModule,
         SharedModule,

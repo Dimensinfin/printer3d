@@ -5,5 +5,5 @@
     <div>/STOCKS DISPONIBLES</div>
 </div>
 <hr>
-<viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Elementos...'" [downloader]="self" [variant]="'-SELLABLE-ITEMS-'">
+<viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Elementos...'" [downloader]="self" [variant]="'-SELLABLE-ITEMS-'" cdkDropList [cdkDropListConnectedTo]="['dropParts']">
 </viewer-panel>

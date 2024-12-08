@@ -21,7 +21,7 @@ import { V3InventoryPageComponent } from './pages/v3-inventory-page/v3-inventory
 import { V1CatalogPanelComponent } from './panels/v1-catalog-panel/v1-catalog-panel.component';
 import { V1CoilsPanelComponent } from './panels/v1-coils-panel/v1-coils-panel.component';
 import { InventoryService } from './service/inventory.service';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
     { path: 'partlist', component: V3InventoryPageComponent },
