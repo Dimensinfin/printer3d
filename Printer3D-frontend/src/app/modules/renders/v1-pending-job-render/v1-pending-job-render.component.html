@@ -1,5 +1,5 @@
 <!-- J O B - L I S T   V A R I A N T -->
-<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-JOB-LIST-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'" [ngClass]="{'job-priority-high': getPriority()==1}">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-JOB-LIST-'" cdkDrag [cdkDragData]="getNode()" [ngClass]="{'job-priority-high': getPriority()==1}">
     <div class="row">
         <div hidden cy-name="PRIORIDAD">{{getPriority()}}</div>
         <div cy-name="quantity" class="field number-width">
@@ -30,7 +30,7 @@
     </svg>
 </div>
 <!-- B U I L D I N G   V A R I A N T -->
-<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-BUILDING-JOB-'" draggable [dragData]="getNode()" [dragScope]="'JOB'" [dragClass]="'job-selected'">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-BUILDING-JOB-'" cdkDrag [cdkDragData]="getNode()">
     <div class="row">
         <form #editJobForm="ngForm">
             <div cy-name="quantity" class="field" *ngIf="isEditable()">

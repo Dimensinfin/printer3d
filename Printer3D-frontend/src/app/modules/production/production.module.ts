@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgDragDropModule } from 'ng-drag-drop';
 // - ROUTING
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -42,7 +41,6 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         FormsModule,
-        NgDragDropModule.forRoot(),
         SharedModule,
         RendersModule,
         DragDropModule

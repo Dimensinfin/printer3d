@@ -1,11 +1,7 @@
 // - CUCUMBER-PREPROCESSOR
-import { Given } from "cypress-cucumber-preprocessor/steps";
-import { When } from "cypress-cucumber-preprocessor/steps";
 import { Then } from "cypress-cucumber-preprocessor/steps";
 // - SERVICES
 import { SupportService } from '../../support/SupportService.support';
-
-const supportService = new SupportService();
 
 // - F I E L D S
 Then('hidden field named {string} has contents {string}',
@@ -24,8 +20,8 @@ Then('the target item is draggable and with the contraint {string}', function (c
 });
 Then('the target item is droppable and with the contraint {string}', function (constraintName: string) {
     const constraint = '[ng-reflect-drag-scope="' + constraintName + '"]'
-    cy.get('@target').get('[droppable]').first()
+    cy.get('@target').get('[cdkDropList]').first()
         .should('exist')
-    cy.get('@target').get('[droppable]').first()
+    cy.get('@target').get('[cdkDropList]').first()
         .get(constraint).should('exist')
 });
