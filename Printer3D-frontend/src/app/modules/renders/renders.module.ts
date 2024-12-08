@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
-import { NgDragDropModule } from 'ng-drag-drop'
 // - COMPONENTS
 import { V1PendingJobRenderComponent } from './v1-pending-job-render/v1-pending-job-render.component'
 import { V1BuildCountdownTimerPanelComponent } from './v1-build-countdown-timer-panel/v1-build-countdown-timer-panel.component'
@@ -17,12 +16,13 @@ import { V1RequestItemRenderComponent } from './v1-request-item-render/v1-reques
 import { V1PatchNoteRenderComponent } from './v1-patch-note-render/v1-patch-note-render.component';
 import { V1ProjectRenderComponent } from './v1-project-render/v1-project-render.component';
 import { V2RequestRenderComponent } from './v2-request-render/v2-request-render.component'
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        NgDragDropModule.forRoot(),
+        DragDropModule
     ],
     declarations: [
         V1PendingJobRenderComponent,

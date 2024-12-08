@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div cy-name="requestContents" class="field left-margin top-margin">
-                <div cy-name="dropContents" class="request-part" droppable [dropScope]=" 'REQUEST-CONTENT'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
+                <div id="dropParts" cy-name="dropContents" class="request-part" cdkDropList [cdkDropListData]="request" (cdkDropListDropped)="onDrop($event)"><span> --- PIEZAS --- </span>
                 </div>
                 <span cy-field-label="requestContents" class="label">CONTENIDO PEDIDO</span><br>
                 <div class="row">

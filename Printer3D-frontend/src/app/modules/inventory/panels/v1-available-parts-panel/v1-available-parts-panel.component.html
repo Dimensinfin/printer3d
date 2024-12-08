@@ -5,5 +5,5 @@
     <div>/PIEZAS/DISPONIBLES</div>
 </div>
 <hr>
-<viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Piezas...'" [downloader]="self" [variant]="getVariant()">
+<viewer-panel [nodes2render]="getNodes2Render()" [downloadtitle]="'Clasificando Piezas...'" [downloader]="self" [variant]="getVariant()" cdkDropList [cdkDropListConnectedTo]="['dropParts']">
 </viewer-panel>

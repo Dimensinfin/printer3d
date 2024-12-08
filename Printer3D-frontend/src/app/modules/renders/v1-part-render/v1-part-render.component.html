@@ -1,5 +1,5 @@
 <!-- R E Q U E S T   P A R T - L I S T   V A R I A N T -->
-<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-REQUEST-PART-LIST-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
+<div id="{{getUniqueId()}}" *ngIf="getVariant() === '-REQUEST-PART-LIST-'">
     <div class="row part-panel">
         <div class="field label-width">
             <div cy-field-label="ETIQUETA" class="label">ETIQUETA</div>
@@ -31,7 +31,7 @@
     </div>
 </div>
 <!-- N E W   M O D E L   V A R I A N T -->
-<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-NEW-MODEL-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-NEW-MODEL-'" cdkDrag [cdkDragData]="getNode()">
     <div class="row">
         <div class="field label-width">
             <div cy-field-label="ETIQUETA" class="label">ETIQUETA</div>
@@ -61,7 +61,7 @@
     </svg>
 </div>
 <!-- R E Q U E S T A B L E   I T E M S   V A R I A N T -->
-<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'REQUEST-CONTENT'" [dragClass]="'part-selected'">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" cdkDrag [cdkDragData]="getNode()">
     <div class="row">
         <div cy-name="label" class="field label-width">
             <div cy-field-label="label" class="label">ETIQUETA</div>
@@ -93,7 +93,7 @@
     </svg>
 </div>
 <!-- C A T A L O G -->
-<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-CATALOG-'" draggable [dragData]="node" [dragScope]="'PART'" [dragClass]="'part-selected'">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-CATALOG-'">
     <div class="row" [ngClass]="{'disabled-node': !isActive()}">
         <div cy-name="edit-button" class="edit-attributes button-enabled" (click)="toggleEdition()">
             <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px">

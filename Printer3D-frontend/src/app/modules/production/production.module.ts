@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgDragDropModule } from 'ng-drag-drop';
 // - ROUTING
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -26,6 +25,7 @@ import { V1CommonRequestsPanelComponent } from './panels/v1-common-requests-pane
 import { PayConfirmationDialogComponent } from './dialogs/pay-confirmation-dialog/pay-confirmation-dialog.component';
 import { V1EditRequestPageComponent } from './pages/v1-edit-request-page/v1-edit-request-page.component';
 import { V1EditRequestPanelComponent } from './panels/v1-edit-request-panel/v1-edit-request-panel.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
     { path: 'requestlist', component: V1OpenRequestsPageComponent },
@@ -41,9 +41,9 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         FormsModule,
-        NgDragDropModule.forRoot(),
         SharedModule,
-        RendersModule
+        RendersModule,
+        DragDropModule
     ],
     declarations: [
         ProductionJobListPageComponent,

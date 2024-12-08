@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgDragDropModule } from 'ng-drag-drop';
 // - ROUTING
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -21,6 +20,7 @@ import { V3InventoryPageComponent } from './pages/v3-inventory-page/v3-inventory
 import { V1CatalogPanelComponent } from './panels/v1-catalog-panel/v1-catalog-panel.component';
 import { V1CoilsPanelComponent } from './panels/v1-coils-panel/v1-coils-panel.component';
 import { InventoryService } from './service/inventory.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
     { path: 'partlist', component: V3InventoryPageComponent },
@@ -33,10 +33,10 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         FormsModule,
-        NgDragDropModule.forRoot(),
         AppCommonModule,
         SharedModule,
-        RendersModule
+        RendersModule,
+        DragDropModule
     ],
     declarations: [
         NewPartDialogComponent,

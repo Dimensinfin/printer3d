@@ -105,7 +105,7 @@ export class V3MachineRenderComponent extends NodeContainerRenderComponent imple
     }
     public onDrop(drop: any) {
         if (null != drop) {
-            const job: Job = new Job(drop.dragData);
+            const job: Job = new Job(drop.item.data);
             this.target = job;
             this.state = 'IDLE'
             this.remainingTime = job.getBuildSeconds();

@@ -45,7 +45,7 @@ export class V1AvailablePartsPanelComponent extends AppPanelComponent implements
                     console.log('downloadParts.part count: ' + response.length)
                     this.completeDowload(this.sortPartsByLabel(
                         this.filterActiveParts(response)
-                    )) // Notify the completion of the download.
+                    ))
                 })
         )
     }

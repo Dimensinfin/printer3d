@@ -1,7 +1,5 @@
 // - CORE
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 // - DOMAIN
 import { Job } from '@domain/production/Job.domain';

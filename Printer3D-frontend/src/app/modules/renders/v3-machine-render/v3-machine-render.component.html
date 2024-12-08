@@ -12,7 +12,7 @@
             <div cy-name="buildingPart" class="field machine-part-width">
                 <div cy-field-label="buildingPart" class="label">PIEZA EN PRODUCCION</div>
                 <div *ngIf="!target; else runningJob">
-                    <div cy-name="dropJobs" class="job-drop-area" droppable [dropScope]="'JOB'" [dragOverClass]="'drag-over'" [dragHintClass]="'drag-hint'" (onDrop)="onDrop($event)">
+                    <div id="dropJobs" cy-name="dropJobs" class="job-drop-area" cdkDropList [cdkDropListData]="target" (cdkDropListDropped)="onDrop($event)">
                         <div> --- TRABAJO A REALIZAR --- </div>
                     </div>
                 </div>

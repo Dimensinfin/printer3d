@@ -1,7 +1,6 @@
 // - CORE
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgDragDropModule } from 'ng-drag-drop';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 // - APPLICATION MODULES
 import { RendersModule } from '../renders/renders.module';
@@ -12,12 +11,13 @@ import { V1BillingChartPanelComponent } from './v1-billing-chart-panel/v1-billin
 import { PatchNotesDialogComponent } from './patch-notes-dialog/patch-notes-dialog.component';
 import { SharedModule } from '../shared/shared.module';
 import { FeatureDockModule } from '../innovative/feature-dock/feature-dock.module';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
     imports: [
         CommonModule,
-        NgDragDropModule.forRoot(),
         NgxChartsModule,
+        DragDropModule,
         RendersModule,
         SharedModule,
         FeatureDockModule

@@ -1,5 +1,5 @@
 <!-- S E L L A B L E   I T E M S -->
-<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" draggable [dragData]="node" [dragScope]="'REQUEST-CONTENT'" [dragClass]="'model-selected'">
+<div id="{{getUniqueId()}}" class="cornered-panel" *ngIf="getVariant() === '-SELLABLE-ITEMS-'" cdkDrag [cdkDragData]="getNode()">
     <div class="row" (click)="toggleDisplay()">
         <div class="field label-width">
             <div cy-field-label="label" class="label">ETIQUETA</div>

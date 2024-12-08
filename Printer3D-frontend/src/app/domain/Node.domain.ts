@@ -12,7 +12,7 @@ export class Node implements INode, ICollaboration, IExpandable, ISelectable {
     protected expanded: boolean = false;
     protected selected: boolean = false;
 
-    constructor(values: Object = {}) {
+    constructor(values: object = {}) {
         Object.assign(this, values)
         this.jsonClass = 'Node'
         this.uniqueIdentifier = uuidv4()

@@ -1,21 +1,23 @@
 <div class="field left-margin top-margin date-width">
-    <span class="label">PIEZAS PEDIDO</span><br>
-    <div class="request-part" cy-name="dropParts" droppable [dropScope]=" 'PART'" [dragOverClass]=" 'drag-over'" [dragHintClass]=" 'drag-hint'" (onDrop)="onDrop($event)"><span> --- PIEZAS --- </span>
+  <span class="label">PIEZAS PEDIDO</span><br>
+  <div id="dropParts" class="request-part" cy-name="dropParts" cdkDropList [cdkDropListData]="droppedParts" (cdkDropListDropped)="onDrop($event)"><span cdkDrag> --- PIEZAS --- </span>
     </div>
-    <div cy-name="droppedParts">
-        <div class="row">
-            <div class="field count-width">
-                <span class="label">CANTIDAD</span>
-            </div>
-            <div class="field label-width">
-                <span class="label">ETIQUETA</span>
-            </div>
-            <div class="field material-width right">
-                <span class="label">MATERIAL/COLOR</span>
-            </div>
-        </div>
-        <div *ngFor="let dropPart of getDroppedParts()" style="position: relative;">
-            <v1-part-stack [node]="dropPart" [variant]="'-DEFAULT-'" [container]="self"></v1-part-stack>
-        </div>
+  <div cy-name="droppedParts">
+    <div class="row">
+      <div class="field count-width">
+        <span class="label">CANTIDAD</span>
+      </div>
+      <div class="field label-width">
+        <span class="label">ETIQUETA</span>
+      </div>
+      <div class="field material-width right">
+        <span class="label">MATERIAL/COLOR</span>
+      </div>
     </div>
+    <div>
+      <div *ngFor="let dropPart of getDroppedParts()" style="position: relative;">
+        <v1-part-stack [node]="dropPart" [variant]="'-DEFAULT-'" [container]="self" cdkDrag></v1-part-stack>
+      </div>
+    </div>
+  </div>
 </div>

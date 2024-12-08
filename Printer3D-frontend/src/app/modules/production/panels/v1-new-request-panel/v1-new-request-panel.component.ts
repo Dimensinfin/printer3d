@@ -6,11 +6,8 @@ import { Router } from '@angular/router'
 import { BackendService } from '@app/services/backend.service'
 // - DOMAIN
 import { IsolationService } from '@app/platform/isolation.service'
-import { ResponseTransformer } from '@app/services/support/ResponseTransformer'
 import { Part } from '@domain/inventory/Part.domain'
 import { BackgroundEnabledComponent } from '@app/modules/shared/core/background-enabled/background-enabled.component'
-import { RequestFormToRequestConverter } from '@domain/converter/RequestFormToRequest.converter'
-import { CustomerRequest } from '@domain/production/CustomerRequest.domain'
 import { RequestItem } from '@domain/production/RequestItem.domain'
 import { Model } from '@domain/inventory/Model.domain'
 import { DockService } from '@app/modules/innovative/feature-dock/service/dock.service'
@@ -67,9 +64,9 @@ export class V1NewRequestPanelComponent extends BackgroundEnabledComponent {
         return (formState && this.hasContents())
     }
     public onDrop(drop: any) {
-        console.log('>[V1NewRequestPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop))
-        if (drop.dragData instanceof Part) this.request.addContent(drop.dragData)
-        if (drop.dragData instanceof Model) this.request.addContent(drop.dragData)
+        console.log('>[V1NewRequestPanelComponent.onDrop]> Drop: ' + JSON.stringify(drop.item.data))
+        if (drop.item.data instanceof Part) this.request.addContent(drop.item.data)
+        if (drop.item.data instanceof Model) this.request.addContent(drop.item.data)
         console.log('<>>[V1NewRequestPanelComponent.onDrop]')
     }
     public removeContent(content: RequestItem): void {
