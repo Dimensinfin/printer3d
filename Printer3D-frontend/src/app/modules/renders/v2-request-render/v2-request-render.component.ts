@@ -1,7 +1,7 @@
 // - CORE
 import { Component } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { MatDialogConfig } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog'
 // - ROUTER
 import { Router } from '@angular/router'
 // - DOMAIN

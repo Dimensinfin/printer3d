@@ -1,9 +1,9 @@
 // - CORE
 import { Injectable } from '@angular/core';
 // - MATERIAL
-import { MatDialogConfig } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 // - DOMAIN
 import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';

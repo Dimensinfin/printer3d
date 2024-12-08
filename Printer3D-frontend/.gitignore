@@ -1,6 +1,7 @@
 # - Ignore angular packages
 node_modules/
 package-lock.json
+.angular/cache
 
 # - Ignore generated code and data
 .scannerwork/
