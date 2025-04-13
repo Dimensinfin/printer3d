@@ -24,7 +24,7 @@ runs:
         restory-keys: ${{ runner.os }}-m2
     - name: Update local POM version
       id: update_version
-      shell: zsh
+      shell: bash
       run: >
         mvn versions:set
         -DnewVersion=${{ inputs.commitVersion }}

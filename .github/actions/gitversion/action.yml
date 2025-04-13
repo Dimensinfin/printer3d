@@ -23,7 +23,7 @@ runs:
       uses: gittools/actions/gitversion/execute@v3.1.11
     - name: Publish version and tags
       id: export_data
-      shell: zsh
+      shell: bash
       run: |
         echo "semanticVersion=${{ env.fullSemVer }}" >> $GITHUB_OUTPUT
         echo "appVersion="${{ env.fullSemVer }}" >> $GITHUB_OUTPUT
