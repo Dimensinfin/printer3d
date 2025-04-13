@@ -24,14 +24,16 @@ jobs:
       # C H E C K O U T
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+        with:
+          fetch-depth: 0
+
       - name: Set action project directory to backend
         shell: bash
         run: |
           cd ${{ env.BACKEND_DIRECTORY }}
 
       # G I T V E R S I O N
-      - name: Install Gitversion
+      - name: Run Gitversion
         id: gitversion
         uses: ./.github/actions/gitversion
       - run: |
@@ -45,7 +47,7 @@ jobs:
         with:
           gitUsername: ${{ github.actor }}
           gitToken: ${{ secrets.GITHUB_TOKEN }}
-          appVersion: ${{ steps.gitversion.ouputs.semanticVersion }}
+          commitVersion: ${{ steps.gitversion.outputs.semanticVersion}}
 
       # M A V E N - B U I L D - T E S T
       - name: Build backend with Maven

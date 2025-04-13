@@ -4,26 +4,23 @@ description: Get the project version from the GitVersion tool and the projects c
 outputs:
   semanticVersion:
     description: The selected semanting version for this commit. Currently selected the fullSemVer.
-    value: ${{ steps.export_data.outputs.fullSemVer }}
+    value: ${{ steps.gitversion.outputs.semanticVersion }}
   appVersion:
     description: The terraform and Kubernetes formatted application version.
-    value: ${{ steps.export_data.outputs.appVersion }}
+    value: ${{ steps.gitversion.outputs.appVersion }}
+  releaseVersion:
+    description: The corresponding release version for this commit.
+    value: ${{ steps.gitversion.outputs.releaseVersion }}
 
 runs:
   using: 'composite'
   steps:
     # G I T V E R S I O N
-    - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v3.1.11
-      with:
-        versionSpec: '6.0.x'
-        preferLatestVersion: true
-    - name: Calculate version
-      id: calculate_version
-      uses: gittools/actions/gitversion/execute@v3.1.11
-    - name: Publish version and tags
-      id: export_data
+    - name: Get version from GitVersion tool
+      id: gitversion
       shell: bash
       run: |
-        echo "semanticVersion=${{ env.fullSemVer }}" >> $GITHUB_OUTPUT
-        echo "appVersion="${{ env.fullSemVer }}" >> $GITHUB_OUTPUT
+        gitversion
+        echo "semanticVersion=$(gitversion -showvariable FullSemVer)" >> $GITHUB_OUTPUT
+        echo "appVersion="$(gitversion -showvariable FullSemVer)" >> $GITHUB_OUTPUT
+        echo "releaseVersion="$(gitversion -showvariable MajorMinorPatch)" >> $GITHUB_OUTPUT
