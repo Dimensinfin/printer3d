@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/*
+      - side/*
 
 env:
   REGISTRY: ghcr.io
