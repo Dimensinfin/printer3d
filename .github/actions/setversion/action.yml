@@ -1,0 +1,27 @@
+name: Artifact version update
+description: Set the project version with Gradle from the GitVersion results to generate the artifact.
+
+inputs:
+  gitUserName:
+    required: true
+    description: GitHub username for authorized actions.
+  gitToken:
+    required: true
+    description: GitHub authorization token.
+  commitVersion:
+    required: true
+    description: The apllication artifact commit version calculated for this execution.
+  workingDirectory:
+    required: true
+    description: The working directory where to run the 
+
+runs:
+  using: 'composite'
+  steps:
+    # S E T   V E R S I O N
+    - name: Update local environment version
+      id: update_version
+      shell: bash
+      working-directory: ${{ inputs.workingDirectory }}
+      run: |
+        echo "${{ inputs.commitVersion }}" > .version

@@ -103,7 +103,7 @@ task setVersion(type: Exec) {
     description 'Stores the current assembly version into an external file.'
     group = 'release'
     workingDir "${projectDir}"
-    commandLine 'gitversion', '/showvariable', 'AssemblySemFileVer'
+    commandLine 'gitversion', '/showvariable', 'FullSemVer'
     standardOutput = new ByteArrayOutputStream()
     doLast {
         def result = standardOutput.toString()
@@ -111,14 +111,13 @@ task setVersion(type: Exec) {
         new File(".version").text = result
     }
 }
-compileJava.dependsOn setVersion
 bootJar.dependsOn setVersion
 
 task generateBanner(type: Exec) {
     description 'Generates the banner matching the current version.'
     group = 'release'
     workingDir "${projectDir}"
-    commandLine 'figlet', rootProject.file('.version').text.trim()
+    commandLine 'figlet', '-w 150', rootProject.file('.version').text.trim()
     standardOutput = new ByteArrayOutputStream()
     doLast {
         def result = standardOutput.toString()
@@ -126,7 +125,6 @@ task generateBanner(type: Exec) {
         new File(".app-banner").text = result
     }
 }
-generateBanner.dependsOn setVersion
 compileJava.dependsOn generateBanner
 bootJar.dependsOn generateBanner
 

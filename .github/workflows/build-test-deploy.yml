@@ -1,0 +1,66 @@
+name: Build-Test-Deploy
+
+on:
+  push:
+    branches:
+      - feature/*
+      - side/*
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  BACKEND_DIRECTORY: Printer3D-backend
+  FRONTEND_DIRECTORY: Printer3D-frontend
+
+jobs:
+  build-backend:
+    runs-on: [self-hosted]
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.BACKEND_DIRECTORY }}
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    
+    steps:
+      # C H E C K O U T
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # G I T V E R S I O N
+      - name: Run Gitversion
+        id: gitversion
+        uses: ./.github/actions/gitversion
+      - run: |
+          echo "ouputs.semanticVersion: ${{ steps.gitversion.ouputs.semanticVersion }}"
+          echo "ouputs.applicationVersion: ${{ steps.gitversion.ouputs.applicationVersion }}"
+      
+      # S E T V E R S I O N
+      - name: Set Artifact Version
+        id: set_version
+        uses: ./.github/actions/setversion
+        with:
+          gitUsername: ${{ github.actor }}
+          gitToken: ${{ secrets.GITHUB_TOKEN }}
+          commitVersion: ${{ steps.gitversion.outputs.semanticVersion}}
+          workingDirectory: ${{ env.BACKEND_DIRECTORY }}
+
+      # G R A D L E - B U I L D - T E S T
+      # - name: Setup Java JDK
+      #   uses: actions/setup-java@v4.7.1
+      #   with:
+      #     # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
+      #     java-version: 11
+      #     distribution: azul
+          
+      - name: Build backend with Maven
+        id: build-backend
+        shell: bash
+        working-directory: ${{ env.BACKEND_DIRECTORY }}
+        run: |
+          export JAVA_HOME=/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home
+          ./gradlew clean compileJava test
