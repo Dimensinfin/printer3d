@@ -49,11 +49,10 @@ jobs:
           commitVersion: ${{ steps.gitversion.outputs.semanticVersion}}
           workingDirectory: ${{ env.BACKEND_DIRECTORY }}
 
-      # M A V E N - B U I L D - T E S T
+      # G R A D L E - B U I L D - T E S T
       - name: Build backend with Maven
         id: build-backend
         shell: bash
         working-directory: ${{ env.BACKEND_DIRECTORY }}
-        run: |
-          mvn -B clean compile
-          -Dunit-tests.skip=false
+        run: >
+          ./gradlew clean compileJava test

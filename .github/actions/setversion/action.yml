@@ -1,5 +1,5 @@
 name: Artifact version update
-description: Set the project version with Maven from the GitVersion results to generate the artifact.
+description: Set the project version with Gradle from the GitVersion results to generate the artifact.
 
 inputs:
   gitUserName:
@@ -19,18 +19,9 @@ runs:
   using: 'composite'
   steps:
     # S E T   V E R S I O N
-    - name: Cache local Maven respository
-      uses: actions/cache@v4
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-m2
-        restory-keys: ${{ runner.os }}-m2
-    - name: Update local POM version
+    - name: Update local environment version
       id: update_version
       shell: bash
       working-directory: ${{ inputs.workingDirectory }}
-      run: >
-        mvn versions:set
-        -DnewVersion=${{ inputs.commitVersion }}
-        -DprocessAllModules=true
-        -DgenerateBackupPoms=false
+      run: |
+        echo "${{ inputs.commitVersion }}" > .version
