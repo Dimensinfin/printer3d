@@ -15,6 +15,10 @@ env:
 jobs:
   build-backend:
     runs-on: [self-hosted]
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.BACKEND_DIRECTORY }}
     permissions:
       contents: read
       packages: write
@@ -26,11 +30,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Set action project directory to backend
-        shell: bash
-        run: |
-          cd ${{ env.BACKEND_DIRECTORY }}
 
       # G I T V E R S I O N
       - name: Run Gitversion
