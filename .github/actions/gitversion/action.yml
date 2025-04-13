@@ -1,0 +1,29 @@
+name: GitVersion GitVersion
+description: Get the project version from the GitVersion tool and the projects commits and set it teporarily to generate the artifact.
+
+outputs:
+  semanticVersion:
+    description: The selected semanting version for this commit. Currently selected the fullSemVer.
+    value: ${{ steps.export_data.outputs.fullSemVer }}
+  appVersion:
+    description: The terraform and Kubernetes formatted application version.
+    value: ${{ steps.export_data.outputs.appVersion }}
+
+runs:
+  using: 'composite'
+  steps:
+    # G I T V E R S I O N
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v3.1.11
+      with:
+        versionSpec: '6.0.x'
+        preferLatestVersion: true
+    - name: Calculate version
+      id: calculate_version
+      uses: gittools/actions/gitversion/execute@v3.1.11
+    - name: Publish version and tags
+      id: export_data
+      shell: zsh
+      run: |
+        echo "semanticVersion=${{ env.fullSemVer }}" >> $GITHUB_OUTPUT
+        echo "appVersion="${{ env.fullSemVer }}" >> $GITHUB_OUTPUT

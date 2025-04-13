@@ -1,17 +1,32 @@
 {
     "folders": [
         {
+            "name": ".github",
+            "path": ".github"
+        },
+        {
             "name": "Printer3D-frontend",
             "path": "Printer3D-frontend"
         },
         {
+            "name": ".deploy",
             "path": ".deploy"
         },
         {
+            "name": ".teamcity",
             "path": ".teamcity"
         },
         {
+            "name": "ProjectControl",
             "path": "ProjectControl"
+        },
+        {
+            "name": "POCCucumber",
+            "path": "POCCucumber"
+        },
+        {
+            "name": "frontend-pocws",
+            "path": "POCWebSockets/frontend-pocws"
         }
     ],
     "settings": {

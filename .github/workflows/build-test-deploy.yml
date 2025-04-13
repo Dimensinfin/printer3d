@@ -1,0 +1,58 @@
+name: Build-Test-Deploy
+
+on:
+  push:
+    branches:
+      - feature/*
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  BACKEND_DIRECTORY: Printer3D-backend
+  FRONTEND_DIRECTORY: Printer3D-frontend
+
+jobs:
+  build-backend:
+    runs-on: macos-12
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    
+    steps:
+      # C H E C K O U T
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@3.0.0
+      
+      - name: Set action project directory to backend
+        shell: zsh
+        run: |
+          cd ${{ env.BACKEND_DIRECTORY }}
+
+      # G I T V E R S I O N
+      - name: Install Gitversion
+        id: gitversion
+        uses: ./.github/actions/gitversion
+      - run: |
+          echo "ouputs.semanticVersion: ${{ steps.gitversion.ouputs.semanticVersion }}"
+          echo "ouputs.applicationVersion: ${{ steps.gitversion.ouputs.applicationVersion }}"
+      
+      # S E T V E R S I O N
+      - name: Set Artifact Version
+        id: set_version
+        uses: ./.github/actions/setversion
+        with:
+          gitUsername: ${{ github.actor }}
+          gitToken: ${{ secrets.GITHUB_TOKEN }}
+          appVersion: ${{ steps.gitversion.ouputs.semanticVersion }}
+
+      # M A V E N - B U I L D - T E S T
+      - name: Build backend with Maven
+        id: build-backend
+        shell: zsh
+        run: |
+          mvn -B clean compile
+          -Dunit-tests.skip=false
