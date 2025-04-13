@@ -11,6 +11,9 @@ inputs:
   commitVersion:
     required: true
     description: The apllication artifact commit version calculated for this execution.
+  workingDirectory:
+    required: true
+    description: The working directory where to run the 
 
 runs:
   using: 'composite'
@@ -25,6 +28,7 @@ runs:
     - name: Update local POM version
       id: update_version
       shell: bash
+      working-directory: ${{ inputs.workingDirectory }}
       run: >
         mvn versions:set
         -DnewVersion=${{ inputs.commitVersion }}

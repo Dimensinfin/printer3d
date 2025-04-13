@@ -24,3 +24,6 @@ runs:
         echo "semanticVersion=$(gitversion -showvariable FullSemVer)" >> $GITHUB_OUTPUT
         echo "appVersion="$(gitversion -showvariable FullSemVer)" >> $GITHUB_OUTPUT
         echo "releaseVersion="$(gitversion -showvariable MajorMinorPatch)" >> $GITHUB_OUTPUT
+        echo "semanticVersion=$(gitversion -showvariable FullSemVer)" >> $GITHUB_ENV
+        echo "appVersion="$(gitversion -showvariable FullSemVer)" >> $GITHUB_ENV
+        echo "releaseVersion="$(gitversion -showvariable MajorMinorPatch)" >> $GITHUB_ENV
