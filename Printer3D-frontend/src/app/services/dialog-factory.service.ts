@@ -5,9 +5,9 @@ import { MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/lega
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 // - DOMAIN
-import { Feature } from '@bit/innovative.innovative-core.feature-dock/domain/Feature.domain';
 import { NewPartDialogComponent } from '@app/modules/inventory/dialogs/new-part-dialog/new-part-dialog.component';
 import { NewCoilDialogComponent } from '@app/modules/inventory/dialogs/new-coil-dialog/new-coil-dialog.component';
+import { Feature } from '@app/modules/bit/Feature.domain';
 
 @Injectable({
     providedIn: 'root'

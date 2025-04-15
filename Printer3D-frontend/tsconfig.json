@@ -34,6 +34,9 @@
         "@production/*": [
           "src/app/modules/production/*"
         ],
+        "@dimesinfin/*": [
+          "src/app/modules/production/*"
+        ],
         "@bit/innovative.innovative-core.backend-support/*": [
           "src/app/modules/innovative/backend-support/*"
         ],
