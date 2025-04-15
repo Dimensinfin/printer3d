@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: printer3d-backend-production-svc
+  namespace: production
+spec:
+  selector:
+    app: "printer3d-backend"
+    version: 0.20.0-2
+    environment: "production"
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+      nodePort: 30202
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: printer3d-backend-environment
+  namespace: production
+data:
+  PORT: "9000"
+  ENVIRONMENT: "production"
+  VERSION: "0.20.0-2"
+  MODULE_NAME: "Printer3D-backend"
+  IMAGE_NAME: "printer3d-backend"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-sv:5432/production"
+  SPRING_DATASOURCE_USERNAME: "printer3d"
+  SPRING_DATASOURCE_PASSWORD: "z.iliada.2020"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "printer3d-backend"
+  namespace: production
+  labels:
+    app: "printer3d-backend"
+    version: "0.20.0-2"
+    environment: "production"
+spec:
+  selector:
+    matchLabels:
+      app: "printer3d-backend"
+  template:
+    metadata:
+      labels:
+        app: "printer3d-backend"
+        version: "0.20.0-2"
+        environment: "production"
+    spec:
+      containers:
+        - name: printer3d-backend
+          image: adamantinoo/printer3d-backend:0.20.0-2
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: printer3d-backend-environment
+                  key: PORT
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: printer3d-backend-environment
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: printer3d-backend-environment
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: printer3d-backend-environment
+                  key: SPRING_DATASOURCE_PASSWORD
+          ports:
+            - containerPort: 9000
+          imagePullPolicy: Always
+      serviceAccountName: default
