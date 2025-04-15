@@ -1,12 +1,16 @@
 {
     "folders": [
         {
+            "name": ".circleci",
+            "path": ".circleci"
+        },
+        {
             "name": ".github",
             "path": ".github"
         },
         {
-            "name": "Printer3D-frontend",
-            "path": "Printer3D-frontend"
+            "name": ".terraform",
+            "path": ".terraform"
         },
         {
             "name": ".deploy",
@@ -15,6 +19,14 @@
         {
             "name": ".teamcity",
             "path": ".teamcity"
+        },
+        {
+            "name": "Printer3D-backend",
+            "path": "Printer3D-backend"
+        },
+        {
+            "name": "Printer3D-frontend",
+            "path": "Printer3D-frontend"
         },
         {
             "name": "ProjectControl",
