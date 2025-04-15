@@ -1,9 +1,3 @@
-variable "namespace" {
-  description = "Kubernetes namespace for backend resources"
-  type        = string
-  default     = "production"
-}
-
 variable "environment" {
   description = "Environment name (production, stage, etc)"
   type        = string

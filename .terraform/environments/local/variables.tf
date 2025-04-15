@@ -1,7 +1,8 @@
+# Set default namespace for all resources
 variable "namespace" {
-  description = "Kubernetes namespace for all resources"
+  description = "Default namespace for all resources"
   type        = string
-  default     = "local"
+  default = "develop"
 }
 
 variable "port" {
@@ -18,6 +19,12 @@ variable "artifactVersion" {
 
 variable "backend_version" {
   description = "Backend version"
+  type        = string
+  default     = "latest"
+}
+
+variable "frontend_version" {
+  description = "Frontend version"
   type        = string
   default     = "latest"
 }

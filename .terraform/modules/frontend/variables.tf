@@ -1,13 +1,13 @@
 variable "namespace" {
   description = "Kubernetes namespace for frontend resources"
   type        = string
-  default     = "production"
+  default     = "develop"
 }
 
 variable "environment" {
   description = "Environment name (production, stage, etc)"
   type        = string
-  default     = "production"
+  default     = "dev"
 }
 
 variable "port" {
