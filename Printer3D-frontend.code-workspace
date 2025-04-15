@@ -33,12 +33,7 @@
             "path": "ProjectControl"
         },
         {
-            "name": "POCCucumber",
-            "path": "POCCucumber"
-        },
-        {
-            "name": "frontend-pocws",
-            "path": "POCWebSockets/frontend-pocws"
+            "path": "../dimensinfin-core"
         }
     ],
     "settings": {
