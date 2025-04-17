@@ -55,6 +55,7 @@ jobs:
       - name: Build-test application
         id: build-frontend
         run: |
+          nvm use printer3d
           npm install
           npm run build:develop
 
