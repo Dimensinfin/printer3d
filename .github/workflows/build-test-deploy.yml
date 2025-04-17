@@ -13,6 +13,51 @@ env:
   FRONTEND_DIRECTORY: Printer3D-frontend
 
 jobs:
+  build-frontend:
+    runs-on: [self-hosted]
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.FRONTEND_DIRECTORY }}
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      # C H E C K O U T
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # N O D E
+      - name: Install Node packages
+        id: install-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache-nodemodules
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Build-test application
+        id: build-frontend
+        run: |
+          npm install
+          npm run build:develop
+
   build-backend:
     runs-on: [self-hosted]
     defaults:

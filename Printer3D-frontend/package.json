@@ -41,7 +41,7 @@
 		"heroku-postbuild": "ng build --configuration=${NODE_ENV}",
 		"serve:local-old": "npm run tag && npm run build:dev && . ./config/.env.local ; npm start",
 		"build:stage": "ng build --aot --configuration=stage",
-		"build:develop": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration=develop",
+		"build:develop": "ng build --configuration=develop",
 		"acceptance:start": "npm run env:local && . ./config/.env.local && npm run tag && npm run build:develop && export NODE_ENV=acceptance && export PORT=5103 && npm start",
 		"cypress:open": "cypress open ",
 		"version:generate": "gitversion /showvariable AssemblySemFileVer > .version && cat .version",
