@@ -40,7 +40,6 @@ jobs:
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
       - name: Cache node modules
         uses: actions/cache@v3
         id: cache-nodemodules
