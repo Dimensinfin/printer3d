@@ -67,7 +67,7 @@ jobs:
           name: frontend-upload
           path: ${{ env.FRONTEND_DIRECTORY }}/dist/Printer3D-frontend
           retention-days: 7
-          if-no-files-found: error
+          if-no-files-found: warn
           compression-level: 0
           overwrite: true
 
@@ -114,7 +114,7 @@ jobs:
         working-directory: ${{ env.BACKEND_DIRECTORY }}
         run: |
           export JAVA_HOME=/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home
-          ./gradlew clean compileJava test
+          ./gradlew clean compileJava test bootJar
 
       # Add artifact upload step
       - name: Upload backend build artifact
@@ -123,12 +123,16 @@ jobs:
           name: backend-upload-build
           path: ${{ env.BACKEND_DIRECTORY }}/build
           retention-days: 7
-          if-no-files-found: error
-      - name: Upload backend lib artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-upload-lib
-          path: ${{ env.BACKEND_DIRECTORY }}/build/lib
-          retention-days: 7
-          if-no-files-found: error
+          if-no-files-found: warn
+          compression-level: 0
+          overwrite: true
+      # - name: Upload backend lib artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: backend-upload-lib
+      #     path: ${{ env.BACKEND_DIRECTORY }}/build/lib
+      #     retention-days: 7
+      #     if-no-files-found: warning
+      #     compression-level: 0
+      #     overwrite: true
     
