@@ -45,8 +45,8 @@ jobs:
         id: cache-nodemodules
         with:
           path: |
-            node_modules
-            */*/node_modules
+            ${{ env.FRONTEND_DIRECTORY }}/node_modules
+            ${{ env.FRONTEND_DIRECTORY }}/**/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -59,6 +59,15 @@ jobs:
         run: |
           npm install
           npm run build:develop
+
+      # Add artifact upload step
+      - name: Upload frontend build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-upload
+          path: ${{ env.FRONTEND_DIRECTORY }}/dist/Printer3D-frontend
+          retention-days: 7
+          if-no-files-found: error
 
   build-backend:
     runs-on: [self-hosted]
@@ -97,13 +106,6 @@ jobs:
           workingDirectory: ${{ env.BACKEND_DIRECTORY }}
 
       # G R A D L E - B U I L D - T E S T
-      # - name: Setup Java JDK
-      #   uses: actions/setup-java@v4.7.1
-      #   with:
-      #     # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
-      #     java-version: 11
-      #     distribution: azul
-          
       - name: Build backend with Maven
         id: build-backend
         shell: bash
@@ -111,3 +113,20 @@ jobs:
         run: |
           export JAVA_HOME=/Users/adam/Library/Java/JavaVirtualMachines/azul-11.0.23/Contents/Home
           ./gradlew clean compileJava test
+
+      # Add artifact upload step
+      - name: Upload backend build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-upload-build
+          path: ${{ env.BACKEND_DIRECTORY }}/build
+          retention-days: 7
+          if-no-files-found: error
+      - name: Upload backend lib artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-upload-lib
+          path: ${{ env.BACKEND_DIRECTORY }}/build/lib
+          retention-days: 7
+          if-no-files-found: error
+    
