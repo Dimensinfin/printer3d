@@ -31,11 +31,11 @@ repositories {
 
 // - P R O J E C T   D E F I N I T I O N
 group = 'org.dimensinfin.printer3d'
-if (file('.version').exists()) {
-    version = rootProject.file('.version').text.trim()
-} else {
+//if (file('.version').exists()) {
+//    version = rootProject.file('.version').text.trim()
+//} else {
     version = '0.0.0'
-}
+//}
 
 archivesBaseName = 'printer3d-backend'
 sourceCompatibility = '11'
@@ -99,6 +99,9 @@ apply from: './dependencies.gradle'
 apply from: './jacoco.gradle'
 
 // - T A S K S
+task getVersion {
+    new File(".version").text = '0.0.0'
+}
 task setVersion(type: Exec) {
     description 'Stores the current assembly version into an external file.'
     group = 'release'
@@ -118,7 +121,7 @@ task generateBanner(type: Exec) {
     description 'Generates the banner matching the current version.'
     group = 'release'
     workingDir "${projectDir}"
-    commandLine 'figlet', rootProject.file('.version').text.trim()
+    commandLine 'figlet', '-w 120', rootProject.file('.version').text.trim()
     standardOutput = new ByteArrayOutputStream()
     doLast {
         def result = standardOutput.toString()
