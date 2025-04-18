@@ -40,6 +40,7 @@ jobs:
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
       - name: Cache node modules
         uses: actions/cache@v3
         id: cache-nodemodules
@@ -62,12 +63,14 @@ jobs:
 
       # Add artifact upload step
       - name: Upload frontend build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: frontend-upload
           path: ${{ env.FRONTEND_DIRECTORY }}/dist/Printer3D-frontend
           retention-days: 7
           if-no-files-found: error
+          compression-level: 0
+          overwrite: true
 
   build-backend:
     runs-on: [self-hosted]
@@ -116,14 +119,14 @@ jobs:
 
       # Add artifact upload step
       - name: Upload backend build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend-upload-build
           path: ${{ env.BACKEND_DIRECTORY }}/build
           retention-days: 7
           if-no-files-found: error
       - name: Upload backend lib artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend-upload-lib
           path: ${{ env.BACKEND_DIRECTORY }}/build/lib
