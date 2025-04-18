@@ -1,6 +1,6 @@
 {
 	"name": "printer3d-frontend",
-	"version": "0.20.0-35",
+	"version": "0.20.0-74",
 	"scripts": {
 		"cucumber": "$(npm bin)/cucumber-js ./cypress/**/*.feature --no-strict --tags @F3D25.01",
 		"docker:start": "docker-compose -f ./support/printer3d-docker-frontend/docker-compose.yml up & ",
